@@ -38,7 +38,7 @@ npm run dev        # http://localhost:25000
 
 - [x] **M0** 脚手架：Next 16 + TS strict + Tailwind + 锁版 lockfile、`.nvmrc`、CI（lint / typecheck / test / build）、设计令牌、站点壳、`learn` schema 定义
 - [x] **M1** 引擎：`content/schema.ts`（Zod）+ 试点 10 题 + 答题状态机 + 结果页 + 单测（39 个）+ 真实浏览器冒烟
-- [ ] **M2** 内容：GIS 6 章 MDX 讲义 + 每章 15~20 题 + refs
+- [x] **M2** 内容：GIS 6 章 MDX 讲义 + 85 题（每章 10~15 题）+ refs
 - [ ] **M3** 复习：`ProgressStore`（Neon + 本地降级）+ SM-2 队列 + 今日复习页
 - [ ] **M4** 地图题：交互地图组件（动态加载）+ MDX 内嵌示例
 - [ ] **M5** 打磨：a11y、深色模式、Lighthouse ≥ 95（设计规范见 `docs/DESIGN.md`）

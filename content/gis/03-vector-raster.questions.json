@@ -1,0 +1,287 @@
+{
+  "skill": "gis",
+  "module": "03",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-03-001",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "矢量数据模型的三类基本几何是？",
+      "options": [
+        { "key": "A", "text": "点、线、面" },
+        { "key": "B", "text": "像元、波段、金字塔", "hint": "这是栅格模型的概念。" },
+        { "key": "C", "text": "行、列、值", "hint": "这是表格/栅格存储的描述，不是几何类型。" },
+        { "key": "D", "text": "图层、要素、属性", "hint": "这是组织层次，不是几何类型。" }
+      ],
+      "answer": ["A"],
+      "explanation": "OGC Simple Features 用 Point / LineString / Polygon（及其 Multi* 与 GeometryCollection）表达离散对象，每个要素再挂一行属性。",
+      "refs": [
+        { "title": "OGC Simple Features 标准", "url": "https://www.ogc.org/standards/sfa" }
+      ]
+    },
+    {
+      "id": "gis-03-002",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "栅格中一个像元的值通常表示什么？",
+      "options": [
+        { "key": "A", "text": "一个点的高程" },
+        { "key": "B", "text": "该像元覆盖范围内的属性采样值（平均/主导/中心点等）" },
+        { "key": "C", "text": "该像元的边界坐标", "hint": "边界由仿射变换与行列号推出，不是像元值。" },
+        { "key": "D", "text": "该像元的面积", "hint": "面积由像元大小决定，与像元值无关。" }
+      ],
+      "answer": ["B"],
+      "explanation": "像元是面元，其值代表该范围内属性的代表值（遥感反射率、DEM 高程、分类编码等）。理解为「点采样」会低估混合像元与尺度效应。",
+      "refs": [
+        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+      ]
+    },
+    {
+      "id": "gis-03-003",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "一个栅格的分辨率是 10 m，这意味着？",
+      "options": [
+        { "key": "A", "text": "定位精度是 10 m" },
+        { "key": "B", "text": "像元边长为 10 m（分辨率 ≠ 精度）" },
+        { "key": "C", "text": "只能表示 10 m 以上的地物", "hint": "小于像元的地物仍会影响像元值（混合像元），只是无法单独分辨。" },
+        { "key": "D", "text": "文件每 10 m 存一个坐标", "hint": "栅格不存每个像元的坐标，坐标由仿射变换推算。" }
+      ],
+      "answer": ["B"],
+      "explanation": "分辨率是采样间距，精度是位置/数值与真值的接近程度。10 m 分辨率的影像可能因为几何校正差而有几十米定位误差，二者不是一回事。",
+      "refs": [
+        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+      ]
+    },
+    {
+      "id": "gis-03-004",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "栅格中的 nodata 值的作用是？",
+      "options": [
+        { "key": "A", "text": "标记该像元无有效数据，参与统计时跳过" },
+        { "key": "B", "text": "表示数值 0", "hint": "nodata 与 0 是两回事：0 可能是真实观测值（如温度 0℃）。" },
+        { "key": "C", "text": "表示最大值", "hint": "nodata 是无效标记，与数值大小无关。" },
+        { "key": "D", "text": "用于压缩存储", "hint": "nodata 是语义标记，压缩是另一套机制。" }
+      ],
+      "answer": ["A"],
+      "explanation": "nodata 表示该像元没有观测/不参与计算。做栅格统计、镶嵌、坡度计算时必须正确识别 nodata，否则会被当成真实值污染结果。",
+      "refs": [
+        { "title": "GDAL nodata 说明", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+      ]
+    },
+    {
+      "id": "gis-03-005",
+      "skill": "gis",
+      "module": "03",
+      "type": "multi",
+      "difficulty": 2,
+      "stem": "下列哪些场景更适合用栅格模型？（多选，全对才算对）",
+      "options": [
+        { "key": "A", "text": "卫星影像" },
+        { "key": "B", "text": "连续的高程场（DEM）" },
+        { "key": "C", "text": "道路网络的连通性与转弯限制", "hint": "网络拓扑分析是矢量/图模型的强项，栅格只能做成本面近似。" },
+        { "key": "D", "text": "降雨量分布插值结果" }
+      ],
+      "answer": ["A", "B", "D"],
+      "explanation": "栅格擅长连续场（影像、高程、降雨、温度）与栅格代数；道路网络的分析依赖矢量拓扑与图算法。",
+      "refs": [
+        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+      ]
+    },
+    {
+      "id": "gis-03-006",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "对土地利用分类栅格做重采样时，应优先使用？",
+      "options": [
+        { "key": "A", "text": "最近邻（nearest neighbour）" },
+        { "key": "B", "text": "双线性插值", "hint": "双线性会插出「3.7」这种不存在的类别编码。" },
+        { "key": "C", "text": "三次卷积", "hint": "三次卷积同样会造出无效类别值。" },
+        { "key": "D", "text": "平均值", "hint": "类别编码求平均没有意义。" }
+      ],
+      "answer": ["A"],
+      "explanation": "分类栅格的值是编码，不是连续量。最近邻只搬运原有值；双线性/三次会产生新的数值，破坏类别语义。连续栅格（高程、影像）才适合插值类重采样。",
+      "refs": [
+        { "title": "GDAL warp 重采样方法", "url": "https://gdal.org/en/stable/programs/gdalwarp.html" }
+      ]
+    },
+    {
+      "id": "gis-03-007",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "DEM（数字高程模型）栅格中，像元值代表？",
+      "options": [
+        { "key": "A", "text": "该像元范围的地面高程" },
+        { "key": "B", "text": "该像元的颜色", "hint": "颜色是渲染结果，不是数据值。" },
+        { "key": "C", "text": "该像元的坡度", "hint": "坡度是由 DEM 派生的结果，原始 DEM 存高程。" },
+        { "key": "D", "text": "该像元的坐标" }
+      ],
+      "answer": ["A"],
+      "explanation": "DEM 是连续高程场。坡度、坡向、汇流是后续由 DEM 派生（坡度 = 高程梯度）。",
+      "refs": [
+        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+      ]
+    },
+    {
+      "id": "gis-03-008",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "把外部人口统计表挂到行政区矢量图层上，靠的是什么？",
+      "options": [
+        { "key": "A", "text": "公共字段（键）做属性 join" },
+        { "key": "B", "text": "空间相交自动匹配", "hint": "空间连接是另一种操作；属性表关联通常靠键字段。" },
+        { "key": "C", "text": "要素顺序一致即可" },
+        { "key": "D", "text": "坐标相同即可", "hint": "坐标相同不代表实体对应，且很少完全相同。" }
+      ],
+      "answer": ["A"],
+      "explanation": "属性 join 依赖公共键（如行政区代码）。空间连接（spatial join）才是按位置匹配，两者常配合使用但机制不同。",
+      "refs": [
+        { "title": "OGC Simple Features 标准", "url": "https://www.ogc.org/standards/sfa" }
+      ]
+    },
+    {
+      "id": "gis-03-009",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "空间索引（如 R-tree / GiST）的主要作用是？",
+      "options": [
+        { "key": "A", "text": "先用外包框（bbox）粗筛，减少参与精确几何计算的数据量" },
+        { "key": "B", "text": "提高坐标精度", "hint": "索引不影响坐标数值精度。" },
+        { "key": "C", "text": "自动修复拓扑错误", "hint": "索引只加速查询，不修数据。" },
+        { "key": "D", "text": "把矢量转成栅格", "hint": "栅格化是独立操作。" }
+      ],
+      "answer": ["A"],
+      "explanation": "R-tree/GiST 按最小外接矩形组织要素，查询先用 `&&` 比较矩形，再对候选做 ST_Intersects 等精确判断，把 O(n) 降为近似 O(log n)。",
+      "refs": [
+        { "title": "PostGIS 空间索引", "url": "https://postgis.net/docs/using_postgis_dbmanagement.html" }
+      ]
+    },
+    {
+      "id": "gis-03-010",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "一个「湖泊中有岛」的面要素，在 Simple Features 中如何表达？",
+      "options": [
+        { "key": "A", "text": "一个 Polygon：外环 + 内环（洞）" },
+        { "key": "B", "text": "两个独立 Polygon", "hint": "分开存会丢失「岛是湖的一部分」这个拓扑关系，并造成面积重复计算。" },
+        { "key": "C", "text": "一个 LineString" },
+        { "key": "D", "text": "一个 GeometryCollection 即可" }
+      ],
+      "answer": ["A"],
+      "explanation": "Polygon 支持多个环：第一个是外环，其余是内环（洞）。GeoJSON 中 `coordinates[0]` 为外环，后续数组为内环，环方向遵循右手规则。",
+      "refs": [
+        { "title": "RFC 7946 §3.1.6 Polygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }
+      ]
+    },
+    {
+      "id": "gis-03-011",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "RFC 7946 对 Polygon 环方向的要求是？",
+      "options": [
+        { "key": "A", "text": "外环逆时针、内环顺时针（右手规则）" },
+        { "key": "B", "text": "外环顺时针、内环逆时针", "hint": "方向反了会被部分实现视为「反绕」，面积符号为负。" },
+        { "key": "C", "text": "不规定方向" },
+        { "key": "D", "text": "所有环同向即可" }
+      ],
+      "answer": ["A"],
+      "explanation": "RFC 7946 要求外环逆时针、内环顺时针（右手规则），解析器可据此区分外环与洞，无需依赖嵌套顺序。生产数据时建议显式检查环方向。",
+      "refs": [
+        { "title": "RFC 7946 §3.1.6", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }
+      ]
+    },
+    {
+      "id": "gis-03-012",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "栅格的「仿射变换」（geotransform）解决什么问题？",
+      "options": [
+        { "key": "A", "text": "行列号与地图坐标之间的换算（含旋转/缩放/平移）" },
+        { "key": "B", "text": "像元值到颜色的映射", "hint": "那是色带（color ramp）或渲染样式。" },
+        { "key": "C", "text": "投影变换" },
+        { "key": "D", "text": "波段合成" }
+      ],
+      "answer": ["A"],
+      "explanation": "仿射变换用 6 个参数描述「左上角原点 + 像元宽高 + 旋转」，把 (row, col) 映射到 CRS 下的 (x, y)。栅格文件本身不逐像元存坐标。",
+      "refs": [
+        { "title": "GDAL Raster Data Model（geotransform）", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+      ]
+    },
+    {
+      "id": "gis-03-013",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "拓扑矢量模型（相对于 Shapefile 这类「面条模型」）的核心好处是？",
+      "options": [
+        { "key": "A", "text": "公共边界只存一次，相邻要素保持一致，避免缝隙与重叠" },
+        { "key": "B", "text": "文件更小但无法查询", "hint": "拓扑模型同样可查询，且能表达邻接关系。" },
+        { "key": "C", "text": "能自动做投影转换", "hint": "投影转换是 CRS 操作，与拓扑无关。" },
+        { "key": "D", "text": "只支持点数据" }
+      ],
+      "answer": ["A"],
+      "explanation": "拓扑模型把边、节点、面分开存储，共享边只存一份，编辑时相邻面同步更新，并可直接查询邻接/连通关系。",
+      "refs": [
+        { "title": "OGC Simple Features 标准", "url": "https://www.ogc.org/standards/sfa" }
+      ]
+    },
+    {
+      "id": "gis-03-014",
+      "skill": "gis",
+      "module": "03",
+      "type": "short",
+      "difficulty": 1,
+      "stem": "栅格像元大小（分辨率）使用什么单位？（填一个词）",
+      "accepted": ["米", "meter", "meters", "metre", "metres", "m"],
+      "placeholder": "例如：米",
+      "explanation": "像元大小与栅格所在 CRS 的单位一致。投影坐标系（如 3857/32650）下是米；地理坐标系（4326）下则会是「度」，非常不适合表达分辨率。",
+      "refs": [
+        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+      ]
+    },
+    {
+      "id": "gis-03-015",
+      "skill": "gis",
+      "module": "03",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "对矢量边界做简化（simplify，减少顶点）时，主要权衡是？",
+      "options": [
+        { "key": "A", "text": "数据体积/渲染性能 与 几何精度之间的取舍" },
+        { "key": "B", "text": "颜色与线宽", "hint": "样式参数与几何简化无关。" },
+        { "key": "C", "text": "属性字段的数量", "hint": "简化只动几何顶点，不动属性。" },
+        { "key": "D", "text": "投影方式" }
+      ],
+      "answer": ["A"],
+      "explanation": "Douglas-Peucker 等算法用容差换顶点数：容差越大体积越小、越省渲染，但边界偏离越大。Web 端常在低缩放级别用简化版，放大时再取精细几何。",
+      "refs": [
+        { "title": "Mapbox Vector Tile 规范", "url": "https://github.com/mapbox/vector-tile-spec" }
+      ]
+    }
+  ]
+}

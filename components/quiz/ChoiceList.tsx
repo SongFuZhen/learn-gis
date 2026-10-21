@@ -35,20 +35,20 @@ export default function ChoiceList({
               aria-pressed={active}
               onClick={() => onToggle(option.key)}
               className={cn(
-                "flex w-full min-h-[3rem] items-start gap-3 rounded-lg border px-3 py-3 text-left text-[15px] leading-relaxed transition-colors",
-                "border-border bg-surface",
-                !disabled && "hover:border-border-strong hover:bg-surface-hover active:bg-surface-muted",
-                active && !revealed && "border-accent bg-accent/10",
-                isRightAnswer && "border-success/50 bg-success-light",
-                isWrongPick && "border-destructive/50 bg-destructive-light",
+                "flex min-h-[3rem] w-full items-start gap-3 rounded-sm border bg-card px-3.5 py-3 text-left text-[15px] leading-relaxed transition-colors",
+                "border-border",
+                !disabled && "hover:border-brand/50 hover:bg-background-subtle active:bg-background-hover",
+                active && !revealed && "border-brand bg-brand-soft",
+                isRightAnswer && "border-success/45 bg-success-light",
+                isWrongPick && "border-destructive/45 bg-destructive-light",
                 disabled && "cursor-default",
               )}
             >
               <span
                 className={cn(
-                  "mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md border text-xs font-mono",
+                  "mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[6px] border text-xs font-semibold",
                   active && !revealed
-                    ? "border-accent bg-accent text-accent-foreground"
+                    ? "border-brand bg-brand text-white"
                     : "border-border-strong text-foreground-tertiary",
                   isRightAnswer && "border-success bg-success text-white",
                   isWrongPick && "border-destructive bg-destructive text-white",
@@ -62,9 +62,9 @@ export default function ChoiceList({
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="2.2"
                   strokeLinecap="round"
-                  className="mt-0.5 h-4 w-4 shrink-0 text-success"
+                  className="mt-1 h-4 w-4 shrink-0 text-success"
                   aria-label="正确答案"
                 >
                   <path d="m5 12.5 4.5 4.5L19 7" />
@@ -75,15 +75,15 @@ export default function ChoiceList({
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="2.2"
                   strokeLinecap="round"
-                  className="mt-0.5 h-4 w-4 shrink-0 text-destructive"
+                  className="mt-1 h-4 w-4 shrink-0 text-destructive"
                   aria-label="你选的错误项"
                 >
                   <path d="M6 6l12 12M18 6 6 18" />
                 </svg>
               )}
-              <span className="mt-0.5 hidden shrink-0 text-[11px] tabular text-foreground-muted sm:inline">
+              <span className="mt-0.5 hidden shrink-0 text-[11px] tabular text-foreground-disabled sm:inline">
                 {i + 1}
               </span>
             </button>

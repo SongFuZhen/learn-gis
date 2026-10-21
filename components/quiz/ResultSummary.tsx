@@ -28,11 +28,13 @@ export default function ResultSummary({
 
   return (
     <section className="mt-4">
-      <div className="rounded-xl border border-border bg-surface p-5 shadow-[0_1px_2px_hsl(var(--foreground)/0.04)] sm:p-6">
-        <p className="text-[11px] uppercase tracking-widest text-accent">
+      <div className="rounded-md border border-border bg-card p-5 shadow-card sm:p-6">
+        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand">
           测验结果
         </p>
-        <h2 className="mt-2 text-xl font-semibold leading-snug">{moduleTitle}</h2>
+        <h2 className="mt-2 text-[20px] font-semibold leading-snug tracking-tight sm:text-[24px]">
+          {moduleTitle}
+        </h2>
 
         <div className="mt-5 flex items-center gap-5">
           <div className="relative h-20 w-20 shrink-0">
@@ -42,7 +44,7 @@ export default function ResultSummary({
                 cy="40"
                 r={RADIUS}
                 fill="none"
-                stroke="hsl(var(--surface-muted))"
+                stroke="hsl(var(--brand-soft))"
                 strokeWidth="6"
               />
               <circle
@@ -50,7 +52,7 @@ export default function ResultSummary({
                 cy="40"
                 r={RADIUS}
                 fill="none"
-                stroke={passed ? "hsl(var(--success))" : "hsl(var(--accent))"}
+                stroke={passed ? "hsl(var(--success))" : "hsl(var(--brand-primary))"}
                 strokeWidth="6"
                 strokeLinecap="round"
                 strokeDasharray={CIRCUMFERENCE}
@@ -90,22 +92,22 @@ export default function ResultSummary({
 
       {wrong.length > 0 && (
         <div className="mt-4">
-          <h3 className="text-sm font-semibold text-foreground-secondary">
+          <h3 className="text-[14px] font-semibold text-foreground-secondary">
             错题（{wrong.length}）
           </h3>
           <ul className="mt-2 flex flex-col gap-2">
             {wrong.map((question) => (
               <li
                 key={question.id}
-                className="rounded-lg border border-border bg-surface px-3 py-2.5"
+                className="rounded-md border border-border bg-card p-4 shadow-card"
               >
                 <span className="font-mono text-[11px] text-foreground-muted">
                   {question.id}
                 </span>
-                <p className="mt-1 text-sm leading-relaxed text-foreground-secondary">
+                <p className="mt-1 text-[14px] leading-relaxed text-foreground-secondary">
                   {question.stem}
                 </p>
-                <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
+                <p className="mt-1.5 text-[13px] leading-relaxed text-foreground-tertiary">
                   {question.explanation}
                 </p>
               </li>
@@ -118,19 +120,19 @@ export default function ResultSummary({
         <button
           type="button"
           onClick={onRestart}
-          className="h-12 rounded-lg bg-accent text-[15px] font-medium text-accent-foreground transition-colors hover:bg-accent-hover sm:h-10 sm:px-5 sm:text-sm"
+          className="h-12 rounded-sm bg-brand-gradient text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:h-10 sm:px-5 sm:text-sm"
         >
           再练一遍
         </button>
         <Link
           href={`/s/${skill}/${moduleSlug}`}
-          className="flex h-12 items-center justify-center rounded-lg border border-border-strong px-4 text-[15px] transition-colors hover:bg-surface-hover sm:h-10 sm:text-sm"
+          className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-[15px] font-medium transition-colors hover:bg-background-hover sm:h-10 sm:text-sm"
         >
           回到讲义
         </Link>
         <Link
           href={`/s/${skill}`}
-          className="flex h-12 items-center justify-center rounded-lg border border-border-strong px-4 text-[15px] transition-colors hover:bg-surface-hover sm:h-10 sm:text-sm"
+          className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-[15px] font-medium transition-colors hover:bg-background-hover sm:h-10 sm:text-sm"
         >
           章节列表
         </Link>

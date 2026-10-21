@@ -2,10 +2,15 @@ import type { ComponentType } from "react";
 
 /**
  * 讲义注册表：显式动态 import（Turbopack 能静态分析），
- * 讲义不进首屏以外的地方，也不为没读到的章节加载 MDX runtime。
+ * 讲义只在对应章节加载，不拖累其它页面。
  */
 const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "01-basics": () => import("./01-basics.mdx"),
+  "02-crs-epsg": () => import("./02-crs-epsg.mdx"),
+  "03-vector-raster": () => import("./03-vector-raster.mdx"),
+  "04-formats-tiles": () => import("./04-formats-tiles.mdx"),
+  "05-ogc-webmap": () => import("./05-ogc-webmap.mdx"),
+  "06-spatial-postgis": () => import("./06-spatial-postgis.mdx"),
 };
 
 export async function loadLesson(

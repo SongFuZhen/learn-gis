@@ -1,0 +1,86 @@
+## 一句话
+
+空间运算本身不难，难的是「单位、SRID、索引」三件事；搞错任何一件，结果就会静默地错误。
+
+## 1. 前端：Turf.js
+
+```js
+import { buffer } from "@turf/turf";
+const buf = buffer(point, 5, { units: "kilometers" });
+```
+
+- `turf.distance(a, b)` 默认单位 **kilometers**。
+- `turf.area(polygon)` 返回 **平方米**（球面计算）。
+- `turf.buffer` 的半径单位由 `options.units` 指定，**默认 kilometers**。
+- Turf 在经纬度上做球面近似，适合交互与轻量分析；大数据、精确椭球计算交给后端。
+
+## 2. 后端：PostGIS 的两种几何
+
+| 类型 | 计算平面 | 单位 | 适用 |
+|---|---|---|---|
+| `geometry` | 平面（按 SRID 的坐标单位） | 度 / 米 | 投影后数据、制图、叠加分析 |
+| `geography` | 椭球面 | 米 | 全球距离、跨带数据 |
+
+```sql
+-- 4326 的 geometry：单位是「度」
+SELECT ST_Distance(a.geom, b.geom) FROM ...;   -- 得到度数
+
+-- geography：单位是「米」
+SELECT ST_Distance(a.geog, b.geog) FROM ...;   -- 得到米
+```
+
+## 3. 必记函数
+
+```sql
+ST_Transform(geom, 3857)      -- 投影转换（改 SRID 并换算坐标）
+ST_SetSRID(geom, 4326)        -- 只贴标签，不换算（危险）
+ST_DWithin(a, b, 1000)        -- 距离 <= 1000（可用索引）
+ST_Intersects(a, b)           -- 是否相交（可用索引）
+ST_Contains(a, b)             -- a 包含 b
+ST_Within(a, b)               -- a 在 b 内（与 Contains 方向相反）
+ST_Buffer(geom, 500)          -- 缓冲区，单位 = CRS 单位
+ST_Area / ST_Length           -- 面积/长度，单位 = CRS 单位
+ST_AsGeoJSON(geom)            -- 转 GeoJSON
+ST_MakeEnvelope(x1,y1,x2,y2, srid)  -- 构造矩形，做范围查询
+```
+
+## 4. 索引：让查询真的快
+
+```sql
+CREATE INDEX ON roads USING GIST (geom);
+
+-- ✅ 能用索引
+WHERE geom && ST_MakeEnvelope(116.2,39.8,116.6,40.1,4326)
+  AND ST_Intersects(geom, ...)
+WHERE ST_DWithin(geom, :p, 1000)
+
+-- ❌ 用不上索引（全表算距离）
+WHERE ST_Distance(geom, :p) < 1000
+```
+
+GiST 索引靠外接矩形（`&&`）先粗筛。`ST_DWithin` 内部会先做 bbox 判断，所以比 `ST_Distance < x` 快得多。
+
+最近邻：
+
+```sql
+SELECT * FROM poi ORDER BY geom <-> ST_Point(116.4, 39.9, 4326) LIMIT 5;
+```
+
+## 5. 三个静默错误
+
+1. **在 4326 上做 buffer**：`ST_Buffer(geom, 1000)` 得到的是「1000 度」的怪物。先 `ST_Transform` 到米制 CRS，或用 `geography`。
+2. **只改 SRID 不转换**：`ST_SetSRID` 只是换标签，位置不变。
+3. **在 3857 上量面积**：高纬度面积被严重高估；用等积投影或 `geography`。
+
+## 6. 组合建议
+
+- 展示/交互：Turf 在前端，数据量小、延迟低。
+- 需要索引、事务、大数据、精确统计：PostGIS。
+- 前端只传参数，后端返回 GeoJSON：`ST_AsGeoJSON(ST_Transform(...))`。
+
+## 延伸阅读
+
+- PostGIS 函数索引：[postgis.net/docs](https://postgis.net/docs/)
+- ST_DWithin：[postgis.net/docs/ST_DWithin](https://postgis.net/docs/ST_DWithin.html)
+- ST_Distance：[postgis.net/docs/ST_Distance](https://postgis.net/docs/ST_Distance.html)
+- Turf.js buffer：[turfjs.org/docs/api/buffer](https://turfjs.org/docs/api/buffer)

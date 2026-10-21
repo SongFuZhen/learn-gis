@@ -1,0 +1,293 @@
+{
+  "skill": "gis",
+  "module": "04",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-04-001",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "RFC 7946 允许的 GeoJSON 顶层对象类型不包括？",
+      "options": [
+        { "key": "A", "text": "FeatureCollection" },
+        { "key": "B", "text": "Feature" },
+        { "key": "C", "text": "Geometry（如 Point / Polygon）" },
+        { "key": "D", "text": "Layer", "hint": "Layer 不是 GeoJSON 概念；图层是应用/文件层面的组织方式。" }
+      ],
+      "answer": ["D"],
+      "explanation": "RFC 7946 定义了 FeatureCollection、Feature 以及 7 种几何对象。GeoJSON 没有 Layer/Map 这类概念。",
+      "refs": [
+        { "title": "RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ]
+    },
+    {
+      "id": "gis-04-002",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "GeoJSON 中坐标数组的顺序是？",
+      "options": [
+        { "key": "A", "text": "[经度, 纬度]（lon, lat）" },
+        { "key": "B", "text": "[纬度, 经度]（lat, lon）", "hint": "这是 EPSG:4326 的官方轴序，但 RFC 7946 明确要求经度在前。" },
+        { "key": "C", "text": "[x, y] 由文件决定" },
+        { "key": "D", "text": "无序" }
+      ],
+      "answer": ["A"],
+      "explanation": "RFC 7946 §3.1.1 规定坐标顺序为经度、纬度（可带高程）。这也是 OGC CRS:84 的约定，与 EPSG:4326 的轴序相反。",
+      "refs": [
+        { "title": "RFC 7946 §3.1.1", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1" }
+      ]
+    },
+    {
+      "id": "gis-04-003",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "标准 GeoJSON 能存放 EPSG:3857（米）坐标吗？",
+      "options": [
+        { "key": "A", "text": "不能，RFC 7946 只允许 WGS84 经纬度，且移除了 crs 成员" },
+        { "key": "B", "text": "能，用 crs 成员声明即可", "hint": "crs 成员在 RFC 7946 中已被移除（早期草案里有）。" },
+        { "key": "C", "text": "能，只要数值看起来像米" },
+        { "key": "D", "text": "能，但必须用 bbox 声明" }
+      ],
+      "answer": ["A"],
+      "explanation": "RFC 7946 规定 GeoJSON 坐标必须是 WGS84 经纬度，删除了 crs 成员。若数据是 3857，应先投影回 4326 再输出 GeoJSON，或在非标准扩展里自担风险。",
+      "refs": [
+        { "title": "RFC 7946 §4 CRS", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-4" }
+      ]
+    },
+    {
+      "id": "gis-04-004",
+      "skill": "gis",
+      "module": "04",
+      "type": "multi",
+      "difficulty": 2,
+      "stem": "一个可用的 Shapefile 至少需要哪些文件？（多选）",
+      "options": [
+        { "key": "A", "text": ".shp" },
+        { "key": "B", "text": ".shx" },
+        { "key": "C", "text": ".dbf" },
+        { "key": "D", "text": ".prj", "hint": ".prj 记录 CRS，是强烈建议但不是必需；没有它就只能猜坐标系。" }
+      ],
+      "answer": ["A", "B", "C"],
+      "explanation": "Shapefile 是「至少三个文件」的格式：几何（.shp）、几何索引（.shx）、属性表（.dbf）。缺 .shx 很多软件无法读取，缺 .prj 则丢失 CRS 信息。",
+      "refs": [
+        { "title": "ESRI Shapefile 技术说明", "url": "https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf" }
+      ]
+    },
+    {
+      "id": "gis-04-005",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "Shapefile 的典型限制是？",
+      "options": [
+        { "key": "A", "text": "单文件 2 GB 上限、字段名 10 字符、一图层一种几何、无拓扑" },
+        { "key": "B", "text": "只能存栅格", "hint": "Shapefile 是矢量格式；栅格用 GeoTIFF 等。" },
+        { "key": "C", "text": "不支持属性字段", "hint": "属性存在 .dbf 里，支持但字段名受限。" },
+        { "key": "D", "text": "不能存中文" }
+      ],
+      "answer": ["A"],
+      "explanation": "Shapefile 是 1990 年代的设计：.shp/.dbf 都用 32 位偏移（2 GB 上限），dbf 字段名限 10 字符，且一个图层不能混存点线面。中文支持取决于 .cpg/dbf 编码设置，常出乱码。",
+      "refs": [
+        { "title": "ESRI Shapefile 技术说明", "url": "https://www.esri.com/library/whitepapers/pdfs/shapefile.pdf" }
+      ]
+    },
+    {
+      "id": "gis-04-006",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "GeoPackage（.gpkg）本质上是什么？",
+      "options": [
+        { "key": "A", "text": "一个 SQLite 数据库文件，按 OGC 标准组织矢量/栅格/瓦片" },
+        { "key": "B", "text": "一个压缩的 Shapefile 集合", "hint": "GeoPackage 不是打包格式，而是基于 SQLite 的开放规范。" },
+        { "key": "C", "text": "一种 protobuf 编码", "hint": "protobuf 编码的是矢量瓦片（MVT）。" },
+        { "key": "D", "text": "纯文本 JSON" }
+      ],
+      "answer": ["A"],
+      "explanation": "GeoPackage 用 SQLite 作为容器，定义了要素表、瓦片金字塔表、栅格表与空间索引（RTree）等，单文件即可携带数据与索引。",
+      "refs": [
+        { "title": "GeoPackage 规范", "url": "https://www.geopackage.org/" }
+      ]
+    },
+    {
+      "id": "gis-04-007",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "GeoTIFF 与普通 TIFF 的区别是？",
+      "options": [
+        { "key": "A", "text": "GeoTIFF 内嵌了 CRS 与仿射变换等地理参考信息" },
+        { "key": "B", "text": "GeoTIFF 只能是灰度图", "hint": "支持多波段、多种位深与压缩。" },
+        { "key": "C", "text": "普通 TIFF 不能压缩", "hint": "TIFF 支持多种压缩（LZW、Deflate、JPEG 等）。" },
+        { "key": "D", "text": "GeoTIFF 是文本格式" }
+      ],
+      "answer": ["A"],
+      "explanation": "GeoTIFF 在 TIFF 的标签里写入 ModelTiepoint/ModelPixelScale 或 GeoKeyDirectory，使像素能对应到地图坐标；普通 TIFF 只知像素不知位置。",
+      "refs": [
+        { "title": "GDAL GeoTIFF 驱动", "url": "https://gdal.org/en/stable/drivers/raster/gtiff.html" }
+      ]
+    },
+    {
+      "id": "gis-04-008",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "COG（Cloud Optimized GeoTIFF）相比普通 GeoTIFF 的关键优化是？",
+      "options": [
+        { "key": "A", "text": "分块 + 内置概览 + 元数据前置，支持 HTTP Range 按需读取" },
+        { "key": "B", "text": "无损压缩率更高", "hint": "压缩不是 COG 的核心；核心是「按需取块」。" },
+        { "key": "C", "text": "支持矢量数据", "hint": "COG 仍是栅格格式。" },
+        { "key": "D", "text": "自动做投影转换" }
+      ],
+      "answer": ["A"],
+      "explanation": "COG 把影像切成内部瓦片（tiles）并写入多级 overview，头部元数据完整，客户端用 Range 请求只下载当前视窗需要的块，避免整文件下载。",
+      "refs": [
+        { "title": "GDAL COG 驱动", "url": "https://gdal.org/en/stable/drivers/raster/cog.html" }
+      ]
+    },
+    {
+      "id": "gis-04-009",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "矢量瓦片（MVT）里装的是什么？",
+      "options": [
+        { "key": "A", "text": "protobuf 编码的几何与属性，样式由客户端决定" },
+        { "key": "B", "text": "预先渲染好的 PNG", "hint": "那是栅格瓦片（WMTS/XYZ）。" },
+        { "key": "C", "text": "完整的 GeoJSON 文件", "hint": "MVT 是分块、简化过的二进制编码，不是 GeoJSON。" },
+        { "key": "D", "text": "地图样式 JSON" }
+      ],
+      "answer": ["A"],
+      "explanation": "MVT 只传几何（含简化）与属性字段，客户端按 style 渲染。同一份瓦片可切换多套样式，也能做点击查询（feature-state / querySourceFeatures）。",
+      "refs": [
+        { "title": "Mapbox Vector Tile 规范", "url": "https://github.com/mapbox/vector-tile-spec" }
+      ]
+    },
+    {
+      "id": "gis-04-010",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "同样一份全国道路数据，用矢量瓦片而不是一个大 GeoJSON 的主要好处是？",
+      "options": [
+        { "key": "A", "text": "按视窗和缩放级别只取需要的块，首屏体积小、可分级简化" },
+        { "key": "B", "text": "坐标精度更高", "hint": "瓦片坐标是量化后的整数（extent 内），精度未必更高。" },
+        { "key": "C", "text": "不需要样式", "hint": "矢量瓦片必须由客户端样式渲染，否则没有视觉效果。" },
+        { "key": "D", "text": "自动修复拓扑" }
+      ],
+      "answer": ["A"],
+      "explanation": "整份 GeoJSON 必须全量下载与解析；瓦片按 z/x/y 分块，每级只传当前视窗的少量要素，并可在低级别预先简化，显著降低首屏开销。",
+      "refs": [
+        { "title": "Mapbox Vector Tile 规范", "url": "https://github.com/mapbox/vector-tile-spec" }
+      ]
+    },
+    {
+      "id": "gis-04-011",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "瓦片编号 z/x/y 中，z 表示？",
+      "options": [
+        { "key": "A", "text": "缩放级别（第几级金字塔）" },
+        { "key": "B", "text": "行号", "hint": "行号是 y。" },
+        { "key": "C", "text": "列号", "hint": "列号是 x。" },
+        { "key": "D", "text": "投影带号" }
+      ],
+      "answer": ["A"],
+      "explanation": "z 是缩放级别，第 z 级把世界切成 2^z × 2^z 张瓦片；x 为列（西→东），y 为行（北→南，XYZ 约定）。",
+      "refs": [
+        { "title": "OSM Slippy map tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" }
+      ]
+    },
+    {
+      "id": "gis-04-012",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "XYZ 与 TMS 两种瓦片方案的主要差别是？",
+      "options": [
+        { "key": "A", "text": "y 轴方向相反：TMS 从南往北编号，XYZ 从北往南" },
+        { "key": "B", "text": "z 级定义不同", "hint": "两者 z 含义一致，都是缩放级别。" },
+        { "key": "C", "text": "使用的投影不同", "hint": "两者通常都用 Web 墨卡托。" },
+        { "key": "D", "text": "瓦片尺寸不同" }
+      ],
+      "answer": ["A"],
+      "explanation": "换算关系 y_tms = 2^z − 1 − y_xyz。接错会得到上下颠倒（南北镜像）的地图，是接入第三方瓦片服务的高频错误。",
+      "refs": [
+        { "title": "OSM Slippy map tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" }
+      ]
+    },
+    {
+      "id": "gis-04-013",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "TopoJSON 相比 GeoJSON 的核心优势是？",
+      "options": [
+        { "key": "A", "text": "共享边界存成 arcs，消除重复坐标，体积更小且保留拓扑" },
+        { "key": "B", "text": "支持任意投影，GeoJSON 不支持", "hint": "两者都固定 WGS84/经纬度表达。" },
+        { "key": "C", "text": "是二进制格式", "hint": "TopoJSON 也是 JSON 文本。" },
+        { "key": "D", "text": "自带瓦片金字塔" }
+      ],
+      "answer": ["A"],
+      "explanation": "TopoJSON 把几何拆成 arcs 并记录引用，相邻面的公共边只存一次，压缩率高且能直接判断邻接；代价是解析比 GeoJSON 复杂。",
+      "refs": [
+        { "title": "TopoJSON 规范", "url": "https://github.com/topojson/topojson-specification" }
+      ]
+    },
+    {
+      "id": "gis-04-014",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "PMTiles 的典型用法是？",
+      "options": [
+        { "key": "A", "text": "把瓦片打包成单文件，放在对象存储上用 Range 请求读取" },
+        { "key": "B", "text": "替代 GeoJSON 做数据交换", "hint": "PMTiles 面向瓦片归档，不是通用矢量交换格式。" },
+        { "key": "C", "text": "作为数据库索引", "hint": "它是瓦片归档格式，不是数据库索引。" },
+        { "key": "D", "text": "给瓦片加密" }
+      ],
+      "answer": ["A"],
+      "explanation": "PMTiles 把多级瓦片组织为单文件索引，客户端按 z/x/y 发起 Range 请求直接取块，无需瓦片服务，适合静态托管（S3/R2/OSS）。",
+      "refs": [
+        { "title": "PMTiles 规范", "url": "https://github.com/protomaps/PMTiles" }
+      ]
+    },
+    {
+      "id": "gis-04-015",
+      "skill": "gis",
+      "module": "04",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "把 200 MB 的行政区 GeoJSON 直接放到前端首屏加载，最可能的后果是？",
+      "options": [
+        { "key": "A", "text": "下载与 JSON 解析阻塞，渲染卡顿甚至内存溢出" },
+        { "key": "B", "text": "没有影响，浏览器会自动分块", "hint": "浏览器不会自动把 JSON 拆块；fetch 后要整份 parse。" },
+        { "key": "C", "text": "数据会自动简化为瓦片", "hint": "简化/切片必须由预处理完成，浏览器不会自动做。" },
+        { "key": "D", "text": "只是首屏变慢一秒" }
+      ],
+      "answer": ["A"],
+      "explanation": "大体量 GeoJSON 是字符串解析 + 一次性构建几何对象，主线程容易长时间阻塞。正确做法：服务端简化 + 矢量瓦片/PMTiles，或按需分块加载。",
+      "refs": [
+        { "title": "OSM Slippy map tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" },
+        { "title": "Mapbox Vector Tile 规范", "url": "https://github.com/mapbox/vector-tile-spec" }
+      ]
+    }
+  ]
+}

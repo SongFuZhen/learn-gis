@@ -1,0 +1,287 @@
+{
+  "skill": "gis",
+  "module": "06",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-06-001",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "PostGIS 中 `ST_Distance(geometry, geometry)` 在 SRID=4326 的数据上返回的单位是？",
+      "options": [
+        { "key": "A", "text": "米", "hint": "米是 geography 类型的结果；geometry 按 CRS 单位算。" },
+        { "key": "B", "text": "度" },
+        { "key": "C", "text": "千米" },
+        { "key": "D", "text": "由函数参数指定" }
+      ],
+      "answer": ["B"],
+      "explanation": "geometry 类型在平面上按坐标单位运算，4326 的坐标单位是度，所以距离也是度。要米就把数据 ST_Transform 到投影坐标系，或改用 geography。",
+      "refs": [
+        { "title": "ST_Distance", "url": "https://postgis.net/docs/ST_Distance.html" }
+      ]
+    },
+    {
+      "id": "gis-06-002",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "PostGIS 的 `geography` 类型与 `geometry` 的核心区别是？",
+      "options": [
+        { "key": "A", "text": "geography 在椭球面上计算，距离/面积默认以米/平方米返回" },
+        { "key": "B", "text": "geography 不能建索引", "hint": "geography 同样支持 GiST 索引与 ST_DWithin。" },
+        { "key": "C", "text": "geography 只存点", "hint": "geography 支持点线面。" },
+        { "key": "D", "text": "geography 不做投影转换" }
+      ],
+      "answer": ["A"],
+      "explanation": "geography 用椭球模型做球面运算，适合跨带/全球距离；geometry 是平面运算，依赖 CRS 单位，速度快、函数更全。",
+      "refs": [
+        { "title": "PostGIS geography 类型", "url": "https://postgis.net/docs/using_postgis_dbmanagement.html#PostGIS_Geography" }
+      ]
+    },
+    {
+      "id": "gis-06-003",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "为什么推荐 `ST_DWithin(geom, p, 1000)` 而不是 `ST_Distance(geom, p) < 1000`？",
+      "options": [
+        { "key": "A", "text": "ST_DWithin 可借助空间索引先做 bbox 粗筛，避免全表逐条算距离" },
+        { "key": "B", "text": "ST_Distance 结果不准确", "hint": "结果准确，但每条记录都要做一次精确计算。" },
+        { "key": "C", "text": "ST_DWithin 会忽略 SRID", "hint": "SRID 仍需正确，否则单位对不上。" },
+        { "key": "D", "text": "两者完全等价，只是写法不同" }
+      ],
+      "answer": ["A"],
+      "explanation": "ST_DWithin 是索引友好函数（会先用 && 过滤候选），在数据量大时快几个数量级；对 ST_Distance 的结果做比较无法使用索引。",
+      "refs": [
+        { "title": "ST_DWithin", "url": "https://postgis.net/docs/ST_DWithin.html" }
+      ]
+    },
+    {
+      "id": "gis-06-004",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "对 4326 的 geometry 执行 `ST_Buffer(geom, 500)`，得到的是什么？",
+      "options": [
+        { "key": "A", "text": "500 米缓冲区" },
+        { "key": "B", "text": "500 度缓冲区（几乎覆盖全球，结果无意义）" },
+        { "key": "C", "text": "500 千米缓冲区" },
+        { "key": "D", "text": "自动换算成米的缓冲区" }
+      ],
+      "answer": ["B"],
+      "explanation": "ST_Buffer 的半径使用 CRS 单位。4326 是度，500 度远超地球范围。正确做法：ST_Transform 到米制 CRS 后 buffer，或用 geography 类型（geography 的 ST_Buffer 以米计）。",
+      "refs": [
+        { "title": "ST_Buffer", "url": "https://postgis.net/docs/ST_Buffer.html" }
+      ]
+    },
+    {
+      "id": "gis-06-005",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "`ST_SetSRID(geom, 4326)` 与 `ST_Transform(geom, 4326)` 的区别是？",
+      "options": [
+        { "key": "A", "text": "SetSRID 只改标签不换算坐标；Transform 做真正的投影换算" },
+        { "key": "B", "text": "两者等价", "hint": "把 3857 的米数据 SetSRID 成 4326，坐标数值仍是几百万米，位置完全错。" },
+        { "key": "C", "text": "Transform 只改标签" },
+        { "key": "D", "text": "SetSRID 会自动补齐投影参数" }
+      ],
+      "answer": ["A"],
+      "explanation": "SetSRID 声明「这些坐标属于哪个 CRS」（用于 SRID=0 的数据补标签）；Transform 才是按基准与投影把数值真正换算过去。",
+      "refs": [
+        { "title": "ST_Transform", "url": "https://postgis.net/docs/ST_Transform.html" }
+      ]
+    },
+    {
+      "id": "gis-06-006",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "`ST_Contains(a, b)` 与 `ST_Within(a, b)` 的关系是？",
+      "options": [
+        { "key": "A", "text": "方向相反：a 包含 b ⇔ b 位于 a 内" },
+        { "key": "B", "text": "完全一样" },
+        { "key": "C", "text": "Contains 用于面，Within 用于点", "hint": "两者都可用于任意几何，区别在参数方向。" },
+        { "key": "D", "text": "Within 只比较外接矩形" }
+      ],
+      "answer": ["A"],
+      "explanation": "ST_Contains(a,b) 表示 b 完全在 a 内（且边界不接触外部）；ST_Within(a,b) 等价于 ST_Contains(b,a)。选哪个取决于 SQL 里谁在前更自然。",
+      "refs": [
+        { "title": "ST_Contains", "url": "https://postgis.net/docs/ST_Contains.html" }
+      ]
+    },
+    {
+      "id": "gis-06-007",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "PostGIS 中创建空间索引常用的索引类型是？",
+      "options": [
+        { "key": "A", "text": "GiST" },
+        { "key": "B", "text": "B-Tree", "hint": "B-Tree 只适合一维有序值，无法高效做二维范围筛选。" },
+        { "key": "C", "text": "Hash" },
+        { "key": "D", "text": "BRIN" }
+      ],
+      "answer": ["A"],
+      "explanation": "`CREATE INDEX ON t USING GIST (geom)` 是标准做法（也可用 SP-GiST）。GiST 支持 &&、ST_Intersects、ST_DWithin、<-> 等操作符。",
+      "refs": [
+        { "title": "PostGIS 空间索引", "url": "https://postgis.net/docs/using_postgis_dbmanagement.html#gist_indexes" }
+      ]
+    },
+    {
+      "id": "gis-06-008",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "下面哪种写法能让 PostGIS 用空间索引先做粗筛？",
+      "options": [
+        { "key": "A", "text": "`WHERE geom && ST_MakeEnvelope(...)`" },
+        { "key": "B", "text": "`WHERE ST_Distance(geom, p) < 100`" },
+        { "key": "C", "text": "`WHERE ST_Area(geom) > 1000`" },
+        { "key": "D", "text": "`WHERE ST_AsText(geom) LIKE '%POINT%'`" }
+      ],
+      "answer": ["A"],
+      "explanation": "`&&` 是外接矩形相交操作符，GiST 索引直接支持；其余写法要么逐行计算，要么对转换后的文本做匹配，都无法利用空间索引。",
+      "refs": [
+        { "title": "PostGIS 索引操作符", "url": "https://postgis.net/docs/using_postgis_dbmanagement.html#gist_indexes" }
+      ]
+    },
+    {
+      "id": "gis-06-009",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "在 PostGIS 里做「最近的 5 个 POI」查询，索引友好的写法是？",
+      "options": [
+        { "key": "A", "text": "`ORDER BY geom <-> :p LIMIT 5`" },
+        { "key": "B", "text": "`ORDER BY ST_Distance(geom, :p) LIMIT 5`", "hint": "会为每行计算距离再排序；数据量大时很慢（新版本可部分优化，但 <-> 是标准 KNN 写法）。" },
+        { "key": "C", "text": "`ORDER BY id LIMIT 5`" },
+        { "key": "D", "text": "`WHERE ST_Intersects(geom, :p)`" }
+      ],
+      "answer": ["A"],
+      "explanation": "`<->` 是 KNN 距离操作符，GiST 可按距离有序返回，先取到最近的几条即停止；这是 PostGIS 做 nearest-neighbor 的标准写法。",
+      "refs": [
+        { "title": "PostGIS KNN <->", "url": "https://postgis.net/docs/geometry_distance_knn.html" }
+      ]
+    },
+    {
+      "id": "gis-06-010",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "在 EPSG:3857 上直接用 `ST_Area(geom)` 统计全国地块面积，问题是？",
+      "options": [
+        { "key": "A", "text": "Web 墨卡托面积随纬度放大，高纬区域被严重高估" },
+        { "key": "B", "text": "单位是度", "hint": "3857 的单位是米，不是度。" },
+        { "key": "C", "text": "ST_Area 不支持面", "hint": "ST_Area 专门用于面。" },
+        { "key": "D", "text": "计算结果偏小" }
+      ],
+      "answer": ["A"],
+      "explanation": "3857 是等角投影，面积变形按 1/cos²φ 放大。面积统计应使用等积投影或 geography（ST_Area 返回平方米）。",
+      "refs": [
+        { "title": "ST_Area", "url": "https://postgis.net/docs/ST_Area.html" }
+      ]
+    },
+    {
+      "id": "gis-06-011",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "Turf.js 的 `turf.buffer(point, 5)` 中，5 的默认单位是？",
+      "options": [
+        { "key": "A", "text": "千米（kilometers）" },
+        { "key": "B", "text": "米", "hint": "米需要显式写 { units: 'meters' }。" },
+        { "key": "C", "text": "度" },
+        { "key": "D", "text": "英里" }
+      ],
+      "answer": ["A"],
+      "explanation": "Turf 的距离类函数默认单位是 kilometers（与 turf.distance 一致）。要米必须显式传 `{ units: 'meters' }`，否则缓冲区会大 1000 倍。",
+      "refs": [
+        { "title": "Turf buffer", "url": "https://turfjs.org/docs/api/buffer" }
+      ]
+    },
+    {
+      "id": "gis-06-012",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "Turf 的 `turf.area(polygon)` 返回的面积单位是？",
+      "options": [
+        { "key": "A", "text": "平方米" },
+        { "key": "B", "text": "平方千米", "hint": "Turf 返回平方米，需要平方千米自行换算。" },
+        { "key": "C", "text": "平方度" },
+        { "key": "D", "text": "公顷" }
+      ],
+      "answer": ["A"],
+      "explanation": "turf.area 用球面公式计算，返回平方米。注意它不是「按输入坐标的平面面积」——这也意味着它不会受投影变形影响。",
+      "refs": [
+        { "title": "Turf area", "url": "https://turfjs.org/docs/api/area" }
+      ]
+    },
+    {
+      "id": "gis-06-013",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "要给「距地铁站 800 米内的住宅」做后端筛选（数据存 4326），最合适的做法是？",
+      "options": [
+        { "key": "A", "text": "转成 geography 后 `ST_DWithin(geog, station, 800)`" },
+        { "key": "B", "text": "直接 `ST_DWithin(geom, station, 800)`（geometry, 4326）", "hint": "geometry 的 800 是 800 度，条件永远为真。" },
+        { "key": "C", "text": "`ST_Distance(geom, station) < 800`", "hint": "同样是度；而且无法用索引。" },
+        { "key": "D", "text": "把 800 除以 111000 再传给几何函数", "hint": "粗略换算能凑近似值，但经度方向随纬度变化，跨纬度会失真。" }
+      ],
+      "answer": ["A"],
+      "explanation": "geography 的 ST_DWithin 以米为单位且索引友好；数据仍以 4326 存储，查询时 `geom::geography` 即可。另一条路是建米制投影列。",
+      "refs": [
+        { "title": "ST_DWithin", "url": "https://postgis.net/docs/ST_DWithin.html" }
+      ]
+    },
+    {
+      "id": "gis-06-014",
+      "skill": "gis",
+      "module": "06",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "列类型写成 `geometry(Point, 4326)` 的作用是？",
+      "options": [
+        { "key": "A", "text": "约束几何类型与 SRID，写入不匹配的数据会报错" },
+        { "key": "B", "text": "自动把经纬度转成米", "hint": "类型约束不会改变坐标数值或单位。" },
+        { "key": "C", "text": "自动创建空间索引", "hint": "索引要单独 CREATE INDEX。" },
+        { "key": "D", "text": "自动做坐标校验（范围/自相交）" }
+      ],
+      "answer": ["A"],
+      "explanation": "typmod 在列上限定「点 + SRID 4326」，可以拦住误插的面或错误 SRID，避免混存导致后续计算单位错乱。索引仍需显式创建。",
+      "refs": [
+        { "title": "PostGIS geometry 类型与 typmod", "url": "https://postgis.net/docs/using_postgis_dbmanagement.html" }
+      ]
+    },
+    {
+      "id": "gis-06-015",
+      "skill": "gis",
+      "module": "06",
+      "type": "short",
+      "difficulty": 1,
+      "stem": "把 PostGIS 几何转成 GeoJSON 字符串用哪个函数？（只写函数名）",
+      "accepted": ["ST_AsGeoJSON", "st_asgeojson", "ST_AsGeoJson"],
+      "placeholder": "例如：ST_AsGeoJSON",
+      "explanation": "`ST_AsGeoJSON(geom)` 返回 GeoJSON 几何字符串，常与 `row_to_json` 组合成 Feature。反向用 `ST_GeomFromGeoJSON`。",
+      "refs": [
+        { "title": "ST_AsGeoJSON", "url": "https://postgis.net/docs/ST_AsGeoJSON.html" }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,8 @@
+import "@fontsource-variable/inter";
 import "./globals.css";
 import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import Sidebar from "@/components/Sidebar";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import MobileTabBar from "@/components/MobileTabBar";
@@ -64,13 +66,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex-col">
-            <SiteHeader />
-            {/* 移动端为底部 tab 预留空间的 spacer 由 MobileTabBar 自己渲染：
-                答题页隐藏 tab 时不应再留空 */}
-            <main className="flex-1">{children}</main>
-            <SiteFooter />
-            <MobileTabBar />
+          <div className="flex min-h-screen">
+            <Sidebar />
+            <div className="flex min-w-0 flex-1 flex-col">
+              <SiteHeader />
+              <main className="flex-1">{children}</main>
+              <SiteFooter />
+              <MobileTabBar />
+            </div>
           </div>
         </ThemeProvider>
         <Analytics />

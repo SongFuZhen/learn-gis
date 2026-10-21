@@ -1,0 +1,68 @@
+## 一句话
+
+OGC 服务解决「数据怎么发布」，前端库解决「地图怎么画」；两者通过标准参数和坐标约定对接。
+
+## 1. 四个经典 OGC 服务
+
+| 服务 | 返回什么 | 典型用途 |
+|---|---|---|
+| **WMS** | 服务端渲染好的**图片** | 出图、专题图 |
+| **WMTS** | 预生成的**图片瓦片** | 底图、缓存友好 |
+| **WFS** | **矢量要素**（GML/GeoJSON） | 要素编辑、客户端样式化 |
+| **WCS** | **栅格覆盖**（原始值） | 高程、影像分析 |
+| WPS | 处理结果 | 服务端空间分析 |
+
+关键区别：WMS/WMTS 给你「画好的图」，你只能看；WFS/WCS 给你「数据」，你可以再计算。
+
+## 2. WMS 的必填参数
+
+```
+SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap
+&LAYERS=topp:states&STYLES=
+&CRS=EPSG:3857&BBOX=minx,miny,maxx,maxy
+&WIDTH=1024&HEIGHT=768&FORMAT=image/png
+```
+
+**axis order 陷阱**：WMS 1.3.0 里 `CRS=EPSG:4326` 的 BBOX 顺序是 `miny,minx,maxy,maxx`（纬度在前）；想用「经度在前」就写 `CRS=CRS:84`。WMS 1.1.1 用的是 `SRS` 且经纬度顺序固定。
+
+## 3. WMTS 与瓦片矩阵
+
+WMTS 提供 `TileMatrixSet`（每一级的矩阵宽高、分辨率、原点），按 `TileMatrix / TileRow / TileCol` 取瓦片。它只做「预生成/可缓存」的图片瓦片，所以快，但样式改不了。
+
+## 4. 新标准：OGC API
+
+OGC API - Features / Tiles / Maps 用 REST + JSON + OpenAPI 取代老服务：
+
+```
+GET /collections
+GET /collections/roads/items?bbox=...&limit=100
+GET /collections/roads/items/{id}
+```
+
+分页（`limit` / `next`）、内容协商（GeoJSON）、自描述 API 文档，前端更容易直接消费。
+
+## 5. 前端地图库怎么选
+
+| 库 | 强项 | 代价 |
+|---|---|---|
+| **Leaflet** | 轻（~40 KB）、插件多、上手快、栅格瓦片 | 默认只支持 3857 等少数 CRS；矢量瓦片需插件 |
+| **MapLibre GL JS** | WebGL、矢量瓦片、style JSON、3D | 学习曲线、样式体系重 |
+| **OpenLayers** | 投影/格式/服务支持最全 | 体积大、API 复杂 |
+| **deck.gl** | 十万级点/线的大数据可视化 | 不是通用底图库 |
+
+约定：Leaflet 的 `L.geoJSON()` 期望 **4326 经纬度**；把 3857 的米直接丢进去，要素会跑到南极附近。
+
+## 6. 性能与踩坑
+
+1. **按需加载**：地图库与瓦片层动态 `import()`，不要进首屏 bundle。
+2. **别把大地图塞进首屏**：底图瓦片懒加载，矢量数据用瓦片。
+3. **CORS**：WMS/WFS 跨域需要服务端 `Access-Control-Allow-Origin`，否则 fetch 失败（图片瓦片能在 `<img>` 显示但污染 canvas）。
+4. **缓存**：瓦片设长 `Cache-Control`，别把 `/tiles/{z}/{x}/{y}` 当成动态接口。
+
+## 延伸阅读
+
+- OGC 标准总览：[ogc.org/standards](https://www.ogc.org/standards/)
+- WMS 1.3.0 规范：[OGC WMS](https://www.ogc.org/standards/wms)
+- OGC API - Features：[ogc.org/standards/ogcapi-features](https://www.ogc.org/standards/ogcapi-features)
+- Leaflet 文档：[leafletjs.com](https://leafletjs.com/reference.html)
+- MapLibre Style Spec：[maplibre.org/maplibre-style-spec](https://maplibre.org/maplibre-style-spec/)

@@ -26,10 +26,10 @@ export default function AnswerFeedback({
   return (
     <div
       className={cn(
-        "mt-4 rounded-lg border p-4",
+        "mt-4 rounded-sm border p-4",
         correct
-          ? "border-success/35 bg-success-light"
-          : "border-destructive/35 bg-destructive-light",
+          ? "border-success/30 bg-success-light"
+          : "border-destructive/30 bg-destructive-light",
       )}
       role="status"
       aria-live="polite"
@@ -46,7 +46,7 @@ export default function AnswerFeedback({
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
-            strokeWidth="2.5"
+            strokeWidth="2.6"
             strokeLinecap="round"
             className="h-3 w-3"
           >
@@ -55,25 +55,29 @@ export default function AnswerFeedback({
         </span>
         <p
           className={cn(
-            "text-sm font-semibold",
+            "text-[14px] font-semibold",
             correct ? "text-success" : "text-destructive",
           )}
         >
           {correct ? "答对了" : "答错了"}
         </p>
         {!correct && (
-          <p className="ml-auto text-xs text-foreground-secondary">
+          <p className="ml-auto text-[12px] text-foreground-secondary">
             {question.type === "short" ? "参考答案" : "正确答案"}{" "}
-            <span className="font-mono text-foreground">{expectedText}</span>
+            <span className="font-mono font-medium text-foreground">
+              {expectedText}
+            </span>
           </p>
         )}
       </div>
 
       {wrong.length > 0 && (
-        <ul className="mt-3 flex flex-col gap-2 rounded-md border-l-2 border-destructive/40 bg-background/40 py-2 pl-3 pr-2">
+        <ul className="mt-3 flex flex-col gap-2 rounded-sm border-l-2 border-destructive/40 bg-card/60 py-2.5 pl-3 pr-2">
           {wrong.map((option) => (
             <li key={option.key} className="text-[13px] leading-relaxed">
-              <span className="font-mono text-xs text-destructive">{option.key}</span>{" "}
+              <span className="font-mono text-xs font-medium text-destructive">
+                {option.key}
+              </span>{" "}
               <span className="text-foreground-secondary">
                 {option.hint ?? "这一项不满足题意。"}
               </span>
@@ -85,17 +89,17 @@ export default function AnswerFeedback({
       {missed.length > 0 && question.type === "multi" && (
         <p className="mt-3 text-[13px] text-foreground-secondary">
           漏选：
-          <span className="text-foreground">
+          <span className="font-medium text-foreground">
             {missed.map((o) => `${o.key}（${o.text}）`).join("、")}
           </span>
         </p>
       )}
 
       <div className="mt-3">
-        <p className="text-[11px] font-medium uppercase tracking-wider text-foreground-tertiary">
+        <p className="text-[11px] font-medium uppercase tracking-wider text-foreground-muted">
           解析
         </p>
-        <p className="mt-1 text-sm leading-relaxed text-foreground-secondary">
+        <p className="mt-1 text-[14px] leading-relaxed text-foreground-secondary">
           {question.explanation}
         </p>
       </div>

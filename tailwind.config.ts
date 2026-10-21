@@ -5,16 +5,25 @@ const config: Config = {
   content: [
     "./app/**/*.{ts,tsx,mdx}",
     "./components/**/*.{ts,tsx}",
-    "./content/**/*.{mdx}",
+    "./content/**/*.mdx",
   ],
   darkMode: "class",
   theme: {
     extend: {
       colors: {
+        brand: {
+          DEFAULT: "hsl(var(--brand-primary) / <alpha-value>)",
+          hover: "hsl(var(--brand-hover) / <alpha-value>)",
+          violet: "hsl(var(--brand-violet) / <alpha-value>)",
+          cyan: "hsl(var(--brand-cyan) / <alpha-value>)",
+          gold: "hsl(var(--brand-gold) / <alpha-value>)",
+          soft: "hsl(var(--brand-soft) / <alpha-value>)",
+        },
         background: {
           DEFAULT: "hsl(var(--background) / <alpha-value>)",
           subtle: "hsl(var(--background-subtle) / <alpha-value>)",
           muted: "hsl(var(--background-muted) / <alpha-value>)",
+          hover: "hsl(var(--background-hover) / <alpha-value>)",
         },
         surface: {
           DEFAULT: "hsl(var(--surface) / <alpha-value>)",
@@ -78,11 +87,20 @@ const config: Config = {
         mono: ["var(--font-mono)"],
       },
       maxWidth: {
-        content: "1080px",
+        content: "1200px",
+      },
+      width: {
+        sidebar: "224px",
       },
       borderRadius: {
-        sm: "4px",
-        md: "6px",
+        sm: "8px",
+        md: "14px",
+        lg: "20px",
+        xl: "20px",
+      },
+      boxShadow: {
+        card: "var(--shadow-card)",
+        brand: "var(--shadow-brand)",
       },
     },
   },

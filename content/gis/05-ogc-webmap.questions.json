@@ -1,0 +1,287 @@
+{
+  "skill": "gis",
+  "module": "05",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-05-001",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "WMS 的 GetMap 返回的是什么？",
+      "options": [
+        { "key": "A", "text": "服务端渲染好的图片" },
+        { "key": "B", "text": "矢量要素集合", "hint": "返回要素的是 WFS。" },
+        { "key": "C", "text": "原始栅格覆盖值", "hint": "返回栅格原始值的是 WCS。" },
+        { "key": "D", "text": "TileMatrixSet 定义" }
+      ],
+      "answer": ["A"],
+      "explanation": "WMS 是「地图出图」服务：按 LAYERS/BBOX/WIDTH/HEIGHT/FORMAT 渲染成图片。样式在服务端定义，客户端拿不到要素属性。",
+      "refs": [
+        { "title": "OGC WMS 标准", "url": "https://www.ogc.org/standards/wms" }
+      ]
+    },
+    {
+      "id": "gis-05-002",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "WMTS 与 WMS 的关键区别是？",
+      "options": [
+        { "key": "A", "text": "WMTS 提供预生成瓦片（可强缓存），WMS 按请求即时渲染" },
+        { "key": "B", "text": "WMTS 返回矢量要素", "hint": "WMTS 仍是图片瓦片；矢量服务是 WFS 或矢量瓦片。" },
+        { "key": "C", "text": "WMS 只能返回 PNG", "hint": "WMS 支持 PNG/JPEG/GeoTIFF 等多种格式。" },
+        { "key": "D", "text": "WMTS 不需要投影" }
+      ],
+      "answer": ["A"],
+      "explanation": "WMTS 按 TileMatrix 预生成图片瓦片，可加 CDN/长缓存，速度快；WMS 每次请求现场渲染，灵活（可定制样式/比例尺）但慢、难缓存。",
+      "refs": [
+        { "title": "OGC WMTS 标准", "url": "https://www.ogc.org/standards/wmts" }
+      ]
+    },
+    {
+      "id": "gis-05-003",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "需要客户端自己改样式、做属性查询时，应选择？",
+      "options": [
+        { "key": "A", "text": "WFS（或矢量瓦片）" },
+        { "key": "B", "text": "WMS", "hint": "WMS 给的是图片，样式与属性都在服务端，客户端改不了。" },
+        { "key": "C", "text": "WMTS", "hint": "WMTS 是图片瓦片，同样改不了样式。" },
+        { "key": "D", "text": "WCS" }
+      ],
+      "answer": ["A"],
+      "explanation": "WFS 返回要素（GML/GeoJSON），客户端可自定义符号、查询属性、编辑。矢量瓦片是另一种「数据而非图片」的选择，适合大规模展示。",
+      "refs": [
+        { "title": "OGC WFS 标准", "url": "https://www.ogc.org/standards/wfs" }
+      ]
+    },
+    {
+      "id": "gis-05-004",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "WCS 主要面向什么数据？",
+      "options": [
+        { "key": "A", "text": "栅格覆盖（coverage），返回原始像元值" },
+        { "key": "B", "text": "矢量要素", "hint": "矢量要素由 WFS 提供。" },
+        { "key": "C", "text": "渲染好的图片", "hint": "图片由 WMS/WMTS 提供。" },
+        { "key": "D", "text": "路由规划结果" }
+      ],
+      "answer": ["A"],
+      "explanation": "WCS 提供 Coverage（如 DEM、多光谱影像）的子集与原始值，便于客户端做计算，而不是只看渲染图。",
+      "refs": [
+        { "title": "OGC WCS 标准", "url": "https://www.ogc.org/standards/wcs" }
+      ]
+    },
+    {
+      "id": "gis-05-005",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "WMS 1.3.0 中写 `CRS=EPSG:4326` 时，BBOX 的顺序是？",
+      "options": [
+        { "key": "A", "text": "minx,miny,maxx,maxy（经度在前）" },
+        { "key": "B", "text": "miny,minx,maxy,maxx（纬度在前）" },
+        { "key": "C", "text": "由 VERSION 决定，1.3.0 用经度在前", "hint": "1.3.0 恰恰改成了按 CRS 轴序（纬度在前），这是著名的兼容坑。" },
+        { "key": "D", "text": "任意顺序都行" }
+      ],
+      "answer": ["B"],
+      "explanation": "WMS 1.3.0 按 CRS 定义的轴序解释 BBOX，EPSG:4326 是纬度在前。想要经度在前，可改用 `CRS=CRS:84`（OGC 定义），或退回 WMS 1.1.1 的 `SRS`。",
+      "refs": [
+        { "title": "OGC WMS 1.3.0", "url": "https://www.ogc.org/standards/wms" }
+      ]
+    },
+    {
+      "id": "gis-05-006",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "OGC API - Features 相比经典 WFS 的主要变化是？",
+      "options": [
+        { "key": "A", "text": "REST + JSON + OpenAPI，用分页与内容协商替代 XML 请求体" },
+        { "key": "B", "text": "只能返回图片", "hint": "OGC API - Features 返回要素（JSON/GeoJSON），图片属于 Maps。" },
+        { "key": "C", "text": "取消了坐标参考系", "hint": "仍支持 CRS，通过参数协商。" },
+        { "key": "D", "text": "只能用于栅格" }
+      ],
+      "answer": ["A"],
+      "explanation": "OGC API 系列用现代 Web API 风格（资源路径、JSON、OpenAPI 描述、limit/next 分页），对前端与 HTTP 缓存更友好。",
+      "refs": [
+        { "title": "OGC API - Features", "url": "https://www.ogc.org/standards/ogcapi-features" }
+      ]
+    },
+    {
+      "id": "gis-05-007",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "Leaflet 的定位与限制是？",
+      "options": [
+        { "key": "A", "text": "轻量、栅格瓦片与插件生态好；默认只支持少数 CRS，矢量瓦片需插件" },
+        { "key": "B", "text": "WebGL 渲染矢量瓦片", "hint": "WebGL 矢量瓦片是 MapLibre GL/deck.gl 的领域。" },
+        { "key": "C", "text": "投影支持最全", "hint": "投影支持最全的是 OpenLayers（配合 proj4）。" },
+        { "key": "D", "text": "只能显示 GeoJSON" }
+      ],
+      "answer": ["A"],
+      "explanation": "Leaflet 默认 EPSG:3857（也支持 4326），投影能力有限；矢量瓦片需 deck.gl/MapLibre 插件。优点是体积小、插件多、DOM 图层易定制。",
+      "refs": [
+        { "title": "Leaflet 文档", "url": "https://leafletjs.com/reference.html" }
+      ]
+    },
+    {
+      "id": "gis-05-008",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "MapLibre GL JS 渲染矢量瓦片依赖的是？",
+      "options": [
+        { "key": "A", "text": "WebGL + style JSON（图层/数据源/表达式）" },
+        { "key": "B", "text": "服务端渲染好的图片", "hint": "图片瓦片不需要 WebGL 渲染引擎。" },
+        { "key": "C", "text": "DOM 元素逐要素绘制", "hint": "逐要素 DOM 是 Leaflet 的方式，规模一大就慢。" },
+        { "key": "D", "text": "SVG 渲染" }
+      ],
+      "answer": ["A"],
+      "explanation": "MapLibre 用 WebGL 批量绘制矢量瓦片，样式由 style JSON 描述（sources/layers/paint/layout），支持表达式与交互。",
+      "refs": [
+        { "title": "MapLibre Style Spec", "url": "https://maplibre.org/maplibre-style-spec/" }
+      ]
+    },
+    {
+      "id": "gis-05-009",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "需要支持多种投影（如 CGCS2000 高斯带）与多种服务格式，最稳妥的选择是？",
+      "options": [
+        { "key": "A", "text": "OpenLayers（配合 proj4 注册自定义 CRS）" },
+        { "key": "B", "text": "Leaflet 默认配置", "hint": "Leaflet 默认仅支持有限 CRS，需额外插件与 proj4 才能支持自定义投影。" },
+        { "key": "C", "text": "只用 MapLibre", "hint": "MapLibre 面向 Web 墨卡托矢量瓦片，非 3857 投影支持有限。" },
+        { "key": "D", "text": "deck.gl" }
+      ],
+      "answer": ["A"],
+      "explanation": "OpenLayers 原生支持大量投影与格式/服务（WMS/WMTS/WFS/矢量瓦片），配合 proj4 可注册任意 EPSG；代价是体积与 API 复杂度。",
+      "refs": [
+        { "title": "OpenLayers 文档", "url": "https://openlayers.org/doc/" }
+      ]
+    },
+    {
+      "id": "gis-05-010",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "矢量瓦片的地图样式在哪里定义？",
+      "options": [
+        { "key": "A", "text": "客户端（style JSON）" },
+        { "key": "B", "text": "服务端瓦片中", "hint": "瓦片里只有几何与属性，没有颜色/线宽等样式。" },
+        { "key": "C", "text": "瓦片文件名中" },
+        { "key": "D", "text": "HTTP 头中" }
+      ],
+      "answer": ["A"],
+      "explanation": "矢量瓦片只传数据，颜色、线宽、过滤与标注由客户端 style 决定，所以同一份瓦片可复用多套设计，也能随时调样式而不用重新切片。",
+      "refs": [
+        { "title": "MapLibre Style Spec", "url": "https://maplibre.org/maplibre-style-spec/" }
+      ]
+    },
+    {
+      "id": "gis-05-011",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "为什么建议把地图库与瓦片层做成动态加载（dynamic import）？",
+      "options": [
+        { "key": "A", "text": "地图库体积大，避免拖慢首屏与非地图页面" },
+        { "key": "B", "text": "动态加载能提高坐标精度", "hint": "加载方式与坐标精度无关。" },
+        { "key": "C", "text": "否则无法使用 CSS", "hint": "CSS 与动态加载无关。" },
+        { "key": "D", "text": "为了绕过 CORS" }
+      ],
+      "answer": ["A"],
+      "explanation": "地图库（尤其 WebGL 引擎）动辄数百 KB，放进首屏 bundle 会让 LCP/TTI 变差。按路由/交互动态加载，能让讲义、答题页保持轻量。",
+      "refs": [
+        { "title": "Next.js 代码分割", "url": "https://nextjs.org/docs/app/guides/lazy-loading" }
+      ]
+    },
+    {
+      "id": "gis-05-012",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "前端 fetch 一个跨域 WFS 服务报 CORS 错误，正确的处理方向是？",
+      "options": [
+        { "key": "A", "text": "让服务端返回允许跨域的响应头，或改用同源代理" },
+        { "key": "B", "text": "把 fetch 改成同步请求", "hint": "CORS 是浏览器安全策略，与同步/异步无关。" },
+        { "key": "C", "text": "改用 http 协议", "hint": "换协议不会解决跨域策略问题，反而可能触发混合内容限制。" },
+        { "key": "D", "text": "在请求里加 random 参数" }
+      ],
+      "answer": ["A"],
+      "explanation": "CORS 由服务端响应头控制（Access-Control-Allow-Origin 等）。前端可以通过同源代理/CDN 转发规避，但不能用前端代码「关掉」同源策略。",
+      "refs": [
+        { "title": "MDN：CORS", "url": "https://developer.mozilla.org/docs/Web/HTTP/CORS" }
+      ]
+    },
+    {
+      "id": "gis-05-013",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "把 EPSG:3857（米）的 GeoJSON 直接交给 `L.geoJSON()` 会怎样？",
+      "options": [
+        { "key": "A", "text": "要素位置错误（Leaflet 期望 WGS84 经纬度）" },
+        { "key": "B", "text": "自动转换成经纬度", "hint": "L.geoJSON 不会猜测 CRS，也不会自动投影。" },
+        { "key": "C", "text": "报错并提示坐标系不匹配" },
+        { "key": "D", "text": "正常显示，只是颜色不同" }
+      ],
+      "answer": ["A"],
+      "explanation": "Leaflet 的 geoJSON 图层按经纬度解释坐标；传入百万级米值会被裁剪到地图范围之外，表现为要素消失或跑偏。应先用 proj4/服务端转成 4326。",
+      "refs": [
+        { "title": "Leaflet L.geoJSON", "url": "https://leafletjs.com/reference.html#geojson" }
+      ]
+    },
+    {
+      "id": "gis-05-014",
+      "skill": "gis",
+      "module": "05",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "需要在前端同时叠加栅格底图与可交互矢量要素，最直接的组合是？",
+      "options": [
+        { "key": "A", "text": "底图瓦片（WMTS/XYZ）+ WFS/矢量瓦片图层" },
+        { "key": "B", "text": "只用 WMS 图层", "hint": "WMS 是整张图片，无法单独与前端要素做交互与样式控制。" },
+        { "key": "C", "text": "只用 WCS", "hint": "WCS 返回原始栅格值，不适合直接当底图。" },
+        { "key": "D", "text": "只用一份大 GeoJSON" }
+      ],
+      "answer": ["A"],
+      "explanation": "底图用可缓存的图片瓦片，业务要素用 WFS/矢量瓦片（可改样式、可查询），这是 Web GIS 最常见的分层结构。",
+      "refs": [
+        { "title": "OGC WMTS 标准", "url": "https://www.ogc.org/standards/wmts" }
+      ]
+    },
+    {
+      "id": "gis-05-015",
+      "skill": "gis",
+      "module": "05",
+      "type": "short",
+      "difficulty": 1,
+      "stem": "WMS 的 GetMap 请求最终返回的是什么？（填「图片」或「要素」）",
+      "accepted": ["图片", "地图图片", "图像", "image", "map image", "png", "jpg"],
+      "placeholder": "例如：图片",
+      "explanation": "WMS GetMap 返回服务端渲染的地图图片；要拿要素数据得用 WFS（或矢量瓦片），要拿栅格原始值得用 WCS。",
+      "refs": [
+        { "title": "OGC WMS 标准", "url": "https://www.ogc.org/standards/wms" }
+      ]
+    }
+  ]
+}

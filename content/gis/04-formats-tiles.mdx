@@ -1,0 +1,84 @@
+## 一句话
+
+格式决定「能不能一次搬走、能不能按需取」；瓦片决定「地图能不能秒开」。
+
+## 1. 矢量交换格式
+
+### GeoJSON（RFC 7946）
+
+```json
+{ "type": "FeatureCollection",
+  "features": [
+    { "type": "Feature",
+      "properties": { "name": "西湖" },
+      "geometry": { "type": "Point", "coordinates": [120.15, 30.25] } } ] }
+```
+
+- 坐标顺序 **经度在前**（lon, lat），坐标为 WGS84（4326）。
+- RFC 7946 已**移除** `crs` 成员：标准 GeoJSON 只能是 4326。
+- 人类可读、Web 友好；缺点是文本体积大、无索引，大文件解析慢。
+
+### Shapefile
+
+至少三件套：`.shp`（几何）、`.shx`（索引）、`.dbf`（属性），常带 `.prj`（CRS）。
+
+老而普遍，但限制明显：2 GB 上限、字段名 10 字符、一个图层只能一种几何、无拓扑、编码（中文属性）容易乱码。
+
+### GeoPackage（.gpkg）
+
+一个 **SQLite 文件**装下矢量、栅格与瓦片，OGC 标准，支持空间索引。现代桌面/移动端交换的首选之一。
+
+### 其他
+
+- **KML**：Google Earth 生态，带样式。
+- **GPX**：GPS 轨迹/航点。
+- **TopoJSON**：把共享边界存成 `arcs`，体积可显著小于 GeoJSON，保留拓扑。
+
+## 2. 栅格格式
+
+- **GeoTIFF**：TIFF + 地理参考（CRS、仿射变换），GIS 栅格的事实标准。
+- **COG（Cloud Optimized GeoTIFF）**：分块 + 内置概览（overviews）+ 元数据在文件头部，客户端可用 HTTP Range 只取需要的块，无需下载整个文件。
+
+## 3. 瓦片：把地图切片
+
+瓦片金字塔：`z` 缩放级、`x` 列、`y` 行，每级 2^z × 2^z 张图。
+
+```
+z=0: 1 张
+z=1: 4 张
+z=10: 1,048,576 张
+```
+
+两种编号约定：
+
+- **XYZ（Google/OSM）**：`y` 从顶部（北）开始。
+- **TMS**：`y` 从底部（南）开始，换算 `y_tms = 2^z - 1 - y_xyz`。
+
+反了会上下颠倒，是瓦片接入最常见的坑。
+
+## 4. 矢量瓦片（MVT）
+
+矢量瓦片不是图片，而是 **protobuf 编码的几何 + 属性**（Mapbox Vector Tile 规范）：
+
+1. 服务端切片、按 z 级简化；
+2. 客户端拿到数据后用样式（style JSON）渲染；
+3. 一份瓦片可以换多套样式、支持交互查询，体积通常远小于同范围 GeoJSON。
+
+**PMTiles** 把整层瓦片打包成单个文件，通过 Range 请求按需读取，可直接放在对象存储上，省掉瓦片服务。
+
+## 5. 怎么选
+
+| 场景 | 建议 |
+|---|---|
+| 前后端交换、小数据 | GeoJSON |
+| 桌面 GIS 互操作 | Shapefile / GeoPackage |
+| 全国/全球底图、热点图 | 矢量瓦片（MVT）+ 客户端渲染 |
+| 影像/高程发布 | COG / GeoTIFF + 瓦片服务 |
+| 静态托管、无服务端 | PMTiles |
+
+## 延伸阅读
+
+- GeoJSON 规范：[RFC 7946](https://datatracker.ietf.org/doc/html/rfc7946)
+- 矢量瓦片规范：[mapbox/vector-tile-spec](https://github.com/mapbox/vector-tile-spec)
+- COG 说明：[gdal.org/drivers/raster/cog](https://gdal.org/en/stable/drivers/raster/cog.html)
+- 瓦片编号：[OSM Slippy map tilenames](https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames)

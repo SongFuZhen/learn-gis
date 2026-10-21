@@ -3,107 +3,134 @@
 @tailwind utilities;
 
 /* ============================================================
-   learn-gis 设计令牌（沿用 ink_template 的命名与写法）
-   墨 #20252B · 纸 #FFFDF8 · 金 #C8953E · 青黛 #3E6870
+   learn-gis Design Tokens
+   品牌蓝紫渐变 · 冷白画布 · Inter + 中文系统字体
    ============================================================ */
 
 :root {
-  /* Background - 宣纸暖白 */
-  --background: 40 20% 96%;
-  --background-subtle: 40 18% 94%;
-  --background-muted: 40 16% 92%;
+  /* Brand */
+  --brand-primary: 244 100% 68%;   /* #625BFF */
+  --brand-hover: 244 85% 61%;      /* #5148ED */
+  --brand-violet: 270 100% 65%;    /* #8B4DFF */
+  --brand-cyan: 188 88% 58%;       /* #35CFF2 */
+  --brand-gold: 40 100% 69%;       /* #FFCA61 */
+  --brand-gradient: linear-gradient(125deg, #397bff 0%, #625bff 48%, #984dff 100%);
 
-  /* Surface */
+  --brand-soft: 240 100% 97%;      /* #EEF0FF */
+
+  /* Canvas / surfaces */
+  --background: 234 100% 98%;      /* #F5F6FF */
+  --background-subtle: 240 100% 99%;
+  --background-muted: 236 100% 96%;
+  --background-hover: 236 100% 94%; /* #F0F1FF */
+
   --surface: 0 0% 100%;
   --surface-raised: 0 0% 100%;
-  --surface-muted: 40 15% 96%;
-  --surface-hover: 40 14% 94%;
+  --surface-muted: 234 100% 98%;
+  --surface-hover: 236 100% 94%;
 
-  /* Text - 墨色系 */
-  --foreground: 210 15% 15%;
-  --foreground-secondary: 210 12% 30%;
-  --foreground-tertiary: 210 8% 46%;
-  --foreground-muted: 210 6% 64%;
-  --foreground-disabled: 210 4% 78%;
+  --card: 0 0% 100%;
+  --card-foreground: 233 40% 15%;
+
+  /* Text */
+  --foreground: 233 40% 15%;       /* #171A35 */
+  --foreground-secondary: 228 18% 42%; /* #59617E */
+  --foreground-tertiary: 228 16% 58%;  /* #8188A5 */
+  --foreground-muted: 228 14% 69%;
+  --foreground-disabled: 228 22% 83%;
   --foreground-inverted: 0 0% 100%;
 
-  /* Shadcn semantic */
-  --card: 0 0% 100%;
-  --card-foreground: 210 15% 15%;
-  --primary: 210 15% 15%;
+  /* Semantic */
+  --primary: 244 100% 68%;         /* brand 作为主操作色 */
   --primary-foreground: 0 0% 100%;
-  --secondary: 40 15% 92%;
-  --secondary-foreground: 210 12% 23%;
-  --muted: 40 12% 92%;
-  --muted-foreground: 210 8% 46%;
+  --secondary: 240 100% 97%;
+  --secondary-foreground: 233 40% 15%;
+  --muted: 236 100% 96%;
+  --muted-foreground: 228 16% 58%;
 
-  /* Accent - 东方金 */
-  --accent: 38 55% 52%;
-  --accent-hover: 38 50% 44%;
+  --accent: 244 100% 68%;
+  --accent-hover: 244 85% 61%;
   --accent-foreground: 0 0% 100%;
 
-  /* Status */
-  --success: 140 28% 40%;
-  --success-light: 140 30% 93%;
-  --warning: 36 58% 46%;
-  --warning-light: 36 60% 95%;
-  --destructive: 4 40% 50%;
-  --destructive-light: 4 45% 94%;
-  --info: 195 35% 43%;
-  --info-light: 195 35% 93%;
+  --success: 162 84% 27%;
+  --success-light: 162 68% 95%;
+  --warning: 32 88% 36%;
+  --warning-light: 40 100% 94%;
+  --destructive: 347 74% 52%;
+  --destructive-light: 348 100% 96%;
+  --info: 224 100% 61%;
+  --info-light: 224 100% 96%;
 
   /* Border */
-  --border: 40 15% 88%;
-  --border-subtle: 40 14% 91%;
-  --border-strong: 40 12% 84%;
+  --border: 228 44% 93%;           /* #E5E8F5 */
+  --border-subtle: 230 40% 96%;
+  --border-strong: 228 30% 87%;    /* #D5DAEC */
+  --input: 228 44% 93%;
+  --ring: 244 100% 68%;
 
-  --font-sans: "Noto Sans SC", "Microsoft YaHei", "PingFang SC",
-    "Hiragino Sans GB", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: "Inter Variable", "Inter", "PingFang SC", "Microsoft YaHei",
+    "Hiragino Sans GB", "Noto Sans SC", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Radius / shadow */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-card: 0 8px 28px #343c7210;
+  --shadow-brand: 0 8px 20px #625bff33;
 }
 
 .dark {
-  --background: 60 3% 9%;
-  --background-subtle: 60 3% 11%;
-  --background-muted: 60 3% 13%;
+  --background: 233 40% 7%;        /* #0B0D1A */
+  --background-subtle: 233 36% 9%;
+  --background-muted: 233 32% 12%;
+  --background-hover: 234 30% 16%;
 
-  --surface: 60 3% 13%;
-  --surface-raised: 60 3% 15%;
-  --surface-muted: 60 3% 11%;
-  --surface-hover: 60 3% 17%;
+  --surface: 232 34% 12%;
+  --surface-raised: 232 32% 15%;
+  --surface-muted: 233 32% 12%;
+  --surface-hover: 234 30% 16%;
 
-  --foreground: 40 12% 94%;
-  --foreground-secondary: 40 10% 78%;
-  --foreground-tertiary: 50 4% 59%;
-  --foreground-muted: 50 3% 44%;
-  --foreground-disabled: 50 3% 31%;
-  --foreground-inverted: 60 3% 9%;
+  --card: 232 34% 12%;
+  --card-foreground: 228 60% 96%;
 
-  --card: 60 3% 13%;
-  --card-foreground: 40 12% 94%;
-  --primary: 40 12% 94%;
-  --primary-foreground: 60 3% 9%;
-  --secondary: 60 3% 17%;
-  --secondary-foreground: 40 10% 90%;
-  --muted: 60 3% 17%;
-  --muted-foreground: 50 5% 58%;
+  --foreground: 228 60% 96%;       /* #F2F4FF */
+  --foreground-secondary: 228 30% 78%;
+  --foreground-tertiary: 228 20% 64%;
+  --foreground-muted: 228 18% 52%;
+  --foreground-disabled: 228 16% 38%;
+  --foreground-inverted: 233 40% 7%;
 
-  --accent: 38 58% 60%;
-  --accent-hover: 38 60% 67%;
-  --accent-foreground: 60 3% 9%;
+  --primary: 244 100% 74%;
+  --primary-foreground: 233 40% 9%;
+  --secondary: 233 30% 18%;
+  --secondary-foreground: 228 50% 92%;
+  --muted: 233 30% 18%;
+  --muted-foreground: 228 20% 64%;
 
-  --success: 140 30% 46%;
-  --success-light: 140 25% 15%;
-  --warning: 36 58% 52%;
-  --warning-light: 36 40% 15%;
-  --destructive: 4 42% 55%;
-  --destructive-light: 4 30% 15%;
-  --info: 195 35% 50%;
-  --info-light: 195 25% 15%;
+  --accent: 244 100% 74%;
+  --accent-hover: 244 100% 80%;
+  --accent-foreground: 233 40% 9%;
 
-  --border: 60 4% 21%;
-  --border-subtle: 60 4% 17%;
-  --border-strong: 60 4% 28%;
+  --brand-soft: 244 40% 18%;
+
+  --success: 162 62% 62%;
+  --success-light: 162 40% 14%;
+  --warning: 40 90% 66%;
+  --warning-light: 32 40% 15%;
+  --destructive: 347 80% 70%;
+  --destructive-light: 347 35% 16%;
+  --info: 224 100% 74%;
+  --info-light: 224 40% 17%;
+
+  --border: 231 26% 20%;
+  --border-subtle: 231 24% 16%;
+  --border-strong: 231 22% 28%;
+  --input: 231 26% 20%;
+  --ring: 244 100% 74%;
+
+  --shadow-card: 0 8px 28px #00000040;
+  --shadow-brand: 0 8px 20px #625bff33;
 }
 
 * {
@@ -124,52 +151,57 @@ body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
   font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  /* 极轻的宣纸暖调，避免大块纯白/纯黑 */
+  /* 冷白画布上的两团品牌光晕，避免大面积纯色 */
   background-image:
-    radial-gradient(60rem 40rem at 50% -12rem, hsl(var(--accent) / 0.07), transparent 70%),
-    radial-gradient(40rem 30rem at 100% 0%, hsl(var(--info) / 0.05), transparent 60%);
+    radial-gradient(48rem 32rem at 12% -8%, hsl(var(--brand-primary) / 0.1), transparent 65%),
+    radial-gradient(40rem 28rem at 92% 4%, hsl(var(--brand-violet) / 0.08), transparent 60%);
   background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
-/* 移动端点击不要有灰蓝色高亮，统一用按钮态反馈 */
 * {
   -webkit-tap-highlight-color: transparent;
 }
 
 :focus-visible {
-  outline: 2px solid hsl(var(--accent));
+  outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
 }
 
 ::selection {
-  background: hsl(var(--accent) / 0.25);
+  background: hsl(var(--brand-primary) / 0.2);
 }
 
 @layer utilities {
-  /* 移动端安全区：底部 tab 与粘性操作条共用 */
   .pb-safe {
     padding-bottom: calc(env(safe-area-inset-bottom, 0px));
-  }
-  .mb-safe {
-    margin-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  /* 底部固定元素的下边距（tab bar 高度 + 安全区） */
-  .bottom-above-tabs {
-    bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
   }
   .tabular {
     font-variant-numeric: tabular-nums;
   }
+  .bg-brand-gradient {
+    background-image: var(--brand-gradient);
+  }
+  .text-brand-gradient {
+    background-image: var(--brand-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
 }
 
 /* ============================================================
-   讲义正文（MDX）：移动优先，16px 起，行高 1.8
+   讲义正文（MDX）：移动优先，16px 起，行高 1.85
    ============================================================ */
 .prose-lesson {
   font-size: 1rem;
-  line-height: 1.8;
+  line-height: 1.85;
   color: hsl(var(--foreground-secondary));
 }
 
@@ -180,10 +212,11 @@ body {
 .prose-lesson h2 {
   position: relative;
   margin-top: 2.25rem;
-  padding-left: 0.75rem;
+  padding-left: 0.8rem;
   font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.5;
+  letter-spacing: -0.01em;
   color: hsl(var(--foreground));
 }
 
@@ -195,7 +228,7 @@ body {
   bottom: 0.28em;
   width: 3px;
   border-radius: 2px;
-  background: hsl(var(--accent));
+  background-image: var(--brand-gradient);
 }
 
 .prose-lesson h3 {
@@ -231,15 +264,15 @@ body {
 }
 
 .prose-lesson li::marker {
-  color: hsl(var(--accent));
+  color: hsl(var(--brand-primary));
 }
 
 .prose-lesson blockquote {
   margin: 1.25rem 0;
-  padding: 0.75rem 0.9rem;
-  border-left: 3px solid hsl(var(--accent) / 0.5);
-  border-radius: 0 6px 6px 0;
-  background: hsl(var(--accent) / 0.08);
+  padding: 0.8rem 1rem;
+  border-left: 3px solid hsl(var(--brand-primary) / 0.55);
+  border-radius: 0 10px 10px 0;
+  background: hsl(var(--brand-soft));
   color: hsl(var(--foreground-secondary));
 }
 
@@ -251,16 +284,16 @@ body {
   font-family: var(--font-mono);
   font-size: 0.875em;
   background: hsl(var(--surface-muted));
-  padding: 0.12em 0.35em;
-  border-radius: 4px;
+  padding: 0.12em 0.38em;
+  border-radius: 6px;
   word-break: break-word;
 }
 
 .prose-lesson pre {
   margin: 1.25rem 0;
-  padding: 0.9rem 1rem;
+  padding: 1rem 1.1rem;
   border: 1px solid hsl(var(--border));
-  border-radius: 8px;
+  border-radius: 14px;
   background: hsl(var(--surface-muted));
   overflow-x: auto;
   font-size: 0.8125rem;
@@ -281,16 +314,39 @@ body {
   word-break: break-word;
 }
 
-/* 表格：移动端可横向滚动，不撑破页面 */
-.prose-lesson table {
-  display: block;
-  width: 100%;
+/* 表格外层：宽表在手机上横向滑动 + 滑动提示 */
+.mdx-table {
   margin: 1.25rem 0;
+}
+
+.mdx-table-wrap {
   overflow-x: auto;
+  border: 1px solid hsl(var(--border));
+  border-radius: 14px;
+  background: hsl(var(--card));
+}
+
+.mdx-table-hint {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.6875rem;
+  line-height: 1.4;
+  color: hsl(var(--foreground-muted));
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .mdx-table-hint {
+    display: none;
+  }
+}
+
+.prose-lesson table {
+  display: table;
+  width: 100%;
+  margin: 0;
   border-collapse: collapse;
   font-size: 0.875rem;
-  border: 1px solid hsl(var(--border));
-  border-radius: 8px;
 }
 
 .prose-lesson thead {
@@ -299,11 +355,10 @@ body {
 
 .prose-lesson th,
 .prose-lesson td {
-  padding: 0.55rem 0.7rem;
+  padding: 0.6rem 0.75rem;
   text-align: left;
-  white-space: normal;
+  white-space: nowrap;
   vertical-align: top;
-  word-break: break-word;
 }
 
 .prose-lesson th {

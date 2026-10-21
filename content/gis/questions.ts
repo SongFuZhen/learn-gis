@@ -1,5 +1,10 @@
 import type { Question } from "@/lib/quiz/types";
 import basics from "./01-basics.questions.json";
+import crsEpsg from "./02-crs-epsg.questions.json";
+import vectorRaster from "./03-vector-raster.questions.json";
+import formatsTiles from "./04-formats-tiles.questions.json";
+import ogcWebmap from "./05-ogc-webmap.questions.json";
+import spatialPostgis from "./06-spatial-postgis.questions.json";
 
 /**
  * 题库注册表：显式 import 让内容进入 bundle 且被 TS 检查，
@@ -7,6 +12,11 @@ import basics from "./01-basics.questions.json";
  */
 const RAW_BY_MODULE: Record<string, unknown> = {
   "01": basics,
+  "02": crsEpsg,
+  "03": vectorRaster,
+  "04": formatsTiles,
+  "05": ogcWebmap,
+  "06": spatialPostgis,
 };
 
 export function rawQuestionsFor(moduleSlug: string): unknown {

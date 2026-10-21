@@ -8,19 +8,19 @@ export const metadata = {
 
 export default function ProgressPage() {
   return (
-    <div className="mx-auto w-full max-w-content px-4 py-8 sm:px-6 sm:py-10">
-      <h1 className="text-[22px] font-semibold tracking-tight sm:text-3xl">
+    <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+      <h1 className="text-[26px] font-semibold tracking-[-0.02em] sm:text-[32px] lg:text-[36px]">
         学习进度
       </h1>
-      <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground-secondary">
+      <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
         每章取最高一次测验成绩作为掌握度，低于 80% 建议重读讲义后重练。
       </p>
 
-      <ul className="mt-6 flex flex-col gap-2">
+      <ul className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {GIS_MODULES.map((m) => (
           <li
             key={m.slug}
-            className="rounded-xl border border-border bg-surface p-4"
+            className="rounded-md border border-border bg-card p-5 shadow-card"
           >
             <div className="flex items-center justify-between gap-3">
               <span className="text-[15px] font-medium">{m.title}</span>
@@ -29,18 +29,18 @@ export default function ProgressPage() {
               </span>
             </div>
             <div
-              className="mt-3 h-1.5 overflow-hidden rounded-full bg-surface-muted"
+              className="mt-3 h-1.5 overflow-hidden rounded-full bg-brand-soft"
               role="img"
               aria-label="掌握度 0%"
             >
-              <div className="h-full w-0 rounded-full bg-accent" />
+              <div className="h-full w-0 rounded-full bg-brand-gradient" />
             </div>
           </li>
         ))}
         {PLANNED_MODULES.map((m) => (
           <li
             key={m.slug}
-            className="flex items-center gap-3 rounded-xl border border-dashed border-border px-4 py-3 text-[13px] text-foreground-tertiary"
+            className="flex items-center gap-3 rounded-md border border-dashed border-border px-4 py-3 text-[13px] text-foreground-tertiary"
           >
             <span className="font-mono text-[11px] text-foreground-muted">
               {m.slug}
@@ -57,7 +57,7 @@ export default function ProgressPage() {
 
       <Link
         href="/s/gis"
-        className="mt-5 inline-flex h-10 items-center justify-center rounded-lg border border-border-strong px-4 text-sm hover:bg-surface-hover"
+        className="mt-5 inline-flex h-10 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-sm font-medium transition-colors hover:bg-background-hover"
       >
         去章节列表
       </Link>

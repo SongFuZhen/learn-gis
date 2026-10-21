@@ -82,12 +82,15 @@ export default function QuestionView({
 
   return (
     <div>
-      <section className="mt-4 rounded-xl border border-border bg-surface p-4 shadow-[0_1px_2px_hsl(var(--foreground)/0.04)] sm:p-6">
+      <section className="mt-4 rounded-md border border-border bg-card p-5 shadow-card sm:p-6">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-foreground-tertiary">
-          <span className="rounded bg-surface-muted px-1.5 py-0.5 font-mono text-foreground-tertiary">
+          <span className="rounded-sm bg-surface-muted px-1.5 py-0.5 font-mono text-foreground-tertiary">
             {question.id}
           </span>
-          <span className="text-accent" aria-label={`难度 ${question.difficulty} 星`}>
+          <span
+            className="text-brand-violet"
+            aria-label={`难度 ${question.difficulty} 星`}
+          >
             {"★".repeat(question.difficulty)}
             <span className="text-foreground-disabled">
               {"★".repeat(3 - question.difficulty)}
@@ -102,7 +105,7 @@ export default function QuestionView({
           </span>
         </div>
 
-        <h2 className="mt-3 text-[17px] font-semibold leading-relaxed sm:text-lg">
+        <h2 className="mt-3 text-[17px] font-semibold leading-relaxed tracking-[-0.01em] sm:text-[19px]">
           {question.stem}
         </h2>
 
@@ -120,7 +123,7 @@ export default function QuestionView({
               placeholder={question.placeholder ?? "输入你的答案"}
               autoComplete="off"
               enterKeyHint="done"
-              className="h-12 w-full rounded-lg border border-border bg-background px-3 text-base outline-none transition-colors focus:border-accent disabled:opacity-70"
+              className="h-12 w-full rounded-sm border border-border bg-card px-3.5 text-base outline-none transition-colors placeholder:text-foreground-disabled focus:border-brand focus:ring-2 focus:ring-brand/20 disabled:opacity-70"
             />
           </div>
         ) : (
@@ -144,9 +147,9 @@ export default function QuestionView({
       </section>
 
       {/* 移动端：提交/下一题固定在视口底部，拇指可达 */}
-      <div className="sticky bottom-0 z-30 mt-4 -mx-4 border-t border-border bg-background/92 px-4 py-3 backdrop-blur sm:static sm:mx-0 sm:mt-5 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none">
+      <div className="sticky bottom-0 z-30 mt-4 -mx-4 border-t border-border bg-background/92 px-4 py-3 backdrop-blur lg:static lg:mx-0 lg:mt-5 lg:border-0 lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-none">
         <div className="flex items-center gap-3">
-          <p className="hidden flex-1 text-xs text-foreground-muted sm:block">
+          <p className="hidden flex-1 text-[12px] text-foreground-muted sm:block">
             {answered
               ? "按 Enter 继续"
               : question.type === "short"
@@ -157,7 +160,7 @@ export default function QuestionView({
             <button
               type="button"
               onClick={onNext}
-              className="h-12 w-full rounded-lg bg-accent text-[15px] font-medium text-accent-foreground transition-colors hover:bg-accent-hover sm:w-auto sm:px-5"
+              className="h-12 w-full rounded-sm bg-brand-gradient text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:w-auto sm:px-5"
             >
               {isLast ? "查看结果" : "下一题"}
             </button>
@@ -166,7 +169,7 @@ export default function QuestionView({
               type="button"
               onClick={submit}
               disabled={!canSubmit}
-              className="h-12 w-full rounded-lg bg-accent text-[15px] font-medium text-accent-foreground transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-45 sm:w-auto sm:px-5"
+              className="h-12 w-full rounded-sm bg-brand-gradient text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:w-auto sm:px-5"
             >
               提交答案
             </button>

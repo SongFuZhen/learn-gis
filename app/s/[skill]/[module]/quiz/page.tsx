@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 import QuizRunner from "@/components/quiz/QuizRunner";
-import { getModule, getQuestions } from "@/lib/content";
+import { getModule, getModules, getQuestions } from "@/lib/content";
 
 export function generateStaticParams() {
-  return [{ skill: "gis", module: "01" }];
+  return getModules("gis").map((m) => ({ skill: "gis", module: m.slug }));
 }
 
 export default async function QuizPage({

@@ -34,15 +34,15 @@ export default function QuizRunner({
   const record = currentRecord(state);
 
   return (
-    <div className="mx-auto w-full max-w-content px-4 py-5 sm:px-6 sm:py-8">
+    <div className="w-full px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
       <div className="flex items-center justify-between gap-3">
         <Link
           href={`/s/${skill}/${moduleSlug}`}
-          className="inline-flex min-h-9 items-center text-xs text-foreground-tertiary hover:text-foreground"
+          className="inline-flex min-h-9 items-center text-[12px] text-foreground-muted hover:text-brand"
         >
           ← 讲义
         </Link>
-        <span className="truncate text-xs text-foreground-tertiary">
+        <span className="truncate text-[12px] text-foreground-tertiary">
           {moduleSlug} · {moduleTitle}
         </span>
       </div>

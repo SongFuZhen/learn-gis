@@ -1,0 +1,291 @@
+{
+  "skill": "gis",
+  "module": "02",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-02-001",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "EPSG:4326 属于哪一类坐标参考系，单位是什么？",
+      "options": [
+        { "key": "A", "text": "投影坐标系，单位米", "hint": "3857、32650 才是投影坐标系；4326 没有做投影，坐标是角度。" },
+        { "key": "B", "text": "地理坐标系，单位度" },
+        { "key": "C", "text": "地心直角坐标系，单位米", "hint": "地心直角坐标（ECEF, X/Y/Z）是另一种模型，EPSG:4326 存的仍是经纬度。" },
+        { "key": "D", "text": "高程坐标系，单位米", "hint": "4326 是水平坐标，不含高程；高程另有垂直基准。" }
+      ],
+      "answer": ["B"],
+      "explanation": "EPSG:4326 是 WGS84 地理坐标系（二维），坐标是经纬度、单位度。它不包含投影，因此不能直接用来量长度或面积。",
+      "refs": [
+        { "title": "EPSG:4326", "url": "https://epsg.io/4326" }
+      ]
+    },
+    {
+      "id": "gis-02-002",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "EPSG 代码实际上描述的是什么？",
+      "options": [
+        { "key": "A", "text": "一个坐标参考系的完整定义（基准、投影、单位、轴序）" },
+        { "key": "B", "text": "一种数据文件格式", "hint": "数据格式是 GeoJSON、Shapefile 之类；EPSG 描述坐标参考系，与文件格式无关。" },
+        { "key": "C", "text": "地图的缩放级别", "hint": "缩放级别属于瓦片金字塔（z/x/y），不是 EPSG。" },
+        { "key": "D", "text": "一个厂商私有的编号", "hint": "EPSG 是公开维护的参数数据集，任何软件都可以引用同一套代码。" }
+      ],
+      "answer": ["A"],
+      "explanation": "EPSG 数据集为每个 CRS 分配整数代码，代码背后是基准面、投影方法、参数、单位与轴序的完整定义。引用代码就能在 GDAL/PROJ/PostGIS/前端库里复现同一套坐标。",
+      "refs": [
+        { "title": "EPSG 官方数据集", "url": "https://epsg.org/" }
+      ]
+    },
+    {
+      "id": "gis-02-003",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "EPSG:4326 的官方轴序是？",
+      "options": [
+        { "key": "A", "text": "经度在前（lon, lat）", "hint": "这是 GeoJSON / CRS:84 / 多数前端库的约定，但不是 EPSG:4326 的官方轴序。" },
+        { "key": "B", "text": "纬度在前（lat, lon）" },
+        { "key": "C", "text": "X/Y，等价于经度/纬度" },
+        { "key": "D", "text": "没有规定轴序" }
+      ],
+      "answer": ["B"],
+      "explanation": "EPSG:4326 的定义是轴 1 = 纬度、轴 2 = 经度。这与 GeoJSON（RFC 7946 要求 lon, lat）以及 OGC 的 CRS:84 相反，所以读数据时一定要知道「谁在按什么约定解释」。",
+      "refs": [
+        { "title": "EPSG:4326（轴序 latitude, longitude）", "url": "https://epsg.io/4326" },
+        { "title": "OGC 轴序说明", "url": "https://docs.ogc.org/DRAFTS/21-045.html" }
+      ]
+    },
+    {
+      "id": "gis-02-004",
+      "skill": "gis",
+      "module": "02",
+      "type": "multi",
+      "difficulty": 2,
+      "stem": "下列哪些是投影坐标系？（多选，全对才算对）",
+      "options": [
+        { "key": "A", "text": "EPSG:3857" },
+        { "key": "B", "text": "EPSG:32650" },
+        { "key": "C", "text": "EPSG:4326", "hint": "4326 是地理坐标系，坐标是角度。" },
+        { "key": "D", "text": "EPSG:4547" }
+      ],
+      "answer": ["A", "B", "D"],
+      "explanation": "3857（Web 墨卡托）、32650（UTM 50N）、4547（CGCS2000 3° 高斯-克吕格）都是投影坐标系，单位米；4326 是地理坐标系，单位度。",
+      "refs": [
+        { "title": "EPSG:3857", "url": "https://epsg.io/3857" },
+        { "title": "EPSG:32650（UTM 50N）", "url": "https://epsg.io/32650" },
+        { "title": "EPSG:4547", "url": "https://epsg.io/4547" }
+      ]
+    },
+    {
+      "id": "gis-02-005",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "UTM 每个投影带覆盖多少经度？",
+      "options": [
+        { "key": "A", "text": "3°", "hint": "3° 带是高斯-克吕格常用的分带方式，不是 UTM。" },
+        { "key": "B", "text": "6°" },
+        { "key": "C", "text": "10°", "hint": "分带越宽，边缘变形越大；UTM 取 6° 是在变形与带数之间的折中。" },
+        { "key": "D", "text": "1°" }
+      ],
+      "answer": ["B"],
+      "explanation": "UTM 把地球按经度每 6° 分带，共 60 带。每个带用横轴墨卡托投影，中央经线变形为 0（比例因子 0.9996 以平衡带内变形）。",
+      "refs": [
+        { "title": "EPSG:32650（UTM zone 50N）", "url": "https://epsg.io/32650" }
+      ]
+    },
+    {
+      "id": "gis-02-006",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "北半球 UTM 投影坐标系的 EPSG 编号规律是？",
+      "options": [
+        { "key": "A", "text": "32600 + 带号（如 32650 = 50N）" },
+        { "key": "B", "text": "32700 + 带号（如 32750 = 50S）", "hint": "327xx 是南半球；北半球用 326xx。" },
+        { "key": "C", "text": "4326 + 带号", "hint": "4326 是单个地理坐标系，与 UTM 带无关。" },
+        { "key": "D", "text": "3857 + 带号", "hint": "3857 是覆盖全球的 Web 墨卡托，不分带。" }
+      ],
+      "answer": ["A"],
+      "explanation": "WGS84 / UTM 北半球为 EPSG:32601–32660（带号 1–60），南半球为 32701–32760。带号 = floor((经度 + 180) / 6) + 1。",
+      "refs": [
+        { "title": "EPSG:32650", "url": "https://epsg.io/32650" }
+      ]
+    },
+    {
+      "id": "gis-02-007",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "为什么工程上要把投影分带（而不是一个投影覆盖全球）？",
+      "options": [
+        { "key": "A", "text": "为了控制离中央经线过远带来的变形" },
+        { "key": "B", "text": "为了让文件更小", "hint": "分带与文件体积无关；同一批数据分带后反而要处理接边问题。" },
+        { "key": "C", "text": "为了让坐标变成负数", "hint": "分带是为了控制变形，假东（false easting）反而避免负坐标。" },
+        { "key": "D", "text": "因为地球是正球体", "hint": "分带的原因与投影变形随距离增加有关，与球体/椭球模型无关。" }
+      ],
+      "answer": ["A"],
+      "explanation": "任何投影的变形都随离中央经线（或标准纬线）的距离增大。分带把工作范围压到中央经线附近，使长度变形控制在可接受范围（如 1/10000 量级）。",
+      "refs": [
+        { "title": "USGS Map Projections 手册", "url": "https://pubs.usgs.gov/publication/pp1395" }
+      ]
+    },
+    {
+      "id": "gis-02-008",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "把 Beijing 1954 的坐标「改 SRID 为 4326」当作完成转换，会出现什么问题？",
+      "options": [
+        { "key": "A", "text": "位置会整体偏移几十到上百米，因为基准面不同" },
+        { "key": "B", "text": "没有任何问题，只是标注变了", "hint": "改 SRID 只是换标签，不做基准面转换（Helmert/格网），坐标数值的物理含义没变。" },
+        { "key": "C", "text": "精度会提高", "hint": "错误的标注不会提高精度，只会让后续计算用错椭球。" },
+        { "key": "D", "text": "坐标会自动变成米", "hint": "单位由 CRS 定义决定，改标签不会改变数值或单位。" }
+      ],
+      "answer": ["A"],
+      "explanation": "Beijing 1954 是局部基准（克拉索夫斯基椭球、局部定位），WGS84 是地心基准。二者之间需要七参数或格网改正的基准面转换；只改 SRID 属于「贴错标签」，位置会偏几十到上百米。",
+      "refs": [
+        { "title": "PROJ 坐标转换与基准面", "url": "https://proj.org/en/stable/usage/transformation.html" }
+      ]
+    },
+    {
+      "id": "gis-02-009",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "Web 墨卡托（EPSG:3857）的坐标范围大致是？",
+      "options": [
+        { "key": "A", "text": "±180 度", "hint": "度是地理坐标的单位；3857 的单位是米。" },
+        { "key": "B", "text": "约 ±20037508 米" },
+        { "key": "C", "text": "约 ±6378137 米", "hint": "6378137 m 是赤道半径（球半径），不是坐标范围。" },
+        { "key": "D", "text": "0 到 2^z × 256", "hint": "那是瓦片像素坐标范围，随 z 变化，不是地理坐标范围。" }
+      ],
+      "answer": ["B"],
+      "explanation": "3857 把经度 ±180° 映射为 ±πR ≈ ±20037508.34 m，纬度被裁剪到约 ±85.06°（对应 Web 地图的方形世界）。",
+      "refs": [
+        { "title": "EPSG:3857", "url": "https://epsg.io/3857" },
+        { "title": "MapTiler：Web 墨卡托坐标说明", "url": "https://docs.maptiler.com/google-maps-coordinates-tile-bounds-projection/" }
+      ]
+    },
+    {
+      "id": "gis-02-010",
+      "skill": "gis",
+      "module": "02",
+      "type": "short",
+      "difficulty": 1,
+      "stem": "EPSG:3857 的坐标单位是什么？（填一个词）",
+      "accepted": ["米", "meter", "meters", "metre", "metres", "m"],
+      "placeholder": "例如：米",
+      "explanation": "EPSG:3857 是投影坐标系，单位米；EPSG:4326 是地理坐标系，单位度。混用这两个单位是 Web GIS 最常见的错误。",
+      "refs": [
+        { "title": "EPSG:3857", "url": "https://epsg.io/3857" }
+      ]
+    },
+    {
+      "id": "gis-02-011",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "要计算一个跨多个纬度带的多边形面积，比较稳妥的做法是？",
+      "options": [
+        { "key": "A", "text": "直接在 4326 上用平面多边形面积公式，结果除以 111000²" },
+        { "key": "B", "text": "用等积投影后计算，或用椭球/球面测地线算法直接算" },
+        { "key": "C", "text": "在 3857 上算面积", "hint": "Web 墨卡托面积变形随纬度急剧放大（1/cos²φ），高纬区域面积被严重高估。" },
+        { "key": "D", "text": "把坐标乘以 1000 再算" }
+      ],
+      "answer": ["B"],
+      "explanation": "经纬度的「度」无法直接换算成面积（经度方向的实际长度随纬度变化）。正确做法：投影到等积投影（如 Albers/Albers 等积圆锥）后算，或使用椭球测地线算法（PostGIS 的 geography、Turf 的 geodesic 面积）。",
+      "refs": [
+        { "title": "PostGIS geography 类型说明", "url": "https://postgis.net/docs/using_postgis_dbmanagement.html" }
+      ]
+    },
+    {
+      "id": "gis-02-012",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "同一个点的 (116.4, 39.9) 在 EPSG:4326 与 EPSG:3857 中的坐标数值？",
+      "options": [
+        { "key": "A", "text": "完全不同：4326 是度，3857 是米" },
+        { "key": "B", "text": "相同，只是 SRID 不同", "hint": "投影会改变数值：3857 的 x ≈ 1.296×10⁷ m，y ≈ 4.85×10⁶ m。" },
+        { "key": "C", "text": "3857 会把两者交换顺序", "hint": "投影是坐标变换，不是轴交换；轴序是另一类问题。" },
+        { "key": "D", "text": "3857 的数值更小" }
+      ],
+      "answer": ["A"],
+      "explanation": "投影会改变数值本身。北京附近某点：4326 约为 (116.4, 39.9)（度），3857 约为 (12957586, 4852821)（米）。把米当度传给地图，位置会跑到南极附近。",
+      "refs": [
+        { "title": "EPSG:3857", "url": "https://epsg.io/3857" }
+      ]
+    },
+    {
+      "id": "gis-02-013",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "为什么绝大多数 Web 地图瓦片统一使用 EPSG:3857？",
+      "options": [
+        { "key": "A", "text": "因为它精确保持了面积", "hint": "它恰恰不保持面积；这是为了瓦片网格的工程便利。" },
+        { "key": "B", "text": "因为它能映射成全球一致的方形瓦片金字塔，z/x/y 换算简单" },
+        { "key": "C", "text": "因为它是中国的国家标准", "hint": "中国国家标准是 CGCS2000；3857 是行业事实标准，不是国标。" },
+        { "key": "D", "text": "因为它保持了大圆航线为直线", "hint": "大圆航线在墨卡托上是曲线；直线是恒向线（等角航线）。" }
+      ],
+      "answer": ["B"],
+      "explanation": "3857 把世界裁剪成 ±85.06° 的正方形并用球面墨卡托投影，使瓦片在 z 级上按 2^z 等分、整数索引，全球所有厂商共享同一套瓦片编号（XYZ/TMS）。",
+      "refs": [
+        { "title": "OSM：Slippy map tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" }
+      ]
+    },
+    {
+      "id": "gis-02-014",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "1° 纬度在地面上的距离大约是？",
+      "options": [
+        { "key": "A", "text": "约 111 km，且各地基本一致" },
+        { "key": "B", "text": "约 55 km", "hint": "55 km 接近 60° 处 1° 经度的长度；纬度方向几乎不变。" },
+        { "key": "C", "text": "随经度变化很大", "hint": "随经度变化大的是「1° 经度」对应的距离，不是纬度。" },
+        { "key": "D", "text": "约 1111 km" }
+      ],
+      "answer": ["A"],
+      "explanation": "子午线方向 1° 纬度约 110.6–111.7 km（受椭球扁率影响，随纬度略有变化）。而 1° 经度在赤道约 111.3 km，在 60°N 只有约 55.8 km。",
+      "refs": [
+        { "title": "EPSG:4326（WGS84 椭球参数）", "url": "https://epsg.io/4326" }
+      ]
+    },
+    {
+      "id": "gis-02-015",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "接口拿到一串坐标，只知道「是 Web 地图上的」，最稳妥的做法是？",
+      "options": [
+        { "key": "A", "text": "默认按 4326 处理，不做转换" },
+        { "key": "B", "text": "先确认数据的 CRS（例如数值量级：度 vs 米），再显式声明/转换" },
+        { "key": "C", "text": "按数值大小猜：小于 180 就当作 4326", "hint": "数值猜测会在跨 180° 或米制坐标上失效，不能作为唯一依据。" },
+        { "key": "D", "text": "统一除以 1000 后当米用" }
+      ],
+      "answer": ["B"],
+      "explanation": "CRS 是数据的语义，不能从坐标本身唯一推断。工程上要求接口显式返回 CRS（或 SRID），并按声明处理；量级（度 vs 米）只能作为辅助判断。",
+      "refs": [
+        { "title": "PROJ 文档：坐标参考系", "url": "https://proj.org/en/stable/usage/projections.html" }
+      ]
+    }
+  ]
+}
