@@ -1,0 +1,361 @@
+{
+  "skill": "gis",
+  "module": "01",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-01-001",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "在 GIS 计算与制图中，地球最常用的数学近似模型是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "半径 6371 km 的正球体",
+          "hint": "正球体只用于快速估算或 Web 地图可视化；它丢掉了赤道隆起，无法作为测量基准。"
+        },
+        {
+          "key": "B",
+          "text": "绕短轴旋转的椭球体（旋转椭球）"
+        },
+        {
+          "key": "C",
+          "text": "一个无限大的平面",
+          "hint": "平面是投影后的地图表现，不是地球的几何近似。"
+        },
+        {
+          "key": "D",
+          "text": "平均海平面",
+          "hint": "平均海平面是重力等位面（大地水准面）的近似，属于高程基准，不是椭球模型。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "真实地球沿赤道略鼓、两极略扁，扁率约 1/298.257。GIS 用旋转椭球作为几何近似（如 WGS84 椭球 a=6378137 m）。正球体只是进一步简化，用于 Web 墨卡托等对精度要求不高的场景。",
+      "refs": [
+        {
+          "title": "EPSG:4326 定义（WGS 84 椭球参数）",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "NGA WGS 84 说明",
+          "url": "https://earth-info.nga.mil/index.php?dir=wgs84"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-002",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "一个大地基准面（geodetic datum）由哪些要素确定？",
+      "options": [
+        {
+          "key": "A",
+          "text": "只需要参考椭球的长短半轴"
+        },
+        {
+          "key": "B",
+          "text": "参考椭球 + 椭球相对地球的定位与定向（含原点与起算数据）"
+        },
+        {
+          "key": "C",
+          "text": "只需要一个原点坐标"
+        },
+        {
+          "key": "D",
+          "text": "投影方式与中央经线",
+          "hint": "投影参数属于坐标参考系中的投影部分，不决定基准面本身。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "基准面 = 椭球尺寸/形状 + 椭球如何摆放在地球上。地心基准（如 WGS84）把椭球中心放在质心；局部基准（如 Beijing54、Xian80）把椭球贴合某个区域的大地水准面。同一经纬度在不同基准下指向的地面点可能相差上百米。",
+      "refs": [
+        {
+          "title": "EPSG 术语：geodetic datum",
+          "url": "https://epsg.org/glossary.html"
+        },
+        {
+          "title": "PROJ 文档：Geodesy 基础",
+          "url": "https://proj.org/en/stable/usage/transformation.html"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-003",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "WGS84 属于哪一类基准面？",
+      "options": [
+        {
+          "key": "A",
+          "text": "地心基准（geocentric）"
+        },
+        {
+          "key": "B",
+          "text": "局部基准（local / regional）",
+          "hint": "局部基准把椭球贴合某一区域的大地水准面，如 Beijing 1954、Xian 1980。WGS84 的椭球中心位于地球质心。"
+        },
+        {
+          "key": "C",
+          "text": "高程基准",
+          "hint": "高程基准关心的是重力等位面（大地水准面），不是经纬度定位的椭球摆放方式。"
+        },
+        {
+          "key": "D",
+          "text": "投影坐标系",
+          "hint": "投影是基准面之后的第二步：先有地理坐标系，再做投影。"
+        }
+      ],
+      "answer": ["A"],
+      "explanation": "WGS84 是地心基准，椭球中心与地球质心重合，因此 GPS 直接输出的经纬度就是以它为参考。局部基准则把椭球贴合某片区域，代价是离开该区域后偏差迅速变大。",
+      "refs": [
+        {
+          "title": "EPSG:4326 定义",
+          "url": "https://epsg.io/4326"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-004",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "为什么必须把球面坐标投影到平面上才能得到常规地图？",
+      "options": [
+        {
+          "key": "A",
+          "text": "为了让坐标精度更高",
+          "hint": "投影不会提高原始数据的精度，反而会引入变形。"
+        },
+        {
+          "key": "B",
+          "text": "因为球面不可展：无法在不拉伸、不撕裂的前提下铺平成平面",
+          "hint": ""
+        },
+        {
+          "key": "C",
+          "text": "为了让文件体积更小",
+          "hint": "体积与投影无关，取决于数据格式与精度。"
+        },
+        {
+          "key": "D",
+          "text": "因为屏幕像素是方的",
+          "hint": "像素形状不是根本原因；本质是球面的可展性（高斯曲率）。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "球面具有非零高斯曲率，不能等距展开成平面（想象剥橘子皮）。所以任何地图投影都必然产生某种变形，只能在等角、等积、等距之间取舍。",
+      "refs": [
+        {
+          "title": "USGS Map Projections 手册",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-005",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "墨卡托（Mercator）圆柱投影严格保持的是什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "面积",
+          "hint": "墨卡托面积变形极大：高纬度区域被显著放大。"
+        },
+        {
+          "key": "B",
+          "text": "角度（等角），小范围内形状不变"
+        },
+        {
+          "key": "C",
+          "text": "任意两点间的距离",
+          "hint": "只有特定方向（如沿经线、赤道附近）距离比例才接近 1；一般两点距离是变形的。"
+        },
+        {
+          "key": "D",
+          "text": "所有方位角",
+          "hint": "方位保持是方位投影（如 Web 常用的极地方位投影）的性质，不是墨卡托。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "墨卡托是等角投影：任意两条线的夹角在图上保持不变，因此小范围形状相似、恒向线（等角航线）是直线——这正是它适合航海导航的原因，代价是面积随纬度急剧放大。",
+      "refs": [
+        {
+          "title": "EPSG:3395（World Mercator）",
+          "url": "https://epsg.io/3395"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-006",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "Web 墨卡托（EPSG:3857）在数学上是怎么处理的？",
+      "options": [
+        {
+          "key": "A",
+          "text": "直接套用 WGS84 椭球公式做墨卡托投影"
+        },
+        {
+          "key": "B",
+          "text": "把地球当作正球体（半径取 6378137 m）再做墨卡托投影"
+        },
+        {
+          "key": "C",
+          "text": "使用 CGCS2000 椭球"
+        },
+        {
+          "key": "D",
+          "text": "使用等积圆锥投影",
+          "hint": "Web 地图用的是圆柱投影族，不是圆锥，也不是等积。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "EPSG:3857 采用球面墨卡托：半径直接取 WGS84 椭球长半轴 6378137 m，忽略扁率。好处是与瓦片金字塔的整数坐标换算简单、全球一致；代价是相对椭球墨卡托有几十米级的偏差（它不是严格的 EPSG:3395）。",
+      "refs": [
+        {
+          "title": "EPSG:3857 定义",
+          "url": "https://epsg.io/3857"
+        },
+        {
+          "title": "MapTiler：Web Mercator 坐标与瓦片说明",
+          "url": "https://docs.maptiler.com/google-maps-coordinates-tile-bounds-projection/"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-007",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "在 Web 墨卡托地图上，格陵兰看起来比非洲还大，最直接的原因是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "经线间距随纬度升高按 1/cosφ 增大，面积随之被放大"
+        },
+        {
+          "key": "B",
+          "text": "格陵兰的数据采集精度更高",
+          "hint": "视觉放大与数据精度无关。"
+        },
+        {
+          "key": "C",
+          "text": "投影保持了面积",
+          "hint": "保持面积的是等积投影；Web 墨卡托恰恰不保持面积。"
+        },
+        {
+          "key": "D",
+          "text": "因为纬度每度对应的距离在赤道最小",
+          "hint": "地面上纬度的实际间距随纬度增加还会略增，但地图上的拉伸远大于此。"
+        }
+      ],
+      "answer": ["A"],
+      "explanation": "球面墨卡托的 y 坐标为 R·ln(tan(π/4+φ/2))，纬度越高，同样的纬度差在图上被拉得越长；经线方向的放大率为 1/cosφ，两方向同倍放大以保持等角，于是面积按 1/cos²φ 放大。φ=70° 时面积放大约 8.5 倍。",
+      "refs": [
+        {
+          "title": "EPSG:3857 定义",
+          "url": "https://epsg.io/3857"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-008",
+      "skill": "gis",
+      "module": "01",
+      "type": "multi",
+      "difficulty": 2,
+      "stem": "按变形性质，地图投影可以分成哪几类？（多选，选出全部正确项）",
+      "options": [
+        {
+          "key": "A",
+          "text": "等角投影（conformal）"
+        },
+        {
+          "key": "B",
+          "text": "等积投影（equal-area）"
+        },
+        {
+          "key": "C",
+          "text": "等距/任意（equidistant / 折衷）"
+        },
+        {
+          "key": "D",
+          "text": "等容投影（保持体积）",
+          "hint": "地图是二维的，不存在三维“保持体积”的投影分类。"
+        }
+      ],
+      "answer": ["A", "B", "C"],
+      "explanation": "三种基本取向：等角（保角度，面积变形）、等积（保面积，形状变形）、等距/折衷（在某方向或综合指标上折中）。三者互斥，不可能同时成立。",
+      "refs": [
+        {
+          "title": "USGS Map Projections 手册",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-009",
+      "skill": "gis",
+      "module": "01",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "中国现行国家大地坐标系是哪一个？",
+      "options": [
+        {
+          "key": "A",
+          "text": "WGS84"
+        },
+        {
+          "key": "B",
+          "text": "CGCS2000（2000 国家大地坐标系）"
+        },
+        {
+          "key": "C",
+          "text": "Beijing 1954"
+        },
+        {
+          "key": "D",
+          "text": "Xian 1980"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "我国自 2008 年起启用 CGCS2000，属地心坐标系；它与 WGS84 在定义层面接近，实现差异通常在厘米级，但两者仍是不同基准，精度要求高时不能随意互当。Beijing54/Xian80 是历史坐标系。",
+      "refs": [
+        {
+          "title": "EPSG:4490（CGCS2000 地理坐标系）",
+          "url": "https://epsg.io/4490"
+        }
+      ]
+    },
+    {
+      "id": "gis-01-010",
+      "skill": "gis",
+      "module": "01",
+      "type": "short",
+      "difficulty": 1,
+      "stem": "EPSG:4326 的坐标单位是什么？（填一个词即可）",
+      "accepted": ["度", "degree", "degrees", "deg", "°"],
+      "placeholder": "例如：度",
+      "explanation": "EPSG:4326 是 WGS84 地理坐标系，坐标是经纬度，单位为度（degree），不是米。而 EPSG:3857 的坐标单位是米——混用这两个 CRS 是 Web GIS 最常见的错误来源之一。",
+      "refs": [
+        {
+          "title": "EPSG:4326 定义（单位 degree）",
+          "url": "https://epsg.io/4326"
+        }
+      ]
+    }
+  ]
+}

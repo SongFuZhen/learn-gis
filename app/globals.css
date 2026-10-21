@@ -1,0 +1,331 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   learn-gis 设计令牌（沿用 ink_template 的命名与写法）
+   墨 #20252B · 纸 #FFFDF8 · 金 #C8953E · 青黛 #3E6870
+   ============================================================ */
+
+:root {
+  /* Background - 宣纸暖白 */
+  --background: 40 20% 96%;
+  --background-subtle: 40 18% 94%;
+  --background-muted: 40 16% 92%;
+
+  /* Surface */
+  --surface: 0 0% 100%;
+  --surface-raised: 0 0% 100%;
+  --surface-muted: 40 15% 96%;
+  --surface-hover: 40 14% 94%;
+
+  /* Text - 墨色系 */
+  --foreground: 210 15% 15%;
+  --foreground-secondary: 210 12% 30%;
+  --foreground-tertiary: 210 8% 46%;
+  --foreground-muted: 210 6% 64%;
+  --foreground-disabled: 210 4% 78%;
+  --foreground-inverted: 0 0% 100%;
+
+  /* Shadcn semantic */
+  --card: 0 0% 100%;
+  --card-foreground: 210 15% 15%;
+  --primary: 210 15% 15%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 40 15% 92%;
+  --secondary-foreground: 210 12% 23%;
+  --muted: 40 12% 92%;
+  --muted-foreground: 210 8% 46%;
+
+  /* Accent - 东方金 */
+  --accent: 38 55% 52%;
+  --accent-hover: 38 50% 44%;
+  --accent-foreground: 0 0% 100%;
+
+  /* Status */
+  --success: 140 28% 40%;
+  --success-light: 140 30% 93%;
+  --warning: 36 58% 46%;
+  --warning-light: 36 60% 95%;
+  --destructive: 4 40% 50%;
+  --destructive-light: 4 45% 94%;
+  --info: 195 35% 43%;
+  --info-light: 195 35% 93%;
+
+  /* Border */
+  --border: 40 15% 88%;
+  --border-subtle: 40 14% 91%;
+  --border-strong: 40 12% 84%;
+
+  --font-sans: "Noto Sans SC", "Microsoft YaHei", "PingFang SC",
+    "Hiragino Sans GB", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.dark {
+  --background: 60 3% 9%;
+  --background-subtle: 60 3% 11%;
+  --background-muted: 60 3% 13%;
+
+  --surface: 60 3% 13%;
+  --surface-raised: 60 3% 15%;
+  --surface-muted: 60 3% 11%;
+  --surface-hover: 60 3% 17%;
+
+  --foreground: 40 12% 94%;
+  --foreground-secondary: 40 10% 78%;
+  --foreground-tertiary: 50 4% 59%;
+  --foreground-muted: 50 3% 44%;
+  --foreground-disabled: 50 3% 31%;
+  --foreground-inverted: 60 3% 9%;
+
+  --card: 60 3% 13%;
+  --card-foreground: 40 12% 94%;
+  --primary: 40 12% 94%;
+  --primary-foreground: 60 3% 9%;
+  --secondary: 60 3% 17%;
+  --secondary-foreground: 40 10% 90%;
+  --muted: 60 3% 17%;
+  --muted-foreground: 50 5% 58%;
+
+  --accent: 38 58% 60%;
+  --accent-hover: 38 60% 67%;
+  --accent-foreground: 60 3% 9%;
+
+  --success: 140 30% 46%;
+  --success-light: 140 25% 15%;
+  --warning: 36 58% 52%;
+  --warning-light: 36 40% 15%;
+  --destructive: 4 42% 55%;
+  --destructive-light: 4 30% 15%;
+  --info: 195 35% 50%;
+  --info-light: 195 25% 15%;
+
+  --border: 60 4% 21%;
+  --border-subtle: 60 4% 17%;
+  --border-strong: 60 4% 28%;
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* 极轻的宣纸暖调，避免大块纯白/纯黑 */
+  background-image:
+    radial-gradient(60rem 40rem at 50% -12rem, hsl(var(--accent) / 0.07), transparent 70%),
+    radial-gradient(40rem 30rem at 100% 0%, hsl(var(--info) / 0.05), transparent 60%);
+  background-repeat: no-repeat;
+}
+
+/* 移动端点击不要有灰蓝色高亮，统一用按钮态反馈 */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 2px solid hsl(var(--accent));
+  outline-offset: 2px;
+}
+
+::selection {
+  background: hsl(var(--accent) / 0.25);
+}
+
+@layer utilities {
+  /* 移动端安全区：底部 tab 与粘性操作条共用 */
+  .pb-safe {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px));
+  }
+  .mb-safe {
+    margin-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  /* 底部固定元素的下边距（tab bar 高度 + 安全区） */
+  .bottom-above-tabs {
+    bottom: calc(3.5rem + env(safe-area-inset-bottom, 0px));
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* ============================================================
+   讲义正文（MDX）：移动优先，16px 起，行高 1.8
+   ============================================================ */
+.prose-lesson {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: hsl(var(--foreground-secondary));
+}
+
+.prose-lesson > * + * {
+  margin-top: 0.9rem;
+}
+
+.prose-lesson h2 {
+  position: relative;
+  margin-top: 2.25rem;
+  padding-left: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.5;
+  color: hsl(var(--foreground));
+}
+
+.prose-lesson h2::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.28em;
+  bottom: 0.28em;
+  width: 3px;
+  border-radius: 2px;
+  background: hsl(var(--accent));
+}
+
+.prose-lesson h3 {
+  margin-top: 1.6rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.prose-lesson p {
+  margin-top: 0;
+}
+
+.prose-lesson strong {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.prose-lesson ul,
+.prose-lesson ol {
+  margin-left: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.prose-lesson ul {
+  list-style: disc;
+}
+
+.prose-lesson ol {
+  list-style: decimal;
+}
+
+.prose-lesson li::marker {
+  color: hsl(var(--accent));
+}
+
+.prose-lesson blockquote {
+  margin: 1.25rem 0;
+  padding: 0.75rem 0.9rem;
+  border-left: 3px solid hsl(var(--accent) / 0.5);
+  border-radius: 0 6px 6px 0;
+  background: hsl(var(--accent) / 0.08);
+  color: hsl(var(--foreground-secondary));
+}
+
+.prose-lesson blockquote p {
+  margin: 0;
+}
+
+.prose-lesson code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: hsl(var(--surface-muted));
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+  word-break: break-word;
+}
+
+.prose-lesson pre {
+  margin: 1.25rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+  background: hsl(var(--surface-muted));
+  overflow-x: auto;
+  font-size: 0.8125rem;
+  line-height: 1.7;
+}
+
+.prose-lesson pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+}
+
+.prose-lesson a {
+  color: hsl(var(--info));
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  word-break: break-word;
+}
+
+/* 表格：移动端可横向滚动，不撑破页面 */
+.prose-lesson table {
+  display: block;
+  width: 100%;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
+}
+
+.prose-lesson thead {
+  background: hsl(var(--surface-muted));
+}
+
+.prose-lesson th,
+.prose-lesson td {
+  padding: 0.55rem 0.7rem;
+  text-align: left;
+  white-space: normal;
+  vertical-align: top;
+  word-break: break-word;
+}
+
+.prose-lesson th {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.prose-lesson tr + tr td {
+  border-top: 1px solid hsl(var(--border-subtle));
+}
+
+.prose-lesson hr {
+  margin: 2rem 0;
+  border: 0;
+  border-top: 1px solid hsl(var(--border));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
