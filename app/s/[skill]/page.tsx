@@ -11,6 +11,17 @@ export function generateStaticParams() {
   return SKILLS.map((skill) => ({ skill: skill.id }));
 }
 
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ skill: string }>;
+}) {
+  const { skill: skillId } = await params;
+  const skill = getSkill(skillId);
+  if (!skill) return {};
+  return { title: skill.title, description: skill.description };
+}
+
 export default async function SkillPage({
   params,
 }: {
@@ -24,7 +35,7 @@ export default async function SkillPage({
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand">
+      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
         Skill pack · {skillId}
       </p>
       <h1 className="mt-2 text-[26px] font-semibold tracking-[-0.02em] sm:text-[32px] lg:text-[36px]">

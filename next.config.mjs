@@ -3,8 +3,29 @@ import createMDX from "@next/mdx";
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false,
   // 允许 app/ 与 content/ 下直接写 .mdx 讲义
   pageExtensions: ["ts", "tsx", "mdx"],
+
+  async headers() {
+    return [
+      {
+        source: "/:path*",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "DENY" },
+          {
+            key: "Referrer-Policy",
+            value: "strict-origin-when-cross-origin",
+          },
+          {
+            key: "Permissions-Policy",
+            value: "camera=(), microphone=(), geolocation=(self)",
+          },
+        ],
+      },
+    ];
+  },
 };
 
 const withMDX = createMDX({

@@ -29,7 +29,7 @@ export default function ResultSummary({
   return (
     <section className="mt-4">
       <div className="rounded-md border border-border bg-card p-5 shadow-card sm:p-6">
-        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand">
+        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
           测验结果
         </p>
         <h2 className="mt-2 text-[20px] font-semibold leading-snug tracking-tight sm:text-[24px]">

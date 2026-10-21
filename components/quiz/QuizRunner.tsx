@@ -34,7 +34,8 @@ export default function QuizRunner({
   const record = currentRecord(state);
 
   return (
-    <div className="w-full px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
+    <div className="flex min-h-[calc(100dvh-3.5rem)] w-full flex-col px-4 py-5 sm:px-6 sm:py-8 lg:min-h-0 lg:px-8">
+      <h1 className="sr-only">{moduleTitle} · 测验</h1>
       <div className="flex items-center justify-between gap-3">
         <Link
           href={`/s/${skill}/${moduleSlug}`}

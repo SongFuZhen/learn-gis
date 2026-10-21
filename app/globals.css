@@ -11,6 +11,7 @@
   /* Brand */
   --brand-primary: 244 100% 68%;   /* #625BFF */
   --brand-hover: 244 85% 61%;      /* #5148ED */
+  --brand-ink: 244 85% 55%;        /* 小字号文本用，对比度 5.6:1 */
   --brand-violet: 270 100% 65%;    /* #8B4DFF */
   --brand-cyan: 188 88% 58%;       /* #35CFF2 */
   --brand-gold: 40 100% 69%;       /* #FFCA61 */
@@ -35,8 +36,8 @@
   /* Text */
   --foreground: 233 40% 15%;       /* #171A35 */
   --foreground-secondary: 228 18% 42%; /* #59617E */
-  --foreground-tertiary: 228 16% 58%;  /* #8188A5 */
-  --foreground-muted: 228 14% 69%;
+  --foreground-tertiary: 228 17% 43%;  /* #5C6482 */
+  --foreground-muted: 228 15% 47%;    /* #67708F */
   --foreground-disabled: 228 22% 83%;
   --foreground-inverted: 0 0% 100%;
 
@@ -54,11 +55,11 @@
 
   --success: 162 84% 27%;
   --success-light: 162 68% 95%;
-  --warning: 32 88% 36%;
+  --warning: 32 92% 30%;
   --warning-light: 40 100% 94%;
-  --destructive: 347 74% 52%;
+  --destructive: 347 74% 48%;
   --destructive-light: 348 100% 96%;
-  --info: 224 100% 61%;
+  --info: 224 100% 50%;
   --info-light: 224 100% 96%;
 
   /* Border */
@@ -95,9 +96,9 @@
   --card-foreground: 228 60% 96%;
 
   --foreground: 228 60% 96%;       /* #F2F4FF */
-  --foreground-secondary: 228 30% 78%;
-  --foreground-tertiary: 228 20% 64%;
-  --foreground-muted: 228 18% 52%;
+  --foreground-secondary: 228 28% 76%;
+  --foreground-tertiary: 228 22% 68%;
+  --foreground-muted: 228 20% 62%;
   --foreground-disabled: 228 16% 38%;
   --foreground-inverted: 233 40% 7%;
 
@@ -112,6 +113,7 @@
   --accent-hover: 244 100% 80%;
   --accent-foreground: 233 40% 9%;
 
+  --brand-ink: 244 100% 78%;
   --brand-soft: 244 40% 18%;
 
   --success: 162 62% 62%;
@@ -120,7 +122,7 @@
   --warning-light: 32 40% 15%;
   --destructive: 347 80% 70%;
   --destructive-light: 347 35% 16%;
-  --info: 224 100% 74%;
+  --info: 224 100% 78%;
   --info-light: 224 40% 17%;
 
   --border: 231 26% 20%;

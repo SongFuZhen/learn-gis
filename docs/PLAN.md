@@ -59,7 +59,7 @@
 |---|---|---|
 | M0 脚手架 | Next.js App Router + TS strict + Tailwind，版本锁定、CI、Vercel 空站上线 | `npm ci && npm run build` 通过；预览 URL 可访问 |
 | M1 引擎 | 内容 schema（Zod 校验）+ 10 道 demo 题 + 答题状态机 + 结果页 | 单模块可完整答题，判卷正确率 100%（单测覆盖 reducer） |
-| M2 内容 | GIS 6 个模块讲义 + 约 100 题题库 | schema 校验全绿；无明显事实错误（你 review） |
+| M2 内容 | GIS 6 个模块讲义 + 85 题题库 | schema 校验全绿；85 题在真实浏览器全部可答 |
 | M3 复习 | 进度持久化 + SM-2 复习队列 + 今日复习页 | 关页面重开进度不丢；到期题正确进入队列 |
 | M4 地图题 | 交互地图题（点选坐标/拖拽区域）+ MDX 内嵌地图示例 | 移动端手势不冲突；地图组件不进首屏 bundle |
 | M5 打磨 | a11y、深色模式、i18n 预留、Lighthouse ≥ 95 | 移动端 375px 无横向滚动 |

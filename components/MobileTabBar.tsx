@@ -31,7 +31,7 @@ export default function MobileTabBar() {
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "relative flex min-h-[4rem] flex-col items-center justify-center gap-1 text-[11px] transition-colors",
-                    active ? "font-medium text-brand" : "text-foreground-muted",
+                    active ? "font-medium text-brand-ink" : "text-foreground-muted",
                   )}
                 >
                   {active && (

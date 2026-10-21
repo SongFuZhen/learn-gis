@@ -18,6 +18,7 @@ const config: Config = {
           cyan: "hsl(var(--brand-cyan) / <alpha-value>)",
           gold: "hsl(var(--brand-gold) / <alpha-value>)",
           soft: "hsl(var(--brand-soft) / <alpha-value>)",
+          ink: "hsl(var(--brand-ink) / <alpha-value>)",
         },
         background: {
           DEFAULT: "hsl(var(--background) / <alpha-value>)",

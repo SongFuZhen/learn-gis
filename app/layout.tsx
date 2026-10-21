@@ -66,17 +66,26 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <a
+            href="#main"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:shadow-card"
+          >
+            跳到主要内容
+          </a>
           <div className="flex min-h-screen">
             <Sidebar />
             <div className="flex min-w-0 flex-1 flex-col">
               <SiteHeader />
-              <main className="flex-1">{children}</main>
+              <main id="main" tabIndex={-1} className="flex-1 outline-none">
+                {children}
+              </main>
               <SiteFooter />
               <MobileTabBar />
             </div>
           </div>
         </ThemeProvider>
-        <Analytics />
+        {/* 本地 `next start` 没有 Vercel Insights 端点，仅在 Vercel 环境挂载 */}
+        {process.env.VERCEL ? <Analytics /> : null}
       </body>
     </html>
   );

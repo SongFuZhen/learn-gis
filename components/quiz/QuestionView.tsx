@@ -81,7 +81,7 @@ export default function QuestionView({
     record && record.response.kind === "choice" ? record.response.selected : selected;
 
   return (
-    <div>
+    <div className="flex flex-1 flex-col">
       <section className="mt-4 rounded-md border border-border bg-card p-5 shadow-card sm:p-6">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-foreground-tertiary">
           <span className="rounded-sm bg-surface-muted px-1.5 py-0.5 font-mono text-foreground-tertiary">
@@ -147,7 +147,7 @@ export default function QuestionView({
       </section>
 
       {/* 移动端：提交/下一题固定在视口底部，拇指可达 */}
-      <div className="sticky bottom-0 z-30 mt-4 -mx-4 border-t border-border bg-background/92 px-4 py-3 backdrop-blur lg:static lg:mx-0 lg:mt-5 lg:border-0 lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-none">
+      <div className="sticky bottom-0 z-30 mt-auto -mx-4 border-t border-border bg-background/90 px-4 py-3 backdrop-blur lg:static lg:mx-0 lg:mt-5 lg:border-0 lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-none">
         <div className="flex items-center gap-3">
           <p className="hidden flex-1 text-[12px] text-foreground-muted sm:block">
             {answered

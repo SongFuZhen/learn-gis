@@ -13,6 +13,8 @@ const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "06-spatial-postgis": () => import("./06-spatial-postgis.mdx"),
 };
 
+export const LESSON_FILES = Object.keys(LESSONS);
+
 export async function loadLesson(
   file: string,
 ): Promise<ComponentType | null> {

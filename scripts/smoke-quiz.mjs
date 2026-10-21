@@ -59,6 +59,7 @@ for (const file of files) {
   console.log(
     `${failed === 0 ? "✓" : "✗"} 第 ${bank.module} 章 · ${bank.questions.length} 题 · ${answerLine ?? ""} · console 错误 ${errors.length}`,
   );
+  if (errors.length > 0) console.log("  errors:", errors.slice(0, 3));
   await page.close();
 }
 

@@ -30,7 +30,7 @@ export default function HomePage() {
           className="pointer-events-none absolute -right-16 -top-24 h-64 w-64 rounded-full bg-brand-gradient opacity-[0.14] blur-2xl"
         />
         <div className="relative">
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand">
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
             Skill pack · GIS
           </p>
           <h1 className="mt-3 text-[28px] font-semibold leading-[1.2] tracking-[-0.02em] sm:text-4xl lg:text-[40px]">

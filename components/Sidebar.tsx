@@ -11,7 +11,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 hidden h-screen w-sidebar shrink-0 flex-col border-r border-border bg-card px-3 py-5 lg:flex">
+    <aside className="sticky top-0 hidden h-dvh w-sidebar shrink-0 flex-col border-r border-border bg-card px-3 py-5 lg:flex">
       <Link href="/" className="flex items-center gap-2.5 px-2">
         <span className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] bg-brand-gradient text-sm font-semibold text-white shadow-brand">
           G
