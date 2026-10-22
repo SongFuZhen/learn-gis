@@ -62,9 +62,20 @@ export const shortQuestionSchema = z.object({
   placeholder: z.string().optional(),
 });
 
+export const mapQuestionSchema = z.object({
+  ...baseQuestionShape,
+  type: z.literal("map"),
+  target: z.object({
+    lat: z.number().min(-90).max(90),
+    lng: z.number().min(-180).max(180),
+  }),
+  toleranceKm: z.number().positive().max(20000),
+});
+
 export const questionSchema = z.union([
   choiceQuestionSchema,
   shortQuestionSchema,
+  mapQuestionSchema,
 ]);
 
 export type ChoiceQuestion = z.infer<typeof choiceQuestionSchema>;

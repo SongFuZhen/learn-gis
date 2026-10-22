@@ -565,6 +565,23 @@
           "url": "https://pubs.usgs.gov/publication/pp1395"
         }
       ]
+    },
+    {
+      "id": "gis-00-016",
+      "skill": "gis",
+      "module": "00",
+      "type": "map",
+      "difficulty": 2,
+      "stem": "在地图上点击赤道与本初子午线的交点（0°N, 0°E）。",
+      "target": { "lat": 0, "lng": 0 },
+      "toleranceKm": 1800,
+      "explanation": "赤道是纬度 0°，本初子午线是经度 0°，两者交于 (0°, 0°)，位于大西洋几内亚湾外海。地图题按点击点到目标点的球面距离判分，容差内即算对。",
+      "refs": [
+        {
+          "title": "经纬度与赤道（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Equator"
+        }
+      ]
     }
   ]
 }

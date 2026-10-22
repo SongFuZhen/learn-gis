@@ -1,5 +1,6 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
+import EmbedMap from "@/components/EmbedMap";
 
 /**
  * MDX 全局组件映射（@next/mdx App Router 约定文件）。
@@ -7,6 +8,8 @@ import Link from "next/link";
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
+    // 讲义里可写 <MapExample lat={39.9} lng={116.4} label="北京" /> 内嵌地图
+    MapExample: EmbedMap,
     a: ({ href = "", ...props }) => {
       const isInternal = href.startsWith("/");
       if (isInternal) {
