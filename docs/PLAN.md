@@ -64,7 +64,7 @@
 | M4 地图题 | 交互地图题（点选坐标/拖拽区域）+ MDX 内嵌地图示例 | 移动端手势不冲突；地图组件不进首屏 bundle |
 | M5 打磨 | a11y、深色模式、i18n 预留、Lighthouse ≥ 95 | 移动端 375px 无横向滚动 |
 
-进度：**M0 / M1 / M2 已交付**（7 章讲义 + 100 题）；UI 采用品牌蓝紫视觉体系 + 224px 桌面侧栏 + 移动端底部 tab（见 `docs/DESIGN.md`）。
+进度：**M0 / M1 / M2 / M3 已交付**（7 章讲义 + 100 题 + 进度持久化与 SM-2 复习队列）；UI 采用品牌蓝紫视觉体系 + 224px 桌面侧栏 + 移动端底部 tab（见 `docs/DESIGN.md`）。
 
 ---
 
@@ -91,7 +91,7 @@
 |---|---|---|
 | 1 | 产品形态 | **A 题库驱动**；`QuestionSource` 抽象保留，v2 再加 LLM |
 | 2 | 内容语言 | **中文为主**（题目/讲义/UI 文案统一中文） |
-| 3 | 进度存储 | **一步到位 Neon + Drizzle**，独立 schema（`pgSchema("gis")`，不用 `public`），需 `DATABASE_URL`；同时保留 `ProgressStore` 接口以便本地降级 |
+| 3 | 进度存储 | **一步到位 Neon + Drizzle**，独立 schema（`pgSchema("gis")`，不用 `public`），需 `DATABASE_URL`；v1 直连 drizzle，无 `ProgressStore` 抽象（缺 `DATABASE_URL` 时构建仍通过） |
 | 4 | 讲义格式 | **MDX**（`@next/mdx` + `@mdx-js/loader`，精确版本锁） |
 | 5 | 题库 | **由我编排**：按章节分阶段产出，从 0 到能独立开发项目；先出试点 10 题 → review → 批量生产 |
 | 6 | 本地环境 | Git Bash 已装（`D:\Softs\Git\bin`）、Node 22.22.0 / npm 10.9.4 可用，脚手架由我执行 |

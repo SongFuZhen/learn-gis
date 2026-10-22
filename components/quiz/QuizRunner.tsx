@@ -9,6 +9,7 @@ import {
   sessionReducer,
   summarize,
 } from "@/lib/quiz/reducer";
+import { grade } from "@/lib/quiz/grade";
 import type { Question } from "@/lib/quiz/types";
 import ProgressBar from "./ProgressBar";
 import QuestionView from "./QuestionView";
@@ -54,6 +55,32 @@ async function submitModuleQuizProgress(moduleSlug: string, result: QuizResult) 
   }
 }
 
+/** 每题答完：记录对错，喂给复习队列（wrong_answers 按 user+question upsert） */
+async function submitAnswerProgress(moduleSlug: string, questionId: string, isCorrect: boolean) {
+  try {
+    await fetch("/api/progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "submit-answer", moduleSlug, questionId, isCorrect }),
+    });
+  } catch {
+    // 静默失败，不干扰答题体验
+  }
+}
+
+/** 复习模式答题：推进 SM-2 排期（连续答对足够多次后毕业移出队列） */
+async function submitReviewAnswer(questionId: string, isCorrect: boolean) {
+  try {
+    await fetch("/api/progress", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ type: "review-answer", questionId, isCorrect }),
+    });
+  } catch {
+    // 静默失败，不干扰答题体验
+  }
+}
+
 type Props = {
   skill: string;
   moduleSlug: string;
@@ -72,6 +99,8 @@ type Props = {
   resultLinks?: { href: string; label: string }[];
   /** 考试模式：每日一考 / 综合考试；不传则为章节测验 */
   examMode?: "daily" | "mock";
+  /** 复习模式：每题推进 SM-2 排期，完成时不再写考试/章节记录 */
+  reviewMode?: boolean;
 };
 
 export default function QuizRunner({
@@ -86,6 +115,7 @@ export default function QuizRunner({
   passedHint,
   resultLinks,
   examMode,
+  reviewMode,
 }: Props) {
   const [state, dispatch] = useReducer(sessionReducer, questions, createSession);
   const result = summarize(state);
@@ -93,16 +123,16 @@ export default function QuizRunner({
   const question = currentQuestion(state);
   const record = currentRecord(state);
 
-  // 完成时上报：考试卷写考试记录；章节测验只更新章节掌握度
+  // 完成时上报：考试卷写考试记录；章节测验只更新章节掌握度；复习模式不上报
   useEffect(() => {
-    if (!finished) return;
+    if (!finished || reviewMode) return;
     const payload = { correct: result.correct, total: result.answered, skill };
     if (examMode) {
       void submitExamProgress(examMode, payload);
     } else if (moduleSlug) {
       void submitModuleQuizProgress(moduleSlug, payload);
     }
-  }, [finished, examMode, result.correct, result.answered, skill, moduleSlug]);
+  }, [finished, reviewMode, examMode, result.correct, result.answered, skill, moduleSlug]);
 
   return (
     <div className="flex min-h-[calc(100dvh-3.5rem)] w-full flex-col px-4 py-5 sm:px-6 sm:py-8 lg:min-h-0 lg:px-8">
@@ -148,7 +178,15 @@ export default function QuizRunner({
           question={question}
           record={record}
           isLast={state.index === state.questions.length - 1}
-          onSubmit={(response) => dispatch({ type: "submit", response })}
+          onSubmit={(response) => {
+            const correct = grade(question, response).correct;
+            if (reviewMode) {
+              void submitReviewAnswer(question.id, correct);
+            } else {
+              void submitAnswerProgress(question.module, question.id, correct);
+            }
+            dispatch({ type: "submit", response });
+          }}
           onNext={() => dispatch({ type: "next" })}
         />
       )}

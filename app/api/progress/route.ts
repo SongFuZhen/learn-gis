@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { and, desc, eq, isNull } from "drizzle-orm";
+import { and, asc, desc, eq, isNull, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { examSessions, moduleProgress, users, wrongAnswers } from "@/db/schema";
+import { INITIAL_CARD, schedule, type CardState } from "@/lib/quiz/schedule";
 
 export const dynamic = "force-dynamic";
 
@@ -96,8 +97,14 @@ export async function GET() {
     db
       .select()
       .from(wrongAnswers)
-      .where(and(eq(wrongAnswers.userId, userId), isNull(wrongAnswers.clearedAt)))
-      .orderBy(desc(wrongAnswers.wrongAt))
+      .where(
+        and(
+          eq(wrongAnswers.userId, userId),
+          isNull(wrongAnswers.clearedAt),
+          or(isNull(wrongAnswers.dueAt), lte(wrongAnswers.dueAt, new Date())),
+        ),
+      )
+      .orderBy(asc(wrongAnswers.dueAt))
       .limit(REVIEW_QUEUE_LIMIT),
     db
       .select()
@@ -153,10 +160,17 @@ const moduleQuizCompleteSchema = z
     path: ["correct"],
   });
 
+const reviewAnswerSchema = z.object({
+  type: z.literal("review-answer"),
+  questionId: z.string().min(1),
+  isCorrect: z.boolean(),
+});
+
 const bodySchema = z.discriminatedUnion("type", [
   submitAnswerSchema,
   examCompleteSchema,
   moduleQuizCompleteSchema,
+  reviewAnswerSchema,
 ]);
 
 export async function POST(request: Request) {
@@ -221,6 +235,47 @@ export async function POST(request: Request) {
       });
 
     return NextResponse.json({ ok: true, mastery });
+  }
+
+  if (body.type === "review-answer") {
+    const { questionId, isCorrect } = body;
+    const [row] = await db
+      .select()
+      .from(wrongAnswers)
+      .where(
+        and(
+          eq(wrongAnswers.userId, userId),
+          eq(wrongAnswers.questionId, questionId),
+        ),
+      )
+      .limit(1);
+
+    const prev: CardState = row
+      ? { ease: row.ease, intervalDays: row.intervalDays, reps: row.reps, lapses: row.lapses }
+      : INITIAL_CARD;
+    const next = schedule(prev, isCorrect);
+    const dueAt = new Date(Date.now() + next.dueInDays * 24 * 60 * 60 * 1000);
+    // 连续答对 3 次（reps>=3）视为毕业，移出队列
+    const graduated = isCorrect && next.reps >= 3;
+
+    await db
+      .update(wrongAnswers)
+      .set({
+        ease: next.ease,
+        intervalDays: next.intervalDays,
+        reps: next.reps,
+        lapses: next.lapses,
+        dueAt,
+        clearedAt: graduated ? new Date() : null,
+      })
+      .where(
+        and(
+          eq(wrongAnswers.userId, userId),
+          eq(wrongAnswers.questionId, questionId),
+        ),
+      );
+
+    return NextResponse.json({ ok: true, dueInDays: next.dueInDays, graduated });
   }
 
   // module-quiz-complete

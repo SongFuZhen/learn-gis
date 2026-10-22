@@ -42,7 +42,14 @@ export const wrongAnswers = gis.table("wrong_answers", {
     .references(() => users.id, { onDelete: "cascade" }),
   questionId: text("question_id").notNull(),
   moduleSlug: text("module_slug").notNull(),
-  /** 答对（复习）后标记消除；null = 仍在复习队列 */
+  /** SM-2 卡状态 */
+  ease: real("ease").notNull().default(2.5),
+  intervalDays: integer("interval_days").notNull().default(0),
+  reps: integer("reps").notNull().default(0),
+  lapses: integer("lapses").notNull().default(0),
+  /** 下次复习到期时间；null = 立即到期（新错或刚重置） */
+  dueAt: timestamp("due_at"),
+  /** 答对足够多次后毕业，移出队列；null = 仍在队列 */
   clearedAt: timestamp("cleared_at"),
   wrongAt: timestamp("wrong_at").notNull().defaultNow(),
 }, (table) => [
