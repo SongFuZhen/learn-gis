@@ -12,7 +12,7 @@
  └─ Next.js 16 App Router（RSC 为主，答题交互为 client component）
      ├─ 内容层  content/**（JSON 题库 + MDX 讲义）→ 构建期 Zod 校验
      ├─ 引擎层  lib/quiz/*（纯 TS：出题/判卷/SM-2，不 import React）
-     ├─ 存储层  ProgressStore 接口 → NeonAdapter（主）+ LocalAdapter（无 DATABASE_URL 时降级）
+     ├─ 存储层  app/api/progress（route handler）→ drizzle（db/index.ts，gis schema）
      └─ 展示层  app/** + components/**（Tailwind 设计令牌）
 部署 Vercel（Node 22.x），内容路由可静态生成
 ```
@@ -54,7 +54,7 @@ learn-gis/
 │     └─ … 02~06 同构
 ├─ db/
 │  ├─ index.ts                  # 惰性 drizzle 连接（无 DATABASE_URL 也能构建）
-│  └─ schema.ts                 # pgSchema("learn") + 三张表
+│  └─ schema.ts                 # pgSchema("gis") + 四张表（users / module_progress / wrong_answers / exam_sessions）
 ├─ lib/
 │  ├─ content.ts                # 载入 + 校验 + 缓存
 │  ├─ site.ts  utils.ts
@@ -99,15 +99,16 @@ type QuestionFile = { skill: string; module: string; version: number; questions:
 
 构建期校验（`scripts/validate-content.ts`，`prebuild` 执行）：JSON 可解析、schema 合法、题目 id 唯一、`answer` ⊆ `options`、单选恰好 1 个答案 / 多选 ≥ 2、refs 非空。**校验失败 = build 失败**。
 
-运行时进度（Neon，schema `learn`；匿名 `device_id` 维度，v1 无账号）：
+运行时进度（Neon，schema `gis`；匿名用户由 `user_id` cookie 标识，v1 无账号）：
 
 ```ts
-module_progress  (device_id, skill, module_slug, best_score, last_score, attempts, completed_at, updated_at)
-review_cards     (device_id, question_id, ease, interval_days, reps, lapses, due_at, last_reviewed_at)
-attempts         (device_id, question_id, module_slug, correct, created_at)
+users            (id uuid, created_at, last_seen_at)            -- 访客制，cookie 里存匿名 id
+module_progress  (id, user_id, module_slug, mastery, quiz_count, total_attempts, wrong_count, last_attempt_at)
+wrong_answers    (id, user_id, question_id, module_slug, ease, interval_days, reps, lapses, due_at, cleared_at, wrong_at)  -- SM-2 复习卡
+exam_sessions    (id, user_id, mode, size, correct, mastery, date_key, created_at)
 ```
 
-v1 直接写 Neon；仍保留 `ProgressStore` 接口，缺 `DATABASE_URL` 时降级到 localStorage，UI 零改动。决策见第 10 节。
+身份与读写集中在 `app/api/progress/route.ts`：cookie 里没有或不是合法 uuid / 库里查无此人则新建；缺 `DATABASE_URL` 时构建仍可通过（DB 访问全部运行期惰性化，路由 `force-dynamic`）。v1 直接用 drizzle 连接（`db/index.ts`），未保留 `ProgressStore` 抽象。
 
 ---
 
@@ -178,7 +179,7 @@ Next 16 注意：`params` 是 `Promise`，页面签名 `async function Page({ pa
 ## 9. 与 ink_template 的差异（需要你知情）
 
 1. **MDX 讲义**：模板没有 MDX，需新增 `@next/mdx` + `@mdx-js/loader`（精确版本）。若不想加依赖，退路是讲义写成 TSX 或结构化 JSON。
-2. **数据库命名空间**：模板 `pgSchema("ink")` → 本项目 `pgSchema("learn")`，同一 Neon 实例可共存。
+2. **数据库命名空间**：模板 `pgSchema("ink")` → 本项目 `pgSchema("gis")`，同一 Neon 实例可共存。
 3. **新增 `.nvmrc` / `engines`**：模板没有，属版本锁定补强。
 4. **不照搬的部分**：字体子集化脚本、PDF/拍照评分、Resend 反馈、admin 鉴权——与学习场景无关，v1 不引入。
 5. **保留的部分**：ThemeProvider/ThemeToggle/SiteHeader/SiteFooter、`cn()`、设计令牌式 Tailwind、`lib/queries.ts` 的缓存习惯、`scripts/` + tsx。
@@ -188,7 +189,7 @@ Next 16 注意：`params` 是 `Promise`，页面签名 `async function Page({ pa
 ## 10. 已确认决策（解锁 M0）
 
 1. **形态**：题库驱动（A）。引擎侧保留 `QuestionSource` 接口，v2 接 LLM 不改 UI。
-2. **进度存储**：Neon + Drizzle，`pgSchema("learn")`（不落 `public`），并保留 `ProgressStore` 接口 + `LocalAdapter` 作为无 `DATABASE_URL` 时的降级实现。
+2. **进度存储**：Neon + Drizzle，`pgSchema("gis")`（不落 `public`）；v1 直接用 drizzle 连接，未保留 `ProgressStore`/`LocalAdapter` 抽象（缺 `DATABASE_URL` 时构建仍通过，仅进度读写在运行期不可用）。
 3. **讲义**：MDX（`@next/mdx` + `@mdx-js/loader`，精确版本）；`content/schema.ts` 仍用 Zod 校验题库 JSON。
 4. **题库**：按章节分批产出（每章讲义 1 + 题 15~20 + refs），先试点 10 题过 review 再放量。
 5. **环境**：Node 22.22.0 / npm 10.9.4 / Git Bash 可用，脚手架与安装由 agent 执行。

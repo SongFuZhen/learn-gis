@@ -33,16 +33,25 @@ export type ShortQuestion = BaseQuestion & {
   placeholder?: string;
 };
 
-export type Question = ChoiceQuestion | ShortQuestion;
+/** 地图题：在地图上点击一个位置，按与目标点的球面距离判分 */
+export type MapQuestion = BaseQuestion & {
+  type: "map";
+  target: { lat: number; lng: number };
+  /** 通过阈值（公里）：点击点到目标点的球面距离 <= 该值算对 */
+  toleranceKm: number;
+};
+
+export type Question = ChoiceQuestion | ShortQuestion | MapQuestion;
 
 export function isChoice(question: Question): question is ChoiceQuestion {
   return question.type === "single" || question.type === "multi";
 }
 
-/** 用户作答：选择题提交 key 集合，短答题提交文本 */
+/** 用户作答：选择题提交 key 集合，短答题提交文本，地图题提交经纬度 */
 export type QuizResponse =
   | { kind: "choice"; selected: string[] }
-  | { kind: "short"; text: string };
+  | { kind: "short"; text: string }
+  | { kind: "map"; lat: number; lng: number };
 
 export type Grade = {
   correct: boolean;

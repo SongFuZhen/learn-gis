@@ -1,15 +1,19 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { grade } from "@/lib/quiz/grade";
 import type { AnswerRecord, Question, QuizResponse } from "@/lib/quiz/types";
 import ChoiceList from "./ChoiceList";
 import AnswerFeedback from "./AnswerFeedback";
 
+const MapPicker = dynamic(() => import("./MapPicker"), { ssr: false });
+
 type Props = {
   question: Question;
   record: AnswerRecord | null;
   isLast: boolean;
+  reviewMode?: boolean;
   onSubmit: (response: QuizResponse) => void;
   onNext: () => void;
 };
@@ -18,37 +22,56 @@ export default function QuestionView({
   question,
   record,
   isLast,
+  reviewMode,
   onSubmit,
   onNext,
 }: Props) {
   const answered = record !== null;
   const [selected, setSelected] = useState<string[]>([]);
   const [text, setText] = useState("");
+  const [mapPoint, setMapPoint] = useState<{ lat: number; lng: number } | null>(
+    record && record.response.kind === "map"
+      ? { lat: record.response.lat, lng: record.response.lng }
+      : null,
+  );
 
   const result = record ? grade(question, record.response) : null;
   const canSubmit =
-    question.type === "short" ? text.trim().length > 0 : selected.length > 0;
+    question.type === "map"
+      ? mapPoint !== null
+      : question.type === "short"
+        ? text.trim().length > 0
+        : selected.length > 0;
 
-  // 提交答案后，异步记录答题结果到后端进度
+  // 提交答案后，异步记录答题结果到后端进度（复习模式推进 SM-2，否则喂复习队列）
   useEffect(() => {
     async function doSubmit() {
       if (!record || !result) return;
+      const body = reviewMode
+        ? {
+            type: "review-answer",
+            questionId: question.id,
+            isCorrect: result.correct,
+          }
+        : {
+            type: "submit-answer",
+            skill: question.skill,
+            moduleSlug: question.module,
+            questionId: question.id,
+            isCorrect: result.correct,
+          };
       try {
         await fetch("/api/progress", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            type: "submit-answer",
-            skill: "gis",
-            moduleSlug: question.module,
-            questionId: question.id,
-            isCorrect: result.correct,
-          }),
+          body: JSON.stringify(body),
         });
-      } catch { /* 静默失败，不影响用户体验 */ }
+      } catch {
+        /* 静默失败，不影响用户体验 */
+      }
     }
     doSubmit();
-  }, [record, result, question]);
+  }, [record, result, question, reviewMode]);
 
   const toggle = useCallback(
     (key: string) => {
@@ -67,18 +90,24 @@ export default function QuestionView({
 
   const submit = useCallback(() => {
     if (answered || !canSubmit) return;
+    if (question.type === "map") {
+      if (!mapPoint) return;
+      onSubmit({ kind: "map", lat: mapPoint.lat, lng: mapPoint.lng });
+      return;
+    }
     if (question.type === "short") {
       onSubmit({ kind: "short", text });
       return;
     }
     onSubmit({ kind: "choice", selected });
-  }, [answered, canSubmit, onSubmit, question.type, selected, text]);
+  }, [answered, canSubmit, onSubmit, question.type, mapPoint, text, selected]);
 
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       const target = event.target as HTMLElement | null;
       const typing =
-        target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement;
+        target instanceof HTMLInputElement ||
+        target instanceof HTMLTextAreaElement;
 
       if (event.key === "Enter") {
         event.preventDefault();
@@ -87,9 +116,19 @@ export default function QuestionView({
         return;
       }
 
-      if (typing || answered || question.type === "short") return;
+      if (
+        typing ||
+        answered ||
+        question.type === "short" ||
+        question.type === "map"
+      )
+        return;
       const index = Number.parseInt(event.key, 10);
-      if (!Number.isNaN(index) && index >= 1 && index <= question.options.length) {
+      if (
+        !Number.isNaN(index) &&
+        index >= 1 &&
+        index <= question.options.length
+      ) {
         const option = question.options[index - 1];
         if (option) toggle(option.key);
       }
@@ -99,7 +138,9 @@ export default function QuestionView({
   }, [answered, onNext, question, submit, toggle]);
 
   const selectedKeys =
-    record && record.response.kind === "choice" ? record.response.selected : selected;
+    record && record.response.kind === "choice"
+      ? record.response.selected
+      : selected;
 
   return (
     <div className="flex flex-1 flex-col">
@@ -110,7 +151,7 @@ export default function QuestionView({
           </span>
           <span
             className="text-brand-violet"
-            aria-label={`难度 ${question.difficulty} 星`}
+            aria-label={"难度 " + question.difficulty + " 星"}
           >
             {"★".repeat(question.difficulty)}
             <span className="text-foreground-disabled">
@@ -120,9 +161,11 @@ export default function QuestionView({
           <span>
             {question.type === "multi"
               ? "多选 · 全对才算对"
-              : question.type === "short"
-                ? "短答"
-                : "单选"}
+              : question.type === "map"
+                ? "地图题 · 点击地图作答"
+                : question.type === "short"
+                  ? "短答"
+                  : "单选"}
           </span>
         </div>
 
@@ -130,7 +173,21 @@ export default function QuestionView({
           {question.stem}
         </h2>
 
-        {question.type === "short" ? (
+        {question.type === "map" ? (
+          <div className="mt-4">
+            <MapPicker
+              center={[question.target.lat, question.target.lng]}
+              selected={mapPoint}
+              onPick={setMapPoint}
+              disabled={answered}
+            />
+            {mapPoint && (
+              <p className="mt-2 text-[12px] tabular text-foreground-muted">
+                已选：{mapPoint.lat.toFixed(2)}°, {mapPoint.lng.toFixed(2)}°
+              </p>
+            )}
+          </div>
+        ) : question.type === "short" ? (
           <div className="mt-4">
             <label htmlFor="short-answer" className="sr-only">
               作答
@@ -173,9 +230,11 @@ export default function QuestionView({
           <p className="hidden flex-1 text-[12px] text-foreground-muted sm:block">
             {answered
               ? "按 Enter 继续"
-              : question.type === "short"
-                ? "输入后按 Enter 提交"
-                : "数字键选择，Enter 提交"}
+              : question.type === "map"
+                ? "点击地图选点，Enter 提交"
+                : question.type === "short"
+                  ? "输入后按 Enter 提交"
+                  : "数字键选择，Enter 提交"}
           </p>
           {answered ? (
             <button
