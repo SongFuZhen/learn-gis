@@ -5,6 +5,7 @@ import {
   integer,
   real,
   timestamp,
+  unique,
 } from "drizzle-orm/pg-core";
 
 // 所有表统一放在 gis schema 下（同 ../ink_template 的 ink schema 做法）
@@ -44,7 +45,10 @@ export const wrongAnswers = gis.table("wrong_answers", {
   /** 答对（复习）后标记消除；null = 仍在复习队列 */
   clearedAt: timestamp("cleared_at"),
   wrongAt: timestamp("wrong_at").notNull().defaultNow(),
-});
+}, (table) => [
+  // 同一题每用户只保留一条未消除记录，避免重做时复习队列出现重复
+  unique("uq_wrong_user_question").on(table.userId, table.questionId),
+]);
 
 /** 考试记录：每日一考 / 综合考试的成绩 */
 export const examSessions = gis.table("exam_sessions", {
@@ -59,4 +63,7 @@ export const examSessions = gis.table("exam_sessions", {
   /** 每日卷去重键 YYYY-MM-DD；综合卷为 null */
   dateKey: text("date_key"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+}, (table) => [
+  // 每日一卷去重：同一用户同一天只保留一条（date_key 为 null 的综合卷不受限）
+  unique("uq_exam_user_datekey").on(table.userId, table.dateKey),
+]);
