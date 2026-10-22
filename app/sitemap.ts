@@ -30,6 +30,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...modules,
     {
+      url: `${SITE_URL}/exam`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    {
+      url: `${SITE_URL}/exam/daily`,
+      changeFrequency: "daily",
+      priority: 0.5,
+    },
+    {
+      url: `${SITE_URL}/exam/mock`,
+      changeFrequency: "weekly",
+      priority: 0.5,
+    },
+    {
       url: `${SITE_URL}/review`,
       lastModified: now,
       changeFrequency: "daily",
@@ -40,6 +56,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency: "weekly",
       priority: 0.6,
+    },
+    {
+      url: `${SITE_URL}/settings`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.3,
     },
   ];
 }

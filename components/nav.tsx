@@ -1,37 +1,45 @@
-import type { ReactNode } from "react";
+import {
+  BookOpen,
+  GraduationCap,
+  House,
+  Settings,
+  type LucideIcon,
+} from "lucide-react";
 
 export type NavItem = {
   href: string;
   label: string;
-  key: "home" | "chapters" | "review" | "progress";
+  key: "home" | "learn" | "exam" | "settings";
   /** 是否只在精确匹配时高亮 */
   exact: boolean;
 };
 
 export const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "首页", key: "home", exact: true },
-  { href: "/s/gis", label: "章节", key: "chapters", exact: false },
-  { href: "/review", label: "复习", key: "review", exact: false },
-  { href: "/progress", label: "进度", key: "progress", exact: false },
+  { href: "/s/gis", label: "学习", key: "learn", exact: false },
+  // 考试入口：每日一考 / 综合考试（章节测验在讲义末尾，不在这里列）
+  { href: "/exam", label: "考试", key: "exam", exact: false },
+  { href: "/settings", label: "设置", key: "settings", exact: false },
 ];
 
-export const NAV_ICONS: Record<NavItem["key"], ReactNode> = {
-  home: <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z" />,
-  chapters: (
-    <>
-      <path d="M5 5.5A1.5 1.5 0 0 1 6.5 4H19v16H6.5A1.5 1.5 0 0 0 5 21.5z" />
-      <path d="M9 8h6M9 12h6" />
-    </>
-  ),
-  review: (
-    <>
-      <path d="M20 12a8 8 0 1 1-2.34-5.66" />
-      <path d="M20 4v4h-4" />
-    </>
-  ),
-  progress: <path d="M4 20V9m6 11V4m6 16v-7" />,
+/** 导航图标一律取自 lucide-react（`components/nav.tsx` 为唯一事实源） */
+export const NAV_ICONS: Record<NavItem["key"], LucideIcon> = {
+  home: House,
+  learn: BookOpen,
+  // 主操作「考试」用学位帽：比剪贴板/试卷板更像“考试”，且与书本、齿轮形状拉开
+  exam: GraduationCap,
+  settings: Settings,
 };
 
 export function isActive(pathname: string, item: NavItem): boolean {
   return item.exact ? pathname === item.href : pathname.startsWith(item.href);
+}
+
+/** 答题 / 考试进行中是专注模式：隐藏底部 tab，把底部留给「提交/下一题」操作条 */
+export function isFocusMode(pathname: string): boolean {
+  return (
+    pathname.endsWith("/quiz") ||
+    pathname === "/exam/daily" ||
+    pathname === "/exam/mock"
+  );
 }

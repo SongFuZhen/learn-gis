@@ -7,6 +7,7 @@
 
 ## 1. 先建心智模型（建议学习顺序）
 
+0. **先把数字的单位理清** → 笛卡尔平面坐标、度分秒与弧度、经纬度的范围、一度有多长（第 0 章）。
 1. **地球是球面，地图是平面** → 基准面/椭球（datum）、投影（projection）、CRS。
 2. **CRS 与 EPSG 编码**：WGS84（EPSG:4326，经纬度，度）vs Web Mercator（EPSG:3857，米，瓦片地图）。
 3. **数据模型**：矢量（点/线/面）vs 栅格（像素网格）；要素属性表。
@@ -27,6 +28,9 @@
 | OGC 标准总览 | https://www.ogc.org/standards/ |
 | WMS / WMTS / WFS | OGC 各自标准页（见上） |
 | EPSG 代码查询 | https://epsg.io ；https://spatialreference.org |
+| 经纬度 / 大圆距离 / 方位角 | https://www.movable-type.co.uk/scripts/latlong.html |
+| 投影公式与参数（PROJ） | https://proj.org/en/stable/usage/projections.html |
+| 三角函数与弧度（JS） | https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin |
 | 瓦片地图方案 | https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames ；https://docs.maptiler.com/google-maps-coordinates-tile-bounds-projection/ |
 | 矢量瓦片规范 | https://github.com/mapbox/vector-tile-spec |
 | CRS 概念 | https://proj.org/usage/projections.html |

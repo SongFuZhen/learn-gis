@@ -1,4 +1,5 @@
 import type { Question } from "@/lib/quiz/types";
+import geoMath from "./00-geo-math.questions.json";
 import basics from "./01-basics.questions.json";
 import crsEpsg from "./02-crs-epsg.questions.json";
 import vectorRaster from "./03-vector-raster.questions.json";
@@ -11,6 +12,7 @@ import spatialPostgis from "./06-spatial-postgis.questions.json";
  * 校验统一走 lib/content.ts（构建期）+ scripts/validate-content.ts（CI）。
  */
 const RAW_BY_MODULE: Record<string, unknown> = {
+  "00": geoMath,
   "01": basics,
   "02": crsEpsg,
   "03": vectorRaster,

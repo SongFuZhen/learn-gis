@@ -1,0 +1,570 @@
+{
+  "skill": "gis",
+  "module": "00",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-00-001",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "一个平面直角坐标系（笛卡尔坐标）要确定一个点，必须由什么构成？",
+      "options": [
+        {
+          "key": "A",
+          "text": "一个原点，以及一条数轴",
+          "hint": "只有一条轴只能定出一维位置；平面点必须有两个坐标分量。"
+        },
+        {
+          "key": "B",
+          "text": "原点、两条互相垂直的数轴，以及各自的正方向与单位"
+        },
+        {
+          "key": "C",
+          "text": "到原点的距离和一个方位角",
+          "hint": "那是极坐标的定义方式，不是直角坐标。"
+        },
+        {
+          "key": "D",
+          "text": "一条经线和一条纬线",
+          "hint": "经纬网是球面（角度）坐标，不是平面直角坐标。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "平面直角坐标 = 原点 + 两条正交数轴，且两轴的正方向与单位必须给定。GIS 里的「投影坐标」（UTM、高斯-克吕格、Web 墨卡托的数字）本质上就是地球上的点被投到这样一张平面上，单位通常是米。",
+      "refs": [
+        {
+          "title": "PROJ 投影（把球面坐标投到平面）",
+          "url": "https://proj.org/en/stable/usage/projections.html"
+        },
+        {
+          "title": "USGS《Map Projections — A Working Manual》",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-002",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "中国测量坐标系（如高斯-克吕格平面成果表）中，x 轴与 y 轴分别指向？",
+      "options": [
+        {
+          "key": "A",
+          "text": "x 向东，y 向北（与数学坐标系一致）"
+        },
+        {
+          "key": "B",
+          "text": "x 向北，y 向东"
+        },
+        {
+          "key": "C",
+          "text": "x 向南，y 向西"
+        },
+        {
+          "key": "D",
+          "text": "x 向东，y 向南"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "中国测量学传统把 x 轴指向北（北坐标）、y 轴指向东（东坐标），象限按顺时针编号；而 EPSG/ISO 和多数软件（PostGIS、GeoJSON 生态）用 x=easting、y=northing。两种约定在现实数据中都存在，看到 7~8 位平面坐标要先确认轴向，再判断哪一列是北、哪一列是东。",
+      "refs": [
+        {
+          "title": "OGC WKT 2 / 轴序（axis order）规范",
+          "url": "https://docs.ogc.org/is/18-010r7/18-010r7.html"
+        },
+        {
+          "title": "EPSG:4490（CGCS2000 地理坐标系）",
+          "url": "https://epsg.io/4490"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-003",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "Canvas / 屏幕坐标系的原点与 y 轴正方向是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "原点在左下角，y 向上",
+          "hint": "那是数学坐标系，不是屏幕坐标系。"
+        },
+        {
+          "key": "B",
+          "text": "原点在左上角，y 向下"
+        },
+        {
+          "key": "C",
+          "text": "原点在左上角，y 向右"
+        },
+        {
+          "key": "D",
+          "text": "原点在中心，y 向上"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "屏幕/Canvas 的原点在左上角、x 向右、y 向下，与数学坐标系上下相反。把经纬度投影到画布时通常要做一次 y 翻转（height - y），否则整张地图会上下颠倒。",
+      "refs": [
+        {
+          "title": "MDN Canvas 绘图教程（坐标系说明）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-004",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "把 40°26′46″ 换算成十进制度，约等于？",
+      "options": [
+        {
+          "key": "A",
+          "text": "40.112°",
+          "hint": "这是把「分」当成 0.26、把「秒」当成 0.46 的十进制误读。"
+        },
+        {
+          "key": "B",
+          "text": "40.27°",
+          "hint": "只换算了分（26/60），漏掉了秒。"
+        },
+        {
+          "key": "C",
+          "text": "40.446°"
+        },
+        {
+          "key": "D",
+          "text": "40.46°",
+          "hint": "把秒直接当成百分位（46/100），秒应是 46/3600。"
+        }
+      ],
+      "answer": ["C"],
+      "explanation": "40 + 26/60 + 46/3600 = 40 + 0.433333 + 0.012778 = 40.446111°。分、秒都是 60 进制，所以「402646 拼起来」或「小数点后直接接分秒」都会错。",
+      "refs": [
+        {
+          "title": "经纬度格式与 DMS 换算（Movable Type）",
+          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
+        },
+        {
+          "title": "NOAA/NGS 测量计算工具",
+          "url": "https://www.ngs.noaa.gov/TOOLS/"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-005",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "在纬度 60°N 处，1° 经度对应的地面距离大约是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "约 111 km",
+          "hint": "111 km 是赤道处（或纬度方向）的量级，经度方向在 60°N 要缩一半。"
+        },
+        {
+          "key": "B",
+          "text": "约 55.7 km"
+        },
+        {
+          "key": "C",
+          "text": "约 222 km",
+          "hint": "方向反了：cos 60° = 0.5 是缩小，不是放大。"
+        },
+        {
+          "key": "D",
+          "text": "约 0 km",
+          "hint": "只有极点处经线才汇聚为 0。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "每度经度的长度 ≈ 111.32 km × cos φ。cos 60° = 0.5，因此约 55.66 km；而每度纬度在赤道约 110.57 km、两极约 111.69 km，几乎不变。经纬度网格不是等距网格。",
+      "refs": [
+        {
+          "title": "大圆距离与经纬度换算（Movable Type）",
+          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
+        },
+        {
+          "title": "Turf.js distance（单位与球面距离）",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-006",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "JavaScript 里写 Math.sin(45) 想求 sin 45°，结果却是 0.8509。原因是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "Math.sin 只接受整数",
+          "hint": "Math.sin 接受任意浮点数，问题不在整数。"
+        },
+        {
+          "key": "B",
+          "text": "三角函数以弧度为参数，45 被当成 45 rad ≈ 2578.3°"
+        },
+        {
+          "key": "C",
+          "text": "45° 超出了 sin 的定义域",
+          "hint": "sin 的定义域是全体实数，不存在超界。"
+        },
+        {
+          "key": "D",
+          "text": "Math.sin 返回的是角度而不是比值"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "JS（以及绝大多数语言、投影库）的三角函数都以弧度为单位。sin 45° 要写 Math.sin(Math.PI / 4) ≈ 0.7071；直接传 45 等价于 45 rad，相当于 45 × 57.2958° ≈ 2578.3°，只是恰好落到周期内的某个值上。",
+      "refs": [
+        {
+          "title": "MDN Math.sin（参数为弧度）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-007",
+      "skill": "gis",
+      "module": "00",
+      "type": "short",
+      "difficulty": 1,
+      "stem": "1 弧度约等于多少度？（填数值即可，保留 1 位小数）",
+      "accepted": ["57.3", "57.30", "57.3°", "57.3度", "57.29", "57.296", "57.2958"],
+      "placeholder": "例如：57.3",
+      "explanation": "1 rad = 180/π ≈ 57.29578°，反之 1° = π/180 ≈ 0.0174533 rad。π rad = 180° 是两套单位之间的桥梁，所有投影/三角公式换算都靠它。",
+      "refs": [
+        {
+          "title": "MDN Math.PI（π 常量）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-008",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 1,
+      "stem": "地理坐标中纬度的取值范围是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "0° ~ 90°",
+          "hint": "这只覆盖北半球；南纬需要负值表示。"
+        },
+        {
+          "key": "B",
+          "text": "-90° ~ +90°"
+        },
+        {
+          "key": "C",
+          "text": "-180° ~ +180°",
+          "hint": "这是经度的范围（也可以写成 0°~360°）。"
+        },
+        {
+          "key": "D",
+          "text": "0° ~ 360°"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "纬度是与赤道面的夹角，范围 -90°（南极）到 +90°（北极），南纬为负。经度则绕赤道一周，范围 -180°~+180° 或 0°~360°。范围校验搞混，就会出现「纬度 121°」这种明显非法却通得过的数据。",
+      "refs": [
+        {
+          "title": "EPSG:4326（WGS 84 地理坐标系）",
+          "url": "https://epsg.io/4326"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-009",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "GeoJSON 中一个点的坐标数组是 [116.39, 39.90]，这两个数字分别是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "纬度、经度",
+          "hint": "Leaflet 的 LatLng 是这个顺序，GeoJSON 不是。"
+        },
+        {
+          "key": "B",
+          "text": "经度、纬度"
+        },
+        {
+          "key": "C",
+          "text": "东坐标（米）、北坐标（米）",
+          "hint": "GeoJSON 的 position 是经纬度（度）或 CRS 定义的坐标值，示例数值范围也不是米。"
+        },
+        {
+          "key": "D",
+          "text": "x（像素）、y（像素）"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "RFC 7946 规定 GeoJSON 的 position 按 [x, y, z] 排列，地理坐标下就是 [经度, 纬度]（可附高程）。而 EPSG:4326 的官方轴序是 lat, lon，Leaflet 也先纬度——三套约定混用，数据就会从北京飘到印度洋。",
+      "refs": [
+        {
+          "title": "RFC 7946（GeoJSON，position 顺序）",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946.html"
+        },
+        {
+          "title": "EPSG:4326 定义（轴序 lat, lon）",
+          "url": "https://epsg.io/4326"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-010",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "已知平面坐标下的 Δx（向东）与 Δy（向北），要算「从正北顺时针」的方位角，正确的是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "bearing = atan2(Δy, Δx)",
+          "hint": "atan2 从 x 轴（东）逆时针量，直接拿来当方位角会偏 90° 且方向相反。"
+        },
+        {
+          "key": "B",
+          "text": "bearing = (90° − atan2(Δy, Δx)·180/π + 360°) mod 360°"
+        },
+        {
+          "key": "C",
+          "text": "bearing = atan2(Δx, Δy)",
+          "hint": "把参数顺序换成 Δx, Δy 得到的是从 y 轴起的角度，含义又变了。"
+        },
+        {
+          "key": "D",
+          "text": "bearing = (180° − atan2(Δy, Δx)·180/π) mod 360°"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "atan2(Δy, Δx) 是从 x 轴（正东）逆时针量到向量方向的角度；方位角从正北顺时针量。两者起点差 90°、旋转方向相反，因此 bearing = (90° − atan2_result + 360°) mod 360°。直接混用会出现「向东的方位角算成 90°」（实际应为 90°，而 atan2 给 0°）这类方向错乱。",
+      "refs": [
+        {
+          "title": "Turf.js bearing（按正北顺时针，0–360）",
+          "url": "https://turfjs.org/docs/api/bearing"
+        },
+        {
+          "title": "MDN Math.atan2（参数与返回值）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-011",
+      "skill": "gis",
+      "module": "00",
+      "type": "multi",
+      "difficulty": 2,
+      "stem": "以下哪些情况不能直接用 √(Δx² + Δy²) 作为距离？（多选）",
+      "options": [
+        {
+          "key": "A",
+          "text": "两个点的经纬度（未投影）"
+        },
+        {
+          "key": "B",
+          "text": "同一 UTM 带内、相距几公里的两个平面点",
+          "hint": "小范围同一平面内，勾股是合理的近似，误差来自投影变形。"
+        },
+        {
+          "key": "C",
+          "text": "在 EPSG:3857 上量高纬度两点的距离"
+        },
+        {
+          "key": "D",
+          "text": "跨了带号（如 38 带与 39 带）的高斯平面坐标"
+        }
+      ],
+      "answer": ["A", "C", "D"],
+      "explanation": "勾股定理只在同一直角平面上成立：经纬度是角度（A 不能），Web 墨卡托在高纬被 1/cosφ 拉伸（C 会偏大很多），跨带的高斯平面值来自不同投影原点（D 必须先统一到同一带或转换）。B 属于同带小范围，勾股可用。",
+      "refs": [
+        {
+          "title": "Turf.js distance（球面距离与单位）",
+          "url": "https://turfjs.org/docs/api/distance"
+        },
+        {
+          "title": "EPSG:3857（Web 墨卡托）",
+          "url": "https://epsg.io/3857"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-012",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "EPSG:4326 在 WKT 中声明轴序为 lat, lon，但常见数据里存的是 lon, lat。这说明？",
+      "options": [
+        {
+          "key": "A",
+          "text": "两种写法等价，任何工具都能自动兼容",
+          "hint": "轴序不会被数值本身暴露，工具无法凭空猜对。"
+        },
+        {
+          "key": "B",
+          "text": "轴序是坐标系定义的一部分，必须按数据来源的规范读取，不能靠习惯猜"
+        },
+        {
+          "key": "C",
+          "text": "EPSG:4326 的坐标单位是米",
+          "hint": "4326 的单位是度；米是 3857/UTM 这类投影坐标系。"
+        },
+        {
+          "key": "D",
+          "text": "只要数值落在合法范围内就不会出错",
+          "hint": "lon=39.9、lat=116.39 中纬度 116 明显非法，但很多流程不做范围校验。"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "轴序（axis order）写在 CRS 定义里（WKT2 / EPSG 都显式声明）。GeoJSON 规定 [lon, lat] 是格式层面的约定，并不等于 CRS 轴序；PostGIS 通常按 x=lon、y=lat 存储，GDAL/PROJ 有开关控制输出轴序。判断依据永远是「这份数据遵循哪个规范」。",
+      "refs": [
+        {
+          "title": "OGC WKT 2 坐标系表示（含 axis order）",
+          "url": "https://docs.ogc.org/is/18-010r7/18-010r7.html"
+        },
+        {
+          "title": "RFC 7946（GeoJSON 坐标顺序）",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946.html"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-013",
+      "skill": "gis",
+      "module": "00",
+      "type": "multi",
+      "difficulty": 1,
+      "stem": "关于度与弧度的换算，下列哪些是正确的？（多选）",
+      "options": [
+        {
+          "key": "A",
+          "text": "1° = 60′"
+        },
+        {
+          "key": "B",
+          "text": "1′ = 60″"
+        },
+        {
+          "key": "C",
+          "text": "1° = π/180 rad"
+        },
+        {
+          "key": "D",
+          "text": "1 rad = 90°"
+        }
+      ],
+      "answer": ["A", "B", "C"],
+      "explanation": "度分秒是 60 进制（A、B 对）；度与弧度通过 π rad = 180° 换算，所以 1° = π/180 ≈ 0.01745 rad（C 对）。1 rad ≈ 57.3°，90° 对应的是 π/2 rad（D 错）。",
+      "refs": [
+        {
+          "title": "MDN Math.sin（弧度参数）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin"
+        },
+        {
+          "title": "MDN Math.PI",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-014",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 3,
+      "stem": "把墨卡托公式 y = R·ln(tan(π/4 + φ/2)) 中的 φ 用「度」而不是弧度代入，会发生什么？",
+      "options": [
+        {
+          "key": "A",
+          "text": "结果仍然正确",
+          "hint": "tan 的参数单位不会自动适配，数值会完全不同。"
+        },
+        {
+          "key": "B",
+          "text": "y 值毫无意义，点会画到离谱的位置"
+        },
+        {
+          "key": "C",
+          "text": "只是精度略微下降",
+          "hint": "这不是精度问题，是单位错误的量级错误。"
+        },
+        {
+          "key": "D",
+          "text": "只会影响南北半球的符号"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "tan 的参数必须是弧度。代入 φ=30（本意 30°）相当于用 30 rad ≈ 1719° 去算，tan 的周期性使结果与正确值毫无关系，y 会跳到任意位置。凡涉及三角/对数的公式，先统一到弧度再算。",
+      "refs": [
+        {
+          "title": "PROJ 投影文档（投影公式与参数）",
+          "url": "https://proj.org/en/stable/usage/projections.html"
+        },
+        {
+          "title": "MDN Math.tan（弧度参数）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tan"
+        }
+      ]
+    },
+    {
+      "id": "gis-00-015",
+      "skill": "gis",
+      "module": "00",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "「1° 纬度约 111 km」这个数量级的特点是？",
+      "options": [
+        {
+          "key": "A",
+          "text": "随经度变化很大",
+          "hint": "纬度方向的每度长度与经度基本无关。"
+        },
+        {
+          "key": "B",
+          "text": "基本恒定（约 110.6~111.7 km），因为子午线方向曲率半径变化很小"
+        },
+        {
+          "key": "C",
+          "text": "在赤道处为 0",
+          "hint": "赤道处 1° 纬度约 110.57 km，不是 0。"
+        },
+        {
+          "key": "D",
+          "text": "等于 1° 经度的长度"
+        }
+      ],
+      "answer": ["B"],
+      "explanation": "子午线方向每度长度从赤道约 110.57 km 缓慢增加到两极约 111.69 km，工程上取 111 km；而经度方向每度长度 ≈ 111.32·cos φ，随纬度明显收缩。这也是「同样的度数差，南北走和东西走距离不同」的原因。",
+      "refs": [
+        {
+          "title": "经纬度距离换算（Movable Type）",
+          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
+        },
+        {
+          "title": "USGS《Map Projections — A Working Manual》",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ]
+    }
+  ]
+}

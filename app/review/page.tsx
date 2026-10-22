@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { RotateCcw } from "lucide-react";
 
 export const metadata = {
   title: "今日复习",
@@ -18,18 +19,7 @@ export default function ReviewPage() {
 
       <div className="mt-6 rounded-md border border-dashed border-border bg-card p-8 text-center shadow-card">
         <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-sm bg-brand-soft text-brand">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-            className="h-6 w-6"
-            aria-hidden="true"
-          >
-            <path d="M20 12a8 8 0 1 1-2.34-5.66" />
-            <path d="M20 4v4h-4" />
-          </svg>
+          <RotateCcw className="h-6 w-6" strokeWidth={1.7} />
         </span>
         <p className="mt-3 text-[15px] font-medium">复习队列还没开张</p>
         <p className="mx-auto mt-1 max-w-sm text-[13px] leading-relaxed text-foreground-tertiary">

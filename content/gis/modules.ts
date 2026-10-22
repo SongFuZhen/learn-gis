@@ -11,6 +11,13 @@ export type ModuleMeta = {
 
 export const GIS_MODULES: ModuleMeta[] = [
   {
+    slug: "00",
+    file: "00-geo-math",
+    title: "坐标、角度与经纬度",
+    summary:
+      "笛卡尔平面坐标与三种 x/y 约定、度分秒、弧度与三角函数的单位换算、经纬度范围与「一度有多长」、算距离和方位角的前提。",
+  },
+  {
     slug: "01",
     file: "01-basics",
     title: "地球、基准面与投影",

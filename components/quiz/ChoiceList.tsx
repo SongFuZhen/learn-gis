@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import type { ChoiceQuestion } from "@/lib/quiz/types";
+import { Check, X } from "lucide-react";
 
 type Props = {
   question: ChoiceQuestion;
@@ -58,30 +59,18 @@ export default function ChoiceList({
               </span>
               <span className="flex-1">{option.text}</span>
               {isRightAnswer && (
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
+                <Check
                   className="mt-1 h-4 w-4 shrink-0 text-success"
+                  strokeWidth={2.2}
                   aria-label="正确答案"
-                >
-                  <path d="m5 12.5 4.5 4.5L19 7" />
-                </svg>
+                />
               )}
               {isWrongPick && (
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
+                <X
                   className="mt-1 h-4 w-4 shrink-0 text-destructive"
+                  strokeWidth={2.2}
                   aria-label="你选的错误项"
-                >
-                  <path d="M6 6l12 12M18 6 6 18" />
-                </svg>
+                />
               )}
               <span className="mt-0.5 hidden shrink-0 text-[11px] tabular text-foreground-disabled sm:inline">
                 {i + 1}

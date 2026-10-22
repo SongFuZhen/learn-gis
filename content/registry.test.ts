@@ -37,9 +37,11 @@ describe("content registry", () => {
   it("已上线 + 待上线章节号不重复且连续", () => {
     const slugs = [...GIS_MODULES, ...PLANNED_MODULES].map((m) => m.slug);
     expect(new Set(slugs).size).toBe(slugs.length);
+    // 从第一章（00 = 预备章节，01 = 地球与投影）起必须连续、不跳号
+    const first = Number(GIS_MODULES[0]?.slug);
     expect(GIS_MODULES.map((m) => m.slug)).toEqual(
       Array.from({ length: GIS_MODULES.length }, (_, i) =>
-        String(i + 1).padStart(2, "0"),
+        String(first + i).padStart(2, "0"),
       ),
     );
   });

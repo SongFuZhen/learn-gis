@@ -1,6 +1,7 @@
 import { missedPicks, wrongPicks } from "@/lib/quiz/grade";
 import type { Question, QuizResponse } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
+import { Check, X } from "lucide-react";
 
 type Props = {
   question: Question;
@@ -42,16 +43,11 @@ export default function AnswerFeedback({
           )}
           aria-hidden="true"
         >
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2.6"
-            strokeLinecap="round"
-            className="h-3 w-3"
-          >
-            {correct ? <path d="m5 12.5 4.5 4.5L19 7" /> : <path d="M6 6l12 12M18 6 6 18" />}
-          </svg>
+          {correct ? (
+            <Check className="h-3 w-3" strokeWidth={2.6} />
+          ) : (
+            <X className="h-3 w-3" strokeWidth={2.6} />
+          )}
         </span>
         <p
           className={cn(

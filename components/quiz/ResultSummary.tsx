@@ -5,9 +5,12 @@ import type { SessionResult } from "@/lib/quiz/reducer";
 type Props = {
   result: SessionResult;
   questions: Question[];
-  skill: string;
-  moduleSlug: string;
-  moduleTitle: string;
+  /** 结果页标题（章节名 / 「每日一考」等） */
+  title: string;
+  eyebrow?: string;
+  /** 达到 80% 时的提示语 */
+  passedHint?: string;
+  links: { href: string; label: string }[];
   onRestart: () => void;
 };
 
@@ -17,9 +20,10 @@ const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
 export default function ResultSummary({
   result,
   questions,
-  skill,
-  moduleSlug,
-  moduleTitle,
+  title,
+  eyebrow = "测验结果",
+  passedHint = "达到掌握阈值（80%），可以进入下一章。",
+  links,
   onRestart,
 }: Props) {
   const wrong = questions.filter((q) => result.wrongIds.includes(q.id));
@@ -30,10 +34,10 @@ export default function ResultSummary({
     <section className="mt-4">
       <div className="rounded-md border border-border bg-card p-5 shadow-card sm:p-6">
         <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
-          测验结果
+          {eyebrow}
         </p>
         <h2 className="mt-2 text-[20px] font-semibold leading-snug tracking-tight sm:text-[24px]">
-          {moduleTitle}
+          {title}
         </h2>
 
         <div className="mt-5 flex items-center gap-5">
@@ -83,7 +87,7 @@ export default function ResultSummary({
               }
             >
               {passed
-                ? "达到掌握阈值（80%），可以进入下一章。"
+                ? passedHint
                 : "低于 80%：建议重读讲义后重练，错题会进入复习队列。"}
             </p>
           </div>
@@ -124,18 +128,15 @@ export default function ResultSummary({
         >
           再练一遍
         </button>
-        <Link
-          href={`/s/${skill}/${moduleSlug}`}
-          className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-[15px] font-medium transition-colors hover:bg-background-hover sm:h-10 sm:text-sm"
-        >
-          回到讲义
-        </Link>
-        <Link
-          href={`/s/${skill}`}
-          className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-[15px] font-medium transition-colors hover:bg-background-hover sm:h-10 sm:text-sm"
-        >
-          章节列表
-        </Link>
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-[15px] font-medium transition-colors hover:bg-background-hover sm:h-10 sm:text-sm"
+          >
+            {link.label}
+          </Link>
+        ))}
       </div>
     </section>
   );

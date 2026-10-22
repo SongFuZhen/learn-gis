@@ -29,6 +29,27 @@ export default function QuestionView({
   const canSubmit =
     question.type === "short" ? text.trim().length > 0 : selected.length > 0;
 
+  // 提交答案后，异步记录答题结果到后端进度
+  useEffect(() => {
+    async function doSubmit() {
+      if (!record || !result) return;
+      try {
+        await fetch("/api/progress", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: "submit-answer",
+            skill: "gis",
+            moduleSlug: question.module,
+            questionId: question.id,
+            isCorrect: result.correct,
+          }),
+        });
+      } catch { /* 静默失败，不影响用户体验 */ }
+    }
+    doSubmit();
+  }, [record, result, question]);
+
   const toggle = useCallback(
     (key: string) => {
       if (answered) return;

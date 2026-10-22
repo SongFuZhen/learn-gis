@@ -11,7 +11,7 @@
 
 Next.js 16.3.2（App Router，`app/` 在根目录）· React 19.2.8 · TypeScript strict ·
 Tailwind 3.4（CSS 变量设计令牌）· next-themes · MDX（`@next/mdx`）· Zod ·
-Neon + Drizzle（`learn` schema）· Vitest · Inter（本地打包）。
+Neon + Drizzle（`gis` schema）· Vitest · Inter（本地打包）。
 
 ## 本地开发
 
@@ -32,15 +32,17 @@ npm run dev        # http://localhost:25000
 | `npm test` | Vitest 单测（引擎层 + 内容校验，54 例） |
 | `npm run verify` | lint → typecheck → test → build 全链路 |
 | `npm run content:validate` | 题库 Zod 校验（`prebuild` 自动执行） |
-| `npm run smoke:quiz` | 真实 Chrome 跑完 6 章 85 题（需 dev/preview 已启动，`BASE_URL` 可覆盖） |
+| `npm run smoke:quiz` | 真实 Chrome 跑完 7 章 100 题（需 dev/preview 已启动，`BASE_URL` 可覆盖） |
 | `npm run check:overflow` | 320/375/390px 三档横向溢出检查 |
-| `npm run db:push` | 推送 Drizzle schema 到 Neon（`learn` schema） |
+| `npm run icons` | 由 `scripts/assets/gis-logo.png` 重新导出 favicon / app 图标 / 站内 logo |
+| `npm run db:push` | 推送 Drizzle schema 到 Neon（`gis` schema） |
 
 ## 进度
 
 - [x] **M0** 脚手架：Next 16 + TS strict + Tailwind + 锁版 lockfile、`.nvmrc`、CI（lint / typecheck / test / build）、设计令牌、站点壳、`learn` schema 定义
 - [x] **M1** 引擎：`content/schema.ts`（Zod）+ 试点 10 题 + 答题状态机 + 结果页 + 单测 + 真实浏览器冒烟
-- [x] **M2** 内容：GIS 6 章 MDX 讲义 + 85 题（每章 10~15 题）+ refs
-- [ ] **M3** 复习：`ProgressStore`（Neon + 本地降级）+ SM-2 队列 + 今日复习页
+- [x] **M2** 内容：GIS 7 章 MDX 讲义 + 100 题（每章 10~15 题）+ refs（含第 0 章「坐标、角度与经纬度」预备知识）
+- [x] **M3.1** 进度存储：Neon + Drizzle（`gis` schema，访客 cookie 制）+ `/api/progress`（章节进度 / 错题队列 / 考试记录）
+- [ ] **M3.2** 复习：错题复习队列页 + SM-2 调度 + 进度页可视化
 - [ ] **M4** 地图题：交互地图组件（动态加载）+ MDX 内嵌示例
 - [ ] **M5** 打磨：a11y、深色模式、Lighthouse ≥ 95（设计规范见 `docs/DESIGN.md`）

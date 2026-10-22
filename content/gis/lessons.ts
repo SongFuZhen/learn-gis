@@ -5,6 +5,7 @@ import type { ComponentType } from "react";
  * 讲义只在对应章节加载，不拖累其它页面。
  */
 const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
+  "00-geo-math": () => import("./00-geo-math.mdx"),
   "01-basics": () => import("./01-basics.mdx"),
   "02-crs-epsg": () => import("./02-crs-epsg.mdx"),
   "03-vector-raster": () => import("./03-vector-raster.mdx"),

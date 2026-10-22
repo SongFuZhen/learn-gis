@@ -33,8 +33,10 @@ learn-gis/
 │  ├─ s/[skill]/page.tsx
 │  ├─ s/[skill]/[module]/page.tsx
 │  ├─ s/[skill]/[module]/quiz/page.tsx
+│  ├─ exam/page.tsx             # 考试入口（选卷开考）
 │  ├─ review/page.tsx           # M3 接复习队列
-│  └─ progress/page.tsx         # M3 接真实掌握度
+│  ├─ progress/page.tsx         # M3 接真实掌握度
+│  └─ settings/page.tsx         # 外观 + 次级入口（复习/进度/章节）
 ├─ components/
 │  ├─ Sidebar.tsx / MobileTabBar.tsx / nav.tsx / SiteHeader.tsx / SiteFooter.tsx
 │  ├─ ThemeProvider.tsx / ThemeToggle.tsx
@@ -47,6 +49,7 @@ learn-gis/
 │     ├─ modules.ts             # 章节元数据（已上线 / 待上线）
 │     ├─ questions.ts           # 题库注册表（显式 import）
 │     ├─ lessons.ts             # MDX 注册表（显式动态 import）
+│     ├─ 00-geo-math.mdx / .questions.json        # 预备知识：坐标 / 角度 / 弧度 / 经纬度
 │     ├─ 01-basics.mdx / .questions.json
 │     └─ … 02~06 同构
 ├─ db/
@@ -56,9 +59,14 @@ learn-gis/
 │  ├─ content.ts                # 载入 + 校验 + 缓存
 │  ├─ site.ts  utils.ts
 │  └─ quiz/{types,grade,schedule,reducer}.ts
+├─ app/
+│  ├─ favicon.ico / icon.png / apple-icon.png   # 品牌图标（npm run icons 生成）
+│  └─ …
+├─ public/brand/logo.png        # 站内 logo（128×128，透明底）
 ├─ scripts/
+│  ├─ generate-icons.mjs        # 源图 → favicon / 图标 / logo
 │  ├─ validate-content.ts       # prebuild 校验
-│  ├─ smoke-quiz.mjs            # 真实 Chrome 跑完 6 章
+│  ├─ smoke-quiz.mjs            # 真实 Chrome 跑完全部章节
 │  └─ check-overflow.mjs        # 320/375/390 横向溢出
 └─ drizzle.config.ts  next.config.mjs  tailwind.config.ts  tsconfig.json …
 ```
@@ -119,12 +127,14 @@ v1 直接写 Neon；仍保留 `ProgressStore` 接口，缺 `DATABASE_URL` 时降
 
 | 路由 | 渲染 | 说明 |
 |---|---|---|
-| `/` | static | 学习闭环 + 6 章入口 |
+| `/` | static | 介绍 + 统计 + 快捷入口（章节列表在 `/s/gis`，不在首页展开） |
 | `/s/[skill]` | SSG (`generateStaticParams`) | 章节列表 + 题量 |
 | `/s/[skill]/[module]` | SSG | MDX 讲义（RSC 直出）+ "开始测验" |
 | `/s/[skill]/[module]/quiz` | SSG + client 交互 | 单题一屏，键盘 1-4 / Enter，判卷在浏览器内 |
+| `/exam` | static | 考试入口：按章选卷 + 综合卷占位 |
 | `/review` | static（M3 接队列） | 今日到期题 |
 | `/progress` | static（M3 接数据） | 各章掌握度 |
+| `/settings` | static | 外观主题 + 次级入口（复习 / 进度 / 章节） |
 
 Next 16 注意：`params` 是 `Promise`，页面签名 `async function Page({ params }: { params: Promise<{ skill: string }> })`。
 
