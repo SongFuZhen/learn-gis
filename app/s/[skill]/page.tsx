@@ -54,7 +54,7 @@ export default async function SkillPage({
                 href={`/s/${skillId}/${moduleMeta.slug}`}
                 className="flex h-full items-start gap-4 rounded-md border border-border bg-card p-5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
               >
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-brand-soft font-mono text-xs text-brand">
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-brand-soft font-mono text-xs text-brand-ink">
                   {moduleMeta.slug}
                 </span>
                 <span className="min-w-0 flex-1">

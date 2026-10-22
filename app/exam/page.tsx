@@ -57,7 +57,7 @@ export default function ExamPage() {
               className="flex h-full flex-col rounded-md border border-border bg-card p-5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
             >
               <span className="flex items-center justify-between gap-3">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-brand-soft text-brand">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-sm bg-brand-soft text-brand-ink">
                   <Icon className="h-5 w-5" strokeWidth={1.7} />
                 </span>
                 <span className="shrink-0 rounded-sm bg-surface-muted px-1.5 py-0.5 text-[11px] tabular text-foreground-tertiary">

@@ -5,6 +5,7 @@ import { z } from "zod";
 import { db } from "@/db";
 import { examSessions, moduleProgress, users, wrongAnswers } from "@/db/schema";
 import { INITIAL_CARD, schedule, type CardState } from "@/lib/quiz/schedule";
+import { withRetry } from "@/lib/db-retry";
 
 export const dynamic = "force-dynamic";
 
@@ -89,30 +90,32 @@ async function bumpModuleProgress(
 export async function GET() {
   const userId = await getOrCreateUserId();
 
-  const [progress, wrongQueue, exams] = await Promise.all([
-    db
-      .select()
-      .from(moduleProgress)
-      .where(eq(moduleProgress.userId, userId)),
-    db
-      .select()
-      .from(wrongAnswers)
-      .where(
-        and(
-          eq(wrongAnswers.userId, userId),
-          isNull(wrongAnswers.clearedAt),
-          or(isNull(wrongAnswers.dueAt), lte(wrongAnswers.dueAt, new Date())),
-        ),
-      )
-      .orderBy(asc(wrongAnswers.dueAt))
-      .limit(REVIEW_QUEUE_LIMIT),
-    db
-      .select()
-      .from(examSessions)
-      .where(eq(examSessions.userId, userId))
-      .orderBy(desc(examSessions.createdAt))
-      .limit(10),
-  ]);
+  const [progress, wrongQueue, exams] = await withRetry(() =>
+    Promise.all([
+      db
+        .select()
+        .from(moduleProgress)
+        .where(eq(moduleProgress.userId, userId)),
+      db
+        .select()
+        .from(wrongAnswers)
+        .where(
+          and(
+            eq(wrongAnswers.userId, userId),
+            isNull(wrongAnswers.clearedAt),
+            or(isNull(wrongAnswers.dueAt), lte(wrongAnswers.dueAt, new Date())),
+          ),
+        )
+        .orderBy(asc(wrongAnswers.dueAt))
+        .limit(REVIEW_QUEUE_LIMIT),
+      db
+        .select()
+        .from(examSessions)
+        .where(eq(examSessions.userId, userId))
+        .orderBy(desc(examSessions.createdAt))
+        .limit(10),
+    ]),
+  );
 
   return NextResponse.json({ progress, wrongQueue, exams });
 }
