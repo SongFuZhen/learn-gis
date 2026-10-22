@@ -13,6 +13,14 @@ export type ChapterProgress = {
   quizCount: number;
 };
 
+export type RecentExam = {
+  mode: "daily" | "mock";
+  /** 得分率 0~100 */
+  mastery: number;
+  /** M/D 格式的短日期标签 */
+  dayLabel: string;
+};
+
 export type HomeData = {
   /** 已答题总数（章节测验 + 考试累计） */
   answeredTotal: number;
@@ -21,6 +29,12 @@ export type HomeData = {
   examCount: number;
   /** 最近一次考试（每日/综合）的得分率 */
   lastExamMastery: number | null;
+  /** 历史最好成绩 */
+  bestExamMastery: number | null;
+  /** 近 7 天考试次数 */
+  examsLast7d: number;
+  /** 最近 10 次考试（时间升序，供柱状图） */
+  recentExams: RecentExam[];
   /** 今日一考今天是否已交卷 */
   dailyDoneToday: boolean;
   /** 复习队列中待复习题数 */
@@ -41,7 +55,8 @@ export async function getHomeData(): Promise<HomeData | null> {
 
   try {
     const today = dateKey();
-    const [progressRows, reviewAgg, examAgg, lastExamRows, dailyRows] =
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const [progressRows, reviewAgg, examAgg, lastExamRows, dailyRows, recentExamRows, weekExamAgg, bestExamAgg] =
       await Promise.all([
         db
           .select()
@@ -77,6 +92,29 @@ export async function getHomeData(): Promise<HomeData | null> {
             ),
           )
           .limit(1),
+        db
+          .select({
+            mode: examSessions.mode,
+            mastery: examSessions.mastery,
+            createdAt: examSessions.createdAt,
+          })
+          .from(examSessions)
+          .where(eq(examSessions.userId, userId))
+          .orderBy(desc(examSessions.createdAt))
+          .limit(10),
+        db
+          .select({ count: sql<number>`count(*)::int` })
+          .from(examSessions)
+          .where(
+            and(
+              eq(examSessions.userId, userId),
+              sql`${examSessions.createdAt} >= ${weekAgo}`,
+            ),
+          ),
+        db
+          .select({ best: sql<number | null>`max(${examSessions.mastery})` })
+          .from(examSessions)
+          .where(eq(examSessions.userId, userId)),
       ]);
 
     const bySlug = new Map(progressRows.map((r) => [r.moduleSlug, r]));
@@ -112,6 +150,13 @@ export async function getHomeData(): Promise<HomeData | null> {
       avgMastery,
       examCount: examAgg[0]?.count ?? 0,
       lastExamMastery: lastExamRows[0]?.mastery ?? null,
+      bestExamMastery: bestExamAgg[0]?.best ?? null,
+      examsLast7d: weekExamAgg[0]?.count ?? 0,
+      recentExams: recentExamRows.reverse().map((r) => ({
+        mode: r.mode,
+        mastery: r.mastery,
+        dayLabel: `${r.createdAt.getMonth() + 1}/${r.createdAt.getDate()}`,
+      })),
       dailyDoneToday: dailyRows.length > 0,
       reviewDue: reviewAgg[0]?.count ?? 0,
       continueSlug: latest?.moduleSlug ?? null,

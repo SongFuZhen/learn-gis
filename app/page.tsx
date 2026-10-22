@@ -11,6 +11,9 @@ import {
 import { GIS_MODULES } from "@/content/gis/modules";
 import { getQuestionFile } from "@/lib/content";
 import { getHomeData } from "@/lib/progress/home";
+import MasteryDonut from "@/components/home/MasteryDonut";
+import ExamBars from "@/components/home/ExamBars";
+import QuestionMix from "@/components/home/QuestionMix";
 
 const PASS_LINE = 80;
 
@@ -121,6 +124,14 @@ function Intro() {
         </ul>
       </section>
 
+      {/* 题库构成：题型 + 难度分布 */}
+      <section className="mt-3 rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
+        <h2 className="text-[13px] font-medium sm:text-sm">题库构成</h2>
+        <div className="mt-3">
+          <QuestionMix />
+        </div>
+      </section>
+
       <p className="mt-4 text-[11px] leading-relaxed text-foreground-tertiary">
         答过一次题后，这里会变成你的学习面板：继续上次进度、今日待复习与各章掌握度。
       </p>
@@ -150,6 +161,14 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
     },
     { value: data.examCount, unit: "次", label: "参加考试" },
   ];
+
+  const passedChapters = data.chapters.filter(
+    (c) => c.quizCount > 0 && c.mastery >= PASS_LINE,
+  ).length;
+  const learningChapters = data.chapters.filter(
+    (c) => c.quizCount > 0 && c.mastery < PASS_LINE,
+  ).length;
+  const notStartedChapters = data.chapters.length - passedChapters - learningChapters;
 
   return (
     <div className="w-full px-4 pb-8 pt-5 sm:px-6 lg:px-8 lg:pt-10">
@@ -254,6 +273,57 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
             </Link>
           </li>
         </ul>
+      </section>
+
+      {/* 学习概览：通关环图 + 成绩柱状图 */}
+      <section className="mt-3 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
+          <h2 className="text-[13px] font-medium sm:text-sm">章节通关</h2>
+          <div className="mt-3">
+            <MasteryDonut
+              segments={[
+                {
+                  value: passedChapters,
+                  color: "hsl(var(--brand-primary))",
+                  label: `已通关（≥${PASS_LINE}%）`,
+                },
+                {
+                  value: learningChapters,
+                  color: "hsl(var(--brand-cyan))",
+                  label: "学习中",
+                },
+                {
+                  value: notStartedChapters,
+                  color: "hsl(var(--foreground-disabled))",
+                  label: "未开始",
+                },
+              ]}
+              centerValue={
+                data.avgMastery === null ? "—" : `${Math.round(data.avgMastery)}%`
+              }
+              centerLabel="平均掌握度"
+            />
+          </div>
+        </div>
+
+        <div className="rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-[13px] font-medium sm:text-sm">最近考试</h2>
+            <span className="text-[11px] tabular text-foreground-tertiary">
+              {data.bestExamMastery !== null
+                ? `最好 ${Math.round(data.bestExamMastery)}%`
+                : ""}
+              {data.bestExamMastery !== null && " · "}
+              近 7 天 {data.examsLast7d} 次
+            </span>
+          </div>
+          <div className="mt-3">
+            <ExamBars exams={data.recentExams} />
+          </div>
+          <p className="mt-2 text-right text-[10px] text-foreground-tertiary">
+            虚线为 {PASS_LINE}% 通过线
+          </p>
+        </div>
       </section>
 
       {/* 各章掌握度 */}
