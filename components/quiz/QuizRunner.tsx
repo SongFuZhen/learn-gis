@@ -9,7 +9,6 @@ import {
   sessionReducer,
   summarize,
 } from "@/lib/quiz/reducer";
-import { grade } from "@/lib/quiz/grade";
 import type { Question } from "@/lib/quiz/types";
 import ProgressBar from "./ProgressBar";
 import QuestionView from "./QuestionView";
@@ -20,7 +19,10 @@ type QuizResult = { correct: number; total: number; skill?: string; moduleSlug?:
 /** 考试完成（每日一考/综合考试）：写考试记录 */
 async function submitExamProgress(mode: "daily" | "mock", result: QuizResult) {
   const d = new Date();
-  const dateKey = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  const dateKey = y + "-" + m + "-" + day;
   try {
     await fetch("/api/progress", {
       method: "POST",
@@ -55,49 +57,17 @@ async function submitModuleQuizProgress(moduleSlug: string, result: QuizResult) 
   }
 }
 
-/** 每题答完：记录对错，喂给复习队列（wrong_answers 按 user+question upsert） */
-async function submitAnswerProgress(moduleSlug: string, questionId: string, isCorrect: boolean) {
-  try {
-    await fetch("/api/progress", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "submit-answer", moduleSlug, questionId, isCorrect }),
-    });
-  } catch {
-    // 静默失败，不干扰答题体验
-  }
-}
-
-/** 复习模式答题：推进 SM-2 排期（连续答对足够多次后毕业移出队列） */
-async function submitReviewAnswer(questionId: string, isCorrect: boolean) {
-  try {
-    await fetch("/api/progress", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ type: "review-answer", questionId, isCorrect }),
-    });
-  } catch {
-    // 静默失败，不干扰答题体验
-  }
-}
-
 type Props = {
   skill: string;
   moduleSlug: string;
   moduleTitle: string;
   questions: Question[];
-  /** 顶部返回链接；默认回讲义，考试模式回 /exam */
   backHref?: string;
   backLabel?: string;
-  /** 顶部右侧上下文（默认「00 · 标题」） */
   context?: string;
-  /** 结果页小标题（默认「测验结果」，考试用「考试结果」） */
   eyebrow?: string;
-  /** 结果页的通过提示（默认指向下一章） */
   passedHint?: string;
-  /** 结果页底部链接（默认「章节列表」） */
   resultLinks?: { href: string; label: string }[];
-  /** 考试模式：每日一考 / 综合考试；不传则为章节测验 */
   examMode?: "daily" | "mock";
   /** 复习模式：每题推进 SM-2 排期，完成时不再写考试/章节记录 */
   reviewMode?: boolean;
@@ -139,13 +109,13 @@ export default function QuizRunner({
       <h1 className="sr-only">{moduleTitle}</h1>
       <div className="flex items-center justify-between gap-3">
         <Link
-          href={backHref ?? `/s/${skill}/${moduleSlug}`}
+          href={backHref ?? "/s/" + skill + "/" + moduleSlug}
           className="inline-flex min-h-9 items-center text-[12px] text-foreground-muted hover:text-brand"
         >
           {backLabel}
         </Link>
         <span className="truncate text-[12px] text-foreground-tertiary">
-          {context ?? `${moduleSlug} · ${moduleTitle}`}
+          {context ?? moduleSlug + " · " + moduleTitle}
         </span>
       </div>
 
@@ -166,8 +136,8 @@ export default function QuizRunner({
           passedHint={passedHint}
           links={
             resultLinks ?? [
-              { href: `/s/${skill}/${moduleSlug}`, label: "回到讲义" },
-              { href: `/s/${skill}`, label: "章节列表" },
+              { href: "/s/" + skill + "/" + moduleSlug, label: "回到讲义" },
+              { href: "/s/" + skill, label: "章节列表" },
             ]
           }
           onRestart={() => dispatch({ type: "restart" })}
@@ -178,15 +148,8 @@ export default function QuizRunner({
           question={question}
           record={record}
           isLast={state.index === state.questions.length - 1}
-          onSubmit={(response) => {
-            const correct = grade(question, response).correct;
-            if (reviewMode) {
-              void submitReviewAnswer(question.id, correct);
-            } else {
-              void submitAnswerProgress(question.module, question.id, correct);
-            }
-            dispatch({ type: "submit", response });
-          }}
+          reviewMode={reviewMode}
+          onSubmit={(response) => dispatch({ type: "submit", response })}
           onNext={() => dispatch({ type: "next" })}
         />
       )}

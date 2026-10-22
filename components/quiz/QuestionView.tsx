@@ -10,6 +10,7 @@ type Props = {
   question: Question;
   record: AnswerRecord | null;
   isLast: boolean;
+  reviewMode?: boolean;
   onSubmit: (response: QuizResponse) => void;
   onNext: () => void;
 };
@@ -18,6 +19,7 @@ export default function QuestionView({
   question,
   record,
   isLast,
+  reviewMode,
   onSubmit,
   onNext,
 }: Props) {
@@ -29,26 +31,33 @@ export default function QuestionView({
   const canSubmit =
     question.type === "short" ? text.trim().length > 0 : selected.length > 0;
 
-  // 提交答案后，异步记录答题结果到后端进度
+  // 提交答案后，异步记录答题结果到后端进度（复习模式推进 SM-2，否则喂复习队列）
   useEffect(() => {
     async function doSubmit() {
       if (!record || !result) return;
+      const body = reviewMode
+        ? {
+            type: "review-answer",
+            questionId: question.id,
+            isCorrect: result.correct,
+          }
+        : {
+            type: "submit-answer",
+            skill: question.skill,
+            moduleSlug: question.module,
+            questionId: question.id,
+            isCorrect: result.correct,
+          };
       try {
         await fetch("/api/progress", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            type: "submit-answer",
-            skill: "gis",
-            moduleSlug: question.module,
-            questionId: question.id,
-            isCorrect: result.correct,
-          }),
+          body: JSON.stringify(body),
         });
       } catch { /* 静默失败，不影响用户体验 */ }
     }
     doSubmit();
-  }, [record, result, question]);
+  }, [record, result, question, reviewMode]);
 
   const toggle = useCallback(
     (key: string) => {
