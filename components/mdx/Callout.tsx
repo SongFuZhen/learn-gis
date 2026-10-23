@@ -18,28 +18,28 @@ const STYLES: Record<
     icon: Info,
     label: "提示",
     box: "border-info/30 bg-info-light",
-    iconBox: "bg-info/12 text-info",
+    iconBox: "bg-info/15 text-info",
     title: "text-info",
   },
   warn: {
     icon: AlertTriangle,
     label: "注意",
     box: "border-warning/35 bg-warning-light",
-    iconBox: "bg-warning/12 text-warning",
+    iconBox: "bg-warning/15 text-warning",
     title: "text-warning",
   },
   tip: {
     icon: Lightbulb,
     label: "小技巧",
     box: "border-success/30 bg-success-light",
-    iconBox: "bg-success/12 text-success",
+    iconBox: "bg-success/15 text-success",
     title: "text-success",
   },
   example: {
     icon: MapPinned,
     label: "实例",
     box: "border-brand/30 bg-brand-soft",
-    iconBox: "bg-brand/12 text-brand-ink",
+    iconBox: "bg-brand/15 text-brand-ink",
     title: "text-brand-ink",
   },
 };
@@ -73,12 +73,13 @@ export default function Callout({
           "mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-sm",
           s.iconBox,
         )}
-        aria-hidden
+        aria-hidden="true"
       >
         <Icon className="h-4 w-4" strokeWidth={2} />
       </span>
       <div className="min-w-0 flex-1">
         <p className={cn("text-[13px] font-semibold", s.title)}>
+          <span className="sr-only">{s.label}：</span>
           {title ?? s.label}
         </p>
         <div className="callout-body mt-1 text-foreground-secondary">
