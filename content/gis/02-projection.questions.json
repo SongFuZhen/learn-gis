@@ -1,0 +1,411 @@
+{
+  "skill": "gis",
+  "module": "02",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-02-004",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "为什么必须把球面坐标投影到平面上才能得到常规地图？",
+      "explanation": "球面具有非零高斯曲率，不能等距展开成平面（想象剥橘子皮）。所以任何地图投影都必然产生某种变形，只能在等角、等积、等距之间取舍。",
+      "refs": [
+        {
+          "title": "USGS Map Projections 手册",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "为了让坐标精度更高",
+          "hint": "投影不会提高原始数据的精度，反而会引入变形。"
+        },
+        {
+          "key": "B",
+          "text": "因为球面不可展：无法在不拉伸、不撕裂的前提下铺平成平面",
+          "hint": ""
+        },
+        {
+          "key": "C",
+          "text": "为了让文件体积更小",
+          "hint": "体积与投影无关，取决于数据格式与精度。"
+        },
+        {
+          "key": "D",
+          "text": "因为屏幕像素是方的",
+          "hint": "像素形状不是根本原因；本质是球面的可展性（高斯曲率）。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-005",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托（Mercator）圆柱投影严格保持的是什么？",
+      "explanation": "墨卡托是等角投影：任意两条线的夹角在图上保持不变，因此小范围形状相似、恒向线（等角航线）是直线——这正是它适合航海导航的原因，代价是面积随纬度急剧放大。",
+      "refs": [
+        {
+          "title": "EPSG:3395（World Mercator）",
+          "url": "https://epsg.io/3395"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "面积",
+          "hint": "墨卡托面积变形极大：高纬度区域被显著放大。"
+        },
+        {
+          "key": "B",
+          "text": "角度（等角），小范围内形状不变"
+        },
+        {
+          "key": "C",
+          "text": "任意两点间的距离",
+          "hint": "只有特定方向（如沿经线、赤道附近）距离比例才接近 1；一般两点距离是变形的。"
+        },
+        {
+          "key": "D",
+          "text": "所有方位角",
+          "hint": "方位保持是方位投影（如 Web 常用的极地方位投影）的性质，不是墨卡托。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-006",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Web 墨卡托（EPSG:3857）在数学上是怎么处理的？",
+      "explanation": "EPSG:3857 采用球面墨卡托：半径直接取 WGS84 椭球长半轴 6378137 m，忽略扁率。好处是与瓦片金字塔的整数坐标换算简单、全球一致；代价是相对椭球墨卡托有几十米级的偏差（它不是严格的 EPSG:3395）。",
+      "refs": [
+        {
+          "title": "EPSG:3857 定义",
+          "url": "https://epsg.io/3857"
+        },
+        {
+          "title": "MapTiler：Web Mercator 坐标与瓦片说明",
+          "url": "https://docs.maptiler.com/google-maps-coordinates-tile-bounds-projection/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "直接套用 WGS84 椭球公式做墨卡托投影"
+        },
+        {
+          "key": "B",
+          "text": "把地球当作正球体（半径取 6378137 m）再做墨卡托投影"
+        },
+        {
+          "key": "C",
+          "text": "使用 CGCS2000 椭球"
+        },
+        {
+          "key": "D",
+          "text": "使用等积圆锥投影",
+          "hint": "Web 地图用的是圆柱投影族，不是圆锥，也不是等积。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-007",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "在 Web 墨卡托地图上，格陵兰看起来比非洲还大，最直接的原因是？",
+      "explanation": "球面墨卡托的 y 坐标为 R·ln(tan(π/4+φ/2))，纬度越高，同样的纬度差在图上被拉得越长；经线方向的放大率为 1/cosφ，两方向同倍放大以保持等角，于是面积按 1/cos²φ 放大。φ=70° 时面积放大约 8.5 倍。",
+      "refs": [
+        {
+          "title": "EPSG:3857 定义",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "经线间距随纬度升高按 1/cosφ 增大，面积随之被放大"
+        },
+        {
+          "key": "B",
+          "text": "格陵兰的数据采集精度更高",
+          "hint": "视觉放大与数据精度无关。"
+        },
+        {
+          "key": "C",
+          "text": "投影保持了面积",
+          "hint": "保持面积的是等积投影；Web 墨卡托恰恰不保持面积。"
+        },
+        {
+          "key": "D",
+          "text": "因为纬度每度对应的距离在赤道最小",
+          "hint": "地面上纬度的实际间距随纬度增加还会略增，但地图上的拉伸远大于此。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-02-008",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "按变形性质，地图投影可以分成哪几类？（多选，选出全部正确项）",
+      "explanation": "三种基本取向：等角（保角度，面积变形）、等积（保面积，形状变形）、等距/折衷（在某方向或综合指标上折中）。三者互斥，不可能同时成立。",
+      "refs": [
+        {
+          "title": "USGS Map Projections 手册",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "等角投影（conformal）"
+        },
+        {
+          "key": "B",
+          "text": "等积投影（equal-area）"
+        },
+        {
+          "key": "C",
+          "text": "等距/任意（equidistant / 折衷）"
+        },
+        {
+          "key": "D",
+          "text": "等容投影（保持体积）",
+          "hint": "地图是二维的，不存在三维“保持体积”的投影分类。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-037",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "地图投影不变形，可以任意选择而不影响量算结果。",
+      "explanation": "任何投影都有变形，长度/面积/角度至少一项失真，量算前必须明确投影性质。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-054",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影图上高纬度地区面积被显著夸大。",
+      "explanation": "Web 墨卡托保角不保积，格陵兰岛看起来与非洲相当，实际面积仅约 1/14。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-201",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "在 Web 墨卡托（EPSG:3857）地图上直接量取一块区域的面积，最容易出现什么问题？",
+      "options": [
+        {
+          "key": "A",
+          "text": "结果总是偏小",
+          "hint": "Web 墨卡托在高纬度是放大而非缩小。"
+        },
+        {
+          "key": "B",
+          "text": "高纬度地区面积被明显放大"
+        },
+        {
+          "key": "C",
+          "text": "无法量取面积",
+          "hint": "能量，只是结果有系统性变形误差。"
+        },
+        {
+          "key": "D",
+          "text": "只在赤道附近准确",
+          "hint": "赤道变形小，但题干问的是普遍问题。"
+        }
+      ],
+      "answer": [
+        "B"
+      ],
+      "explanation": "Web 墨卡托的经线方向放大率是 1/cos φ，面积放大约 1/cos²φ。高纬度（如北欧、加拿大）在图上被显著放大，直接在 3857 上量面积会得到偏大的结果。量面积应回到球面（geography）或等积投影上。",
+      "refs": [
+        {
+          "title": "EPSG:3857 Web 墨卡托",
+          "url": "https://epsg.io/3857"
+        },
+        {
+          "title": "墨卡托投影",
+          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
+        }
+      ]
+    },
+    {
+      "id": "gis-02-202",
+      "skill": "gis",
+      "module": "02",
+      "type": "single",
+      "difficulty": 2,
+      "stem": "制作一幅用于比较各国国土面积的世界专题地图，最应选用哪类投影？",
+      "options": [
+        {
+          "key": "A",
+          "text": "等角投影",
+          "hint": "等角保形状但会扭曲面积，与「比面积」目标冲突。"
+        },
+        {
+          "key": "B",
+          "text": "等积投影"
+        },
+        {
+          "key": "C",
+          "text": "墨卡托投影",
+          "hint": "墨卡托是等角投影，高纬度面积被严重放大。"
+        },
+        {
+          "key": "D",
+          "text": "透视投影",
+          "hint": "透视投影不保面积。"
+        }
+      ],
+      "answer": [
+        "B"
+      ],
+      "explanation": "比较面积必须用等积（equal-area）投影，保证图上面积与实地面积成正比。用等角的墨卡托做面积对比会夸大高纬度国家——格陵兰看起来像非洲一样大就是经典反例。",
+      "refs": [
+        {
+          "title": "USGS《Map Projections — A Working Manual》",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "墨卡托投影",
+          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
+        }
+      ]
+    },
+    {
+      "id": "gis-02-203",
+      "skill": "gis",
+      "module": "02",
+      "type": "numeric",
+      "difficulty": 2,
+      "stem": "Web 墨卡托的经线方向长度放大率为 1/cos φ。在北纬 60° 处，图上量得的一段 100 km 直线，实际地面距离约是多少千米？（cos60°=0.5，填整数）",
+      "answer": 50,
+      "tolerance": 1,
+      "unit": "km",
+      "placeholder": "填整数，单位 km",
+      "explanation": "放大率 1/cos60° = 2，即图上距离是实际的 2 倍。所以实际距离 = 图上 100 km ÷ 2 = 50 km。这正是高纬度在 Web 墨卡托上被「拉大」的直接后果。",
+      "refs": [
+        {
+          "title": "EPSG:3857 Web 墨卡托",
+          "url": "https://epsg.io/3857"
+        },
+        {
+          "title": "墨卡托投影",
+          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
+        }
+      ]
+    },
+    {
+      "id": "gis-02-204",
+      "skill": "gis",
+      "module": "02",
+      "type": "truefalse",
+      "difficulty": 1,
+      "stem": "Web 墨卡托把地球当作正球体（而非椭球）来计算，这是它严格精确的原因之一。",
+      "answer": false,
+      "explanation": "说反了。Web 墨卡托确实把地球当成半径 6378137 m 的正球体来做墨卡托，但这恰恰是它「不严格」的地方——和椭球墨卡托相比有几十米级偏差。这么做是为了瓦片金字塔换算简单、渲染快，牺牲精度换效率。",
+      "refs": [
+        {
+          "title": "EPSG:3857 Web 墨卡托",
+          "url": "https://epsg.io/3857"
+        }
+      ]
+    },
+    {
+      "id": "gis-02-205",
+      "skill": "gis",
+      "module": "02",
+      "type": "truefalse",
+      "difficulty": 2,
+      "stem": "墨卡托投影是等角投影，因此在这类图上任意两点间量得的距离都等于实地距离。",
+      "answer": false,
+      "explanation": "等角只保证角度和局部形状不变，并不保距离。墨卡托图上两点间距离会随纬度变化而失真，高纬度被明显放大。要等距需用等距投影。",
+      "refs": [
+        {
+          "title": "墨卡托投影",
+          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
+        },
+        {
+          "title": "USGS《Map Projections — A Working Manual》",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ]
+    },
+    {
+      "id": "gis-02-206",
+      "skill": "gis",
+      "module": "02",
+      "type": "short",
+      "difficulty": 1,
+      "stem": "Web 墨卡托对应的 EPSG 代号是多少？（填数字即可）",
+      "accepted": [
+        "3857",
+        "EPSG:3857",
+        "epsg:3857"
+      ],
+      "placeholder": "3857",
+      "explanation": "Web 墨卡托的标准代号是 EPSG:3857（旧称 900913）。它和 EPSG:4326（经纬度，单位度）是前端最常见的两个代号，3857 单位是米。",
+      "refs": [
+        {
+          "title": "EPSG:3857 Web 墨卡托",
+          "url": "https://epsg.io/3857"
+        }
+      ]
+    }
+  ]
+}
