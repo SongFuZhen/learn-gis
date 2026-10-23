@@ -72,14 +72,35 @@ export const mapQuestionSchema = z.object({
   toleranceKm: z.number().positive().max(20000),
 });
 
+/** 数值计算题：|作答 - answer| <= tolerance 判对（tolerance=0 表示精确匹配）；unit 仅用于展示 */
+export const numericQuestionSchema = z.object({
+  ...baseQuestionShape,
+  type: z.literal("numeric"),
+  answer: z.number().finite(),
+  tolerance: z.number().min(0),
+  unit: z.string().min(1).optional(),
+  placeholder: z.string().optional(),
+});
+
+/** 判断题 */
+export const trueFalseQuestionSchema = z.object({
+  ...baseQuestionShape,
+  type: z.literal("truefalse"),
+  answer: z.boolean(),
+});
+
 export const questionSchema = z.union([
   choiceQuestionSchema,
   shortQuestionSchema,
   mapQuestionSchema,
+  numericQuestionSchema,
+  trueFalseQuestionSchema,
 ]);
 
 export type ChoiceQuestion = z.infer<typeof choiceQuestionSchema>;
 export type ShortQuestion = z.infer<typeof shortQuestionSchema>;
+export type NumericQuestion = z.infer<typeof numericQuestionSchema>;
+export type TrueFalseQuestion = z.infer<typeof trueFalseQuestionSchema>;
 export type Question = z.infer<typeof questionSchema>;
 
 /** 一个模块一个题库文件 */

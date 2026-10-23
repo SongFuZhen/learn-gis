@@ -1,4 +1,4 @@
-import type { Grade, Question, QuizResponse } from "./types";
+import type { Grade, NumericQuestion, Question, QuizResponse } from "./types";
 import { isChoice } from "./types";
 
 /**
@@ -74,6 +74,24 @@ export function grade(question: Question, response: QuizResponse): Grade {
     return { correct, expected: question.accepted.slice(0, 1) };
   }
 
+  if (question.type === "numeric") {
+    if (response.kind !== "numeric") {
+      return { correct: false, expected: [formatNumeric(question)] };
+    }
+    const correct = Math.abs(response.value - question.answer) <= question.tolerance;
+    return { correct, expected: [formatNumeric(question)] };
+  }
+
+  if (question.type === "truefalse") {
+    if (response.kind !== "boolean") {
+      return { correct: false, expected: [question.answer ? "对" : "错"] };
+    }
+    return {
+      correct: response.value === question.answer,
+      expected: [question.answer ? "对" : "错"],
+    };
+  }
+
   if (isChoice(question)) {
     if (response.kind !== "choice") {
       return { correct: false, expected: [...question.answer] };
@@ -86,10 +104,17 @@ export function grade(question: Question, response: QuizResponse): Grade {
   return { correct: false, expected: [] };
 }
 
+/** 数值题的期望答案展示：带上单位，保留合理精度 */
+function formatNumeric(question: NumericQuestion): string {
+  const value = Number.isInteger(question.answer)
+    ? String(question.answer)
+    : String(Number(question.answer.toPrecision(6)));
+  return question.unit ? value + " " + question.unit : value;
+}
+
 /** 干扰项级反馈：找出用户选中、但不在答案里的选项 */
 export function wrongPicks(question: Question, response: QuizResponse) {
-  if (question.type === "short" || question.type === "map" || response.kind !== "choice")
-    return [];
+  if (!isChoice(question) || response.kind !== "choice") return [];
   return question.options.filter(
     (option) =>
       response.selected.includes(option.key) && !question.answer.includes(option.key),
@@ -98,8 +123,7 @@ export function wrongPicks(question: Question, response: QuizResponse) {
 
 /** 漏选的正确项（多选场景） */
 export function missedPicks(question: Question, response: QuizResponse) {
-  if (question.type === "short" || question.type === "map" || response.kind !== "choice")
-    return [];
+  if (!isChoice(question) || response.kind !== "choice") return [];
   return question.options.filter(
     (option) =>
       question.answer.includes(option.key) && !response.selected.includes(option.key),

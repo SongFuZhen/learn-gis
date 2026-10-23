@@ -42,7 +42,7 @@ describe("pickExamQuestions", () => {
   });
 
   it("题量超过题库时返回全部去重后的题", () => {
-    const picked = pickExamQuestions(ALL_QUESTIONS, 999, mulberry32(1));
+    const picked = pickExamQuestions(ALL_QUESTIONS, ALL_QUESTIONS.length + 10, mulberry32(1));
     expect(picked).toHaveLength(ALL_QUESTIONS.length);
     expect(new Set(picked.map((q) => q.id)).size).toBe(ALL_QUESTIONS.length);
   });

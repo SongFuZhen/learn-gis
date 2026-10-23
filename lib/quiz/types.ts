@@ -41,17 +41,40 @@ export type MapQuestion = BaseQuestion & {
   toleranceKm: number;
 };
 
-export type Question = ChoiceQuestion | ShortQuestion | MapQuestion;
+/** 数值计算题：|作答 - answer| <= tolerance 判对 */
+export type NumericQuestion = BaseQuestion & {
+  type: "numeric";
+  answer: number;
+  tolerance: number;
+  /** 单位（度、km、米…），仅用于展示 */
+  unit?: string;
+  placeholder?: string;
+};
+
+/** 判断题 */
+export type TrueFalseQuestion = BaseQuestion & {
+  type: "truefalse";
+  answer: boolean;
+};
+
+export type Question =
+  | ChoiceQuestion
+  | ShortQuestion
+  | MapQuestion
+  | NumericQuestion
+  | TrueFalseQuestion;
 
 export function isChoice(question: Question): question is ChoiceQuestion {
   return question.type === "single" || question.type === "multi";
 }
 
-/** 用户作答：选择题提交 key 集合，短答题提交文本，地图题提交经纬度 */
+/** 用户作答：选择题提交 key 集合，短答题提交文本，地图题提交经纬度，数值题提交数字，判断题提交布尔 */
 export type QuizResponse =
   | { kind: "choice"; selected: string[] }
   | { kind: "short"; text: string }
-  | { kind: "map"; lat: number; lng: number };
+  | { kind: "map"; lat: number; lng: number }
+  | { kind: "numeric"; value: number }
+  | { kind: "boolean"; value: boolean };
 
 export type Grade = {
   correct: boolean;

@@ -5,6 +5,8 @@ const TYPE_META = [
   { key: "single", label: "单选", color: "hsl(var(--brand-primary))" },
   { key: "multi", label: "多选", color: "hsl(var(--brand-violet))" },
   { key: "short", label: "短答", color: "hsl(var(--brand-cyan))" },
+  { key: "numeric", label: "计算", color: "hsl(var(--brand-gold))" },
+  { key: "truefalse", label: "判断", color: "hsl(var(--success))" },
 ] as const;
 
 const DIFF_META = [

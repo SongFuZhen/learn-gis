@@ -86,8 +86,9 @@ export default function SettingsPage() {
       </h2>
       <div className="mt-2 rounded-md border border-border bg-card p-5 shadow-card">
         <p className="text-[13px] leading-relaxed text-foreground-tertiary">
-          进度与错题存储（Neon + 本地降级）在 M3 上线，届时「开始」会变成「继续上次
-          做到的一题」，这里能看到本机或账号维度的数据管理。
+          学习进度与错题记录保存在 Neon 数据库，按浏览器 cookie（匿名身份）区分，
+          无需注册登录。换设备或清除浏览器数据后进度不共享；首页的「继续学习」、
+          上方的今日复习与学习进度页都基于这份数据。
         </p>
         <p className="mt-2 text-[13px] leading-relaxed text-foreground-tertiary">
           内容以仓库内 MDX / JSON 为准，引用来源见 docs/RESOURCES.md，欢迎 PR 纠错。

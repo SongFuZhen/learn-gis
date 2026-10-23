@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
 import { grade, normalizeShortAnswer, wrongPicks } from "./grade";
-import type { ChoiceQuestion, ShortQuestion } from "./types";
+import type {
+  ChoiceQuestion,
+  NumericQuestion,
+  ShortQuestion,
+  TrueFalseQuestion,
+} from "./types";
 
 const single: ChoiceQuestion = {
   id: "gis-01-001",
@@ -109,6 +114,76 @@ describe("grade / 短答规范化", () => {
 
   it("中文答案准确命中", () => {
     expect(grade(short, { kind: "short", text: "度" }).correct).toBe(true);
+  });
+});
+
+const numeric: NumericQuestion = {
+  id: "gis-00-010",
+  skill: "gis",
+  module: "00",
+  type: "numeric",
+  difficulty: 2,
+  stem: "纬度 1 度大约等于多少公里（取整到个位）？",
+  answer: 111,
+  tolerance: 2,
+  unit: "km",
+  explanation: "经线上纬度 1 度约为 111.19 km。",
+  refs: [{ title: "ref", url: "https://epsg.io/4326" }],
+};
+
+const trueFalse: TrueFalseQuestion = {
+  ...numeric,
+  id: "gis-04-010",
+  type: "truefalse",
+  stem: "EPSG:4326 的坐标单位是米。",
+  answer: false,
+  explanation: "4326 是地理坐标系，单位是度。",
+};
+
+describe("grade / 数值题", () => {
+  it("等于答案判对", () => {
+    expect(grade(numeric, { kind: "numeric", value: 111 }).correct).toBe(true);
+  });
+
+  it("在容差内判对", () => {
+    expect(grade(numeric, { kind: "numeric", value: 112.5 }).correct).toBe(true);
+  });
+
+  it("超出容差判错", () => {
+    const result = grade(numeric, { kind: "numeric", value: 120 });
+    expect(result.correct).toBe(false);
+    expect(result.expected).toEqual(["111 km"]);
+  });
+
+  it("类型不匹配判错", () => {
+    expect(grade(numeric, { kind: "short", text: "111" }).correct).toBe(false);
+  });
+
+  it("小数答案按精度展示", () => {
+    const result = grade({ ...numeric, answer: 111.19, tolerance: 0.1 }, { kind: "numeric", value: 999 });
+    expect(result.expected).toEqual(["111.19 km"]);
+  });
+});
+
+describe("grade / 判断题", () => {
+  it("答案为 false，选错判对", () => {
+    expect(grade(trueFalse, { kind: "boolean", value: false }).correct).toBe(true);
+  });
+
+  it("答案为 false，选对判错并给出期望", () => {
+    const result = grade(trueFalse, { kind: "boolean", value: true });
+    expect(result.correct).toBe(false);
+    expect(result.expected).toEqual(["错"]);
+  });
+
+  it("答案为 true，选对判对", () => {
+    expect(
+      grade({ ...trueFalse, answer: true }, { kind: "boolean", value: true }).correct,
+    ).toBe(true);
+  });
+
+  it("类型不匹配判错", () => {
+    expect(grade(trueFalse, { kind: "choice", selected: ["A"] }).correct).toBe(false);
   });
 });
 

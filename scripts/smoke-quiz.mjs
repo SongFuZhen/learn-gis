@@ -30,6 +30,12 @@ async function answerOne(page, q, context) {
   totalQuestions += 1;
   if (q.type === "short") {
     await page.locator("#short-answer").fill(q.accepted[0]);
+  } else if (q.type === "numeric") {
+    await page.locator("#numeric-answer").fill(String(q.answer));
+  } else if (q.type === "truefalse") {
+    await page
+      .getByRole("button", { name: q.answer ? "对" : "错", exact: true })
+      .click();
   } else {
     for (const key of q.answer) {
       await page

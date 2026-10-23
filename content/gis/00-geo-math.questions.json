@@ -1,15 +1,26 @@
 {
   "skill": "gis",
   "module": "00",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "gis-00-001",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 1,
       "stem": "一个平面直角坐标系（笛卡尔坐标）要确定一个点，必须由什么构成？",
+      "explanation": "平面直角坐标 = 原点 + 两条正交数轴，且两轴的正方向与单位必须给定。GIS 里的「投影坐标」（UTM、高斯-克吕格、Web 墨卡托的数字）本质上就是地球上的点被投到这样一张平面上，单位通常是米。",
+      "refs": [
+        {
+          "title": "PROJ 投影（把球面坐标投到平面）",
+          "url": "https://proj.org/en/stable/usage/projections.html"
+        },
+        {
+          "title": "USGS《Map Projections — A Working Manual》",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -31,26 +42,28 @@
           "hint": "经纬网是球面（角度）坐标，不是平面直角坐标。"
         }
       ],
-      "answer": ["B"],
-      "explanation": "平面直角坐标 = 原点 + 两条正交数轴，且两轴的正方向与单位必须给定。GIS 里的「投影坐标」（UTM、高斯-克吕格、Web 墨卡托的数字）本质上就是地球上的点被投到这样一张平面上，单位通常是米。",
-      "refs": [
-        {
-          "title": "PROJ 投影（把球面坐标投到平面）",
-          "url": "https://proj.org/en/stable/usage/projections.html"
-        },
-        {
-          "title": "USGS《Map Projections — A Working Manual》",
-          "url": "https://pubs.usgs.gov/publication/pp1395"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-002",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 2,
       "stem": "中国测量坐标系（如高斯-克吕格平面成果表）中，x 轴与 y 轴分别指向？",
+      "explanation": "中国测量学传统把 x 轴指向北（北坐标）、y 轴指向东（东坐标），象限按顺时针编号；而 EPSG/ISO 和多数软件（PostGIS、GeoJSON 生态）用 x=easting、y=northing。两种约定在现实数据中都存在，看到 7~8 位平面坐标要先确认轴向，再判断哪一列是北、哪一列是东。",
+      "refs": [
+        {
+          "title": "OGC WKT 2 / 轴序（axis order）规范",
+          "url": "https://docs.ogc.org/is/18-010r7/18-010r7.html"
+        },
+        {
+          "title": "EPSG:4490（CGCS2000 地理坐标系）",
+          "url": "https://epsg.io/4490"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -69,26 +82,24 @@
           "text": "x 向东，y 向南"
         }
       ],
-      "answer": ["B"],
-      "explanation": "中国测量学传统把 x 轴指向北（北坐标）、y 轴指向东（东坐标），象限按顺时针编号；而 EPSG/ISO 和多数软件（PostGIS、GeoJSON 生态）用 x=easting、y=northing。两种约定在现实数据中都存在，看到 7~8 位平面坐标要先确认轴向，再判断哪一列是北、哪一列是东。",
-      "refs": [
-        {
-          "title": "OGC WKT 2 / 轴序（axis order）规范",
-          "url": "https://docs.ogc.org/is/18-010r7/18-010r7.html"
-        },
-        {
-          "title": "EPSG:4490（CGCS2000 地理坐标系）",
-          "url": "https://epsg.io/4490"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-003",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 1,
       "stem": "Canvas / 屏幕坐标系的原点与 y 轴正方向是？",
+      "explanation": "屏幕/Canvas 的原点在左上角、x 向右、y 向下，与数学坐标系上下相反。把经纬度投影到画布时通常要做一次 y 翻转（height - y），否则整张地图会上下颠倒。",
+      "refs": [
+        {
+          "title": "MDN Canvas 绘图教程（坐标系说明）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -108,22 +119,28 @@
           "text": "原点在中心，y 向上"
         }
       ],
-      "answer": ["B"],
-      "explanation": "屏幕/Canvas 的原点在左上角、x 向右、y 向下，与数学坐标系上下相反。把经纬度投影到画布时通常要做一次 y 翻转（height - y），否则整张地图会上下颠倒。",
-      "refs": [
-        {
-          "title": "MDN Canvas 绘图教程（坐标系说明）",
-          "url": "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-004",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 1,
       "stem": "把 40°26′46″ 换算成十进制度，约等于？",
+      "explanation": "40 + 26/60 + 46/3600 = 40 + 0.433333 + 0.012778 = 40.446111°。分、秒都是 60 进制，所以「402646 拼起来」或「小数点后直接接分秒」都会错。",
+      "refs": [
+        {
+          "title": "经纬度格式与 DMS 换算（Movable Type）",
+          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
+        },
+        {
+          "title": "NOAA/NGS 测量计算工具",
+          "url": "https://www.ngs.noaa.gov/TOOLS/"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -145,26 +162,28 @@
           "hint": "把秒直接当成百分位（46/100），秒应是 46/3600。"
         }
       ],
-      "answer": ["C"],
-      "explanation": "40 + 26/60 + 46/3600 = 40 + 0.433333 + 0.012778 = 40.446111°。分、秒都是 60 进制，所以「402646 拼起来」或「小数点后直接接分秒」都会错。",
-      "refs": [
-        {
-          "title": "经纬度格式与 DMS 换算（Movable Type）",
-          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
-        },
-        {
-          "title": "NOAA/NGS 测量计算工具",
-          "url": "https://www.ngs.noaa.gov/TOOLS/"
-        }
+      "answer": [
+        "C"
       ]
     },
     {
       "id": "gis-00-005",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 2,
       "stem": "在纬度 60°N 处，1° 经度对应的地面距离大约是？",
+      "explanation": "每度经度的长度 ≈ 111.32 km × cos φ。cos 60° = 0.5，因此约 55.66 km；而每度纬度在赤道约 110.57 km、两极约 111.69 km，几乎不变。经纬度网格不是等距网格。",
+      "refs": [
+        {
+          "title": "大圆距离与经纬度换算（Movable Type）",
+          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
+        },
+        {
+          "title": "Turf.js distance（单位与球面距离）",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -186,26 +205,24 @@
           "hint": "只有极点处经线才汇聚为 0。"
         }
       ],
-      "answer": ["B"],
-      "explanation": "每度经度的长度 ≈ 111.32 km × cos φ。cos 60° = 0.5，因此约 55.66 km；而每度纬度在赤道约 110.57 km、两极约 111.69 km，几乎不变。经纬度网格不是等距网格。",
-      "refs": [
-        {
-          "title": "大圆距离与经纬度换算（Movable Type）",
-          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
-        },
-        {
-          "title": "Turf.js distance（单位与球面距离）",
-          "url": "https://turfjs.org/docs/api/distance"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-006",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 2,
       "stem": "JavaScript 里写 Math.sin(45) 想求 sin 45°，结果却是 0.8509。原因是？",
+      "explanation": "JS（以及绝大多数语言、投影库）的三角函数都以弧度为单位。sin 45° 要写 Math.sin(Math.PI / 4) ≈ 0.7071；直接传 45 等价于 45 rad，相当于 45 × 57.2958° ≈ 2578.3°，只是恰好落到周期内的某个值上。",
+      "refs": [
+        {
+          "title": "MDN Math.sin（参数为弧度）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -226,39 +243,49 @@
           "text": "Math.sin 返回的是角度而不是比值"
         }
       ],
-      "answer": ["B"],
-      "explanation": "JS（以及绝大多数语言、投影库）的三角函数都以弧度为单位。sin 45° 要写 Math.sin(Math.PI / 4) ≈ 0.7071；直接传 45 等价于 45 rad，相当于 45 × 57.2958° ≈ 2578.3°，只是恰好落到周期内的某个值上。",
-      "refs": [
-        {
-          "title": "MDN Math.sin（参数为弧度）",
-          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-007",
       "skill": "gis",
       "module": "00",
-      "type": "short",
       "difficulty": 1,
       "stem": "1 弧度约等于多少度？（填数值即可，保留 1 位小数）",
-      "accepted": ["57.3", "57.30", "57.3°", "57.3度", "57.29", "57.296", "57.2958"],
-      "placeholder": "例如：57.3",
       "explanation": "1 rad = 180/π ≈ 57.29578°，反之 1° = π/180 ≈ 0.0174533 rad。π rad = 180° 是两套单位之间的桥梁，所有投影/三角公式换算都靠它。",
       "refs": [
         {
           "title": "MDN Math.PI（π 常量）",
           "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI"
         }
-      ]
+      ],
+      "type": "short",
+      "accepted": [
+        "57.3",
+        "57.30",
+        "57.3°",
+        "57.3度",
+        "57.29",
+        "57.296",
+        "57.2958"
+      ],
+      "placeholder": "例如：57.3"
     },
     {
       "id": "gis-00-008",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 1,
       "stem": "地理坐标中纬度的取值范围是？",
+      "explanation": "纬度是与赤道面的夹角，范围 -90°（南极）到 +90°（北极），南纬为负。经度则绕赤道一周，范围 -180°~+180° 或 0°~360°。范围校验搞混，就会出现「纬度 121°」这种明显非法却通得过的数据。",
+      "refs": [
+        {
+          "title": "EPSG:4326（WGS 84 地理坐标系）",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -279,22 +306,28 @@
           "text": "0° ~ 360°"
         }
       ],
-      "answer": ["B"],
-      "explanation": "纬度是与赤道面的夹角，范围 -90°（南极）到 +90°（北极），南纬为负。经度则绕赤道一周，范围 -180°~+180° 或 0°~360°。范围校验搞混，就会出现「纬度 121°」这种明显非法却通得过的数据。",
-      "refs": [
-        {
-          "title": "EPSG:4326（WGS 84 地理坐标系）",
-          "url": "https://epsg.io/4326"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-009",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 2,
       "stem": "GeoJSON 中一个点的坐标数组是 [116.39, 39.90]，这两个数字分别是？",
+      "explanation": "RFC 7946 规定 GeoJSON 的 position 按 [x, y, z] 排列，地理坐标下就是 [经度, 纬度]（可附高程）。而 EPSG:4326 的官方轴序是 lat, lon，Leaflet 也先纬度——三套约定混用，数据就会从北京飘到印度洋。",
+      "refs": [
+        {
+          "title": "RFC 7946（GeoJSON，position 顺序）",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946.html"
+        },
+        {
+          "title": "EPSG:4326 定义（轴序 lat, lon）",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -315,26 +348,28 @@
           "text": "x（像素）、y（像素）"
         }
       ],
-      "answer": ["B"],
-      "explanation": "RFC 7946 规定 GeoJSON 的 position 按 [x, y, z] 排列，地理坐标下就是 [经度, 纬度]（可附高程）。而 EPSG:4326 的官方轴序是 lat, lon，Leaflet 也先纬度——三套约定混用，数据就会从北京飘到印度洋。",
-      "refs": [
-        {
-          "title": "RFC 7946（GeoJSON，position 顺序）",
-          "url": "https://www.rfc-editor.org/rfc/rfc7946.html"
-        },
-        {
-          "title": "EPSG:4326 定义（轴序 lat, lon）",
-          "url": "https://epsg.io/4326"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-010",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 3,
       "stem": "已知平面坐标下的 Δx（向东）与 Δy（向北），要算「从正北顺时针」的方位角，正确的是？",
+      "explanation": "atan2(Δy, Δx) 是从 x 轴（正东）逆时针量到向量方向的角度；方位角从正北顺时针量。两者起点差 90°、旋转方向相反，因此 bearing = (90° − atan2_result + 360°) mod 360°。直接混用会出现「向东的方位角算成 90°」（实际应为 90°，而 atan2 给 0°）这类方向错乱。",
+      "refs": [
+        {
+          "title": "Turf.js bearing（按正北顺时针，0–360）",
+          "url": "https://turfjs.org/docs/api/bearing"
+        },
+        {
+          "title": "MDN Math.atan2（参数与返回值）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -355,26 +390,28 @@
           "text": "bearing = (180° − atan2(Δy, Δx)·180/π) mod 360°"
         }
       ],
-      "answer": ["B"],
-      "explanation": "atan2(Δy, Δx) 是从 x 轴（正东）逆时针量到向量方向的角度；方位角从正北顺时针量。两者起点差 90°、旋转方向相反，因此 bearing = (90° − atan2_result + 360°) mod 360°。直接混用会出现「向东的方位角算成 90°」（实际应为 90°，而 atan2 给 0°）这类方向错乱。",
-      "refs": [
-        {
-          "title": "Turf.js bearing（按正北顺时针，0–360）",
-          "url": "https://turfjs.org/docs/api/bearing"
-        },
-        {
-          "title": "MDN Math.atan2（参数与返回值）",
-          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-011",
       "skill": "gis",
       "module": "00",
-      "type": "multi",
       "difficulty": 2,
       "stem": "以下哪些情况不能直接用 √(Δx² + Δy²) 作为距离？（多选）",
+      "explanation": "勾股定理只在同一直角平面上成立：经纬度是角度（A 不能），Web 墨卡托在高纬被 1/cosφ 拉伸（C 会偏大很多），跨带的高斯平面值来自不同投影原点（D 必须先统一到同一带或转换）。B 属于同带小范围，勾股可用。",
+      "refs": [
+        {
+          "title": "Turf.js distance（球面距离与单位）",
+          "url": "https://turfjs.org/docs/api/distance"
+        },
+        {
+          "title": "EPSG:3857（Web 墨卡托）",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "multi",
       "options": [
         {
           "key": "A",
@@ -394,26 +431,30 @@
           "text": "跨了带号（如 38 带与 39 带）的高斯平面坐标"
         }
       ],
-      "answer": ["A", "C", "D"],
-      "explanation": "勾股定理只在同一直角平面上成立：经纬度是角度（A 不能），Web 墨卡托在高纬被 1/cosφ 拉伸（C 会偏大很多），跨带的高斯平面值来自不同投影原点（D 必须先统一到同一带或转换）。B 属于同带小范围，勾股可用。",
-      "refs": [
-        {
-          "title": "Turf.js distance（球面距离与单位）",
-          "url": "https://turfjs.org/docs/api/distance"
-        },
-        {
-          "title": "EPSG:3857（Web 墨卡托）",
-          "url": "https://epsg.io/3857"
-        }
+      "answer": [
+        "A",
+        "C",
+        "D"
       ]
     },
     {
       "id": "gis-00-012",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 2,
       "stem": "EPSG:4326 在 WKT 中声明轴序为 lat, lon，但常见数据里存的是 lon, lat。这说明？",
+      "explanation": "轴序（axis order）写在 CRS 定义里（WKT2 / EPSG 都显式声明）。GeoJSON 规定 [lon, lat] 是格式层面的约定，并不等于 CRS 轴序；PostGIS 通常按 x=lon、y=lat 存储，GDAL/PROJ 有开关控制输出轴序。判断依据永远是「这份数据遵循哪个规范」。",
+      "refs": [
+        {
+          "title": "OGC WKT 2 坐标系表示（含 axis order）",
+          "url": "https://docs.ogc.org/is/18-010r7/18-010r7.html"
+        },
+        {
+          "title": "RFC 7946（GeoJSON 坐标顺序）",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946.html"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -435,26 +476,28 @@
           "hint": "lon=39.9、lat=116.39 中纬度 116 明显非法，但很多流程不做范围校验。"
         }
       ],
-      "answer": ["B"],
-      "explanation": "轴序（axis order）写在 CRS 定义里（WKT2 / EPSG 都显式声明）。GeoJSON 规定 [lon, lat] 是格式层面的约定，并不等于 CRS 轴序；PostGIS 通常按 x=lon、y=lat 存储，GDAL/PROJ 有开关控制输出轴序。判断依据永远是「这份数据遵循哪个规范」。",
-      "refs": [
-        {
-          "title": "OGC WKT 2 坐标系表示（含 axis order）",
-          "url": "https://docs.ogc.org/is/18-010r7/18-010r7.html"
-        },
-        {
-          "title": "RFC 7946（GeoJSON 坐标顺序）",
-          "url": "https://www.rfc-editor.org/rfc/rfc7946.html"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-013",
       "skill": "gis",
       "module": "00",
-      "type": "multi",
       "difficulty": 1,
       "stem": "关于度与弧度的换算，下列哪些是正确的？（多选）",
+      "explanation": "度分秒是 60 进制（A、B 对）；度与弧度通过 π rad = 180° 换算，所以 1° = π/180 ≈ 0.01745 rad（C 对）。1 rad ≈ 57.3°，90° 对应的是 π/2 rad（D 错）。",
+      "refs": [
+        {
+          "title": "MDN Math.sin（弧度参数）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin"
+        },
+        {
+          "title": "MDN Math.PI",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI"
+        }
+      ],
+      "type": "multi",
       "options": [
         {
           "key": "A",
@@ -473,26 +516,30 @@
           "text": "1 rad = 90°"
         }
       ],
-      "answer": ["A", "B", "C"],
-      "explanation": "度分秒是 60 进制（A、B 对）；度与弧度通过 π rad = 180° 换算，所以 1° = π/180 ≈ 0.01745 rad（C 对）。1 rad ≈ 57.3°，90° 对应的是 π/2 rad（D 错）。",
-      "refs": [
-        {
-          "title": "MDN Math.sin（弧度参数）",
-          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/sin"
-        },
-        {
-          "title": "MDN Math.PI",
-          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/PI"
-        }
+      "answer": [
+        "A",
+        "B",
+        "C"
       ]
     },
     {
       "id": "gis-00-014",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 3,
       "stem": "把墨卡托公式 y = R·ln(tan(π/4 + φ/2)) 中的 φ 用「度」而不是弧度代入，会发生什么？",
+      "explanation": "tan 的参数必须是弧度。代入 φ=30（本意 30°）相当于用 30 rad ≈ 1719° 去算，tan 的周期性使结果与正确值毫无关系，y 会跳到任意位置。凡涉及三角/对数的公式，先统一到弧度再算。",
+      "refs": [
+        {
+          "title": "PROJ 投影文档（投影公式与参数）",
+          "url": "https://proj.org/en/stable/usage/projections.html"
+        },
+        {
+          "title": "MDN Math.tan（弧度参数）",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tan"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -513,26 +560,28 @@
           "text": "只会影响南北半球的符号"
         }
       ],
-      "answer": ["B"],
-      "explanation": "tan 的参数必须是弧度。代入 φ=30（本意 30°）相当于用 30 rad ≈ 1719° 去算，tan 的周期性使结果与正确值毫无关系，y 会跳到任意位置。凡涉及三角/对数的公式，先统一到弧度再算。",
-      "refs": [
-        {
-          "title": "PROJ 投影文档（投影公式与参数）",
-          "url": "https://proj.org/en/stable/usage/projections.html"
-        },
-        {
-          "title": "MDN Math.tan（弧度参数）",
-          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tan"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-015",
       "skill": "gis",
       "module": "00",
-      "type": "single",
       "difficulty": 2,
       "stem": "「1° 纬度约 111 km」这个数量级的特点是？",
+      "explanation": "子午线方向每度长度从赤道约 110.57 km 缓慢增加到两极约 111.69 km，工程上取 111 km；而经度方向每度长度 ≈ 111.32·cos φ，随纬度明显收缩。这也是「同样的度数差，南北走和东西走距离不同」的原因。",
+      "refs": [
+        {
+          "title": "经纬度距离换算（Movable Type）",
+          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
+        },
+        {
+          "title": "USGS《Map Projections — A Working Manual》",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -553,35 +602,2863 @@
           "text": "等于 1° 经度的长度"
         }
       ],
-      "answer": ["B"],
-      "explanation": "子午线方向每度长度从赤道约 110.57 km 缓慢增加到两极约 111.69 km，工程上取 111 km；而经度方向每度长度 ≈ 111.32·cos φ，随纬度明显收缩。这也是「同样的度数差，南北走和东西走距离不同」的原因。",
-      "refs": [
-        {
-          "title": "经纬度距离换算（Movable Type）",
-          "url": "https://www.movable-type.co.uk/scripts/latlong.html"
-        },
-        {
-          "title": "USGS《Map Projections — A Working Manual》",
-          "url": "https://pubs.usgs.gov/publication/pp1395"
-        }
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-00-016",
       "skill": "gis",
       "module": "00",
-      "type": "map",
       "difficulty": 2,
       "stem": "在地图上点击赤道与本初子午线的交点（0°N, 0°E）。",
-      "target": { "lat": 0, "lng": 0 },
-      "toleranceKm": 1800,
       "explanation": "赤道是纬度 0°，本初子午线是经度 0°，两者交于 (0°, 0°)，位于大西洋几内亚湾外海。地图题按点击点到目标点的球面距离判分，容差内即算对。",
       "refs": [
         {
           "title": "经纬度与赤道（Wikipedia）",
           "url": "https://en.wikipedia.org/wiki/Equator"
         }
-      ]
+      ],
+      "type": "map",
+      "target": {
+        "lat": 0,
+        "lng": 0
+      },
+      "toleranceKm": 1800
+    },
+    {
+      "id": "gis-00-017",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "飞机沿 20°N 到 18°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 2° → 2 × 111.19 ≈ 222 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 222,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-018",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "同一子午线上，纬度从 11°N 移动到 14°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 25° → 25 × 111.19 ≈ 2780 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2780,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-019",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲地位于 31°N，乙地位于 36°N，两地经度相同。沿经线方向两地相距约多少 km？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 5° → 5 × 111.19 ≈ 556 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 556,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-020",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "同一子午线上，纬度从 53°N 移动到 39°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 14° → 14 × 111.19 ≈ 1557 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1557,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-021",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "飞机沿 54°N 到 36°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 18° → 18 × 111.19 ≈ 2001 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2001,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-022",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "飞机沿 26°N 到 48°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 22° → 22 × 111.19 ≈ 2446 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2446,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-023",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "同一子午线上，纬度从 4°N 移动到 27°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 23° → 23 × 111.19 ≈ 2557 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2557,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-024",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲地位于 32°N，乙地位于 41°N，两地经度相同。沿经线方向两地相距约多少 km？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 9° → 9 × 111.19 ≈ 1001 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1001,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-025",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "同一子午线上，纬度从 62°N 移动到 53°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 9° → 9 × 111.19 ≈ 1001 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1001,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-026",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "同一子午线上，纬度从 26°N 移动到 9°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 17° → 17 × 111.19 ≈ 1890 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1890,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-027",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲地位于 17°N，乙地位于 41°N，两地经度相同。沿经线方向两地相距约多少 km？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 24° → 24 × 111.19 ≈ 2669 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2669,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-028",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲地位于 32°N，乙地位于 26°N，两地经度相同。沿经线方向两地相距约多少 km？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 6° → 6 × 111.19 ≈ 667 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 667,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-029",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "飞机沿 17°N 到 36°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 19° → 19 × 111.19 ≈ 2113 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2113,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-030",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "飞机沿 43°N 到 18°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 25° → 25 × 111.19 ≈ 2780 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2780,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-031",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "同一子午线上，纬度从 32°N 移动到 46°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 14° → 14 × 111.19 ≈ 1557 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1557,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-032",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "同一子午线上，纬度从 16°N 移动到 6°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 22° → 22 × 111.19 ≈ 2446 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2446,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-033",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "飞机沿 35°N 到 25°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 10° → 10 × 111.19 ≈ 1112 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1112,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-034",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "同一子午线上，纬度从 53°N 移动到 44°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 9° → 9 × 111.19 ≈ 1001 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1001,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-035",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "飞机沿 76°N 到 51°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 25° → 25 × 111.19 ≈ 2780 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2780,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-036",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲地位于 8°N，乙地位于 6°N，两地经度相同。沿经线方向两地相距约多少 km？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 14° → 14 × 111.19 ≈ 1557 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1557,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-037",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "同一子午线上，纬度从 9°N 移动到 9°N，南北方向实地相距约多少公里？（结果取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 18° → 18 × 111.19 ≈ 2001 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2001,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-038",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "飞机沿 55°N 到 65°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 10° → 10 × 111.19 ≈ 1112 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1112,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-039",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲地位于 45°N，乙地位于 61°N，两地经度相同。沿经线方向两地相距约多少 km？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 16° → 16 × 111.19 ≈ 1779 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1779,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-040",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲地位于 64°N，乙地位于 48°N，两地经度相同。沿经线方向两地相距约多少 km？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 16° → 16 × 111.19 ≈ 1779 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1779,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-041",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "飞机沿 45°N 到 49°N 的同一条经线直飞，忽略地球扁率，飞行距离约多少公里？（取整）",
+      "explanation": "经线上纬度每差 1° 约 111.19 km，纬度差 4° → 4 × 111.19 ≈ 445 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 445,
+      "tolerance": 3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-042",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "甲乙两点都在 0°N 纬线上，经度差 6°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 0° 处为 111.32 km，乘以 6° ≈ 667.9 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 667.9,
+      "tolerance": 5.3,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-043",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 10°N 纬线上，经度差 1°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 10° 处为 109.63 km，乘以 1° ≈ 109.6 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 109.6,
+      "tolerance": 0.9,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-044",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 15°N 纬线上，经度差 1°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 15° 处为 107.53 km，乘以 1° ≈ 107.5 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 107.5,
+      "tolerance": 0.9,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-045",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在纬度 20° 的纬线上，经度相差 2° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 20° 处为 104.61 km，乘以 2° ≈ 209.2 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 209.2,
+      "tolerance": 1.7,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-046",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 25°N 纬线上，经度差 16°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 25° 处为 100.89 km，乘以 16° ≈ 1614.2 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1614.2,
+      "tolerance": 12.9,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-047",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 30° 的纬线上，经度相差 20° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 30° 处为 96.41 km，乘以 20° ≈ 1928.1 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1928.1,
+      "tolerance": 15.4,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-048",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "甲乙两点都在 35°N 纬线上，经度差 7°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 35° 处为 91.19 km，乘以 7° ≈ 638.3 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 638.3,
+      "tolerance": 5.1,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-049",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 40°N 纬线上，经度差 7°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 40° 处为 85.28 km，乘以 7° ≈ 596.9 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 596.9,
+      "tolerance": 4.8,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-050",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 45° 的纬线上，经度相差 1° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 45° 处为 78.72 km，乘以 1° ≈ 78.7 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 78.7,
+      "tolerance": 0.6,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-051",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "甲乙两点都在 50°N 纬线上，经度差 9°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 50° 处为 71.56 km，乘以 9° ≈ 644 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 644,
+      "tolerance": 5.2,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-052",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 55°N 纬线上，经度差 12°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 55° 处为 63.85 km，乘以 12° ≈ 766.2 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 766.2,
+      "tolerance": 6.1,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-053",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 60° 的纬线上，经度相差 6° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 60° 处为 55.66 km，乘以 6° ≈ 334 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 334,
+      "tolerance": 2.7,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-054",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在纬度 0° 的纬线上，经度相差 3° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 0° 处为 111.32 km，乘以 3° ≈ 334 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 334,
+      "tolerance": 2.7,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-055",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 10° 的纬线上，经度相差 20° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 10° 处为 109.63 km，乘以 20° ≈ 2192.6 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2192.6,
+      "tolerance": 17.5,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-056",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 15° 的纬线上，经度相差 4° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 15° 处为 107.53 km，乘以 4° ≈ 430.1 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 430.1,
+      "tolerance": 3.4,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-057",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "甲乙两点都在 20°N 纬线上，经度差 11°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 20° 处为 104.61 km，乘以 11° ≈ 1150.7 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1150.7,
+      "tolerance": 9.2,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-058",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 25° 的纬线上，经度相差 18° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 25° 处为 100.89 km，乘以 18° ≈ 1816 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1816,
+      "tolerance": 14.5,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-059",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 30°N 纬线上，经度差 10°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 30° 处为 96.41 km，乘以 10° ≈ 964.1 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 964.1,
+      "tolerance": 7.7,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-060",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "甲乙两点都在 35°N 纬线上，经度差 14°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 35° 处为 91.19 km，乘以 14° ≈ 1276.6 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1276.6,
+      "tolerance": 10.2,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-061",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 40° 的纬线上，经度相差 15° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 40° 处为 85.28 km，乘以 15° ≈ 1279.1 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1279.1,
+      "tolerance": 10.2,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-062",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 45°N 纬线上，经度差 1°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 45° 处为 78.72 km，乘以 1° ≈ 78.7 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 78.7,
+      "tolerance": 0.6,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-063",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在纬度 50° 的纬线上，经度相差 20° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 50° 处为 71.56 km，乘以 20° ≈ 1431.1 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1431.1,
+      "tolerance": 11.4,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-064",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 55° 的纬线上，经度相差 14° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 55° 处为 63.85 km，乘以 14° ≈ 893.9 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 893.9,
+      "tolerance": 7.2,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-065",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 60° 的纬线上，经度相差 7° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 60° 处为 55.66 km，乘以 7° ≈ 389.6 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 389.6,
+      "tolerance": 3.1,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-066",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "甲乙两点都在 0°N 纬线上，经度差 2°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 0° 处为 111.32 km，乘以 2° ≈ 222.6 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 222.6,
+      "tolerance": 1.8,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-067",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 10°N 纬线上，经度差 17°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 10° 处为 109.63 km，乘以 17° ≈ 1863.7 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1863.7,
+      "tolerance": 14.9,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-068",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "甲乙两点都在 15°N 纬线上，经度差 11°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 15° 处为 107.53 km，乘以 11° ≈ 1182.8 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1182.8,
+      "tolerance": 9.5,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-069",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "甲乙两点都在 20°N 纬线上，经度差 18°。这两点沿纬线方向的实地距离约多少 km？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 20° 处为 104.61 km，乘以 18° ≈ 1882.9 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1882.9,
+      "tolerance": 15.1,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-070",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 25° 的纬线上，经度相差 10° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 25° 处为 100.89 km，乘以 10° ≈ 1008.9 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1008.9,
+      "tolerance": 8.1,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-071",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在纬度 30° 的纬线上，经度相差 18° 的两点沿纬线相距约多少公里？（保留 1 位小数）",
+      "explanation": "纬线上经度 1° 的长度 = 111.32 × cos(纬度)。纬度 30° 处为 96.41 km，乘以 18° ≈ 1735.3 km。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        },
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1735.3,
+      "tolerance": 13.9,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-072",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 成都（30.57°, 104.07°）到 纽约（40.71°, -74.01°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，成都—纽约 约 12087 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12087,
+      "tolerance": 121,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-073",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 巴黎（48.86°, 2.35°）到 曼谷（13.76°, 100.5°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，巴黎—曼谷 约 9443 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 9443,
+      "tolerance": 94,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-074",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 伊斯坦布尔（41.01°, 28.98°）到 北京（39.9°, 116.4°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，伊斯坦布尔—北京 约 7055 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 7055,
+      "tolerance": 71,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-075",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 开罗（30.04°, 31.24°）到 广州（23.13°, 113.26°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，开罗—广州 约 8018 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8018,
+      "tolerance": 80,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-076",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 新加坡（1.35°, 103.82°）到 广州（23.13°, 113.26°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，新加坡—广州 约 2627 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2627,
+      "tolerance": 26,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-077",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 上海（31.23°, 121.47°）到 巴黎（48.86°, 2.35°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，上海—巴黎 约 9262 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 9262,
+      "tolerance": 93,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-078",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 广州（23.13°, 113.26°）到 新加坡（1.35°, 103.82°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，广州—新加坡 约 2627 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2627,
+      "tolerance": 26,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-079",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 拉萨（29.65°, 91.14°）到 孟买（19.08°, 72.88°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，拉萨—孟买 约 2187 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2187,
+      "tolerance": 22,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-080",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 雷克雅未克（64.15°, -21.94°）到 乌鲁木齐（43.83°, 87.62°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，雷克雅未克—乌鲁木齐 约 6539 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6539,
+      "tolerance": 65,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-081",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 武汉（30.59°, 114.31°）到 伦敦（51.51°, -0.13°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，武汉—伦敦 约 8876 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8876,
+      "tolerance": 89,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-082",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 伦敦（51.51°, -0.13°）到 哈尔滨（45.8°, 126.53°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，伦敦—哈尔滨 约 8053 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8053,
+      "tolerance": 81,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-083",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 北京（39.9°, 116.4°）到 开普敦（-33.92°, 18.42°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，北京—开普敦 约 12955 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12955,
+      "tolerance": 130,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-084",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 昆明（24.88°, 102.83°）到 巴黎（48.86°, 2.35°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，昆明—巴黎 约 8671 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8671,
+      "tolerance": 87,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-085",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 迪拜（25.2°, 55.27°）到 哈尔滨（45.8°, 126.53°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，迪拜—哈尔滨 约 6613 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6613,
+      "tolerance": 66,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-086",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 台北（25.03°, 121.57°）到 迪拜（25.2°, 55.27°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，台北—迪拜 约 6600 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6600,
+      "tolerance": 66,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-087",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 首尔（37.57°, 126.98°）到 乌鲁木齐（43.83°, 87.62°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，首尔—乌鲁木齐 约 3357 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3357,
+      "tolerance": 34,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-088",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 纽约（40.71°, -74.01°）到 新加坡（1.35°, 103.82°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，纽约—新加坡 约 15333 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 15333,
+      "tolerance": 153,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-089",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 内罗毕（-1.29°, 36.82°）到 拉萨（29.65°, 91.14°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，内罗毕—拉萨 约 6704 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6704,
+      "tolerance": 67,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-090",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 曼谷（13.76°, 100.5°）到 开普敦（-33.92°, 18.42°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，曼谷—开普敦 约 10146 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10146,
+      "tolerance": 101,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-091",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 莫斯科（55.76°, 37.62°）到 上海（31.23°, 121.47°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，莫斯科—上海 约 6817 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6817,
+      "tolerance": 68,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-092",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 西安（34.34°, 108.94°）到 成都（30.57°, 104.07°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，西安—成都 约 620 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 620,
+      "tolerance": 20,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-093",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 悉尼（-33.87°, 151.21°）到 台北（25.03°, 121.57°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，悉尼—台北 约 7259 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 7259,
+      "tolerance": 73,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-094",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "用球面大圆距离估算 东京（35.68°, 139.69°）到 上海（31.23°, 121.47°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，东京—上海 约 1758 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1758,
+      "tolerance": 20,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-095",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "用球面大圆距离估算 圣保罗（-23.55°, -46.63°）到 乌鲁木齐（43.83°, 87.62°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，圣保罗—乌鲁木齐 约 15298 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 15298,
+      "tolerance": 153,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-096",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用球面大圆距离估算 香港（22.32°, 114.17°）到 北京（39.9°, 116.4°）的距离，取 R=6371 km，结果取整为多少公里？",
+      "explanation": "按 haversine 公式（球面两点最短距离，R=6371 km）计算，香港—北京 约 1966 km。用经纬度直接套勾股定理会因经线收敛而失真。",
+      "refs": [
+        {
+          "title": "大圆距离",
+          "url": "https://en.wikipedia.org/wiki/Great-circle_distance"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1966,
+      "tolerance": 20,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-097",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 22°57′11″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 22 + 57/60 + 11/3600 = 22.95306°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 22.95306,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-098",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 62°31′27″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 62 + 31/60 + 27/3600 = 62.52417°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 62.52417,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-099",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 62°1′26″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 62 + 1/60 + 26/3600 = 62.02389°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 62.02389,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-100",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 45°31′44″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 45 + 31/60 + 44/3600 = 45.52889°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 45.52889,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-101",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 22°12′30″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 22 + 12/60 + 30/3600 = 22.20833°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 22.20833,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-102",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 12°4′39″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 12 + 4/60 + 39/3600 = 12.0775°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12.0775,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-103",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 43°27′45″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 43 + 27/60 + 45/3600 = 43.4625°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 43.4625,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-104",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 34°32′22″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 34 + 32/60 + 22/3600 = 34.53944°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 34.53944,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-105",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 17°6′3″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 17 + 6/60 + 3/3600 = 17.10083°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 17.10083,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-106",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 11°27′37″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 11 + 27/60 + 37/3600 = 11.46028°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 11.46028,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-107",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 69°19′6″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 69 + 19/60 + 6/3600 = 69.31833°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 69.31833,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-108",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 42°19′20″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 42 + 19/60 + 20/3600 = 42.32222°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 42.32222,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-109",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 30°57′36″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 30 + 57/60 + 36/3600 = 30.96°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 30.96,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-110",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 59°34′50″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 59 + 34/60 + 50/3600 = 59.58056°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 59.58056,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-111",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 7°38′18″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 7 + 38/60 + 18/3600 = 7.63833°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 7.63833,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-112",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 11°7′32″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 11 + 7/60 + 32/3600 = 11.12556°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 11.12556,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-113",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 58°11′3″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 58 + 11/60 + 3/3600 = 58.18417°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 58.18417,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-114",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 43°19′53″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 43 + 19/60 + 53/3600 = 43.33139°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 43.33139,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-115",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 66°18′24″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 66 + 18/60 + 24/3600 = 66.30667°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 66.30667,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-116",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 67°54′4″ 转成十进制度（保留 5 位小数）。",
+      "explanation": "十进制度 = 度 + 分/60 + 秒/3600 = 67 + 54/60 + 4/3600 = 67.90111°。GeoJSON 等格式要求十进制度，注意别把分秒当小数直接拼。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "numeric",
+      "answer": 67.90111,
+      "tolerance": 0.0005,
+      "unit": "°"
+    },
+    {
+      "id": "gis-00-117",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 62.16306° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "62.16306° = 62°9′47″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "62°9′47″",
+        "62°9'47\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-118",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 2.74722° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "2.74722° = 2°44′50″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "2°44′50″",
+        "2°44'50\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-119",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 4.17556° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "4.17556° = 4°10′32″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "4°10′32″",
+        "4°10'32\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-120",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 64.65694° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "64.65694° = 64°39′25″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "64°39′25″",
+        "64°39'25\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-121",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 45.23167° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "45.23167° = 45°13′54″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "45°13′54″",
+        "45°13'54\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-122",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 66.1025° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "66.1025° = 66°6′9″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "66°6′9″",
+        "66°6'9\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-123",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 39.47389° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "39.47389° = 39°28′26″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "39°28′26″",
+        "39°28'26\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-124",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 18.55528° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "18.55528° = 18°33′19″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "18°33′19″",
+        "18°33'19\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-125",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把 37.94611° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "37.94611° = 37°56′46″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "37°56′46″",
+        "37°56'46\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-126",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "把 14.87306° 转成度分秒，按「度°分′秒″」格式作答（秒取整）。",
+      "explanation": "14.87306° = 14°52′23″：度取整数部分，小数部分 × 60 得分，再取小数 × 60 得秒。",
+      "refs": [
+        {
+          "title": "地理坐标转换（度分秒 ↔ 十进制）",
+          "url": "https://en.wikipedia.org/wiki/Geographic_coordinate_conversion"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "14°52′23″",
+        "14°52'23\""
+      ],
+      "placeholder": "如 39°54′32″"
+    },
+    {
+      "id": "gis-00-127",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "1:5000 地形图上量得两地相距 2 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 5000 cm。2 cm × 5000 = 10000 cm = 10 m = 0.1 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.1,
+      "tolerance": 0.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-128",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "1:10000 地形图上量得两地相距 9 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 10000 cm。9 cm × 10000 = 90000 cm = 90 m = 0.9 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.9,
+      "tolerance": 0.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-129",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "1:25000 地形图上量得两地相距 1 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 25000 cm。1 cm × 25000 = 25000 cm = 25 m = 0.25 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.25,
+      "tolerance": 0.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-130",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "1:50000 地形图上量得两地相距 2 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 50000 cm。2 cm × 50000 = 100000 cm = 100 m = 1 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1,
+      "tolerance": 0.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-131",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "1:100000 地形图上量得两地相距 6 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 100000 cm。6 cm × 100000 = 600000 cm = 600 m = 6 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0.06,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-132",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "1:250000 地形图上量得两地相距 10 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 250000 cm。10 cm × 250000 = 2500000 cm = 2500 m = 25 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 25,
+      "tolerance": 0.25,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-133",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "1:500000 地形图上量得两地相距 4 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 500000 cm。4 cm × 500000 = 2000000 cm = 2000 m = 20 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 20,
+      "tolerance": 0.2,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-134",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "1:1000000 地形图上量得两地相距 1 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 1000000 cm。1 cm × 1000000 = 1000000 cm = 1000 m = 10 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0.1,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-135",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "1:10000 地形图上量得两地相距 8 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 10000 cm。8 cm × 10000 = 80000 cm = 80 m = 0.8 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.8,
+      "tolerance": 0.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-136",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "1:25000 地形图上量得两地相距 4 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 25000 cm。4 cm × 25000 = 100000 cm = 100 m = 1 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1,
+      "tolerance": 0.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-137",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "1:50000 地形图上量得两地相距 7 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 50000 cm。7 cm × 50000 = 350000 cm = 350 m = 3.5 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3.5,
+      "tolerance": 0.04,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-138",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "1:100000 地形图上量得两地相距 9 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 100000 cm。9 cm × 100000 = 900000 cm = 900 m = 9 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 9,
+      "tolerance": 0.09,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-139",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "1:250000 地形图上量得两地相距 8 cm，实地相距多少公里？（保留 2 位小数）",
+      "explanation": "图上 1 cm 代表实地 250000 cm。8 cm × 250000 = 2000000 cm = 2000 m = 20 km。",
+      "refs": [
+        {
+          "title": "地图比例尺",
+          "url": "https://en.wikipedia.org/wiki/Scale_(map)"
+        }
+      ],
+      "type": "numeric",
+      "answer": 20,
+      "tolerance": 0.2,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-140",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "某影像像元分辨率为 0.5 m，横向共 19639 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 0.5 m × 19639 = 9820 m = 9.82 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 9.82,
+      "tolerance": 0.1,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-141",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "某影像像元分辨率为 1 m，横向共 15118 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 1 m × 15118 = 15118 m = 15.12 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 15.12,
+      "tolerance": 0.15,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-142",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "某影像像元分辨率为 2 m，横向共 23868 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 2 m × 23868 = 47736 m = 47.74 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 47.74,
+      "tolerance": 0.48,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-143",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "某影像像元分辨率为 5 m，横向共 17064 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 5 m × 17064 = 85320 m = 85.32 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 85.32,
+      "tolerance": 0.85,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-144",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "某影像像元分辨率为 10 m，横向共 9278 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 10 m × 9278 = 92780 m = 92.78 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 92.78,
+      "tolerance": 0.93,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-145",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "某影像像元分辨率为 30 m，横向共 6902 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 30 m × 6902 = 207060 m = 207.06 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 207.06,
+      "tolerance": 2.07,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-146",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "某影像像元分辨率为 0.5 m，横向共 26922 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 0.5 m × 26922 = 13461 m = 13.46 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 13.46,
+      "tolerance": 0.13,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-147",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "某影像像元分辨率为 1 m，横向共 20842 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 1 m × 20842 = 20842 m = 20.84 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 20.84,
+      "tolerance": 0.21,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-148",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "某影像像元分辨率为 2 m，横向共 20525 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 2 m × 20525 = 41050 m = 41.05 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 41.05,
+      "tolerance": 0.41,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-149",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "某影像像元分辨率为 5 m，横向共 9743 个像元，影像横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖长度 = 像元大小 × 像元数 = 5 m × 9743 = 48715 m = 48.72 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 48.72,
+      "tolerance": 0.49,
+      "unit": "km"
+    },
+    {
+      "id": "gis-00-150",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在地图上点击「巴黎」的大致位置。",
+      "explanation": "巴黎 大致位于 48.9°, 2.4°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 48.86,
+        "lng": 2.35
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-151",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在地图上点击「西安」的大致位置。",
+      "explanation": "西安 大致位于 34.3°, 108.9°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 34.34,
+        "lng": 108.94
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-152",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "在地图上点击「北京」的大致位置。",
+      "explanation": "北京 大致位于 39.9°, 116.4°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9,
+        "lng": 116.4
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-153",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在地图上点击「乌鲁木齐」的大致位置。",
+      "explanation": "乌鲁木齐 大致位于 43.8°, 87.6°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 43.83,
+        "lng": 87.62
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-154",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在地图上点击「成都」的大致位置。",
+      "explanation": "成都 大致位于 30.6°, 104.1°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.57,
+        "lng": 104.07
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-155",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "在地图上点击「洛杉矶」的大致位置。",
+      "explanation": "洛杉矶 大致位于 34.0°, -118.2°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 34.05,
+        "lng": -118.24
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-156",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在地图上点击「广州」的大致位置。",
+      "explanation": "广州 大致位于 23.1°, 113.3°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 23.13,
+        "lng": 113.26
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-157",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在地图上点击「昆明」的大致位置。",
+      "explanation": "昆明 大致位于 24.9°, 102.8°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 24.88,
+        "lng": 102.83
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-158",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "在地图上点击「哈尔滨」的大致位置。",
+      "explanation": "哈尔滨 大致位于 45.8°, 126.5°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 45.8,
+        "lng": 126.53
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "gis-00-159",
+      "skill": "gis",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在地图上点击「武汉」的大致位置。",
+      "explanation": "武汉 大致位于 30.6°, 114.3°（容差 220 km）。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.59,
+        "lng": 114.31
+      },
+      "toleranceKm": 220
     }
   ]
 }

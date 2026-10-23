@@ -1,286 +1,4284 @@
 {
   "skill": "gis",
   "module": "05",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "gis-05-001",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 1,
       "stem": "WMS 的 GetMap 返回的是什么？",
-      "options": [
-        { "key": "A", "text": "服务端渲染好的图片" },
-        { "key": "B", "text": "矢量要素集合", "hint": "返回要素的是 WFS。" },
-        { "key": "C", "text": "原始栅格覆盖值", "hint": "返回栅格原始值的是 WCS。" },
-        { "key": "D", "text": "TileMatrixSet 定义" }
-      ],
-      "answer": ["A"],
       "explanation": "WMS 是「地图出图」服务：按 LAYERS/BBOX/WIDTH/HEIGHT/FORMAT 渲染成图片。样式在服务端定义，客户端拿不到要素属性。",
       "refs": [
-        { "title": "OGC WMS 标准", "url": "https://www.ogc.org/standards/wms" }
+        {
+          "title": "OGC WMS 标准",
+          "url": "https://www.ogc.org/standards/wms"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "服务端渲染好的图片"
+        },
+        {
+          "key": "B",
+          "text": "矢量要素集合",
+          "hint": "返回要素的是 WFS。"
+        },
+        {
+          "key": "C",
+          "text": "原始栅格覆盖值",
+          "hint": "返回栅格原始值的是 WCS。"
+        },
+        {
+          "key": "D",
+          "text": "TileMatrixSet 定义"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-002",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "WMTS 与 WMS 的关键区别是？",
-      "options": [
-        { "key": "A", "text": "WMTS 提供预生成瓦片（可强缓存），WMS 按请求即时渲染" },
-        { "key": "B", "text": "WMTS 返回矢量要素", "hint": "WMTS 仍是图片瓦片；矢量服务是 WFS 或矢量瓦片。" },
-        { "key": "C", "text": "WMS 只能返回 PNG", "hint": "WMS 支持 PNG/JPEG/GeoTIFF 等多种格式。" },
-        { "key": "D", "text": "WMTS 不需要投影" }
-      ],
-      "answer": ["A"],
       "explanation": "WMTS 按 TileMatrix 预生成图片瓦片，可加 CDN/长缓存，速度快；WMS 每次请求现场渲染，灵活（可定制样式/比例尺）但慢、难缓存。",
       "refs": [
-        { "title": "OGC WMTS 标准", "url": "https://www.ogc.org/standards/wmts" }
+        {
+          "title": "OGC WMTS 标准",
+          "url": "https://www.ogc.org/standards/wmts"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WMTS 提供预生成瓦片（可强缓存），WMS 按请求即时渲染"
+        },
+        {
+          "key": "B",
+          "text": "WMTS 返回矢量要素",
+          "hint": "WMTS 仍是图片瓦片；矢量服务是 WFS 或矢量瓦片。"
+        },
+        {
+          "key": "C",
+          "text": "WMS 只能返回 PNG",
+          "hint": "WMS 支持 PNG/JPEG/GeoTIFF 等多种格式。"
+        },
+        {
+          "key": "D",
+          "text": "WMTS 不需要投影"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-003",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "需要客户端自己改样式、做属性查询时，应选择？",
-      "options": [
-        { "key": "A", "text": "WFS（或矢量瓦片）" },
-        { "key": "B", "text": "WMS", "hint": "WMS 给的是图片，样式与属性都在服务端，客户端改不了。" },
-        { "key": "C", "text": "WMTS", "hint": "WMTS 是图片瓦片，同样改不了样式。" },
-        { "key": "D", "text": "WCS" }
-      ],
-      "answer": ["A"],
       "explanation": "WFS 返回要素（GML/GeoJSON），客户端可自定义符号、查询属性、编辑。矢量瓦片是另一种「数据而非图片」的选择，适合大规模展示。",
       "refs": [
-        { "title": "OGC WFS 标准", "url": "https://www.ogc.org/standards/wfs" }
+        {
+          "title": "OGC WFS 标准",
+          "url": "https://www.ogc.org/standards/wfs"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WFS（或矢量瓦片）"
+        },
+        {
+          "key": "B",
+          "text": "WMS",
+          "hint": "WMS 给的是图片，样式与属性都在服务端，客户端改不了。"
+        },
+        {
+          "key": "C",
+          "text": "WMTS",
+          "hint": "WMTS 是图片瓦片，同样改不了样式。"
+        },
+        {
+          "key": "D",
+          "text": "WCS"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-004",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "WCS 主要面向什么数据？",
-      "options": [
-        { "key": "A", "text": "栅格覆盖（coverage），返回原始像元值" },
-        { "key": "B", "text": "矢量要素", "hint": "矢量要素由 WFS 提供。" },
-        { "key": "C", "text": "渲染好的图片", "hint": "图片由 WMS/WMTS 提供。" },
-        { "key": "D", "text": "路由规划结果" }
-      ],
-      "answer": ["A"],
       "explanation": "WCS 提供 Coverage（如 DEM、多光谱影像）的子集与原始值，便于客户端做计算，而不是只看渲染图。",
       "refs": [
-        { "title": "OGC WCS 标准", "url": "https://www.ogc.org/standards/wcs" }
+        {
+          "title": "OGC WCS 标准",
+          "url": "https://www.ogc.org/standards/wcs"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "栅格覆盖（coverage），返回原始像元值"
+        },
+        {
+          "key": "B",
+          "text": "矢量要素",
+          "hint": "矢量要素由 WFS 提供。"
+        },
+        {
+          "key": "C",
+          "text": "渲染好的图片",
+          "hint": "图片由 WMS/WMTS 提供。"
+        },
+        {
+          "key": "D",
+          "text": "路由规划结果"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-005",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 3,
       "stem": "WMS 1.3.0 中写 `CRS=EPSG:4326` 时，BBOX 的顺序是？",
-      "options": [
-        { "key": "A", "text": "minx,miny,maxx,maxy（经度在前）" },
-        { "key": "B", "text": "miny,minx,maxy,maxx（纬度在前）" },
-        { "key": "C", "text": "由 VERSION 决定，1.3.0 用经度在前", "hint": "1.3.0 恰恰改成了按 CRS 轴序（纬度在前），这是著名的兼容坑。" },
-        { "key": "D", "text": "任意顺序都行" }
-      ],
-      "answer": ["B"],
       "explanation": "WMS 1.3.0 按 CRS 定义的轴序解释 BBOX，EPSG:4326 是纬度在前。想要经度在前，可改用 `CRS=CRS:84`（OGC 定义），或退回 WMS 1.1.1 的 `SRS`。",
       "refs": [
-        { "title": "OGC WMS 1.3.0", "url": "https://www.ogc.org/standards/wms" }
+        {
+          "title": "OGC WMS 1.3.0",
+          "url": "https://www.ogc.org/standards/wms"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "minx,miny,maxx,maxy（经度在前）"
+        },
+        {
+          "key": "B",
+          "text": "miny,minx,maxy,maxx（纬度在前）"
+        },
+        {
+          "key": "C",
+          "text": "由 VERSION 决定，1.3.0 用经度在前",
+          "hint": "1.3.0 恰恰改成了按 CRS 轴序（纬度在前），这是著名的兼容坑。"
+        },
+        {
+          "key": "D",
+          "text": "任意顺序都行"
+        }
+      ],
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-05-006",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "OGC API - Features 相比经典 WFS 的主要变化是？",
-      "options": [
-        { "key": "A", "text": "REST + JSON + OpenAPI，用分页与内容协商替代 XML 请求体" },
-        { "key": "B", "text": "只能返回图片", "hint": "OGC API - Features 返回要素（JSON/GeoJSON），图片属于 Maps。" },
-        { "key": "C", "text": "取消了坐标参考系", "hint": "仍支持 CRS，通过参数协商。" },
-        { "key": "D", "text": "只能用于栅格" }
-      ],
-      "answer": ["A"],
       "explanation": "OGC API 系列用现代 Web API 风格（资源路径、JSON、OpenAPI 描述、limit/next 分页），对前端与 HTTP 缓存更友好。",
       "refs": [
-        { "title": "OGC API - Features", "url": "https://www.ogc.org/standards/ogcapi-features" }
+        {
+          "title": "OGC API - Features",
+          "url": "https://www.ogc.org/standards/ogcapi-features"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "REST + JSON + OpenAPI，用分页与内容协商替代 XML 请求体"
+        },
+        {
+          "key": "B",
+          "text": "只能返回图片",
+          "hint": "OGC API - Features 返回要素（JSON/GeoJSON），图片属于 Maps。"
+        },
+        {
+          "key": "C",
+          "text": "取消了坐标参考系",
+          "hint": "仍支持 CRS，通过参数协商。"
+        },
+        {
+          "key": "D",
+          "text": "只能用于栅格"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-007",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "Leaflet 的定位与限制是？",
-      "options": [
-        { "key": "A", "text": "轻量、栅格瓦片与插件生态好；默认只支持少数 CRS，矢量瓦片需插件" },
-        { "key": "B", "text": "WebGL 渲染矢量瓦片", "hint": "WebGL 矢量瓦片是 MapLibre GL/deck.gl 的领域。" },
-        { "key": "C", "text": "投影支持最全", "hint": "投影支持最全的是 OpenLayers（配合 proj4）。" },
-        { "key": "D", "text": "只能显示 GeoJSON" }
-      ],
-      "answer": ["A"],
       "explanation": "Leaflet 默认 EPSG:3857（也支持 4326），投影能力有限；矢量瓦片需 deck.gl/MapLibre 插件。优点是体积小、插件多、DOM 图层易定制。",
       "refs": [
-        { "title": "Leaflet 文档", "url": "https://leafletjs.com/reference.html" }
+        {
+          "title": "Leaflet 文档",
+          "url": "https://leafletjs.com/reference.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "轻量、栅格瓦片与插件生态好；默认只支持少数 CRS，矢量瓦片需插件"
+        },
+        {
+          "key": "B",
+          "text": "WebGL 渲染矢量瓦片",
+          "hint": "WebGL 矢量瓦片是 MapLibre GL/deck.gl 的领域。"
+        },
+        {
+          "key": "C",
+          "text": "投影支持最全",
+          "hint": "投影支持最全的是 OpenLayers（配合 proj4）。"
+        },
+        {
+          "key": "D",
+          "text": "只能显示 GeoJSON"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-008",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "MapLibre GL JS 渲染矢量瓦片依赖的是？",
-      "options": [
-        { "key": "A", "text": "WebGL + style JSON（图层/数据源/表达式）" },
-        { "key": "B", "text": "服务端渲染好的图片", "hint": "图片瓦片不需要 WebGL 渲染引擎。" },
-        { "key": "C", "text": "DOM 元素逐要素绘制", "hint": "逐要素 DOM 是 Leaflet 的方式，规模一大就慢。" },
-        { "key": "D", "text": "SVG 渲染" }
-      ],
-      "answer": ["A"],
       "explanation": "MapLibre 用 WebGL 批量绘制矢量瓦片，样式由 style JSON 描述（sources/layers/paint/layout），支持表达式与交互。",
       "refs": [
-        { "title": "MapLibre Style Spec", "url": "https://maplibre.org/maplibre-style-spec/" }
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WebGL + style JSON（图层/数据源/表达式）"
+        },
+        {
+          "key": "B",
+          "text": "服务端渲染好的图片",
+          "hint": "图片瓦片不需要 WebGL 渲染引擎。"
+        },
+        {
+          "key": "C",
+          "text": "DOM 元素逐要素绘制",
+          "hint": "逐要素 DOM 是 Leaflet 的方式，规模一大就慢。"
+        },
+        {
+          "key": "D",
+          "text": "SVG 渲染"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-009",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "需要支持多种投影（如 CGCS2000 高斯带）与多种服务格式，最稳妥的选择是？",
-      "options": [
-        { "key": "A", "text": "OpenLayers（配合 proj4 注册自定义 CRS）" },
-        { "key": "B", "text": "Leaflet 默认配置", "hint": "Leaflet 默认仅支持有限 CRS，需额外插件与 proj4 才能支持自定义投影。" },
-        { "key": "C", "text": "只用 MapLibre", "hint": "MapLibre 面向 Web 墨卡托矢量瓦片，非 3857 投影支持有限。" },
-        { "key": "D", "text": "deck.gl" }
-      ],
-      "answer": ["A"],
       "explanation": "OpenLayers 原生支持大量投影与格式/服务（WMS/WMTS/WFS/矢量瓦片），配合 proj4 可注册任意 EPSG；代价是体积与 API 复杂度。",
       "refs": [
-        { "title": "OpenLayers 文档", "url": "https://openlayers.org/doc/" }
+        {
+          "title": "OpenLayers 文档",
+          "url": "https://openlayers.org/doc/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "OpenLayers（配合 proj4 注册自定义 CRS）"
+        },
+        {
+          "key": "B",
+          "text": "Leaflet 默认配置",
+          "hint": "Leaflet 默认仅支持有限 CRS，需额外插件与 proj4 才能支持自定义投影。"
+        },
+        {
+          "key": "C",
+          "text": "只用 MapLibre",
+          "hint": "MapLibre 面向 Web 墨卡托矢量瓦片，非 3857 投影支持有限。"
+        },
+        {
+          "key": "D",
+          "text": "deck.gl"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-010",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "矢量瓦片的地图样式在哪里定义？",
-      "options": [
-        { "key": "A", "text": "客户端（style JSON）" },
-        { "key": "B", "text": "服务端瓦片中", "hint": "瓦片里只有几何与属性，没有颜色/线宽等样式。" },
-        { "key": "C", "text": "瓦片文件名中" },
-        { "key": "D", "text": "HTTP 头中" }
-      ],
-      "answer": ["A"],
       "explanation": "矢量瓦片只传数据，颜色、线宽、过滤与标注由客户端 style 决定，所以同一份瓦片可复用多套设计，也能随时调样式而不用重新切片。",
       "refs": [
-        { "title": "MapLibre Style Spec", "url": "https://maplibre.org/maplibre-style-spec/" }
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "客户端（style JSON）"
+        },
+        {
+          "key": "B",
+          "text": "服务端瓦片中",
+          "hint": "瓦片里只有几何与属性，没有颜色/线宽等样式。"
+        },
+        {
+          "key": "C",
+          "text": "瓦片文件名中"
+        },
+        {
+          "key": "D",
+          "text": "HTTP 头中"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-011",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 3,
       "stem": "为什么建议把地图库与瓦片层做成动态加载（dynamic import）？",
-      "options": [
-        { "key": "A", "text": "地图库体积大，避免拖慢首屏与非地图页面" },
-        { "key": "B", "text": "动态加载能提高坐标精度", "hint": "加载方式与坐标精度无关。" },
-        { "key": "C", "text": "否则无法使用 CSS", "hint": "CSS 与动态加载无关。" },
-        { "key": "D", "text": "为了绕过 CORS" }
-      ],
-      "answer": ["A"],
       "explanation": "地图库（尤其 WebGL 引擎）动辄数百 KB，放进首屏 bundle 会让 LCP/TTI 变差。按路由/交互动态加载，能让讲义、答题页保持轻量。",
       "refs": [
-        { "title": "Next.js 代码分割", "url": "https://nextjs.org/docs/app/guides/lazy-loading" }
+        {
+          "title": "Next.js 代码分割",
+          "url": "https://nextjs.org/docs/app/guides/lazy-loading"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "地图库体积大，避免拖慢首屏与非地图页面"
+        },
+        {
+          "key": "B",
+          "text": "动态加载能提高坐标精度",
+          "hint": "加载方式与坐标精度无关。"
+        },
+        {
+          "key": "C",
+          "text": "否则无法使用 CSS",
+          "hint": "CSS 与动态加载无关。"
+        },
+        {
+          "key": "D",
+          "text": "为了绕过 CORS"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-012",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "前端 fetch 一个跨域 WFS 服务报 CORS 错误，正确的处理方向是？",
-      "options": [
-        { "key": "A", "text": "让服务端返回允许跨域的响应头，或改用同源代理" },
-        { "key": "B", "text": "把 fetch 改成同步请求", "hint": "CORS 是浏览器安全策略，与同步/异步无关。" },
-        { "key": "C", "text": "改用 http 协议", "hint": "换协议不会解决跨域策略问题，反而可能触发混合内容限制。" },
-        { "key": "D", "text": "在请求里加 random 参数" }
-      ],
-      "answer": ["A"],
       "explanation": "CORS 由服务端响应头控制（Access-Control-Allow-Origin 等）。前端可以通过同源代理/CDN 转发规避，但不能用前端代码「关掉」同源策略。",
       "refs": [
-        { "title": "MDN：CORS", "url": "https://developer.mozilla.org/docs/Web/HTTP/CORS" }
+        {
+          "title": "MDN：CORS",
+          "url": "https://developer.mozilla.org/docs/Web/HTTP/CORS"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "让服务端返回允许跨域的响应头，或改用同源代理"
+        },
+        {
+          "key": "B",
+          "text": "把 fetch 改成同步请求",
+          "hint": "CORS 是浏览器安全策略，与同步/异步无关。"
+        },
+        {
+          "key": "C",
+          "text": "改用 http 协议",
+          "hint": "换协议不会解决跨域策略问题，反而可能触发混合内容限制。"
+        },
+        {
+          "key": "D",
+          "text": "在请求里加 random 参数"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-013",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "把 EPSG:3857（米）的 GeoJSON 直接交给 `L.geoJSON()` 会怎样？",
-      "options": [
-        { "key": "A", "text": "要素位置错误（Leaflet 期望 WGS84 经纬度）" },
-        { "key": "B", "text": "自动转换成经纬度", "hint": "L.geoJSON 不会猜测 CRS，也不会自动投影。" },
-        { "key": "C", "text": "报错并提示坐标系不匹配" },
-        { "key": "D", "text": "正常显示，只是颜色不同" }
-      ],
-      "answer": ["A"],
       "explanation": "Leaflet 的 geoJSON 图层按经纬度解释坐标；传入百万级米值会被裁剪到地图范围之外，表现为要素消失或跑偏。应先用 proj4/服务端转成 4326。",
       "refs": [
-        { "title": "Leaflet L.geoJSON", "url": "https://leafletjs.com/reference.html#geojson" }
+        {
+          "title": "Leaflet L.geoJSON",
+          "url": "https://leafletjs.com/reference.html#geojson"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "要素位置错误（Leaflet 期望 WGS84 经纬度）"
+        },
+        {
+          "key": "B",
+          "text": "自动转换成经纬度",
+          "hint": "L.geoJSON 不会猜测 CRS，也不会自动投影。"
+        },
+        {
+          "key": "C",
+          "text": "报错并提示坐标系不匹配"
+        },
+        {
+          "key": "D",
+          "text": "正常显示，只是颜色不同"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-014",
       "skill": "gis",
       "module": "05",
-      "type": "single",
       "difficulty": 2,
       "stem": "需要在前端同时叠加栅格底图与可交互矢量要素，最直接的组合是？",
-      "options": [
-        { "key": "A", "text": "底图瓦片（WMTS/XYZ）+ WFS/矢量瓦片图层" },
-        { "key": "B", "text": "只用 WMS 图层", "hint": "WMS 是整张图片，无法单独与前端要素做交互与样式控制。" },
-        { "key": "C", "text": "只用 WCS", "hint": "WCS 返回原始栅格值，不适合直接当底图。" },
-        { "key": "D", "text": "只用一份大 GeoJSON" }
-      ],
-      "answer": ["A"],
       "explanation": "底图用可缓存的图片瓦片，业务要素用 WFS/矢量瓦片（可改样式、可查询），这是 Web GIS 最常见的分层结构。",
       "refs": [
-        { "title": "OGC WMTS 标准", "url": "https://www.ogc.org/standards/wmts" }
+        {
+          "title": "OGC WMTS 标准",
+          "url": "https://www.ogc.org/standards/wmts"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "底图瓦片（WMTS/XYZ）+ WFS/矢量瓦片图层"
+        },
+        {
+          "key": "B",
+          "text": "只用 WMS 图层",
+          "hint": "WMS 是整张图片，无法单独与前端要素做交互与样式控制。"
+        },
+        {
+          "key": "C",
+          "text": "只用 WCS",
+          "hint": "WCS 返回原始栅格值，不适合直接当底图。"
+        },
+        {
+          "key": "D",
+          "text": "只用一份大 GeoJSON"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-05-015",
       "skill": "gis",
       "module": "05",
-      "type": "short",
       "difficulty": 1,
       "stem": "WMS 的 GetMap 请求最终返回的是什么？（填「图片」或「要素」）",
-      "accepted": ["图片", "地图图片", "图像", "image", "map image", "png", "jpg"],
-      "placeholder": "例如：图片",
       "explanation": "WMS GetMap 返回服务端渲染的地图图片；要拿要素数据得用 WFS（或矢量瓦片），要拿栅格原始值得用 WCS。",
       "refs": [
-        { "title": "OGC WMS 标准", "url": "https://www.ogc.org/standards/wms" }
+        {
+          "title": "OGC WMS 标准",
+          "url": "https://www.ogc.org/standards/wms"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "图片",
+        "地图图片",
+        "图像",
+        "image",
+        "map image",
+        "png",
+        "jpg"
+      ],
+      "placeholder": "例如：图片"
+    },
+    {
+      "id": "gis-05-016",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -25°、纬度 12° 在第 11 级对应瓦片 x=881、y=955，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/11/881/955.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/11/881/955.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-017",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -103°、纬度 -49° 在第 9 级对应瓦片 x=109、y=336，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/9/109/336.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/9/109/336.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-018",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 3°、纬度 -29° 在第 12 级对应瓦片 x=2082、y=2393，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/12/2082/2393.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/12/2082/2393.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-019",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -87°、纬度 14° 在第 4 级对应瓦片 x=4、y=7，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/4/4/7.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/4/4/7.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-020",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -151°、纬度 18° 在第 12 级对应瓦片 x=329、y=1839，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/12/329/1839.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/12/329/1839.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-021",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 20°、纬度 45° 在第 5 级对应瓦片 x=17、y=11，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/5/17/11.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/5/17/11.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-022",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -61°、纬度 -56° 在第 6 级对应瓦片 x=21、y=44，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/6/21/44.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/6/21/44.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-023",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 160°、纬度 -58° 在第 4 级对应瓦片 x=15、y=11，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/4/15/11.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/4/15/11.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-024",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 82°、纬度 6° 在第 10 级对应瓦片 x=745、y=494，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/745/494.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/10/745/494.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-025",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -169°、纬度 -54° 在第 10 级对应瓦片 x=31、y=695，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/31/695.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/10/31/695.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-026",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -86°、纬度 9° 在第 6 级对应瓦片 x=16、y=30，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/6/16/30.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/6/16/30.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-027",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -2°、纬度 43° 在第 10 级对应瓦片 x=506、y=376，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/506/376.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/10/506/376.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-028",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 83°、纬度 -15° 在第 10 级对应瓦片 x=748、y=555，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/748/555.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/10/748/555.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-029",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -72°、纬度 52° 在第 4 级对应瓦片 x=4、y=5，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/4/4/5.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/4/4/5.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-030",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -118°、纬度 -2° 在第 10 级对应瓦片 x=176、y=517，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/176/517.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/10/176/517.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-031",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -5°、纬度 16° 在第 9 级对应瓦片 x=248、y=232，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/9/248/232.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/9/248/232.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-032",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -77°、纬度 32° 在第 6 级对应瓦片 x=18、y=25，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/6/18/25.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/6/18/25.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-033",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -154°、纬度 -32° 在第 8 级对应瓦片 x=18、y=152，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/8/18/152.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/8/18/152.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-034",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 34°、纬度 -42° 在第 7 级对应瓦片 x=76、y=80，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/7/76/80.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/7/76/80.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-035",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 71°、纬度 -37° 在第 10 级对应瓦片 x=713、y=625，写出实际请求 URL（完整）。",
+      "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/713/625.png。客户端按视野逐瓦片生成此类 URL。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "https://tiles.example.com/roads/10/713/625.png"
+      ],
+      "placeholder": "https://..."
+    },
+    {
+      "id": "gis-05-036",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "返回服务端渲染地图图片的 OGC 标准缩写是？（三个字母）",
+      "explanation": "WMS（Web Map Service）输出图片，符号化在服务端完成。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "wms"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-037",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "返回矢量要素、支持事务编辑的 OGC 标准缩写是？（三个字母）",
+      "explanation": "WFS（Web Feature Service）输出要素本体，WFS-T 支持在线编辑。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "wfs"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-038",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "返回预定义规则瓦片的 OGC 标准缩写是？（四个字母）",
+      "explanation": "WMTS（Web Map Tile Service）基于瓦片矩阵集，性能与缓存友好。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "wmts"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-039",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "返回原始栅格覆盖数据（Coverage）的 OGC 标准缩写是？（三个字母）",
+      "explanation": "WCS（Web Coverage Service）输出 GeoTIFF 等数据本体，面向计算。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "wcs"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-040",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 中获取服务能力文档的请求类型是？（Get + 六个字母）",
+      "explanation": "REQUEST=GetCapabilities 返回 XML 能力文档：图层、CRS、格式与异常。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "getcapabilities"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-041",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 中查询图片某点要素属性的请求类型是？（Get + 十一个字母）",
+      "explanation": "REQUEST=GetFeatureInfo 按像素坐标反查要素属性，弥补图片模式交互。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "getfeatureinfo"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-042",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WFS 中获取要素的请求类型是？（Get + 七个字母）",
+      "explanation": "REQUEST=GetFeature 按 Filter/CQL 过滤返回 GML/GeoJSON 等要素。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "getfeature"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-043",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 1.3.0 中控制坐标系的参数名是？（三个字母大写）",
+      "explanation": "1.3.0 用 CRS（1.1.1 为 SRS），BBOX 轴序遵循该 CRS 定义。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "crs"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-044",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 中控制输出图像格式的参数名是？（六个字母）",
+      "explanation": "FORMAT=image/png、image/jpeg 等；需透明叠加时选支持 alpha 的 PNG。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "format"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-045",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WMS GetMap 中控制透明背景的参数名是？（十一个字母）",
+      "explanation": "TRANSPARENT=TRUE 配合 image/png 可让图层叠加到底图上。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "transparent"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-046",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 中描述服务端符号样式的 XML 标准缩写是？（三个字母）",
+      "explanation": "SLD（Styled Layer Descriptor）可随请求提交，实现样式客户端化。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "sld"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-047",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMTS 中描述瓦片网格定义的核心概念英文是？（Tile + Matrix + Set）",
+      "explanation": "TileMatrixSet 定义 CRS、原点、瓦片尺寸与每级行列数。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "tilematrixset"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-048",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WMTS 的 REST 编码中，TileMatrix 参数对应 XYZ 方案中的哪个字母？",
+      "explanation": "TileMatrix 即缩放级别 z；TileRow/TileCol 对应 y/x。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "z"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-049",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "OGC API 系列用于描述接口的规范工具是？（Open + 三字母）",
+      "explanation": "OGC API 用 OpenAPI 文档自描述接口，取代 XML Capabilities 的开发体验。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "openapi"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-050",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 异常文档的根元素名是？（Exception + Report）",
+      "explanation": "ServiceExceptionReport 内含 ExceptionCode 与描述，客户端应按约定解析。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "exceptionreport"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-051",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "用于缓存 WMS 并对外提供瓦片的开源服务 GeoWebCache 缩写是？（三个字母）",
+      "explanation": "GWC 按 TileMatrixSet 缓存 WMS 渲染结果，提供 WMTS/XYZ 端点。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "gwc"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-052",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "Web 地图中把多层瓦片/要素按上下顺序组织的概念叫？（中文两个字）",
+      "explanation": "叠加顺序决定遮挡关系：底图在下、专题与交互层在上。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "图层",
+        "图层顺序",
+        "层"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-053",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WFS 过滤语言中「Bounding Box 空间过滤」的常用缩写是？（四个字母）",
+      "explanation": "BBOX/CQL_INTERSECTS 是 WFS 最常用的空间过滤条件。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "bbox",
+        "cql"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-054",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "把地图服务渲染结果按网格落盘的策略统称什么？（中文两个字 + 缓存）",
+      "explanation": "瓦片缓存把动态渲染变为静态分发，是性能优化的核心手段。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "瓦片缓存",
+        "缓存"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-055",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "OGC API - Features 中列出所有要素集合的路径是？（/collections 或 /collections/{id}/items 选一）",
+      "explanation": "GET /collections 列出集合清单；/collections/{id}/items 分页返回要素。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "collections",
+        "/collections"
+      ],
+      "placeholder": "如 GetMap"
+    },
+    {
+      "id": "gis-05-056",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WMS 是「服务器渲染图片」的服务，客户端拿到的是图像而不是原始要素。",
+      "explanation": "WMS GetMap 返回栅格图（PNG/JPEG），符号化在服务端完成。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-057",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WFS 返回的是矢量要素（如 GML/GeoJSON），客户端可再加工。",
+      "explanation": "WFS 面向要素级交互：查询、过滤甚至事务编辑，返回的是几何+属性。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-058",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "WMS GetCapabilities 请求用于获取服务能力描述文档。",
+      "explanation": "GetCapabilities 返回 XML：图层清单、坐标系、范围、支持格式与异常等元信息。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-059",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WMTS 与 WMS 的本质区别是 WMTS 返回预定义的规则瓦片。",
+      "explanation": "WMTS 基于瓦片矩阵集（TileMatrixSet）固定切片，性能高、可强缓存。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-060",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS GetFeatureInfo 可以在图片基础上查询指定点的要素属性。",
+      "explanation": "用户点击地图位置，服务端反查该像素对应的要素并返回属性，弥补图片模式的交互短板。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-061",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "WMS GetMap 请求中 BBOX 参数的坐标顺序与图层 CRS 无关。",
+      "explanation": "BBOX 顺序严格遵循 CRS 轴序（如 EPSG:4326 官方轴序是 minLat,minLon,maxLat,maxLon），写反即报错或错位。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-05-062",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WFS-T 支持通过事务（Transaction）在线编辑要素。",
+      "explanation": "WFS-T（Transactional）允许 Insert/Update/Delete，是实现 Web 端数据编辑的标准路径。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-063",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WCS 提供的是覆盖（Coverage）原始栅格值，而非渲染图。",
+      "explanation": "WCS 返回多波段栅格数据本体（GeoTIFF 等），适合科学计算；WMS 只给图。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-064",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片矩阵集中，每上一个层级瓦片数在两个方向各翻倍。",
+      "explanation": "标准瓦片矩阵集逐级 2 倍细分，与 XYZ 金字塔一致。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-065",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "OGC API - Tiles 是基于 REST/JSON 的新一代瓦片服务规范。",
+      "explanation": "OGC API 系列用 OpenAPI/JSON 描述能力，取代 XML 大文档，是 OGC 现代化方向。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-066",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "CORS 问题是「前端拿不到跨域 GeoJSON」的常见原因。",
+      "explanation": "浏览器同源策略要求服务端返回 Access-Control-Allow-Origin；瓦片 <img> 不受 CORS 限制但 fetch 受限。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-067",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "WMS 的 STYLES 参数可以为空（传空串），表示使用服务端默认样式。",
+      "explanation": "GetMap 要求必须带 STYLES 键，值可为空串（默认样式）或具名样式。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-068",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "SLD 是用于描述地图符号化的 XML 标准，可随 WMS 请求提交。",
+      "explanation": "SLD（Styled Layer Descriptor）让客户端定义服务端渲染样式，实现「样式客户端化」。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-069",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 返回的图片分辨率与请求的 WIDTH/HEIGHT 无关。",
+      "explanation": "WIDTH/HEIGHT 决定返回图像尺寸，比例需与 BBOX 宽高比一致，否则图会变形。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-05-070",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片矩阵集（TileMatrixSet）定义了层级、瓦片尺寸与每级的范围/分辨率。",
+      "explanation": "TMS 是 WMTS 的核心概念：GridSet + 矩阵层级 + 原点 + 像元尺寸。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-071",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "OGC API - Features 用简单的 REST 分页即可获取矢量要素。",
+      "explanation": "GET /collections/{id}/items?limit&bbox 即分页查询，JSON-LD 友好，正替代 WFS 简单场景。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-072",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 服务的图层可以设置不同的 CRS 支持，客户端必须选一个双方都支持的。",
+      "explanation": "GetCapabilities 列出每图层支持的 CRS，客户端请求时指定其一。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-073",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "GeoWebCache/MapProxy 这类「地图缓存服务」可以为 WMS 自动生成并代理瓦片。",
+      "explanation": "缓存层把 WMS 渲染结果按瓦片矩阵落盘，对外提供 WMTS/XYZ，是性能优化的标准架构。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-074",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "XYZ 瓦片 URL 方案是 OGC 正式标准。",
+      "explanation": "XYZ 是事实标准（Google/OSM 惯例）；正式标准是 WMTS。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-05-075",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 支持透明背景（TRANSPARENT=TRUE）+ PNG 格式以便图层叠加。",
+      "explanation": "叠加到自有底图时常用透明 WMS 图层，需配合支持 alpha 的格式。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-076",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "GetFeatureInfo 的查询位置用与 GetMap 相同的 BBOX/WIDTH/HEIGHT 体系表达。",
+      "explanation": "以图像像素坐标（X,Y）+ 同一 GetMap 参数定位，服务端换算回地图坐标查询。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-077",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WMTS 的 Key-Value Pair（KVP）编码是唯一合法的请求方式。",
+      "explanation": "WMTS 支持 KVP 与 RESTful 路径两种编码。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-05-078",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "地图服务超时/限流时，客户端应做退避重试而不是无限重试。",
+      "explanation": "指数退避 + 上限重试是网络容错基本功，避免雪崩式打挂服务。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-079",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "WMS 的 EXCEPTIONS 参数控制错误返回格式（如 XML/INIMAGE/BLANK）。",
+      "explanation": "服务端异常可以按 XML 文档、嵌入式错误图或空白图返回，便于客户端统一处理。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-080",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "一份 WMTS Capabilities 中可以同时包含多个瓦片矩阵集。",
+      "explanation": "不同网格（3857 方格、4326 矩形格）可并存，客户端按需选择。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-081",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "OGC 服务地址中的 service/version/request 是「操作三元组」。",
+      "explanation": "KVP 风格约定 SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap，缺一即异常。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-082",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "瓦片服务不适合做强缓存。",
+      "explanation": "固定 z/x/y 内容不可变，恰是 CDN 缓存的最佳对象。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-05-083",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "WFS 支持 CQL/OGC Filter 表达属性与空间过滤条件。",
+      "explanation": "Filter Encoding / CQL 支持 BBOX、Within、Intersects 与属性比较，服务端过滤后再传输。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-084",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "客户端用 fetch 获取跨域瓦片 JSON 配置时，若服务端无 CORS 头会失败。",
+      "explanation": "配置类 JSON 请求走 XHR/fetch 通道受同源策略约束；瓦片图片加载则不受限。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-085",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "OGC API - Maps 已把 WMS 能力现代化为 REST 风格图片输出。",
+      "explanation": "OGC API - Maps（原 WMS 3.0 方向）以 REST+内容协商输出地图图片，延续 GetMap 语义。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-05-086",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "要在网页上「展示一张服务端渲染好的地图图片」，最轻量的 OGC 服务是？",
+      "explanation": "WMS GetMap 一次请求返回一张成品图；WFS/WCS 返回数据本体；WMTS 适合固定金字塔浏览。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WMS GetMap"
+        },
+        {
+          "key": "B",
+          "text": "WFS GetFeature",
+          "hint": "返回矢量数据，还需前端渲染。"
+        },
+        {
+          "key": "C",
+          "text": "WCS GetCoverage",
+          "hint": "返回原始栅格数据，用于计算。"
+        },
+        {
+          "key": "D",
+          "text": "WMTS GetTile",
+          "hint": "也行但需要瓦片矩阵集；若只为一张图，WMS 更直接。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-087",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "要对服务端图层做「点击查询属性」，WMS 里对应的操作是？",
+      "explanation": "GetFeatureInfo 以 GetMap 参数 + 像素点坐标反查要素属性；是 WMS 补齐交互能力的关键操作。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GetCapabilities",
+          "hint": "那是能力描述。"
+        },
+        {
+          "key": "B",
+          "text": "DescribeLayer",
+          "hint": "描述图层类型。"
+        },
+        {
+          "key": "C",
+          "text": "GetFeatureInfo"
+        },
+        {
+          "key": "D",
+          "text": "GetLegendGraphic",
+          "hint": "取图例。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-088",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 1.3.0 中 EPSG:4326 的 BBOX 轴序是？",
+      "explanation": "1.3.0 严格执行 CRS 轴序：4326 = 纬度在前。很多「WMS 报错」其实是 1.1.1→1.3.0 的 BBOX 轴序坑。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "minLon,minLat,maxLon,maxLat",
+          "hint": "那是 1.1.1 的 lon,lat 惯例。"
+        },
+        {
+          "key": "B",
+          "text": "minLat,minLon,maxLat,maxLon"
+        },
+        {
+          "key": "C",
+          "text": "maxLat,maxLon,minLat,minLon",
+          "hint": "顺序颠倒。"
+        },
+        {
+          "key": "D",
+          "text": "无规定",
+          "hint": "严格规定了轴序。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-089",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "需要「前端可点击、可重样式」的底图，服务器数据更新频繁，最佳方案是？",
+      "explanation": "MVT 把渲染放客户端：样式随时换、要素可交互、数据更新只影响受影响瓦片，是动态底图的最优解。",
+      "refs": [
+        {
+          "title": "OGC 矢量瓦片（Mapbox Vector Tile）",
+          "url": "https://www.ogc.org/standard/mvt/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "预切 PNG 栅格瓦片",
+          "hint": "更新需重切，样式固化。"
+        },
+        {
+          "key": "B",
+          "text": "矢量瓦片服务（实时生成 MVT）"
+        },
+        {
+          "key": "C",
+          "text": "WMS 图片 + 前端点击",
+          "hint": "像素图无法逐要素重样式。"
+        },
+        {
+          "key": "D",
+          "text": "整库 GeoJSON 一次下发",
+          "hint": "数据量大时不可行。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-090",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪个操作属于 WFS 的能力范畴？",
+      "explanation": "WFS 三件套：GetCapabilities/DescribeFeatureType/GetFeature；加 Transaction 即 WFS-T。",
+      "refs": [
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GetMap 出图",
+          "hint": "那是 WMS。"
+        },
+        {
+          "key": "B",
+          "text": "GetTile 取瓦片",
+          "hint": "那是 WMTS。"
+        },
+        {
+          "key": "C",
+          "text": "GetFeature + Transaction 编辑要素"
+        },
+        {
+          "key": "D",
+          "text": "GetCoverage 下栅格",
+          "hint": "那是 WCS。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-091",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMTS 中瓦片矩阵集（TileMatrixSet）的作用是？",
+      "explanation": "TMS = 网格定义：CRS、原点、瓦片像素尺寸、每级 MatrixWidth/Height 与 ScaleDenominator，客户端据此算行列号。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "定义瓦片金字塔的网格：层级、原点、瓦片尺寸与分辨率"
+        },
+        {
+          "key": "B",
+          "text": "定义样式规则",
+          "hint": "样式属 SLD/样式规范。"
+        },
+        {
+          "key": "C",
+          "text": "定义要素属性结构",
+          "hint": "那是 DescribeFeatureType。"
+        },
+        {
+          "key": "D",
+          "text": "定义异常格式",
+          "hint": "EXCEPTIONS 参数。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-092",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "浏览器控制台报 CORS 错误，最可能的场景是？",
+      "explanation": "fetch/XHR 受同源策略约束，跨域需服务端 Access-Control-Allow-Origin；瓦片走 <img>/WebGL 纹理通道则不受限。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "<img> 标签加载瓦片 PNG",
+          "hint": "图片加载不受 CORS 限制。"
+        },
+        {
+          "key": "B",
+          "text": "加载本地 GeoJSON 文件",
+          "hint": "本地文件另有 file:// 限制。"
+        },
+        {
+          "key": "C",
+          "text": "fetch 跨域 GeoJSON/WMTS Capabilities JSON 且服务端未开 CORS"
+        },
+        {
+          "key": "D",
+          "text": "CSS 字体加载失败",
+          "hint": "字体虽有 CORS 但与本例无关。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-093",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "想让 WMS 按「用户在浏览器里定义的样式」出图，应该用？",
+      "explanation": "SLD 让客户端定义符号化规则随 GetMap 提交，实现服务端渲染的「样式客户端化」。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "换一个 WMTS 服务",
+          "hint": "瓦片样式固定。"
+        },
+        {
+          "key": "B",
+          "text": "SLD / SLD-Body 参数提交样式定义"
+        },
+        {
+          "key": "C",
+          "text": "修改 EPSG 代码",
+          "hint": "与样式无关。"
+        },
+        {
+          "key": "D",
+          "text": "调大 WIDTH",
+          "hint": "只影响尺寸。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-094",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪种服务组合最适合「底图 + 实时矢量编辑」？",
+      "explanation": "底图走瓦片（WMTS/XYZ），编辑走 WFS-T：展示与事务分离，是 Web GIS 的经典架构。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WMTS 底图 + WFS-T 编辑"
+        },
+        {
+          "key": "B",
+          "text": "WMS 底图 + WCS 编辑",
+          "hint": "WCS 不编辑矢量。"
+        },
+        {
+          "key": "C",
+          "text": "WCS 底图 + WMS 编辑",
+          "hint": "两者都不编辑矢量。"
+        },
+        {
+          "key": "D",
+          "text": "只用 WMS 全搞定",
+          "hint": "WMS 只出图。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-095",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS GetMap 请求中，BBOX 与 WIDTH/HEIGHT 比例不一致会怎样？",
+      "explanation": "GetMap 按 BBOX 填满 WIDTH×HEIGHT 画布：比例不匹配即几何失真。客户端应保持 bbox 宽高比 = 图宽高比。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "服务端自动裁剪",
+          "hint": "多数服务不裁剪。"
+        },
+        {
+          "key": "B",
+          "text": "图像被拉伸变形（宽高比失真）"
+        },
+        {
+          "key": "C",
+          "text": "直接报错拒绝服务",
+          "hint": "多数实现容忍并出变形图。"
+        },
+        {
+          "key": "D",
+          "text": "自动切换投影",
+          "hint": "与投影无关。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-096",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "GeoWebCache 的核心价值是？",
+      "explanation": "缓存中间层：种子/自动缓存按瓦片矩阵落盘，把昂贵的实时渲染变成廉价的静态文件服务。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "美化 WMS 输出",
+          "hint": "与渲染无关。"
+        },
+        {
+          "key": "B",
+          "text": "把 WMS 渲染结果缓存成瓦片并对外提供 WMTS/XYZ"
+        },
+        {
+          "key": "C",
+          "text": "编辑空间数据",
+          "hint": "那是 WFS-T。"
+        },
+        {
+          "key": "D",
+          "text": "坐标变换计算",
+          "hint": "由 PROJ 等承担。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-097",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪个不是 OGC Web 服务（OWS）的通用约定？",
+      "explanation": "OWS 家族共享「Capabilities + KVP/XML 请求 + 标准异常」的 HTTP 模式；WebSocket 不属于其约定。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GetCapabilities 描述能力",
+          "hint": "通用。"
+        },
+        {
+          "key": "B",
+          "text": "KVP 参数编码",
+          "hint": "通用。"
+        },
+        {
+          "key": "C",
+          "text": "异常以标准 Exception 文档返回",
+          "hint": "通用。"
+        },
+        {
+          "key": "D",
+          "text": "必须使用 WebSocket 长连接",
+          "hint": "OWS 是 HTTP 请求-响应模式。"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-098",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "前端地图库（如 Leaflet）加载 XYZ 瓦片时，URL 模板里的 {z}/{x}/{y} 由谁计算？",
+      "explanation": "客户端由视野中心/范围 + zoom 推出所需瓦片行列区间，逐个填入模板请求，并做缓存与视口裁剪。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "服务器",
+          "hint": "服务器只接收成品请求。"
+        },
+        {
+          "key": "B",
+          "text": "客户端根据当前视野与缩放级别计算"
+        },
+        {
+          "key": "C",
+          "text": "CDN",
+          "hint": "CDN 只加速分发。"
+        },
+        {
+          "key": "D",
+          "text": "浏览器自动填充",
+          "hint": "由地图库逻辑完成。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-099",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列关于 OGC API 系列的说法，正确的是？",
+      "explanation": "OGC API 家族用资源路径 + 内容协商取代 KVP 大请求，OpenAPI 文档自描述，是 OGC 的现代化主线。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "OGC API 抛弃了 HTTP",
+          "hint": "恰恰是纯 HTTP/REST。"
+        },
+        {
+          "key": "B",
+          "text": "只能返回 XML",
+          "hint": "以 JSON 为主。"
+        },
+        {
+          "key": "C",
+          "text": "以 REST + OpenAPI + JSON 为核心，按资源（collections/items/tiles）组织"
+        },
+        {
+          "key": "D",
+          "text": "尚未发布任何正式规范",
+          "hint": "Features/Tiles/Processes 等已多版正式化。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-100",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 图层叠加到第三方底图上偏移了约几百米，最可能的原因是？",
+      "explanation": "数百米级系统性偏移的经典嫌疑：基准面不一致或 GCJ-02 偏移。核对服务端数据 CRS 与底图 CRS，必要时重投影。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WIDTH 设置太小",
+          "hint": "只影响清晰度。"
+        },
+        {
+          "key": "B",
+          "text": "服务数据坐标系与底图不一致（如 CGCS2000/GCJ-02 混用）"
+        },
+        {
+          "key": "C",
+          "text": "PNG 压缩失真",
+          "hint": "压缩误差在像素内。"
+        },
+        {
+          "key": "D",
+          "text": "图例缺失",
+          "hint": "与位置无关。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-101",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪个参数不属于 WMS GetMap 的必要参数？",
+      "explanation": "GetMap 必备：LAYERS/STYLES/CRS(SRS)/BBOX/WIDTH/HEIGHT/FORMAT；TILEMATRIX 属于 WMTS GetTile。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "LAYERS"
+        },
+        {
+          "key": "B",
+          "text": "BBOX"
+        },
+        {
+          "key": "C",
+          "text": "WIDTH/HEIGHT"
+        },
+        {
+          "key": "D",
+          "text": "TILEMATRIX",
+          "hint": "那是 WMTS 的参数。"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-102",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "想以「纯 HTTP 静态文件」的方式发布海量瓦片，不需要动态服务，选？",
+      "explanation": "XYZ 目录/MBTiles/PMTiles 都能以静态文件服务分发瓦片；结合 CDN 即可支撑大规模访问，运维成本最低。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WMS",
+          "hint": "需要动态渲染服务。"
+        },
+        {
+          "key": "B",
+          "text": "WFS",
+          "hint": "需要要素服务。"
+        },
+        {
+          "key": "C",
+          "text": "预切瓦片 + 静态托管（或 PMTiles 单文件）"
+        },
+        {
+          "key": "D",
+          "text": "WCS",
+          "hint": "需要 Coverage 服务。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-103",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "GetLegendGraphic 操作用于？",
+      "explanation": "GetLegendGraphic 返回图层符号图例（PNG/SVG），与 GetMap 配套构成完整可视化体验。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "获取服务元数据",
+          "hint": "那是 GetCapabilities。"
+        },
+        {
+          "key": "B",
+          "text": "获取图例图像"
+        },
+        {
+          "key": "C",
+          "text": "查询要素属性",
+          "hint": "那是 GetFeatureInfo。"
+        },
+        {
+          "key": "D",
+          "text": "下载原始数据",
+          "hint": "那是 WFS/WCS。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-104",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪种场景 WCS 优于 WMS？",
+      "explanation": "WCS 输出 Coverage 本体（GeoTIFF 等，可裁剪/重采样），面向分析与建模；WMS 只输出渲染图。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "需要下载某区域的原始多波段栅格做模型计算"
+        },
+        {
+          "key": "B",
+          "text": "只需要在网页上看一眼影像",
+          "hint": "WMS/WMTS 更轻。"
+        },
+        {
+          "key": "C",
+          "text": "需要点击查询属性",
+          "hint": "那是 GetFeatureInfo/要素服务。"
+        },
+        {
+          "key": "D",
+          "text": "需要编辑矢量",
+          "hint": "WFS-T。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-105",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列关于 WMTS RESTful 编码的说法，正确的是？",
+      "explanation": "WMTS REST 编码把参数编进路径，URL 自描述、缓存友好，与 XYZ 模板同构。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "REST 编码不存在",
+          "hint": "WMTS 支持 REST 编码。"
+        },
+        {
+          "key": "B",
+          "text": "REST 编码不能配 CDN",
+          "hint": "路径式 URL 更利于 CDN。"
+        },
+        {
+          "key": "C",
+          "text": "URL 形如 /wmts/{layer}/{style}/{Time}/{TileMatrixSet}/{z}/{y}/{x}.{ext}，路径即请求"
+        },
+        {
+          "key": "D",
+          "text": "必须携带 XML 文档",
+          "hint": "REST 编码无需 KVP/XML。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-106",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "前端叠加多个 WMS 图层，各图层 CRS 支持不同，正确做法是？",
+      "explanation": "以 Capabilities 为准求交集；无交集时由客户端/中间代理重投影，不能指望 WMS 服务器代劳。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "全部用 EPSG:4326",
+          "hint": "若某图层不支持 4326 会报错。"
+        },
+        {
+          "key": "B",
+          "text": "分别检查 GetCapabilities 支持列表，选各图层共同支持的 CRS（或为每层单独请求）"
+        },
+        {
+          "key": "C",
+          "text": "任选一个 CRS 让服务器自动转换",
+          "hint": "WMS 不自动转 CRS。"
+        },
+        {
+          "key": "D",
+          "text": "把 BBOX 顺序随机调整",
+          "hint": "无意义。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-107",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列关于「瓦片服务与 WMS 的性能差异」的说法，正确的是？",
+      "explanation": "WMTS/XYZ：预渲染+静态分发+CDN，单请求成本趋近于文件读取；WMS：每次请求都重渲染，成本高且波动大。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "瓦片把渲染成本前置，请求时只做静态文件/缓存命中，吞吐高一个量级"
+        },
+        {
+          "key": "B",
+          "text": "WMS 更快，因为实时渲染",
+          "hint": "实时渲染正是瓶颈。"
+        },
+        {
+          "key": "C",
+          "text": "两者性能完全相同",
+          "hint": "架构差异巨大。"
+        },
+        {
+          "key": "D",
+          "text": "瓦片性能取决于用户网速",
+          "hint": "服务端架构才是主因。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-108",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "想在自己的底图上叠加「用户上传的 GeoJSON」，正确的层叠顺序是？",
+      "explanation": "Web 地图分层：底图瓦片 → 专题覆盖层（WMS 图片层/矢量层）→ 交互要素层。顺序与透明度决定可读性。",
+      "refs": [
+        {
+          "title": "OSM Slippy map tilenames",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoJSON 放在最底层",
+          "hint": "会被底图盖住。"
+        },
+        {
+          "key": "B",
+          "text": "底图（瓦片）在下、矢量覆盖层（GeoJSON/WMS）在上"
+        },
+        {
+          "key": "C",
+          "text": "顺序无所谓",
+          "hint": "覆盖关系由顺序决定。"
+        },
+        {
+          "key": "D",
+          "text": "GeoJSON 必须转成图片",
+          "hint": "无需转换。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-109",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪一项不属于 OGC 标准家族？",
+      "explanation": "GCJ-02 是中国地图加密坐标约定，非 OGC 标准；WMS/WMTS/GeoPackage/GeoJSON（RFC 7946）都是正式标准。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WMS/WMTS",
+          "hint": "OGC 标准。"
+        },
+        {
+          "key": "B",
+          "text": "GeoPackage",
+          "hint": "OGC 标准。"
+        },
+        {
+          "key": "C",
+          "text": "GCJ-02",
+          "hint": "这是国内加密坐标约定。"
+        },
+        {
+          "key": "D",
+          "text": "GeoJSON",
+          "hint": "OGC/ IETF RFC 7946。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-110",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "同一 WMS 服务白天快晚上慢，最可能的瓶颈是？",
+      "explanation": "WMS 每请求实时渲染，性能随并发/数据复杂度波动；夜间高峰（或白天高峰）波动是容量问题的信号，上缓存层可解。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "服务端实时渲染吞吐（CPU/数据库）随并发波动"
+        },
+        {
+          "key": "B",
+          "text": "EPSG 代码选错",
+          "hint": "错了会一直错。"
+        },
+        {
+          "key": "C",
+          "text": "PNG 格式问题",
+          "hint": "格式影响体积不影响时段。"
+        },
+        {
+          "key": "D",
+          "text": "图例太大",
+          "hint": "无关。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-111",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列关于「地图切片与原始数据的时效性」的说法，正确的是？",
+      "explanation": "瓦片是某时刻的渲染快照：数据更新后按版本号/时间目录切换并清理旧缓存，是缓存一致性的基本功。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "源数据更新后瓦片立即同步",
+          "hint": "需重切/失效机制。"
+        },
+        {
+          "key": "B",
+          "text": "瓦片是快照，源数据更新后必须失效重切才能反映变化"
+        },
+        {
+          "key": "C",
+          "text": "瓦片自动跟踪源数据",
+          "hint": "无此机制。"
+        },
+        {
+          "key": "D",
+          "text": "时效性与瓦片无关",
+          "hint": "缓存陈旧是常见事故源。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-112",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "服务端用 PostGIS + GeoServer 发布图层，前端用 Leaflet 展示。GeoServer 的角色是？",
+      "explanation": "典型栈：PostGIS（存储/空间计算）→ GeoServer（服务发布与渲染）→ CDN/缓存（可选）→ Leaflet（客户端展示）。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "PostGIS 官方文档",
+          "url": "https://postgis.net/documentation/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "浏览器渲染引擎",
+          "hint": "渲染在浏览器。"
+        },
+        {
+          "key": "B",
+          "text": "数据库",
+          "hint": "数据在 PostGIS。"
+        },
+        {
+          "key": "C",
+          "text": "把空间数据发布为 WMS/WFS/WMTS 服务的中间件"
+        },
+        {
+          "key": "D",
+          "text": "CDN 节点",
+          "hint": "CDN 是另一层。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-113",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪个不是瓦片矩阵集的组成部分？",
+      "explanation": "TMS 只描述网格几何（CRS、原点、瓦片尺寸、每级行列数与比例分母），与客户端硬件无关。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "瓦片像素尺寸（如 256×256）"
+        },
+        {
+          "key": "B",
+          "text": "各层级 MatrixWidth/Height"
+        },
+        {
+          "key": "C",
+          "text": "网格原点与 CRS"
+        },
+        {
+          "key": "D",
+          "text": "客户端浏览器型号",
+          "hint": "与网格定义无关。"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-114",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "把「动态 WMS 图层」改造为「高性能瓦片」的第一步通常是？",
+      "explanation": "先定网格（3857 方格最通用）与层级范围，再选预切（种子）或按需缓存（GeoWebCache/MapProxy），最后配 CDN。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "提高服务器内存",
+          "hint": "治标不治本。"
+        },
+        {
+          "key": "B",
+          "text": "确定瓦片矩阵集（网格与层级），按需预切或实时缓存"
+        },
+        {
+          "key": "C",
+          "text": "换掉数据库",
+          "hint": "未必相关。"
+        },
+        {
+          "key": "D",
+          "text": "减少图例颜色",
+          "hint": "无关。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-115",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列关于 WFS GetFeature 输出格式，说法正确的是？",
+      "explanation": "WFS 标准输出 GML；GeoServer 等实现通过 outputFormat 提供 GeoJSON/CSV/shapefile-zip 等扩展。",
+      "refs": [
+        {
+          "title": "OGC WFS",
+          "url": "https://www.ogc.org/standard/wfs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "只能输出 GML",
+          "hint": "输出格式可协商。"
+        },
+        {
+          "key": "B",
+          "text": "只能输出 HTML",
+          "hint": "无此限制。"
+        },
+        {
+          "key": "C",
+          "text": "常见输出为 GML，许多实现还支持 GeoJSON/CSV 等 outputFormat 扩展"
+        },
+        {
+          "key": "D",
+          "text": "输出格式由客户端分辨率决定",
+          "hint": "无关变量。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-116",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪个组合是「经典 Web GIS 服务栈」？",
+      "explanation": "存储→服务→客户端三层：PostGIS 管数据与空间查询，GeoServer 发 OGC 服务，前端库渲染与交互。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "PostGIS 官方文档",
+          "url": "https://postgis.net/documentation/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "PostGIS（库）+ GeoServer/MapServer（服务）+ Leaflet/OpenLayers（前端）"
+        },
+        {
+          "key": "B",
+          "text": "GDAL + EPSG + PNG",
+          "hint": "这是工具与编码，不是服务栈。"
+        },
+        {
+          "key": "C",
+          "text": "Chrome + Firefox + Safari",
+          "hint": "浏览器不构成 GIS 栈。"
+        },
+        {
+          "key": "D",
+          "text": "Excel + Word + PowerPoint",
+          "hint": "办公套件。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-117",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 请求返回了 XML 异常文档，客户端应当？",
+      "explanation": "OGC 异常文档含 ExceptionCode 与文本（如 InvalidPoint/PointOutsideCoverage），客户端应解析并按类型提示/降级/退避。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 XML 当图片显示",
+          "hint": "必然花屏。"
+        },
+        {
+          "key": "B",
+          "text": "按 EXCEPTIONS 约定解析异常信息（错误码/描述）并提示或重试"
+        },
+        {
+          "key": "C",
+          "text": "静默忽略",
+          "hint": "掩盖故障。"
+        },
+        {
+          "key": "D",
+          "text": "立即重发同一请求 100 次",
+          "hint": "雪崩行为。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-118",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪个说法正确区分了 WMS 与 WMTS 的「按需性」？",
+      "explanation": "灵活性排序：WMS（任意 BBOX/尺寸）> WMTS（固定网格）。灵活性的代价是渲染成本与缓存难度。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "两者都完全按用户视野实时出图",
+          "hint": "瓦片是预定义网格。"
+        },
+        {
+          "key": "B",
+          "text": "WMS 每次请求可自定义范围/尺寸；WMTS 只能取预定义网格上的瓦片"
+        },
+        {
+          "key": "C",
+          "text": "WMTS 支持任意 BBOX",
+          "hint": "那是 WMS。"
+        },
+        {
+          "key": "D",
+          "text": "两者都只能取固定瓦片",
+          "hint": "WMS 任意。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-119",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "某 WMTS 服务提供 3857 与 4326 两个 TileMatrixSet，客户端底图是 3857，应选？",
+      "explanation": "瓦片叠加的前提是网格一致：选与底图相同的 TileMatrixSet，瓦片边界与分辨率完全重合，零重投影成本。",
+      "refs": [
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "3857 瓦片矩阵集，与底图同网格直接叠加"
+        },
+        {
+          "key": "B",
+          "text": "4326 矩阵集，客户端实时重投影",
+          "hint": "成本高且难对齐。"
+        },
+        {
+          "key": "C",
+          "text": "随机选一个",
+          "hint": "网格不同无法对齐。"
+        },
+        {
+          "key": "D",
+          "text": "两者同时叠加",
+          "hint": "重复且错位。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-05-120",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS GetMap 请求的必要参数包括？（选全部正确项）",
+      "explanation": "GetMap = LAYERS+STYLES+CRS(SRS)+BBOX+WIDTH+HEIGHT+FORMAT（EXCEPTIONS 可选）；TILEMATRIX 是 WMTS 概念。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "LAYERS（图层名）"
+        },
+        {
+          "key": "B",
+          "text": "BBOX（范围）"
+        },
+        {
+          "key": "C",
+          "text": "WIDTH/HEIGHT（图像尺寸）"
+        },
+        {
+          "key": "D",
+          "text": "TILEMATRIX（瓦片行列）",
+          "hint": "属于 WMTS。"
+        },
+        {
+          "key": "E",
+          "text": "FORMAT（输出格式）"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "gis-05-121",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪些属于 OGC 网络服务标准？（选全部正确项）",
+      "explanation": "WMS/WMTS/WFS/WCS/CSW 等构成 OGC Web 服务家族；Shapefile/DBF 是文件格式不是服务标准。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "WMS"
+        },
+        {
+          "key": "B",
+          "text": "WMTS"
+        },
+        {
+          "key": "C",
+          "text": "Shapefile",
+          "hint": "Esri 格式，非 OGC 服务标准。"
+        },
+        {
+          "key": "D",
+          "text": "WFS"
+        },
+        {
+          "key": "E",
+          "text": "DBF",
+          "hint": "dBASE 文件格式。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-122",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WFS 相比 WMS 的优势包括？（选全部正确项）",
+      "explanation": "WFS 输出要素本体：可过滤、可编辑、可再加工；代价是传输量与客户端渲染成本，适合交互式数据应用而非底图。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "获取矢量要素本体，可再分析"
+        },
+        {
+          "key": "B",
+          "text": "服务器渲染压力更小",
+          "hint": "要素序列化未必更省，且少了渲染缓存红利。"
+        },
+        {
+          "key": "C",
+          "text": "支持属性与空间过滤（Filter/CQL）"
+        },
+        {
+          "key": "D",
+          "text": "支持事务编辑（WFS-T）"
+        },
+        {
+          "key": "E",
+          "text": "天然抗并发",
+          "hint": "大范围要素查询反而更重。"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-123",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪些是瓦片服务（WMTS/XYZ）的性能优势来源？（选全部正确项）",
+      "explanation": "预渲染+不可变+小块并行=高吞吐；这就是把 WMS 换成 WMTS 后延迟骤降的架构原因。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "渲染成本前置（预切或缓存）"
+        },
+        {
+          "key": "B",
+          "text": "内容不可变，适合 CDN 与长缓存"
+        },
+        {
+          "key": "C",
+          "text": "每次请求重渲染",
+          "hint": "那是 WMS 的成本。"
+        },
+        {
+          "key": "D",
+          "text": "请求粒度小，可并行加载与视口裁剪"
+        },
+        {
+          "key": "E",
+          "text": "不需要网络",
+          "hint": "仍需网络，除非离线包。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-124",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "构造一个合法的 WMS GetMap URL，下列哪些写法是对的？（选全部正确项）",
+      "explanation": "KVP 参数名不区分大小写；GetMap 必须带完整三元组+图层+范围+尺寸+格式。GetFeatureInfo 在 GetMap 基础上追加 X/Y/INFO_FORMAT。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "...?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&LAYERS=roads&BBOX=...&WIDTH=800&HEIGHT=600&FORMAT=image/png"
+        },
+        {
+          "key": "B",
+          "text": "...?REQUEST=GetTile&LAYERS=roads",
+          "hint": "GetTile 属于 WMTS。"
+        },
+        {
+          "key": "C",
+          "text": "...?service=wms&request=getmap&layers=roads（参数名大小写不敏感）"
+        },
+        {
+          "key": "D",
+          "text": "...?REQUEST=GetFeatureInfo&BBOX=...",
+          "hint": "GetFeatureInfo 还需要 X/Y 与完整 GetMap 参数。"
+        }
+      ],
+      "answer": [
+        "A",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-125",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪些做法能降低瓦片服务的带宽成本？（选全部正确项）",
+      "explanation": "压缩、缓存纪律、按需生成/裁剪是降带宽三板斧；切到用不到的层级只会浪费存储与流量。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用 WebP/AVIF 等现代压缩格式"
+        },
+        {
+          "key": "B",
+          "text": "合理设置缓存 TTL 与版本化失效"
+        },
+        {
+          "key": "C",
+          "text": "矢量瓦片按需裁剪与要素抽稀"
+        },
+        {
+          "key": "D",
+          "text": "所有层级都切到 z=24",
+          "hint": "最高级别通常无数据，纯属浪费。"
+        },
+        {
+          "key": "E",
+          "text": "关闭所有客户端缓存",
+          "hint": "反向操作。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-126",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪些属于 GetFeatureInfo 请求的必要信息？（选全部正确项）",
+      "explanation": "GetFeatureInfo = GetMap 参数 + X/Y + INFO_FORMAT（text/html、application/json 等），服务端把像素换算回地图坐标反查要素。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "与 GetMap 相同的 BBOX/CRS/WIDTH/HEIGHT"
+        },
+        {
+          "key": "B",
+          "text": "查询点像素坐标 X/Y"
+        },
+        {
+          "key": "C",
+          "text": "INFO_FORMAT（返回格式）"
+        },
+        {
+          "key": "D",
+          "text": "TILEMATRIX",
+          "hint": "WMTS 参数。"
+        },
+        {
+          "key": "E",
+          "text": "TRANSACTION",
+          "hint": "WFS-T 概念。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-127",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪些是 OGC API - Features 相比传统 WFS 的改进？（选全部正确项）",
+      "explanation": "OGC API - Features 把 WFS 的复杂度收敛为资源+查询参数+内容协商，开发体验接近现代 REST API。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "REST 资源路径，URL 可预测"
+        },
+        {
+          "key": "B",
+          "text": "JSON 优先，OpenAPI 自描述"
+        },
+        {
+          "key": "C",
+          "text": "分页/ bbox 等简单查询参数易用性好"
+        },
+        {
+          "key": "D",
+          "text": "不再支持空间过滤",
+          "hint": "bbox/cql 仍支持。"
+        },
+        {
+          "key": "E",
+          "text": "必须使用 XML Capabilities 大文档",
+          "hint": "恰恰相反。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-128",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "下列哪些情况应优先选择 WMTS 而非 WMS？（选全部正确项）",
+      "explanation": "稳定内容+大并发+CDN = WMTS 主场；任意出图或秒级更新则退回 WMS/动态矢量服务。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "海量并发访问的底图"
+        },
+        {
+          "key": "B",
+          "text": "用户需任意范围任意比例尺出图",
+          "hint": "灵活性正是 WMS 强项。"
+        },
+        {
+          "key": "C",
+          "text": "内容相对稳定、更新周期以天/月计"
+        },
+        {
+          "key": "D",
+          "text": "需要 CDN 全球加速"
+        },
+        {
+          "key": "E",
+          "text": "数据每秒都在变",
+          "hint": "频繁变化会让瓦片缓存失效频繁。"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-129",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪些参数/概念与 WMTS 强相关？（选全部正确项）",
+      "explanation": "WMTS 词汇表：TileMatrixSet→TileMatrix→TileRow/TileCol；BBOX 与 SLD 是 WMS 世界的概念。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "TileMatrixSet"
+        },
+        {
+          "key": "B",
+          "text": "TileMatrix（层级）"
+        },
+        {
+          "key": "C",
+          "text": "TileRow/TileCol"
+        },
+        {
+          "key": "D",
+          "text": "BBOX 任意范围",
+          "hint": "WMS 概念。"
+        },
+        {
+          "key": "E",
+          "text": "SLD 样式文档",
+          "hint": "WMS 渲染样式。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-130",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "客户端加载跨域瓦片与 JSON 配置，下列说法正确的有？（选全部正确项）",
+      "explanation": "同源策略约束「可编程读取」（fetch/XHR/纹理读取像素），不约束「展示」（img/script）。要读像素（如取色）还需 crossOrigin 配置。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "瓦片以 <img>/纹理加载，一般不受 CORS 限制"
+        },
+        {
+          "key": "B",
+          "text": "fetch 拉取 JSON 配置需要服务端 CORS 头"
+        },
+        {
+          "key": "C",
+          "text": "两者都完全不受同源策略约束",
+          "hint": "fetch 受限。"
+        },
+        {
+          "key": "D",
+          "text": "两者都被浏览器禁止跨域",
+          "hint": "瓦片可以。"
+        },
+        {
+          "key": "E",
+          "text": "CORS 只影响 POST 请求",
+          "hint": "GET 也受限。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "gis-05-131",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪些属于「把 WMS 变快」的常用手段？（选全部正确项）",
+      "explanation": "缓存前置 + 存储优化 + CDN + 防御性限制是 WMS 调优标准清单；轴序问题只会导致报错不导致变慢。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "前置瓦片缓存（GeoWebCache/MapProxy）"
+        },
+        {
+          "key": "B",
+          "text": "数据库空间索引与简表（物化视图）"
+        },
+        {
+          "key": "C",
+          "text": "渲染结果 HTTP 缓存 + CDN"
+        },
+        {
+          "key": "D",
+          "text": "限制单请求尺寸/层级，防止恶意大图"
+        },
+        {
+          "key": "E",
+          "text": "把 BBOX 改成 4326 轴序",
+          "hint": "只是参数写法，与性能无关。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-132",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于服务端渲染（WMS）与客户端渲染（矢量/前端），下列说法正确的有？（选全部正确项）",
+      "explanation": "渲染位置是架构权衡：服务端省客户端算力、样式可控；客户端灵活可交互。主流方案常常两者混用。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "服务端渲染样式统一、客户端零样式成本"
+        },
+        {
+          "key": "B",
+          "text": "客户端渲染毫无优势",
+          "hint": "恰恰相反：交互与换肤是核心优势。"
+        },
+        {
+          "key": "C",
+          "text": "客户端渲染支持逐要素交互与动态样式"
+        },
+        {
+          "key": "D",
+          "text": "选择取决于算力分布、数据更新频率与交互需求"
+        },
+        {
+          "key": "E",
+          "text": "两者不能混合使用",
+          "hint": "实际产品常混合。"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-05-133",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪些是瓦片矩阵集常见的网格参考（TileMatrixSet）？（选全部正确项）",
+      "explanation": "常见预定义 GridSet：WebMercatorQuad、WorldCRS84Quad、WorldMercatorWGS84Quad 等，也可自定义投影与范围网格。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "WebMercatorQuad（EPSG:3857 方格）"
+        },
+        {
+          "key": "B",
+          "text": "WorldCRS84Quad（EPSG:4326 矩形格）"
+        },
+        {
+          "key": "C",
+          "text": "自定义区域网格（如省级 CGCS2000 网格）"
+        },
+        {
+          "key": "D",
+          "text": "随机网格（每级随机原点）",
+          "hint": "网格必须规则确定。"
+        },
+        {
+          "key": "E",
+          "text": "依据用户设备屏幕定制",
+          "hint": "网格与设备无关。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-05-134",
+      "skill": "gis",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WMS 服务的安全加固措施包括？（选全部正确项）",
+      "explanation": "鉴权+限流+审计是服务加固三件套；WMS 只读，写操作应走 WFS-T 并单独鉴权。",
+      "refs": [
+        {
+          "title": "OGC WMS",
+          "url": "https://www.ogc.org/standard/wms/"
+        },
+        {
+          "title": "OGC WMTS",
+          "url": "https://www.ogc.org/standard/wmts/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "请求鉴权（token/签名）与来源白名单"
+        },
+        {
+          "key": "B",
+          "text": "限制单次请求范围与尺寸（防滥用）"
+        },
+        {
+          "key": "C",
+          "text": "日志审计与限流（rate limit）"
+        },
+        {
+          "key": "D",
+          "text": "开放所有图层给匿名写操作",
+          "hint": "WMS 本身只读，开放写更是危险。"
+        },
+        {
+          "key": "E",
+          "text": "关闭 HTTPS",
+          "hint": "反向操作。"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
       ]
     }
   ]

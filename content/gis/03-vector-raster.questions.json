@@ -1,286 +1,3613 @@
 {
   "skill": "gis",
   "module": "03",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "gis-03-001",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 1,
       "stem": "矢量数据模型的三类基本几何是？",
-      "options": [
-        { "key": "A", "text": "点、线、面" },
-        { "key": "B", "text": "像元、波段、金字塔", "hint": "这是栅格模型的概念。" },
-        { "key": "C", "text": "行、列、值", "hint": "这是表格/栅格存储的描述，不是几何类型。" },
-        { "key": "D", "text": "图层、要素、属性", "hint": "这是组织层次，不是几何类型。" }
-      ],
-      "answer": ["A"],
       "explanation": "OGC Simple Features 用 Point / LineString / Polygon（及其 Multi* 与 GeometryCollection）表达离散对象，每个要素再挂一行属性。",
       "refs": [
-        { "title": "OGC Simple Features 标准", "url": "https://www.ogc.org/standards/sfa" }
+        {
+          "title": "OGC Simple Features 标准",
+          "url": "https://www.ogc.org/standards/sfa"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "点、线、面"
+        },
+        {
+          "key": "B",
+          "text": "像元、波段、金字塔",
+          "hint": "这是栅格模型的概念。"
+        },
+        {
+          "key": "C",
+          "text": "行、列、值",
+          "hint": "这是表格/栅格存储的描述，不是几何类型。"
+        },
+        {
+          "key": "D",
+          "text": "图层、要素、属性",
+          "hint": "这是组织层次，不是几何类型。"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-002",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "栅格中一个像元的值通常表示什么？",
-      "options": [
-        { "key": "A", "text": "一个点的高程" },
-        { "key": "B", "text": "该像元覆盖范围内的属性采样值（平均/主导/中心点等）" },
-        { "key": "C", "text": "该像元的边界坐标", "hint": "边界由仿射变换与行列号推出，不是像元值。" },
-        { "key": "D", "text": "该像元的面积", "hint": "面积由像元大小决定，与像元值无关。" }
-      ],
-      "answer": ["B"],
       "explanation": "像元是面元，其值代表该范围内属性的代表值（遥感反射率、DEM 高程、分类编码等）。理解为「点采样」会低估混合像元与尺度效应。",
       "refs": [
-        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+        {
+          "title": "GDAL Raster Data Model",
+          "url": "https://gdal.org/en/stable/user/raster_data_model.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一个点的高程"
+        },
+        {
+          "key": "B",
+          "text": "该像元覆盖范围内的属性采样值（平均/主导/中心点等）"
+        },
+        {
+          "key": "C",
+          "text": "该像元的边界坐标",
+          "hint": "边界由仿射变换与行列号推出，不是像元值。"
+        },
+        {
+          "key": "D",
+          "text": "该像元的面积",
+          "hint": "面积由像元大小决定，与像元值无关。"
+        }
+      ],
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-03-003",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "一个栅格的分辨率是 10 m，这意味着？",
-      "options": [
-        { "key": "A", "text": "定位精度是 10 m" },
-        { "key": "B", "text": "像元边长为 10 m（分辨率 ≠ 精度）" },
-        { "key": "C", "text": "只能表示 10 m 以上的地物", "hint": "小于像元的地物仍会影响像元值（混合像元），只是无法单独分辨。" },
-        { "key": "D", "text": "文件每 10 m 存一个坐标", "hint": "栅格不存每个像元的坐标，坐标由仿射变换推算。" }
-      ],
-      "answer": ["B"],
       "explanation": "分辨率是采样间距，精度是位置/数值与真值的接近程度。10 m 分辨率的影像可能因为几何校正差而有几十米定位误差，二者不是一回事。",
       "refs": [
-        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+        {
+          "title": "GDAL Raster Data Model",
+          "url": "https://gdal.org/en/stable/user/raster_data_model.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "定位精度是 10 m"
+        },
+        {
+          "key": "B",
+          "text": "像元边长为 10 m（分辨率 ≠ 精度）"
+        },
+        {
+          "key": "C",
+          "text": "只能表示 10 m 以上的地物",
+          "hint": "小于像元的地物仍会影响像元值（混合像元），只是无法单独分辨。"
+        },
+        {
+          "key": "D",
+          "text": "文件每 10 m 存一个坐标",
+          "hint": "栅格不存每个像元的坐标，坐标由仿射变换推算。"
+        }
+      ],
+      "answer": [
+        "B"
       ]
     },
     {
       "id": "gis-03-004",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "栅格中的 nodata 值的作用是？",
-      "options": [
-        { "key": "A", "text": "标记该像元无有效数据，参与统计时跳过" },
-        { "key": "B", "text": "表示数值 0", "hint": "nodata 与 0 是两回事：0 可能是真实观测值（如温度 0℃）。" },
-        { "key": "C", "text": "表示最大值", "hint": "nodata 是无效标记，与数值大小无关。" },
-        { "key": "D", "text": "用于压缩存储", "hint": "nodata 是语义标记，压缩是另一套机制。" }
-      ],
-      "answer": ["A"],
       "explanation": "nodata 表示该像元没有观测/不参与计算。做栅格统计、镶嵌、坡度计算时必须正确识别 nodata，否则会被当成真实值污染结果。",
       "refs": [
-        { "title": "GDAL nodata 说明", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+        {
+          "title": "GDAL nodata 说明",
+          "url": "https://gdal.org/en/stable/user/raster_data_model.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "标记该像元无有效数据，参与统计时跳过"
+        },
+        {
+          "key": "B",
+          "text": "表示数值 0",
+          "hint": "nodata 与 0 是两回事：0 可能是真实观测值（如温度 0℃）。"
+        },
+        {
+          "key": "C",
+          "text": "表示最大值",
+          "hint": "nodata 是无效标记，与数值大小无关。"
+        },
+        {
+          "key": "D",
+          "text": "用于压缩存储",
+          "hint": "nodata 是语义标记，压缩是另一套机制。"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-005",
       "skill": "gis",
       "module": "03",
-      "type": "multi",
       "difficulty": 2,
       "stem": "下列哪些场景更适合用栅格模型？（多选，全对才算对）",
-      "options": [
-        { "key": "A", "text": "卫星影像" },
-        { "key": "B", "text": "连续的高程场（DEM）" },
-        { "key": "C", "text": "道路网络的连通性与转弯限制", "hint": "网络拓扑分析是矢量/图模型的强项，栅格只能做成本面近似。" },
-        { "key": "D", "text": "降雨量分布插值结果" }
-      ],
-      "answer": ["A", "B", "D"],
       "explanation": "栅格擅长连续场（影像、高程、降雨、温度）与栅格代数；道路网络的分析依赖矢量拓扑与图算法。",
       "refs": [
-        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+        {
+          "title": "GDAL Raster Data Model",
+          "url": "https://gdal.org/en/stable/user/raster_data_model.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星影像"
+        },
+        {
+          "key": "B",
+          "text": "连续的高程场（DEM）"
+        },
+        {
+          "key": "C",
+          "text": "道路网络的连通性与转弯限制",
+          "hint": "网络拓扑分析是矢量/图模型的强项，栅格只能做成本面近似。"
+        },
+        {
+          "key": "D",
+          "text": "降雨量分布插值结果"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
       ]
     },
     {
       "id": "gis-03-006",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "对土地利用分类栅格做重采样时，应优先使用？",
-      "options": [
-        { "key": "A", "text": "最近邻（nearest neighbour）" },
-        { "key": "B", "text": "双线性插值", "hint": "双线性会插出「3.7」这种不存在的类别编码。" },
-        { "key": "C", "text": "三次卷积", "hint": "三次卷积同样会造出无效类别值。" },
-        { "key": "D", "text": "平均值", "hint": "类别编码求平均没有意义。" }
-      ],
-      "answer": ["A"],
       "explanation": "分类栅格的值是编码，不是连续量。最近邻只搬运原有值；双线性/三次会产生新的数值，破坏类别语义。连续栅格（高程、影像）才适合插值类重采样。",
       "refs": [
-        { "title": "GDAL warp 重采样方法", "url": "https://gdal.org/en/stable/programs/gdalwarp.html" }
+        {
+          "title": "GDAL warp 重采样方法",
+          "url": "https://gdal.org/en/stable/programs/gdalwarp.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "最近邻（nearest neighbour）"
+        },
+        {
+          "key": "B",
+          "text": "双线性插值",
+          "hint": "双线性会插出「3.7」这种不存在的类别编码。"
+        },
+        {
+          "key": "C",
+          "text": "三次卷积",
+          "hint": "三次卷积同样会造出无效类别值。"
+        },
+        {
+          "key": "D",
+          "text": "平均值",
+          "hint": "类别编码求平均没有意义。"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-007",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 1,
       "stem": "DEM（数字高程模型）栅格中，像元值代表？",
-      "options": [
-        { "key": "A", "text": "该像元范围的地面高程" },
-        { "key": "B", "text": "该像元的颜色", "hint": "颜色是渲染结果，不是数据值。" },
-        { "key": "C", "text": "该像元的坡度", "hint": "坡度是由 DEM 派生的结果，原始 DEM 存高程。" },
-        { "key": "D", "text": "该像元的坐标" }
-      ],
-      "answer": ["A"],
       "explanation": "DEM 是连续高程场。坡度、坡向、汇流是后续由 DEM 派生（坡度 = 高程梯度）。",
       "refs": [
-        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+        {
+          "title": "GDAL Raster Data Model",
+          "url": "https://gdal.org/en/stable/user/raster_data_model.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "该像元范围的地面高程"
+        },
+        {
+          "key": "B",
+          "text": "该像元的颜色",
+          "hint": "颜色是渲染结果，不是数据值。"
+        },
+        {
+          "key": "C",
+          "text": "该像元的坡度",
+          "hint": "坡度是由 DEM 派生的结果，原始 DEM 存高程。"
+        },
+        {
+          "key": "D",
+          "text": "该像元的坐标"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-008",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "把外部人口统计表挂到行政区矢量图层上，靠的是什么？",
-      "options": [
-        { "key": "A", "text": "公共字段（键）做属性 join" },
-        { "key": "B", "text": "空间相交自动匹配", "hint": "空间连接是另一种操作；属性表关联通常靠键字段。" },
-        { "key": "C", "text": "要素顺序一致即可" },
-        { "key": "D", "text": "坐标相同即可", "hint": "坐标相同不代表实体对应，且很少完全相同。" }
-      ],
-      "answer": ["A"],
       "explanation": "属性 join 依赖公共键（如行政区代码）。空间连接（spatial join）才是按位置匹配，两者常配合使用但机制不同。",
       "refs": [
-        { "title": "OGC Simple Features 标准", "url": "https://www.ogc.org/standards/sfa" }
+        {
+          "title": "OGC Simple Features 标准",
+          "url": "https://www.ogc.org/standards/sfa"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "公共字段（键）做属性 join"
+        },
+        {
+          "key": "B",
+          "text": "空间相交自动匹配",
+          "hint": "空间连接是另一种操作；属性表关联通常靠键字段。"
+        },
+        {
+          "key": "C",
+          "text": "要素顺序一致即可"
+        },
+        {
+          "key": "D",
+          "text": "坐标相同即可",
+          "hint": "坐标相同不代表实体对应，且很少完全相同。"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-009",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "空间索引（如 R-tree / GiST）的主要作用是？",
-      "options": [
-        { "key": "A", "text": "先用外包框（bbox）粗筛，减少参与精确几何计算的数据量" },
-        { "key": "B", "text": "提高坐标精度", "hint": "索引不影响坐标数值精度。" },
-        { "key": "C", "text": "自动修复拓扑错误", "hint": "索引只加速查询，不修数据。" },
-        { "key": "D", "text": "把矢量转成栅格", "hint": "栅格化是独立操作。" }
-      ],
-      "answer": ["A"],
       "explanation": "R-tree/GiST 按最小外接矩形组织要素，查询先用 `&&` 比较矩形，再对候选做 ST_Intersects 等精确判断，把 O(n) 降为近似 O(log n)。",
       "refs": [
-        { "title": "PostGIS 空间索引", "url": "https://postgis.net/docs/using_postgis_dbmanagement.html" }
+        {
+          "title": "PostGIS 空间索引",
+          "url": "https://postgis.net/docs/using_postgis_dbmanagement.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "先用外包框（bbox）粗筛，减少参与精确几何计算的数据量"
+        },
+        {
+          "key": "B",
+          "text": "提高坐标精度",
+          "hint": "索引不影响坐标数值精度。"
+        },
+        {
+          "key": "C",
+          "text": "自动修复拓扑错误",
+          "hint": "索引只加速查询，不修数据。"
+        },
+        {
+          "key": "D",
+          "text": "把矢量转成栅格",
+          "hint": "栅格化是独立操作。"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-010",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "一个「湖泊中有岛」的面要素，在 Simple Features 中如何表达？",
-      "options": [
-        { "key": "A", "text": "一个 Polygon：外环 + 内环（洞）" },
-        { "key": "B", "text": "两个独立 Polygon", "hint": "分开存会丢失「岛是湖的一部分」这个拓扑关系，并造成面积重复计算。" },
-        { "key": "C", "text": "一个 LineString" },
-        { "key": "D", "text": "一个 GeometryCollection 即可" }
-      ],
-      "answer": ["A"],
       "explanation": "Polygon 支持多个环：第一个是外环，其余是内环（洞）。GeoJSON 中 `coordinates[0]` 为外环，后续数组为内环，环方向遵循右手规则。",
       "refs": [
-        { "title": "RFC 7946 §3.1.6 Polygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }
+        {
+          "title": "RFC 7946 §3.1.6 Polygon",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一个 Polygon：外环 + 内环（洞）"
+        },
+        {
+          "key": "B",
+          "text": "两个独立 Polygon",
+          "hint": "分开存会丢失「岛是湖的一部分」这个拓扑关系，并造成面积重复计算。"
+        },
+        {
+          "key": "C",
+          "text": "一个 LineString"
+        },
+        {
+          "key": "D",
+          "text": "一个 GeometryCollection 即可"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-011",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 3,
       "stem": "RFC 7946 对 Polygon 环方向的要求是？",
-      "options": [
-        { "key": "A", "text": "外环逆时针、内环顺时针（右手规则）" },
-        { "key": "B", "text": "外环顺时针、内环逆时针", "hint": "方向反了会被部分实现视为「反绕」，面积符号为负。" },
-        { "key": "C", "text": "不规定方向" },
-        { "key": "D", "text": "所有环同向即可" }
-      ],
-      "answer": ["A"],
       "explanation": "RFC 7946 要求外环逆时针、内环顺时针（右手规则），解析器可据此区分外环与洞，无需依赖嵌套顺序。生产数据时建议显式检查环方向。",
       "refs": [
-        { "title": "RFC 7946 §3.1.6", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }
+        {
+          "title": "RFC 7946 §3.1.6",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "外环逆时针、内环顺时针（右手规则）"
+        },
+        {
+          "key": "B",
+          "text": "外环顺时针、内环逆时针",
+          "hint": "方向反了会被部分实现视为「反绕」，面积符号为负。"
+        },
+        {
+          "key": "C",
+          "text": "不规定方向"
+        },
+        {
+          "key": "D",
+          "text": "所有环同向即可"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-012",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 3,
       "stem": "栅格的「仿射变换」（geotransform）解决什么问题？",
-      "options": [
-        { "key": "A", "text": "行列号与地图坐标之间的换算（含旋转/缩放/平移）" },
-        { "key": "B", "text": "像元值到颜色的映射", "hint": "那是色带（color ramp）或渲染样式。" },
-        { "key": "C", "text": "投影变换" },
-        { "key": "D", "text": "波段合成" }
-      ],
-      "answer": ["A"],
       "explanation": "仿射变换用 6 个参数描述「左上角原点 + 像元宽高 + 旋转」，把 (row, col) 映射到 CRS 下的 (x, y)。栅格文件本身不逐像元存坐标。",
       "refs": [
-        { "title": "GDAL Raster Data Model（geotransform）", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
+        {
+          "title": "GDAL Raster Data Model（geotransform）",
+          "url": "https://gdal.org/en/stable/user/raster_data_model.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "行列号与地图坐标之间的换算（含旋转/缩放/平移）"
+        },
+        {
+          "key": "B",
+          "text": "像元值到颜色的映射",
+          "hint": "那是色带（color ramp）或渲染样式。"
+        },
+        {
+          "key": "C",
+          "text": "投影变换"
+        },
+        {
+          "key": "D",
+          "text": "波段合成"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-013",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "拓扑矢量模型（相对于 Shapefile 这类「面条模型」）的核心好处是？",
-      "options": [
-        { "key": "A", "text": "公共边界只存一次，相邻要素保持一致，避免缝隙与重叠" },
-        { "key": "B", "text": "文件更小但无法查询", "hint": "拓扑模型同样可查询，且能表达邻接关系。" },
-        { "key": "C", "text": "能自动做投影转换", "hint": "投影转换是 CRS 操作，与拓扑无关。" },
-        { "key": "D", "text": "只支持点数据" }
-      ],
-      "answer": ["A"],
       "explanation": "拓扑模型把边、节点、面分开存储，共享边只存一份，编辑时相邻面同步更新，并可直接查询邻接/连通关系。",
       "refs": [
-        { "title": "OGC Simple Features 标准", "url": "https://www.ogc.org/standards/sfa" }
+        {
+          "title": "OGC Simple Features 标准",
+          "url": "https://www.ogc.org/standards/sfa"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "公共边界只存一次，相邻要素保持一致，避免缝隙与重叠"
+        },
+        {
+          "key": "B",
+          "text": "文件更小但无法查询",
+          "hint": "拓扑模型同样可查询，且能表达邻接关系。"
+        },
+        {
+          "key": "C",
+          "text": "能自动做投影转换",
+          "hint": "投影转换是 CRS 操作，与拓扑无关。"
+        },
+        {
+          "key": "D",
+          "text": "只支持点数据"
+        }
+      ],
+      "answer": [
+        "A"
       ]
     },
     {
       "id": "gis-03-014",
       "skill": "gis",
       "module": "03",
-      "type": "short",
       "difficulty": 1,
       "stem": "栅格像元大小（分辨率）使用什么单位？（填一个词）",
-      "accepted": ["米", "meter", "meters", "metre", "metres", "m"],
-      "placeholder": "例如：米",
       "explanation": "像元大小与栅格所在 CRS 的单位一致。投影坐标系（如 3857/32650）下是米；地理坐标系（4326）下则会是「度」，非常不适合表达分辨率。",
       "refs": [
-        { "title": "GDAL Raster Data Model", "url": "https://gdal.org/en/stable/user/raster_data_model.html" }
-      ]
+        {
+          "title": "GDAL Raster Data Model",
+          "url": "https://gdal.org/en/stable/user/raster_data_model.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "米",
+        "meter",
+        "meters",
+        "metre",
+        "metres",
+        "m"
+      ],
+      "placeholder": "例如：米"
     },
     {
       "id": "gis-03-015",
       "skill": "gis",
       "module": "03",
-      "type": "single",
       "difficulty": 2,
       "stem": "对矢量边界做简化（simplify，减少顶点）时，主要权衡是？",
-      "options": [
-        { "key": "A", "text": "数据体积/渲染性能 与 几何精度之间的取舍" },
-        { "key": "B", "text": "颜色与线宽", "hint": "样式参数与几何简化无关。" },
-        { "key": "C", "text": "属性字段的数量", "hint": "简化只动几何顶点，不动属性。" },
-        { "key": "D", "text": "投影方式" }
-      ],
-      "answer": ["A"],
       "explanation": "Douglas-Peucker 等算法用容差换顶点数：容差越大体积越小、越省渲染，但边界偏离越大。Web 端常在低缩放级别用简化版，放大时再取精细几何。",
       "refs": [
-        { "title": "Mapbox Vector Tile 规范", "url": "https://github.com/mapbox/vector-tile-spec" }
+        {
+          "title": "Mapbox Vector Tile 规范",
+          "url": "https://github.com/mapbox/vector-tile-spec"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "数据体积/渲染性能 与 几何精度之间的取舍"
+        },
+        {
+          "key": "B",
+          "text": "颜色与线宽",
+          "hint": "样式参数与几何简化无关。"
+        },
+        {
+          "key": "C",
+          "text": "属性字段的数量",
+          "hint": "简化只动几何顶点，不动属性。"
+        },
+        {
+          "key": "D",
+          "text": "投影方式"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-03-016",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "某栅格宽 14303 像元、高 10018 像元、3 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 14303 × 10018 × 3 = 429862362。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 429862362,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-017",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 19695 像元、高 16036 像元、3 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 19695 × 16036 × 3 = 947487060。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 947487060,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-018",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 18842 像元、高 3122 像元、1 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 18842 × 3122 × 1 = 58824724。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 58824724,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-019",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "某栅格宽 2358 像元、高 7106 像元、2 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 2358 × 7106 × 2 = 33511896。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 33511896,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-020",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 2406 像元、高 3111 像元、3 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 2406 × 3111 × 3 = 22455198。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 22455198,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-021",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 605 像元、高 18915 像元、1 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 605 × 18915 × 1 = 11443575。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 11443575,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-022",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "某栅格宽 6685 像元、高 3230 像元、1 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 6685 × 3230 × 1 = 21592550。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 21592550,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-023",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 15088 像元、高 18429 像元、4 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 15088 × 18429 × 4 = 1112227008。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1112227008,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-024",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 7285 像元、高 17603 像元、4 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 7285 × 17603 × 4 = 512951420。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 512951420,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-025",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "某栅格宽 3789 像元、高 10083 像元、1 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 3789 × 10083 × 1 = 38204487。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 38204487,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-026",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 10978 像元、高 2523 像元、3 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 10978 × 2523 × 3 = 83092482。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 83092482,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-027",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 13762 像元、高 9537 像元、3 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 13762 × 9537 × 3 = 393744582。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 393744582,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-028",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "某栅格宽 11664 像元、高 10639 像元、2 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 11664 × 10639 × 2 = 248186592。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 248186592,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-029",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 7769 像元、高 3837 像元、4 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 7769 × 3837 × 4 = 119238612。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 119238612,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-030",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某栅格宽 9511 像元、高 6412 像元、4 个波段，总共有多少个像元值（含所有波段）？",
+      "explanation": "像元值总数 = 宽 × 高 × 波段数 = 9511 × 6412 × 4 = 243938128。注意「像元数」（w×h）与「像元值数」的区别。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 243938128,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-03-031",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "分辨率 5 m 的影像宽 12409 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 5 m × 12409 = 62045 m = 62.05 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 62.05,
+      "tolerance": 0.62,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-032",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "分辨率 2 m 的影像宽 24110 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 2 m × 24110 = 48220 m = 48.22 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 48.22,
+      "tolerance": 0.48,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-033",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "分辨率 5 m 的影像宽 17389 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 5 m × 17389 = 86945 m = 86.94 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 86.94,
+      "tolerance": 0.87,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-034",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "分辨率 10 m 的影像宽 34439 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 10 m × 34439 = 344390 m = 344.39 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 344.39,
+      "tolerance": 3.44,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-035",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "分辨率 0.5 m 的影像宽 28896 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 0.5 m × 28896 = 14448 m = 14.45 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 14.45,
+      "tolerance": 0.14,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-036",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "分辨率 90 m 的影像宽 34091 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 90 m × 34091 = 3068190 m = 3068.19 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3068.19,
+      "tolerance": 30.68,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-037",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "分辨率 30 m 的影像宽 30359 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 30 m × 30359 = 910770 m = 910.77 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 910.77,
+      "tolerance": 9.11,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-038",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "分辨率 30 m 的影像宽 21336 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 30 m × 21336 = 640080 m = 640.08 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 640.08,
+      "tolerance": 6.4,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-039",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "分辨率 2 m 的影像宽 39039 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 2 m × 39039 = 78078 m = 78.08 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 78.08,
+      "tolerance": 0.78,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-040",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "分辨率 0.5 m 的影像宽 17346 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 0.5 m × 17346 = 8673 m = 8.67 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8.67,
+      "tolerance": 0.09,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-041",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "分辨率 30 m 的影像宽 27913 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 30 m × 27913 = 837390 m = 837.39 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 837.39,
+      "tolerance": 8.37,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-042",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "分辨率 2 m 的影像宽 29210 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 2 m × 29210 = 58420 m = 58.42 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 58.42,
+      "tolerance": 0.58,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-043",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "分辨率 0.5 m 的影像宽 33707 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 0.5 m × 33707 = 16854 m = 16.85 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 16.85,
+      "tolerance": 0.17,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-044",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "分辨率 0.5 m 的影像宽 3794 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 0.5 m × 3794 = 1897 m = 1.9 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.9,
+      "tolerance": 0.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-045",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "分辨率 2 m 的影像宽 9154 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 2 m × 9154 = 18308 m = 18.31 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 18.31,
+      "tolerance": 0.18,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-046",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "分辨率 10 m 的影像宽 23194 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 10 m × 23194 = 231940 m = 231.94 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 231.94,
+      "tolerance": 2.32,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-047",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "分辨率 10 m 的影像宽 21535 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 10 m × 21535 = 215350 m = 215.35 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 215.35,
+      "tolerance": 2.15,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-048",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "分辨率 0.5 m 的影像宽 5880 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 0.5 m × 5880 = 2940 m = 2.94 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2.94,
+      "tolerance": 0.03,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-049",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "分辨率 2 m 的影像宽 1708 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 2 m × 1708 = 3416 m = 3.42 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3.42,
+      "tolerance": 0.03,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-050",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "分辨率 5 m 的影像宽 20316 像元，横向覆盖多少公里？（保留 2 位小数）",
+      "explanation": "覆盖 = 5 m × 20316 = 101580 m = 101.58 km。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 101.58,
+      "tolerance": 1.02,
+      "unit": "km"
+    },
+    {
+      "id": "gis-03-051",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "3392×4170 像元、1 波段、每波段 8 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "3392×4170×1 像元值 × 1 字节 = 13.4894 MB ≈ 13.49 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 13.49,
+      "tolerance": 0.13,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-052",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "9116×6571 像元、1 波段、每波段 16 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "9116×6571×1 像元值 × 2 字节 = 114.2525 MB ≈ 114.25 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 114.25,
+      "tolerance": 1.14,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-053",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "5532×1866 像元、1 波段、每波段 32 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "5532×1866×1 像元值 × 4 字节 = 39.378 MB ≈ 39.38 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 39.38,
+      "tolerance": 0.39,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-054",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "2255×2008 像元、3 波段、每波段 8 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "2255×2008×3 像元值 × 1 字节 = 12.9548 MB ≈ 12.95 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12.95,
+      "tolerance": 0.13,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-055",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "3942×2991 像元、1 波段、每波段 16 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "3942×2991×1 像元值 × 2 字节 = 22.4886 MB ≈ 22.49 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 22.49,
+      "tolerance": 0.22,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-056",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "7800×9565 像元、1 波段、每波段 32 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "7800×9565×1 像元值 × 4 字节 = 284.6031 MB ≈ 284.6 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 284.6,
+      "tolerance": 2.85,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-057",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "8012×7546 像元、3 波段、每波段 8 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "8012×7546×3 像元值 × 1 字节 = 172.9733 MB ≈ 172.97 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 172.97,
+      "tolerance": 1.73,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-058",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "8827×9543 像元、2 波段、每波段 16 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "8827×9543×2 像元值 × 2 字节 = 321.3351 MB ≈ 321.34 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 321.34,
+      "tolerance": 3.21,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-059",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "2162×7546 像元、2 波段、每波段 32 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "2162×7546×2 像元值 × 4 字节 = 124.4694 MB ≈ 124.47 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 124.47,
+      "tolerance": 1.24,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-060",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "1804×1285 像元、2 波段、每波段 8 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "1804×1285×2 像元值 × 1 字节 = 4.4215 MB ≈ 4.42 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4.42,
+      "tolerance": 0.05,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-061",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "1053×3348 像元、1 波段、每波段 16 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "1053×3348×1 像元值 × 2 字节 = 6.7243 MB ≈ 6.72 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6.72,
+      "tolerance": 0.07,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-062",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "9661×5567 像元、3 波段、每波段 32 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "9661×5567×3 像元值 × 4 字节 = 615.4952 MB ≈ 615.5 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 615.5,
+      "tolerance": 6.16,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-063",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "6620×9272 像元、2 波段、每波段 8 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "6620×9272×2 像元值 × 1 字节 = 117.0743 MB ≈ 117.07 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 117.07,
+      "tolerance": 1.17,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-064",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "5118×7715 像元、2 波段、每波段 16 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "5118×7715×2 像元值 × 2 字节 = 150.6247 MB ≈ 150.62 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 150.62,
+      "tolerance": 1.51,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-065",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "4686×5703 像元、2 波段、每波段 32 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "4686×5703×2 像元值 × 4 字节 = 203.8899 MB ≈ 203.89 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 203.89,
+      "tolerance": 2.04,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-066",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "3269×6880 像元、3 波段、每波段 8 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "3269×6880×3 像元值 × 1 字节 = 64.3465 MB ≈ 64.35 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 64.35,
+      "tolerance": 0.64,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-067",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "4067×5046 像元、3 波段、每波段 16 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "4067×5046×3 像元值 × 2 字节 = 117.4283 MB ≈ 117.43 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 117.43,
+      "tolerance": 1.17,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-068",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "4061×3049 像元、2 波段、每波段 32 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "4061×3049×2 像元值 × 4 字节 = 94.4671 MB ≈ 94.47 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 94.47,
+      "tolerance": 0.94,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-069",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "9422×1895 像元、3 波段、每波段 8 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "9422×1895×3 像元值 × 1 字节 = 51.0827 MB ≈ 51.08 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 51.08,
+      "tolerance": 0.51,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-070",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "4157×4539 像元、3 波段、每波段 16 bit 的未压缩栅格约占多少 MB？（按 1 MB = 1024×1024 字节，保留 2 位小数）",
+      "explanation": "4157×4539×3 像元值 × 2 字节 = 107.9671 MB ≈ 107.97 MB。压缩比另计。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 107.97,
+      "tolerance": 1.08,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-03-071",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "投影坐标系下某栅格左上角原点为 (117990, 3661541)，像元 2 m。第 956 列、第 180 行的像元左边界 X坐标是多少？（保留 2 位小数）",
+      "explanation": "X = 原点X + 列号 × 像元宽 = 117990 + 956 × 2 = 119902 m（Y 行号向下递减）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 119902,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-072",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "投影坐标系下某栅格左上角原点为 (267471, 4359039)，像元 30 m。第 452 列、第 771 行的像元上边界 Y坐标是多少？（保留 2 位小数）",
+      "explanation": "Y = 原点Y − 行号 × 像元高 = 4359039 − 771 × 30 = 4335909 m（图像行号自上而下）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4335909,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-073",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "投影坐标系下某栅格左上角原点为 (132190, 3193550)，像元 30 m。第 787 列、第 7 行的像元左边界 X坐标是多少？（保留 2 位小数）",
+      "explanation": "X = 原点X + 列号 × 像元宽 = 132190 + 787 × 30 = 155800 m（Y 行号向下递减）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 155800,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-074",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "投影坐标系下某栅格左上角原点为 (474719, 4356934)，像元 10 m。第 988 列、第 159 行的像元上边界 Y坐标是多少？（保留 2 位小数）",
+      "explanation": "Y = 原点Y − 行号 × 像元高 = 4356934 − 159 × 10 = 4355344 m（图像行号自上而下）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4355344,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-075",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "投影坐标系下某栅格左上角原点为 (407290, 3218359)，像元 10 m。第 763 列、第 818 行的像元左边界 X坐标是多少？（保留 2 位小数）",
+      "explanation": "X = 原点X + 列号 × 像元宽 = 407290 + 763 × 10 = 414920 m（Y 行号向下递减）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 414920,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-076",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "投影坐标系下某栅格左上角原点为 (149932, 3147665)，像元 0.5 m。第 619 列、第 500 行的像元上边界 Y坐标是多少？（保留 2 位小数）",
+      "explanation": "Y = 原点Y − 行号 × 像元高 = 3147665 − 500 × 0.5 = 3147415 m（图像行号自上而下）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3147415,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-077",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "投影坐标系下某栅格左上角原点为 (230166, 3661298)，像元 30 m。第 147 列、第 458 行的像元左边界 X坐标是多少？（保留 2 位小数）",
+      "explanation": "X = 原点X + 列号 × 像元宽 = 230166 + 147 × 30 = 234576 m（Y 行号向下递减）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 234576,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-078",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "投影坐标系下某栅格左上角原点为 (145618, 3811336)，像元 1 m。第 336 列、第 877 行的像元上边界 Y坐标是多少？（保留 2 位小数）",
+      "explanation": "Y = 原点Y − 行号 × 像元高 = 3811336 − 877 × 1 = 3810459 m（图像行号自上而下）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3810459,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-079",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "投影坐标系下某栅格左上角原点为 (338498, 3202742)，像元 5 m。第 339 列、第 327 行的像元左边界 X坐标是多少？（保留 2 位小数）",
+      "explanation": "X = 原点X + 列号 × 像元宽 = 338498 + 339 × 5 = 340193 m（Y 行号向下递减）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 340193,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-080",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "投影坐标系下某栅格左上角原点为 (124543, 4301311)，像元 2 m。第 841 列、第 988 行的像元上边界 Y坐标是多少？（保留 2 位小数）",
+      "explanation": "Y = 原点Y − 行号 × 像元高 = 4301311 − 988 × 2 = 4299335 m（图像行号自上而下）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4299335,
+      "tolerance": 0.01,
+      "unit": "m"
+    },
+    {
+      "id": "gis-03-081",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "矢量数据中的点要素只有位置，没有长度和面积。",
+      "explanation": "点是零维几何，只有坐标（可带高程），长度面积均为 0。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-082",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "两个相邻多边形共享一条完全相同的边界是拓扑数据结构的典型特征。",
+      "explanation": "弧段-结点模型让边界只存一次，既省空间又天然保证无缝隙无重叠。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-083",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "栅格数据中每个像元只能有一个属性值。",
+      "explanation": "单波段栅格每像元一个值；多波段（如 RGB 影像）是多个波段的堆叠。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-084",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "GeoTIFF 能够把地理参考信息（坐标系、仿射参数）内嵌在文件里。",
+      "explanation": "GeoTIFF 用标签记录 CRS 与六参数仿射变换，是栅格交换的事实标准。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-085",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "矢量数据转栅格数据是零损失的。",
+      "explanation": "栅格化把坐标离散到像元中心，最多损失半个像元的位置精度。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-03-086",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "栅格分辨率减半，像元总数约变为原来的 4 倍。",
+      "explanation": "行列数各翻倍，总数 ×4；数据量随分辨率平方增长。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-087",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "线要素的折点（Vertex）越密，表达形状越精细，数据量也越大。",
+      "explanation": "折点密度决定形状保真度与存储/渲染成本，Douglas-Peucker 可抽稀。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-088",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "shapefile 的 .prj 文件缺失时，数据将无法打开。",
+      "explanation": "仍可打开，但软件不知道其坐标系，需要人工指定。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-03-089",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "shapefile 的属性表存储在 .dbf 文件中。",
+      "explanation": ".shp 存几何、.shx 存索引、.dbf 存属性，三者缺一不可。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-090",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "shapefile 单文件容量上限约为 2 GB。",
+      "explanation": "shapefile 基于 dBASE 与 32 位偏移，2GB 是硬限制；大数据应换 GeoPackage 等格式。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-091",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "多边形自相交（蝴蝶结）在多数空间分析中会导致错误或不可预期结果。",
+      "explanation": "自相交面不是简单多边形，缓冲/叠加/面积计算都可能出错，应先用 ST_MakeValid 等修复。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-092",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "缓冲区分析的结果一定是多边形。",
+      "explanation": "Buffer 围绕点/线/面生成邻域，结果恒为面（多个 buffer 可组成多面）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-093",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "叠加分析中 Intersect 保留两图层的公共部分及其属性。",
+      "explanation": "Intersect 输出几何交集并拼接两侧属性；Union 输出全部范围。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-094",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "DEM 中的「空值（NoData）」可以当作 0 米参与计算。",
+      "explanation": "NoData 表示无数据，当作 0 会把无值区域算成海平面，严重污染结果。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-03-095",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "栅格重采样中，最近邻法不改变原始像元值。",
+      "explanation": "最近邻只做位置搬移，适合分类图/掩膜；双线性/三次卷积会插值出新值。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-096",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "矢量数据的地图代数运算比栅格更高效。",
+      "explanation": "地图代数是栅格范式；矢量叠加计算复杂度更高。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-03-097",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "一个 GeoJSON Feature 由几何（geometry）与属性（properties）组成。",
+      "explanation": "Feature = geometry + properties（+ id），FeatureCollection 是其集合。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-098",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "网络分析中，道路必须在交叉口处打断才能正确计算连通。",
+      "explanation": "未打断的相交线在拓扑上互不连通，最短路径会「跳过」交叉口。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-099",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "坡度、坡向可以从 DEM 中逐像元推导。",
+      "explanation": "由相邻像元高程差的梯度计算坡度/坡向，是 DEM 的标准派生产品。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-100",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "栅格金字塔（Overview）通过预存低分辨率副本加速显示。",
+      "explanation": "金字塔逐级降采样，缩放到小比例尺时只读低分辨率层，交互更流畅。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-101",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "矢量要素的边界（Boundary）与范围（Extent/BBox）是同一个概念。",
+      "explanation": "Boundary 是低维边界（面的边线），Extent 是包围盒，两者完全不同。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-03-102",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "影像镶嵌（Mosaic）是把多景影像拼接成一幅连续影像。",
+      "explanation": "镶嵌需统一分辨率与色彩平衡，接边处做羽化避免硬缝。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-103",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "矢量化中的「悬挂线（Dangle）」指线段端点未与其他线段相接。",
+      "explanation": "悬挂点是拓扑检查重点，常见于交叉口未打断或边界未闭合。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-104",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "栅格数据不能表达点状要素。",
+      "explanation": "可以用高值像元表达点位（如 1/0 掩膜），只是效率与精度不如矢量。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-03-105",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "裁剪（Clip）后矢量要素的属性表记录也会随之保留（被裁掉的除外）。",
+      "explanation": "Clip 是几何求交 + 属性继承，落在裁剪框内的要素保留属性。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-106",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "像元深度（Bit Depth）为 8 bit 的波段可表达 256 个灰度级。",
+      "explanation": "2^8 = 256，16 bit 为 65536 级。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-107",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "多波段影像按 RGB 合成显示时，波段顺序影响颜色表现。",
+      "explanation": "标准假彩色（NIR-R-G）与真彩色（R-G-B）的观感和用途都不同。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-108",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "TIN 中每个三角形由三个不共线的点和两条弧段组成。",
+      "explanation": "每个三角形有三条边（弧段），不是两条。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-03-109",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "矢量数据量与制图比例尺有关：比例尺越大，要素与折点越密。",
+      "explanation": "大比例尺数据采集更精细，存储量随之增大。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-110",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "栅格数据的「地图代数」可以把多个栅格按像元逐位运算。",
+      "explanation": "逐像元运算（map algebra）是栅格建模的核心，如适宜性加权叠加。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        },
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-03-111",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "shapefile 必备的三个同名文件是？",
+      "explanation": ".shp（几何）、.shx（空间索引）、.dbf（属性表）缺一不可；.prj（坐标系）、.cpg（编码）为可选。",
+      "refs": [
+        {
+          "title": "GDAL Shapefile 驱动文档",
+          "url": "https://gdal.org/en/latest/drivers/vector/shapefile.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": ".shp / .tif / .dbf",
+          "hint": ".tif 是栅格格式。"
+        },
+        {
+          "key": "B",
+          "text": ".shp / .shx / .dbf"
+        },
+        {
+          "key": "C",
+          "text": ".shp / .geojson / .prj",
+          "hint": "GeoJSON 是另一种独立格式。"
+        },
+        {
+          "key": "D",
+          "text": ".gpkg / .shx / .dbf",
+          "hint": ".gpkg 是 GeoPackage。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-112",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪一项最适合作为「全国土地利用分类图」的分析格式？",
+      "explanation": "分类图常用单波段栅格（值=类别码，配查找表）或矢量面+类别属性；选择取决于分析是面向像元还是面向地块。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "CSV 坐标表",
+          "hint": "无法表达面状分类。"
+        },
+        {
+          "key": "B",
+          "text": "JPEG 图片",
+          "hint": "无地理参考与像元值语义。"
+        },
+        {
+          "key": "C",
+          "text": "单波段分类栅格（每值一类）或矢量面层"
+        },
+        {
+          "key": "D",
+          "text": "XYZ 点云",
+          "hint": "点云是三维离散点，不是分类面。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-113",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "把 1 m 分辨率 DEM 重采样为 10 m，最合适的重采样方法是？",
+      "explanation": "连续场降尺度/升尺度用双线性/三次卷积保平滑；分类图必须用最近邻防止产生不存在的类别值。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "双线性或三次卷积（连续高程场）"
+        },
+        {
+          "key": "B",
+          "text": "最近邻（会保留锯齿与空隙）",
+          "hint": "最近邻适合分类图，高程是连续场。"
+        },
+        {
+          "key": "C",
+          "text": "不可能重采样",
+          "hint": "重采样是栅格基本操作。"
+        },
+        {
+          "key": "D",
+          "text": "先矢量化再栅格化",
+          "hint": "绕远路且引入两次误差。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-03-114",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪种操作能同时消除面层缝隙与重叠？",
+      "explanation": "拓扑编辑（如共享边编辑、集群容差 snap）从结构上保证相邻面共用同一条边，缝隙/重叠随之消除。",
+      "refs": [
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "逐要素手动平移",
+          "hint": "效率低且不可复现。"
+        },
+        {
+          "key": "B",
+          "text": "建立拓扑规则（无缝隙、无重叠）并修复共享边"
+        },
+        {
+          "key": "C",
+          "text": "换个显示比例",
+          "hint": "显示不改变数据。"
+        },
+        {
+          "key": "D",
+          "text": "导出成 CSV",
+          "hint": "丢失几何语义。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-115",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "矢量叠加 Union 与 Intersect 的区别是？",
+      "explanation": "Intersect 取几何交集（两侧属性拼接）；Union 保留 A∪B 全部区域（交集外一侧属性为空）。Identity/Symmetric Difference 是其余变体。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "没有区别，只是名字不同",
+          "hint": "语义完全不同。"
+        },
+        {
+          "key": "B",
+          "text": "Union 只保留交集",
+          "hint": "那是 Intersect。"
+        },
+        {
+          "key": "C",
+          "text": "Union 输出两图层全部范围并拼属性；Intersect 只输出交集"
+        },
+        {
+          "key": "D",
+          "text": "Union 只能用于栅格",
+          "hint": "Union 是矢量叠加操作。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-116",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "栅格掩膜（Mask）运算的主要用途是？",
+      "explanation": "掩膜把分析限定在指定区域：掩膜内保留原值、区外置 NoData，常用于行政区裁剪与有效区约束。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "提升影像色彩",
+          "hint": "色彩增强与掩膜无关。"
+        },
+        {
+          "key": "B",
+          "text": "把运算/分析限制在感兴趣区域内（区外置 NoData）"
+        },
+        {
+          "key": "C",
+          "text": "改变坐标参考系",
+          "hint": "那是重投影。"
+        },
+        {
+          "key": "D",
+          "text": "压缩文件体积",
+          "hint": "掩膜可能减小有效范围但目的不是压缩。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-117",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪种数据结构最适合表达「道路连通关系」？",
+      "explanation": "网络数据集以结点+边+转向约束建模连通性，是路径、服务区、OD 分析的基础。",
+      "refs": [
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "带结点-弧段拓扑的网络数据集"
+        },
+        {
+          "key": "B",
+          "text": "普通线图层（无拓扑）",
+          "hint": "交叉口不连通，无法正确寻径。"
+        },
+        {
+          "key": "C",
+          "text": "栅格坡向图",
+          "hint": "与道路无关。"
+        },
+        {
+          "key": "D",
+          "text": "点云",
+          "hint": "离散点无网络语义。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-03-118",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于 NoData，下列处理最恰当的是？",
+      "explanation": "NoData 语义是「此处无有效值」：参与均值/求和会失真，必须显式排除；需要连续覆盖时才考虑插值填补并标注。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一律填 0",
+          "hint": "0 是有效值，会污染统计。"
+        },
+        {
+          "key": "B",
+          "text": "一律填 -9999 并参与计算",
+          "hint": "填充值必须排除在统计外。"
+        },
+        {
+          "key": "C",
+          "text": "统计与运算时显式排除 NoData 像元"
+        },
+        {
+          "key": "D",
+          "text": "删除含 NoData 的整幅影像",
+          "hint": "过度处理。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-119",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪个字段类型最适合存储「面要素面积（m²）」？",
+      "explanation": "面积是连续数值且可能很大（地理坐标算出的平方度可达天文数字），用 double 存储最稳妥；整数型适合计数与类别码。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "文本",
+          "hint": "文本不能直接参与数值统计。"
+        },
+        {
+          "key": "B",
+          "text": "双精度浮点（double）"
+        },
+        {
+          "key": "C",
+          "text": "布尔",
+          "hint": "只有真/假两值。"
+        },
+        {
+          "key": "D",
+          "text": "日期",
+          "hint": "与数值无关。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-120",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": " Douglas-Peucker 算法用于？",
+      "explanation": "D-P 算法递归保留偏离最大的关键点，在容差内大幅减少折点，是制图综合与 LOD 的标准简化手段。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "按容差抽稀折点、简化线/面形状"
+        },
+        {
+          "key": "B",
+          "text": "加密折点提高精度",
+          "hint": "它只减不增。"
+        },
+        {
+          "key": "C",
+          "text": "检测多边形自相交",
+          "hint": "那是有效性检查。"
+        },
+        {
+          "key": "D",
+          "text": "计算缓冲区",
+          "hint": "缓冲是邻域几何运算。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-03-121",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "栅格数据中「波段（Band）」的含义是？",
+      "explanation": "波段=同一格网上的一个属性层：RGB 三个波段、多光谱十几个、高光谱上百；DEM 通常单波段。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一行像元",
+          "hint": "那是扫描行。"
+        },
+        {
+          "key": "B",
+          "text": "每个像元位置上的一个属性维度（如某波长反射率）"
+        },
+        {
+          "key": "C",
+          "text": "一圈等高线",
+          "hint": "等高线是矢量概念。"
+        },
+        {
+          "key": "D",
+          "text": "一个瓦片层级",
+          "hint": "层级是瓦片金字塔概念。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-122",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "把零散的 POI 点按 1 km 格网统计数量，最适合的栅格操作是？",
+      "explanation": "点密度/核密度把点事件聚合为连续面场；固定格网计数则用「点转栅格+ focal sum」，两者都是密度制图的标准做法。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "坡度分析",
+          "hint": "与点密度无关。"
+        },
+        {
+          "key": "B",
+          "text": "重投影",
+          "hint": "只改坐标系。"
+        },
+        {
+          "key": "C",
+          "text": "点转栅格 + 邻域/汇总统计（点密度）"
+        },
+        {
+          "key": "D",
+          "text": "影像融合",
+          "hint": "多波段合成概念。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-123",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列关于 GeoPackage 的说法，正确的是？",
+      "explanation": "GeoPackage（OGC 标准）= SQLite 容器 + 矢量/瓦片/扩展表，单文件、无 2GB 限制，正逐步取代 shapefile。",
+      "refs": [
+        {
+          "title": "OGC GeoPackage",
+          "url": "https://www.ogc.org/standard/geopackage/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "基于 SQLite 的单文件 OGC 标准，可同时存矢量、栅格与瓦片"
+        },
+        {
+          "key": "B",
+          "text": "只能存点数据",
+          "hint": "支持全部几何类型与栅格。"
+        },
+        {
+          "key": "C",
+          "text": "是 Esri 私有格式",
+          "hint": "它是 OGC 开放标准。"
+        },
+        {
+          "key": "D",
+          "text": "有 2GB 容量上限",
+          "hint": "那是 shapefile 的限制，SQLite 上限约 TB 级。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-03-124",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "「像元深度 16 bit、单波段」影像的每个像元占用多少字节？",
+      "explanation": "16 bit = 2 字节；存储估算 = 行×列×波段×字节数（再乘压缩比）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 字节",
+          "hint": "那是 8 bit。"
+        },
+        {
+          "key": "B",
+          "text": "2 字节"
+        },
+        {
+          "key": "C",
+          "text": "4 字节",
+          "hint": "那是 32 bit。"
+        },
+        {
+          "key": "D",
+          "text": "16 字节",
+          "hint": "bit ≠ byte，差 8 倍。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-125",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "矢量数据「连接（Join）」与「空间连接（Spatial Join）」的本质区别是？",
+      "explanation": "属性 Join 靠键值相等；Spatial Join 靠空间谓词（within/nearest/intersects）挂接属性，是「点在哪个区」类问题的答案。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "没有区别",
+          "hint": "匹配机制完全不同。"
+        },
+        {
+          "key": "B",
+          "text": "Join 只用于栅格",
+          "hint": "Join 是属性表操作。"
+        },
+        {
+          "key": "C",
+          "text": "Join 按属性字段值匹配；Spatial Join 按几何关系（相交/包含/邻近）匹配"
+        },
+        {
+          "key": "D",
+          "text": "Spatial Join 会丢失几何",
+          "hint": "输出仍带几何。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-126",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "一幅 8 bit 三波段（真彩色）未压缩影像 1000×1000 像元，磁盘占用约？",
+      "explanation": "1000×1000 像元 × 3 波段 × 1 字节 = 3×10^6 字节 ≈ 2.86 MiB。估算公式：行列×波段×字节/深度。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 MB",
+          "hint": "只算了单波段。"
+        },
+        {
+          "key": "B",
+          "text": "2 MB",
+          "hint": "只算了两个波段或字节算错。"
+        },
+        {
+          "key": "C",
+          "text": "约 3 MB（1000×1000×3 字节）"
+        },
+        {
+          "key": "D",
+          "text": "约 24 MB",
+          "hint": "把 bit 当字节重复计算了。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-127",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪项是「矢量数据」的优势？",
+      "explanation": "矢量擅长精确边界、拓扑与网络语义；栅格擅长连续场与快速代数运算。两者各有所长。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "天然适合逐像元代数运算",
+          "hint": "那是栅格的强项。"
+        },
+        {
+          "key": "B",
+          "text": "精确表达边界与拓扑关系"
+        },
+        {
+          "key": "C",
+          "text": "文件结构简单到只有一种",
+          "hint": "矢量格式繁多。"
+        },
+        {
+          "key": "D",
+          "text": "渲染永远更快",
+          "hint": "海量矢量渲染反而比瓦片图慢。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-128",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪种几何「方向」会影响缓冲与叠加的语义？",
+      "explanation": "OGC 简单要素约定外环逆时针、内环顺时针；绕向错会导致「内外面颠倒」、面积符号为负等问题。",
+      "refs": [
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://www.rfc-editor.org/rfc/rfc7946"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "点的坐标顺序",
+          "hint": "点没有顺序概念。"
+        },
+        {
+          "key": "B",
+          "text": "多边形的颜色",
+          "hint": "符号化参数。"
+        },
+        {
+          "key": "C",
+          "text": "属性表排序",
+          "hint": "与几何无关。"
+        },
+        {
+          "key": "D",
+          "text": "多边形外环与内环的绕向（外逆内顺等约定）"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-03-129",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "把 DEM 转成等高线的操作属于？",
+      "explanation": "Contour（等值线）提取把连续栅格场转为矢量线，是栅格派生矢量产品的典型操作，反向则是栅格化。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "栅格→矢量的转换（等值线提取）"
+        },
+        {
+          "key": "B",
+          "text": "矢量→栅格",
+          "hint": "方向反了。"
+        },
+        {
+          "key": "C",
+          "text": "坐标重投影",
+          "hint": "与转换维度无关。"
+        },
+        {
+          "key": "D",
+          "text": "重采样",
+          "hint": "重采样是栅格内部操作。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-03-130",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪种情况应优先用「最近邻重采样」？",
+      "explanation": "类别码是离散值，插值会产生「0.4 类」这种无意义值；最近邻保证类别值不变。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "高程 DEM 抽稀",
+          "hint": "连续场用双线性更好。"
+        },
+        {
+          "key": "B",
+          "text": "土地利用分类图重投影"
+        },
+        {
+          "key": "C",
+          "text": "气温插值加密",
+          "hint": "气温是连续场。"
+        },
+        {
+          "key": "D",
+          "text": "影像色彩拉伸",
+          "hint": "与重采样无关。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-131",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于拓扑的「悬挂点」，下列说法正确的是？",
+      "explanation": "Dangle=未连上的线端点。路网不连通、面不闭合都由它引起，拓扑检查（容差内 snap）是标准修复手段。",
+      "refs": [
+        {
+          "title": "拓扑关系（GIS）",
+          "url": "https://en.wikipedia.org/wiki/Topological_data_structure"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "悬挂点是要素的起点",
+          "hint": "起点是正常拓扑元素。"
+        },
+        {
+          "key": "B",
+          "text": "悬挂点只出现在面要素上",
+          "hint": "主要指线要素未接住的端点。"
+        },
+        {
+          "key": "C",
+          "text": "线端点未与其他线或边界相接，常因交叉口未打断或漏画造成"
+        },
+        {
+          "key": "D",
+          "text": "悬挂点不会影响任何分析",
+          "hint": "会破坏网络连通与面闭合。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-132",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "一幅影像「几何纠正」的主要目的是？",
+      "explanation": "几何纠正用地面控制点（GCP）+ 变换模型（多项式/仿射）+ 重采样，把影像纠正到地图坐标，是正射校正的前置步骤。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "提高色彩饱和度",
+          "hint": "那是辐射/色彩处理。"
+        },
+        {
+          "key": "B",
+          "text": "消除几何变形并把影像配准到目标坐标系"
+        },
+        {
+          "key": "C",
+          "text": "压缩存储体积",
+          "hint": "与压缩无关。"
+        },
+        {
+          "key": "D",
+          "text": "增加波段数量",
+          "hint": "波段数由传感器决定。"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-03-133",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪个不是矢量数据模型的基本元素？",
+      "explanation": "矢量模型由点-折点-结点-边-面构成；像元是栅格模型的最小单元。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "结点（Node）"
+        },
+        {
+          "key": "B",
+          "text": "弧段/边（Edge）"
+        },
+        {
+          "key": "C",
+          "text": "折点（Vertex）"
+        },
+        {
+          "key": "D",
+          "text": "像元（Pixel）",
+          "hint": "像元属于栅格模型。"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-03-134",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "「邻域分析（Focal/Neighborhood）」在栅格中的典型应用是？",
+      "explanation": "邻域分析用滑动窗口（3×3 等）做焦点统计：坡度、纹理、平滑、密度面都是其应用。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "以每个像元为中心的窗口内统计（均值/最大值/密度）"
+        },
+        {
+          "key": "B",
+          "text": "修改属性字段",
+          "hint": "属性操作与邻域无关。"
+        },
+        {
+          "key": "C",
+          "text": "数据库建索引",
+          "hint": "存储层优化。"
+        },
+        {
+          "key": "D",
+          "text": "格式转换",
+          "hint": "与邻域无关。"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-03-135",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "两个图层的要素逐一求交后，统计「每个网格单元内的地震点数」，这属于？",
+      "explanation": "点面叠加（Point in Polygon）+ 分组计数是「空间聚合」的标准流程，常见于风险区划与密度制图。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "网络分析",
+          "hint": "不涉及网络。"
+        },
+        {
+          "key": "B",
+          "text": "三维分析",
+          "hint": "不涉及高程维。"
+        },
+        {
+          "key": "C",
+          "text": "空间叠加 + 点密度/频数统计"
+        },
+        {
+          "key": "D",
+          "text": "坐标变换",
+          "hint": "不涉及变换。"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-03-136",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "shapefile 几何数据存放在哪个扩展名的文件里？（含点号）",
+      "explanation": ".shp 存几何主体，.shx 是其索引，.dbf 存属性表。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        ".shp",
+        "shp"
+      ]
+    },
+    {
+      "id": "gis-03-137",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "记录 shapefile 坐标参考系的扩展名文件是？（含点号）",
+      "explanation": ".prj 内是 WKT 格式的 CRS 定义，缺失时软件不知道坐标系。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        ".prj",
+        "prj"
+      ]
+    },
+    {
+      "id": "gis-03-138",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "单文件、基于 SQLite 的 OGC 开放矢量/栅格容器格式叫什么？",
+      "explanation": "GeoPackage（.gpkg）是 OGC 标准，正逐步替代 shapefile。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "geopackage",
+        "gpkg",
+        "geopackage（gpkg）"
+      ]
+    },
+    {
+      "id": "gis-03-139",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "把矢量要素按像元离散化的过程叫什么？",
+      "explanation": "栅格化产生至多半个像元的位置误差，是两模型互转的方向之一。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "栅格化",
+        "rasterization"
+      ]
+    },
+    {
+      "id": "gis-03-140",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "从 DEM 提取等高线的操作属于哪类转换？（栅格转什么）",
+      "explanation": "等值线提取是栅格场 → 矢量线的派生过程。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "矢量",
+        "矢量化",
+        "等值线提取"
+      ]
+    },
+    {
+      "id": "gis-03-141",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "多边形「外环逆时针、内环顺时针」的绕向约定出自哪个标准族？（三个字母缩写）",
+      "explanation": "OGC 简单要素（SFA）约定了环绕向；RFC 7946 对 GeoJSON 另有约定（外顺内逆/未定义）。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ogc",
+        "sfa",
+        "简单要素",
+        "ogc sfa"
+      ]
+    },
+    {
+      "id": "gis-03-142",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "用于描述线状要素形状简化、按容差抽稀折点的经典算法名是？（人名）",
+      "explanation": "Douglas-Peucker 递归保留关键折点，在容差内最大化保形。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "douglas-peucker",
+        "douglas peucker",
+        "道格拉斯-普克",
+        "道格拉斯普克",
+        "dp"
+      ]
+    },
+    {
+      "id": "gis-03-143",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "栅格金字塔的低分辨率预览层叫什么？（英文）",
+      "explanation": "Overview（概视图）逐级降采样，加速缩放显示。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "overview",
+        "overview pyramid",
+        "金字塔",
+        "overview 层"
+      ]
+    },
+    {
+      "id": "gis-03-144",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "DEM 中表示「此处无有效数据」的专用值叫什么？（英文）",
+      "explanation": "NoData 必须在统计与代数运算中显式排除，不能当 0。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "nodata",
+        "no data",
+        "空值"
+      ]
+    },
+    {
+      "id": "gis-03-145",
+      "skill": "gis",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "矢量叠加中「只保留两图层公共部分」的操作叫什么？（英文）",
+      "explanation": "Intersect 取几何交集并拼接两侧属性；Union 则保留全部范围。",
+      "refs": [
+        {
+          "title": "GIS - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geographic_information_system"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "intersect",
+        "相交",
+        "intersection"
       ]
     }
   ]

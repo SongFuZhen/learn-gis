@@ -59,7 +59,9 @@ export default function AnswerFeedback({
         </p>
         {!correct && (
           <p className="ml-auto text-[12px] text-foreground-secondary">
-            {question.type === "short" ? "参考答案" : "正确答案"}{" "}
+            {question.type === "short" || question.type === "numeric"
+              ? "参考答案"
+              : "正确答案"}{" "}
             <span className="font-mono font-medium text-foreground">
               {expectedText}
             </span>
