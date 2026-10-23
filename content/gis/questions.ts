@@ -1,11 +1,12 @@
 import type { Question } from "@/lib/quiz/types";
 import geoMath from "./00-geo-math.questions.json";
 import basics from "./01-basics.questions.json";
-import crsEpsg from "./02-crs-epsg.questions.json";
-import vectorRaster from "./03-vector-raster.questions.json";
-import formatsTiles from "./04-formats-tiles.questions.json";
-import ogcWebmap from "./05-ogc-webmap.questions.json";
-import spatialPostgis from "./06-spatial-postgis.questions.json";
+import projection from "./02-projection.questions.json";
+import crsEpsg from "./03-crs-epsg.questions.json";
+import vectorRaster from "./04-vector-raster.questions.json";
+import formatsTiles from "./05-formats-tiles.questions.json";
+import ogcWebmap from "./06-ogc-webmap.questions.json";
+import spatialPostgis from "./07-spatial-postgis.questions.json";
 
 /**
  * 题库注册表：显式 import 让内容进入 bundle 且被 TS 检查，
@@ -14,11 +15,12 @@ import spatialPostgis from "./06-spatial-postgis.questions.json";
 const RAW_BY_MODULE: Record<string, unknown> = {
   "00": geoMath,
   "01": basics,
-  "02": crsEpsg,
-  "03": vectorRaster,
-  "04": formatsTiles,
-  "05": ogcWebmap,
-  "06": spatialPostgis,
+  "02": projection,
+  "03": crsEpsg,
+  "04": vectorRaster,
+  "05": formatsTiles,
+  "06": ogcWebmap,
+  "07": spatialPostgis,
 };
 
 export function rawQuestionsFor(moduleSlug: string): unknown {

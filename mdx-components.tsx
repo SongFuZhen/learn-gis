@@ -1,15 +1,18 @@
 import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import EmbedMap from "@/components/EmbedMap";
+import Callout from "@/components/mdx/Callout";
 
 /**
  * MDX 全局组件映射（@next/mdx App Router 约定文件）。
- * 讲义里可以直接用 <Callout>、<KeyPoint> 之类的自定义块，在这里统一登记。
+ * 讲义里可以直接用 <Callout>、<MapExample> 之类的自定义块，在这里统一登记。
  */
 export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // 讲义里可写 <MapExample lat={39.9} lng={116.4} label="北京" /> 内嵌地图
     MapExample: EmbedMap,
+    // 提示块：<Callout type="warn" title="…">内容</Callout>，type 可选 info | warn | tip | example
+    Callout,
     a: ({ href = "", ...props }) => {
       const isInternal = href.startsWith("/");
       if (isInternal) {

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import ModulePager from "@/components/ModulePager";
 import {
   getLesson,
   getModule,
@@ -36,15 +37,32 @@ export default async function ModulePage({
   const Lesson = await getLesson(skillId, moduleSlug);
   const count = getQuestions(skillId, moduleSlug).length;
 
+  // 连续阅读：按 GIS_MODULES 顺序取前后章节
+  const modules = getModules(skillId);
+  const idx = modules.findIndex((m) => m.slug === moduleSlug);
+  const prev = idx > 0 ? (modules[idx - 1] ?? null) : null;
+  const next =
+    idx >= 0 && idx < modules.length - 1 ? (modules[idx + 1] ?? null) : null;
+
   return (
     <div className="w-full px-4 py-5 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      <nav className="text-[12px] text-foreground-muted">
-        <Link href={`/s/${skillId}`} className="hover:text-brand">
-          {skill.title}
-        </Link>
-        <span className="mx-1.5">/</span>
-        <span className="font-mono">{moduleMeta.slug}</span>
-      </nav>
+      <div className="flex items-center justify-between gap-3">
+        <nav className="min-w-0 text-[12px] text-foreground-muted">
+          <Link href={`/s/${skillId}`} className="hover:text-brand">
+            {skill.title}
+          </Link>
+          <span className="mx-1.5">/</span>
+          <span className="font-mono">{moduleMeta.slug}</span>
+          <span className="mx-1.5 text-foreground-disabled">·</span>
+          <span className="text-foreground-tertiary">
+            第 {idx + 1} / {modules.length} 章
+          </span>
+        </nav>
+        {/* 移动端顶部的上一章/下一章细条 */}
+        <div className="lg:hidden">
+          <ModulePager skillId={skillId} prev={prev} next={next} compact />
+        </div>
+      </div>
 
       <header className="mt-3 max-w-3xl">
         <h1 className="text-[24px] font-semibold leading-snug tracking-[-0.02em] sm:text-[30px] lg:text-[32px]">
@@ -86,9 +104,12 @@ export default async function ModulePage({
             >
               开始测验
             </Link>
-            <p className="mt-3 border-t border-border-subtle pt-3 text-[12px] leading-relaxed text-foreground-tertiary">
-              答错先讲为什么错；掌握度低于 80% 建议重读后重练。
-            </p>
+            <div className="mt-3 border-t border-border-subtle pt-3">
+              <ModulePager skillId={skillId} prev={prev} next={next} compact />
+              <p className="mt-3 text-[12px] leading-relaxed text-foreground-tertiary">
+                答错先讲为什么错；掌握度低于 80% 建议重读后重练。
+              </p>
+            </div>
           </div>
         </aside>
       </div>
@@ -106,6 +127,11 @@ export default async function ModulePage({
         >
           返回章节列表
         </Link>
+      </div>
+
+      {/* 连续阅读：上一章 / 下一章 */}
+      <div className="mt-6">
+        <ModulePager skillId={skillId} prev={prev} next={next} />
       </div>
     </div>
   );
