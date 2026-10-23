@@ -11,7 +11,7 @@
     "prebuild": "npm run content:validate",
     "start": "next start -p 25000",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "content:validate": "tsx scripts/validate-content.ts",
