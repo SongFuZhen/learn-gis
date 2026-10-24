@@ -51,6 +51,13 @@ export const GIS_MODULES: ModuleMeta[] = [
       "点线面与属性表、拓扑、像元与分辨率、重采样，以及矢量与栅格各自的适用场景。",
   },
   {
+    slug: "05",
+    file: "05-cartography",
+    title: "地图制图：符号、配色与数据分级",
+    summary:
+      "从数据到图：视觉变量、顺序/发散/类别配色、四种分级方法、比例尺与综合，以及地图为什么会说谎。",
+  },
+  {
     slug: "06",
     file: "06-formats-tiles",
     title: "数据格式与瓦片",
@@ -75,7 +82,6 @@ export const GIS_MODULES: ModuleMeta[] = [
 
 /** 已规划但尚未交付的章节（全部交付后应为空） */
 export const PLANNED_MODULES: { slug: string; title: string }[] = [
-  { slug: "05", title: "地图制图：符号、配色与数据分级" },
   { slug: "07", title: "QGIS 与 GDAL/OGR 工具链" },
   { slug: "08", title: "数据采集与数据质量" },
   { slug: "09", title: "空间分析 I：缓冲、叠加与邻域" },

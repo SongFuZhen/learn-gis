@@ -1,7 +1,7 @@
 {
   "skill": "gis",
   "module": "06",
-  "version": 2,
+  "version": 4,
   "questions": [
     {
       "id": "gis-06-001",
@@ -630,492 +630,6 @@
       "placeholder": "如 1234"
     },
     {
-      "id": "gis-06-019",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -13°、纬度 -60° 在第 6 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^6⌋ = ⌊(-13+180)/360 × 64⌋ = 29。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 29,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-020",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 -132°、纬度 -63° 在第 7 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^7⌋ = ⌊(-132+180)/360 × 128⌋ = 17。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 17,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-021",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 152°、纬度 -26° 在第 8 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^8⌋ = ⌊(152+180)/360 × 256⌋ = 236。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 236,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-022",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -121°、纬度 50° 在第 9 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^9⌋ = ⌊(-121+180)/360 × 512⌋ = 83。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 83,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-023",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 31°、纬度 -40° 在第 10 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^10⌋ = ⌊(31+180)/360 × 1024⌋ = 600。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 600,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-024",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -115°、纬度 13° 在第 11 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^11⌋ = ⌊(-115+180)/360 × 2048⌋ = 369。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 369,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-025",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 132°、纬度 -57° 在第 12 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^12⌋ = ⌊(132+180)/360 × 4096⌋ = 3549。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 3549,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-026",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 -146°、纬度 -61° 在第 3 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^3⌋ = ⌊(-146+180)/360 × 8⌋ = 0。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 0,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-027",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -149°、纬度 36° 在第 4 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^4⌋ = ⌊(-149+180)/360 × 16⌋ = 1。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-028",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -53°、纬度 40° 在第 5 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^5⌋ = ⌊(-53+180)/360 × 32⌋ = 11。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 11,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-029",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 64°、纬度 -27° 在第 6 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^6⌋ = ⌊(64+180)/360 × 64⌋ = 43。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 43,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-030",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -49°、纬度 27° 在第 7 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^7⌋ = ⌊(-49+180)/360 × 128⌋ = 46。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 46,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-031",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -21°、纬度 25° 在第 8 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^8⌋ = ⌊(-21+180)/360 × 256⌋ = 113。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 113,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-032",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 13°、纬度 36° 在第 9 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^9⌋ = ⌊(13+180)/360 × 512⌋ = 274。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 274,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-033",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -25°、纬度 -55° 在第 10 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^10⌋ = ⌊(-25+180)/360 × 1024⌋ = 440。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 440,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-034",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 65°、纬度 22° 在第 11 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^11⌋ = ⌊(65+180)/360 × 2048⌋ = 1393。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1393,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-035",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 170°、纬度 -12° 在第 12 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^12⌋ = ⌊(170+180)/360 × 4096⌋ = 3982。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 3982,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-036",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 140°、纬度 -58° 在第 3 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^3⌋ = ⌊(140+180)/360 × 8⌋ = 7。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 7,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-037",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -88°、纬度 -3° 在第 4 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^4⌋ = ⌊(-88+180)/360 × 16⌋ = 4。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 4,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-038",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 -161°、纬度 -34° 在第 5 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^5⌋ = ⌊(-161+180)/360 × 32⌋ = 1。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-039",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 139°、纬度 -21° 在第 6 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^6⌋ = ⌊(139+180)/360 × 64⌋ = 56。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 56,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-040",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 51°、纬度 -53° 在第 7 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^7⌋ = ⌊(51+180)/360 × 128⌋ = 82。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 82,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-041",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 -109°、纬度 47° 在第 8 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^8⌋ = ⌊(-109+180)/360 × 256⌋ = 50。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 50,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-042",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -44°、纬度 69° 在第 9 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^9⌋ = ⌊(-44+180)/360 × 512⌋ = 193。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 193,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-043",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -138°、纬度 -7° 在第 10 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^10⌋ = ⌊(-138+180)/360 × 1024⌋ = 119。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 119,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-044",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 152°、纬度 -16° 在第 11 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^11⌋ = ⌊(152+180)/360 × 2048⌋ = 1888。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1888,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
-      "id": "gis-06-045",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -120°、纬度 -42° 在第 12 级的瓦片列号 x 是多少？",
-      "explanation": "x = ⌊(经度+180)/360 × 2^12⌋ = ⌊(-120+180)/360 × 4096⌋ = 682。列号只与经度有关。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 682,
-      "tolerance": 0,
-      "placeholder": "如 1234"
-    },
-    {
       "id": "gis-06-046",
       "skill": "gis",
       "module": "06",
@@ -1170,492 +684,6 @@
       "placeholder": "如 678"
     },
     {
-      "id": "gis-06-049",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -146°、纬度 48° 在第 9 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^9⌋ = 177。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 177,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-050",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 121°、纬度 39° 在第 10 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^10⌋ = 391。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 391,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-051",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 57°、纬度 10° 在第 11 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^11⌋ = 966。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 966,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-052",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -159°、纬度 15° 在第 12 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^12⌋ = 1875。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1875,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-053",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 135°、纬度 -15° 在第 3 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^3⌋ = 4。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 4,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-054",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -139°、纬度 -62° 在第 4 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^4⌋ = 11。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 11,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-055",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -148°、纬度 20° 在第 5 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^5⌋ = 14。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 14,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-056",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 164°、纬度 64° 在第 6 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^6⌋ = 17。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 17,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-057",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -68°、纬度 64° 在第 7 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^7⌋ = 34。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 34,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-058",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 136°、纬度 70° 在第 8 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^8⌋ = 57。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 57,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-059",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 100°、纬度 -12° 在第 9 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^9⌋ = 273。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 273,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-060",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -33°、纬度 62° 在第 10 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^10⌋ = 285。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 285,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-061",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 24°、纬度 66° 在第 11 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^11⌋ = 519。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 519,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-062",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 -91°、纬度 64° 在第 12 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^12⌋ = 1092。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1092,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-063",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -108°、纬度 -4° 在第 3 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^3⌋ = 4。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 4,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-064",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 3°、纬度 12° 在第 4 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^4⌋ = 7。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 7,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-065",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 69°、纬度 39° 在第 5 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^5⌋ = 12。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 12,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-066",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -87°、纬度 59° 在第 6 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^6⌋ = 18。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 18,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-067",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 44°、纬度 -2° 在第 7 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^7⌋ = 64。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 64,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-068",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 141°、纬度 -70° 在第 8 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^8⌋ = 198。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 198,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-069",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -174°、纬度 47° 在第 9 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^9⌋ = 180。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 180,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-070",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 -38°、纬度 -49° 在第 10 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^10⌋ = 672。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 672,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-071",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 153°、纬度 68° 在第 11 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^11⌋ = 490。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 490,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-072",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 -80°、纬度 -30° 在第 12 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^12⌋ = 2406。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 2406,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-073",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "Web 墨卡托瓦片方案：经度 127°、纬度 60° 在第 3 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^3⌋ = 2。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 2,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-074",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "Web 墨卡托瓦片方案：经度 -168°、纬度 -18° 在第 4 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^4⌋ = 8。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 8,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
-      "id": "gis-06-075",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "Web 墨卡托瓦片方案：经度 150°、纬度 -45° 在第 5 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
-      "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^5⌋ = 20。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 20,
-      "tolerance": 0,
-      "placeholder": "如 678"
-    },
-    {
       "id": "gis-06-076",
       "skill": "gis",
       "module": "06",
@@ -1704,74 +732,6 @@
       ],
       "type": "numeric",
       "answer": 4194304,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-079",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片金字塔第 2 级一共有多少块瓦片？",
-      "explanation": "总数 = 4^z = 4^2 = 16 块（每级行列数各为 2^2）。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 16,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-080",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片金字塔第 10 级一共有多少块瓦片？",
-      "explanation": "总数 = 4^z = 4^10 = 1,048,576 块（每级行列数各为 2^10）。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1048576,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-081",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片金字塔第 5 级一共有多少块瓦片？",
-      "explanation": "总数 = 4^z = 4^5 = 1,024 块（每级行列数各为 2^5）。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1024,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-082",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片金字塔第 14 级一共有多少块瓦片？",
-      "explanation": "总数 = 4^z = 4^14 = 268,435,456 块（每级行列数各为 2^14）。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 268435456,
       "tolerance": 0
     },
     {
@@ -1841,160 +801,6 @@
       "unit": "m/px"
     },
     {
-      "id": "gis-06-086",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "EPSG:3857 第 7 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
-      "explanation": "分辨率 = 156543.03392 / 2^7 = 1222.99 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "EPSG:3857",
-          "url": "https://epsg.io/3857"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1222.99,
-      "tolerance": 0.02,
-      "unit": "m/px"
-    },
-    {
-      "id": "gis-06-087",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "EPSG:3857 第 12 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
-      "explanation": "分辨率 = 156543.03392 / 2^12 = 38.22 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "EPSG:3857",
-          "url": "https://epsg.io/3857"
-        }
-      ],
-      "type": "numeric",
-      "answer": 38.22,
-      "tolerance": 0.02,
-      "unit": "m/px"
-    },
-    {
-      "id": "gis-06-088",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "EPSG:3857 第 3 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
-      "explanation": "分辨率 = 156543.03392 / 2^3 = 19567.88 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "EPSG:3857",
-          "url": "https://epsg.io/3857"
-        }
-      ],
-      "type": "numeric",
-      "answer": 19567.88,
-      "tolerance": 0.02,
-      "unit": "m/px"
-    },
-    {
-      "id": "gis-06-089",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "EPSG:3857 第 4 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
-      "explanation": "分辨率 = 156543.03392 / 2^4 = 9783.94 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "EPSG:3857",
-          "url": "https://epsg.io/3857"
-        }
-      ],
-      "type": "numeric",
-      "answer": 9783.94,
-      "tolerance": 0.02,
-      "unit": "m/px"
-    },
-    {
-      "id": "gis-06-090",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "EPSG:3857 第 18 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
-      "explanation": "分辨率 = 156543.03392 / 2^18 = 0.6 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "EPSG:3857",
-          "url": "https://epsg.io/3857"
-        }
-      ],
-      "type": "numeric",
-      "answer": 0.6,
-      "tolerance": 0.02,
-      "unit": "m/px"
-    },
-    {
-      "id": "gis-06-091",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "EPSG:3857 第 13 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
-      "explanation": "分辨率 = 156543.03392 / 2^13 = 19.11 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "EPSG:3857",
-          "url": "https://epsg.io/3857"
-        }
-      ],
-      "type": "numeric",
-      "answer": 19.11,
-      "tolerance": 0.02,
-      "unit": "m/px"
-    },
-    {
-      "id": "gis-06-092",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "EPSG:3857 第 11 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
-      "explanation": "分辨率 = 156543.03392 / 2^11 = 76.44 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "EPSG:3857",
-          "url": "https://epsg.io/3857"
-        }
-      ],
-      "type": "numeric",
-      "answer": 76.44,
-      "tolerance": 0.02,
-      "unit": "m/px"
-    },
-    {
       "id": "gis-06-093",
       "skill": "gis",
       "module": "06",
@@ -2045,222 +851,6 @@
       ],
       "type": "numeric",
       "answer": 112.5,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-096",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=6, x=12, y=20 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^6 × 360 − 180 = 12/64 × 360 − 180 = -112.5°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": -112.5,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-097",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=7, x=120, y=47 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^7 × 360 − 180 = 120/128 × 360 − 180 = 157.5°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 157.5,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-098",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=8, x=160, y=152 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^8 × 360 − 180 = 160/256 × 360 − 180 = 45°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 45,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-099",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=9, x=241, y=161 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^9 × 360 − 180 = 241/512 × 360 − 180 = -10.5469°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": -10.5469,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-100",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=10, x=659, y=705 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^10 × 360 − 180 = 659/1024 × 360 − 180 = 51.6797°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 51.6797,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-101",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=11, x=125, y=972 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^11 × 360 − 180 = 125/2048 × 360 − 180 = -158.0273°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": -158.0273,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-102",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=12, x=728, y=2116 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^12 × 360 − 180 = 728/4096 × 360 − 180 = -116.0156°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": -116.0156,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-103",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=3, x=2, y=3 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^3 × 360 − 180 = 2/8 × 360 − 180 = -90°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": -90,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-104",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=4, x=15, y=5 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^4 × 360 − 180 = 15/16 × 360 − 180 = 157.5°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 157.5,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-105",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=5, x=20, y=17 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^5 × 360 − 180 = 20/32 × 360 − 180 = 45°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 45,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-106",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=6, x=31, y=45 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^6 × 360 − 180 = 31/64 × 360 − 180 = -5.625°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": -5.625,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-107",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=7, x=49, y=39 左上角的经度是多少度？（保留 4 位小数）",
-      "explanation": "左上角经度 = x/2^7 × 360 − 180 = 49/128 × 360 − 180 = -42.1875°。瓦片西边界即该经度。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": -42.1875,
       "tolerance": 0.0002,
       "unit": "°"
     },
@@ -2331,270 +921,6 @@
       "unit": "°"
     },
     {
-      "id": "gis-06-111",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=11, x=603, y=1216 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^11))) ≈ -31.9522°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": -31.9522,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-112",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=12, x=1592, y=2487 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^12))) ≈ -35.9602°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": -35.9602,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-113",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=3, x=5, y=4 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^3))) ≈ 0°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": 0,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-114",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=4, x=3, y=10 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^4))) ≈ -40.9799°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": -40.9799,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-115",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=5, x=13, y=14 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^5))) ≈ 21.943°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": 21.943,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-116",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=6, x=24, y=24 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^6))) ≈ 40.9799°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": 40.9799,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-117",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=7, x=109, y=53 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^7))) ≈ 29.5352°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": 29.5352,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-118",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=8, x=6, y=133 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^8))) ≈ -7.0137°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": -7.0137,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-119",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=9, x=207, y=325 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^9))) ≈ -43.5804°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": -43.5804,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-120",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=10, x=65, y=405 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^10))) ≈ 35.1738°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": 35.1738,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-121",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=11, x=1792, y=1380 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^11))) ≈ -52.9089°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": -52.9089,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
-      "id": "gis-06-122",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=12, x=3948, y=2530 左上角的纬度是多少度？（保留 4 位小数）",
-      "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^12))) ≈ -38.9594°。注意 y 越小纬度越高。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        },
-        {
-          "title": "Web Mercator 投影",
-          "url": "https://en.wikipedia.org/wiki/Web_Mercator_projection"
-        }
-      ],
-      "type": "numeric",
-      "answer": -38.9594,
-      "tolerance": 0.0002,
-      "unit": "°"
-    },
-    {
       "id": "gis-06-123",
       "skill": "gis",
       "module": "06",
@@ -2652,329 +978,6 @@
       "placeholder": "如 0123"
     },
     {
-      "id": "gis-06-126",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=6, x=17, y=30 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 032221。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "032221"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-127",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=7, x=6, y=69 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 2000312。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "2000312"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-128",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=8, x=223, y=111 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 13213333。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "13213333"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-129",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=9, x=275, y=228 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 122210211。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "122210211"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-130",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=10, x=489, y=486 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 0333301221。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "0333301221"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-131",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=11, x=1513, y=824 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 12311323001。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "12311323001"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-132",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=12, x=364, y=1608 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 022103103100。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "022103103100"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-133",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=3, x=2, y=2 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 030。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "030"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-134",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=4, x=14, y=5 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 1312。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "1312"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-135",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=5, x=20, y=11 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 12122。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "12122"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-136",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=6, x=63, y=40 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 313111。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "313111"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-137",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=7, x=1, y=63 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 0222223。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "0222223"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-138",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=8, x=243, y=87 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 13130233。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "13130233"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-139",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=9, x=95, y=350 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 203033331。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "203033331"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-140",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "瓦片 z=10, x=614, y=614 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 3003300330。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "3003300330"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-141",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "瓦片 z=11, x=1752, y=1001 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 13233213002。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "13233213002"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
-      "id": "gis-06-142",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "瓦片 z=12, x=3174, y=1702 的 Bing quadkey 是什么？",
-      "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 132021300330。",
-      "refs": [
-        {
-          "title": "Bing Maps Tile System",
-          "url": "https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system"
-        }
-      ],
-      "type": "short",
-      "accepted": [
-        "132021300330"
-      ],
-      "placeholder": "如 0123"
-    },
-    {
       "id": "gis-06-143",
       "skill": "gis",
       "module": "06",
@@ -3023,125 +1026,6 @@
       ],
       "type": "numeric",
       "answer": 10,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-146",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "同一瓦片（z=6, x=32, XYZ y=21）在 TMS 方案中的行号是多少？",
-      "explanation": "TMS y = 2^z − 1 − y_xyz = 64 − 1 − 21 = 42。两方案只差 y 轴镜像。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 42,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-147",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "同一瓦片（z=7, x=92, XYZ y=61）在 TMS 方案中的行号是多少？",
-      "explanation": "TMS y = 2^z − 1 − y_xyz = 128 − 1 − 61 = 66。两方案只差 y 轴镜像。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 66,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-148",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "同一瓦片（z=8, x=76, XYZ y=108）在 TMS 方案中的行号是多少？",
-      "explanation": "TMS y = 2^z − 1 − y_xyz = 256 − 1 − 108 = 147。两方案只差 y 轴镜像。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 147,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-149",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "同一瓦片（z=9, x=327, XYZ y=248）在 TMS 方案中的行号是多少？",
-      "explanation": "TMS y = 2^z − 1 − y_xyz = 512 − 1 − 248 = 263。两方案只差 y 轴镜像。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 263,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-150",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 2,
-      "stem": "同一瓦片（z=10, x=944, XYZ y=342）在 TMS 方案中的行号是多少？",
-      "explanation": "TMS y = 2^z − 1 − y_xyz = 1024 − 1 − 342 = 681。两方案只差 y 轴镜像。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 681,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-151",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 3,
-      "stem": "同一瓦片（z=11, x=807, XYZ y=864）在 TMS 方案中的行号是多少？",
-      "explanation": "TMS y = 2^z − 1 − y_xyz = 2048 − 1 − 864 = 1183。两方案只差 y 轴镜像。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 1183,
-      "tolerance": 0
-    },
-    {
-      "id": "gis-06-152",
-      "skill": "gis",
-      "module": "06",
-      "difficulty": 1,
-      "stem": "同一瓦片（z=12, x=2980, XYZ y=1979）在 TMS 方案中的行号是多少？",
-      "explanation": "TMS y = 2^z − 1 − y_xyz = 4096 − 1 − 1979 = 2116。两方案只差 y 轴镜像。",
-      "refs": [
-        {
-          "title": "OSM Slippy map tilenames",
-          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
-        }
-      ],
-      "type": "numeric",
-      "answer": 2116,
       "tolerance": 0
     },
     {
@@ -4929,6 +2813,1046 @@
         "瓦片金字塔",
         "金字塔",
         "tile pyramid"
+      ]
+    },
+    {
+      "id": "gis-06-213",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "GeoParquet 采用列式存储，适合大规模空间数据分析。",
+      "explanation": "列存 + 谓词下推 + 高压缩比，是数据湖时代空间表格事实标准。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-214",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "FlatGeobuf 是单文件二进制矢量格式，支持随机访问。",
+      "explanation": "流式/随机读取、比 GeoJSON 紧凑数倍，Web 与桌面端都有库支持。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-215",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "GeoPackage 是基于 SQLite 的 OGC 标准格式，可同时存矢量、栅格与瓦片。",
+      "explanation": "单文件 .gpkg，OGC 标准，替代 Shapefile 的首选。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-216",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "Shapefile 的字段名最长 10 个字符。",
+      "explanation": "dBase 时代的遗留限制，中文/长字段名经常被截断。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-217",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "Shapefile 单个文件有 2 GB 容量上限。",
+      "explanation": "主文件 2GB 限制使大数据集必须切片或换格式。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-218",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "Shapefile 的坐标系定义存在可选的 .prj 文件里。",
+      "explanation": "缺 .prj 时软件只能猜坐标系——数据对接错位的常见来源。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-219",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "tippecanoe 用于把大规模矢量数据切成本地/托管的矢量瓦片。",
+      "explanation": "Mapbox 出品的 MVT 生成利器，支持智能抽稀与多级缩放。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-220",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "MBTiles 把瓦片打包进一个 SQLite 文件，便于离线分发。",
+      "explanation": "单文件容器，服务器与移动端离线地图的主流载体。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-221",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "读取 COG 需要 HTTP Range 请求支持。",
+      "explanation": "COG 的核心机制：客户端只取视野所需字节，跳过整文件下载。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-222",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "矢量瓦片（MVT）的渲染发生在客户端。",
+      "explanation": "服务端只发几何+属性，样式在前端实时套用，可换肤可交互。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-223",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "GeoJSON（RFC 7946）强制使用 WGS84 且经度在前。",
+      "explanation": "lon, lat 顺序 + WGS84；其他坐标系属于非标准扩展。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-224",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "TopoJSON 通过弧段共享编码减少冗余并保留拓扑关系。",
+      "explanation": "存弧段索引而非重复坐标，文件更小、邻接信息可查。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-06-225",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "数据湖里存数十亿行带几何的表格数据，做大规模分析首选？",
+      "explanation": "列存、压缩、谓词下推，配合 DuckDB/Spark 是大数据空间分析标准栈。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoJSON"
+        },
+        {
+          "key": "B",
+          "text": "GeoParquet"
+        },
+        {
+          "key": "C",
+          "text": "KML"
+        },
+        {
+          "key": "D",
+          "text": "GPX"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-06-226",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "需要一个单文件、可 Web 端随机访问的二进制矢量格式，选？",
+      "explanation": "FlatGeobuf 支持空间索引 + 随机访问，单文件无依赖。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "FlatGeobuf"
+        },
+        {
+          "key": "B",
+          "text": "Shapefile"
+        },
+        {
+          "key": "C",
+          "text": "CSV"
+        },
+        {
+          "key": "D",
+          "text": "TopoJSON"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-06-227",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "要把矢量+栅格+瓦片打包成一个标准单文件交付，选？",
+      "explanation": "GeoPackage（.gpkg）是 OGC 标准、SQLite 底座，全能力单文件。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoPackage"
+        },
+        {
+          "key": "B",
+          "text": "Shapefile"
+        },
+        {
+          "key": "C",
+          "text": "GeoJSON"
+        },
+        {
+          "key": "D",
+          "text": "KML"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-06-228",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "Shapefile 的辅助文件中不包含？",
+      "explanation": "三件套 shp/shx/dbf + 可选 prj/cpg 等；docx 是 Word 文档。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": ".shx"
+        },
+        {
+          "key": "B",
+          "text": ".dbf"
+        },
+        {
+          "key": "C",
+          "text": ".prj"
+        },
+        {
+          "key": "D",
+          "text": ".docx"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-06-229",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "把千万级点数据切成多级矢量瓦片，最常用的命令行工具是？",
+      "explanation": "tippecanoe 专精 MVT 生成，自动抽稀与分层。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "tippecanoe"
+        },
+        {
+          "key": "B",
+          "text": "ogrinfo"
+        },
+        {
+          "key": "C",
+          "text": "gdalwarp"
+        },
+        {
+          "key": "D",
+          "text": "wget"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-06-230",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "PMTiles 相比 MBTiles 的核心优势是？",
+      "explanation": "PMTiles 目录内置、支持 HTTP Range 直读，放对象存储/静态站点就能当瓦片服务。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "静态托管即可直读，无需瓦片服务器"
+        },
+        {
+          "key": "B",
+          "text": "文件更小"
+        },
+        {
+          "key": "C",
+          "text": "支持更多坐标系"
+        },
+        {
+          "key": "D",
+          "text": "没有优势"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-06-231",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "查看矢量数据图层结构与元信息的 GDAL 命令是？",
+      "explanation": "ogr 面向矢量：ogrinfo 看结构；gdalinfo 看栅格。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogrinfo"
+        },
+        {
+          "key": "B",
+          "text": "gdalinfo"
+        },
+        {
+          "key": "C",
+          "text": "ogr2ogr"
+        },
+        {
+          "key": "D",
+          "text": "gdalwarp"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-06-232",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "矢量格式之间转换（如 Shapefile → GeoPackage）用？",
+      "explanation": "ogr2ogr 是矢量转换/过滤/重投影的瑞士军刀。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogr2ogr"
+        },
+        {
+          "key": "B",
+          "text": "gdal_translate"
+        },
+        {
+          "key": "C",
+          "text": "gdalwarp"
+        },
+        {
+          "key": "D",
+          "text": "projinfo"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-06-233",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "栅格格式转换（如 TIFF → COG）用？",
+      "explanation": "gdal_translate 转栅格格式，配合 COG driver 一键云优化。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogr2ogr"
+        },
+        {
+          "key": "B",
+          "text": "gdal_translate"
+        },
+        {
+          "key": "C",
+          "text": "ogrinfo"
+        },
+        {
+          "key": "D",
+          "text": "sqlite3"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-06-234",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "栅格重投影与裁剪用？",
+      "explanation": "gdalwarp 处理栅格的投影变换、裁剪与重采样。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "gdalwarp"
+        },
+        {
+          "key": "B",
+          "text": "ogr2ogr"
+        },
+        {
+          "key": "C",
+          "text": "gdalinfo"
+        },
+        {
+          "key": "D",
+          "text": "tippecanoe"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-06-235",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "Shapefile 的已知缺陷包括？",
+      "explanation": "Shapefile 不支持拓扑（那是 TopoJSON/GeoPackage/数据库的能力），D 错误。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "2 GB 单文件上限"
+        },
+        {
+          "key": "B",
+          "text": "字段名最长 10 字符"
+        },
+        {
+          "key": "C",
+          "text": "编码处理混乱"
+        },
+        {
+          "key": "D",
+          "text": "原生支持拓扑编辑"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-06-236",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "GeoPackage 的优势包括？",
+      "explanation": "SQLite 无 2GB 限制（理论上限 TB 级），D 是 Shapefile 的缺陷。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "单文件"
+        },
+        {
+          "key": "B",
+          "text": "OGC 正式标准"
+        },
+        {
+          "key": "C",
+          "text": "可存矢量+栅格+瓦片"
+        },
+        {
+          "key": "D",
+          "text": "有 2 GB 限制"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-06-237",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "COG（Cloud Optimized GeoTIFF）的特性包括？",
+      "explanation": "COG 结构自带瓦片与概览，绝不要 zip（会破坏 Range 读取）。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "支持 HTTP Range 局部读取"
+        },
+        {
+          "key": "B",
+          "text": "索引数据前置"
+        },
+        {
+          "key": "C",
+          "text": "适合对象存储/云上分析"
+        },
+        {
+          "key": "D",
+          "text": "必须打包成 zip"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-06-238",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "矢量瓦片（MVT）的优点包括？",
+      "explanation": "MVT 恰恰把渲染从服务端挪到客户端；D 说反了。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "同等级信息量下体积更小"
+        },
+        {
+          "key": "B",
+          "text": "客户端可实时换肤"
+        },
+        {
+          "key": "C",
+          "text": "要素可交互（点击查属性）"
+        },
+        {
+          "key": "D",
+          "text": "由服务端渲染成图片"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-06-239",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "GDAL/OGR 命令与用途配对正确的有？",
+      "explanation": "gdalwarp 是栅格重投影/裁剪；矢量转换是 ogr2ogr。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogrinfo — 查看矢量元信息"
+        },
+        {
+          "key": "B",
+          "text": "gdalinfo — 查看栅格元信息"
+        },
+        {
+          "key": "C",
+          "text": "ogr2ogr — 矢量格式转换"
+        },
+        {
+          "key": "D",
+          "text": "gdalwarp — 矢量格式转换"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-06-240",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "以下属于『现代格式』的有？",
+      "explanation": "三者分别面向数据湖、单文件矢量与单文件瓦片；Excel 无空间类型标准。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoParquet"
+        },
+        {
+          "key": "B",
+          "text": "FlatGeobuf"
+        },
+        {
+          "key": "C",
+          "text": "PMTiles"
+        },
+        {
+          "key": "D",
+          "text": "Excel 表格"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-06-241",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "Shapefile 的『三件套』主文件扩展名是哪三个？",
+      "explanation": "shp（几何）+ shx（空间索引）+ dbf（属性表），另配可选 prj/cpg。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "shp shx dbf",
+        ".shp .shx .dbf",
+        "shp/dbf/shx"
+      ]
+    },
+    {
+      "id": "gis-06-242",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "大规模空间表格分析选 GeoParquet 的两个核心理由？",
+      "explanation": "列式存储只读所需列 + 高压缩；配合谓词下推跳过无关数据块。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "列式",
+        "压缩",
+        "谓词",
+        "下推",
+        "columnar"
+      ]
+    },
+    {
+      "id": "gis-06-243",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "PMTiles 与 MBTiles 的本质区别是什么？",
+      "explanation": "PMTiles 目录内置、可 HTTP Range 直读（静态托管即可）；MBTiles 通常需要瓦片服务器/应用层查询 SQLite。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Range",
+        "直读",
+        "服务器",
+        "静态",
+        "分段"
+      ]
+    },
+    {
+      "id": "gis-06-244",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "查看栅格数据元信息（波段、分辨率、NoData）的 GDAL 命令是？",
+      "explanation": "gdalinfo 输出尺寸、CRS、波段统计、金字塔等信息。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "gdalinfo",
+        "gdal info"
+      ]
+    },
+    {
+      "id": "gis-06-245",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "tippecanoe 的用途是什么？",
+      "explanation": "把大规模 GeoJSON 等矢量数据切成分级矢量瓦片（MVT），支持智能抽稀。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "矢量瓦片",
+        "MVT",
+        "切片",
+        "瓦片生成"
+      ]
+    },
+    {
+      "id": "gis-06-246",
+      "skill": "gis",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "要把 Shapefile 导入 PostGIS，ogr2ogr 之外还可用什么内置工具？（提示：PostGIS 自带）",
+      "explanation": "PostGIS 自带 shp2pgsql（配合 psql 导入），反向是 pgsql2shp。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "GeoParquet",
+          "url": "https://geoparquet.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "shp2pgsql",
+        "shapefile import",
+        "pgsql2shp"
       ]
     }
   ]

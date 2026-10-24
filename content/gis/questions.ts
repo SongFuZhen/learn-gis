@@ -4,6 +4,7 @@ import basics from "./01-basics.questions.json";
 import projection from "./02-projection.questions.json";
 import crsEpsg from "./03-crs-epsg.questions.json";
 import vectorRaster from "./04-vector-raster.questions.json";
+import cartography from "./05-cartography.questions.json";
 import formatsTiles from "./06-formats-tiles.questions.json";
 import spatialDb from "./12-spatial-db.questions.json";
 import webgis from "./13-webgis.questions.json";
@@ -19,6 +20,7 @@ const RAW_BY_MODULE: Record<string, unknown> = {
   "02": projection,
   "03": crsEpsg,
   "04": vectorRaster,
+  "05": cartography,
   "06": formatsTiles,
   "12": spatialDb,
   "13": webgis,

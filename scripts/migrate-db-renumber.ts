@@ -6,12 +6,16 @@
  * 幂等：module_slug 映射用「仅当旧值存在才 UPDATE」；question_id 映射逐条按旧 id 条件更新。
  * 上线顺序：先部署新代码，再对本库执行本脚本。
  */
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { Pool } from "pg";
 
 const MAP_PATH = path.resolve(process.cwd(), "content/gis/renumber-map.json");
 const map: Record<string, string> = JSON.parse(readFileSync(MAP_PATH, "utf8"));
+const DELETED_PATH = path.resolve(process.cwd(), "content/gis/renumber-deleted.json");
+const deletedIds: string[] = existsSync(DELETED_PATH)
+  ? JSON.parse(readFileSync(DELETED_PATH, "utf8"))
+  : [];
 const dryRun = process.argv.includes("--dry-run");
 
 /** 旧 module slug → 新 slug（与内容迁移同一映射） */
@@ -51,6 +55,19 @@ async function main() {
       mapped += r.rowCount ?? 0;
     }
     console.log(`wrong_answers.question_id 重映射: ${mapped} 行（映射表 ${Object.keys(map).length} 条）`);
+
+    // 4) 清理被删题目的错题记录（如批次 2 删除的 06 章模板克隆题）
+    if (deletedIds.length > 0) {
+      let removed = 0;
+      for (const id of deletedIds) {
+        const r = await client.query(
+          "DELETE FROM gis.wrong_answers WHERE question_id = $1",
+          [id],
+        );
+        removed += r.rowCount ?? 0;
+      }
+      console.log(`wrong_answers 删除已下架题目记录: ${removed} 行（清单 ${deletedIds.length} 条）`);
+    }
 
     if (dryRun) {
       await client.query("ROLLBACK");

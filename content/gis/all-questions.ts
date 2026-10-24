@@ -5,6 +5,7 @@ import basics from "./01-basics.questions.json";
 import projection from "./02-projection.questions.json";
 import crsEpsg from "./03-crs-epsg.questions.json";
 import vectorRaster from "./04-vector-raster.questions.json";
+import cartography from "./05-cartography.questions.json";
 import formatsTiles from "./06-formats-tiles.questions.json";
 import spatialDb from "./12-spatial-db.questions.json";
 import webgis from "./13-webgis.questions.json";
@@ -15,7 +16,7 @@ import webgis from "./13-webgis.questions.json";
  * 这里仍然对每道题跑 questionSchema 校验，避免绕过 lib/content.ts 的构建期校验，
  * 让坏数据在模块加载（next build / 首屏渲染）时就抛错而非运行时才炸。
  */
-const RAW_FILES = [geoMath, basics, projection, crsEpsg, vectorRaster, formatsTiles, spatialDb, webgis];
+const RAW_FILES = [geoMath, basics, projection, crsEpsg, vectorRaster, cartography, formatsTiles, spatialDb, webgis];
 
 function collectValidated(): Question[] {
   const out: Question[] = [];
