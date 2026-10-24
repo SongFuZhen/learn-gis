@@ -1,0 +1,212 @@
+## 本章你会学到
+
+前四章解决了「数据从哪来、长什么样、放哪里」，这一章开始回答 GIS 最核心的问题——**用数据算出决策**。缓冲区、叠置、空间连接、近邻与可达性，是所有空间分析的地基；学完这章，「选址、覆盖、剔除、挂属性」四类问题你都有标准解法。
+
+## 1. 空间分析全景：四类基本功
+
+绝大多数空间分析需求，都能拆成四类基本操作的组合：
+
+| 操作 | 回答的问题 | 典型命令 |
+|---|---|---|
+| **缓冲区**（buffer） | 「以某物为中心的 r 范围内有什么」 | ST_Buffer / turf.buffer |
+| **叠置**（overlay） | 「两套范围叠在一起是什么关系」 | 交 / 并 / 差 |
+| **空间连接**（spatial join） | 「这个要素属于谁/挨着谁」 | ST_Within / ST_Intersects + JOIN |
+| **近邻**（proximity） | 「离它最近的 k 个是什么」 | KNN 运算符（`geom <-> 点`）、最近设施 |
+
+大型需求（选址、可达性、覆盖评估）= 这四步按顺序搭积木。
+
+<Callout type="must" title="必背 · 四类基本功">
+- **缓冲区**回答「r 范围内」，**叠置**回答「两范围的关系」
+- **空间连接**把位置当外键，**近邻**找最近的 k 个
+- 复杂选址 = 缓冲 → 求交 → 空间连接 → 统计 的流水线
+</Callout>
+
+## 2. 缓冲区：距离的等值线
+
+缓冲区 = 以要素为圆心、按指定半径画出的「影响范围」：学校的 500 m 学区圈、河流两岸 50 m 保护带、加油站周边 1 km 竞争圈。
+
+三个必须想清楚的细节：
+
+1. **单位**：缓冲距离的单位 = **当前 CRS 的单位**。4326 上写 500 是「500 度」（见第 12 章），必须先转到米制投影；
+2. **端头与连接**：线缓冲的端头有圆头（round）/平头（flat）之分，转角有圆角/尖角之分——影响边缘精度，默认圆头最通用；
+3. **融合（dissolve）**：多要素缓冲彼此重叠时，要不要融合成一片？做「覆盖范围」分析要融合（ST_Union），做「逐要素影响圈」则不融合。
+
+<Callout type="example" title="例子 · 圆形缓冲区的面积心算">
+半径 r 的圆形缓冲区面积 = πr²。r = 500 m：3.14 × 0.5² ≈ **0.79 km²**；r = 1 km：约 **3.14 km²**。
+
+反过来记：**半径翻倍，面积 ×4**。评估「服务半径扩大一倍能多覆盖多少」时，直觉经常按「×2」算，实际是平方级——这就是选址报告里最常见的量级错误。
+</Callout>
+
+<Callout type="warn" title="缓冲区 ≠ 真实可达范围">
+直线距离缓冲忽略了河流、围墙、单行道。500 m 直线缓冲里的房子，实际步行可能要绕 1.2 km。把「直线缓冲」当「服务范围」是空间分析最常见的过度承诺——精确的可达范围要用网络分析（第 7 节）。
+</Callout>
+
+<Callout type="must" title="必背 · 缓冲区三条">
+- 半径单位 = **CRS 单位**，先转米制投影再缓冲
+- 半径翻倍 → 面积 **×4**（πr²）
+- 多要素覆盖分析先 **dissolve（融合）**；直线缓冲 ≠ 真实可达范围
+</Callout>
+
+## 3. 叠置分析：交、并、差
+
+两套范围图叠在一起，只会发生三种基本关系——集合论的交集、并集、差集：
+
+| 操作 | 集合语义 | 空间含义 | 典型用途 |
+|---|---|---|---|
+| **交**（intersection） | A ∩ B | 两套条件**同时**满足的区域 | 选址：地铁 500 m ∩ 商业用地 |
+| **并**（union） | A ∪ B | 合并成一片 | 融合多站服务圈、统计总覆盖 |
+| **差**（difference） | A − B | 从 A 里**剔除**与 B 重叠的部分 | 从可开发用地中剔除生态红线 |
+
+<Callout type="example" title="例子 · 经典选址工作流">
+「找便利店候选址：住宅区 300 m 内、主干道 100 m 外、不在学校 200 m 内」：
+
+1. 缓冲：住宅区 +300 m（条件 A）；主干道 +100 m（禁区 B）；学校 +200 m（禁区 C）；
+2. 求交：A ∩ 全域 = 可服务范围；
+3. 求差：可服务范围 − B − C = **候选区域**。
+
+缓冲 → 交 → 差，三步出答案。每一步都是本章的操作，组合起来就是生产级的选址流程。
+</Callout>
+
+<Callout type="must" title="必背 · 叠置三操作">
+- **交**：同时满足 = 选址的「AND」
+- **并**：合并覆盖 = 统计总范围
+- **差**：剔除禁区 = 排除法的「减」
+- PostGIS 对应函数：ST_Intersection / ST_Union / ST_Difference（第 12 章）
+</Callout>
+
+## 4. 空间连接：位置就是外键
+
+关系数据库用外键把两张表连起来；空间数据里，「落在谁的范围内」「与谁相交」「离谁最近」同样是连接依据——而且**不需要任何一方存好对方的 ID**。
+
+| 连接谓词 | 语义 | 例子 |
+|---|---|---|
+| ST_Within(a, b) | a 完全在 b 内 | POI 落在哪个区 |
+| ST_Contains(b, a) | b 包含 a（与 Within 方向相反） | 区包含哪些 POI |
+| ST_Intersects(a, b) | 有任何重叠 | 广告牌 100 m 内有无住宅 |
+| `geom <-> 点` 排序 | 谁最近（KNN） | 最近的 3 家医院 |
+
+<Callout type="example" title="例子 · 一条 SQL 顶一张映射表">
+门店表没有「城市」字段？不用手工补录：
+
+SELECT s.name, c.name AS city
+FROM stores s JOIN cities c
+  ON ST_Within(s.geom, c.geom);
+
+10 万家门店一次跑完。行政区边界更新后重跑一遍即可——**位置关系永远比人工维护的字段可靠**。
+</Callout>
+
+<Callout type="must" title="必背 · 空间连接两条">
+- 连接谓词选对方向：ST_Within(点, 面) 与 ST_Contains(面, 点) 等价，参数别反
+- 大表连接必须配 GiST 索引（见第 12 章），否则全表两两相交算到天荒地老
+</Callout>
+
+## 5. 近邻与邻域：最近的 k 个
+
+「找最近的」是高频需求：打车派单、推荐门店、应急调度。直觉写法是算全部距离再排序取前 k——数据一大就死；正确姿势是 **KNN 索引扫描**：
+
+
+```sql
+```sql
+SELECT id, name FROM hospitals
+ORDER BY geom <-> ST_Point(116.4, 39.9, 4326)
+LIMIT 3;
+```
+```
+
+
+PostGIS 的 `<->` 运算符直接在 GiST 索引上按距离排序，百万级表毫秒级返回（第 12 章有完整原理）。
+
+另一个近邻视角是**邻域统计**：每个像元/地块看它周围的值——比如「每个网格 1 km 内的平均房价」。栅格里叫 focal statistics，矢量里常配合缓冲区 + 分区统计实现。
+
+<Callout type="must" title="必背 · 近邻两条">
+- KNN 固定写法：`ORDER BY geom <-> 目标点 LIMIT n`，走 GiST 索引
+- 邻域统计 = 每个对象看它周围：栅格 focal statistics / 矢量缓冲 + 分区统计
+</Callout>
+
+<Exercise
+  tool="sql"
+  title="练习：最近的医院与缓冲覆盖数"
+>
+  表：hospitals(geom, name)、communities(geom, name)，均为米制 CRS 32650。
+  写 SQL：给每个社区找出最近的医院名和直线距离（米）。
+
+  <ExerciseSolution>
+    ```sql
+    SELECT c.name AS community,
+           h.name AS nearest_hospital,
+           ST_Distance(c.geom, h.geom) AS dist_m
+    FROM communities c
+    LEFT JOIN LATERAL (
+      SELECT name, geom FROM hospitals
+      ORDER BY h.geom <-> c.geom
+      LIMIT 1
+    ) h ON true;
+
+    要点：LEFT JOIN LATERAL 每个社区只取最近 1 家；dist_m 单位是米
+    （32650 米制）；若表很大，hospital.geom 上必须有 GiST 索引。
+  </ExerciseSolution>
+</Exercise>
+
+## 6. 网格与分区统计
+
+把连续空间切成规整单元再统计，是最常用的汇总手段：
+
+- **渔网格网（fishnet/grid）**：把研究区切成等大网格，把点/线/面要素聚合到格——「每个 1 km 网格的事故数」热力图的第一步；
+- **分区统计（zonal statistics）**：用一个面图层（行政区、缓冲区）对栅格求均值/最大值/占比——「各行政区内的平均坡度」；
+- **六边形网格**（H3 等）：比正方形邻接更均匀，近年来成为大厂标配。
+
+<Callout type="tip" title="网格化的两个决定">
+1. 格子多大？太粗丢信息，太细算不动——经验是「要素密度的最小可分辨尺度」；
+2. 计数还是比率？点计数网格一定要除以面积变密度，否则大格子虚高（同第 05 章 choropleth 的教训）。
+</Callout>
+
+## 7. 可达性入门：直线距离 vs 网络距离
+
+缓冲区的「直线距离」在城市里经常失真：隔一条快速路，直线 200 m、绕行 2 km。衡量「真正能到达的范围」用**网络分析**：
+
+- **服务区（service area）**：沿路网从设施出发，步行/车行 t 分钟或 m 米能覆盖的范围——真实的「15 分钟生活圈」；
+- **OD 成本矩阵**：任意起点到终点的通行成本表——配送排线的输入；
+- **最短路径**：两点间沿路网的最优路线——导航的核心。
+
+工具层面：QGIS 内置网络分析工具箱；PostGIS 生态用 **pgRouting** 扩展（给路网表加拓扑后即可算最短路径与服务区）。
+
+<Callout type="must" title="必背 · 可达性两条">
+- 直线缓冲高估可达性：路网/障碍让实际范围缩水
+- 真实服务范围 = 网络服务区（pgRouting / QGIS 网络分析），「15 分钟生活圈」必须走路网
+</Callout>
+
+<Exercise
+  tool="sql"
+  title="练习：渔网格网计数"
+>
+  需求：把事故点表 accidents（4326）聚到 0.01° 网格，输出每格计数。
+
+  <ExerciseSolution>
+    -- ST_SquareGrid(格宽, 范围) 生成等大正方形网格（PostGIS 3.1+）
+    WITH cells AS (
+      SELECT (ST_SquareGrid(0.01,
+        ST_MakeEnvelope(116.0, 39.6, 116.8, 40.2, 4326))).geom AS geom
+    )
+    SELECT c.geom, count(a.*) AS n
+    FROM cells c
+    LEFT JOIN accidents a ON ST_Within(a.geom, c.geom)
+    GROUP BY c.geom
+    ORDER BY n DESC;
+  </ExerciseSolution>
+</Exercise>
+
+## 8. 本章回顾
+
+<Callout type="tip" title="空间分析一页纸">
+- 四类基本功：缓冲（r 内）、叠置（交/并/差）、空间连接（位置外键）、近邻（KNN）
+- 缓冲三细节：单位跟 CRS 走、端头样式、覆盖分析先融合；半径翻倍面积 ×4
+- 选址流水线 = 缓冲 → 交（AND）→ 差（剔除）→ 空间连接挂属性 → 统计
+- 网格化统计：先格子大小，后密度归一
+- 真实可达范围 = 网络服务区，直线缓冲只是下限估计
+</Callout>
+
+## 延伸阅读
+
+- PostGIS 参考手册（本章全部函数）：[postgis.net/docs](https://postgis.net/docs/)
+- pgRouting 文档：[pgrouting.org](https://pgrouting.org/)
+- 《Spatial Analysis online》：[spatialanalysisonline.com](https://www.spatialanalysisonline.com/)

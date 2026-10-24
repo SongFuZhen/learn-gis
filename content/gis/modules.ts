@@ -72,6 +72,13 @@ export const GIS_MODULES: ModuleMeta[] = [
       "打开 QGIS 认识界面，用 ogrinfo/gdalinfo 体检数据，用 ogr2ogr/gdalwarp 做转换、重投影与裁剪。",
   },
   {
+    slug: "09",
+    file: "09-spatial-analysis",
+    title: "空间分析 I：缓冲、叠置与邻域",
+    summary:
+      "缓冲区、叠置分析（交/并/差）、空间连接、近邻与网格统计、可达性入门——GIS 的核心生产力。",
+  },
+  {
     slug: "12",
     file: "12-spatial-db",
     title: "空间运算与空间数据库",
@@ -90,7 +97,6 @@ export const GIS_MODULES: ModuleMeta[] = [
 /** 已规划但尚未交付的章节（全部交付后应为空） */
 export const PLANNED_MODULES: { slug: string; title: string }[] = [
   { slug: "08", title: "数据采集与数据质量" },
-  { slug: "09", title: "空间分析 I：缓冲、叠加与邻域" },
   { slug: "10", title: "空间分析 II：插值、DEM 与地形" },
   { slug: "11", title: "遥感基础" },
 ];

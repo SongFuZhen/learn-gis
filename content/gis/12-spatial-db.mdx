@@ -80,7 +80,108 @@ ST_MakeEnvelope(x1,y1,x2,y2, srid)  -- 构造矩形，做范围查询
 - `ST_Buffer` / `ST_Area` / `ST_Length` 的单位 = **当前 CRS 的单位**，4326 上就是「度」
 </Callout>
 
-## 4. 索引：让查询真的快
+
+## 4. 叠加函数族：合并、求交、求差
+
+第 09 章讲叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS 的「语法」：
+
+```sql
+-- 合并：注意 ST_Union 与 ST_Collect 的区别
+ST_Union(geom)      -- 真合并：融掉公共边界，重叠部分只算一次
+ST_Collect(geom)    -- 只打包：快，但保留内部边界与重叠
+
+-- 求交 / 求差
+ST_Intersection(a, b)   -- 交集：两图层都覆盖的部分
+ST_Difference(a, b)     -- 差集：a 减去与 b 重叠的部分
+```
+
+空间连接（把位置当外键）的完整 SQL 长这样：
+
+```sql
+-- 把每个 POI 挂上它所在区的名字：不用 POI 表存区名
+SELECT p.id, d.name AS district
+FROM poi p
+JOIN districts d ON ST_Within(p.geom, d.geom);
+```
+
+**大几何与大表**：一个几万个顶点的行政边界，每次相交判断都很贵。`ST_Subdivide(geom)` 把大几何切成小碎块，配合 GiST 的 `&&` 粗筛，能让大表叠加快一个数量级：
+
+```sql
+CREATE TABLE districts_sub AS
+SELECT ST_Subdivide(geom, 256) AS geom, name FROM districts;
+```
+
+**有效性检查**（第 04 章的概念，这里是工程落地）：
+
+```sql
+SELECT id, ST_IsValidReason(geom)
+FROM parcels
+WHERE NOT ST_IsValid(geom);        -- 找出所有脏几何
+
+UPDATE parcels
+SET geom = ST_MakeValid(geom)      -- 就地修复
+WHERE NOT ST_IsValid(geom);
+```
+
+<Callout type="must" title="必背 · 叠加函数四句">
+- **ST_Union** 真合并（融边界、去重叠）；**ST_Collect** 只打包（快，边界还在）——聚合统计用 Union，简单分组用 Collect
+- **ST_Intersection** 求交、**ST_Difference** 求差——选址 = 交，剔除 = 差
+- 大表叠加前先 `ST_Subdivide` 切碎大几何，配合索引快一个数量级
+- 入库先跑 `ST_IsValid`，脏数据用 `ST_MakeValid` 修复
+</Callout>
+
+<Exercise
+  tool="sql"
+  title="练习：空间连接——POI 挂区名"
+>
+  表：`poi(id, geom)`（点）、`districts(id, name, geom)`（面），都是 EPSG:4326。
+  写 SQL：给每个 POI 挂上所在区的 `name`；没有落在任何区里的 POI 也要保留（提示：LEFT JOIN）。
+
+  <ExerciseSolution>
+    ```sql
+    SELECT p.id, d.name
+    FROM poi p
+    LEFT JOIN districts d ON ST_Within(p.geom, d.geom);
+    ```
+
+    要点：ST_Within 的参数方向（点在内、面在外）；LEFT JOIN 保留区外的点，
+    其 name 为 NULL——这行数据本身就是「边界外数据」的质量线索。
+  </ExerciseSolution>
+</Exercise>
+
+<Exercise
+  tool="sql"
+  title="练习：缓冲 + 求交——选址小工作流"
+>
+  需求：找「地铁站 500 m 服务范围 ∩ 商业用地」的候选地块（米制 CRS 32650）。
+
+  <ExerciseSolution>
+    ```sql
+    SELECT d.gid
+    FROM landuse d
+    WHERE d.type = 'commercial'
+      AND ST_Intersects(d.geom, ST_Buffer(metro.geom, 500));
+    ```
+
+    更完整的写法：先把多站缓冲区 ST_Union 融合成一片，再与商业用地求交：
+
+    ```sql
+    WITH buf AS (
+      SELECT ST_Union(ST_Buffer(geom, 500)) AS geom FROM metro
+    )
+    SELECT d.gid
+    FROM landuse d, buf
+    WHERE d.type = 'commercial'
+      AND ST_Intersects(ST_Intersection(d.geom, buf.geom), buf.geom);
+    ```
+
+    记住三件事：32650 是米制，500 就是 500 米；多站缓冲先 ST_Union 融合；
+    求交后用 ST_Intersects 过滤空几何。
+  </ExerciseSolution>
+</Exercise>
+
+## 5. 索引：让查询真的快
+
 
 ```sql
 CREATE INDEX ON roads USING GIST (geom);
@@ -121,7 +222,7 @@ LIMIT 5;
 `<->` 是 KNN 运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 `ST_Distance`，再排序取前 5 条——结果一样，慢几百倍。
 </Callout>
 
-## 5. 三个静默错误
+## 6. 三个静默错误
 
 1. **在 4326 上做 buffer**：`ST_Buffer(geom, 1000)` 得到的是「1000 度」的怪物。先 `ST_Transform` 到米制 CRS，或用 `geography`。
 2. **只改 SRID 不转换**：`ST_SetSRID` 只是换标签，位置不变。
@@ -144,7 +245,7 @@ LIMIT 5;
 换成等积投影，或用 `geography` 类型的 `ST_Area`，才会得到接近 100 平方公里的正确值。
 </Callout>
 
-## 6. 组合建议
+## 7. 组合建议
 
 - 展示/交互：Turf 在前端，数据量小、延迟低。
 - 需要索引、事务、大数据、精确统计：PostGIS。

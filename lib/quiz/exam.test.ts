@@ -25,9 +25,10 @@ describe("pickExamQuestions", () => {
   });
 
   it("每日一考：跨章节覆盖（题量够时每章至少一题）", () => {
-    const picked = pickExamQuestions(ALL_QUESTIONS, 10, mulberry32(dailySeed("2026-02-01")));
-    expect(picked).toHaveLength(10);
-    expect(modulesOf(picked)).toHaveLength(modulesOf(ALL_QUESTIONS).size);
+    const moduleCount = modulesOf(ALL_QUESTIONS).size;
+    const picked = pickExamQuestions(ALL_QUESTIONS, moduleCount, mulberry32(dailySeed("2026-02-01")));
+    expect(picked).toHaveLength(moduleCount);
+    expect(modulesOf(picked)).toHaveLength(moduleCount);
   });
 
   it("每日一考：换一天就换卷", () => {
