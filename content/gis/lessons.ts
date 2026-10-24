@@ -13,6 +13,7 @@ const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "04-vector-raster": () => import("./04-vector-raster.mdx"),
   "05-cartography": () => import("./05-cartography.mdx"),
   "06-formats-tiles": () => import("./06-formats-tiles.mdx"),
+  "07-gis-tools": () => import("./07-gis-tools.mdx"),
   "12-spatial-db": () => import("./12-spatial-db.mdx"),
   "13-webgis": () => import("./13-webgis.mdx"),
 };

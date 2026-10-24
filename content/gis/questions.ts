@@ -6,6 +6,7 @@ import crsEpsg from "./03-crs-epsg.questions.json";
 import vectorRaster from "./04-vector-raster.questions.json";
 import cartography from "./05-cartography.questions.json";
 import formatsTiles from "./06-formats-tiles.questions.json";
+import gisTools from "./07-gis-tools.questions.json";
 import spatialDb from "./12-spatial-db.questions.json";
 import webgis from "./13-webgis.questions.json";
 
@@ -22,6 +23,7 @@ const RAW_BY_MODULE: Record<string, unknown> = {
   "04": vectorRaster,
   "05": cartography,
   "06": formatsTiles,
+  "07": gisTools,
   "12": spatialDb,
   "13": webgis,
 };

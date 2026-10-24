@@ -1,7 +1,7 @@
 {
   "skill": "gis",
   "module": "04",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "gis-04-001",
@@ -3608,6 +3608,460 @@
         "intersect",
         "相交",
         "intersection"
+      ]
+    },
+    {
+      "id": "gis-04-146",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "属性连接（join）依据的是两表共同的键字段。",
+      "explanation": "属性 join 按字段值匹配（如行政区划代码），空间 join 按位置关系。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-04-147",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "join 的两表中键类型一边是文本一边是数字时，连接通常仍能自动匹配。",
+      "explanation": "类型不一致常导致匹配为空——连接前先统一键类型。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-04-148",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "空间连接（spatial join）不需要两表有共同字段。",
+      "explanation": "它按位置关系（落在谁里面/相交/最近）挂属性，是 GIS 特有能力。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-04-149",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "join 出现一对多时，图层要素会被复制，统计可能翻倍。",
+      "explanation": "一个区 3 条记录 → 区要素复制 3 份；先聚合再连接。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-04-150",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "无效几何（如自相交）只会让软件报错，不会静默算错。",
+      "explanation": "更危险的是静默错误：面积算错、相邻关系判反、overlay 结果歪。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-04-151",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "ST_MakeValid 用于修复无效几何。",
+      "explanation": "PostGIS 的 ST_IsValid 检查、ST_MakeValid 修复，是入库前固定工序。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-04-152",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "一个区对应多条 GDP 记录时，直接 join 的正确前置操作是？",
+      "explanation": "一对多会把要素复制多份；先聚合到一对一再连接。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "先按区聚合 GDP 再连接"
+        },
+        {
+          "key": "B",
+          "text": "直接连接，软件会处理"
+        },
+        {
+          "key": "C",
+          "text": "删除多余记录"
+        },
+        {
+          "key": "D",
+          "text": "换投影"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-04-153",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "把快递网点表按『落在哪个行政区』挂上区名，应使用？",
+      "explanation": "依据位置关系（包含）挂属性，网点表无需存区名。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "属性连接"
+        },
+        {
+          "key": "B",
+          "text": "空间连接"
+        },
+        {
+          "key": "C",
+          "text": "全外连接"
+        },
+        {
+          "key": "D",
+          "text": "无法实现"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-04-154",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "属性 join 成功的两大前提是？",
+      "explanation": "键不唯一会复制要素，类型不一致会匹配为空。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "键唯一且类型一致"
+        },
+        {
+          "key": "B",
+          "text": "坐标系一致"
+        },
+        {
+          "key": "C",
+          "text": "字段名相同"
+        },
+        {
+          "key": "D",
+          "text": "表行数相同"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-04-155",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "多边形边界两个顶点交叉形成的无效几何俗称？",
+      "explanation": "自相交的典型形态；甜甜圈是带洞面（合法），意大利面是无拓扑模型。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "蝴蝶结（bowtie）"
+        },
+        {
+          "key": "B",
+          "text": "甜甜圈"
+        },
+        {
+          "key": "C",
+          "text": "意大利面"
+        },
+        {
+          "key": "D",
+          "text": "马赛克"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-04-156",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "检查与修复几何有效性的 PostGIS 函数对是？",
+      "explanation": "先 IsValid 检查，再 MakeValid 修复（详见第 12 章）。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ST_IsValid / ST_MakeValid"
+        },
+        {
+          "key": "B",
+          "text": "ST_Length / ST_Buffer"
+        },
+        {
+          "key": "C",
+          "text": "ST_Intersects / ST_Union"
+        },
+        {
+          "key": "D",
+          "text": "ST_Transform / ST_SetSRID"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-04-157",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "不用在网点表里存区名，也能把区名挂到每个网点上——用的什么技术？",
+      "explanation": "空间连接：按『点落在哪个面内』的位置关系挂属性。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "空间连接",
+        "spatial join",
+        "空间 join",
+        "空间关系"
+      ]
+    },
+    {
+      "id": "gis-04-158",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "为什么叠加分析前要对数据做几何有效性检查？",
+      "explanation": "无效几何会让 overlay 报错或静默给出错误结果；先 ST_IsValid 过筛再分析。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "报错",
+        "静默",
+        "算错",
+        "无效",
+        "valid"
+      ]
+    },
+    {
+      "id": "gis-04-159",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "下列属于无效几何的有？",
+      "explanation": "带洞面是合法几何（外环+内环）；A/B/C 都是 OGC 有效性定义的违例。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "自相交（蝴蝶结）"
+        },
+        {
+          "key": "B",
+          "text": "环未闭合"
+        },
+        {
+          "key": "C",
+          "text": "内环在外环之外"
+        },
+        {
+          "key": "D",
+          "text": "带一个洞的合法多边形"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-04-160",
+      "skill": "gis",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "属性 join 前应检查的两大前提是？",
+      "explanation": "属性 join 与坐标系、文件格式无关；那是空间 join/转换的事。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "键值唯一性（一对一）"
+        },
+        {
+          "key": "B",
+          "text": "键类型一致"
+        },
+        {
+          "key": "C",
+          "text": "两表坐标系一致"
+        },
+        {
+          "key": "D",
+          "text": "两表文件格式相同"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
       ]
     }
   ]

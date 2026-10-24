@@ -1,0 +1,207 @@
+## 本章你会学到
+
+前面七章都在讲概念，这一章是**练习场**：把 QGIS 和 GDAL/OGR 装进你的工具箱。学完你能：用 QGIS 打开并检查数据、用命令行查看数据元信息、做格式转换与重投影、把栅格转成云优化的 COG。每条命令都标注了预期输出——动手跑一遍，比读十页文档有用。
+
+## 1. 工具链地图：谁在底层干活
+
+桌面与服务器上的 GIS 软件，底层几乎都是同一套开源引擎：
+
+| 工具 | 角色 | 一句话 |
+|---|---|---|
+| **QGIS** | 桌面 GUI | 点按钮做分析、制图、检查数据 |
+| **GDAL/OGR** | 命令行引擎 | 栅格用 GDAL、矢量用 OGR，全世界的格式转换都靠它 |
+| **PROJ** | 坐标系库 | 第 02/03 章的投影与基准转换数学都在这里 |
+| GEOS | 几何运算库 | 第 12 章 PostGIS 的 buffer/intersect 底层就是它 |
+
+<Callout type="must" title="必背 · 四件套分工">
+- **QGIS** = 图形界面；**GDAL/OGR** = 命令行引擎（GDAL 管栅格、OGR 管矢量）
+- **PROJ** = 坐标变换数学；**GEOS** = 几何运算
+- QGIS 的许多处理算法，底层就是调用 GDAL/OGR——GUI 只是壳
+</Callout>
+
+## 2. QGIS 速览
+
+安装：官网 [qgis.org](https://qgis.org/) 下载长期支持版（LTR）。打开后认识四个区域：
+
+1. **图层面板**（左）：图层顺序、透明度、勾选显示；
+2. **地图画布**（中）：显示当前图层；
+3. **浏览器面板**（左下/侧）：像文件管理器一样浏览本地文件、数据库、WMS 服务，拖进画布即加载；
+4. **属性表**：右键图层 → 打开属性表，看每行的属性记录。
+
+<Exercise
+  tool="qgis"
+  title="练习：加载数据并检查属性表"
+>
+  1. 安装 QGIS LTR 并启动，新建一个空项目；
+  2. 浏览器面板找到「GeoJSON」示例或从 Natural Earth（[naturalearthdata.com](https://www.naturalearthdata.com/)）下载 1:110m 的国家图层（countries.shp）；
+  3. 双击或拖入画布加载；右键图层 → 「打开属性表」；
+  4. 预期看到：每个国家一行记录，字段有名称、人口等；点属性表左侧的行，画布上对应国家会高亮。
+</Exercise>
+
+## 3. 查看数据：ogrinfo 与 gdalinfo
+
+拿到一份陌生数据，第一件事永远是**看元信息**。GDAL 3.x 口径下：
+
+**矢量用 ogrinfo**（OGR 系列）：
+
+```bash
+ogrinfo -so -al countries.shp
+```
+
+`-so` = 只输出摘要（summary only），`-al` = 所有图层。预期输出（节选）：
+
+```
+Layer name: countries
+Geometry: Polygon
+Feature Count: 177
+Extent: (-179.9, -89.9) - (179.9, 83.6)
+Layer SRS WKT:
+GEOGCRS["WGS 84", ...]
+NAME: 名称 (String)
+POP_EST: 人口估计 (Real)
+```
+
+一眼能看到：几何类型、要素数、范围（extent）、坐标系、字段类型。**拿到数据先跑它，80% 的「坐标系不对/字段缺失」问题当场现形。**
+
+**栅格用 gdalinfo**：
+
+```bash
+gdalinfo dem.tif
+```
+
+预期输出（节选）：
+
+```
+Size is 3600, 3600
+Coordinate System is:
+GEOGCRS["WGS 84", ...]
+Origin = (100.000000000000000,40.000000000000000)
+Pixel Size = (0.000277777777778,-0.000277777777778)
+Band 1 Block=3600x1 Type=Float32, ColorInterp=Gray
+  NoData Value=-9999
+```
+
+尺寸（行列数）、原点与像元大小（即仿射变换）、波段类型、NoData 全都在。
+
+<Exercise
+  tool="gdal"
+  title="练习：用 ogrinfo 体检一份陌生数据"
+>
+  1. 找任意一份本地的 GeoJSON / Shapefile（没有就用 Natural Earth 的）；
+  2. 跑 `ogrinfo 数据文件`（不带参数），再跑 `ogrinfo -so -al 数据文件`，对比两种输出的详略；
+  3. 回答三个问题：几何类型是什么？要素有多少？坐标系是 4326 还是投影坐标系？
+  4. 预期：`-so -al` 摘要模式一屏看完三问的答案。
+</Exercise>
+
+## 4. 转换与重投影：ogr2ogr
+
+ogr2ogr 是矢量世界的瑞士军刀——格式转换、坐标系变换、字段过滤、图层改名，全在这一条命令：
+
+```bash
+# Shapefile 转 GeoJSON（GDAL 按扩展名猜格式）
+ogr2ogr -f GeoJSON countries.json countries.shp
+
+# 顺便重投影到 EPSG:32650（UTM 50N）
+ogr2ogr -f GeoJSON countries_utm.json countries.shp -t_srs EPSG:32650
+
+# 转 GeoPackage 并把单几何提升为 Multi（避免类型冲突报错）
+ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTE_TO_MULTI -nln countries
+```
+
+常用参数（均在 GDAL 官方文档核实）：`-f` 输出格式、`-t_srs` 目标坐标系、`-s_srs` 强制指定源坐标系（源缺 .prj 时救命）、`-nln` 输出图层名、`-lco` 格式创建选项、`-append` 追加模式。
+
+<Callout type="tip" title="PROMOTE_TO_MULTI 是保命参数">
+点/线/面混入 Multi 类型时，写库或转换常报「几何类型不匹配」。加 `-nlt PROMOTE_TO_MULTI` 一律提升为 Multi 版本，绝大多数场景无害且省心。
+</Callout>
+
+<Exercise
+  tool="gdal"
+  title="练习：格式转换 + 重投影一条龙"
+>
+  1. 用 ogr2ogr 把 Natural Earth 的 countries.shp 转成 GeoPackage；
+
+     `ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTE_TO_MULTI`
+  2. 再转一次，目标坐标系改为 EPSG:3857，输出 countries_3857.gpkg；
+  3. 用 ogrinfo -so 分别查看两个 GPKG 的 extent——预期 3857 版的数值变成了两千万米级（对照第 02 章的 ±20 037 508 m）；
+  4. 把两次的 extent 数字抄下来，这就是「同一数据、不同 CRS」最直观的证据。
+</Exercise>
+
+## 5. 栅格三件套：gdal_translate 与 gdalwarp
+
+```bash
+# 查看：gdalinfo（上一节）
+# 转换格式：gdal_translate —— 顺手转成云优化 COG
+gdal_translate -of COG -co COMPRESS=DEFLATE dem.tif dem_cog.tif
+
+# 重投影 / 裁剪 / 重采样：gdalwarp
+gdalwarp -t_srs EPSG:3857 dem.tif dem_3857.tif          # 重投影
+gdalwarp -cutline aoiboundary.geojson -crop_to_cutline \
+         -t_srs EPSG:4326 dem.tif dem_clip.tif           # 按矢量边界裁剪
+gdalwarp -tr 30 30 -r bilinear dem.tif dem_30m.tif       # 统一像元到 30 m
+```
+
+| 命令 | 干什么 | 记住 |
+|---|---|---|
+| gdalinfo | 看栅格元信息 | 先体检再动手 |
+| gdal_translate | 格式转换（含 COG） | `-of COG -co COMPRESS=...` |
+| gdalwarp | 重投影、裁剪、重采样 | `-t_srs` / `-cutline -crop_to_cutline` / `-tr -r` |
+
+<Callout type="must" title="必背 · 命令速配">
+- 看**矢量**信息 → ogrinfo；看**栅格**信息 → gdalinfo
+- **矢量**转换/重投影 → ogr2ogr；**栅格**重投影/裁剪 → gdalwarp
+- 栅格转 **COG** → gdal_translate -of COG（GDAL ≥ 3.1）
+- ogr 的 o = OGR 管矢量；不带 ogr 的管栅格——命令名先分清矢量栅格
+</Callout>
+
+<Exercise
+  tool="gdal"
+  title="练习：把一份 TIFF 变成 COG 并裁剪"
+>
+  1. 下载任意 GeoTIFF（如 SRTM 30m 高程切片）；先 `gdalinfo` 记下尺寸与坐标系；
+  2. `gdal_translate -of COG -co COMPRESS=DEFLATE in.tif out_cog.tif`；再 `gdalinfo out_cog.tif`，预期看到 LAYOUT=COG 字样；
+  3. 用 ogr2ogr 造一个小范围裁剪框（或用任意行政区边界），然后：
+
+     `gdalwarp -cutline clip.geojson -crop_to_cutline out_cog.tif clipped.tif`
+  4. gdalinfo 对比裁剪前后的 Size 与 Extent——预期都被缩小到裁剪框内。
+</Exercise>
+
+
+## 6. QGIS 处理工具箱：GUI 也能跑 GDAL
+
+不想敲命令行？QGIS 把 GDAL、GRASS、SAGA 的算法都装进了**处理工具箱**（Processing Toolbox，菜单「处理 → 工具箱」）：
+
+- 搜索框输入「buffer」「warp」「reproject」直接定位算法；
+- 每个算法面板底部有「**作为 Python 命令复制**」和日志页——GUI 配置一次，就能看到它实际调用的命令行；
+- 「**批处理**」右键任何算法 → 「作为批处理执行」，同一步骤套多个文件。
+
+<Callout type="tip" title="GUI 是命令行的快捷方式，反过来也是教材">
+在 QGIS 里配一遍「重投影」，再打开算法日志看它生成的命令——GUI 与 CLI 就这样互相教会你。排查「GUI 里跑不出结果」时，把日志里的命令行复制出来手动跑，报错信息往往更直白。
+</Callout>
+
+<Exercise
+  tool="qgis"
+  title="练习：处理工具箱跑缓冲区并读日志"
+>
+  1. 加载一个点图层（如城市 POI），打开处理工具箱，搜「buffer」；
+  2. 选「Buffer（native QGIS）」，距离填 5 000 米，运行；预期画布出现圆圈图层；
+  3. 再搜「Warp（reproject）」这个 GDAL 算法，随便配一个栅格跑一次；
+  4. 打开「查看 → 面板 → 日志信息」，找到它实际调用的 gdalwarp 命令行，抄下来与第 5 节对照；
+  5. 预期收获：你已经在 GUI 里「用」过命令行了。
+</Exercise>
+
+## 7. 本章回顾
+
+<Callout type="tip" title="工具链一页纸">
+- 底层四件套：GDAL/OGR（格式与转换）、PROJ（坐标系）、GEOS（几何运算）、QGIS（GUI 外壳）；
+- 陌生数据先体检：ogrinfo -so -al（矢量）/ gdalinfo（栅格）；
+- 矢量转换 ogr2ogr：`-f` 格式、`-t_srs` 重投影、`-nlt PROMOTE_TO_MULTI` 保平安；
+- 栅格三件套：gdalinfo / gdal_translate（COG）/ gdalwarp（投影、裁剪、重采样）；
+- QGIS 处理工具箱 = 图形化的 GDAL，日志里能看到真实命令行。
+</Callout>
+
+## 延伸阅读
+
+- GDAL 全部程序清单：[gdal.org/programs](https://gdal.org/programs/index.html)
+- QGIS 用户手册（处理工具箱章节）：[docs.qgis.org](https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html)
+- Natural Earth 免练习数据：[naturalearthdata.com](https://www.naturalearthdata.com/)
+

@@ -65,6 +65,13 @@ export const GIS_MODULES: ModuleMeta[] = [
       "GeoJSON / Shapefile / GeoPackage / GeoTIFF / COG，瓦片金字塔、MVT 矢量瓦片与 PMTiles。",
   },
   {
+    slug: "07",
+    file: "07-gis-tools",
+    title: "QGIS 与 GDAL/OGR 工具链",
+    summary:
+      "打开 QGIS 认识界面，用 ogrinfo/gdalinfo 体检数据，用 ogr2ogr/gdalwarp 做转换、重投影与裁剪。",
+  },
+  {
     slug: "12",
     file: "12-spatial-db",
     title: "空间运算与空间数据库",
@@ -82,7 +89,6 @@ export const GIS_MODULES: ModuleMeta[] = [
 
 /** 已规划但尚未交付的章节（全部交付后应为空） */
 export const PLANNED_MODULES: { slug: string; title: string }[] = [
-  { slug: "07", title: "QGIS 与 GDAL/OGR 工具链" },
   { slug: "08", title: "数据采集与数据质量" },
   { slug: "09", title: "空间分析 I：缓冲、叠加与邻域" },
   { slug: "10", title: "空间分析 II：插值、DEM 与地形" },

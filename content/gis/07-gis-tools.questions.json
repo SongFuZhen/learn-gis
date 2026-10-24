@@ -1,0 +1,2377 @@
+{
+  "skill": "gis",
+  "module": "07",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-07-001",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "GDAL 处理矢量，OGR 处理栅格。",
+      "explanation": "反了：GDAL 管栅格、OGR 管矢量；ogr 开头的命令（ogrinfo/ogr2ogr）面向矢量。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-07-002",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "QGIS 的很多处理算法底层就是调用 GDAL/OGR。",
+      "explanation": "GUI 是壳，引擎是 GDAL/OGR/GRASS/SAGA——处理工具箱日志里能看到真实命令。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-003",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "PROJ 是 GDAL 底层的坐标变换库。",
+      "explanation": "第 02/03 章的投影与基准转换数学都在 PROJ 里实现。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-004",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "ogrinfo -so 输出的是完整数据内容而不是摘要。",
+      "explanation": "-so = summary only，只输出图层结构摘要：几何类型、要素数、extent、字段。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-07-005",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "gdalinfo 能看到栅格的尺寸、原点、像元大小与 NoData。",
+      "explanation": "这些正是栅格仿射变换与波段的核心元信息。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-006",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "ogr2ogr 可以在转换的同时完成重投影。",
+      "explanation": "加 -t_srs 即边转换边重投影，一步到位。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-007",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "源数据缺 .prj 文件时，ogr2ogr 可用 -s_srs 手动指定源坐标系。",
+      "explanation": "GDAL 无法凭空猜坐标系；-s_srs 强制声明后再做变换。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-008",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "-nlt PROMOTE_TO_MULTI 把混合的 Point/LineString/Polygon 提升为对应 Multi 类型。",
+      "explanation": "避免几何类型不匹配报错的最常用保命参数。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-009",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "gdal_translate -of COG 可把普通 GeoTIFF 转成云优化 GeoTIFF。",
+      "explanation": "COG 驱动自 GDAL 3.1 起可用，配合 -co COMPRESS 等创建选项。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-010",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "gdalwarp 的 -cutline 配合 -crop_to_cutline 可按矢量边界裁剪栅格。",
+      "explanation": "cutline 提供裁剪边界（矢量数据源），crop_to_cutline 让输出范围缩到边界内。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-011",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "gdalwarp -tr 30 30 表示把输出像元统一成 30 m × 30 m。",
+      "explanation": "-tr xres yres 设定目标分辨率，单位随目标坐标系（投影坐标 usually 米）。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-012",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "COG 打包成 zip 上传对象存储能加速读取。",
+      "explanation": "zip 会破坏 HTTP Range 直读——COG 的核心价值就是分段读取，绝不要 zip。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-07-013",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "QGIS 处理工具箱的算法日志会显示它实际调用的命令行。",
+      "explanation": "日志页即教材：GUI 配置 → 日志命令行，两边互为老师。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-014",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "QGIS 处理工具箱支持把同一算法批处理应用到多个文件。",
+      "explanation": "右键算法 → 作为批处理执行。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-015",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "拿到陌生数据应先用 ogrinfo/gdalinfo 体检再动手分析。",
+      "explanation": "几何类型、要素数、extent、坐标系、字段类型一屏看完。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-016",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "ogr2ogr 只能转 Shapefile 到 GeoJSON，不支持数据库。",
+      "explanation": "GDAL/OGR 支持几十种矢量源/目标，含 PostgreSQL/GeoPackage/S3 等。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-07-017",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "gdalwarp -r nearest 是分类栅格重采样的安全选择。",
+      "explanation": "最近邻不产生新值——分类栅格铁律（见第 04 章）。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-018",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "GeoPackage 本质是一个 SQLite 数据库文件。",
+      "explanation": "单文件 .gpkg，可存矢量、栅格与瓦片，无 2 GB 限制。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-019",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "Natural Earth 提供免费的公共领域基础底图数据，适合练手。",
+      "explanation": "1:10m/50m/110m 三档比例尺的全球矢量数据，GIS 教学标配。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-020",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "ogrinfo 与 gdalinfo 的分工是：ogr 系列管矢量，gdal 系列管栅格。",
+      "explanation": "命令名记忆法：ogr = 矢量；不带 ogr = 栅格。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-021",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "gdalwarp 只能重投影，不能做重采样。",
+      "explanation": "-r 参数选择重采样方法（near/bilinear/cubic 等），-tr 设定目标分辨率。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-07-022",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "QGIS 浏览器面板可以直接拖拽数据进地图画布加载。",
+      "explanation": "浏览器面板像文件管理器，拖入即加载，还能连数据库与 WMS。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-07-023",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "查看一份 Shapefile 的字段与几何类型，应使用？",
+      "explanation": "ogr 系列管矢量：ogrinfo -so -al 一屏看全结构。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogrinfo"
+        },
+        {
+          "key": "B",
+          "text": "gdalinfo"
+        },
+        {
+          "key": "C",
+          "text": "gdalwarp"
+        },
+        {
+          "key": "D",
+          "text": "projinfo"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-024",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "查看一份 GeoTIFF 的波段与 NoData，应使用？",
+      "explanation": "gdal 系列管栅格：尺寸、原点、像元大小、波段、NoData。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogrinfo"
+        },
+        {
+          "key": "B",
+          "text": "gdalinfo"
+        },
+        {
+          "key": "C",
+          "text": "ogr2ogr"
+        },
+        {
+          "key": "D",
+          "text": "tippecanoe"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-07-025",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "把 Shapefile 转成 GeoPackage 并重投影到 EPSG:4490，一条命令是？",
+      "explanation": "ogr2ogr：-f 定格式，-t_srs 定目标坐标系。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogr2ogr -f GPKG out.gpkg in.shp -t_srs EPSG:4490"
+        },
+        {
+          "key": "B",
+          "text": "gdalwarp -f GPKG out.gpkg in.shp"
+        },
+        {
+          "key": "C",
+          "text": "gdal_translate -srs 4490 in.shp out.gpkg"
+        },
+        {
+          "key": "D",
+          "text": "projinfo in.shp out.gpkg"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-026",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "转换时出现『几何类型不匹配』报错，最常用的保命参数是？",
+      "explanation": "提升为 Multi 类型，兼容单/混合几何。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "-nlt PROMOTE_TO_MULTI"
+        },
+        {
+          "key": "B",
+          "text": "-append"
+        },
+        {
+          "key": "C",
+          "text": "-nln"
+        },
+        {
+          "key": "D",
+          "text": "-lco"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-027",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "源 Shapefile 丢了 .prj，转换前应加哪个参数声明源坐标系？",
+      "explanation": "-s_srs 强制指定源 SRS；缺 prj 不声明就无法正确变换。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "-t_srs"
+        },
+        {
+          "key": "B",
+          "text": "-s_srs"
+        },
+        {
+          "key": "C",
+          "text": "-a_srs（配 gdal 系）或 -s_srs"
+        },
+        {
+          "key": "D",
+          "text": "无法处理"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-07-028",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "把 dem.tif 转成 COG 的正确命令是？",
+      "explanation": "gdal_translate -of COG（GDAL ≥ 3.1）；zip 会破坏 Range 读取。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "gdal_translate -of COG dem.tif dem_cog.tif"
+        },
+        {
+          "key": "B",
+          "text": "gdalwarp -of COG dem.tif"
+        },
+        {
+          "key": "C",
+          "text": "ogr2ogr -f COG dem.tif"
+        },
+        {
+          "key": "D",
+          "text": "zip dem.tif dem_cog.zip"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-029",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "按行政区边界裁剪栅格，gdalwarp 应配合哪个参数？",
+      "explanation": "-cutline 指定矢量裁剪线，-crop_to_cutline 缩输出范围。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "-cutline 边界.geojson -crop_to_cutline"
+        },
+        {
+          "key": "B",
+          "text": "-clip only"
+        },
+        {
+          "key": "C",
+          "text": "-tr 边界.geojson"
+        },
+        {
+          "key": "D",
+          "text": "-r cut"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-030",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "把 10 m DEM 统一到 30 m 像元并双线性重采样，参数是？",
+      "explanation": "-tr 定分辨率；连续场（高程）可用 bilinear。-ts 是输出尺寸（像素数），与 -tr 互斥。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "-tr 30 30 -r bilinear"
+        },
+        {
+          "key": "B",
+          "text": "-ts 30 30 -r bilinear"
+        },
+        {
+          "key": "C",
+          "text": "-tr 30 30 -r nearest（唯一正确）"
+        },
+        {
+          "key": "D",
+          "text": "-scale 30"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-031",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "QGIS 里像文件管理器一样浏览并拖拽数据的面板是？",
+      "explanation": "浏览器面板可浏览本地/数据库/WMS，拖入画布即加载。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "浏览器面板"
+        },
+        {
+          "key": "B",
+          "text": "图层面板"
+        },
+        {
+          "key": "C",
+          "text": "标注面板"
+        },
+        {
+          "key": "D",
+          "text": "皮肤面板"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-032",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在 QGIS 处理工具箱里想看算法『实际执行了什么』，应打开？",
+      "explanation": "日志页显示真实命令行与输出——GUI 与 CLI 的桥梁。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "日志信息面板"
+        },
+        {
+          "key": "B",
+          "text": "属性表"
+        },
+        {
+          "key": "C",
+          "text": "图层样式"
+        },
+        {
+          "key": "D",
+          "text": "打印布局"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-033",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "QGIS 中把同一算法应用到 50 个文件的最快方式是？",
+      "explanation": "批处理（batch）是处理工具箱的内置能力。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "右键算法 → 作为批处理执行"
+        },
+        {
+          "key": "B",
+          "text": "手动跑 50 次"
+        },
+        {
+          "key": "C",
+          "text": "写成 Word 宏"
+        },
+        {
+          "key": "D",
+          "text": "换 ArcGIS"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-034",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "ogr2ogr 输出图层改名用哪个参数？",
+      "explanation": "-nln = new layer name；-nlt 是几何类型。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "-nln"
+        },
+        {
+          "key": "B",
+          "text": "-nlt"
+        },
+        {
+          "key": "C",
+          "text": "-lco"
+        },
+        {
+          "key": "D",
+          "text": "-t_srs"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-035",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "设置 GeoPackage/Shapefile 输出格式专属选项（如编码）用？",
+      "explanation": "ogr 系列用 -lco（layer creation option）；栅格 gdal 系列用 -co。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "-lco"
+        },
+        {
+          "key": "B",
+          "text": "-co"
+        },
+        {
+          "key": "C",
+          "text": "-nln"
+        },
+        {
+          "key": "D",
+          "text": "-f"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-036",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "PostGIS 自带的 Shapefile 导入工具是？",
+      "explanation": "shp2pgsql 生成 SQL 配合 psql 导入；反向是 pgsql2shp。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "shp2pgsql"
+        },
+        {
+          "key": "B",
+          "text": "ogr2pgsql"
+        },
+        {
+          "key": "C",
+          "text": "shp2post"
+        },
+        {
+          "key": "D",
+          "text": "pg_dump"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-037",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "GDAL 官网列出的命令行程序大约覆盖哪个数量级？",
+      "explanation": "gdal.org/programs 列出约 40+ 个程序，覆盖转换/裁剪/拼接/统计等。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "几十个"
+        },
+        {
+          "key": "B",
+          "text": "两个"
+        },
+        {
+          "key": "C",
+          "text": "上千个"
+        },
+        {
+          "key": "D",
+          "text": "一个都没有"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-038",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "想给输出 GeoTIFF 设置 DEFLATE 压缩，参数是？",
+      "explanation": "栅格创建选项用 -co；-lco 是矢量（OGR）场合。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "-co COMPRESS=DEFLATE"
+        },
+        {
+          "key": "B",
+          "text": "-zip"
+        },
+        {
+          "key": "C",
+          "text": "-lco COMPRESS=DEFLATE（栅格场合）"
+        },
+        {
+          "key": "D",
+          "text": "-r DEFLATE"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-039",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "ogr2ogr 不指定 -f 时，输出格式如何确定？",
+      "explanation": "扩展名猜格式（如 .gpkg → GeoPackage）；显式 -f 更稳。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "按输出文件扩展名猜测"
+        },
+        {
+          "key": "B",
+          "text": "默认 Shapefile"
+        },
+        {
+          "key": "C",
+          "text": "报错退出"
+        },
+        {
+          "key": "D",
+          "text": "默认 GeoJSON"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-040",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "把多个分幅 DEM 拼接成一景，GDAL 常用命令是？",
+      "explanation": "经典两条路：gdal_merge.py 直接拼；或建 VRT 虚拟镶嵌再 translate。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "gdal_merge.py 或 gdalbuildvrt + gdal_translate"
+        },
+        {
+          "key": "B",
+          "text": "ogr2ogr -merge"
+        },
+        {
+          "key": "C",
+          "text": "gdalinfo -merge"
+        },
+        {
+          "key": "D",
+          "text": "gdalwarp -zip"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-041",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "ogrinfo 输出中的 Extent 表示？",
+      "explanation": "extent = (minX, minY) - (maxX, maxY)，快速判断数据在哪、坐标系对不对。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "图层要素的最小外接范围（bbox）"
+        },
+        {
+          "key": "B",
+          "text": "坐标系原点"
+        },
+        {
+          "key": "C",
+          "text": "属性表行数"
+        },
+        {
+          "key": "D",
+          "text": "文件大小"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-042",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "gdalinfo 里 Pixel Size = (0.000277, -0.000278) 说明什么？",
+      "explanation": "0.000278° ≈ 1″；北向上时 Y 步长为负，这是地理坐标系栅格的常见形态。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "像元约 1 角秒，Y 步长为负（北向上）"
+        },
+        {
+          "key": "B",
+          "text": "像元 277 米"
+        },
+        {
+          "key": "C",
+          "text": "文件被压缩了"
+        },
+        {
+          "key": "D",
+          "text": "数据有问题"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-043",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "本课程建议的 QGIS 版本线是？",
+      "explanation": "LTR 稳定且文档/插件兼容性最好，教学与生产都选它。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "LTR（长期支持版）"
+        },
+        {
+          "key": "B",
+          "text": "每晚构建版"
+        },
+        {
+          "key": "C",
+          "text": "任意旧版"
+        },
+        {
+          "key": "D",
+          "text": "必须源码编译"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-044",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "QGIS 中双击图层面板里的图层，打开的是？",
+      "explanation": "双击 = 图层属性对话框；属性表是右键 → 打开属性表。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "图层属性（含符号化/标注/源）"
+        },
+        {
+          "key": "B",
+          "text": "属性表"
+        },
+        {
+          "key": "C",
+          "text": "打印布局"
+        },
+        {
+          "key": "D",
+          "text": "浏览器"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-045",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "gdalwarp 的 -ts 参数含义是？",
+      "explanation": "-ts 设定输出像素数，与 -tr（分辨率）互斥：一个定像素数、一个定地面分辨率。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "输出图像的像素尺寸（行列数）"
+        },
+        {
+          "key": "B",
+          "text": "目标坐标系"
+        },
+        {
+          "key": "C",
+          "text": "目标分辨率（米）"
+        },
+        {
+          "key": "D",
+          "text": "瓦片大小"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-07-046",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "GDAL 能直接读取的对象不包括？",
+      "explanation": "GDAL 支持本地/数据库/云存储几十种数据源；截图是图片不是地理数据。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "本地 Shapefile"
+        },
+        {
+          "key": "B",
+          "text": "PostGIS 表"
+        },
+        {
+          "key": "C",
+          "text": "S3 上的 COG"
+        },
+        {
+          "key": "D",
+          "text": "Word 文档里的地图截图"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-07-047",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "开源 GIS 底层四件套的正确搭配有？",
+      "explanation": "四者分工明确，QGIS 把前三者包成图形界面。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "GDAL/OGR — 格式与转换"
+        },
+        {
+          "key": "B",
+          "text": "PROJ — 坐标变换"
+        },
+        {
+          "key": "C",
+          "text": "GEOS — 几何运算"
+        },
+        {
+          "key": "D",
+          "text": "QGIS — 桌面 GUI"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-07-048",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "ogr2ogr 的正确用法有？",
+      "explanation": "重采样（-r）是栅格概念，矢量没有重采样。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "-f GPKG 转 GeoPackage"
+        },
+        {
+          "key": "B",
+          "text": "-t_srs 重投影"
+        },
+        {
+          "key": "C",
+          "text": "-nlt PROMOTE_TO_MULTI 保平安"
+        },
+        {
+          "key": "D",
+          "text": "-r bilinear 重采样矢量"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-049",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "gdalwarp 能做的事包括？",
+      "explanation": "看元信息是 gdalinfo 的活；warp 管几何变换三件套。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "重投影"
+        },
+        {
+          "key": "B",
+          "text": "按矢量边界裁剪"
+        },
+        {
+          "key": "C",
+          "text": "重采样"
+        },
+        {
+          "key": "D",
+          "text": "查看元信息"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-050",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 COG，正确的有？",
+      "explanation": "zip 破坏 Range 直读，COG 绝不 zip。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "支持 HTTP Range 局部读取"
+        },
+        {
+          "key": "B",
+          "text": "gdal_translate -of COG 生成"
+        },
+        {
+          "key": "C",
+          "text": "GDAL ≥ 3.1 支持写入"
+        },
+        {
+          "key": "D",
+          "text": "必须配合 zip 使用"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-051",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "拿到陌生数据先体检，应关注 ogrinfo/gdalinfo 输出中的哪些信息？",
+      "explanation": "五项信息决定后续分析能否正确进行。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "几何类型 / 波段类型"
+        },
+        {
+          "key": "B",
+          "text": "要素数 / 尺寸"
+        },
+        {
+          "key": "C",
+          "text": "extent 范围"
+        },
+        {
+          "key": "D",
+          "text": "坐标系"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-07-052",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "QGIS 处理工具箱的能力包括？",
+      "explanation": "数据修复也要人来判断，没有『自动修复一切』。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "调用 GDAL/GRASS/SAGA 算法"
+        },
+        {
+          "key": "B",
+          "text": "查看算法实际命令行"
+        },
+        {
+          "key": "C",
+          "text": "批处理多个文件"
+        },
+        {
+          "key": "D",
+          "text": "自动修复所有脏数据"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-053",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "命令与对象的配对正确的有？",
+      "explanation": "gdal_translate 管栅格格式转换（含 COG）。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "ogrinfo — 矢量元信息"
+        },
+        {
+          "key": "B",
+          "text": "gdalinfo — 栅格元信息"
+        },
+        {
+          "key": "C",
+          "text": "ogr2ogr — 矢量转换"
+        },
+        {
+          "key": "D",
+          "text": "gdal_translate — 矢量转换"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-054",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "gdalwarp -r 可选的重采样方法包括？",
+      "explanation": "rainbow 是色带不是重采样方法（见第 05 章）。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "near（最近邻）"
+        },
+        {
+          "key": "B",
+          "text": "bilinear（双线性）"
+        },
+        {
+          "key": "C",
+          "text": "cubic（三次卷积）"
+        },
+        {
+          "key": "D",
+          "text": "rainbow（彩虹）"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-055",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 Natural Earth 数据，正确的有？",
+      "explanation": "Natural Earth 是静态基础底图数据，没有实时路况。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        },
+        {
+          "title": "Natural Earth",
+          "url": "https://www.naturalearthdata.com/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "公共领域许可，免费使用"
+        },
+        {
+          "key": "B",
+          "text": "提供 1:10m / 50m / 110m 比例尺"
+        },
+        {
+          "key": "C",
+          "text": "适合教学与练手"
+        },
+        {
+          "key": "D",
+          "text": "包含实时交通路况"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-056",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在 QGIS 中核对 GUI 与命令行的正确姿势有？",
+      "explanation": "日志是理解 GUI 背后机制的窗口；『自动黑箱运行』不学东西。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "跑完算法看日志页的命令行"
+        },
+        {
+          "key": "B",
+          "text": "复制命令行到终端手动重跑"
+        },
+        {
+          "key": "C",
+          "text": "把命令行存进文档备查"
+        },
+        {
+          "key": "D",
+          "text": "假装没看见日志"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-07-057",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "查看矢量图层结构与字段类型的命令（含常用摘要参数）？",
+      "explanation": "ogrinfo -so -al：摘要模式 + 全图层，一屏看全几何/要素数/extent/字段。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ogrinfo -so",
+        "ogrinfo -so -al",
+        "ogrinfo"
+      ]
+    },
+    {
+      "id": "gis-07-058",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "查看栅格元信息的命令是？",
+      "explanation": "gdalinfo 输出尺寸、坐标系、原点、像元大小、波段、NoData。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "gdalinfo",
+        "gdal info"
+      ]
+    },
+    {
+      "id": "gis-07-059",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "Shapefile 转 GeoJSON 并重投影到 EPSG:3857 的一条命令怎么写（写出关键参数即可）？",
+      "explanation": "ogr2ogr -f GeoJSON out.json in.shp -t_srs EPSG:3857。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ogr2ogr",
+        "t_srs",
+        "ogr2ogr -f",
+        "-t_srs"
+      ]
+    },
+    {
+      "id": "gis-07-060",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "把 GeoTIFF 转成 COG 的命令与格式名？",
+      "explanation": "gdal_translate -of COG in.tif out.tif（GDAL ≥ 3.1），配 -co 设压缩。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "gdal_translate -of COG",
+        "-of COG",
+        "gdal_translate"
+      ]
+    },
+    {
+      "id": "gis-07-061",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "gdalwarp 按矢量边界裁剪栅格需要哪两个参数？",
+      "explanation": "-cutline 指定边界矢量，-crop_to_cutline 让输出缩到边界内。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "cutline",
+        "crop_to_cutline",
+        "-cutline -crop_to_cutline"
+      ]
+    },
+    {
+      "id": "gis-07-062",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "为什么栅格创建选项用 -co 而 OGR 用 -lco？（答出两个前缀含义即可）",
+      "explanation": "-co = creation option（数据集级，栅格）；-lco = layer creation option（图层级，矢量）。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "co",
+        "lco",
+        "creation",
+        "layer"
+      ]
+    },
+    {
+      "id": "gis-07-063",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "矢量转换时避免几何类型不匹配报错的参数是？",
+      "explanation": "-nlt PROMOTE_TO_MULTI 把单几何统一提升为 Multi。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "PROMOTE_TO_MULTI",
+        "-nlt PROMOTE_TO_MULTI",
+        "nlt"
+      ]
+    },
+    {
+      "id": "gis-07-064",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "源数据缺坐标系定义文件时，ogr2ogr 如何补救？",
+      "explanation": "-s_srs 强制声明源坐标系后，-t_srs 的变换才有意义。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "s_srs",
+        "-s_srs",
+        "声明源坐标系"
+      ]
+    },
+    {
+      "id": "gis-07-065",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在 QGIS 里定位处理算法最快的操作是什么？",
+      "explanation": "处理工具箱顶部搜索框输入关键词（如 buffer/warp）直达算法。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "搜索",
+        "搜索框",
+        "processing toolbox",
+        "工具箱搜索"
+      ]
+    },
+    {
+      "id": "gis-07-066",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "为什么说『QGIS 的处理日志是学习命令行的教材』？",
+      "explanation": "日志页显示 GUI 背后实际调用的命令行，可直接复制重跑与修改。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "日志",
+        "命令行",
+        "真实",
+        "copy",
+        "复制"
+      ]
+    },
+    {
+      "id": "gis-07-067",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "把同一算法套用到 50 个文件，QGIS 的做法是？",
+      "explanation": "右键算法 → 作为批处理执行，表格化配置多输入。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "批处理",
+        "batch",
+        "作为批处理执行"
+      ]
+    },
+    {
+      "id": "gis-07-068",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "分类栅格重采样应选 gdalwarp -r 的哪个方法？为什么？",
+      "explanation": "最近邻不产生新值，保住类别码；双线性会造出『不存在的类别』。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "near",
+        "nearest",
+        "最近邻"
+      ]
+    },
+    {
+      "id": "gis-07-069",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "3000×3000 像元、10 m 分辨率的 DEM 重采样到 30 m（-tr 30 30），输出有多少个像元（行列相乘）？",
+      "explanation": "每边 3000×10/30 = 1000，输出 1000×1000 = 100 万像元。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1000000,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-070",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "6000×6000 像元、30 m 分辨率的栅格重采样到 15 m，输出像元总数是？",
+      "explanation": "每边 6000×2 = 12000，输出 12000² = 1.44 亿像元——分辨率翻倍，像元数 ×4。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 144000000,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-071",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "2000×2000 像元、10 m 分辨率的栅格重采样到 50 m，输出像元总数是？",
+      "explanation": "每边 2000×10/50 = 400，输出 400² = 16 万像元。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 160000,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-072",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "10000×10000 像元、100 m 分辨率的栅格重采样到 50 m，输出像元总数是？",
+      "explanation": "每边 10000×2 = 20000，输出 4 亿像元。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 400000000,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-073",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "COG/GeoTIFF 内部瓦片块大小为 256×256，一块含多少像元？",
+      "explanation": "256² = 65 536 = 2^16。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 65536,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-074",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "1000×1000 的单波段 uint8 栅格（无压缩）文件体约多少 MB（按 10^6 字节 = 1 MB 计）？",
+      "explanation": "10^6 像元 × 1 字节 = 10^6 B = 1 MB。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1,
+      "tolerance": 0.01
+    },
+    {
+      "id": "gis-07-075",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "2000×2000 的单波段 Float32（4 字节）无压缩栅格约多少 MB（10^6 B = 1 MB）？",
+      "explanation": "4×10^6 像元 × 4 B = 1.6×10^7 B = 16 MB。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 16,
+      "tolerance": 0.05
+    },
+    {
+      "id": "gis-07-076",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "500×500 的 RGB 三波段 uint8 无压缩栅格约多少字节？",
+      "explanation": "250 000 × 3 B = 750 000 字节。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 750000,
+      "tolerance": 500
+    },
+    {
+      "id": "gis-07-077",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "宽 1024 的栅格金字塔概览逐级减半，第 4 级概览的宽度是多少像素？",
+      "explanation": "1024→512→256→128→64。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 64,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-078",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "宽 2048 的栅格第 4 级概览宽度是多少像素？",
+      "explanation": "2048→1024→512→256→128。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 128,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-079",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "ogrinfo 报告 Feature Count = 177，另一份是其 3 倍，要素数是多少？",
+      "explanation": "177 × 3 = 531——理解输出数字是体检第一步。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 531,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-07-080",
+      "skill": "gis",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "gdalinfo 报告像元 0.000277778°（≈1″），该栅格 3600 列覆盖约多少度（保留 1 位小数）？",
+      "explanation": "3600 × 0.000277778 ≈ 1.0°——SRTM 1° 分幅正是如此。",
+      "refs": [
+        {
+          "title": "GDAL/OGR Programs",
+          "url": "https://gdal.org/programs/index.html"
+        },
+        {
+          "title": "QGIS 用户手册",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing/index.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1,
+      "tolerance": 0.02
+    }
+  ]
+}
