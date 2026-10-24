@@ -1,6 +1,6 @@
 ## 本章你会学到
 
-前面七章都在讲概念，这一章是**练习场**：把 QGIS 和 GDAL/OGR 装进你的工具箱。学完你能：用 QGIS 打开并检查数据、用命令行查看数据元信息、做格式转换与重投影、把栅格转成云优化的 COG。每条命令都标注了预期输出——动手跑一遍，比读十页文档有用。
+前面七章都在讲概念，这一章是**练习场**：把 QGIS 和 GDAL/OGR 装进你的工具箱。学完你能：用 QGIS 打开并检查数据、用命令行查看数据元信息、做格式转换与重投影、把栅格转成云优化的 COG。每条命令都标注了预期输出。动手跑一遍，比读十页文档有用。
 
 ## 1. 工具链地图：谁在底层干活
 
@@ -95,7 +95,7 @@ Band 1 Block=3600x1 Type=Float32, ColorInterp=Gray
 
 ## 4. 转换与重投影：ogr2ogr
 
-ogr2ogr 是矢量世界的瑞士军刀——格式转换、坐标系变换、字段过滤、图层改名，全在这一条命令：
+ogr2ogr 是矢量世界的瑞士军刀，格式转换、坐标系变换、字段过滤、图层改名全在这一条命令：
 
 ```bash
 # Shapefile 转 GeoJSON（GDAL 按扩展名猜格式）
@@ -122,7 +122,7 @@ ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTE_TO_MULTI -nln countrie
 
      `ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTE_TO_MULTI`
   2. 再转一次，目标坐标系改为 EPSG:3857，输出 countries_3857.gpkg；
-  3. 用 ogrinfo -so 分别查看两个 GPKG 的 extent——预期 3857 版的数值变成了两千万米级（对照第 02 章的 ±20 037 508 m）；
+  3. 用 ogrinfo -so 分别查看两个 GPKG 的 extent：预期 3857 版的数值变成了两千万米级（对照第 02 章的 ±20 037 508 m）；
   4. 把两次的 extent 数字抄下来，这就是「同一数据、不同 CRS」最直观的证据。
 </Exercise>
 
@@ -175,7 +175,7 @@ gdalwarp -tr 30 30 -r bilinear dem.tif dem_30m.tif       # 统一像元到 30 m
 - 「**批处理**」右键任何算法 → 「作为批处理执行」，同一步骤套多个文件。
 
 <Callout type="tip" title="GUI 是命令行的快捷方式，反过来也是教材">
-在 QGIS 里配一遍「重投影」，再打开算法日志看它生成的命令——GUI 与 CLI 就这样互相教会你。排查「GUI 里跑不出结果」时，把日志里的命令行复制出来手动跑，报错信息往往更直白。
+在 QGIS 里配一遍「重投影」，再打开算法日志看它生成的命令，GUI 与 CLI 就这样互相教会你。排查「GUI 里跑不出结果」时，把日志里的命令行复制出来手动跑，报错信息往往更直白。
 </Callout>
 
 <Exercise

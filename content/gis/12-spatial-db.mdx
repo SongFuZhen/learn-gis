@@ -52,8 +52,8 @@ SELECT ST_Distance(a.geog, b.geog) FROM ...;   -- 得到米
 
 1. **geometry（SRID 4326）**：把经纬度当平面坐标算直线距离：
    `sqrt((121.5-116.4)² + (31.2-39.9)²) = sqrt(5.1² + 8.7²) ≈ 10.1`
-   返回 **10.1**——单位是「度」，既不是公里也不是米，没有业务意义。
-2. **geography**：沿椭球面量测，返回约 `1068000`——单位是**米**，约 1068 公里，和地图软件量的基本一致。
+   返回 **10.1**，单位是「度」，既不是公里也不是米，没有业务意义。
+2. **geography**：沿椭球面量测，返回约 `1068000`，单位是**米**，约 1068 公里，和地图软件量的基本一致。
 
 同一个函数 `ST_Distance`，类型不同，答案差 10 万倍，而且**不报任何错**。
 </Callout>
@@ -74,9 +74,9 @@ ST_MakeEnvelope(x1,y1,x2,y2, srid)  -- 构造矩形，做范围查询
 ```
 
 <Callout type="must" title="必背 · 函数易混点">
-- `ST_Transform` 会**换算坐标**；`ST_SetSRID` 只**贴标签不换算**——不改变任何坐标值
-- `ST_Contains(a, b)` 是「a 包含 b」，`ST_Within(a, b)` 是「a 在 b 内」——**方向相反**，参数别写反
-- 判断「距离不超过 r」用 `ST_DWithin(a, b, r)`，不要用 `ST_Distance` 再比较——前者能用索引
+- `ST_Transform` 会**换算坐标**；`ST_SetSRID` 只**贴标签不换算**，不改变任何坐标值
+- `ST_Contains(a, b)` 是「a 包含 b」，`ST_Within(a, b)` 是「a 在 b 内」，**方向相反**，参数别写反
+- 判断「距离不超过 r」用 `ST_DWithin(a, b, r)`，不要用 `ST_Distance` 再比较，前者能用索引
 - `ST_Buffer` / `ST_Area` / `ST_Length` 的单位 = **当前 CRS 的单位**，4326 上就是「度」
 </Callout>
 
@@ -124,8 +124,8 @@ WHERE NOT ST_IsValid(geom);
 ```
 
 <Callout type="must" title="必背 · 叠加函数四句">
-- **ST_Union** 真合并（融边界、去重叠）；**ST_Collect** 只打包（快，边界还在）——聚合统计用 Union，简单分组用 Collect
-- **ST_Intersection** 求交、**ST_Difference** 求差——选址 = 交，剔除 = 差
+- **ST_Union** 真合并（融边界、去重叠）；**ST_Collect** 只打包（快，边界还在）。聚合统计用 Union，简单分组用 Collect
+- **ST_Intersection** 求交、**ST_Difference** 求差，选址 = 交，剔除 = 差
 - 大表叠加前先 `ST_Subdivide` 切碎大几何，配合索引快一个数量级
 - 入库先跑 `ST_IsValid`，脏数据用 `ST_MakeValid` 修复
 </Callout>
@@ -145,7 +145,7 @@ WHERE NOT ST_IsValid(geom);
     ```
 
     要点：ST_Within 的参数方向（点在内、面在外）；LEFT JOIN 保留区外的点，
-    其 name 为 NULL——这行数据本身就是「边界外数据」的质量线索。
+    其 name 为 NULL，这行数据本身就是「边界外数据」的质量线索。
   </ExerciseSolution>
 </Exercise>
 
@@ -206,7 +206,7 @@ SELECT * FROM poi ORDER BY geom <-> ST_Point(116.4, 39.9, 4326) LIMIT 5;
 <Callout type="must" title="必背 · 索引规则">
 - GiST 靠**外接矩形（`&&`）**先粗筛，再做精确判断
 - 能走索引：`&&` + `ST_Intersects`、`ST_DWithin`、`ORDER BY geom <-> 点`
-- 走不了索引：`ST_Distance(geom, p) < r`——全表逐行算距离
+- 走不了索引：`ST_Distance(geom, p) < r`，全表逐行算距离
 - 最近邻固定写法：`ORDER BY geom <-> 点 LIMIT n`
 </Callout>
 
@@ -219,7 +219,7 @@ ORDER BY geom <-> ST_Point(116.4, 39.9, 4326)
 LIMIT 5;
 ```
 
-`<->` 是 KNN 运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 `ST_Distance`，再排序取前 5 条——结果一样，慢几百倍。
+`<->` 是 KNN 运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 `ST_Distance`，再排序取前 5 条，结果一样，慢几百倍。
 </Callout>
 
 ## 6. 三个静默错误
@@ -229,10 +229,10 @@ LIMIT 5;
 3. **在 3857 上量面积**：高纬度面积被严重高估；用等积投影或 `geography`。
 
 <Callout type="must" title="必背 · 三个静默错误">
-- 4326 上 `ST_Buffer(geom, 1000)` 得到的是「**1000 度**」的怪物——先 `ST_Transform` 到米制 CRS，或用 `geography`
+- 4326 上 `ST_Buffer(geom, 1000)` 得到的是「**1000 度**」的怪物，先 `ST_Transform` 到米制 CRS，或用 `geography`
 - `ST_SetSRID` **不换算坐标**，只改 SRID 标签
-- 3857 **不能量面积**——高纬度严重高估，用等积投影或 `geography`
-- 这三类错都**不报错**，只返回错误结果——必须形成肌肉记忆
+- 3857 **不能量面积**，高纬度严重高估，用等积投影或 `geography`
+- 这三类错都**不报错**，只返回错误结果，必须形成肌肉记忆
 </Callout>
 
 <Callout type="example" title="例子 · 3857 上量面积会差多少">
@@ -240,7 +240,7 @@ LIMIT 5;
 
 1. Web Mercator 的线性放大倍数 = `1 / cos(40°) ≈ 1.31`
 2. 面积放大倍数 = 线性倍数的平方 ≈ `1.31 × 1.31 ≈ 1.70`
-3. `ST_Area` 在 3857 上返回约 **170 平方公里**——凭空多出 70%，且不报错。
+3. `ST_Area` 在 3857 上返回约 **170 平方公里**，凭空多出 70%，且不报错。
 
 换成等积投影，或用 `geography` 类型的 `ST_Area`，才会得到接近 100 平方公里的正确值。
 </Callout>
