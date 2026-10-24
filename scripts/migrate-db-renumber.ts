@@ -3,8 +3,9 @@
  * 先跑内容迁移生成 content/gis/renumber-map.json，再对本脚本执行：
  *   npx tsx scripts/migrate-db-renumber.ts --dry-run   # 只打印将影响的行数
  *   npx tsx scripts/migrate-db-renumber.ts             # 真正执行
- * 幂等：module_slug 映射用「仅当旧值存在才 UPDATE」；question_id 映射逐条按旧 id 条件更新。
+ * 幂等：module_slug 映射用「仅当旧值存在才 UPDATE」；question_id 映射为批量 VALUES 单语句。
  * 上线顺序：先部署新代码，再对本库执行本脚本。
+ * 连接参数与 db/index.ts 一致（Neon 池器需要 keepAlive）。
  */
 import { existsSync, readFileSync } from "node:fs";
 import path from "node:path";
@@ -19,10 +20,19 @@ const deletedIds: string[] = existsSync(DELETED_PATH)
 const dryRun = process.argv.includes("--dry-run");
 
 /** 旧 module slug → 新 slug（与内容迁移同一映射） */
-const SLUG_MAP: Record<string, string> = { "05": "06", "06": "13", "07": "12" };
+// 顺序关键：先迁 06→13、07→12，再 05→06，避免旧 05 的行被第二次扫到
+const SLUG_MAP: Record<string, string> = { "06": "13", "07": "12", "05": "06" };
 
 async function main() {
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL, max: 2 });
+  const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    max: 2,
+    idleTimeoutMillis: 30_000,
+    connectionTimeoutMillis: 10_000,
+    keepAlive: true,
+    keepAliveInitialDelayMillis: 10_000,
+  });
+  pool.on("error", (err) => console.error("[pool error]", err.message));
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
@@ -45,28 +55,30 @@ async function main() {
       console.log(`wrong_answers.module_slug ${from} -> ${to}: ${r.rowCount} 行`);
     }
 
-    // 3) wrong_answers.question_id 逐条映射；无 unique 冲突（旧 id 已不存在）
-    let mapped = 0;
-    for (const [oldId, newId] of Object.entries(map)) {
+    // 3) wrong_answers.question_id：批量 VALUES 单语句重映射（避免长循环被池器掐断）
+    const entries = Object.entries(map);
+    if (entries.length > 0) {
+      const values: unknown[] = [];
+      const tuples = entries.map(([oldId, newId], i) => {
+        values.push(oldId, newId);
+        return `($${i * 2 + 1}::text, $${i * 2 + 2}::text)`;
+      });
       const r = await client.query(
-        "UPDATE gis.wrong_answers SET question_id = $1 WHERE question_id = $2",
-        [newId, oldId],
+        `UPDATE gis.wrong_answers wa SET question_id = v.new_id
+         FROM (VALUES ${tuples.join(",")}) AS v(old_id, new_id)
+         WHERE wa.question_id = v.old_id`,
+        values,
       );
-      mapped += r.rowCount ?? 0;
+      console.log(`wrong_answers.question_id 重映射: ${r.rowCount} 行（映射表 ${entries.length} 条）`);
     }
-    console.log(`wrong_answers.question_id 重映射: ${mapped} 行（映射表 ${Object.keys(map).length} 条）`);
 
-    // 4) 清理被删题目的错题记录（如批次 2 删除的 06 章模板克隆题）
+    // 4) 清理被删题目的错题记录（单语句 ANY）
     if (deletedIds.length > 0) {
-      let removed = 0;
-      for (const id of deletedIds) {
-        const r = await client.query(
-          "DELETE FROM gis.wrong_answers WHERE question_id = $1",
-          [id],
-        );
-        removed += r.rowCount ?? 0;
-      }
-      console.log(`wrong_answers 删除已下架题目记录: ${removed} 行（清单 ${deletedIds.length} 条）`);
+      const r = await client.query(
+        "DELETE FROM gis.wrong_answers WHERE question_id = ANY($1::text[])",
+        [deletedIds],
+      );
+      console.log(`wrong_answers 删除已下架题目记录: ${r.rowCount} 行（清单 ${deletedIds.length} 条）`);
     }
 
     if (dryRun) {
@@ -77,7 +89,7 @@ async function main() {
       console.log("[migrate-db-renumber] 已提交");
     }
   } catch (error) {
-    await client.query("ROLLBACK");
+    try { await client.query("ROLLBACK"); } catch { /* 连接已断 */ }
     throw error;
   } finally {
     client.release();
