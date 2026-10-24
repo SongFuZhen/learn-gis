@@ -4,13 +4,14 @@ import basics from "./01-basics.questions.json";
 import projection from "./02-projection.questions.json";
 import crsEpsg from "./03-crs-epsg.questions.json";
 import vectorRaster from "./04-vector-raster.questions.json";
-import formatsTiles from "./05-formats-tiles.questions.json";
-import ogcWebmap from "./06-ogc-webmap.questions.json";
-import spatialPostgis from "./07-spatial-postgis.questions.json";
+import formatsTiles from "./06-formats-tiles.questions.json";
+import spatialDb from "./12-spatial-db.questions.json";
+import webgis from "./13-webgis.questions.json";
 
 /**
  * 题库注册表：显式 import 让内容进入 bundle 且被 TS 检查，
  * 校验统一走 lib/content.ts（构建期）+ scripts/validate-content.ts（CI）。
+ * 新大纲 14 章：未交付章节（05/07/08/09/10/11）无题库，随批次补充。
  */
 const RAW_BY_MODULE: Record<string, unknown> = {
   "00": geoMath,
@@ -18,9 +19,9 @@ const RAW_BY_MODULE: Record<string, unknown> = {
   "02": projection,
   "03": crsEpsg,
   "04": vectorRaster,
-  "05": formatsTiles,
-  "06": ogcWebmap,
-  "07": spatialPostgis,
+  "06": formatsTiles,
+  "12": spatialDb,
+  "13": webgis,
 };
 
 export function rawQuestionsFor(moduleSlug: string): unknown {

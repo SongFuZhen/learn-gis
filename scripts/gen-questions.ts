@@ -18,7 +18,17 @@ import { gen06 } from "./gen-banks/m06";
 
 const CONTENT_DIR = path.resolve(process.cwd(), "content/gis");
 
-/** 每模块的目标总题数（含已有人工题） */
+if (process.env.ALLOW_GEN_QUESTIONS !== "1") {
+  throw new Error(
+    "gen-questions 已冻结：TARGETS 仍是旧 7 模块布局，与 14 章新大纲脱节。" +
+      "重写对齐后移除此护栏，或临时用 ALLOW_GEN_QUESTIONS=1 跳过。",
+  );
+}
+
+/** 每模块的目标总题数（含已有人工题）
+ *  ⚠️ 已冻结：2026-10 课程重构为 14 章布局，下方 TARGETS/GENERATORS 仍是旧 7 模块映射，
+ *  直接重跑会用旧文件名/旧 id 前缀写坏题库。按批次重写对齐新布局后再启用。
+ */
 const TARGETS: Record<string, { file: string; target: number }> = {
   "00": { file: "00-geo-math", target: 161 },
   "01": { file: "01-basics", target: 120 },

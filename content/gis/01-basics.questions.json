@@ -1,7 +1,7 @@
 {
   "skill": "gis",
   "module": "01",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "gis-01-001",
@@ -3090,6 +3090,904 @@
         "A",
         "C",
         "D"
+      ]
+    },
+    {
+      "id": "gis-01-121",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "大地高（椭球高）是从椭球面起算的高度。",
+      "explanation": "大地高以参考椭球面为基准起算，GPS/RTK 直接输出的就是它。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-122",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "GPS 接收机直接显示的高程就是地图上标注的海拔。",
+      "explanation": "GPS 给的是大地高；海拔从大地水准面起算，两者差一个高程异常 N，可达几十米。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-01-123",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "关系式：大地高 = 海拔 + 高程异常 N。",
+      "explanation": "N 是大地水准面相对椭球面的起伏，全球在 −100 m 到 +70 m 之间。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-124",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "高程异常 N 在全球范围内不超过几厘米。",
+      "explanation": "N 的全球起伏可达上百米量级，直接混用大地高与海拔会差几十米。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-01-125",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "中国法定的高程基准是 1985 国家高程基准，以青岛水准原点为起点。",
+      "explanation": "以青岛验潮站 1952—1979 年潮位推算的平均海面为高程零点，珠峰 8848.86 m 即由此量起。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-126",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "海拔是从椭球面量到地面点的高度。",
+      "explanation": "海拔（正高/正常高）从大地水准面（平均海面）量起；从椭球面量起的是大地高。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-01-127",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "七参数基准转换包含 3 个平移、3 个旋转和 1 个尺度参数。",
+      "explanation": "Bursa-Wolf 七参数 = ΔX/ΔY/ΔZ 平移 + 3 个旋转角 + 1 个尺度比。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-128",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "三参数转换的精度比网格校正（NTv2）更高。",
+      "explanation": "精度排序：网格校正（厘米级）> 七参数（厘米~分米级）> 三参数（米~十米级）。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-01-129",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "WGS84 与 CGCS2000 的差异在厘米~分米级，普通应用可直接混用。",
+      "explanation": "两系统椭球与地心定义几乎一致，较真场景只有高精度形变监测等。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-130",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "NTv2 是一种网格校正格网文件格式，用于高精度基准转换。",
+      "explanation": "以全国密集控制点预计算偏移量，查表内插，精度可达厘米级。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-131",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "GCJ-02 对 WGS84 的偏移是线性平移，可以精确逆变换。",
+      "explanation": "GCJ-02 是非线性偏移且无公开逆算法，网传纠偏算法只有米级近似精度。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-01-132",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "BD-09 是百度在 GCJ-02 基础上再叠加自有偏移的坐标系。",
+      "explanation": "于是国内至少有 WGS84、GCJ-02、BD-09 三套坐标在流转。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-133",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "在高德底图上直接叠加 WGS84 的 GPS 轨迹，会整体错位几百米。",
+      "explanation": "高德底图是 GCJ-02，WGS84 数据必须先转坐标系再叠图。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-134",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "GCJ-02 只偏移高程，不影响平面位置。",
+      "explanation": "GCJ-02 是平面经纬度的偏移，与高程无关。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-01-135",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "手持 GPS 直接显示的高程是什么高？",
+      "explanation": "GPS 解算以椭球为基准，输出大地高；要得海拔需用大地水准面模型改正。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "大地高（椭球高）"
+        },
+        {
+          "key": "B",
+          "text": "海拔（正高）"
+        },
+        {
+          "key": "C",
+          "text": "两者随机"
+        },
+        {
+          "key": "D",
+          "text": "气压高程"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-136",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "珠穆朗玛峰 8848.86 m 的高程从哪里量起？",
+      "explanation": "中国法定高程零点：青岛水准原点（1985 国家高程基准）。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WGS84 椭球面"
+        },
+        {
+          "key": "B",
+          "text": "1985 国家高程基准"
+        },
+        {
+          "key": "C",
+          "text": "EGM96 大地水准面"
+        },
+        {
+          "key": "D",
+          "text": "珠峰脚下"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-01-137",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "把 GPS 大地高直接标注到地形图上，典型误差量级是？",
+      "explanation": "高程异常 N 可达几十米，直接混用就是几十米级系统错误。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "毫米级"
+        },
+        {
+          "key": "B",
+          "text": "厘米级"
+        },
+        {
+          "key": "C",
+          "text": "几十米级"
+        },
+        {
+          "key": "D",
+          "text": "公里级"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-01-138",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "美国常用的垂直基准名称是？",
+      "explanation": "NAVD88 是美国/加拿大常用的正高基准；NAD27 是水平基准。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "NAVD88"
+        },
+        {
+          "key": "B",
+          "text": "1985 国家高程基准"
+        },
+        {
+          "key": "C",
+          "text": "EGM2008"
+        },
+        {
+          "key": "D",
+          "text": "NAD27"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-139",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "高程异常 N 的定义是？",
+      "explanation": "N = 大地高 − 海拔，是两个高程基准面之差。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "海平面到椭球面的距离"
+        },
+        {
+          "key": "B",
+          "text": "大地水准面（或似大地水准面）与椭球面之间的差距"
+        },
+        {
+          "key": "C",
+          "text": "地面点到海平面的深度"
+        },
+        {
+          "key": "D",
+          "text": "椭球扁率"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-01-140",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "EGM96 / EGM2008 属于哪类模型？",
+      "explanation": "用重力数据拟合的全球高程异常模型，把大地高换算成海拔。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "投影模型"
+        },
+        {
+          "key": "B",
+          "text": "重力大地水准面（高程异常）模型"
+        },
+        {
+          "key": "C",
+          "text": "椭球参数标准"
+        },
+        {
+          "key": "D",
+          "text": "卫星轨道模型"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-01-141",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "proj4 定义串中 +towgs84=dx,dy,dz 属于几参数转换？",
+      "explanation": "三个平移量为三参数；补 3 旋转 + 1 尺度才是七参数。",
+      "refs": [
+        {
+          "title": "PROJ coordinates transformation",
+          "url": "https://proj.org"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "3"
+        },
+        {
+          "key": "B",
+          "text": "4"
+        },
+        {
+          "key": "C",
+          "text": "7"
+        },
+        {
+          "key": "D",
+          "text": "0"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-142",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "追求厘米级基准转换精度，应优先采用？",
+      "explanation": "网格校正用密集控制点查表内插，精度最高；七参数次之。",
+      "refs": [
+        {
+          "title": "PROJ coordinates transformation",
+          "url": "https://proj.org"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "忽略差异"
+        },
+        {
+          "key": "B",
+          "text": "三参数"
+        },
+        {
+          "key": "C",
+          "text": "七参数"
+        },
+        {
+          "key": "D",
+          "text": "网格校正（如 NTv2 格网）"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-01-143",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "Bursa-Wolf 模型属于哪类基准转换？",
+      "explanation": "3 平移 + 3 旋转 + 1 尺度的经典七参数模型。",
+      "refs": [
+        {
+          "title": "PROJ coordinates transformation",
+          "url": "https://proj.org"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "三参数"
+        },
+        {
+          "key": "B",
+          "text": "七参数"
+        },
+        {
+          "key": "C",
+          "text": "网格校正"
+        },
+        {
+          "key": "D",
+          "text": "多项式拟合"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-01-144",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "局部基准（如 Beijing 1954）转到地心基准（如 WGS84）的常规手段是？",
+      "explanation": "局部基准与地心基准存在系统差异，需七参数或格网文件做基准转换。",
+      "refs": [
+        {
+          "title": "PROJ coordinates transformation",
+          "url": "https://proj.org"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "什么都不做"
+        },
+        {
+          "key": "B",
+          "text": "七参数/网格转换"
+        },
+        {
+          "key": "C",
+          "text": "改一下小数位"
+        },
+        {
+          "key": "D",
+          "text": "重命名坐标系"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-01-145",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "国行手机地图 App 上显示的『你在哪里』使用的坐标系统通常是？",
+      "explanation": "中国大陆公开地图依法使用 GCJ-02；百度再转 BD-09。",
+      "refs": [
+        {
+          "title": "GCJ-02 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WGS84"
+        },
+        {
+          "key": "B",
+          "text": "GCJ-02"
+        },
+        {
+          "key": "C",
+          "text": "BD-09（无论哪家）"
+        },
+        {
+          "key": "D",
+          "text": "UTM"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-01-146",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "GeoJSON 规范（RFC 7946）默认的坐标系是？",
+      "explanation": "RFC 7946 规定 GeoJSON 用 WGS84（轴序 lon, lat）。",
+      "refs": [
+        {
+          "title": "GCJ-02 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GCJ-02"
+        },
+        {
+          "key": "B",
+          "text": "BD-09"
+        },
+        {
+          "key": "C",
+          "text": "WGS84 经纬度"
+        },
+        {
+          "key": "D",
+          "text": "Web 墨卡托"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-01-147",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "GCJ-02 的民间俗称是？",
+      "explanation": "因偏移让人『落点在火星上』而得名火星坐标。",
+      "refs": [
+        {
+          "title": "GCJ-02 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "火星坐标"
+        },
+        {
+          "key": "B",
+          "text": "月球坐标"
+        },
+        {
+          "key": "C",
+          "text": "加密经纬度"
+        },
+        {
+          "key": "D",
+          "text": "国测坐标"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-148",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "中国大陆公开地图必须使用 GCJ-02，依据是？",
+      "explanation": "法律要求公开地图产品做位置偏移处理，境外服务在大陆展示同样偏移。",
+      "refs": [
+        {
+          "title": "GCJ-02 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "行业惯例"
+        },
+        {
+          "key": "B",
+          "text": "《测绘法》及配套规定"
+        },
+        {
+          "key": "C",
+          "text": "国际标准 ISO"
+        },
+        {
+          "key": "D",
+          "text": "浏览器安全策略"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-01-149",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "某点大地高（椭球高）为 1520.5 m，该处高程异常 N = 30.0 m，海拔是多少米？",
+      "explanation": "海拔 = 大地高 − N = 1520.5 − 30.0 = 1490.5 m（大地高 = 海拔 + N）。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1490.5,
+      "tolerance": 0.5
+    },
+    {
+      "id": "gis-01-150",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "某点海拔为 860.0 m，该处高程异常 N = −25.0 m，大地高是多少米？",
+      "explanation": "大地高 = 海拔 + N = 860 + (−25) = 835 m。N 为负说明大地水准面在椭球面之下。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "numeric",
+      "answer": 835,
+      "tolerance": 0.5
+    },
+    {
+      "id": "gis-01-151",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "GPS 测得的大地高为什么不能直接当地图高程用？用一句话说明（提及两者差什么）。",
+      "explanation": "两者差高程异常 N（大地水准面与椭球面之差），可达几十米，需用 EGM 类模型或水准联测改正。",
+      "refs": [
+        {
+          "title": "EPSG:5725 Yellow Sea 1985 height",
+          "url": "https://epsg.io/5725"
+        },
+        {
+          "title": "Geoid - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Geoid"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "高程异常",
+        "大地水准面",
+        "似大地水准面",
+        "geoid"
+      ],
+      "placeholder": "提示：两者差的是……"
+    },
+    {
+      "id": "gis-01-152",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "在高德底图上叠加 GPS 轨迹发现整体偏移几百米。说出原因和处理步骤。",
+      "explanation": "原因：底图 GCJ-02、轨迹 WGS84 未对齐；处理：把轨迹转成 GCJ-02（或底图源换 WGS84 瓦片）再叠图。",
+      "refs": [
+        {
+          "title": "GCJ-02 - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Restrictions_on_geographic_data_in_China"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "坐标系",
+        "gcj",
+        "转换",
+        "纠偏",
+        "wgs84"
       ]
     }
   ]

@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { formatIssues, questionFileSchema } from "../content/schema";
+import { GIS_MODULES, PLANNED_MODULES } from "../content/gis/modules";
 
 /**
  * 内容校验：CI 与 `prebuild` 调用。
@@ -37,6 +38,16 @@ function main() {
     if (!parsed.success) {
       failed += 1;
       console.error(`✗ ${file}\n${formatIssues(parsed.error)}`);
+      continue;
+    }
+
+    // module 必须在大纲里（已上线或规划中），防止文件改名后注册表漏同步
+    const knownSlugs = new Set([...GIS_MODULES, ...PLANNED_MODULES].map((m) => m.slug));
+    if (!knownSlugs.has(parsed.data.module)) {
+      failed += 1;
+      console.error(
+        `✗ ${file}\n  module "${parsed.data.module}" 不在课程大纲（modules.ts）中`,
+      );
       continue;
     }
 

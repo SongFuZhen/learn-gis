@@ -35,15 +35,22 @@ describe("content registry", () => {
   });
 
   it("已上线 + 待上线章节号不重复且连续", () => {
-    const slugs = [...GIS_MODULES, ...PLANNED_MODULES].map((m) => m.slug);
-    expect(new Set(slugs).size).toBe(slugs.length);
-    // 从第一章（00 = 预备章节，01 = 地球与投影）起必须连续、不跳号
-    const first = Number(GIS_MODULES[0]?.slug);
-    expect(GIS_MODULES.map((m) => m.slug)).toEqual(
-      Array.from({ length: GIS_MODULES.length }, (_, i) =>
-        String(first + i).padStart(2, "0"),
-      ),
+    const all = [...GIS_MODULES, ...PLANNED_MODULES].sort((a, b) =>
+      a.slug.localeCompare(b.slug),
     );
+    const slugs = all.map((m) => m.slug);
+    expect(new Set(slugs).size).toBe(slugs.length);
+    // 全部章节（含规划中）从 00 起必须连续、不跳号
+    expect(slugs).toEqual(
+      Array.from({ length: all.length }, (_, i) => String(i).padStart(2, "0")),
+    );
+  });
+
+  it("已上线章节号在合并序列中递增", () => {
+    // 已上线章节的相对顺序 = 课程顺序，重排章节时不得打乱
+    const delivered = GIS_MODULES.map((m) => Number(m.slug));
+    const sorted = [...delivered].sort((a, b) => a - b);
+    expect(delivered).toEqual(sorted);
   });
 
   it("题目 id 前缀与所属章节一致", () => {

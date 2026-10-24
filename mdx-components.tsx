@@ -2,6 +2,8 @@ import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import EmbedMap from "@/components/EmbedMap";
 import Callout from "@/components/mdx/Callout";
+import Exercise, { ExerciseSolution } from "@/components/mdx/Exercise";
+import ProjPlayground from "@/components/mdx/ProjPlayground";
 import { headingId, nodeText } from "@/lib/toc";
 
 /**
@@ -12,8 +14,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
   return {
     // 讲义里可写 <MapExample lat={39.9} lng={116.4} label="北京" /> 内嵌地图
     MapExample: EmbedMap,
-    // 提示块：<Callout type="warn" title="…">内容</Callout>，type 可选 info | warn | tip | example
+    // 提示块：<Callout type="warn" title="…">内容</Callout>，type 可选 info | warn | tip | example | must
     Callout,
+    // 实操练习块：<Exercise tool="gdal" title="…">描述 <ExerciseSolution>答案</ExerciseSolution></Exercise>
+    Exercise,
+    ExerciseSolution,
+    // 浏览器内 proj4 重投影实验台（客户端组件，仅 01/03 章使用）
+    ProjPlayground,
     // h2 自动带锚点 id，供侧栏「本章目录」跳转
     h2: ({ children, ...props }) => (
       <h2 id={headingId(nodeText(children))} {...props}>

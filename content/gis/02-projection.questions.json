@@ -1,7 +1,7 @@
 {
   "skill": "gis",
   "module": "02",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "gis-02-004",
@@ -245,9 +245,20 @@
       "id": "gis-02-201",
       "skill": "gis",
       "module": "02",
-      "type": "single",
       "difficulty": 2,
       "stem": "在 Web 墨卡托（EPSG:3857）地图上直接量取一块区域的面积，最容易出现什么问题？",
+      "explanation": "Web 墨卡托的经线方向放大率是 1/cos φ，面积放大约 1/cos²φ。高纬度（如北欧、加拿大）在图上被显著放大，直接在 3857 上量面积会得到偏大的结果。量面积应回到球面（geography）或等积投影上。",
+      "refs": [
+        {
+          "title": "EPSG:3857 Web 墨卡托",
+          "url": "https://epsg.io/3857"
+        },
+        {
+          "title": "墨卡托投影",
+          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -271,26 +282,26 @@
       ],
       "answer": [
         "B"
-      ],
-      "explanation": "Web 墨卡托的经线方向放大率是 1/cos φ，面积放大约 1/cos²φ。高纬度（如北欧、加拿大）在图上被显著放大，直接在 3857 上量面积会得到偏大的结果。量面积应回到球面（geography）或等积投影上。",
-      "refs": [
-        {
-          "title": "EPSG:3857 Web 墨卡托",
-          "url": "https://epsg.io/3857"
-        },
-        {
-          "title": "墨卡托投影",
-          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
-        }
       ]
     },
     {
       "id": "gis-02-202",
       "skill": "gis",
       "module": "02",
-      "type": "single",
       "difficulty": 2,
       "stem": "制作一幅用于比较各国国土面积的世界专题地图，最应选用哪类投影？",
+      "explanation": "比较面积必须用等积（equal-area）投影，保证图上面积与实地面积成正比。用等角的墨卡托做面积对比会夸大高纬度国家——格陵兰看起来像非洲一样大就是经典反例。",
+      "refs": [
+        {
+          "title": "USGS《Map Projections — A Working Manual》",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "墨卡托投影",
+          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
+        }
+      ],
+      "type": "single",
       "options": [
         {
           "key": "A",
@@ -314,30 +325,14 @@
       ],
       "answer": [
         "B"
-      ],
-      "explanation": "比较面积必须用等积（equal-area）投影，保证图上面积与实地面积成正比。用等角的墨卡托做面积对比会夸大高纬度国家——格陵兰看起来像非洲一样大就是经典反例。",
-      "refs": [
-        {
-          "title": "USGS《Map Projections — A Working Manual》",
-          "url": "https://pubs.usgs.gov/publication/pp1395"
-        },
-        {
-          "title": "墨卡托投影",
-          "url": "https://en.wikipedia.org/wiki/Mercator_projection"
-        }
       ]
     },
     {
       "id": "gis-02-203",
       "skill": "gis",
       "module": "02",
-      "type": "numeric",
       "difficulty": 2,
       "stem": "Web 墨卡托的经线方向长度放大率为 1/cos φ。在北纬 60° 处，图上量得的一段 100 km 直线，实际地面距离约是多少千米？（cos60°=0.5，填整数）",
-      "answer": 50,
-      "tolerance": 1,
-      "unit": "km",
-      "placeholder": "填整数，单位 km",
       "explanation": "放大率 1/cos60° = 2，即图上距离是实际的 2 倍。所以实际距离 = 图上 100 km ÷ 2 = 50 km。这正是高纬度在 Web 墨卡托上被「拉大」的直接后果。",
       "refs": [
         {
@@ -348,32 +343,35 @@
           "title": "墨卡托投影",
           "url": "https://en.wikipedia.org/wiki/Mercator_projection"
         }
-      ]
+      ],
+      "type": "numeric",
+      "answer": 50,
+      "tolerance": 1,
+      "unit": "km",
+      "placeholder": "填整数，单位 km"
     },
     {
       "id": "gis-02-204",
       "skill": "gis",
       "module": "02",
-      "type": "truefalse",
       "difficulty": 1,
       "stem": "Web 墨卡托把地球当作正球体（而非椭球）来计算，这是它严格精确的原因之一。",
-      "answer": false,
       "explanation": "说反了。Web 墨卡托确实把地球当成半径 6378137 m 的正球体来做墨卡托，但这恰恰是它「不严格」的地方——和椭球墨卡托相比有几十米级偏差。这么做是为了瓦片金字塔换算简单、渲染快，牺牲精度换效率。",
       "refs": [
         {
           "title": "EPSG:3857 Web 墨卡托",
           "url": "https://epsg.io/3857"
         }
-      ]
+      ],
+      "type": "truefalse",
+      "answer": false
     },
     {
       "id": "gis-02-205",
       "skill": "gis",
       "module": "02",
-      "type": "truefalse",
       "difficulty": 2,
       "stem": "墨卡托投影是等角投影，因此在这类图上任意两点间量得的距离都等于实地距离。",
-      "answer": false,
       "explanation": "等角只保证角度和局部形状不变，并不保距离。墨卡托图上两点间距离会随纬度变化而失真，高纬度被明显放大。要等距需用等距投影。",
       "refs": [
         {
@@ -384,28 +382,3022 @@
           "title": "USGS《Map Projections — A Working Manual》",
           "url": "https://pubs.usgs.gov/publication/pp1395"
         }
-      ]
+      ],
+      "type": "truefalse",
+      "answer": false
     },
     {
       "id": "gis-02-206",
       "skill": "gis",
       "module": "02",
-      "type": "short",
       "difficulty": 1,
       "stem": "Web 墨卡托对应的 EPSG 代号是多少？（填数字即可）",
-      "accepted": [
-        "3857",
-        "EPSG:3857",
-        "epsg:3857"
-      ],
-      "placeholder": "3857",
       "explanation": "Web 墨卡托的标准代号是 EPSG:3857（旧称 900913）。它和 EPSG:4326（经纬度，单位度）是前端最常见的两个代号，3857 单位是米。",
       "refs": [
         {
           "title": "EPSG:3857 Web 墨卡托",
           "url": "https://epsg.io/3857"
         }
+      ],
+      "type": "short",
+      "accepted": [
+        "3857",
+        "EPSG:3857",
+        "epsg:3857"
+      ],
+      "placeholder": "3857"
+    },
+    {
+      "id": "gis-02-207",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "等积投影上量出的面积可直接用于国土面积统计。",
+      "explanation": "等积投影的定义就是保证图上面积与实地面积成固定比例（前提是投影覆盖范围选对了）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-208",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "拿 Web 墨卡托世界地图比较两国国土大小是可靠的做法。",
+      "explanation": "3857 保角不保积，高纬面积被放大数倍，比面积必须用等积投影。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-209",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "等角投影在任意小的范围内局部形状不变形。",
+      "explanation": "等角的定义：任意点邻域内角度（局部形状）保真，Tissot 指示圆保持圆形。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-210",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "一张地图可以同时做到等角且等积。",
+      "explanation": "等角与等积在数学上不可兼得（个别点/线除外），这是投影取舍的核心。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-211",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影属于圆锥投影家族。",
+      "explanation": "墨卡托是（正轴）等角圆柱投影，构造面是圆柱，不是圆锥。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-212",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Albers 投影是等积圆锥投影，常用于中纬度国家的专题统计图。",
+      "explanation": "Albers 用两条标准纬线相割、保面积，中国全图、美国全国图的专题图常用它。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-213",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "方位投影的变形随着离切点距离增大而增大。",
+      "explanation": "方位投影在切点附近变形最小，越远越差。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-214",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "相割（两条标准线）的投影通常比相切的投影整体变形更均匀。",
+      "explanation": "割投影把变形分摊到两条标准线之间的区域，最大变形值更小。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-215",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "UTM 是横轴等角圆柱投影族，全球分 60 带。",
+      "explanation": "横放的等角圆柱，每带 6°，中央经线比例因子 0.9996。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-216",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Web 墨卡托把地球当正球处理，与严格椭球墨卡托有几十米级偏差。",
+      "explanation": "正球近似换来瓦片换算简单快速，代价是几十米级系统偏差，显示无碍、精密测量不行。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-217",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "EPSG:3857 平面坐标 x、y 的范围都在 ±20037508.34 m 以内。",
+      "explanation": "全球正方形的半边长 = πR ≈ 20 037 508.34 m。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-218",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "在 Web 墨卡托图上，纬度 60° 处的线段长度被放大约 2 倍。",
+      "explanation": "经线放大率 = 1/cos60° = 2，纬线方向同倍放大。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-219",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "恒向线（等方位角航线）是两点之间的最短航线。",
+      "explanation": "最短航线是大圆航线；恒向线只是方位角恒定、在墨卡托图上是直线，便于导航但不是最短。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-220",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "等距投影能保证图上任意两点间的距离都不失真。",
+      "explanation": "等距（如方位等距）只保证从中心点向外的距离不失真，任意两点间距离仍会变形。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-221",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Mollweide 是一种等积世界投影。",
+      "explanation": "Mollweide 保面积，常见于需要全球比面积的专题图（气候、人口分布）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-222",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "墨卡托投影诞生于 16 世纪，最初的目的就是航海导航。",
+      "explanation": "1569 年墨卡托发表该投影，恒向线为直线是它统治航海图数百年的原因。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-223",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Gall-Peters 投影通过保形状纠正了墨卡托的面积夸大。",
+      "explanation": "Gall-Peters 保的是面积，形状反而被压扁；没有任何投影能同时保两者。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-224",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "所有世界地图都应该换成等积投影才算『正确』。",
+      "explanation": "用途决定投影：航海要等角，面积统计要等积，折衷展示用折衷投影，没有绝对正确。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-225",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "同一投影家族的成员，变形最小的区域位置也相同。",
+      "explanation": "家族只决定构造面；变形最小处还取决于姿态（正轴/横轴/斜轴）与切、割方式。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-226",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "纬度 0°（赤道）处墨卡托的面积放大率是 1。",
+      "explanation": "1/cos²0° = 1，赤道是正轴墨卡托的无变形线。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-227",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Web 墨卡托把纬度裁到约 ±85.05°，是因为极点处 y 值趋于无穷。",
+      "explanation": "y = R·ln(tan(π/4+φ/2))，φ→90° 时 y→∞，正方形图幅必然裁掉极区。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-228",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "等角投影中，图上任意两条相交线的夹角等于实地对应夹角。",
+      "explanation": "这正是等角的定义，导航、气象风向图依赖这一性质。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-229",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "高斯-克吕格与 UTM 的主要区别之一是中央经线比例因子（1 与 0.9996）。",
+      "explanation": "高斯-克吕格中央经线长度比为 1；UTM 人为缩到 0.9996 把带内变形摊匀。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-230",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "EPSG:4326 与 EPSG:3857 都是投影坐标系。",
+      "explanation": "4326 是地理坐标系（度），3857 才是投影坐标系（米）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-02-231",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "投影变换在数学上是可逆的：正投影与反投影可以互相还原。",
+      "explanation": "给定投影定义，平面坐标与球面坐标可互推，这正是 GIS 重投影的基础。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-232",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Tissot 指示圆在任何等角投影中保持圆形（大小可以变化）。",
+      "explanation": "等角 = 局部圆不变形状（半径可变）；等积投影的 Tissot 圆面积不变但形状变。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-02-233",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "要画一张以极点为中心的极地科考站分布图，最合适的投影家族是？",
+      "explanation": "方位投影在切点附近变形最小，极地是它的主场；圆柱/圆锥在极区变形剧烈。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "方位投影"
+        },
+        {
+          "key": "B",
+          "text": "圆锥投影"
+        },
+        {
+          "key": "C",
+          "text": "正轴圆柱投影"
+        },
+        {
+          "key": "D",
+          "text": "球面投影不存在"
+        }
+      ],
+      "answer": [
+        "A"
       ]
+    },
+    {
+      "id": "gis-02-234",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "联合国会徽以北极为中心、从中心向四周距离与方向都保真，它使用的是？",
+      "explanation": "方位等距（Azimuthal Equidistant）从中心向任意方向距离、方向均保真，会徽即以北极为中心。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "墨卡托投影"
+        },
+        {
+          "key": "B",
+          "text": "方位等距投影"
+        },
+        {
+          "key": "C",
+          "text": "Albers 等积圆锥"
+        },
+        {
+          "key": "D",
+          "text": "Mollweide 投影"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-235",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "为全国土地利用统计图（要看各省份面积对比）选投影，中国全图最合适的是？",
+      "explanation": "中纬度 + 保面积需求 → Albers 等积圆锥（两条标准纬线割）是标准答案。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Web 墨卡托"
+        },
+        {
+          "key": "B",
+          "text": "Albers 等积圆锥"
+        },
+        {
+          "key": "C",
+          "text": "方位等距"
+        },
+        {
+          "key": "D",
+          "text": "恒向线投影"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-236",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "水手沿固定罗盘方位角航行，图上航线是直线即可用，这张海图应选？",
+      "explanation": "等角圆柱（墨卡托）上恒向线为直线，这是它统治航海图的原因。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "墨卡托"
+        },
+        {
+          "key": "B",
+          "text": "Mollweide"
+        },
+        {
+          "key": "C",
+          "text": "Albers"
+        },
+        {
+          "key": "D",
+          "text": "正射方位"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-02-237",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Google Maps、OpenStreetMap、高德的 Web 底图统一使用的坐标系是？",
+      "explanation": "Web 墨卡托 EPSG:3857：等角、正方形全球平铺、瓦片换算简单。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "EPSG:4326"
+        },
+        {
+          "key": "B",
+          "text": "EPSG:3857"
+        },
+        {
+          "key": "C",
+          "text": "EPSG:32650"
+        },
+        {
+          "key": "D",
+          "text": "EPSG:4490"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-238",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "要画一张『各国真实面积对比』的世界地图，最合适的是？",
+      "explanation": "比面积必须等积；Mollweide/Gall-Peters 是常用的等积世界投影。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Web 墨卡托"
+        },
+        {
+          "key": "B",
+          "text": "等角圆锥投影"
+        },
+        {
+          "key": "C",
+          "text": "Mollweide 等积世界投影"
+        },
+        {
+          "key": "D",
+          "text": "任意投影都行"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-239",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "纬度 60° 处，墨卡托投影的经线方向放大率是？",
+      "explanation": "1/cos60° = 2；面积则是 2² = 4 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1.15 倍"
+        },
+        {
+          "key": "B",
+          "text": "1.41 倍"
+        },
+        {
+          "key": "C",
+          "text": "2 倍"
+        },
+        {
+          "key": "D",
+          "text": "4 倍"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-240",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影面积放大率的公式是？",
+      "explanation": "经、纬线方向各放大 1/cos φ，面积按平方 = 1/cos² φ（北纬 70° 约 8.5 倍）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1/cos φ"
+        },
+        {
+          "key": "B",
+          "text": "1/cos² φ"
+        },
+        {
+          "key": "C",
+          "text": "cos φ"
+        },
+        {
+          "key": "D",
+          "text": "1/sin φ"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-241",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "恒向线在墨卡托图上的形状是？",
+      "explanation": "恒向线（等方位角航线）在墨卡托图上是直线；大圆航线在图上反而是曲线。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "直线"
+        },
+        {
+          "key": "B",
+          "text": "圆弧"
+        },
+        {
+          "key": "C",
+          "text": "双曲线"
+        },
+        {
+          "key": "D",
+          "text": "螺旋线"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-02-242",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "两点之间实地最短的大圆航线，在墨卡托图上表现为？",
+      "explanation": "大圆航线在墨卡托图上是弯向高纬的曲线；图上直线是恒向线（实地更短的是大圆）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "直线"
+        },
+        {
+          "key": "B",
+          "text": "凸向极地的曲线"
+        },
+        {
+          "key": "C",
+          "text": "圆"
+        },
+        {
+          "key": "D",
+          "text": "无法表示"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-243",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Web 墨卡托计算瓦片坐标时使用的地球模型是？",
+      "explanation": "3857 把地球当半径 6 378 137 m 的正球，换来整数化的瓦片换算。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "WGS84 椭球"
+        },
+        {
+          "key": "B",
+          "text": "克氏椭球"
+        },
+        {
+          "key": "C",
+          "text": "半径 6 378 137 m 的正球"
+        },
+        {
+          "key": "D",
+          "text": "大地水准面"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-244",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "EPSG:4326 与 EPSG:3857 的坐标单位分别是？",
+      "explanation": "4326 是地理坐标系（度），3857 是投影坐标系（米）。先看单位再喂地图库。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "米 / 米"
+        },
+        {
+          "key": "B",
+          "text": "度 / 度"
+        },
+        {
+          "key": "C",
+          "text": "度 / 米"
+        },
+        {
+          "key": "D",
+          "text": "米 / 度"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-245",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "『格陵兰看起来和非洲差不多大』这一错觉出现在哪类投影上？",
+      "explanation": "墨卡托高纬面积急剧放大：格陵兰 216 万 km² 被画得接近 3022 万 km² 的非洲。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "等积世界投影"
+        },
+        {
+          "key": "B",
+          "text": "等角圆柱（墨卡托类）"
+        },
+        {
+          "key": "C",
+          "text": "方位等距投影"
+        },
+        {
+          "key": "D",
+          "text": "圆锥投影"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-246",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "横轴圆柱投影（如高斯-克吕格）中变形最小的位置是？",
+      "explanation": "横轴圆柱与地球相切于中央经线，该线（及附近）变形最小。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "赤道全线"
+        },
+        {
+          "key": "B",
+          "text": "中央经线附近"
+        },
+        {
+          "key": "C",
+          "text": "两条标准纬线"
+        },
+        {
+          "key": "D",
+          "text": "极点"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-247",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "圆锥投影的两条标准纬线通常选在哪里？",
+      "explanation": "标准纬线选在制图区域中部，让变形在区域内分摊最均匀。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "赤道两侧对称"
+        },
+        {
+          "key": "B",
+          "text": "制图区域中部横穿的两条纬线"
+        },
+        {
+          "key": "C",
+          "text": "区域的南北边界上"
+        },
+        {
+          "key": "D",
+          "text": "任意位置无影响"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-248",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "以下哪一项不是投影的三种构造面之一？",
+      "explanation": "可展开的构造面是圆柱、圆锥、平面三种；椭球面正是要被展平的对象。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "圆柱"
+        },
+        {
+          "key": "B",
+          "text": "圆锥"
+        },
+        {
+          "key": "C",
+          "text": "平面（方位）"
+        },
+        {
+          "key": "D",
+          "text": "椭球面"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-02-249",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "『任何投影必然产生变形』的数学根源是？",
+      "explanation": "高斯『绝妙定理』：曲率不同的曲面无法等长对应，球面铺平必裂开或拉伸。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "地球半径太大"
+        },
+        {
+          "key": "B",
+          "text": "球面高斯曲率非零、平面曲率为零"
+        },
+        {
+          "key": "C",
+          "text": "经纬线不正交"
+        },
+        {
+          "key": "D",
+          "text": "计算机精度有限"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-250",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Web 墨卡托被互联网选作底图的根本原因是？",
+      "explanation": "3857 是为前端快速拼图设计的：正方形 × 等角 × 整数瓦片运算，不是为了测量精度。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "面积失真最小"
+        },
+        {
+          "key": "B",
+          "text": "全球正方形平铺、等角、瓦片换算简单快速"
+        },
+        {
+          "key": "C",
+          "text": "测量精确度最高"
+        },
+        {
+          "key": "D",
+          "text": "高程信息丰富"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-251",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在 EPSG:3857 的图上做面积统计，正确做法是？",
+      "explanation": "3857 保角不保积；应重投影到等积 CRS（如 Albers）再量算，或用椭球测地面积。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "直接用坐标差算，结果可靠"
+        },
+        {
+          "key": "B",
+          "text": "先把数据转到等积投影再算，或用测地面积算法"
+        },
+        {
+          "key": "C",
+          "text": "除以 cos φ 修正即可"
+        },
+        {
+          "key": "D",
+          "text": "3857 本身就是等积投影"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-252",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影中，极点（纬度 ±90°）的表现是？",
+      "explanation": "y = R·ln(tan(π/4+φ/2))，φ→90° 时发散到无穷，所以 3857 裁到 ±85.05°。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "正常显示在图幅边缘"
+        },
+        {
+          "key": "B",
+          "text": "y 值趋于无穷，图上无法表示"
+        },
+        {
+          "key": "C",
+          "text": "投影到图幅中心"
+        },
+        {
+          "key": "D",
+          "text": "与赤道重合"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-253",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Web 墨卡托图幅实际覆盖的纬度范围约为？",
+      "explanation": "y = ±πR 对应 φ ≈ ±85.0511°，正方形边长决定了这个裁剪线。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "±90°"
+        },
+        {
+          "key": "B",
+          "text": "±85.05°"
+        },
+        {
+          "key": "C",
+          "text": "±80°"
+        },
+        {
+          "key": "D",
+          "text": "±75°"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-254",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "高斯-克吕格投影中央经线的长度比是？",
+      "explanation": "高斯-克吕格中央经线长度比恒为 1（UTM 人为取 0.9996）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "0.9996"
+        },
+        {
+          "key": "B",
+          "text": "1"
+        },
+        {
+          "key": "C",
+          "text": "0.999"
+        },
+        {
+          "key": "D",
+          "text": "1.0005"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-255",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "『投影』与『坐标参考系（CRS）』的关系是？",
+      "explanation": "完整 CRS 由基准面、投影方法与参数、单位、轴序共同定义，投影只是其中一环（详见第 03 章）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "两者同义"
+        },
+        {
+          "key": "B",
+          "text": "投影方法是 CRS 的组成部分（CRS = 基准 + 投影 + 单位/轴序等）"
+        },
+        {
+          "key": "C",
+          "text": "CRS 是投影的一种参数"
+        },
+        {
+          "key": "D",
+          "text": "互不相关"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-256",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "『这张图没有做投影』这种说法的问题在于？",
+      "explanation": "只要把球面点画到平面上就发生了投影；『没做投影』通常指没声明 CRS，不代表没有变形。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "完全成立，数据可以不投影"
+        },
+        {
+          "key": "B",
+          "text": "屏幕/纸张本身是平面，任何显示都已经是某种投影"
+        },
+        {
+          "key": "C",
+          "text": "只有纸质地图才有投影"
+        },
+        {
+          "key": "D",
+          "text": "经纬度数据天然没有变形"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-257",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "方位等距投影最重要的保真性质是？",
+      "explanation": "方位等距只保『中心 → 任意点』的距离和方位，这正是航线图、会徽选它的原因。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "任意两点距离保真"
+        },
+        {
+          "key": "B",
+          "text": "从中心点向外的距离与方向保真"
+        },
+        {
+          "key": "C",
+          "text": "面积保真"
+        },
+        {
+          "key": "D",
+          "text": "形状保真"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-258",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "用等角投影制作人口密度专题图，主要后果是？",
+      "explanation": "专题统计图『看面积』，等角投影面积失真会直接污染视觉对比结论。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "角度失真"
+        },
+        {
+          "key": "B",
+          "text": "面积失真，密度结论可能被误读"
+        },
+        {
+          "key": "C",
+          "text": "颜色失真"
+        },
+        {
+          "key": "D",
+          "text": "没有后果，等角最好"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-259",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "割投影相比切投影的核心优势是？",
+      "explanation": "两条标准线之间的区域被『压』、之外被『拉』，整体最大失真下降。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "完全没有变形"
+        },
+        {
+          "key": "B",
+          "text": "最大变形值更小、分布更均匀"
+        },
+        {
+          "key": "C",
+          "text": "计算更快"
+        },
+        {
+          "key": "D",
+          "text": "不需要基准面"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-260",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "纬度 30° 处墨卡托的经线放大率约为？",
+      "explanation": "1/cos30° ≈ 1.155——中低纬放大温和，高纬才急剧。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1.02"
+        },
+        {
+          "key": "B",
+          "text": "1.15"
+        },
+        {
+          "key": "C",
+          "text": "1.41"
+        },
+        {
+          "key": "D",
+          "text": "2.0"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-261",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "下列哪张图最适合用等角投影？",
+      "explanation": "导航要角度/方向正确，等角是刚需；其余三张都在『比面积』，应选等积。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "各国国土面积对比图"
+        },
+        {
+          "key": "B",
+          "text": "航海导航图"
+        },
+        {
+          "key": "C",
+          "text": "人口密度专题图"
+        },
+        {
+          "key": "D",
+          "text": "土地利用统计图"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-262",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "在墨卡托图上，纬线之间的间距从赤道向高纬度如何变化？",
+      "explanation": "经线放大率 1/cos φ 随纬度增大，纬线间距被拉伸得越来越宽——这正是面积夸大的直观来源。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "越来越密"
+        },
+        {
+          "key": "B",
+          "text": "保持相等"
+        },
+        {
+          "key": "C",
+          "text": "越来越疏"
+        },
+        {
+          "key": "D",
+          "text": "先密后疏"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-263",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Web 墨卡托（等角圆柱）在北纬 30° 的经线方向放大率是多少？（保留 3 位小数）",
+      "explanation": "放大率 = 1/cos30° ≈ 1.155；面积按平方放大。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.155,
+      "tolerance": 0.02
+    },
+    {
+      "id": "gis-02-264",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Web 墨卡托（等角圆柱）在北纬 45° 的经线方向放大率是多少？（保留 3 位小数）",
+      "explanation": "放大率 = 1/cos45° ≈ 1.414；面积按平方放大。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.414,
+      "tolerance": 0.02
+    },
+    {
+      "id": "gis-02-265",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Web 墨卡托（等角圆柱）在北纬 60° 的经线方向放大率是多少？（保留 3 位小数）",
+      "explanation": "放大率 = 1/cos60° ≈ 2；面积按平方放大。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0.02
+    },
+    {
+      "id": "gis-02-266",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Web 墨卡托（等角圆柱）在北纬 70° 的经线方向放大率是多少？（保留 3 位小数）",
+      "explanation": "放大率 = 1/cos70° ≈ 2.924；面积按平方放大。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2.924,
+      "tolerance": 0.02
+    },
+    {
+      "id": "gis-02-267",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Web 墨卡托（等角圆柱）在北纬 80° 的经线方向放大率是多少？（保留 3 位小数）",
+      "explanation": "放大率 = 1/cos80° ≈ 5.759；面积按平方放大。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5.759,
+      "tolerance": 0.02
+    },
+    {
+      "id": "gis-02-268",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影在北纬 30° 的面积放大率是多少？（保留 2 位小数）",
+      "explanation": "面积放大率 = 1/cos²30° ≈ 1.33，即图上面积被夸大约 1.33 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.33,
+      "tolerance": 0.06
+    },
+    {
+      "id": "gis-02-269",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影在北纬 45° 的面积放大率是多少？（保留 2 位小数）",
+      "explanation": "面积放大率 = 1/cos²45° ≈ 2，即图上面积被夸大约 2 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0.06
+    },
+    {
+      "id": "gis-02-270",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影在北纬 60° 的面积放大率是多少？（保留 2 位小数）",
+      "explanation": "面积放大率 = 1/cos²60° ≈ 4，即图上面积被夸大约 4 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0.1
+    },
+    {
+      "id": "gis-02-271",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "墨卡托投影在北纬 70° 的面积放大率是多少？（保留 2 位小数）",
+      "explanation": "面积放大率 = 1/cos²70° ≈ 8.55，即图上面积被夸大约 8.55 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        },
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8.55,
+      "tolerance": 0.3
+    },
+    {
+      "id": "gis-02-272",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Web 墨卡托全球正方形的半边长是多少米？（取 πR，R = 6 378 137 m，四舍五入到百位）",
+      "explanation": "半边长 = πR = 3.14159265 × 6 378 137 ≈ 20 037 508 m，即 EPSG:3857 的 x/y 极值。",
+      "refs": [
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 20037500,
+      "tolerance": 200
+    },
+    {
+      "id": "gis-02-273",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "把东经 116.4° 投到 Web 墨卡托，x 坐标是多少米？（x = R·λ，四舍五入到百位）",
+      "explanation": "x = 6 378 137 × 116.4°×π/180 ≈ 12 957 600 m——3857 用米做单位，别再当经纬度用。",
+      "refs": [
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12957600,
+      "tolerance": 1000
+    },
+    {
+      "id": "gis-02-274",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "把北纬 39.9° 投到 Web 墨卡托，y 坐标是多少米？（y = R·ln tan(π/4+φ/2)，四舍五入到千位）",
+      "explanation": "y ≈ 4 850 000 m。北京在 3857 下约 (12 957 600, 4 850 000)，与经纬度 (116.4, 39.9) 数值完全不同。",
+      "refs": [
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4851000,
+      "tolerance": 5000
+    },
+    {
+      "id": "gis-02-275",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Web 墨卡托图幅的纬度边界约是 ± 多少度？（保留 2 位小数，对应 y = ±πR）",
+      "explanation": "解 R·ln tan(π/4+φ/2) = πR 得 φ ≈ 85.0511°，极区因此被裁掉。",
+      "refs": [
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "numeric",
+      "answer": 85.05,
+      "tolerance": 0.1
+    },
+    {
+      "id": "gis-02-276",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "在墨卡托图上，北纬 60° 处实地 100 km 的南北向线段，按该纬度局部比例量出的图上长度相当于赤道处多少 km？",
+      "explanation": "经线放大率 = 1/cos60° = 2，图上占 200 km 的赤道等值长度——高纬被『拉长』的直接体现。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 200,
+      "tolerance": 4
+    },
+    {
+      "id": "gis-02-277",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "以下哪些是等角投影？",
+      "explanation": "墨卡托与 UTM 都属等角圆柱族；Albers、Mollweide 是等积投影。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "墨卡托"
+        },
+        {
+          "key": "B",
+          "text": "UTM（横轴等角圆柱）"
+        },
+        {
+          "key": "C",
+          "text": "Albers 等积圆锥"
+        },
+        {
+          "key": "D",
+          "text": "Mollweide"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-278",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "以下哪些是等积投影？",
+      "explanation": "三个都是等积投影；3857 是等角投影，面积失真严重。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Albers"
+        },
+        {
+          "key": "B",
+          "text": "Mollweide"
+        },
+        {
+          "key": "C",
+          "text": "Gall-Peters"
+        },
+        {
+          "key": "D",
+          "text": "Web 墨卡托"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-279",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 EPSG:3857，下列说法正确的有？",
+      "explanation": "3857 正球近似 + 正方形平铺 + 裁极区；与严格椭球差几十米级，不能用于精密测量。",
+      "refs": [
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把地球当正球处理"
+        },
+        {
+          "key": "B",
+          "text": "全球投影为正方形，x/y ∈ ±20 037 508.34 m"
+        },
+        {
+          "key": "C",
+          "text": "可直接用于精密距离测量"
+        },
+        {
+          "key": "D",
+          "text": "纬度范围约 ±85.05°"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-02-280",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "选择投影时需要考虑的因素包括？",
+      "explanation": "投影选择看用途、区域位置形状与保真目标；数据文件大小与投影无关。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "地图用途（导航/统计/展示）"
+        },
+        {
+          "key": "B",
+          "text": "制图区域所在的纬度带与形状"
+        },
+        {
+          "key": "C",
+          "text": "保真目标（等角/等积/等距）"
+        },
+        {
+          "key": "D",
+          "text": "数据文件的大小"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-281",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影高纬度失真的表现有？",
+      "explanation": "墨卡托等角——局部角度/形状不失真；赤道是无变形线；A、B 是高纬失真的表现。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "面积被急剧放大"
+        },
+        {
+          "key": "B",
+          "text": "纬线间距向高纬越来越宽"
+        },
+        {
+          "key": "C",
+          "text": "局部角度失真"
+        },
+        {
+          "key": "D",
+          "text": "赤道也被明显放大"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-282",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "方位投影适合的使用场景有？",
+      "explanation": "方位投影以切点为中心向四周展开，极地/半球/中心辐射场景适用；全球比面积应选等积世界投影。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "极地地图"
+        },
+        {
+          "key": "B",
+          "text": "半球图"
+        },
+        {
+          "key": "C",
+          "text": "以某城市为中心的航线辐射图"
+        },
+        {
+          "key": "D",
+          "text": "全球土地面积统计"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-283",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Web 墨卡托为『快速拼图』做了哪些简化？",
+      "explanation": "三个简化都为瓦片整数运算服务；C 与事实相反——它牺牲了测量精度。",
+      "refs": [
+        {
+          "title": "EPSG:3857",
+          "url": "https://epsg.io/3857"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把椭球简化为正球"
+        },
+        {
+          "key": "B",
+          "text": "全球投影成一个正方形"
+        },
+        {
+          "key": "C",
+          "text": "保留了椭球精度用于测量"
+        },
+        {
+          "key": "D",
+          "text": "裁掉 ±85.05° 以外的极区"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-02-284",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于投影变形，下列说法正确的有？",
+      "explanation": "D 违反等角/等积不可兼得定理；其余均为投影学基本结论。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "任何投影都有变形"
+        },
+        {
+          "key": "B",
+          "text": "构造面决定变形最小区域的大致位置"
+        },
+        {
+          "key": "C",
+          "text": "相割比相切的最大变形更小"
+        },
+        {
+          "key": "D",
+          "text": "存在同时等角又等积的实用投影"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-02-285",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于恒向线与大圆航线，正确的有？",
+      "explanation": "最短是大圆；恒向线胜在方位恒定、图上是直线；大圆在墨卡托图上是曲线。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "大圆是实地最短航线"
+        },
+        {
+          "key": "B",
+          "text": "恒向线方位角恒定"
+        },
+        {
+          "key": "C",
+          "text": "恒向线是实地最短航线"
+        },
+        {
+          "key": "D",
+          "text": "大圆在墨卡托图上是直线"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "gis-02-286",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "要制作一张巴西（横跨赤道、大部分在低纬）的森林覆盖面积专题图，你会选哪类保真投影？说明一句理由。",
+      "explanation": "『看面积』的专题图必须等积；巴西横跨赤道，可配等积圆柱或斜轴等积投影。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "等积",
+        "equal-area",
+        "保面积"
+      ],
+      "placeholder": "例：等积投影，因为……"
+    },
+    {
+      "id": "gis-02-287",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "某 App 在 Web 墨卡托底图上统计北极圈内冰川面积，结果比文献大一倍以上，最可能的原因是什么？",
+      "explanation": "3857 等角不保积，高纬面积被放大数倍；应换等积投影（或测地面积）重算。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "面积失真",
+        "墨卡托",
+        "3857",
+        "等角",
+        "投影变形"
+      ]
+    },
+    {
+      "id": "gis-02-288",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "一张以巴黎为中心的欧洲航线辐射图要求『巴黎到各城市的连线方向正确』，应选什么投影？",
+      "explanation": "方位等距投影从中心向外距离与方向均保真，正合『以巴黎为中心』的需求。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "方位",
+        "azimuthal",
+        "方位等距"
+      ]
+    },
+    {
+      "id": "gis-02-289",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "格陵兰与非洲在墨卡托图上看起来差不多大，实际相差约 14 倍。要纠正这个错觉应换用哪类投影？",
+      "explanation": "换等积世界投影（Mollweide/Gall-Peters 等），面积比例恢复真实。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "等积",
+        "equal-area",
+        "Mollweide",
+        "Gall-Peters",
+        "保面积"
+      ]
+    },
+    {
+      "id": "gis-02-290",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "为什么 UTM 把中央经线比例因子设为 0.9996 而不是 1？",
+      "explanation": "让带内中央略缩、边缘略伸，把最大变形摊小，使整带变形更均匀。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "分摊",
+        "摊匀",
+        "减小带边缘",
+        "均匀",
+        "0.9996"
+      ]
+    },
+    {
+      "id": "gis-02-291",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "导航类地图与国土面积统计图分别应该优先保什么？（分别用两个字回答）",
+      "explanation": "导航保角度（等角，方向即路线），统计保面积（等积，视觉即数据）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "角度 面积",
+        "角度、面积",
+        "形状 面积",
+        "等角 等积"
+      ]
+    },
+    {
+      "id": "gis-02-292",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "有人说『Web 墨卡托这么失真，互联网公司都选错了』。请用一句话给出更专业的评价。",
+      "explanation": "3857 是为全球平铺与快速渲染做的工程选型：显示场景合理，但不该被拿去做量算。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "用途",
+        "快速",
+        "瓦片",
+        "拼图",
+        "选型",
+        "合理"
+      ]
+    },
+    {
+      "id": "gis-02-293",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "在正轴等角圆柱投影（墨卡托）中，长度比为 1 的标准纬线是哪一条？",
+      "explanation": "正轴墨卡托的无变形线是赤道，纬度越高压伸越厉害。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "赤道",
+        "equator",
+        "0度",
+        "0°"
+      ]
+    },
+    {
+      "id": "gis-02-294",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "要画一张『北半球夜间灯光』半球图，图面以北极为中心，你会选什么投影？（只答家族名）",
+      "explanation": "半球 + 极点中心 → 方位投影（如极方位等积/等距）。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "方位",
+        "azimuthal",
+        "极方位"
+      ]
+    },
+    {
+      "id": "gis-02-295",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "墨卡托投影恒向线是直线。这句话对航海的价值是什么？",
+      "explanation": "沿图上直线航行即保持罗盘方位角不变，操作简单——这正是墨卡托 1569 年的设计目标。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "罗盘",
+        "方位角",
+        "按直线航行",
+        "不用改向",
+        "等角航线"
+      ]
+    },
+    {
+      "id": "gis-02-296",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "同一份 4326 数据分别在 3857 与等积圆锥底图上叠加显示，目视位置会有明显差异吗？为什么？",
+      "explanation": "会。不同投影对同一球面位置的平面化方式不同，形状/间距目视可感——这是『多图层必须统一 CRS』的原因。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "会",
+        "有差异",
+        "不同投影",
+        "变形不同"
+      ]
+    },
+    {
+      "id": "gis-02-297",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "某省国土厅要用一张图同时展示各市 GDP 与耕地面积对比，应优先保证投影的哪种性质？一句话说明。",
+      "explanation": "两张图都在『比面积/比占比』，等积投影才能让图面比例等于数据比例。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "面积",
+        "等积",
+        "保面积"
+      ]
+    },
+    {
+      "id": "gis-02-298",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在地图上点出『墨卡托面积夸大』最著名的受害者——格陵兰岛（任选岛上一点即可）。",
+      "explanation": "格陵兰位于高纬度，在墨卡托图上被放大数倍，是面积失真的标志性案例。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 72,
+        "lng": -41
+      },
+      "toleranceKm": 1200
+    },
+    {
+      "id": "gis-02-299",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "点出刚果盆地（赤道附近，墨卡托变形接近 0 的地区）。",
+      "explanation": "赤道是墨卡托的无变形线，刚果盆地正处于其上。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -0.5,
+        "lng": 22.5
+      },
+      "toleranceKm": 900
+    },
+    {
+      "id": "gis-02-300",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "点出赤道上的城市基多（厄瓜多尔首都）——墨卡托在此几乎无放大。",
+      "explanation": "基多纬度≈0°，1/cos²φ≈1。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -0.18,
+        "lng": -78.47
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-02-301",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "点出赤道城市新加坡。",
+      "explanation": "纬度≈1°，墨卡托放大率≈1。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 1.35,
+        "lng": 103.82
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-02-302",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "点出北纬 60° 线上的北欧城市奥斯陆——此处面积已被放大约 4 倍。",
+      "explanation": "挪威奥斯陆纬度约 59.9°，面积放大率 1/cos²60°≈4。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 59.91,
+        "lng": 10.75
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-02-303",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "点出冰岛（雷克雅未克附近）——高纬度失真的又一案例。",
+      "explanation": "冰岛纬度约 64°，面积放大约 5 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 64.15,
+        "lng": -21.94
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-02-304",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "点出斯里兰卡（科伦坡）——低纬度、墨卡托下几乎无失真。",
+      "explanation": "纬度≈7°，放大率≈1.015。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 6.93,
+        "lng": 79.85
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-02-305",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "点出夏威夷檀香山——北纬 21°，放大温和的低纬参考点。",
+      "explanation": "1/cos²21°≈1.15，中低纬放大可忽略。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 21.31,
+        "lng": -157.86
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-02-306",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "点出西伯利亚中部的雅库茨克——高纬失真显著区。",
+      "explanation": "纬度 62°，面积放大约 4.5 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 62.03,
+        "lng": 129.73
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-02-307",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "点出阿拉斯加安克雷奇——『墨卡托让阿拉斯加看起来有半个美国大』的主角。",
+      "explanation": "纬度 61°，面积放大率约 4.3 倍。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 61.22,
+        "lng": -149.9
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-02-308",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "点出乌拉圭蒙得维的亚——南半球中纬度（约 -35°），放大率约 1.5 倍。",
+      "explanation": "1/cos²35°≈1.49。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -34.9,
+        "lng": -56.16
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-02-309",
+      "skill": "gis",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "点出开罗——北纬 30° 线上的参考点，放大率约 1.33。",
+      "explanation": "1/cos²30°≈1.33。",
+      "refs": [
+        {
+          "title": "Map Projections — A Working Manual (USGS)",
+          "url": "https://pubs.usgs.gov/publication/pp1395"
+        },
+        {
+          "title": "map-projections.net",
+          "url": "https://map-projections.net/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.04,
+        "lng": 31.24
+      },
+      "toleranceKm": 300
     }
   ]
 }
