@@ -11,6 +11,7 @@ import gisTools from "./07-gis-tools.questions.json";
 import dataQuality from "./08-data-quality.questions.json";
 import spatialAnalysis from "./09-spatial-analysis.questions.json";
 import terrain from "./10-terrain.questions.json";
+import remoteSensing from "./11-remote-sensing.questions.json";
 import spatialDb from "./12-spatial-db.questions.json";
 import webgis from "./13-webgis.questions.json";
 
@@ -20,7 +21,7 @@ import webgis from "./13-webgis.questions.json";
  * 这里仍然对每道题跑 questionSchema 校验，避免绕过 lib/content.ts 的构建期校验，
  * 让坏数据在模块加载（next build / 首屏渲染）时就抛错而非运行时才炸。
  */
-const RAW_FILES = [geoMath, basics, projection, crsEpsg, vectorRaster, cartography, formatsTiles, gisTools, dataQuality, spatialAnalysis, terrain, spatialDb, webgis];
+const RAW_FILES = [geoMath, basics, projection, crsEpsg, vectorRaster, cartography, formatsTiles, gisTools, dataQuality, spatialAnalysis, terrain, remoteSensing, spatialDb, webgis];
 
 function collectValidated(): Question[] {
   const out: Question[] = [];

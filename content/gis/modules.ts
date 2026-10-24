@@ -93,6 +93,13 @@ export const GIS_MODULES: ModuleMeta[] = [
       "IDW/样条/克里金怎么选、DEM 从哪来、nDSM 减法、坡度坡向山体阴影、水文四步与流域。",
   },
   {
+    slug: "11",
+    file: "11-remote-sensing",
+    title: "遥感基础",
+    summary:
+      "电磁波谱与波谱指纹、四类分辨率、Landsat/Sentinel/高分、NDVI 与假彩色、监督与非监督分类。",
+  },
+  {
     slug: "12",
     file: "12-spatial-db",
     title: "空间运算与空间数据库",
@@ -109,6 +116,4 @@ export const GIS_MODULES: ModuleMeta[] = [
 ];
 
 /** 已规划但尚未交付的章节（全部交付后应为空） */
-export const PLANNED_MODULES: { slug: string; title: string }[] = [
-  { slug: "11", title: "遥感基础" },
-];
+export const PLANNED_MODULES: { slug: string; title: string }[] = [];

@@ -119,12 +119,86 @@ GET /collections/roads/items/{id}
 - 错 2：把 3857 米制坐标当度：116.4° 换算成米约 `116.4 × 111319.49 ≈ 12957589` 米，把它当经度丢给 `L.geoJSON()`，远超 ±180，要素跑到完全错误的位置
 </Callout>
 
-## 6. 性能与踩坑
+## 6. 实战：亲手把地图跑起来
+
+看懂服务只是前半段，前端工程师要的是**能跑的代码**。下面这段完整 HTML，复制存成 map.html 用浏览器打开——一张带标注和 GeoJSON 点的地图就活了（Leaflet CDN + 高德瓦片）。
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style> #map { height: 100vh; } </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    const map = L.map("map").setView([39.9, 116.4], 12); // lat, lng!
+
+    L.tileLayer("https://webrd0{s}.is.autonavi.com/appmaptile?lang=zh_cn&size=1&scale=1&style=7&x={x}&y={y}&z={z}", {
+      subdomains: ["1", "2", "3", "4"],
+      attribution: "© 高德地图",
+      maxZoom: 18,
+    }).addTo(map);
+
+    // GeoJSON 位置顺序是 [经度, 纬度]——和 setView 相反！
+    const poi = { type: "Feature", geometry: { type: "Point", coordinates: [116.4, 39.9] } };
+    L.geoJSON(poi).addTo(map).bindPopup("天安门");
+  </script>
+</body>
+</html>
+```
+
+三个必看细节：
+
+1. `setView` 的参数是 **[纬度, 经度]**，GeoJSON 的 `coordinates` 是 **[经度, 纬度]**——同一个点两种顺序，初学者第一大坑；
+2. 瓦片模板里的 `{z}/{x}/{y}` 占位符由 Leaflet 按当前视野自动填充（第 06 章瓦片矩阵的落地）；
+3. 真实项目里地图库要**按需加载**（动态 `import()`），别让 40 KB 的 Leaflet 挤进首屏 bundle。
+
+<MapExample lat={39.9} lng={116.4} zoom={11} label="本站内嵌的 Leaflet 地图（高德瓦片 + 中文标注）——与你刚写的 map.html 同源同款" />
+
+<Exercise
+  tool="leaflet"
+  title="练习：给 map.html 加第二个城市与折线"
+>
+  在上面的完整 HTML 基础上：
+  1. 把地图视野改为中国全域（`setView([35, 105], 4)`）；
+  2. 添加北京—上海的 Polyline：`L.polyline([[39.9, 116.4], [31.2, 121.5]]).addTo(map)`；
+  3. 预期看到一条横跨两城的线——体会坐标顺序：polyline 与 setView 一样是 lat, lng。
+
+  <ExerciseSolution>
+    ```js
+    const map = L.map("map").setView([35, 105], 4);
+    // ...tileLayer 同上...
+    L.polyline([[39.9, 116.4], [31.2, 121.5]], { color: "red" }).addTo(map);
+    ```
+    注意：GeoJSON coordinates 是 lng, lat；Leaflet 交互 API（setView/polyline/marker）是 lat, lng。
+  </ExerciseSolution>
+</Exercise>
+
+## 7. 性能与踩坑
 
 1. **按需加载**：地图库与瓦片层动态 `import()`，不要进首屏 bundle。
 2. **别把大地图塞进首屏**：底图瓦片懒加载，矢量数据用瓦片。
 3. **CORS**：WMS/WFS 跨域需要服务端 `Access-Control-Allow-Origin`，否则 fetch 失败（图片瓦片能在 `<img>` 显示但污染 canvas）。
 4. **缓存**：瓦片设长 `Cache-Control`，别把 `/tiles/{z}/{x}/{y}` 当成动态接口。
+
+## 8. 延伸：时空数据与三维 GIS
+
+课程收尾，把两块「下一站」的地图留在路标上：
+
+- **时空数据（spatio-temporal）**：轨迹（GPS 轨迹、船舶 AIS）、移动对象数据库、时序栅格堆栈。PostGIS 的 `ST_MakeLine` 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放——『共享单车潮汐』就是时空数据的经典教学案例；
+- **地理编码（geocoding）**：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；
+- **三维 GIS**：3D Tiles（OGC 标准）把倾斜摄影/BIM 切成流式瓦片，CesiumJS / MapLibre GL 负责渲染——数字孪生的数据底座；
+- **数字孪生**：实时 IoT 数据 + 三维底图 + 时空分析，本章到第 12 章的全部知识都在它身上汇合。
+
+<Callout type="must" title="必背 · 收尾三句话">
+- 时空数据 = 空间 + 时间两个维度：轨迹是点的时序，影像堆栈是面的时序
+- 3D Tiles 是三维瓦片的 OGC 标准，CesiumJS 是最主流渲染端
+- 数字孪生 = 三维底图 + 实时数据 + 空间分析——本课程的终点也是新起点
+</Callout>
 
 ## 延伸阅读
 

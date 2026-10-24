@@ -17,6 +17,7 @@ const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "08-data-quality": () => import("./08-data-quality.mdx"),
   "09-spatial-analysis": () => import("./09-spatial-analysis.mdx"),
   "10-terrain": () => import("./10-terrain.mdx"),
+  "11-remote-sensing": () => import("./11-remote-sensing.mdx"),
   "12-spatial-db": () => import("./12-spatial-db.mdx"),
   "13-webgis": () => import("./13-webgis.mdx"),
 };

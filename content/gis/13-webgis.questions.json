@@ -1,7 +1,7 @@
 {
   "skill": "gis",
   "module": "13",
-  "version": 2,
+  "version": 3,
   "questions": [
     {
       "id": "gis-13-001",
@@ -4279,6 +4279,267 @@
         "A",
         "B",
         "C"
+      ]
+    },
+    {
+      "id": "gis-13-135",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 2,
+      "stem": "Leaflet 中 L.map(...).setView([39.9, 116.4], 12) 把地图中心放在？",
+      "explanation": "setView/交互 API 的坐标顺序是 [纬度, 经度]（lat, lng）。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "北纬 39.9°、东经 116.4°（北京附近）"
+        },
+        {
+          "key": "B",
+          "text": "北纬 116.4°、东经 39.9°"
+        },
+        {
+          "key": "C",
+          "text": "南极附近"
+        },
+        {
+          "key": "D",
+          "text": "原点"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-13-136",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 2,
+      "stem": "GeoJSON 中 Point 的 coordinates: [116.4, 39.9] 表示？",
+      "explanation": "GeoJSON（RFC 7946）位置顺序是 [经度, 纬度]——与 Leaflet 交互 API 相反。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "经度 116.4、纬度 39.9"
+        },
+        {
+          "key": "B",
+          "text": "纬度 116.4、经度 39.9"
+        },
+        {
+          "key": "C",
+          "text": "3857 米制坐标"
+        },
+        {
+          "key": "D",
+          "text": "错误写法"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-13-137",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 2,
+      "stem": "下列 Leaflet 表述正确的有？",
+      "explanation": "D 是经典事故：米当度要素飞出地球。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "setView 参数顺序是 [lat, lng]"
+        },
+        {
+          "key": "B",
+          "text": "GeoJSON coordinates 顺序是 [lng, lat]"
+        },
+        {
+          "key": "C",
+          "text": "L.geoJSON() 期望 EPSG:4326"
+        },
+        {
+          "key": "D",
+          "text": "3857 米可以直接当经纬度用"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-13-138",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 2,
+      "stem": "map.html 实战示例里 tileLayer 的关键配置有？",
+      "explanation": "maxZoom 决定能放大到几级，必须设；D 错。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "瓦片 URL 模板含 {x}/{y}/{z} 占位符"
+        },
+        {
+          "key": "B",
+          "text": "subdomains 指定子域轮换"
+        },
+        {
+          "key": "C",
+          "text": "attribution 版权标注"
+        },
+        {
+          "key": "D",
+          "text": "maxZoom 无所谓"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-13-139",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 2,
+      "stem": "Leaflet 交互 API 与 GeoJSON 的经纬度顺序分别是什么？（各用两个字母缩写）",
+      "explanation": "交互 API = [lat, lng]；GeoJSON = [lng, lat]——同一个点两种顺序。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "lat,lng / lng,lat",
+        "latlng 与 lnglat",
+        "纬经 经纬"
+      ]
+    },
+    {
+      "id": "gis-13-140",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 3,
+      "stem": "3D Tiles 是什么？主流渲染库是哪个？",
+      "explanation": "三维瓦片的 OGC 标准；CesiumJS 是最主流的渲染端。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "3d tiles",
+        "三维瓦片",
+        "ogc",
+        "cesium"
+      ]
+    },
+    {
+      "id": "gis-13-141",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 3,
+      "stem": "时空数据中『轨迹』的最简数据形态是什么？（PostGIS 视角一句话）",
+      "explanation": "按时间排序的点序列（ST_MakeLine 可串成线）——轨迹 = 空间 + 时间双维。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "点的时序",
+        "点序列",
+        "makeLine",
+        "按时间排序的点"
+      ]
+    },
+    {
+      "id": "gis-13-142",
+      "skill": "gis",
+      "module": "13",
+      "difficulty": 2,
+      "stem": "数字孪生系统的三大组成是什么？（底图/数据/分析各用一词）",
+      "explanation": "三维底图（3D Tiles）+ 实时数据（IoT）+ 空间分析（前几章全部方法）。",
+      "refs": [
+        {
+          "title": "Leaflet 参考",
+          "url": "https://leafletjs.com/reference.html"
+        },
+        {
+          "title": "MapLibre Style Spec",
+          "url": "https://maplibre.org/maplibre-style-spec/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "三维底图 实时数据 空间分析",
+        "3d tiles iot 分析"
       ]
     }
   ]

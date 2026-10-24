@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { MapContainer, TileLayer, CircleMarker, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { gaodeBase } from "@/lib/mapTiles";
@@ -13,12 +14,19 @@ function ClickCapture({
   onPick: (p: LatLng) => void;
   disabled?: boolean;
 }) {
-  useMapEvents({
+  const map = useMapEvents({
     click(e) {
       if (disabled) return;
       onPick({ lat: e.latlng.lat, lng: e.latlng.lng });
     },
   });
+  // 测试钩子：冒烟脚本用 window.__quizMap 在指定坐标触发 click
+  useEffect(() => {
+    (window as unknown as { __quizMap?: unknown }).__quizMap = map;
+    return () => {
+      delete (window as unknown as { __quizMap?: unknown }).__quizMap;
+    };
+  }, [map]);
   return null;
 }
 

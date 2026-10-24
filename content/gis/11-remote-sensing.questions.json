@@ -1,0 +1,3359 @@
+{
+  "skill": "gis",
+  "module": "11",
+  "version": 3,
+  "questions": [
+    {
+      "id": "gis-11-001",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "健康植被在近红外波段反射强烈，在红光波段吸收强烈。",
+      "explanation": "叶肉结构反射近红外、叶绿素吸收红光——NDVI 的物理基础。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-002",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "水体在近红外波段呈现高反射。",
+      "explanation": "水体强吸收近红外/短波红外，影像上近黑。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-003",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "区分雪与云主要靠短波红外波段。",
+      "explanation": "可见光两者都亮；SWIR 上雪吸收（暗）、云反射（亮）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-004",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "空间分辨率指一个像元代表的地面尺寸。",
+      "explanation": "30 m 空间分辨率 = 一像元盖 30 m × 30 m。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-005",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "光谱分辨率指卫星多久重访一次。",
+      "explanation": "那是时间分辨率；光谱分辨率指波段数与波段宽度。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-006",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "Sentinel-2 双星联合重访周期约 5 天。",
+      "explanation": "A/B 双星 5 天；C 上天后更快。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-007",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "辐射分辨率 12 bit 比一次 8 bit 影像的值分层更细。",
+      "explanation": "12 bit = 4096 级 vs 8 bit = 256 级。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-008",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "空间分辨率越高越好，其余分辨率无所谓。",
+      "explanation": "空间高往往牺牲幅宽与重访；按问题选分辨率。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-009",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "Landsat 系列数据完全免费开放。",
+      "explanation": "USGS 免费开放全部存档（2008 年起政策）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-010",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "高分二号空间分辨率优于 1 m。",
+      "explanation": "全色 0.8 m——中国首颗亚米级民用遥感卫星。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-011",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "NDVI 的值域是 -1 到 1。",
+      "explanation": "(NIR−Red)/(NIR+Red) 数学上界于 [-1, 1]。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-012",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "健康植被的 NDVI 接近 0。",
+      "explanation": "接近 1（如 0.6~0.9）；0 附近是裸地/不透水面。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-013",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "水体的 NDVI 通常是负值或接近 0。",
+      "explanation": "近红外反射低于红光时为负；水体常 -0.1~-0.3。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-014",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "假彩色合成把近红外波段赋给红色显示通道。",
+      "explanation": "标准假彩色（NIR, Red, Green）→ 植被显艳红。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-015",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "真彩色合成用近红外、红、绿三个波段。",
+      "explanation": "真彩色是 R/G/B 三通道（B04/B03/B02）；NIR 进红通道是假彩色。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-016",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "监督分类需要人工先标注训练样本。",
+      "explanation": "监督 = 人给每类的样本 ROI，算法学习后推广全图。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-017",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "非监督分类不需要人事后参与。",
+      "explanation": "算法聚类后，人还要给每个簇命名、合并或剔除。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-018",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "分类结果可以不做精度评估直接交付。",
+      "explanation": "混淆矩阵 + 总体精度是分类图的交付件（ISO 质量维度落地）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-019",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "K-means 是常见的监督分类算法。",
+      "explanation": "K-means 是非监督聚类；监督分类如最大似然、随机森林。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-020",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "多时相 NDVI 相减可以做植被变化检测。",
+      "explanation": "差值为负 = 退化、为正 = 恢复——变化检测基本套路。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-021",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "NDVI 计算要求两个波段先做大气校正/统一处理。",
+      "explanation": "L2A 级（地表反射率）产品更可比；原始 DN 直接算会有系统偏差。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-022",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "高光谱遥感有上百个连续窄波段。",
+      "explanation": "光谱分辨率极高，能识别矿物等精细波谱特征。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-023",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "MODIS 的空间分辨率优于 Landsat。",
+      "explanation": "MODIS 250~1000 m，远粗于 Landsat 30 m；但重访每天。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-024",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "混合像元问题源于一个像元内含多种地物。",
+      "explanation": "分辨率本质约束：30 m 像元横跨屋顶与草地只能给一个值。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-025",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "遥感影像 geoTIFF 通常单波段。",
+      "explanation": "多波段 GeoTIFF 是标配（Sentinel-2 一景 13 波段）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-026",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "NDVI 对所有植被类型同样敏感。",
+      "explanation": "不同植被/发育期 NDVI 范围不同，阈值需按区域校准。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-11-027",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "时序遥感可以揭示物候（季节生长节律）。",
+      "explanation": "逐月合成 NDVI 曲线即物候信号。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-028",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "地理空间数据云等国内镜像可免费获取 Landsat/Sentinel。",
+      "explanation": "国内免费镜像渠道之一，与 USGS/Copernicus 官方入口互为补充。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-11-029",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "NDVI 的计算公式是？",
+      "explanation": "归一化差值：近红外与红光的差比和。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "(NIR − Red) / (NIR + Red)"
+        },
+        {
+          "key": "B",
+          "text": "(Red − NIR) / (Red + NIR)"
+        },
+        {
+          "key": "C",
+          "text": "NIR × Red"
+        },
+        {
+          "key": "D",
+          "text": "NIR / Red"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-030",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "某像元 NIR = 0.5、Red = 0.1，NDVI 是？",
+      "explanation": "(0.5−0.1)/(0.5+0.1) = 0.4/0.6 ≈ 0.667——健康植被。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "0.4"
+        },
+        {
+          "key": "B",
+          "text": "0.667"
+        },
+        {
+          "key": "C",
+          "text": "5"
+        },
+        {
+          "key": "D",
+          "text": "-0.667"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-031",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "健康植被在标准假彩色合成影像上呈什么颜色？",
+      "explanation": "NIR 赋红通道 → 植被红；这是判读的默认起手式。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "艳红"
+        },
+        {
+          "key": "B",
+          "text": "亮绿"
+        },
+        {
+          "key": "C",
+          "text": "黑色"
+        },
+        {
+          "key": "D",
+          "text": "蓝色"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-032",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "标准假彩色合成中，水体通常呈？",
+      "explanation": "水体近红外强吸收 → 合成后暗黑。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "亮白"
+        },
+        {
+          "key": "B",
+          "text": "黑色/深蓝黑"
+        },
+        {
+          "key": "C",
+          "text": "艳红"
+        },
+        {
+          "key": "D",
+          "text": "黄色"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-033",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "区分雪和云应使用哪个波段？",
+      "explanation": "SWIR 上雪吸收（暗）、云反射（亮）——雪云鉴别波段。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "红光"
+        },
+        {
+          "key": "B",
+          "text": "绿光"
+        },
+        {
+          "key": "C",
+          "text": "短波红外（SWIR）"
+        },
+        {
+          "key": "D",
+          "text": "近红外"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-034",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "Sentinel-2 的最佳空间分辨率是？",
+      "explanation": "B02/B03/B04/B08 为 10 m 波段。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "30 m"
+        },
+        {
+          "key": "B",
+          "text": "10 m"
+        },
+        {
+          "key": "C",
+          "text": "1 m"
+        },
+        {
+          "key": "D",
+          "text": "500 m"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-035",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "Landsat 8/9 双星联合重访周期约？",
+      "explanation": "单星 16 天，双星交错 8 天。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 天"
+        },
+        {
+          "key": "B",
+          "text": "8 天"
+        },
+        {
+          "key": "C",
+          "text": "30 天"
+        },
+        {
+          "key": "D",
+          "text": "180 天"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-036",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "MODIS 相比 Landsat 的核心优势是？",
+      "explanation": "250~1000 m 粗但每天全球——大尺度动态监测利器。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "空间分辨率更高"
+        },
+        {
+          "key": "B",
+          "text": "每天重访、幅宽大"
+        },
+        {
+          "key": "C",
+          "text": "波段更少"
+        },
+        {
+          "key": "D",
+          "text": "免费"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-037",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "城市建筑轮廓精细提取（车顶级），应选？",
+      "explanation": "0.8~1 m 级才够精细城市地物。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "MODIS"
+        },
+        {
+          "key": "B",
+          "text": "Landsat"
+        },
+        {
+          "key": "C",
+          "text": "亚米级卫星（高分二号等）"
+        },
+        {
+          "key": "D",
+          "text": "Sentinel-2"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-038",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "『影像分了 4~10 个波段』描述的是哪类分辨率？",
+      "explanation": "波段数量与宽度 = 光谱分辨率；上百连续波段则是高光谱。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "空间"
+        },
+        {
+          "key": "B",
+          "text": "光谱（多光谱级）"
+        },
+        {
+          "key": "C",
+          "text": "时间"
+        },
+        {
+          "key": "D",
+          "text": "辐射"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-039",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "辐射分辨率 8 bit 表示每个像元值有？",
+      "explanation": "2^8 = 256 级；12 bit = 4096 级。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "8 级"
+        },
+        {
+          "key": "B",
+          "text": "64 级"
+        },
+        {
+          "key": "C",
+          "text": "256 级"
+        },
+        {
+          "key": "D",
+          "text": "4096 级"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-040",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "监督分类的第一步是？",
+      "explanation": "监督 = 先教后考；训练样本是『教材』。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "全图自动聚类"
+        },
+        {
+          "key": "B",
+          "text": "为每个类别标注训练样本（ROI）"
+        },
+        {
+          "key": "C",
+          "text": "输出混淆矩阵"
+        },
+        {
+          "key": "D",
+          "text": "计算 NDVI"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-041",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "无先验知识、想快速摸底数据分几类，应选？",
+      "explanation": "非监督自动聚类，人事后命名簇。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "监督分类"
+        },
+        {
+          "key": "B",
+          "text": "非监督分类（K-means/ISODATA）"
+        },
+        {
+          "key": "C",
+          "text": "目视解译全图"
+        },
+        {
+          "key": "D",
+          "text": "不分类"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-042",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "分类图交付的必备件是？",
+      "explanation": "没有精度报告的分类图不可信（第 08 章质量六维）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "配色方案"
+        },
+        {
+          "key": "B",
+          "text": "混淆矩阵与总体精度/Kappa"
+        },
+        {
+          "key": "C",
+          "text": "原始 DN 表"
+        },
+        {
+          "key": "D",
+          "text": "卫星轨道参数"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-043",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "总体精度 85% 的含义是？",
+      "explanation": "验证样本中分类正确数 / 总样本数。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "85% 的类别被正确分类（抽样验证）"
+        },
+        {
+          "key": "B",
+          "text": "85% 像元是植被"
+        },
+        {
+          "key": "C",
+          "text": "卫星 85% 时间在工作"
+        },
+        {
+          "key": "D",
+          "text": "85% 波段有用"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-044",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "监测全国范围的季度植被长势，最合适的数据组合是？",
+      "explanation": "大范围 + 高重访 + NDVI 时序 = 长势监测标配。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "高分二号 + 每月"
+        },
+        {
+          "key": "B",
+          "text": "MODIS/Sentinel-2 NDVI 时序"
+        },
+        {
+          "key": "C",
+          "text": "LiDAR 点云"
+        },
+        {
+          "key": "D",
+          "text": "倾斜摄影"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-045",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "变化检测『两期 NDVI 相减』后差值 -0.4 的像元最可能是？",
+      "explanation": "大幅负差 = 植被覆盖骤降。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "植被恢复"
+        },
+        {
+          "key": "B",
+          "text": "植被锐减（砍伐/火灾）"
+        },
+        {
+          "key": "C",
+          "text": "水体"
+        },
+        {
+          "key": "D",
+          "text": "没变化"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-046",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "混合像元问题的根本缓解手段是？",
+      "explanation": "像元越小，混合概率越低——空间分辨率的本质价值。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "提高空间分辨率"
+        },
+        {
+          "key": "B",
+          "text": "增加辐射位深"
+        },
+        {
+          "key": "C",
+          "text": "延长重访"
+        },
+        {
+          "key": "D",
+          "text": "换投影"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-047",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "10 m 像元代表的地面面积是？",
+      "explanation": "10 × 10 = 100 m²。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "10 m²"
+        },
+        {
+          "key": "B",
+          "text": "100 m²"
+        },
+        {
+          "key": "C",
+          "text": "1000 m²"
+        },
+        {
+          "key": "D",
+          "text": "1 m²"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-048",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "下载的 Sentinel-2 L2A 与 L1C 的关键差别是？",
+      "explanation": "算 NDVI 优先 L2A；L1C 是大气顶反射率。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "L2A 已做大气校正（地表反射率）"
+        },
+        {
+          "key": "B",
+          "text": "L2A 分辨率更高"
+        },
+        {
+          "key": "C",
+          "text": "L2A 波段更少"
+        },
+        {
+          "key": "D",
+          "text": "没有差别"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-049",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "高光谱遥感『高』在哪里？",
+      "explanation": "几十上百窄波段 → 能识别矿物/污染等精细波谱特征。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "轨道高"
+        },
+        {
+          "key": "B",
+          "text": "光谱分辨率：上百连续窄波段"
+        },
+        {
+          "key": "C",
+          "text": "像素更高"
+        },
+        {
+          "key": "D",
+          "text": "价格更高"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-050",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "多波段 GeoTIFF 在 QGIS 里默认只显示一个波段，想看真彩色应？",
+      "explanation": "图层属性 → 符号化 → 渲染类型选『多波段颜色』。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "改多波段颜色渲染（RGB 绑定 B4/B3/B2）"
+        },
+        {
+          "key": "B",
+          "text": "重分类"
+        },
+        {
+          "key": "C",
+          "text": "填洼"
+        },
+        {
+          "key": "D",
+          "text": "矢量化"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-051",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "NDVI 等于 -1 的条件近似是？",
+      "explanation": "(0−R)/(0+R) = −1：红光极强、近红外没有——理论极限。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "NIR 极强反射"
+        },
+        {
+          "key": "B",
+          "text": "Red 极强而 NIR≈0"
+        },
+        {
+          "key": "C",
+          "text": "两者相等"
+        },
+        {
+          "key": "D",
+          "text": "不可能出现"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-052",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "物候研究（植被生长季节节律）最依赖哪类分辨率？",
+      "explanation": "节律 = 时间序列，重访频率是生命线。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "空间分辨率"
+        },
+        {
+          "key": "B",
+          "text": "时间分辨率（高频重访）"
+        },
+        {
+          "key": "C",
+          "text": "辐射分辨率"
+        },
+        {
+          "key": "D",
+          "text": "比例尺"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-053",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "下列哪项不是『按问题选分辨率』的正确表述？",
+      "explanation": "成本/覆盖/重访与分辨率互相制约，永远按需求选。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "全国尺度用 30 m 足够"
+        },
+        {
+          "key": "B",
+          "text": "城市绿地普查用亚米级"
+        },
+        {
+          "key": "C",
+          "text": "全球气候模型用 MODIS 级"
+        },
+        {
+          "key": "D",
+          "text": "所有项目都买最高分辨率"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-11-054",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "Sentinel-2 的 SWIR 波段（B11/B12）分辨率是？",
+      "explanation": "B05-B12 多为 20 m；B01/B09/B10 为 60 m。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "10 m"
+        },
+        {
+          "key": "B",
+          "text": "20 m"
+        },
+        {
+          "key": "C",
+          "text": "30 m"
+        },
+        {
+          "key": "D",
+          "text": "60 m"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-11-055",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "遥感影像上『植被』与『人造草坪』的区分难点属于？",
+      "explanation": "可见光难分；多光谱/时序纹理可辅助——波谱相似性是分类精度杀手。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "光谱相似（同绿）"
+        },
+        {
+          "key": "B",
+          "text": "空间分辨率不足"
+        },
+        {
+          "key": "C",
+          "text": "时间分辨率不足"
+        },
+        {
+          "key": "D",
+          "text": "辐射饱和"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-056",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "给一景影像做监督分类后精度只有 60%，最该先做的是？",
+      "explanation": "样本混类/不足是低精度最常见原因；先改样本再重分类。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "检查训练样本质量与数量"
+        },
+        {
+          "key": "B",
+          "text": "直接交付并注明"
+        },
+        {
+          "key": "C",
+          "text": "换更贵的卫星"
+        },
+        {
+          "key": "D",
+          "text": "把图例去掉"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-057",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "NDVI 属于哪类影像处理？",
+      "explanation": "波段代数：多波段逐像元公式运算。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "波段运算（代数指数）"
+        },
+        {
+          "key": "B",
+          "text": "几何校正"
+        },
+        {
+          "key": "C",
+          "text": "重采样"
+        },
+        {
+          "key": "D",
+          "text": "矢量化"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-058",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "用 NDVI 阈值 0.45 提取『有植被区』属于？",
+      "explanation": "单指数按阈值二分——最简单的密度分割。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "密度分割/阈值分类"
+        },
+        {
+          "key": "B",
+          "text": "监督分类"
+        },
+        {
+          "key": "C",
+          "text": "非监督分类"
+        },
+        {
+          "key": "D",
+          "text": "变化检测"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-059",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "免费获取 Landsat 数据的官方入口是？",
+      "explanation": "USGS EarthExplorer + 地理空间数据云（国内镜像）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "EarthExplorer（USGS）"
+        },
+        {
+          "key": "B",
+          "text": "百度网盘"
+        },
+        {
+          "key": "C",
+          "text": "淘宝"
+        },
+        {
+          "key": "D",
+          "text": "高德开放平台"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-060",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "Sentinel-2 一景多波段数据最常见的交付格式是？",
+      "explanation": "COG GeoTIFF 是云上遥感数据事实标准（第 06 章）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "多波段/分波段 GeoTIFF（COG）"
+        },
+        {
+          "key": "B",
+          "text": "Shapefile"
+        },
+        {
+          "key": "C",
+          "text": "KML"
+        },
+        {
+          "key": "D",
+          "text": "CSV"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-11-061",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "遥感四类分辨率包括？",
+      "explanation": "四个维度各自独立取舍。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "空间分辨率"
+        },
+        {
+          "key": "B",
+          "text": "光谱分辨率"
+        },
+        {
+          "key": "C",
+          "text": "时间分辨率"
+        },
+        {
+          "key": "D",
+          "text": "辐射分辨率"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-11-062",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "健康植被的波谱特征正确的有？",
+      "explanation": "近红外全黑是水体特征；D 错。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "红光强吸收"
+        },
+        {
+          "key": "B",
+          "text": "近红外强反射"
+        },
+        {
+          "key": "C",
+          "text": "NDVI 高"
+        },
+        {
+          "key": "D",
+          "text": "近红外全黑"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-063",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "免费开放的遥感数据源包括？",
+      "explanation": "商业亚米级（WorldView 等）按购买；D 错。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Landsat"
+        },
+        {
+          "key": "B",
+          "text": "Sentinel-2"
+        },
+        {
+          "key": "C",
+          "text": "MODIS"
+        },
+        {
+          "key": "D",
+          "text": "所有商业亚米级卫星"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-064",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "NDVI 的正确表述有？",
+      "explanation": "D 反了：NDVI 是健康植被趋近 1，不是 -1。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "公式 (NIR−Red)/(NIR+Red)"
+        },
+        {
+          "key": "B",
+          "text": "值域 [-1, 1]"
+        },
+        {
+          "key": "C",
+          "text": "健康植被趋近 1"
+        },
+        {
+          "key": "D",
+          "text": "健康植被趋近 -1"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-065",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "监督分类与非监督分类的对比，正确的有？",
+      "explanation": "精度取决于数据与方法匹配度，无天然高低；D 错。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "监督需要人工训练样本"
+        },
+        {
+          "key": "B",
+          "text": "非监督自动聚类"
+        },
+        {
+          "key": "C",
+          "text": "两者都需事后精度评估"
+        },
+        {
+          "key": "D",
+          "text": "非监督精度天然更高"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-066",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "标准假彩色合成的正确说法有？",
+      "explanation": "D 错：真彩色是 R/G/B 直绑。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "NIR 赋红通道"
+        },
+        {
+          "key": "B",
+          "text": "植被显艳红"
+        },
+        {
+          "key": "C",
+          "text": "水体偏暗"
+        },
+        {
+          "key": "D",
+          "text": "等于真彩色"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-067",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "变化检测的基本流程包括？",
+      "explanation": "不配准直接相减 = 像元错位噪声；D 是大忌。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "两期影像统一传感器/配准"
+        },
+        {
+          "key": "B",
+          "text": "计算同一指数"
+        },
+        {
+          "key": "C",
+          "text": "差值 + 阈值分割"
+        },
+        {
+          "key": "D",
+          "text": "任意两景直接相减不用配准"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-068",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "提高分类精度的合理手段有？",
+      "explanation": "D 恰恰相反——评估是发现问题的唯一途径。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "改善训练样本质量与数量"
+        },
+        {
+          "key": "B",
+          "text": "加入 NDVI 等辅助波段"
+        },
+        {
+          "key": "C",
+          "text": "选择适合的算法并调参"
+        },
+        {
+          "key": "D",
+          "text": "删掉精度评估环节"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-069",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "关于混合像元，正确的有？",
+      "explanation": "D 反了——混合像元是分辨率约束的直接产物。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "一个像元内含多种地物"
+        },
+        {
+          "key": "B",
+          "text": "是分类误差的来源之一"
+        },
+        {
+          "key": "C",
+          "text": "提高空间分辨率可缓解"
+        },
+        {
+          "key": "D",
+          "text": "与分辨率无关"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-070",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "中国高分系列的特点包括？",
+      "explanation": "高分一号/二号都带多光谱相机；D 错。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "高分二号全色 0.8 m"
+        },
+        {
+          "key": "B",
+          "text": "国产自主数据源"
+        },
+        {
+          "key": "C",
+          "text": "部分数据开放申请"
+        },
+        {
+          "key": "D",
+          "text": "只有全色无多光谱"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-11-071",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "写出 NDVI 的计算公式（用 NIR 与 Red 表示）。",
+      "explanation": "(NIR − Red) / (NIR + Red)，归一化差值植被指数。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "(nir-red)/(nir+red)",
+        "(nir − red)/(nir + red)",
+        "nir-red/nir+red"
+      ]
+    },
+    {
+      "id": "gis-11-072",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "为什么水体在近红外影像上发黑？",
+      "explanation": "水体对近红外/短波红外强吸收，几乎无反射返回传感器。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "吸收",
+        "强吸收",
+        "近红外",
+        "水体吸收"
+      ]
+    },
+    {
+      "id": "gis-11-073",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "区分雪与云用哪个波段？理由一句话。",
+      "explanation": "SWIR 上雪强吸收（暗）、云强反射（亮）——可见光两者都白无法分。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "短波红外",
+        "swir",
+        "swir 波段"
+      ]
+    },
+    {
+      "id": "gis-11-074",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "四类分辨率分别是什么？（列名即可）",
+      "explanation": "空间（像元地面尺寸）、光谱（波段数宽）、时间（重访）、辐射（位深）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "空间 光谱 时间 辐射",
+        "空间、光谱、时间、辐射"
+      ]
+    },
+    {
+      "id": "gis-11-075",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "监督分类里『训练样本』的作用是什么？",
+      "explanation": "给算法每类的已知示例，学习波谱特征后推广到全图。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "教",
+        "学习",
+        "标注",
+        "先验"
+      ]
+    },
+    {
+      "id": "gis-11-076",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "为什么分类图必须配精度评估？",
+      "explanation": "无精度报告无法判断可信度——ISO 质量维度的落地要求。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "混淆矩阵",
+        "总体精度",
+        "可信",
+        "交付"
+      ]
+    },
+    {
+      "id": "gis-11-077",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "标准假彩色合成中植被呈什么颜色？为什么？",
+      "explanation": "近红外（植被强反射）被赋给红色显示通道。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "红",
+        "艳红",
+        "红色"
+      ]
+    },
+    {
+      "id": "gis-11-078",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "变化检测前两期影像为什么必须配准？",
+      "explanation": "不配准则同名地物像元错位，相减产生大量伪变化。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "错位",
+        "像元",
+        "伪变化",
+        "配准"
+      ]
+    },
+    {
+      "id": "gis-11-079",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "MODIS 的时间与空间分辨率大概是什么水平？",
+      "explanation": "重访每天（日覆盖），空间 250~1000 m。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "每天",
+        "250",
+        "250-1000",
+        "1000"
+      ]
+    },
+    {
+      "id": "gis-11-080",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "为什么说『分辨率越高越好』是误解？",
+      "explanation": "空间分辨率高则幅宽小、重访慢、数据贵——按问题尺度选。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "幅宽",
+        "重访",
+        "成本",
+        "数据量",
+        "取舍"
+      ]
+    },
+    {
+      "id": "gis-11-081",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "计算 NDVI 优先使用哪一级的 Sentinel-2 产品？为什么？",
+      "explanation": "L2A 做过大气校正（地表反射率），时序可比。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "L2A",
+        "l2a",
+        "大气校正",
+        "地表反射率"
+      ]
+    },
+    {
+      "id": "gis-11-082",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "NDVI 时序曲线能揭示什么物候信息？",
+      "explanation": "生长季起止、峰值时间——植被季节节律。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "物候",
+        "生长",
+        "季节",
+        "节律"
+      ]
+    },
+    {
+      "id": "gis-11-083",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "K-means 属于监督还是非监督分类？",
+      "explanation": "非监督聚类：算法自组织分组，人事后命名。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "非监督",
+        "unsupervised",
+        "聚类"
+      ]
+    },
+    {
+      "id": "gis-11-084",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "混合像元如何影响分类精度？",
+      "explanation": "一个像元含多种地物只能给一个类别值，边界处必然误分。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "混合",
+        "多个地物",
+        "单一",
+        "偏差"
+      ]
+    },
+    {
+      "id": "gis-11-085",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "某像元近红外反射率 0.5、红光 0.1，NDVI 是多少？（保留 3 位小数）",
+      "explanation": "(0.5 − 0.1) / (0.5 + 0.1) = 0.667。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.667,
+      "tolerance": 0.01
+    },
+    {
+      "id": "gis-11-086",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "某像元近红外反射率 0.4、红光 0.3，NDVI 是多少？（保留 3 位小数）",
+      "explanation": "(0.4 − 0.3) / (0.4 + 0.3) = 0.143。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.143,
+      "tolerance": 0.01
+    },
+    {
+      "id": "gis-11-087",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "某像元近红外反射率 0.6、红光 0.05，NDVI 是多少？（保留 3 位小数）",
+      "explanation": "(0.6 − 0.05) / (0.6 + 0.05) = 0.846。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.846,
+      "tolerance": 0.01
+    },
+    {
+      "id": "gis-11-088",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "某像元近红外反射率 0.2、红光 0.2，NDVI 是多少？（保留 3 位小数）",
+      "explanation": "(0.2 − 0.2) / (0.2 + 0.2) = 0.000。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0,
+      "tolerance": 0.01
+    },
+    {
+      "id": "gis-11-089",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "某像元近红外反射率 0.05、红光 0.1，NDVI 是多少？（保留 3 位小数）",
+      "explanation": "(0.05 − 0.1) / (0.05 + 0.1) = -0.333。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": -0.333,
+      "tolerance": 0.01
+    },
+    {
+      "id": "gis-11-090",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "某像元近红外反射率 0.45、红光 0.15，NDVI 是多少？（保留 3 位小数）",
+      "explanation": "(0.45 − 0.15) / (0.45 + 0.15) = 0.500。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.5,
+      "tolerance": 0.01
+    },
+    {
+      "id": "gis-11-091",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "Landsat 一景约 185 km 宽，30 m 像元的每行列数约多少？（保留整数）",
+      "explanation": "185000 / 30 ≈ 6167 列。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6167,
+      "tolerance": 100,
+      "unit": "列"
+    },
+    {
+      "id": "gis-11-092",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "100 km² 区域按 10 m 像元存储，共多少个像元？（1 km² = 10^6 m²）",
+      "explanation": "10^8 m² / 100 m² = 10^6 个。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1000000,
+      "tolerance": 0,
+      "unit": "个"
+    },
+    {
+      "id": "gis-11-093",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "Sentinel-2 双星重访 5 天，一个月（按 30 天）最多过境几次？",
+      "explanation": "30 / 5 = 6 次。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "次"
+    },
+    {
+      "id": "gis-11-094",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "8 bit 辐射分辨率可将值分为多少级？",
+      "explanation": "2^8 = 256 级。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 256,
+      "tolerance": 0,
+      "unit": "级"
+    },
+    {
+      "id": "gis-11-095",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "12 bit 辐射分辨率可将值分为多少级？",
+      "explanation": "2^12 = 4096 级。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4096,
+      "tolerance": 0,
+      "unit": "级"
+    },
+    {
+      "id": "gis-11-096",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "4 波段、1000×1000、uint16（2 字节）的无压缩影像约多少 MB（10^6 B = 1 MB）？",
+      "explanation": "10^6 像元 × 4 波段 × 2 B = 8×10^6 B = 8 MB。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8,
+      "tolerance": 0.05,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-11-097",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "200 波段高光谱、1000×1000、uint16 无压缩约多少 MB？",
+      "explanation": "10^6 × 200 × 2 = 4×10^8 B = 400 MB——高光谱数据体积可见一斑。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 400,
+      "tolerance": 1,
+      "unit": "MB"
+    },
+    {
+      "id": "gis-11-098",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "两期 NDVI 分别为 0.72 与 0.38，变化差值是多少？（保留 2 位小数，后期减前期）",
+      "explanation": "0.38 − 0.72 = −0.34，大幅负差 = 植被退化。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": -0.34,
+      "tolerance": 0.02
+    },
+    {
+      "id": "gis-11-099",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "每季度合成一景 NDVI，连续监测 5 年共多少景？",
+      "explanation": "4 × 5 = 20 景。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 20,
+      "tolerance": 0,
+      "unit": "景"
+    },
+    {
+      "id": "gis-11-100",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "把 30 m 影像重采样到 10 m，像元总数变为原来的几倍？",
+      "explanation": "线性 3 倍 → 面积 9 倍。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 9,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-11-101",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "Landsat 8 与 9 双星交错运行，重访周期是多少天？",
+      "explanation": "16 / 2 = 8 天。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8,
+      "tolerance": 0,
+      "unit": "天"
+    },
+    {
+      "id": "gis-11-102",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "10 m 像元代表的地面面积是多少平方米？",
+      "explanation": "10 × 10 = 100 m²。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 100,
+      "tolerance": 0,
+      "unit": "m²"
+    },
+    {
+      "id": "gis-11-103",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "30 m 像元代表的地面面积是多少平方米？",
+      "explanation": "30 × 30 = 900 m²。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 900,
+      "tolerance": 0,
+      "unit": "m²"
+    },
+    {
+      "id": "gis-11-104",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "点出太湖——近红外影像上『水体发黑』的典型大湖。",
+      "explanation": "水体近红外强吸收，假彩色上呈暗色。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 31.2,
+        "lng": 120.1
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-11-105",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "点出塔克拉玛干沙漠——NDVI 接近 0 的裸地代表。",
+      "explanation": "无植被覆盖 → 红光与近红外接近 → NDVI≈0。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39,
+        "lng": 83
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-11-106",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "点出亚马逊雨林——全球 NDVI 高值区的代表。",
+      "explanation": "全年常绿，NDVI 长期 0.8+。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -3.5,
+        "lng": -62
+      },
+      "toleranceKm": 600
+    },
+    {
+      "id": "gis-11-107",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "点出华北平原——农作物物候时序监测的经典区域。",
+      "explanation": "冬小麦-玉米双季轮作，NDVI 季节曲线双峰。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 36,
+        "lng": 115.5
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-11-108",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "点出内蒙古草原——草场长势监测的代表性区域。",
+      "explanation": "草原 NDVI 中等且年际波动大。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 43.5,
+        "lng": 116
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-11-109",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "点出西双版纳热带雨林。",
+      "explanation": "中国热带雨林分布区，常年高 NDVI。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 22,
+        "lng": 100.8
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-11-110",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "点出鄱阳湖——季节性水位变化显著的湖泊（时序水体提取案例）。",
+      "explanation": "丰枯水期湖面相差数倍，时序水体指数可刻画。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 29.1,
+        "lng": 116.3
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-11-111",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "点出三江源——高寒生态监测区。",
+      "explanation": "黄河/长江/澜沧江源头的高寒草甸区。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 34.5,
+        "lng": 96
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-11-112",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "点出黄河三角洲——河口变化检测的天然实验室。",
+      "explanation": "泥沙堆积让海岸线逐年外推，多期影像对比明显。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 37.8,
+        "lng": 119.1
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-11-113",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "点出美国加州中央谷地——灌溉农业遥感名场面。",
+      "explanation": "圆形喷灌农田在影像上如唱片纹。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 36.5,
+        "lng": -119.8
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-11-114",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "点出加拿大北方森林（泰加林带）。",
+      "explanation": "大面积针叶林，中低 NDVI 的寒温带代表。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 55,
+        "lng": -100
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "gis-11-115",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "点出撒哈拉沙漠。",
+      "explanation": "全球最大的 NDVI≈0 区域。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 23,
+        "lng": 12
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "gis-11-116",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "点出鄱阳湖所在的江西省会——南昌。",
+      "explanation": "城市不透水面 NDVI 低，与周边农田对比鲜明。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 28.68,
+        "lng": 115.86
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-11-117",
+      "skill": "gis",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "点出青藏高原的可可西里（无人区高寒荒漠）。",
+      "explanation": "高寒荒漠植被稀疏，NDVI 极低。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        },
+        {
+          "title": "Copernicus Data Space",
+          "url": "https://dataspace.copernicus.eu/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 35.8,
+        "lng": 91
+      },
+      "toleranceKm": 600
+    }
+  ]
+}

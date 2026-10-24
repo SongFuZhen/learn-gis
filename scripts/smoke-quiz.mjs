@@ -36,6 +36,17 @@ async function answerOne(page, q, context) {
     await page
       .getByRole("button", { name: q.answer ? "对" : "错", exact: true })
       .click();
+  } else if (q.type === "map") {
+    // 等动态加载的 MapPicker 挂好测试钩子
+    await page.waitForFunction(() => Boolean(window.__quizMap), null, { timeout: 30000 });
+    // 在目标坐标触发地图 click（容差 220km+，精确命中必答对）
+    await page.evaluate((t) => {
+      const map = window.__quizMap;
+      const latlng = map.containerPointToLatLng(
+        map.latLngToContainerPoint([t.lat, t.lng]),
+      );
+      map.fire("click", { latlng });
+    }, q.target);
   } else {
     for (const key of q.answer) {
       await page
@@ -43,7 +54,7 @@ async function answerOne(page, q, context) {
         .click();
     }
   }
-  await page.getByRole("button", { name: /提交/ }).click();
+  await page.getByRole("button", { name: "提交答案", exact: true }).click();
   const verdict = page.getByText(/答对了|答错了/).first();
   await verdict.waitFor();
   if (!(await verdict.innerText()).includes("答对了")) {
