@@ -7,7 +7,9 @@ import vectorRaster from "./04-vector-raster.questions.json";
 import cartography from "./05-cartography.questions.json";
 import formatsTiles from "./06-formats-tiles.questions.json";
 import gisTools from "./07-gis-tools.questions.json";
+import dataQuality from "./08-data-quality.questions.json";
 import spatialAnalysis from "./09-spatial-analysis.questions.json";
+import terrain from "./10-terrain.questions.json";
 import spatialDb from "./12-spatial-db.questions.json";
 import webgis from "./13-webgis.questions.json";
 
@@ -25,7 +27,9 @@ const RAW_BY_MODULE: Record<string, unknown> = {
   "05": cartography,
   "06": formatsTiles,
   "07": gisTools,
+  "08": dataQuality,
   "09": spatialAnalysis,
+  "10": terrain,
   "12": spatialDb,
   "13": webgis,
 };

@@ -1,0 +1,3090 @@
+{
+  "skill": "gis",
+  "module": "10",
+  "version": 4,
+  "questions": [
+    {
+      "id": "gis-10-001",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "插值的数学前提是空间自相关：相近位置的值更相似。",
+      "explanation": "Tobler 第一定律的地学落地；无自相关的数据插出来全是噪声。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-002",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "IDW 插值结果不一定通过已知观测点。",
+      "explanation": "IDW 定义保证在已知点处权重无穷大、结果回到观测值（精确插值）。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-003",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "IDW 在孤立异常点周围会出现『牛眼』效应。",
+      "explanation": "权重按距离衰减形成同心圈——看到牛眼先怀疑数据代表性。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-004",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "克里金插值除估计值外还能给出不确定度。",
+      "explanation": "基于半变异函数的统计最优估计，误差图是它的独门优势。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-005",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "样条插值永远不会超出原始数据的值域。",
+      "explanation": "样条追求光滑，可能过冲（overshoot）到值域之外。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-006",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "需要『这个估计有多可靠』时，只能选克里金。",
+      "explanation": "IDW 与样条都不给不确定度。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-007",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "SRTM 是激光雷达产品。",
+      "explanation": "SRTM 是航天飞机雷达干涉测量；LiDAR 才是激光雷达。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-008",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "LiRAR 点云可以穿透植被缝隙获取地面高程。",
+      "explanation": "部分激光点打到地面，因此能生成真正的 DTM。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-009",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "nDSM = DSM − DTM。",
+      "explanation": "差值即离地高度：建筑高、树高都这么算。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-010",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "DSM − DTM 在平地上接近 0。",
+      "explanation": "平地无建筑无树时两表面重合。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-011",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡度的百分比表达中，45° 对应 100%。",
+      "explanation": "tan45° = 1 → rise/run = 1 = 100%。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-012",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "坡度 10% 比坡度 5° 更陡。",
+      "explanation": "10% ≈ 5.7°，比 5° 略陡。先统一表达再比较。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-013",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "坡向是『最陡下坡』的方向。",
+      "explanation": "0~360° 顺时针，正北为 0。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-014",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "北半球阳坡是南坡。",
+      "explanation": "太阳偏南，南坡日照更多、更干燥。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-015",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "山体阴影是一种栅格数据，可用于面积统计。",
+      "explanation": "hillshade 是可视化手段（模拟光照明暗），不是测量数据。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-016",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "山体制图惯例用西北方向光照。",
+      "explanation": "315° 方位、45° 仰角是默认惯例——人类习惯『光从左上来』。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-017",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "等高线越密集，坡度越陡。",
+      "explanation": "同水平距离内爬升越多 = 越陡。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-018",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "等高距相同时，图上间距越大实地坡度越缓。",
+      "explanation": "间距大 = 同爬升走得更远 = 缓。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-019",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "DEM 水文分析第一步是填洼。",
+      "explanation": "不填洼水流会在洼地断头，河网无法贯通。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-020",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "D8 法指每个像元的水流方向是 8 邻居中最陡下降的那个。",
+      "explanation": "D8 = 8 方向最陡下降法。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-021",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "汇流累积值大的像元连线就是推算出的河网。",
+      "explanation": "无需水系数据即可从 DEM 推出河流网络。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-022",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "高程基准不影响 DEM 叠加分析。",
+      "explanation": "椭球高与海拔差几十米（高程异常 N），叠加前必须对齐基准。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-023",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "平地像元在坡向计算中常被赋予特殊值（如 -9999）。",
+      "explanation": "无坡向可言，各软件约定不同；统计前要剔除。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-024",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "克里金比 IDW 计算便宜、更容易上手。",
+      "explanation": "克里金要拟合半变异函数，计算与门槛都更高。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-025",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "数字化的等高线转栅格后分辨率可以优于原图精度。",
+      "explanation": "分辨率可随意设置，但精度受原图限制——分辨率 ≠ 精度。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-026",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "地形阴影图上明暗交界处对应山脊或沟谷。",
+      "explanation": "光照突变处即地形转折，读图时可辅助判读。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-027",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "Copernicus DEM 质量一般不如 2000 年的 SRTM。",
+      "explanation": "新一代雷达 DEM 整体质量优于 SRTM。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-10-028",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "流域（watershed）可以从 DEM 的汇流累积自动划分。",
+      "explanation": "给定出口，圈出所有流入它的像元即流域。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-10-029",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "快速给土壤 pH 出一张平滑插值图，最省事的方法是？",
+      "explanation": "IDW 简单快速，快速出图首选；专业不确定度才上克里金。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "IDW"
+        },
+        {
+          "key": "B",
+          "text": "克里金"
+        },
+        {
+          "key": "C",
+          "text": "坡向分析"
+        },
+        {
+          "key": "D",
+          "text": "填洼"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-030",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "需要『估计值 + 可靠性』两张图（如地下水评估），应选？",
+      "explanation": "克里金基于空间自相关建模，给出估计方差——唯一带不确定度的常规方法。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "IDW"
+        },
+        {
+          "key": "B",
+          "text": "样条"
+        },
+        {
+          "key": "C",
+          "text": "克里金"
+        },
+        {
+          "key": "D",
+          "text": "最近邻"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-031",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "插值面上出现一圈圈同心『牛眼』，最可能是？",
+      "explanation": "IDW 强制过已知点 + 距离衰减 = 牛眼；检查异常点或换方法。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "IDW 遇上孤立异常点"
+        },
+        {
+          "key": "B",
+          "text": "投影错了"
+        },
+        {
+          "key": "C",
+          "text": "像元太大"
+        },
+        {
+          "key": "D",
+          "text": "用了克里金"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-032",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "气温这种平滑渐变场，插值应优先考虑？",
+      "explanation": "样条生成光滑曲面，适合连续渐变；注意过冲。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "样条（光滑）"
+        },
+        {
+          "key": "B",
+          "text": "最近邻"
+        },
+        {
+          "key": "C",
+          "text": "渔网计数"
+        },
+        {
+          "key": "D",
+          "text": "D8"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-033",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "30 m 分辨率的全球免费 DEM 来自哪项任务？",
+      "explanation": "SRTM（2000 年航天飞机雷达任务）30 m 全球免费。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "SRTM"
+        },
+        {
+          "key": "B",
+          "text": "LiDAR 机载"
+        },
+        {
+          "key": "C",
+          "text": "野外测绘"
+        },
+        {
+          "key": "D",
+          "text": "数字化地形图"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-034",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "要穿透植被获取裸地面高程（生成真 DTM），最佳数据源是？",
+      "explanation": "激光点部分直达地面；光学/雷达多停在树冠。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "LiDAR 点云"
+        },
+        {
+          "key": "B",
+          "text": "SRTM"
+        },
+        {
+          "key": "C",
+          "text": "ASTER 光学"
+        },
+        {
+          "key": "D",
+          "text": "等高线"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-035",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "计算城市建筑高度，应使用的表达式是？",
+      "explanation": "nDSM = DSM − DTM = 离地高度；差为正即建筑/树高。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "DSM − DTM"
+        },
+        {
+          "key": "B",
+          "text": "DTM − DSM"
+        },
+        {
+          "key": "C",
+          "text": "DEM × 2"
+        },
+        {
+          "key": "D",
+          "text": "DSM + DTM"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-036",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "水平走 100 m 上升 10 m，坡度百分比是？",
+      "explanation": "rise/run = 10/100 = 10%；角度约 5.7°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "5%"
+        },
+        {
+          "key": "B",
+          "text": "10%"
+        },
+        {
+          "key": "C",
+          "text": "45%"
+        },
+        {
+          "key": "D",
+          "text": "100%"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-10-037",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡度 45° 等于坡度百分比多少？",
+      "explanation": "tan45° = 1 = 100%。45° 是『百分比=度数』的唯一交点。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "45%"
+        },
+        {
+          "key": "B",
+          "text": "60%"
+        },
+        {
+          "key": "C",
+          "text": "100%"
+        },
+        {
+          "key": "D",
+          "text": "200%"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-038",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡向 135° 表示最陡下坡朝向？",
+      "explanation": "方位角 0°=北顺时针，135°=东南。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "东北"
+        },
+        {
+          "key": "B",
+          "text": "东南"
+        },
+        {
+          "key": "C",
+          "text": "西南"
+        },
+        {
+          "key": "D",
+          "text": "正南"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-10-039",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "山体阴影的默认光源方位与仰角是？",
+      "explanation": "315°/45° 是 GDAL/QGIS 默认，也是制图惯例。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "西北 315° / 45°"
+        },
+        {
+          "key": "B",
+          "text": "正南 180° / 30°"
+        },
+        {
+          "key": "C",
+          "text": "东北 45° / 60°"
+        },
+        {
+          "key": "D",
+          "text": "正东 90° / 90°"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-040",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "地形图等高距 10 m，1:50 000 图上相邻等高线间隔 2 mm，实地坡度是？",
+      "explanation": "2 mm × 50 000 = 100 m 实地水平间隔；10/100 = 10%。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "2%"
+        },
+        {
+          "key": "B",
+          "text": "10%"
+        },
+        {
+          "key": "C",
+          "text": "20%"
+        },
+        {
+          "key": "D",
+          "text": "50%"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-10-041",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "DEM 水文分析中『汇流累积』值很大的像元连起来是什么？",
+      "explanation": "上游像元数累积大的连线 = 水系，无需水系数据。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "山脊线"
+        },
+        {
+          "key": "B",
+          "text": "推算河网"
+        },
+        {
+          "key": "C",
+          "text": "等高线"
+        },
+        {
+          "key": "D",
+          "text": "行政边界"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-10-042",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "D8 流向法的『8』指什么？",
+      "explanation": "D8：水流去向 3×3 窗口内 8 个邻居中最陡下降者。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "8 邻居中选最陡下降方向"
+        },
+        {
+          "key": "B",
+          "text": "8 级金字塔"
+        },
+        {
+          "key": "C",
+          "text": "8 种坡度分级"
+        },
+        {
+          "key": "D",
+          "text": "8 个流域"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-043",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "DEM 水文分析为什么必须先填洼？",
+      "explanation": "洼地拦截水流使下游河网无法贯通；先填平再算流向。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "洼地会让水流断头，河网断裂"
+        },
+        {
+          "key": "B",
+          "text": "洼地是数据错误全部删除"
+        },
+        {
+          "key": "C",
+          "text": "填洼让 DEM 更好看"
+        },
+        {
+          "key": "D",
+          "text": "为了压缩存储"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-044",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "『每个网格 1 km 内的平均坡度』属于？",
+      "explanation": "面或窗口对栅格求汇总 = 分区统计；每格看周围 = 邻域。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "分区/邻域统计"
+        },
+        {
+          "key": "B",
+          "text": "插值"
+        },
+        {
+          "key": "C",
+          "text": "投影"
+        },
+        {
+          "key": "D",
+          "text": "矢量化"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-045",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "克里金插值第一步要拟合的是什么？",
+      "explanation": "半变异函数描述『距离多远值才不相关』，是克里金权重的依据。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "半变异函数（空间自相关模型）"
+        },
+        {
+          "key": "B",
+          "text": "直方图"
+        },
+        {
+          "key": "C",
+          "text": "回归线"
+        },
+        {
+          "key": "D",
+          "text": "瓦片金字塔"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-046",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "等高线稀疏的地形说明？",
+      "explanation": "同高程差水平距离大 = 缓坡；密 = 陡。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "坡度缓"
+        },
+        {
+          "key": "B",
+          "text": "坡度陡"
+        },
+        {
+          "key": "C",
+          "text": "高程低"
+        },
+        {
+          "key": "D",
+          "text": "数据缺失"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-047",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "DEM 上等高线闭合且数值内高外低，这是？",
+      "explanation": "内高外低闭合圈 = 山头；内低外低洼地。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "洼地"
+        },
+        {
+          "key": "B",
+          "text": "山头"
+        },
+        {
+          "key": "C",
+          "text": "悬崖"
+        },
+        {
+          "key": "D",
+          "text": "鞍部"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-10-048",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "山体阴影里同一座山换光源方向后『凹凸互换』，说明阴影？",
+      "explanation": "光照是视觉假设；换向反转是人类视觉惯性（左上光假设）。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "只是可视化，受光向主观影响"
+        },
+        {
+          "key": "B",
+          "text": "数据出错"
+        },
+        {
+          "key": "C",
+          "text": "必须用正南光"
+        },
+        {
+          "key": "D",
+          "text": "不能用在地形判读"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-049",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "流域划分的『出口点』在算法里的含义是？",
+      "explanation": "pour point 定义出口，汇流累积反向追踪圈出集水区。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "圈出所有流入该点的上游像元"
+        },
+        {
+          "key": "B",
+          "text": "流域的中心"
+        },
+        {
+          "key": "C",
+          "text": "最高点"
+        },
+        {
+          "key": "D",
+          "text": "任意参考点"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-050",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "10 km × 10 km 区域按 30 m 像元的 DEM 覆盖，像元行列数约？",
+      "explanation": "10000 m / 30 m ≈ 333 列。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "约 333 × 333"
+        },
+        {
+          "key": "B",
+          "text": "约 1000 × 1000"
+        },
+        {
+          "key": "C",
+          "text": "约 33 × 33"
+        },
+        {
+          "key": "D",
+          "text": "约 3 × 3"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-051",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "IDW 的权重与距离的关系是？",
+      "explanation": "反距离加权：1/d 的幂次（默认平方）。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "距离越远权重越小（如 1/d²）"
+        },
+        {
+          "key": "B",
+          "text": "距离越远权重越大"
+        },
+        {
+          "key": "C",
+          "text": "权重与距离无关"
+        },
+        {
+          "key": "D",
+          "text": "权重全相等"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-052",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "为什么城市『15 分钟生活圈』分析不该用 SRTM 30 m？",
+      "explanation": "城市尺度需要 LiDAR 级 DTM/DSM；30 m 且树冠顶面的 SRTM 无法反映街道。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "分辨率不足且无建筑高度"
+        },
+        {
+          "key": "B",
+          "text": "SRTM 收费"
+        },
+        {
+          "key": "C",
+          "text": "SRTM 是矢量"
+        },
+        {
+          "key": "D",
+          "text": "SRTM 没有中国"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-053",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "DEM 叠加前发现一个椭球高一个海拔，差值最大可达？",
+      "explanation": "高程异常 N 全球 −100~+70 m；不换算就是几十米系统误差。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "几厘米"
+        },
+        {
+          "key": "B",
+          "text": "几十米（高程异常 N）"
+        },
+        {
+          "key": "C",
+          "text": "几公里"
+        },
+        {
+          "key": "D",
+          "text": "没有差"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-10-054",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "『离地高度图』的正式名称是？",
+      "explanation": "nDSM（normalized DSM）= DSM − DTM。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "nDSM"
+        },
+        {
+          "key": "B",
+          "text": "DTM"
+        },
+        {
+          "key": "C",
+          "text": "等高线图"
+        },
+        {
+          "key": "D",
+          "text": "坡向图"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-055",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "IDW 的幂参数从 2 调到 5，插值面会？",
+      "explanation": "幂越高近点权重越压倒性，远点影响骤减——面更『尖』。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "更贴近已知点、局部化更强"
+        },
+        {
+          "key": "B",
+          "text": "更平滑"
+        },
+        {
+          "key": "C",
+          "text": "不变"
+        },
+        {
+          "key": "D",
+          "text": "出现负值"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-056",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "从等高线生成 DEM 的第一步是？",
+      "explanation": "等高线是矢量高程线，先 TIN/插值成栅格 DEM 再谈派生。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "等高线矢量化（若无）后内插高程栅格"
+        },
+        {
+          "key": "B",
+          "text": "填洼"
+        },
+        {
+          "key": "C",
+          "text": "坡度计算"
+        },
+        {
+          "key": "D",
+          "text": "山体阴影"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-057",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡向统计前为什么要剔除平地像元？",
+      "explanation": "平地坡向是约定特殊值；均值被这些伪方向带偏。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "平地无方向，会污染平均坡向"
+        },
+        {
+          "key": "B",
+          "text": "平地像元是错的"
+        },
+        {
+          "key": "C",
+          "text": "为了减小文件"
+        },
+        {
+          "key": "D",
+          "text": "平地不能参与任何统计"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-10-058",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "Copernicus DEM 相比 SRTM 的优势不包括？",
+      "explanation": "30 m 级远不如 LiDAR 的亚米级；D 言过其实。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "更新（观测年代更近）"
+        },
+        {
+          "key": "B",
+          "text": "质量更高"
+        },
+        {
+          "key": "C",
+          "text": "全球覆盖"
+        },
+        {
+          "key": "D",
+          "text": "分辨率优于 LiDAR"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-10-059",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "关于三种插值方法，正确的有？",
+      "explanation": "只有克里金给估计方差；D 错。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "IDW 简单快速但可能有牛眼"
+        },
+        {
+          "key": "B",
+          "text": "样条光滑但可能过冲"
+        },
+        {
+          "key": "C",
+          "text": "克里金给不确定度"
+        },
+        {
+          "key": "D",
+          "text": "三种都给误差图"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-060",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "DEM 的主要来源包括？",
+      "explanation": "多光谱影像需立体像对/解译才得高程，D 表述错误。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        },
+        {
+          "title": "SRTM - USGS",
+          "url": "https://www.usgs.gov/centers/eros/science/usgs-eros-archive-digital-elevation-shuttle-radar-topography-mission-srtm-1"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "SRTM / Copernicus 雷达"
+        },
+        {
+          "key": "B",
+          "text": "机载 LiDAR"
+        },
+        {
+          "key": "C",
+          "text": "等高线数字化"
+        },
+        {
+          "key": "D",
+          "text": "卫星多光谱拍照直接得到"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-061",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "关于 DEM/DSM/DTM/nDSM，正确的有？",
+      "explanation": "三者都是栅格；D 错。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "DTM = 裸地面"
+        },
+        {
+          "key": "B",
+          "text": "DSM 含建筑与树冠"
+        },
+        {
+          "key": "C",
+          "text": "nDSM = DSM − DTM"
+        },
+        {
+          "key": "D",
+          "text": "三者都是矢量产品"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-062",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡度与坡向的正确表述有？",
+      "explanation": "平地无坡向，记特殊值（软件各异）；D 错。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "坡度可用百分比或角度"
+        },
+        {
+          "key": "B",
+          "text": "45° = 100%"
+        },
+        {
+          "key": "C",
+          "text": "坡向为最陡下坡方向"
+        },
+        {
+          "key": "D",
+          "text": "平地坡向为 0°"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-063",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "DEM 水文分析的正确流程顺序包含哪些步骤？",
+      "explanation": "阴影是可视化，不属于水文流程。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "填洼"
+        },
+        {
+          "key": "B",
+          "text": "D8 流向"
+        },
+        {
+          "key": "C",
+          "text": "汇流累积"
+        },
+        {
+          "key": "D",
+          "text": "山体阴影"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-064",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "等高线读图的正确规则有？",
+      "explanation": "同一高度只一条线（悬崖除外），等高线不相交。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "线密 = 坡陡"
+        },
+        {
+          "key": "B",
+          "text": "闭合内低 = 洼地"
+        },
+        {
+          "key": "C",
+          "text": "闭合内高 = 山头"
+        },
+        {
+          "key": "D",
+          "text": "等高线可以相交"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-065",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "插值前应检查的前提有？",
+      "explanation": "D 是制图层；插值前提关乎数据本身。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "数据是否存在空间自相关"
+        },
+        {
+          "key": "B",
+          "text": "采样点分布是否覆盖研究区"
+        },
+        {
+          "key": "C",
+          "text": "高程/CRS 基准是否一致"
+        },
+        {
+          "key": "D",
+          "text": "输出配色是否好看"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-066",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "山体阴影的正确理解有？",
+      "explanation": "D 反了：换向即反转（视觉错觉案例）。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "默认光源西北 315° / 45°"
+        },
+        {
+          "key": "B",
+          "text": "是可视化不是测量数据"
+        },
+        {
+          "key": "C",
+          "text": "常与 DEM 叠加增强立体感"
+        },
+        {
+          "key": "D",
+          "text": "换光源方向阴影应完全不变"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-10-067",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "IDW 插值出现『牛眼』效应的成因与处理思路？",
+      "explanation": "孤立异常点 + 距离衰减权重形成同心圈；先查数据，必要时换样条/克里金。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "异常",
+        "孤立",
+        "牛眼",
+        "换方法",
+        "克里金"
+      ]
+    },
+    {
+      "id": "gis-10-068",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "为什么只有克里金能输出『不确定性图』？",
+      "explanation": "克里金以半变异函数建模空间自相关，估计方差是数学产物；IDW/样条是确定性插值。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "半变异",
+        "统计",
+        "方差",
+        "模型"
+      ]
+    },
+    {
+      "id": "gis-10-069",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "nDSM 的计算公式与用途各是什么？",
+      "explanation": "nDSM = DSM − DTM = 离地高度；建筑高度/树高估算。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "DSM - DTM",
+        "dsm减dtm",
+        "离地",
+        "高度"
+      ]
+    },
+    {
+      "id": "gis-10-070",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡度 8%（道路常见纵坡）约等于多少度？（保留 1 位小数）",
+      "explanation": "tan⁻¹(0.08) ≈ 4.6°——比直觉平缓。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "4.6",
+        "4.6°",
+        "4.6度"
+      ]
+    },
+    {
+      "id": "gis-10-071",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "山体阴影为什么惯例用西北光而不是东南光？",
+      "explanation": "人类视觉默认『光从左上来』；东南光会让地形凹凸反转、产生错觉。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "视觉",
+        "习惯",
+        "左上",
+        "错觉",
+        "315"
+      ]
+    },
+    {
+      "id": "gis-10-072",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "DEM 水文分析四步的正确顺序？",
+      "explanation": "填洼 → D8 流向 → 汇流累积 → 流域划分。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "填洼 流向 汇流 流域",
+        "fill, flow, accumulation, watershed"
+      ]
+    },
+    {
+      "id": "gis-10-073",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "从 DEM 推出河网不需要任何水系数据，原理是什么？",
+      "explanation": "汇流累积值大的像元连线即水系——水的物理规律替代了数据采集。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "汇流累积",
+        "accumulation",
+        "上游",
+        "流向"
+      ]
+    },
+    {
+      "id": "gis-10-074",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "等高距 10 m、1:25 000 图上相邻等高线间隔 4 mm，实地坡度百分比？",
+      "explanation": "4 mm × 25 000 = 100 m；10/100 = 10%。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "10",
+        "10%",
+        "百分之十"
+      ]
+    },
+    {
+      "id": "gis-10-075",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "为什么说『分辨率 ≠ 精度』？（用 DEM 举例）",
+      "explanation": "30 m 像元是采样格网尺寸；定位/高程误差是另一回事——0.5 m 网格的高程也可能错 10 m。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "30m",
+        "分辨率",
+        "像元",
+        "误差",
+        "精度"
+      ]
+    },
+    {
+      "id": "gis-10-076",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "样条插值的『过冲』是什么现象？",
+      "explanation": "光滑曲面在数据约束外冒出高于最高值/低于最低值的区域。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "超出",
+        "值域",
+        "overshoot",
+        "负值"
+      ]
+    },
+    {
+      "id": "gis-10-077",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "SRTM 是哪一年用什么技术测的？（答年代与方式）",
+      "explanation": "2000 年航天飞机雷达干涉测量（InSAR），30 m 全球免费。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "2000",
+        "雷达",
+        "航天飞机",
+        "SAR"
+      ]
+    },
+    {
+      "id": "gis-10-078",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "DEM 上叠加分析前要统一哪两个基准？",
+      "explanation": "水平 CRS（EPSG）与垂直基准（椭球高 vs 海拔）都要对齐。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "水平 CRS",
+        "高程基准",
+        "两个都要",
+        "srid",
+        "datum"
+      ]
+    },
+    {
+      "id": "gis-10-079",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "为什么 LiDAR 能生成真 DTM 而光学立体像对难？",
+      "explanation": "激光点部分穿过树冠打到地面；光学像对测的多是树冠顶面。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "穿透",
+        "植被",
+        "激光",
+        "点云"
+      ]
+    },
+    {
+      "id": "gis-10-080",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "流域划分需要用户先指定什么？",
+      "explanation": "出口点（pour point）：算法反向追踪所有流入它的像元。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "出口",
+        "pour point",
+        "出水口",
+        "点"
+      ]
+    },
+    {
+      "id": "gis-10-081",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "坡度 10% 约等于多少度？（保留 1 位小数，tan⁻¹ 换算）",
+      "explanation": "tan⁻¹(0.1) ≈ 5.7°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5.7,
+      "tolerance": 0.2,
+      "unit": "°"
+    },
+    {
+      "id": "gis-10-082",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡度 20% 约等于多少度？（保留 1 位小数，tan⁻¹ 换算）",
+      "explanation": "tan⁻¹(0.2) ≈ 11.3°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 11.3,
+      "tolerance": 0.2,
+      "unit": "°"
+    },
+    {
+      "id": "gis-10-083",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡度 50% 约等于多少度？（保留 1 位小数，tan⁻¹ 换算）",
+      "explanation": "tan⁻¹(0.5) ≈ 26.6°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 26.6,
+      "tolerance": 0.2,
+      "unit": "°"
+    },
+    {
+      "id": "gis-10-084",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "坡度 100% 约等于多少度？（保留 1 位小数，tan⁻¹ 换算）",
+      "explanation": "tan⁻¹(1) ≈ 45°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 45,
+      "tolerance": 0.2,
+      "unit": "°"
+    },
+    {
+      "id": "gis-10-085",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "坡度 8% 约等于多少度？（保留 1 位小数，tan⁻¹ 换算）",
+      "explanation": "tan⁻¹(0.08) ≈ 4.6°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4.6,
+      "tolerance": 0.2,
+      "unit": "°"
+    },
+    {
+      "id": "gis-10-086",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "坡度角 30° 约等于坡度百分比多少？（保留 0 位小数，tan30°≈0.577）",
+      "explanation": "tan30° ≈ 0.577 → 57.7% ≈ 58%。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 58,
+      "tolerance": 2,
+      "unit": "%"
+    },
+    {
+      "id": "gis-10-087",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "等高距 10 m，1:50 000 图上相邻等高线间隔 2 mm，实地坡度百分比？",
+      "explanation": "2 mm × 50 000 = 100 m；10/100 = 10%。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0.5,
+      "unit": "%"
+    },
+    {
+      "id": "gis-10-088",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "等高距 20 m，1:10 000 图上间隔 5 mm，实地坡度百分比？",
+      "explanation": "5 mm × 10 000 = 50 m；20/50 = 40%。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 40,
+      "tolerance": 1,
+      "unit": "%"
+    },
+    {
+      "id": "gis-10-089",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "沿坡度 15% 的道路水平前进 200 m，爬升多少米？",
+      "explanation": "200 × 15% = 30 m。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 30,
+      "tolerance": 0.5,
+      "unit": "m"
+    },
+    {
+      "id": "gis-10-090",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "5 km × 5 km 区域按 10 m 像元的 DEM，总像元数是多少？",
+      "explanation": "500 × 500 = 250 000。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 250000,
+      "tolerance": 0
+    },
+    {
+      "id": "gis-10-091",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "10 km × 10 km 区域按 30 m 像元的 DEM，总像元数约多少（保留整数，取整列数）？",
+      "explanation": "(10000/30)² ≈ 333² ≈ 111 111。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 111111,
+      "tolerance": 100
+    },
+    {
+      "id": "gis-10-092",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "SRTM 一幅 1°×1° 分幅（赤道处约 3600×3600 像元）共有多少像元？",
+      "explanation": "3600² = 12 960 000。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12960000,
+      "tolerance": 0,
+      "unit": "像元"
+    },
+    {
+      "id": "gis-10-093",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "某点 DSM = 1520.5 m、DTM = 1498.2 m，离地高度是多少米？",
+      "explanation": "nDSM = 1520.5 − 1498.2 = 22.3 m。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 22.3,
+      "tolerance": 0.05,
+      "unit": "m"
+    },
+    {
+      "id": "gis-10-094",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "某建筑顶 DSM = 45.2 m、地面 DTM = 40.0 m，建筑高多少米？",
+      "explanation": "45.2 − 40.0 = 5.2 m。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5.2,
+      "tolerance": 0.05,
+      "unit": "m"
+    },
+    {
+      "id": "gis-10-095",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "IDW（幂 2）中，距离 10 m 点与距离 20 m 点的权重比是多少（前者:后者，保留整数）？",
+      "explanation": "(1/10²):(1/20²) = 400:100 = 4:1。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0.05
+    },
+    {
+      "id": "gis-10-096",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "30 m 像元上河网提取阈值 100 个上游像元，对应最小集水面积多少公顷（1 ha = 10000 m²）？",
+      "explanation": "100 × 900 m² = 90 000 m² = 9 ha。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 9,
+      "tolerance": 0.05,
+      "unit": "ha"
+    },
+    {
+      "id": "gis-10-097",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "最陡下坡方向指向正东，坡向角是多少度？",
+      "explanation": "方位角正北 0° 顺时针，正东 = 90°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 90,
+      "tolerance": 0,
+      "unit": "°"
+    },
+    {
+      "id": "gis-10-098",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "最陡下坡方向指向正南，坡向角是多少度？",
+      "explanation": "正南 = 180°。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 180,
+      "tolerance": 0,
+      "unit": "°"
+    },
+    {
+      "id": "gis-10-099",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "点出世界最高峰——珠穆朗玛峰（高程基准的明星案例：8848.86 m）。",
+      "explanation": "珠峰高程从 1985 国家高程基准量起（第 01/08 章）。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 27.99,
+        "lng": 86.93
+      },
+      "toleranceKm": 200
+    },
+    {
+      "id": "gis-10-100",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "点出中国陆地最低点——吐鲁番盆地的艾丁湖（约 -154 m）。",
+      "explanation": "低于海平面的洼地：等高线闭合内低。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 42.8,
+        "lng": 89.2
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-10-101",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "点出世界陆地最低点——死海（约 -430 m）。",
+      "explanation": "死海沿岸是全球最低陆地。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 31.5,
+        "lng": 35.47
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-10-102",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "点出华北平原的核心（中国人口最密的低平平原）。",
+      "explanation": "平原 = 等高线稀疏区的典型。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 38,
+        "lng": 116
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-10-103",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "点出长江三峡的位置（河流下切形成的峡谷）。",
+      "explanation": "河流下切让等高线极密——坡度陡的可视化表达。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.82,
+        "lng": 111
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-10-104",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "点出美国科罗拉多大峡谷。",
+      "explanation": "科罗拉多河下切 1.6 km——流域侵蚀的教学案例。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 36.1,
+        "lng": -112.1
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-10-105",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "点出青藏高原腹地（世界屋脊，平均 4500 m）。",
+      "explanation": "高海拔大面积台地——DEM 上等高线稀疏但高程极高。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 33,
+        "lng": 90
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "gis-10-106",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "点出密西西比河三角洲。",
+      "explanation": "河口堆积地貌：流域的汇流终点。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 29.2,
+        "lng": -89.3
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-10-107",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "点出尼罗河三角洲。",
+      "explanation": "绿色三角插入沙漠——DEM/影像上都极醒目。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.9,
+        "lng": 31.2
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-10-108",
+      "skill": "gis",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "点出亚马逊雨林腹地（平坦的赤道雨林）。",
+      "explanation": "LiDAR 在这里穿透树冠获取 DTM 的经典战场。",
+      "refs": [
+        {
+          "title": "QGIS 地形分析",
+          "url": "https://docs.qgis.org/latest/zh_Hans/docs/user_manual/processing_algs/qgis/rasteranalysis.html"
+        },
+        {
+          "title": "gdaldem",
+          "url": "https://gdal.org/programs/gdaldem.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -3,
+        "lng": -60
+      },
+      "toleranceKm": 800
+    }
+  ]
+}

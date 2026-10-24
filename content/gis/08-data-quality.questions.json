@@ -1,0 +1,2697 @@
+{
+  "skill": "gis",
+  "module": "08",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-08-001",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "GNSS 定位的基本原理是三边测量（测距交会）。",
+      "explanation": "由到多颗卫星的伪距交会出位置。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-002",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "GNSS 定位至少需要接收到 4 颗卫星的信号。",
+      "explanation": "3 个解位置 + 1 个解接收机钟差。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-003",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "手机 GNSS 定位精度通常是厘米级。",
+      "explanation": "手机单点定位米级（5~20 m）；厘米级要 RTK。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-004",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "RTK 通过载波相位差分可达到厘米级精度。",
+      "explanation": "实时动态差分：基准站改正 + 载波相位。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-005",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "高层建筑旁 GNSS 轨迹漂移的主因是多路径效应。",
+      "explanation": "玻璃幕墙反射信号 + 遮挡，城市峡谷误差几十米常见。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-006",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "GNSS 的高程精度通常优于水平精度。",
+      "explanation": "垂直精度一般只有水平的约一半（几何构型所致）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-007",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "GPS 是 GNSS 的唯一系统。",
+      "explanation": "GPS/北斗/GLONASS/Galileo 都是 GNSS。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-008",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "屏幕数字化前必须先给扫描图配准。",
+      "explanation": "不配准的图没有地理坐标，描出来的矢量没有意义。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-009",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "地图数字化后应做拓扑/有效性检查。",
+      "explanation": "新手数字化最常见未闭合、自相交——检查是固定工序。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-010",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "OSM 是全球最大的志愿者地理信息（VGI）项目。",
+      "explanation": "人人可编辑，城市完备性高。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-011",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "OSM 数据使用 ODbL 许可，署名且相同方式共享。",
+      "explanation": "Open Database License：衍生库须同样开放。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-012",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "志愿者数据在乡村的完备性通常优于城市。",
+      "explanation": "反了：志愿者集中在城市，乡村覆盖稀疏。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-013",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "准确度（accuracy）与精确度（precision）是同一概念。",
+      "explanation": "accuracy = 离真值多远；precision = 重复测量的离散度。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-014",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "重复测量很密集但整体偏离真值，属于精确但不准确。",
+      "explanation": "打靶密集但偏左的经典比喻。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-015",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "坐标小数点后 8 位代表定位准确到毫米。",
+      "explanation": "小数位只是存储分辨率；数据本身可能只准到米。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-016",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "数据完备性指『该有的要素有没有』。",
+      "explanation": "缺街、缺楼是完备性问题，不是精度问题。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-017",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "自相交的多边形属于逻辑一致性缺陷。",
+      "explanation": "OGC 有效性违例即一致性缺陷（第 04 章）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-018",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "分辨率可以设得很高，从而提高数据准确度。",
+      "explanation": "分辨率是存储粒度，不改变真实精度。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-019",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "元数据是『关于数据的数据』。",
+      "explanation": "来源、时间、方法、许可、质量的总目录。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-020",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "数据溯源（lineage）记录数据的来源与加工过程。",
+      "explanation": "谁、何时、用什么方法、做了哪些加工。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-021",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "ISO 19115 是空间元数据国际标准。",
+      "explanation": "ISO 19157 则定义数据质量维度。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-022",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "数据交付可以不带元数据，反正有文件名。",
+      "explanation": "无 lineage 的数据半年后必然扯皮——元数据是资产的一部分。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-023",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "差分 GNSS（DGPS）的思路是已知站算改正数再广播。",
+      "explanation": "基准站已知位置 → 算误差改正 → 用户叠加改正。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-024",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "开放政府数据全部都是 CC0 许可、可任意商用。",
+      "explanation": "许可各异：ODbL/CC BY/不可商用等，用前必读条款。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-025",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "GNSS 高程可以直接当海拔用，无需换算。",
+      "explanation": "GNSS 给大地高，差一个高程异常 N（可达几十米）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-026",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "扫描地形图数字化时，控制点越多配准一定越好。",
+      "explanation": "关键在控制点分布均匀且准确；垃圾控制点越多越糟。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-08-027",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "数据时效性是数据质量的维度之一。",
+      "explanation": "2010 年的路网对 2026 年的分析可能毫无价值。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-028",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "A-GPS 是用网络辅助加速 GNSS 首次定位。",
+      "explanation": "下载星历/近似位置辅助，冷启动更快。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-08-029",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "地块界址测量要求厘米级位置精度，应使用？",
+      "explanation": "RTK 载波相位差分厘米级；界址/施工的标准。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "手机 GNSS"
+        },
+        {
+          "key": "B",
+          "text": "RTK"
+        },
+        {
+          "key": "C",
+          "text": "屏幕数字化"
+        },
+        {
+          "key": "D",
+          "text": "OSM"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-08-030",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "GNSS 解算位置需要至少几颗卫星？",
+      "explanation": "3 颗定位置，第 4 颗解接收机钟差。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "3"
+        },
+        {
+          "key": "B",
+          "text": "4"
+        },
+        {
+          "key": "C",
+          "text": "5"
+        },
+        {
+          "key": "D",
+          "text": "12"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-08-031",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "『信号经玻璃幕墙反射到达接收机』造成的误差叫？",
+      "explanation": "多路径让测距变长、位置漂移——城市峡谷主因。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "多路径效应"
+        },
+        {
+          "key": "B",
+          "text": "大气延迟"
+        },
+        {
+          "key": "C",
+          "text": "星历误差"
+        },
+        {
+          "key": "D",
+          "text": "相对论效应"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-032",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "GNSS 垂直精度与水平精度的典型关系是？",
+      "explanation": "卫星几何对高程不利，垂直误差约是水平的 1.5~3 倍。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "垂直更好"
+        },
+        {
+          "key": "B",
+          "text": "垂直约为水平的一半水平"
+        },
+        {
+          "key": "C",
+          "text": "垂直约为水平的 1/2~1/3（更差）"
+        },
+        {
+          "key": "D",
+          "text": "完全相同"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-033",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "把纸质地形图转成矢量的工作叫？",
+      "explanation": "数字化（digitizing）：配准 + 屏幕描图 + 拓扑检查。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "数字化"
+        },
+        {
+          "key": "B",
+          "text": "渲染"
+        },
+        {
+          "key": "C",
+          "text": "瓦片化"
+        },
+        {
+          "key": "D",
+          "text": "配准"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-034",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "扫描图配准时，控制点的选择原则是？",
+      "explanation": "均匀分布的准确控制点才能约束整幅图的仿射变换。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "数量够（≥4）且分布均匀、位置准确"
+        },
+        {
+          "key": "B",
+          "text": "越多越好集中一角"
+        },
+        {
+          "key": "C",
+          "text": "只要 1 个"
+        },
+        {
+          "key": "D",
+          "text": "随便点"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-035",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "OSM 数据的许可是？",
+      "explanation": "ODbL：数据库许可，衍生数据库须同方式开放。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ODbL（署名-相同方式共享）"
+        },
+        {
+          "key": "B",
+          "text": "CC0 公共领域"
+        },
+        {
+          "key": "C",
+          "text": "私有版权禁一切使用"
+        },
+        {
+          "key": "D",
+          "text": "GPL 软件许可"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-036",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "评估 OSM 是否『该有的街道都有』，检查的质量维度是？",
+      "explanation": "completeness = 要素应存尽存的程度。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "完备性"
+        },
+        {
+          "key": "B",
+          "text": "位置准确度"
+        },
+        {
+          "key": "C",
+          "text": "时效性"
+        },
+        {
+          "key": "D",
+          "text": "属性准确度"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-037",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "『打靶很密集但整体偏左』说明？",
+      "explanation": "precision 高、accuracy 低——系统偏差的典型。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "精确但不准确"
+        },
+        {
+          "key": "B",
+          "text": "准确但不精确"
+        },
+        {
+          "key": "C",
+          "text": "又准又精"
+        },
+        {
+          "key": "D",
+          "text": "随机误差大"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-038",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "两个图层位置误差各 ±1 m（独立），叠加后位置的合成不确定度约？",
+      "explanation": "误差平方和开根：√(1²+1²) ≈ 1.41 m。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "±1 m"
+        },
+        {
+          "key": "B",
+          "text": "±1.4 m"
+        },
+        {
+          "key": "C",
+          "text": "±2 m"
+        },
+        {
+          "key": "D",
+          "text": "±0.5 m"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-08-039",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "ISO 19115 是什么标准？",
+      "explanation": "19115 元数据；19157 数据质量。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "空间元数据"
+        },
+        {
+          "key": "B",
+          "text": "数据质量度量"
+        },
+        {
+          "key": "C",
+          "text": "瓦片服务"
+        },
+        {
+          "key": "D",
+          "text": "投影参数"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-040",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "查一份 2019 年数字化的地块数据为什么对不上 2026 规划，应看元数据的？",
+      "explanation": "溯源记录来源与加工时间链——时效性问题的诊断入口。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "lineage（溯源）与采集时间"
+        },
+        {
+          "key": "B",
+          "text": "文件大小"
+        },
+        {
+          "key": "C",
+          "text": "配色方案"
+        },
+        {
+          "key": "D",
+          "text": "作者签名"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-041",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "差分 GNSS（DGPS）提升精度的核心思想是？",
+      "explanation": "误差空间相关 → 基准站改正对附近用户有效。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "已知位置的基准站算改正数并播发"
+        },
+        {
+          "key": "B",
+          "text": "增加卫星数量"
+        },
+        {
+          "key": "C",
+          "text": "换更贵的接收机"
+        },
+        {
+          "key": "D",
+          "text": "延长观测一整天"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-042",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "下列哪项不是数据质量的 ISO 维度？",
+      "explanation": "压缩率与质量无关；六维见本章表。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "完备性"
+        },
+        {
+          "key": "B",
+          "text": "逻辑一致性"
+        },
+        {
+          "key": "C",
+          "text": "文件压缩率"
+        },
+        {
+          "key": "D",
+          "text": "时效性"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-043",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "城市 GNSS 轨迹『穿楼』最合理的解释是？",
+      "explanation": "城市峡谷是 GNSS 误差重灾区（若底图还叠了 GCJ-02 会更糟，先分清两件事）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "多路径 + 遮挡导致漂移"
+        },
+        {
+          "key": "B",
+          "text": "手机屏幕坏"
+        },
+        {
+          "key": "C",
+          "text": "地图底图偏移"
+        },
+        {
+          "key": "D",
+          "text": "坐标系是 GCJ-02"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-044",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "经纬度保留 5 位小数，坐标分辨率约为？",
+      "explanation": "0.00001° × 111 km ≈ 1.1 m（第 00 章）。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1.1 m"
+        },
+        {
+          "key": "B",
+          "text": "1.1 km"
+        },
+        {
+          "key": "C",
+          "text": "1.1 cm"
+        },
+        {
+          "key": "D",
+          "text": "1.1 mm"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-045",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "数字化等高线后应立刻做的检查是？",
+      "explanation": "自相交/未闭合是数字化高频错误，先查有效性。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "几何有效性 / 拓扑检查"
+        },
+        {
+          "key": "B",
+          "text": "换配色"
+        },
+        {
+          "key": "C",
+          "text": "发布瓦片服务"
+        },
+        {
+          "key": "D",
+          "text": "生成图例"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-046",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "接收机时钟误差 1 微秒（1e-6 s）对应伪距误差约？",
+      "explanation": "光速 × 1 μs = 3×10⁸ × 10⁻⁶ = 300 m——这就是为什么需要第 4 颗卫星解钟差。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "3 m"
+        },
+        {
+          "key": "B",
+          "text": "300 m"
+        },
+        {
+          "key": "C",
+          "text": "3 km"
+        },
+        {
+          "key": "D",
+          "text": "30 cm"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-08-047",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "A-GPS 的『辅助』指什么？",
+      "explanation": "省去自己等卫星广播星历，冷启动秒级完成。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "通过网络下载星历/近似位置加速定位"
+        },
+        {
+          "key": "B",
+          "text": "额外装一颗卫星"
+        },
+        {
+          "key": "C",
+          "text": "人工输入坐标"
+        },
+        {
+          "key": "D",
+          "text": "拍照辅助"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-048",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "PPK 与 RTK 的本质区别是？",
+      "explanation": "Post-Processed Kinematic 把观测拿回办公室算，无需实时链路。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "PPK 事后处理，RTK 实时"
+        },
+        {
+          "key": "B",
+          "text": "PPK 精度永远更低"
+        },
+        {
+          "key": "C",
+          "text": "PPK 不需要基准站"
+        },
+        {
+          "key": "D",
+          "text": "没有区别"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-049",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "VGI 数据质量的空间规律通常是？",
+      "explanation": "志愿者分布决定：人多图热闹，人少靠遥感补。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "城市完备性高、乡村稀疏"
+        },
+        {
+          "key": "B",
+          "text": "乡村更好"
+        },
+        {
+          "key": "C",
+          "text": "处处均匀"
+        },
+        {
+          "key": "D",
+          "text": "与人口无关"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-050",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "采集 1 小时、每秒 1 个点的轨迹，共多少个记录？",
+      "explanation": "3600 s × 1 = 3600 点——轨迹数据量的基本估算。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "60"
+        },
+        {
+          "key": "B",
+          "text": "360"
+        },
+        {
+          "key": "C",
+          "text": "3600"
+        },
+        {
+          "key": "D",
+          "text": "36000"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-051",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "下列哪个操作不能提升数字化质量？",
+      "explanation": "垃圾控制点反而污染仿射变换；质比量重要。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "增加无意义控制点数量"
+        },
+        {
+          "key": "B",
+          "text": "均匀选取准确控制点"
+        },
+        {
+          "key": "C",
+          "text": "描点后拓扑检查"
+        },
+        {
+          "key": "D",
+          "text": "放大到足够比例再描"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-052",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "遥感解译的『混合像元』问题指？",
+      "explanation": "30 m 像元横跨屋顶与草地，只能给一个值——分辨率本质约束。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一个像元内含多种地物导致分类偏差"
+        },
+        {
+          "key": "B",
+          "text": "文件格式混乱"
+        },
+        {
+          "key": "C",
+          "text": "坐标系混合"
+        },
+        {
+          "key": "D",
+          "text": "波段顺序错"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-053",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "企业内部交付 GIS 数据，必备的文件是？",
+      "explanation": "无元数据 = 无法评估可用性，半年后必然扯皮。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "元数据（含 lineage 与许可）"
+        },
+        {
+          "key": "B",
+          "text": "PPT 汇报"
+        },
+        {
+          "key": "C",
+          "text": "源始纸质图"
+        },
+        {
+          "key": "D",
+          "text": "只给 shp 即可"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-054",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "中国大地坐标的起算点（大地原点）位于？",
+      "explanation": "1980 国家大地坐标系大地原点在陕西泾阳；高程原点在青岛。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "陕西泾阳"
+        },
+        {
+          "key": "B",
+          "text": "北京"
+        },
+        {
+          "key": "C",
+          "text": "青岛"
+        },
+        {
+          "key": "D",
+          "text": "上海"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-055",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "中国高程基准的水准原点位于？",
+      "explanation": "青岛验潮站推算平均海面，1985 国家高程基准零点。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "青岛"
+        },
+        {
+          "key": "B",
+          "text": "泾阳"
+        },
+        {
+          "key": "C",
+          "text": "武汉"
+        },
+        {
+          "key": "D",
+          "text": "广州"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-056",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "开放数据许可里『ND』（No-Derivatives）意味着？",
+      "explanation": "ND 禁衍生；做 GIS 分析前先确认许可允许你的加工方式。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "不能修改或做衍生产品"
+        },
+        {
+          "key": "B",
+          "text": "不能署名"
+        },
+        {
+          "key": "C",
+          "text": "不能查看"
+        },
+        {
+          "key": "D",
+          "text": "不能下载"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-057",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": " GNSS 误差源不包括？",
+      "explanation": "配色是制图；前三者都是 GNSS 系统误差源（可部分改正）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "多路径效应"
+        },
+        {
+          "key": "B",
+          "text": "卫星钟差"
+        },
+        {
+          "key": "C",
+          "text": "电离层延迟"
+        },
+        {
+          "key": "D",
+          "text": "地图配色"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-08-058",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "为什么 GNSS 高程还要过基准换算才能当地图高程？",
+      "explanation": "差 N 可达几十米（第 01 章高程基准）。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GNSS 给大地高，地图用海拔，差高程异常 N"
+        },
+        {
+          "key": "B",
+          "text": "GNSS 高程是假的"
+        },
+        {
+          "key": "C",
+          "text": "海拔必须实测"
+        },
+        {
+          "key": "D",
+          "text": "两者相同无需换算"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-059",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "在 QGIS 里描图前，扫描底图必须先完成？",
+      "explanation": "Georeferencer 贴坐标后描出的矢量才有地理意义。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "地理配准"
+        },
+        {
+          "key": "B",
+          "text": "符号化"
+        },
+        {
+          "key": "C",
+          "text": "打印"
+        },
+        {
+          "key": "D",
+          "text": "重分类"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-08-060",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "GIS 数据的采集途径包括？",
+      "explanation": "五种途径（再加传感器/IoT）各有精度与成本特征。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "GNSS 测量"
+        },
+        {
+          "key": "B",
+          "text": "遥感解译"
+        },
+        {
+          "key": "C",
+          "text": "地图数字化"
+        },
+        {
+          "key": "D",
+          "text": "开放数据/OSM"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-08-061",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "ISO 数据质量维度包括？",
+      "explanation": "六维还有时效性与分辨率；命名不在标准里。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "位置/属性准确度"
+        },
+        {
+          "key": "B",
+          "text": "完备性"
+        },
+        {
+          "key": "C",
+          "text": "逻辑一致性"
+        },
+        {
+          "key": "D",
+          "text": "文件命名美观度"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-062",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "GNSS 定位的误差源包括？",
+      "explanation": "四者都直接拉低定位精度；RTK/DGPS 可改正大部分。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "多路径效应"
+        },
+        {
+          "key": "B",
+          "text": "接收机钟差"
+        },
+        {
+          "key": "C",
+          "text": "电离层延迟"
+        },
+        {
+          "key": "D",
+          "text": "天空可见卫星数少"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "gis-08-063",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "数字化的配套工作包括？",
+      "explanation": "瓦片发布是服务化环节，不属于数字化工序。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "地理配准"
+        },
+        {
+          "key": "B",
+          "text": "投影设定"
+        },
+        {
+          "key": "C",
+          "text": "拓扑/有效性检查"
+        },
+        {
+          "key": "D",
+          "text": "瓦片发布"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-064",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于 accuracy 与 precision，正确的有？",
+      "explanation": "D 是最常见的概念混淆。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "accuracy = 离真值多远"
+        },
+        {
+          "key": "B",
+          "text": "precision = 重复测量离散度"
+        },
+        {
+          "key": "C",
+          "text": "小数位多 ≠ 准确"
+        },
+        {
+          "key": "D",
+          "text": "两者完全同义"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-065",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "使用 OSM 数据前应检查？",
+      "explanation": "OSM 没有实时交通层；D 不存在。",
+      "refs": [
+        {
+          "title": "OSM Quality assurance",
+          "url": "https://wiki.openstreetmap.org/wiki/Quality_assurance"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "目标区域完备性"
+        },
+        {
+          "key": "B",
+          "text": "最近编辑时间（时效性）"
+        },
+        {
+          "key": "C",
+          "text": "ODbL 许可约束"
+        },
+        {
+          "key": "D",
+          "text": "是否包含实时交通"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-066",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "元数据的核心字段包括？",
+      "explanation": "D 开玩笑的；前三者 + 质量报告与许可是标配。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "空间参考与范围"
+        },
+        {
+          "key": "B",
+          "text": "采集时间与方法（lineage）"
+        },
+        {
+          "key": "C",
+          "text": "字段字典"
+        },
+        {
+          "key": "D",
+          "text": "作者身高"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-067",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "提升数字化质量的正确做法有？",
+      "explanation": "D 是质量事故高发步骤——检查必须做。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "均匀分布的准确控制点配准"
+        },
+        {
+          "key": "B",
+          "text": "放大到足够比例描点"
+        },
+        {
+          "key": "C",
+          "text": "弯道加密顶点"
+        },
+        {
+          "key": "D",
+          "text": "描完不检查直接交付"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-068",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "GNSS 地面控制段（监测/主控站）的所在地包括？",
+      "explanation": "GPS 监测站沿赤道带分布（含阿森松、夏威夷）；D 不在其中。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "美国科罗拉多州（主控）"
+        },
+        {
+          "key": "B",
+          "text": "夸贾林环礁"
+        },
+        {
+          "key": "C",
+          "text": "迪戈加西亚"
+        },
+        {
+          "key": "D",
+          "text": "上海浦东"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-069",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于开放数据许可，正确的有？",
+      "explanation": "D 是法律风险之源；商用前必须读条款。",
+      "refs": [
+        {
+          "title": "OSM Quality assurance",
+          "url": "https://wiki.openstreetmap.org/wiki/Quality_assurance"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "ODbL 要求衍生库同方式共享"
+        },
+        {
+          "key": "B",
+          "text": "ND 禁止衍生"
+        },
+        {
+          "key": "C",
+          "text": "CC0 几乎无约束"
+        },
+        {
+          "key": "D",
+          "text": "许可不重要"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-08-070",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "GNSS 定位至少需要几颗卫星？为什么？",
+      "explanation": "3 颗交会位置，第 4 颗解接收机钟差。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "4",
+        "四颗",
+        "4颗"
+      ]
+    },
+    {
+      "id": "gis-08-071",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "城市峡谷里 GNSS 漂移的两个主因？",
+      "explanation": "玻璃幕墙多路径反射 + 天空视野差（可见卫星少、PDOP 大）。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "多路径",
+        "遮挡",
+        "反射",
+        "峡谷"
+      ]
+    },
+    {
+      "id": "gis-08-072",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "RTK 达到厘米级的差分原理是什么？",
+      "explanation": "基准站已知位置算改正，载波相位观测 + 实时改正。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "载波相位",
+        "基准站",
+        "差分",
+        "改正"
+      ]
+    },
+    {
+      "id": "gis-08-073",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "accuracy 与 precision 的区别一句话？",
+      "explanation": "accuracy 离真值多远；precision 重复测量的离散度。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "真值",
+        "离散",
+        "准确",
+        "精确",
+        "重复"
+      ]
+    },
+    {
+      "id": "gis-08-074",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "OSM 缺了半条街，属于哪个质量维度的问题？",
+      "explanation": "完备性（completeness），不是精度问题。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "完备性",
+        "completeness",
+        "完整"
+      ]
+    },
+    {
+      "id": "gis-08-075",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "自相交多边形属于哪个质量维度？",
+      "explanation": "逻辑一致性（几何有效性违例，第 04 章）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "逻辑一致性",
+        "一致性",
+        "consistency",
+        "valid"
+      ]
+    },
+    {
+      "id": "gis-08-076",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "元数据的 lineage 字段解决什么实际问题？",
+      "explanation": "记录谁/何时/如何生产加工——数据争议与更新维护的依据。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "溯源",
+        "来源",
+        "扯皮",
+        "追溯"
+      ]
+    },
+    {
+      "id": "gis-08-077",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "扫描图配准最少需要几个分布均匀的控制点？",
+      "explanation": "至少 4 个仿射变换约束点，实践中 6~10 个更稳。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "4",
+        "四个",
+        "4个"
+      ]
+    },
+    {
+      "id": "gis-08-078",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "接收机钟差 1 μs 对应多大伪距误差？",
+      "explanation": "光速 × 1 μs ≈ 300 m——钟差必须解算。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "300",
+        "300m",
+        "300 米"
+      ]
+    },
+    {
+      "id": "gis-08-079",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "为什么说 OSM 在乡村的完备性不如城市？",
+      "explanation": "志愿者地理信息（VGI）的覆盖跟随人口分布。",
+      "refs": [
+        {
+          "title": "OSM Quality assurance",
+          "url": "https://wiki.openstreetmap.org/wiki/Quality_assurance"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "志愿者",
+        "人口",
+        "密集",
+        "稀疏"
+      ]
+    },
+    {
+      "id": "gis-08-080",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "数字化完成后、交付前的两项必做检查？",
+      "explanation": "几何有效性检查 + 属性抽查（拓扑/一致性）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "有效性",
+        "拓扑",
+        "检查",
+        "拓扑检查"
+      ]
+    },
+    {
+      "id": "gis-08-081",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "两个图层各 ±2 m 独立位置误差，叠加后合成不确定度约多少米（保留 2 位）？",
+      "explanation": "√(2²+2²) = √8 ≈ 2.83 m——误差传播平方和开根。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "2.83",
+        "约2.83",
+        "sqrt8"
+      ]
+    },
+    {
+      "id": "gis-08-082",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "中国的高程基准零点在哪个城市？",
+      "explanation": "青岛验潮站（1985 国家高程基准）。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "青岛",
+        "验潮站"
+      ]
+    },
+    {
+      "id": "gis-08-083",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "ND 许可对 GIS 加工的限制是什么？",
+      "explanation": "No-Derivatives 禁止修改/衍生产品——裁剪重投影都可能越界。",
+      "refs": [
+        {
+          "title": "ISO 19157 数据质量",
+          "url": "https://www.iso.org/standard/32575.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "衍生",
+        "修改",
+        "ND",
+        "加工"
+      ]
+    },
+    {
+      "id": "gis-08-084",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "GNSS 定位最少需要接收几颗卫星的信号？",
+      "explanation": "3 颗交会位置 + 1 颗解钟差。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "颗"
+    },
+    {
+      "id": "gis-08-085",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "接收机钟差 1 μs 对应的伪距误差约多少米？（光速 3×10⁸ m/s）",
+      "explanation": "3×10⁸ × 1×10⁻⁶ = 300 m。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 300,
+      "tolerance": 5,
+      "unit": "m"
+    },
+    {
+      "id": "gis-08-086",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "接收机钟差 1 ms 对应的伪距误差约多少 km？",
+      "explanation": "3×10⁸ × 10⁻³ = 3×10⁵ m = 300 km。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 300,
+      "tolerance": 5,
+      "unit": "km"
+    },
+    {
+      "id": "gis-08-087",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "经纬度保留 5 位小数，坐标分辨率约多少米（1° ≈ 111 km，保留 1 位）？",
+      "explanation": "0.00001 × 111000 = 1.11 m。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.1,
+      "tolerance": 0.1,
+      "unit": "m"
+    },
+    {
+      "id": "gis-08-088",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "经纬度保留 6 位小数，坐标分辨率约多少米（保留 2 位）？",
+      "explanation": "0.000001 × 111000 ≈ 0.11 m。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.11,
+      "tolerance": 0.02,
+      "unit": "m"
+    },
+    {
+      "id": "gis-08-089",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "每秒 1 个轨迹点，连续记录 1 小时共多少个点？",
+      "explanation": "60 min × 60 s = 3600 s，每秒一点即 3600 个记录。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3600,
+      "tolerance": 0,
+      "unit": "个"
+    },
+    {
+      "id": "gis-08-090",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "两个图层位置误差各 ±1 m（独立），叠加后合成不确定度约多少米（保留 2 位）？",
+      "explanation": "√(1²+1²) ≈ 1.41 m。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.41,
+      "tolerance": 0.05,
+      "unit": "m"
+    },
+    {
+      "id": "gis-08-091",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "两个图层位置误差各 ±2 m（独立），叠加后合成不确定度约多少米（保留 2 位）？",
+      "explanation": "√(2²+2²) ≈ 2.83 m。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2.83,
+      "tolerance": 0.05,
+      "unit": "m"
+    },
+    {
+      "id": "gis-08-092",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "GNSS 水平精度 1.5 m，垂直精度按 2 倍估算约多少米？",
+      "explanation": "垂直 ≈ 2 × 水平 = 3 m。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0.2,
+      "unit": "m"
+    },
+    {
+      "id": "gis-08-093",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "RTK 定位精度标称 2 cm，测 100 次的合理离散范围约为 ±多少 cm（填数字）？",
+      "explanation": "标称 ±2 cm；精度指标本身就是离散度描述。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0.5,
+      "unit": "cm"
+    },
+    {
+      "id": "gis-08-094",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "扫描图配准最少需要几个控制点（仿射变换约束）？",
+      "explanation": "4 个点约束仿射六参；实践建议 6~10 个。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个"
+    },
+    {
+      "id": "gis-08-095",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "某轨迹总长 42 km，GPS 水平误差 ±10 m，相对误差约百分之几（保留 2 位）？",
+      "explanation": "10 m / 42000 m ≈ 0.024% ≈ 0.02%——长轨迹相对误差很小。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.02,
+      "tolerance": 0.01,
+      "unit": "%"
+    },
+    {
+      "id": "gis-08-096",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "点出世界最高峰珠穆朗玛峰（高程基准讨论的标志地）。",
+      "explanation": "8848.86 m 由 1985 国家高程基准量起。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 27.99,
+        "lng": 86.93
+      },
+      "toleranceKm": 200
+    },
+    {
+      "id": "gis-08-097",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "点出中国高程基准的原点所在地——青岛。",
+      "explanation": "青岛验潮站 → 1985 国家高程基准零点。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 36.07,
+        "lng": 120.38
+      },
+      "toleranceKm": 150
+    },
+    {
+      "id": "gis-08-098",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "点出中国大地坐标的起算点——陕西泾阳大地原点。",
+      "explanation": "国家大地原点：80/2000 系坐标起算的几何中心。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 34.53,
+        "lng": 108.85
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "gis-08-099",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "点出欧洲高程基准 NAP 的原点所在城市——阿姆斯特丹。",
+      "explanation": "NAP（Normaal Amsterdams Peil）是欧洲主要水准基准。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 52.37,
+        "lng": 4.9
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-08-100",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "点出 GPS 系统主控站所在的美国科罗拉多州斯普林斯。",
+      "explanation": "GPS 地面控制段主控站（Schriever SFB）。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 38.8,
+        "lng": -104.7
+      },
+      "toleranceKm": 600
+    },
+    {
+      "id": "gis-08-101",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "点出太平洋上的 GPS 监测站——夸贾林环礁。",
+      "explanation": "沿赤道带布设的监测站之一。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 8.72,
+        "lng": 167.73
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "gis-08-102",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "点出印度洋上的 GPS 监测站——迪戈加西亚。",
+      "explanation": "赤道带监测站，保证全球覆盖。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -7.31,
+        "lng": 72.41
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "gis-08-103",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "点出大西洋上的 GPS 监测站——阿森松岛。",
+      "explanation": "南大西洋监测站：沿赤道带布设以保证全球轨道覆盖。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -7.95,
+        "lng": -14.39
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "gis-08-104",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "点出太平洋中部的 GPS 监测站——夏威夷。",
+      "explanation": "哈莱阿卡拉监测站：太平洋中部的轨道跟踪节点。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 20.71,
+        "lng": -156.25
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "gis-08-105",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "点出『城市峡谷』多路径效应最典型的大都市——纽约曼哈顿。",
+      "explanation": "摩天楼峡谷是 GNSS 漂移的重灾区。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.75,
+        "lng": -73.98
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-08-106",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "点出长江上的三峡大坝（工程测量的厘米级 RTK 应用场景）。",
+      "explanation": "大坝变形监测要求毫米~厘米级，GNSS+其他传感器融合。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.82,
+        "lng": 111
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "gis-08-107",
+      "skill": "gis",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "点出常被数字矢量化教学使用的地标——八达岭长城。",
+      "explanation": "线性地物数字化描点的经典素材。",
+      "refs": [
+        {
+          "title": "GPS.gov",
+          "url": "https://www.gps.gov/systems/gps/control/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.36,
+        "lng": 116.02
+      },
+      "toleranceKm": 300
+    }
+  ]
+}

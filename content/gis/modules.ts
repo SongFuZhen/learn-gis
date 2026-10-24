@@ -72,11 +72,25 @@ export const GIS_MODULES: ModuleMeta[] = [
       "打开 QGIS 认识界面，用 ogrinfo/gdalinfo 体检数据，用 ogr2ogr/gdalwarp 做转换、重投影与裁剪。",
   },
   {
+    slug: "08",
+    file: "08-data-quality",
+    title: "数据采集与数据质量",
+    summary:
+      "GNSS 原理与 RTK、地图数字化、OSM 与开放数据、质量六维、accuracy vs precision、元数据与溯源。",
+  },
+  {
     slug: "09",
     file: "09-spatial-analysis",
     title: "空间分析 I：缓冲、叠置与邻域",
     summary:
       "缓冲区、叠置分析（交/并/差）、空间连接、近邻与网格统计、可达性入门——GIS 的核心生产力。",
+  },
+  {
+    slug: "10",
+    file: "10-terrain",
+    title: "空间分析 II：插值、DEM 与地形",
+    summary:
+      "IDW/样条/克里金怎么选、DEM 从哪来、nDSM 减法、坡度坡向山体阴影、水文四步与流域。",
   },
   {
     slug: "12",
@@ -96,7 +110,5 @@ export const GIS_MODULES: ModuleMeta[] = [
 
 /** 已规划但尚未交付的章节（全部交付后应为空） */
 export const PLANNED_MODULES: { slug: string; title: string }[] = [
-  { slug: "08", title: "数据采集与数据质量" },
-  { slug: "10", title: "空间分析 II：插值、DEM 与地形" },
   { slug: "11", title: "遥感基础" },
 ];
