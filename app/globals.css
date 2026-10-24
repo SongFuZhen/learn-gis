@@ -36,6 +36,7 @@
   /* Text */
   --foreground: 233 40% 15%;       /* #171A35 */
   --foreground-secondary: 228 18% 42%; /* #59617E */
+  --reading: 228 22% 30%;          /* 讲义正文专用：比 secondary 深，长文不费眼 */
   --foreground-tertiary: 228 17% 43%;  /* #5C6482 */
   --foreground-muted: 228 15% 47%;    /* #67708F */
   --foreground-disabled: 228 22% 83%;
@@ -97,6 +98,7 @@
 
   --foreground: 228 60% 96%;       /* #F2F4FF */
   --foreground-secondary: 228 28% 76%;
+  --reading: 228 24% 84%;
   --foreground-tertiary: 228 22% 68%;
   --foreground-muted: 228 20% 62%;
   --foreground-disabled: 228 16% 38%;
@@ -204,7 +206,7 @@ body {
 .prose-lesson {
   font-size: 1rem;
   line-height: 1.9;
-  color: hsl(var(--foreground-secondary));
+  color: hsl(var(--reading));
 }
 
 @media (min-width: 640px) {
@@ -214,18 +216,17 @@ body {
 }
 
 .prose-lesson > * + * {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
-/* 首段导语（紧跟第一个 h2 前的内容）略大一号，定调 */
+/* 首段导语（第一个 h2 前的内容）：仅用颜色定调，字号与正文一致 */
 .prose-lesson > p:first-of-type {
-  font-size: 1.0625em;
   color: hsl(var(--foreground));
-  line-height: 1.8;
 }
 
 .prose-lesson h2 {
   position: relative;
+  scroll-margin-top: 5rem;
   margin-top: 2.5rem;
   margin-bottom: 0.25rem;
   padding-left: 0.85rem;
@@ -249,7 +250,7 @@ body {
 
 .prose-lesson h3 {
   margin-top: 1.8rem;
-  font-size: 1.0625rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: hsl(var(--foreground));
 }
@@ -322,7 +323,6 @@ body {
   border-radius: 0 10px 10px 0;
   background: hsl(var(--brand-soft));
   color: hsl(var(--foreground-secondary));
-  font-size: 0.9375em;
   line-height: 1.75;
 }
 
@@ -346,7 +346,7 @@ body {
   border-radius: 14px;
   background: hsl(var(--surface-muted));
   overflow-x: auto;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.7;
 }
 
@@ -396,7 +396,6 @@ body {
   width: 100%;
   margin: 0;
   border-collapse: collapse;
-  font-size: 0.875rem;
 }
 
 .prose-lesson thead {
@@ -424,6 +423,12 @@ body {
   margin: 2rem 0;
   border: 0;
   border-top: 1px solid hsl(var(--border));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

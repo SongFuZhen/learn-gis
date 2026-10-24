@@ -1,9 +1,13 @@
+import { cn } from "@/lib/utils";
+
 type Props = {
   /** 各分段数量（顺序固定：通关 / 学习中 / 未开始） */
   segments: { value: number; color: string; label: string }[];
   /** 中心主数字 */
   centerValue: string;
   centerLabel: string;
+  /** stack：图例移到环图下方（窄列用），sm 起恢复右侧 */
+  stackOnMobile?: boolean;
 };
 
 /** 章节通关分布环形图（conic-gradient 实现，无客户端 JS） */
@@ -11,6 +15,7 @@ export default function MasteryDonut({
   segments,
   centerValue,
   centerLabel,
+  stackOnMobile = false,
 }: Props) {
   const total = segments.reduce((s, x) => s + x.value, 0);
   let acc = 0;
@@ -28,7 +33,12 @@ export default function MasteryDonut({
       : stops;
 
   return (
-    <div className="flex items-center gap-4">
+    <div
+      className={cn(
+        "flex items-center gap-4",
+        stackOnMobile && "w-full flex-col gap-3 sm:flex-row sm:gap-4",
+      )}
+    >
       <div
         className="relative h-24 w-24 shrink-0 rounded-full sm:h-28 sm:w-28"
         role="img"
@@ -44,14 +54,28 @@ export default function MasteryDonut({
           </span>
         </div>
       </div>
-      <ul className="min-w-0 flex-1 space-y-1.5">
+      <ul
+        className={cn(
+          "min-w-0 flex-1 space-y-1.5",
+          stackOnMobile &&
+            "grid w-full grid-cols-2 gap-x-3 gap-y-1 space-y-0 sm:flex sm:flex-col sm:gap-0 sm:space-y-1.5",
+        )}
+      >
         {segments.map((s) => (
-          <li key={s.label} className="flex items-center gap-2 text-[12px]">
+          <li
+            key={s.label}
+            className={cn(
+              "flex items-center gap-2 text-[12px]",
+              stackOnMobile && "text-[11px] sm:text-[12px]",
+            )}
+          >
             <span
               className="h-2.5 w-2.5 shrink-0 rounded-full"
               style={{ background: s.color }}
             />
-            <span className="flex-1 text-foreground-secondary">{s.label}</span>
+            <span className="min-w-0 flex-1 truncate text-foreground-secondary">
+              {s.label}
+            </span>
             <span className="tabular font-medium">{s.value}</span>
           </li>
         ))}

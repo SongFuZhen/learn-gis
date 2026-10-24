@@ -1,4 +1,5 @@
 import ProgressPanel from "@/components/ProgressPanel";
+import { PASS_LINE } from "@/lib/quiz/exam";
 
 export const metadata = {
   title: "学习进度",
@@ -12,7 +13,7 @@ export default function ProgressPage() {
         学习进度
       </h1>
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
-        每章取测验成绩的滚动平均作为掌握度，低于 80% 建议重读讲义后重练。
+        每章取测验成绩的平均分作为掌握度，低于 {PASS_LINE}% 建议重读讲义后重练。
       </p>
       <ProgressPanel />
     </div>

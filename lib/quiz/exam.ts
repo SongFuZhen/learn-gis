@@ -8,6 +8,9 @@ import type { Question } from "./types";
 
 export type ExamMode = "daily" | "mock";
 
+/** 通过线：考试与章节测验统一用掌握度 ≥ 80% 记为通过 */
+export const PASS_LINE = 80;
+
 export const EXAM_PLAN: Record<
   ExamMode,
   { label: string; size: number; blurb: string }

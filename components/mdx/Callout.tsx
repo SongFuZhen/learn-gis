@@ -1,8 +1,14 @@
-import { AlertTriangle, Info, Lightbulb, MapPinned } from "lucide-react";
+import {
+  AlertTriangle,
+  BookMarked,
+  Info,
+  Lightbulb,
+  MapPinned,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type CalloutType = "info" | "warn" | "tip" | "example";
+type CalloutType = "info" | "warn" | "tip" | "example" | "must";
 
 const STYLES: Record<
   CalloutType,
@@ -41,6 +47,13 @@ const STYLES: Record<
     box: "border-brand/30 bg-brand-soft",
     iconBox: "bg-brand/15 text-brand-ink",
     title: "text-brand-ink",
+  },
+  must: {
+    icon: BookMarked,
+    label: "必背",
+    box: "border-brand-violet/40 bg-[hsl(var(--brand-violet)/0.08)]",
+    iconBox: "bg-[hsl(var(--brand-violet)/0.15)] text-[hsl(var(--brand-violet))]",
+    title: "text-[hsl(var(--brand-violet))]",
   },
 };
 

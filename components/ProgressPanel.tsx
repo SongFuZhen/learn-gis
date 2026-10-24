@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { GIS_MODULES, PLANNED_MODULES } from "@/content/gis/modules";
+import { chapterNo } from "@/lib/content";
+import { PASS_LINE } from "@/lib/quiz/exam";
 
 type Row = {
   moduleSlug: string;
@@ -75,7 +77,7 @@ export default function ProgressPanel() {
             className="flex items-center gap-3 rounded-md border border-dashed border-border px-4 py-3 text-[13px] text-foreground-tertiary"
           >
             <span className="font-mono text-[11px] text-foreground-muted">
-              {m.slug}
+              {chapterNo(m.slug)}
             </span>
             {m.title}
             <span className="ml-auto text-[11px]">即将上线</span>
@@ -83,7 +85,7 @@ export default function ProgressPanel() {
         ))}
       </ul>
       <p className="mt-4 text-[11px] leading-relaxed text-foreground-tertiary">
-        掌握度取各章测验成绩的滚动平均；低于 80% 建议重读讲义后重练。
+        掌握度取各章测验成绩的平均分；低于 {PASS_LINE}% 建议重读讲义后重练。
       </p>
     </>
   );

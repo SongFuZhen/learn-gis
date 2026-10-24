@@ -13,7 +13,7 @@ export default function ReviewPage() {
       </h1>
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
         做错的题会按 SM-2 排期回到这里：答对一次推到 1 天，再对推到 6 天，之后按
-        ease 递增；答错则重置为明天。
+        ease 递增；答错则重置为明天，连续答对 3 次即毕业出队。
       </p>
       <ReviewQueue />
     </div>

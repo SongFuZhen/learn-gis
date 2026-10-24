@@ -14,6 +14,19 @@ OGC 服务解决「数据怎么发布」，前端库解决「地图怎么画」�
 
 关键区别：WMS/WMTS 给你「画好的图」，你只能看；WFS/WCS 给你「数据」，你可以再计算。
 
+<Callout type="must" title="必背 · 四个服务给什么">
+- WMS → 图片；WMTS → 预生成图片瓦片；WFS → 矢量要素；WCS → 栅格原始值
+- WMS/WMTS 是「画好的图」，只能看；WFS/WCS 是「数据」，可以再算
+- 要素编辑、前端改样式 → WFS；高程/影像分析 → WCS
+</Callout>
+
+<Callout type="example" title="例子 · 同一份数据，服务怎么选">
+- 只想给用户看一张省界专题图，不要求交互 → **WMS**
+- 大量用户看同一张底图，要求秒开 → **WMTS**（预缓存）
+- 用户要点省界弹出属性、前端改配色 → **WFS**（拿到矢量自己画）
+- 要拿 DEM 高程算坡度 → **WCS**（要原始值，图片截图没法算）
+</Callout>
+
 ## 2. WMS 的必填参数
 
 ```
@@ -25,9 +38,40 @@ SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap
 
 **axis order 陷阱**：WMS 1.3.0 里 `CRS=EPSG:4326` 的 BBOX 顺序是 `miny,minx,maxy,maxx`（纬度在前）；想用「经度在前」就写 `CRS=CRS:84`。WMS 1.1.1 用的是 `SRS` 且经纬度顺序固定。
 
+<Callout type="must" title="必背 · axis order 陷阱">
+- WMS 1.3.0 + `EPSG:4326`：BBOX 顺序 `miny,minx,maxy,maxx`（纬度在前）
+- 想经度在前：写 `CRS=CRS:84`
+- WMS 1.1.1：参数名是 `SRS`，经纬度顺序固定
+- GetMap 必填参数一个不能少：`SERVICE`、`VERSION`、`REQUEST`、`LAYERS`、`STYLES`（可留空但不能缺）、`CRS`、`BBOX`、`WIDTH`、`HEIGHT`、`FORMAT`
+</Callout>
+
+<Callout type="example" title="例子 · 取北京附近 1°×1° 的图">
+目标范围：东经 116°–117°、北纬 39°–40°。
+
+1. 用 WMS 1.3.0 + `CRS=EPSG:4326`：纬度在前 → `BBOX=39,116,40,117`
+2. 想按习惯经度在前：改写 `CRS=CRS:84` → `BBOX=116,39,117,40`
+3. 两种写法取到同一块区域
+4. 若顺序写错（`BBOX=116,39,117,40` 却配 `EPSG:4326`），服务会把 116 当纬度、39 当经度，返回错位的图或直接报错——而且往往是「图能出来但内容不对」，很难排查
+</Callout>
+
 ## 3. WMTS 与瓦片矩阵
 
 WMTS 提供 `TileMatrixSet`（每一级的矩阵宽高、分辨率、原点），按 `TileMatrix / TileRow / TileCol` 取瓦片。它只做「预生成/可缓存」的图片瓦片，所以快，但样式改不了。
+
+<Callout type="must" title="必背 · WMTS 三件套">
+- 定位一块瓦片靠 `TileMatrix`（层级）/ `TileRow`（行）/ `TileCol`（列）
+- `TileMatrixSet` 描述每一级的矩阵宽高、分辨率、原点
+- WMTS = 预生成、可缓存、快；代价是样式改不了
+</Callout>
+
+<Callout type="example" title="例子 · 算北京 (116.4°E, 39.9°N) 在 z=10 的瓦片号">
+以最常见的 Web Mercator 瓦片方案（EPSG:3857）为例，z=10 时全图共 2^10 × 2^10 = 1024×1024 块瓦片。
+
+1. 列号：`TileCol = (116.4 + 180) / 360 × 1024 ≈ 0.8233 × 1024 ≈ 843`
+2. 行号：先算墨卡托纵向比例 `(1 − ln(tan(39.9°) + 1/cos(39.9°)) / π) / 2 ≈ 0.3790`，再 `× 1024 ≈ 388`
+3. 所以请求的是 `TileMatrix=10&TileRow=388&TileCol=843`
+4. 层级每加 1，瓦片数翻 4 倍（z=10 是 1024² 块，z=11 就是 2048² 块）——这就是「瓦片矩阵」的含义
+</Callout>
 
 ## 4. 新标准：OGC API
 
@@ -39,7 +83,16 @@ GET /collections/roads/items?bbox=...&limit=100
 GET /collections/roads/items/{id}
 ```
 
-分页（`limit` / `next`）、内容协商（GeoJSON）、自描述 API 文档，前端更容易直接消费。
+前端更容易直接消费，靠的是三点：
+
+- **分页**：`limit` / `next`，不用一次性拉全量
+- **内容协商**：默认返回 GeoJSON
+- **自描述 API 文档**：访问根路径就能拿到 OpenAPI 定义
+
+<Callout type="tip" title="类比 · 老服务 vs OGC API">
+- 老服务像填纸质表单：所有参数塞进一个固定格式（`REQUEST=GetMap&BBOX=...`），填错一个顺序就出错
+- OGC API 像点外卖 App：`GET /collections/roads/items?bbox=...&limit=100`，路径即资源，返回 JSON，还自带说明书
+</Callout>
 
 ## 5. 前端地图库怎么选
 
@@ -51,6 +104,20 @@ GET /collections/roads/items/{id}
 | **deck.gl** | 十万级点/线的大数据可视化 | 不是通用底图库 |
 
 约定：Leaflet 的 `L.geoJSON()` 期望 **4326 经纬度**；把 3857 的米直接丢进去，要素会跑到南极附近。
+
+<Callout type="must" title="必背 · Leaflet 坐标约定">
+- `L.geoJSON()` 期望 **EPSG:4326 经纬度**，GeoJSON 位置顺序是 `[经度, 纬度]`
+- 3857 的米直接丢进去 → 要素跑到错误位置
+- Leaflet 默认只支持 3857 等少数 CRS；矢量瓦片要插件
+</Callout>
+
+<Callout type="example" title="例子 · 一个点暴露两种坐标错误">
+天安门：(116.4°E, 39.9°N)。
+
+- 正确写法：GeoJSON 写 `"coordinates": [116.4, 39.9]`（经度在前，单位是度）
+- 错 1：顺序反了写 `[39.9, 116.4]` → 纬度 116.4 超过 90°，要素无效或飞出地图
+- 错 2：把 3857 米制坐标当度：116.4° 换算成米约 `116.4 × 111319.49 ≈ 12957589` 米，把它当经度丢给 `L.geoJSON()`，远超 ±180，要素跑到完全错误的位置
+</Callout>
 
 ## 6. 性能与踩坑
 

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { NAV_ICONS, NAV_ITEMS, isActive } from "@/components/nav";
 import ThemeToggle from "@/components/ThemeToggle";
 import { GIS_MODULES } from "@/content/gis/modules";
+import { ALL_QUESTIONS } from "@/content/gis/all-questions";
 import { cn } from "@/lib/utils";
 import logoMark from "@/public/brand/logo.png";
 
@@ -52,7 +53,7 @@ export default function Sidebar() {
             GIS · {GIS_MODULES.length} 章
           </p>
           <p className="mt-1 text-[12px] leading-relaxed text-foreground-muted">
-            讲义 → 做题 → 复习，每章 10~15 题。
+            讲义 → 做题 → 复习，题库共 {ALL_QUESTIONS.length} 题。
           </p>
         </div>
         <div className="flex items-center justify-between px-1">

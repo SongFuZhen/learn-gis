@@ -2,6 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import EmbedMap from "@/components/EmbedMap";
 import Callout from "@/components/mdx/Callout";
+import { headingId, nodeText } from "@/lib/toc";
 
 /**
  * MDX 全局组件映射（@next/mdx App Router 约定文件）。
@@ -13,6 +14,12 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
     MapExample: EmbedMap,
     // 提示块：<Callout type="warn" title="…">内容</Callout>，type 可选 info | warn | tip | example
     Callout,
+    // h2 自动带锚点 id，供侧栏「本章目录」跳转
+    h2: ({ children, ...props }) => (
+      <h2 id={headingId(nodeText(children))} {...props}>
+        {children}
+      </h2>
+    ),
     a: ({ href = "", ...props }) => {
       const isInternal = href.startsWith("/");
       if (isInternal) {

@@ -135,10 +135,7 @@ export default function QuizRunner({
           eyebrow={eyebrow}
           passedHint={passedHint}
           links={
-            resultLinks ?? [
-              { href: "/s/" + skill + "/" + moduleSlug, label: "回到讲义" },
-              { href: "/s/" + skill, label: "章节列表" },
-            ]
+            resultLinks ?? [{ href: "/s/" + skill, label: "章节列表" }]
           }
           onRestart={() => dispatch({ type: "restart" })}
         />

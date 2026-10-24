@@ -23,12 +23,17 @@ export const SKILLS: Skill[] = [
     id: "gis",
     title: "GIS 基础",
     description:
-      "从球面到平面：基准面、投影、数据模型、格式、OGC 服务、空间运算与 PostGIS。",
+      "从坐标与经纬度的数学打底讲起：基准面、投影、数据模型、格式、OGC 服务、空间运算与 PostGIS。",
   },
 ];
 
 export function getSkill(skillId: string): Skill | null {
   return SKILLS.find((s) => s.id === skillId) ?? null;
+}
+
+/** 展示用章节序号：内部 slug 从 00 起，展示一律从 01 起 */
+export function chapterNo(slug: string): string {
+  return String(Number(slug) + 1).padStart(2, "0");
 }
 
 export function getModules(skillId: string): ModuleMeta[] {

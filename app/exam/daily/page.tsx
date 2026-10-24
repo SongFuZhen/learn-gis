@@ -3,6 +3,7 @@ import QuizRunner from "@/components/quiz/QuizRunner";
 import { ALL_QUESTIONS } from "@/content/gis/all-questions";
 import {
   EXAM_PLAN,
+  PASS_LINE,
   dailySeed,
   dateKey,
   mulberry32,
@@ -35,11 +36,8 @@ export default function DailyExamPage() {
       backLabel="← 考试"
       context={`${EXAM_PLAN.daily.label} · ${questions.length} 题`}
       eyebrow="考试结果"
-      passedHint="达到通过线（80%）——今天这一卷收工。"
-      resultLinks={[
-        { href: "/exam", label: "回到考试" },
-        { href: "/s/gis", label: "章节列表" },
-      ]}
+      passedHint={`达到通过线（${PASS_LINE}%）——今天这一卷收工。`}
+      resultLinks={[{ href: "/s/gis", label: "章节列表" }]}
     />
   );
 }

@@ -1,21 +1,18 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BookOpen,
   CalendarCheck,
-  ChartColumn,
   CircleCheck,
   Play,
   RotateCcw,
 } from "lucide-react";
 import { GIS_MODULES } from "@/content/gis/modules";
-import { getQuestionFile } from "@/lib/content";
+import { chapterNo, getQuestionFile } from "@/lib/content";
+import { PASS_LINE } from "@/lib/quiz/exam";
 import { getHomeData } from "@/lib/progress/home";
 import MasteryDonut from "@/components/home/MasteryDonut";
 import ExamBars from "@/components/home/ExamBars";
 import QuestionMix from "@/components/home/QuestionMix";
-
-const PASS_LINE = 80;
 
 export default async function HomePage() {
   const data = await getHomeData();
@@ -31,7 +28,7 @@ function Intro() {
   );
 
   const stats = [
-    { value: chapterCount, unit: "章", label: "已完成讲义" },
+    { value: chapterCount, unit: "章", label: "讲义章节" },
     { value: questionCount, unit: "题", label: "题库总量" },
     { value: PASS_LINE, unit: "%", label: "单卷通过线" },
   ];
@@ -51,7 +48,7 @@ function Intro() {
             问答式学<span className="text-brand-gradient"> GIS</span>
           </h1>
           <p className="mt-3 max-w-xl text-[14px] leading-relaxed text-foreground-secondary sm:text-[15px]">
-            从球面到平面、坐标参考系、矢量与栅格、数据格式、OGC
+            从坐标与经纬度的数学打底讲起：基准面、投影、矢量与栅格、数据格式、OGC
             服务、空间运算与 PostGIS。讲义 → 刷题 → 间隔复习，答错先讲清为什么错。
           </p>
 
@@ -64,7 +61,7 @@ function Intro() {
               <ArrowRight className="h-4 w-4" strokeWidth={2} />
             </Link>
             <Link
-              href="/s/gis"
+              href="/s/gis/00"
               className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-6 text-[15px] font-medium text-foreground transition-colors hover:bg-background-hover sm:h-11 sm:text-sm"
             >
               从第 1 章读起
@@ -91,41 +88,8 @@ function Intro() {
         </div>
       </section>
 
-      <section className="mt-3">
-        <h2 className="sr-only">快捷入口</h2>
-        <ul className="grid grid-cols-3 gap-2 sm:gap-3">
-          {[
-            { href: "/s/gis", label: "讲义", desc: "一章一页", Icon: BookOpen },
-            { href: "/review", label: "复习", desc: "今日到期", Icon: RotateCcw },
-            {
-              href: "/progress",
-              label: "进度",
-              desc: "各章掌握度",
-              Icon: ChartColumn,
-            },
-          ].map(({ href, label, desc, Icon }) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className="flex h-full flex-col gap-2 rounded-md border border-border bg-card p-3.5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle sm:p-4"
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-sm bg-brand-soft text-brand">
-                  <Icon className="h-[18px] w-[18px]" strokeWidth={1.7} />
-                </span>
-                <span className="text-[13px] font-medium sm:text-sm">
-                  {label}
-                </span>
-                <span className="hidden text-[12px] leading-snug text-foreground-tertiary sm:block">
-                  {desc}
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       {/* 题库构成：题型 + 难度分布 */}
-      <section className="mt-3 rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
+      <section className="mt-3 rounded-md border border-border bg-card px-5 py-4 shadow-card sm:px-7 sm:py-5">
         <h2 className="text-[13px] font-medium sm:text-sm">题库构成</h2>
         <div className="mt-3">
           <QuestionMix />
@@ -185,23 +149,14 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
             今天接着学
           </h1>
 
-          <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+          <div className="mt-5">
             <Link
               href={nextHref}
-              className="flex h-12 items-center justify-center gap-2 rounded-sm bg-brand-gradient px-6 text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:h-11 sm:text-sm"
+              className="inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-brand-gradient px-6 text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:h-11 sm:text-sm"
             >
               <Play className="h-4 w-4" strokeWidth={2} />
               {nextLabel}
             </Link>
-            {!data.dailyDoneToday && (
-              <Link
-                href="/exam/daily"
-                className="flex h-12 items-center justify-center gap-2 rounded-sm border border-border-strong bg-card px-6 text-[15px] font-medium text-foreground transition-colors hover:bg-background-hover sm:h-11 sm:text-sm"
-              >
-                <CalendarCheck className="h-4 w-4" strokeWidth={1.7} />
-                今日一考
-              </Link>
-            )}
           </div>
 
           <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-border-subtle pt-5">
@@ -346,7 +301,7 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
                 className="group flex items-center gap-3"
               >
                 <span className="w-7 shrink-0 font-mono text-[11px] text-foreground-muted">
-                  {c.slug}
+                  {chapterNo(c.slug)}
                 </span>
                 <span className="min-w-0 flex-1 truncate text-[13px] group-hover:text-brand sm:text-sm">
                   {c.title}

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PASS_LINE } from "@/lib/quiz/exam";
 import type { Question } from "@/lib/quiz/types";
 import type { SessionResult } from "@/lib/quiz/reducer";
 
@@ -8,7 +9,7 @@ type Props = {
   /** 结果页标题（章节名 / 「每日一考」等） */
   title: string;
   eyebrow?: string;
-  /** 达到 80% 时的提示语 */
+  /** 达到通过线时的提示语 */
   passedHint?: string;
   links: { href: string; label: string }[];
   onRestart: () => void;
@@ -22,12 +23,12 @@ export default function ResultSummary({
   questions,
   title,
   eyebrow = "测验结果",
-  passedHint = "达到掌握阈值（80%），可以进入下一章。",
+  passedHint = `达到掌握阈值（${PASS_LINE}%），可以进入下一章。`,
   links,
   onRestart,
 }: Props) {
   const wrong = questions.filter((q) => result.wrongIds.includes(q.id));
-  const passed = result.mastery >= 80;
+  const passed = result.mastery >= PASS_LINE;
   const offset = CIRCUMFERENCE * (1 - result.mastery / 100);
 
   return (
@@ -88,7 +89,7 @@ export default function ResultSummary({
             >
               {passed
                 ? passedHint
-                : "低于 80%：建议重读讲义后重练，错题会进入复习队列。"}
+                : `低于 ${PASS_LINE}%：建议重读讲义后重练，错题会进入复习队列。`}
             </p>
           </div>
         </div>
@@ -120,11 +121,11 @@ export default function ResultSummary({
         </div>
       )}
 
-      <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+      <div className="mt-5 flex gap-2 sm:gap-3">
         <button
           type="button"
           onClick={onRestart}
-          className="h-12 rounded-sm bg-brand-gradient text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:h-10 sm:px-5 sm:text-sm"
+          className="h-12 flex-1 rounded-sm bg-brand-gradient text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:h-10 sm:flex-none sm:px-5 sm:text-sm"
         >
           再练一遍
         </button>
@@ -132,7 +133,7 @@ export default function ResultSummary({
           <Link
             key={link.href}
             href={link.href}
-            className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-[15px] font-medium transition-colors hover:bg-background-hover sm:h-10 sm:text-sm"
+            className="flex h-12 flex-1 items-center justify-center rounded-sm border border-border-strong bg-card px-4 text-[15px] font-medium transition-colors hover:bg-background-hover sm:h-10 sm:flex-none sm:text-sm"
           >
             {link.label}
           </Link>

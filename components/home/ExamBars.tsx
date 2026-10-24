@@ -1,6 +1,5 @@
+import { PASS_LINE } from "@/lib/quiz/exam";
 import type { RecentExam } from "@/lib/progress/home";
-
-const PASS_LINE = 80;
 
 type Props = {
   exams: RecentExam[];

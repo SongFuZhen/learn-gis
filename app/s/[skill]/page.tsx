@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import {
+  chapterNo,
   getModules,
   getQuestionFile,
   getSkill,
@@ -55,7 +56,7 @@ export default async function SkillPage({
                 className="flex h-full items-start gap-4 rounded-md border border-border bg-card p-5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
               >
                 <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-brand-soft font-mono text-xs text-brand-ink">
-                  {moduleMeta.slug}
+                  {chapterNo(moduleMeta.slug)}
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="flex items-center justify-between gap-2">

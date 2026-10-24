@@ -45,10 +45,10 @@ export default function ReviewQueue() {
         <p className="mt-3 text-[15px] font-medium">今天没有到期题</p>
         <p className="mx-auto mt-1 max-w-sm text-[13px] leading-relaxed text-foreground-tertiary">
           错题会按 SM-2 排期回来：答对一次推到 1 天，再对推到 6 天，之后按 ease
-          递增；答错则重置为明天。去做一章测验，攒点复习材料吧。
+          递增；答错则重置为明天，连续答对 3 次即毕业出队。去做一章测验，攒点复习材料吧。
         </p>
         <Link
-          href="/s/gis/01/quiz"
+          href="/s/gis/00/quiz"
           className="mt-5 inline-flex h-11 items-center justify-center rounded-sm bg-brand-gradient px-5 text-sm font-medium text-white shadow-brand transition-opacity hover:opacity-95"
         >
           去做一章测验
