@@ -3,6 +3,7 @@
 import { MapContainer, TileLayer, Marker } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { gaodeBase } from "@/lib/mapTiles";
 
 const icon = L.divIcon({
   className: "",
@@ -25,10 +26,7 @@ export default function LeafletStatic({
       className="h-full w-full"
       scrollWheelZoom={false}
     >
-      <TileLayer
-        attribution="&copy; OpenStreetMap contributors"
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+      <TileLayer {...gaodeBase} />
       <Marker position={[lat, lng]} icon={icon} />
     </MapContainer>
   );
