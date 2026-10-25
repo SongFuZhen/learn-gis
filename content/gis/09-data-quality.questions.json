@@ -265,7 +265,7 @@
       "module": "09",
       "difficulty": 2,
       "stem": "自相交的多边形属于逻辑一致性缺陷。",
-      "explanation": "OGC 有效性违例即一致性缺陷（第 04 章）。",
+      "explanation": "OGC 有效性违例即一致性缺陷（第 05 章）。",
       "refs": [
         {
           "title": "ISO 19157 数据质量",
@@ -1501,7 +1501,7 @@
       "module": "09",
       "difficulty": 2,
       "stem": "为什么 GNSS 高程还要过基准换算才能当地图高程？",
-      "explanation": "差 N 可达几十米（第 01 章高程基准）。",
+      "explanation": "差 N 可达几十米（第 02 章高程基准）。",
       "refs": [
         {
           "title": "GPS.gov",
@@ -2059,7 +2059,7 @@
       "module": "09",
       "difficulty": 2,
       "stem": "自相交多边形属于哪个质量维度？",
-      "explanation": "逻辑一致性（几何有效性违例，第 04 章）。",
+      "explanation": "逻辑一致性（几何有效性违例，第 05 章）。",
       "refs": [
         {
           "title": "ISO 19157 数据质量",

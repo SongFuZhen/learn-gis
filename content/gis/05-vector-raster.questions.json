@@ -3896,7 +3896,7 @@
       "module": "05",
       "difficulty": 2,
       "stem": "检查与修复几何有效性的 PostGIS 函数对是？",
-      "explanation": "先 IsValid 检查，再 MakeValid 修复（详见第 12 章）。",
+      "explanation": "先 IsValid 检查，再 MakeValid 修复（详见第 13 章）。",
       "refs": [
         {
           "title": "GDAL/OGR Programs",

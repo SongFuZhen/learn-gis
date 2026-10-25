@@ -154,7 +154,7 @@ GET /collections/roads/items/{id}
 三个必看细节：
 
 1. `setView` 的参数是 **[纬度, 经度]**，GeoJSON 的 `coordinates` 是 **[经度, 纬度]**，同一个点两种顺序，初学者第一大坑；
-2. 瓦片模板里的 `{z}/{x}/{y}` 占位符由 Leaflet 按当前视野自动填充（第 06 章瓦片矩阵的落地）；
+2. 瓦片模板里的 `{z}/{x}/{y}` 占位符由 Leaflet 按当前视野自动填充（第 07 章瓦片矩阵的落地）；
 3. 真实项目里地图库要**按需加载**（动态 `import()`），别让 40 KB 的 Leaflet 挤进首屏 bundle。
 
 <MapExample lat={39.9} lng={116.4} zoom={11} label="本站内嵌的 Leaflet 地图（高德瓦片 + 中文标注）——与你刚写的 map.html 同源同款" />
@@ -192,7 +192,7 @@ GET /collections/roads/items/{id}
 - **时空数据（spatio-temporal，/ˈspeɪʃioʊ ˈtempərəl/，「斯佩-修-坦-普洛」）**：轨迹（GPS 轨迹、船舶 AIS（/ˌeɪ ˌaɪ ˈɛs/，「艾-艾-艾斯」））、移动对象数据库、时序栅格堆栈。PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的 `ST_MakeLine` 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放，『共享单车潮汐』就是时空数据的经典教学案例；
 - **地理编码（geocoding，/ˈdʒiːoʊˌkoʊdɪŋ/，「吉欧-扣丁」）**：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；
 - **三维 GIS**：3D Tiles（OGC 标准）把倾斜摄影/BIM（/bɪm/，「比姆」）切成流式瓦片，CesiumJS（/ˈsiːziəm ˌdʒeɪ ˈɛs/，「西兹昂-杰-艾斯」）/ MapLibre GL 负责渲染，是数字孪生的数据底座；
-- **数字孪生**：实时 IoT（/ˌaɪ ˌoʊ ˈtiː/，「艾-欧-提」）数据 + 三维底图 + 时空分析，本章到第 12 章的全部知识都在它身上汇合。
+- **数字孪生**：实时 IoT（/ˌaɪ ˌoʊ ˈtiː/，「艾-欧-提」）数据 + 三维底图 + 时空分析，本章到第 13 章的全部知识都在它身上汇合。
 
 <Callout type="must" title="必背 · 收尾三句话">
 - 时空数据 = 空间 + 时间两个维度：轨迹是点的时序，影像堆栈是面的时序

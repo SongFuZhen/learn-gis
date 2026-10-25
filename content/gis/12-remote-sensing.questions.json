@@ -1089,7 +1089,7 @@
       "module": "12",
       "difficulty": 2,
       "stem": "分类图交付的必备件是？",
-      "explanation": "没有精度报告的分类图不可信（第 08 章质量六维）。",
+      "explanation": "没有精度报告的分类图不可信（第 09 章质量六维）。",
       "refs": [
         {
           "title": "USGS Landsat",
@@ -1809,7 +1809,7 @@
       "module": "12",
       "difficulty": 2,
       "stem": "Sentinel-2 一景多波段数据最常见的交付格式是？",
-      "explanation": "COG GeoTIFF 是云上遥感数据事实标准（第 06 章）。",
+      "explanation": "COG GeoTIFF 是云上遥感数据事实标准（第 07 章）。",
       "refs": [
         {
           "title": "USGS Landsat",

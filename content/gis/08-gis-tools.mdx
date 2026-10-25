@@ -11,7 +11,7 @@
 | **QGIS** | 桌面 GUI（/ˈɡuːi/，「古伊」） | 点按钮做分析、制图、检查数据 |
 | **GDAL/OGR** | 命令行引擎 | 栅格用 GDAL、矢量用 OGR，全世界的格式转换都靠它 |
 | **PROJ**（/prɒdʒ/，「普罗吉」） | 坐标系库 | 第 02/03 章的投影与基准转换数学都在这里 |
-| GEOS（/ˈdʒiːoʊs/，「吉-奥斯」） | 几何运算库 | 第 12 章 PostGIS（/ˈpoʊstˌdʒɪs/，「剖斯特-吉斯」）的 buffer/intersect 底层就是它 |
+| GEOS（/ˈdʒiːoʊs/，「吉-奥斯」） | 几何运算库 | 第 13 章 PostGIS（/ˈpoʊstˌdʒɪs/，「剖斯特-吉斯」）的 buffer/intersect 底层就是它 |
 
 <Callout type="must" title="必背 · 四件套分工">
 - **QGIS** = 图形界面；**GDAL/OGR** = 命令行引擎（GDAL 管栅格、OGR 管矢量）
@@ -122,7 +122,7 @@ ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTE_TO_MULTI -nln countrie
 
      `ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTE_TO_MULTI`
   2. 再转一次，目标坐标系改为 EPSG:3857，输出 countries_3857.gpkg；
-  3. 用 ogrinfo -so 分别查看两个 GPKG 的 extent：预期 3857 版的数值变成了两千万米级（对照第 02 章的 ±20 037 508 m）；
+  3. 用 ogrinfo -so 分别查看两个 GPKG 的 extent：预期 3857 版的数值变成了两千万米级（对照第 03 章的 ±20 037 508 m）；
   4. 把两次的 extent 数字抄下来，这就是「同一数据、不同 CRS」最直观的证据。
 </Exercise>
 

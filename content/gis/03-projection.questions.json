@@ -1813,7 +1813,7 @@
       "module": "03",
       "difficulty": 2,
       "stem": "『投影』与『坐标参考系（CRS）』的关系是？",
-      "explanation": "完整 CRS 由基准面、投影方法与参数、单位、轴序共同定义，投影只是其中一环（详见第 03 章）。",
+      "explanation": "完整 CRS 由基准面、投影方法与参数、单位、轴序共同定义，投影只是其中一环（详见第 04 章）。",
       "refs": [
         {
           "title": "Map Projections — A Working Manual (USGS)",

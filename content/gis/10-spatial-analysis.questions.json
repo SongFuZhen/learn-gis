@@ -1489,7 +1489,7 @@
       "module": "10",
       "difficulty": 2,
       "stem": "点计数渔网格图的格子计数应转化为？",
-      "explanation": "计数受格子面积影响，密度化才可比（第 05 章同源教训）。",
+      "explanation": "计数受格子面积影响，密度化才可比（第 06 章同源教训）。",
       "refs": [
         {
           "title": "PostGIS 参考手册",
@@ -1649,7 +1649,7 @@
       "module": "10",
       "difficulty": 3,
       "stem": "把数万顶点的大行政边界与大表做相交判断很慢，PostGIS 的优化手段是？",
-      "explanation": "大几何切碎后 bbox 更紧，粗筛效率大幅提升（第 12 章）。",
+      "explanation": "大几何切碎后 bbox 更紧，粗筛效率大幅提升（第 13 章）。",
       "refs": [
         {
           "title": "PostGIS 参考手册",
@@ -2258,7 +2258,7 @@
       "module": "10",
       "difficulty": 2,
       "stem": "下列能用 GiST 索引加速的写法有？",
-      "explanation": "D 逐行全表算距离，走不了索引（第 12 章）。",
+      "explanation": "D 逐行全表算距离，走不了索引（第 13 章）。",
       "refs": [
         {
           "title": "PostGIS 参考手册",

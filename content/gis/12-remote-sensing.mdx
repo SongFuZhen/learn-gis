@@ -41,7 +41,7 @@
 | MODIS（/ˈmoʊdɪs/，「莫-迪斯」） | 美国 | 250~1000 m | 每天 | 36 段 | 是 |
 
 <Callout type="tip" title="怎么免费拿到数据">
-EarthExplorer（USGS，Landsat）、Copernicus Data Space（Sentinel）、地理空间数据云（国内镜像 Landsat/Sentinel）。下载来的通常是**分幅 GeoTIFF（/ˈdʒiːoʊ tɪf/，「吉-欧-提夫」）**，多波段文件，正是第 06 章 COG（Cloud Optimized GeoTIFF，/kɒɡ/，「科格」）的主场。
+EarthExplorer（USGS，Landsat）、Copernicus Data Space（Sentinel）、地理空间数据云（国内镜像 Landsat/Sentinel）。下载来的通常是**分幅 GeoTIFF（/ˈdʒiːoʊ tɪf/，「吉-欧-提夫」）**，多波段文件，正是第 07 章 COG（Cloud Optimized GeoTIFF，/kɒɡ/，「科格」）的主场。
 </Callout>
 
 ## 4. NDVI 与假彩色：最常用的两把瑞士刀
@@ -80,7 +80,7 @@ NDVI = (NIR − Red) / (NIR + Red)
 | **非监督分类** | 算法自己按波谱聚类（K-means（/ˌkeɪ ˈmiːnz/，「克-米恩兹」）、ISODATA（/ˈaɪsoʊˌdeɪtə/，「艾-索-戴-塔」）），人事后给类命名 | 少 | 快速摸底、无先验知识 |
 | **监督分类** | 人先标**训练样本**（每类画几个 ROI（Region of Interest，/ˌɑːr aʊ ˈaɪ/，「艾尔-奥-艾」）），算法学习后全图分类 | 多 | 精度要求高的专题制图 |
 
-分类完必须做**精度评估**：随机抽样点对照真值，算**混淆矩阵**与总体精度/Kappa（/ˈkæpə/，「凯-帕」），没有精度报告的分类图不能交付（第 08 章质量六维的落地）。
+分类完必须做**精度评估**：随机抽样点对照真值，算**混淆矩阵**与总体精度/Kappa（/ˈkæpə/，「凯-帕」），没有精度报告的分类图不能交付（第 09 章质量六维的落地）。
 
 <Callout type="must" title="必背 · 分类两条">
 - **非监督**：算法聚类、人事后命名；**监督**：人先给训练样本

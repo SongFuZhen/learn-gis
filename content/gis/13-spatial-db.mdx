@@ -83,7 +83,7 @@ ST_MakeEnvelope(x1,y1,x2,y2, srid)  -- 构造矩形，做范围查询
 
 ## 4. 叠加函数族：合并、求交、求差
 
-第 09 章讲叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的「语法」：
+第 10 章讲叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的「语法」：
 
 ```sql
 -- 合并：注意 ST_Union 与 ST_Collect 的区别
@@ -111,7 +111,7 @@ CREATE TABLE districts_sub AS
 SELECT ST_Subdivide(geom, 256) AS geom, name FROM districts;
 ```
 
-**有效性检查**（第 04 章的概念，这里是工程落地）：
+**有效性检查**（第 05 章的概念，这里是工程落地）：
 
 ```sql
 SELECT id, ST_IsValidReason(geom)
