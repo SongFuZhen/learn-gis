@@ -10,7 +10,7 @@ export type ModuleMeta = {
 };
 
 /**
- * 已上线章节（14 章布局）：
+ * 已上线章节（15 章布局）：
  * 坐标直觉 → 数据模型 → 制图表达 → 数据获取 → 空间分析 → 存储运算 → 服务与开发。
  * 未交付章节在 PLANNED_MODULES，逐批转正。
  */
@@ -24,91 +24,98 @@ export const GIS_MODULES: ModuleMeta[] = [
   },
   {
     slug: "01",
-    file: "01-basics",
+    file: "01-math-notation",
+    title: "三角函数与数学符号：读法和用法",
+    summary:
+      "零基础读音手册：sin/cos/tan 与反三角怎么读怎么用、常用希腊字母、∑∫√∞±≈∠°′″ 等符号的读法，以及它们在 GIS 公式里的实际含义。",
+  },
+  {
+    slug: "02",
+    file: "02-basics",
     title: "地球、椭球与基准面",
     summary:
       "用旋转椭球近似不规则的地球，并用基准面规定椭球怎么摆；为什么同一经纬度换个基准面就差上百米。",
   },
   {
-    slug: "02",
-    file: "02-projection",
+    slug: "03",
+    file: "03-projection",
     title: "地图投影：变形与取舍",
     summary:
       "球面为什么不能无变形地铺平，等角/等积/等距怎么选，以及你天天在用的 Web 墨卡托做了什么简化。",
   },
   {
-    slug: "03",
-    file: "03-crs-epsg",
+    slug: "04",
+    file: "04-crs-epsg",
     title: "坐标参考系实战：EPSG、分带与重投影",
     summary:
       "地理坐标 vs 投影坐标、EPSG 编码体系、轴序与单位陷阱、UTM/高斯分带与基准面转换。",
   },
   {
-    slug: "04",
-    file: "04-vector-raster",
+    slug: "05",
+    file: "05-vector-raster",
     title: "矢量与栅格：空间数据模型",
     summary:
       "点线面与属性表、拓扑、像元与分辨率、重采样，以及矢量与栅格各自的适用场景。",
   },
   {
-    slug: "05",
-    file: "05-cartography",
+    slug: "06",
+    file: "06-cartography",
     title: "地图制图：符号、配色与数据分级",
     summary:
       "从数据到图：视觉变量、顺序/发散/类别配色、四种分级方法、比例尺与综合，以及地图为什么会说谎。",
   },
   {
-    slug: "06",
-    file: "06-formats-tiles",
+    slug: "07",
+    file: "07-formats-tiles",
     title: "数据格式与瓦片",
     summary:
       "GeoJSON / Shapefile / GeoPackage / GeoTIFF / COG，瓦片金字塔、MVT 矢量瓦片与 PMTiles。",
   },
   {
-    slug: "07",
-    file: "07-gis-tools",
+    slug: "08",
+    file: "08-gis-tools",
     title: "QGIS 与 GDAL/OGR 工具链",
     summary:
       "打开 QGIS 认识界面，用 ogrinfo/gdalinfo 体检数据，用 ogr2ogr/gdalwarp 做转换、重投影与裁剪。",
   },
   {
-    slug: "08",
-    file: "08-data-quality",
+    slug: "09",
+    file: "09-data-quality",
     title: "数据采集与数据质量",
     summary:
       "GNSS 原理与 RTK、地图数字化、OSM 与开放数据、质量六维、accuracy vs precision、元数据与溯源。",
   },
   {
-    slug: "09",
-    file: "09-spatial-analysis",
+    slug: "10",
+    file: "10-spatial-analysis",
     title: "空间分析 I：缓冲、叠置与邻域",
     summary:
       "缓冲区、叠置分析（交/并/差）、空间连接、近邻与网格统计、可达性入门——GIS 的核心生产力。",
   },
   {
-    slug: "10",
-    file: "10-terrain",
+    slug: "11",
+    file: "11-terrain",
     title: "空间分析 II：插值、DEM 与地形",
     summary:
       "IDW/样条/克里金怎么选、DEM 从哪来、nDSM 减法、坡度坡向山体阴影、水文四步与流域。",
   },
   {
-    slug: "11",
-    file: "11-remote-sensing",
+    slug: "12",
+    file: "12-remote-sensing",
     title: "遥感基础",
     summary:
       "电磁波谱与波谱指纹、四类分辨率、Landsat/Sentinel/高分、NDVI 与假彩色、监督与非监督分类。",
   },
   {
-    slug: "12",
-    file: "12-spatial-db",
+    slug: "13",
+    file: "13-spatial-db",
     title: "空间运算与空间数据库",
     summary:
       "Buffer/Intersect/Distance、GiST 索引与 KNN，Turf.js 与 PostGIS 各自的正确用法。",
   },
   {
-    slug: "13",
-    file: "13-webgis",
+    slug: "14",
+    file: "14-webgis",
     title: "OGC 服务与 WebGIS 实战",
     summary:
       "WMS / WMTS / WFS / WCS / OGC API，Leaflet、MapLibre、OpenLayers 的分工与性能取舍。",

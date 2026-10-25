@@ -1,6 +1,6 @@
 ## 一句话
 
-空间运算本身不难，难的是「单位、SRID、索引」三件事；搞错任何一件，结果就会静默地错误。
+空间运算本身不难，难的是「单位、SRID（/ˌɛs ˌɑːr ˌaɪ ˈdiː/，「艾斯-阿-艾-迪」）、索引」三件事；搞错任何一件，结果就会静默地错误。
 
 ## 1. 前端：Turf.js
 
@@ -12,7 +12,7 @@ const buf = buffer(point, 5, { units: "kilometers" });
 - `turf.distance(a, b)` 默认单位 **kilometers**。
 - `turf.area(polygon)` 返回 **平方米**（球面计算）。
 - `turf.buffer` 的半径单位由 `options.units` 指定，**默认 kilometers**。
-- Turf 在经纬度上做球面近似，适合交互与轻量分析；大数据、精确椭球计算交给后端。
+- Turf（/tɜːrf/，「特尔夫」）在经纬度上做球面近似，适合交互与轻量分析；大数据、精确椭球计算交给后端。
 
 <Callout type="must" title="必背 · Turf 的单位">
 - `turf.distance` 默认单位是**公里**，不是米
@@ -77,13 +77,13 @@ ST_MakeEnvelope(x1,y1,x2,y2, srid)  -- 构造矩形，做范围查询
 - `ST_Transform` 会**换算坐标**；`ST_SetSRID` 只**贴标签不换算**，不改变任何坐标值
 - `ST_Contains(a, b)` 是「a 包含 b」，`ST_Within(a, b)` 是「a 在 b 内」，**方向相反**，参数别写反
 - 判断「距离不超过 r」用 `ST_DWithin(a, b, r)`，不要用 `ST_Distance` 再比较，前者能用索引
-- `ST_Buffer` / `ST_Area` / `ST_Length` 的单位 = **当前 CRS 的单位**，4326 上就是「度」
+- `ST_Buffer` / `ST_Area` / `ST_Length` 的单位 = **当前 CRS（/ˌsiː ˌɑːr ˈɛs/，「西-阿-艾斯」）的单位**，4326 上就是「度」
 </Callout>
 
 
 ## 4. 叠加函数族：合并、求交、求差
 
-第 09 章讲叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS 的「语法」：
+第 09 章讲叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的「语法」：
 
 ```sql
 -- 合并：注意 ST_Union 与 ST_Collect 的区别
@@ -104,7 +104,7 @@ FROM poi p
 JOIN districts d ON ST_Within(p.geom, d.geom);
 ```
 
-**大几何与大表**：一个几万个顶点的行政边界，每次相交判断都很贵。`ST_Subdivide(geom)` 把大几何切成小碎块，配合 GiST 的 `&&` 粗筛，能让大表叠加快一个数量级：
+**大几何与大表**：一个几万个顶点的行政边界，每次相交判断都很贵。`ST_Subdivide(geom)` 把大几何切成小碎块，配合 GiST（/dʒɪst/，「吉斯特」）的 `&&` 粗筛，能让大表叠加快一个数量级：
 
 ```sql
 CREATE TABLE districts_sub AS
@@ -135,7 +135,7 @@ WHERE NOT ST_IsValid(geom);
   title="练习：空间连接——POI 挂区名"
 >
   表：`poi(id, geom)`（点）、`districts(id, name, geom)`（面），都是 EPSG:4326。
-  写 SQL：给每个 POI 挂上所在区的 `name`；没有落在任何区里的 POI 也要保留（提示：LEFT JOIN）。
+  写 SQL：给每个 POI（/ˌpiː ˌoʊ ˈaɪ/，「皮-欧-艾」）挂上所在区的 `name`；没有落在任何区里的 POI 也要保留（提示：LEFT JOIN）。
 
   <ExerciseSolution>
     ```sql
@@ -219,7 +219,7 @@ ORDER BY geom <-> ST_Point(116.4, 39.9, 4326)
 LIMIT 5;
 ```
 
-`<->` 是 KNN 运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 `ST_Distance`，再排序取前 5 条，结果一样，慢几百倍。
+`<->` 是 KNN（/ˌkeɪ ˌɛn ˈɛn/，「凯-恩-恩」）运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 `ST_Distance`，再排序取前 5 条，结果一样，慢几百倍。
 </Callout>
 
 ## 6. 三个静默错误
@@ -238,7 +238,7 @@ LIMIT 5;
 <Callout type="example" title="例子 · 3857 上量面积会差多少">
 在北京（约 40°N）量一块真实面积 100 平方公里的地块：
 
-1. Web Mercator 的线性放大倍数 = `1 / cos(40°) ≈ 1.31`
+1. Web Mercator（/wɛb mərˈkeɪtər/，「韦布-默-凯-特」）的线性放大倍数 = `1 / cos(40°) ≈ 1.31`
 2. 面积放大倍数 = 线性倍数的平方 ≈ `1.31 × 1.31 ≈ 1.70`
 3. `ST_Area` 在 3857 上返回约 **170 平方公里**，凭空多出 70%，且不报错。
 
@@ -249,7 +249,7 @@ LIMIT 5;
 
 - 展示/交互：Turf 在前端，数据量小、延迟低。
 - 需要索引、事务、大数据、精确统计：PostGIS。
-- 前端只传参数，后端返回 GeoJSON：`ST_AsGeoJSON(ST_Transform(...))`。
+- 前端只传参数，后端返回 GeoJSON（/ˈdʒiːoʊˌdʒeɪsən/，「吉欧-杰森」）：`ST_AsGeoJSON(ST_Transform(...))`。
 
 ## 延伸阅读
 

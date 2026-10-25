@@ -1,12 +1,12 @@
 {
   "skill": "gis",
-  "module": "05",
+  "module": "06",
   "version": 1,
   "questions": [
     {
-      "id": "gis-05-001",
+      "id": "gis-06-001",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "比例尺越大，表示的实地范围越大。",
       "explanation": "反了：大比例尺（分母小）表示范围小、细节多；小比例尺看大范围。",
@@ -24,9 +24,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-002",
+      "id": "gis-06-002",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "1:50 000 地形图上 1 cm 对应实地 500 m。",
       "explanation": "1 cm × 50 000 = 50 000 cm = 500 m。",
@@ -44,9 +44,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-003",
+      "id": "gis-06-003",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "数值（有序）数据最适合用色相来区分大小。",
       "explanation": "数值数据用大小/明度；色相没有天然的『大小』顺序感，适合类别。",
@@ -64,9 +64,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-004",
+      "id": "gis-06-004",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "类别数据用深浅渐变着色是常见错误。",
       "explanation": "类别之间没有大小之分，深浅暗示了不存在的顺序；应用色相/形状。",
@@ -84,9 +84,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-005",
+      "id": "gis-06-005",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "顺序配色（sequential）适合表达从低到高的数值。",
       "explanation": "明度单调变化的单色/多色渐变是顺序数据的默认选择。",
@@ -104,9 +104,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-006",
+      "id": "gis-06-006",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "发散配色（diverging）适合有中性点（如 0、均值）的数据。",
       "explanation": "中点用中性色，两边用对比色表达两个方向的偏离。",
@@ -124,9 +124,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-007",
+      "id": "gis-06-007",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "彩虹色带（rainbow/jet）明度忽明忽暗，正在被感知均匀色带替代。",
       "explanation": "jet 顺序语感混乱且人为制造视觉分界；viridis 等感知均匀色带是替代方案。",
@@ -144,9 +144,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-008",
+      "id": "gis-06-008",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "自然断点（Jenks）分级的原理是最小化档内方差。",
       "explanation": "Jenks 自然断点最小化档内方差、最大化档间方差，贴合数据聚集。",
@@ -164,9 +164,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-009",
+      "id": "gis-06-009",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "分位数分级保证每一档内的元素个数相同。",
       "explanation": "按排序位置均分，每档个数 = 总数/档数；代价是相近值可能被切进不同档。",
@@ -184,9 +184,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-010",
+      "id": "gis-06-010",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "等间距分级最适合严重偏斜的数据。",
       "explanation": "偏斜数据用等间距会出现『一档挤爆、几档全空』；应用分位数或自然断点。",
@@ -204,9 +204,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-011",
+      "id": "gis-06-011",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "专题图分级的档数一般取 4~7 档。",
       "explanation": "再多肉眼难以分辨色差，再少信息损失过大。",
@@ -224,9 +224,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-012",
+      "id": "gis-06-012",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "比例符号图中圆的面积应与数值成正比。",
       "explanation": "面积才对应数量感知；若半径与数值成正比，面积被平方放大。",
@@ -244,9 +244,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-013",
+      "id": "gis-06-013",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "把比例符号的半径设为与数值成正比，会夸大大值。",
       "explanation": "半径∝v 则面积∝v²，大值的视觉权重被平方级放大。",
@@ -264,9 +264,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-014",
+      "id": "gis-06-014",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "地图综合时舍去小城市是正常且必要的操作。",
       "explanation": "小比例尺无法容纳全部细节，选取/取舍是综合的基本手段。",
@@ -284,9 +284,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-015",
+      "id": "gis-06-015",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "把窄公路画得比实际宽度宽，属于地图综合中的『夸大』。",
       "explanation": "不夸大就画不出来，但制图者应有意识地知道自己在夸大。",
@@ -304,9 +304,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-016",
+      "id": "gis-06-016",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "标注摆放问题在计算上属于 NP 难。",
       "explanation": "不压盖、贴近要素、不打架的多目标权衡是 NP 难问题。",
@@ -324,9 +324,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-017",
+      "id": "gis-06-017",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "色盲友好配色只是锦上添花的装饰问题。",
       "explanation": "红绿色盲约占男性 8%，不友好配色会让这部分读者完全读错图。",
@@ -344,9 +344,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-018",
+      "id": "gis-06-018",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "等值区域图（choropleth）更适合表达比率/密度而不是绝对总量。",
       "explanation": "总量受区域面积影响（大区域色深不代表密度高），应先归一化成比率。",
@@ -364,9 +364,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-019",
+      "id": "gis-06-019",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "把各省人口总量直接做 choropleth 是标准做法。",
       "explanation": "总量 choropleth 会被大区域主导；应换人口密度或用比例符号图。",
@@ -384,9 +384,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-020",
+      "id": "gis-06-020",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "点密度图用若干小点表示数量在区域内的分布。",
       "explanation": "每个点代表固定数量（如 1 点 = 1 万人），适合表达分布而不只是汇总。",
@@ -404,9 +404,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-021",
+      "id": "gis-06-021",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "同一份数据换一种分级方法，可能讲出完全不同的故事。",
       "explanation": "分级是制图中最主观的一步，读图要反问『换种切法结论还成立吗』。",
@@ -424,9 +424,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-022",
+      "id": "gis-06-022",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "图例是可选项，熟练读者可以不需要。",
       "explanation": "没有图例的分级/符号图无法还原数值含义，图例是必需品。",
@@ -444,9 +444,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-023",
+      "id": "gis-06-023",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "线要素（河流、道路）的标注应沿要素走向弯曲排布。",
       "explanation": "沿线弯曲排布且不倒置，是线标注的基本规则。",
@@ -464,9 +464,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-024",
+      "id": "gis-06-024",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "标注字号层级应与要素重要性一致：城市越大字号越大。",
       "explanation": "首都 > 省会 > 地级市 > 县镇，字号字重递减建立视觉层级。",
@@ -484,9 +484,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-025",
+      "id": "gis-06-025",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "viridis 色带是感知均匀（perceptually uniform）的。",
       "explanation": "相邻色差在视觉上均匀，且对色盲友好，是 jet 的主流替代。",
@@ -504,9 +504,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-026",
+      "id": "gis-06-026",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "类别配色中的类别越多越好，能表达更多信息。",
       "explanation": "类别超过 6 个左右就难以分辨，信息反而丢失。",
@@ -524,9 +524,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-027",
+      "id": "gis-06-027",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "地图说谎都是制图者故意为之。",
       "explanation": "更多时候是无意的：默认分级、默认投影、符号默认值都会造成误导。",
@@ -544,9 +544,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-028",
+      "id": "gis-06-028",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "读图时应检查『换个分级方案结论是否还成立』。",
       "explanation": "这是读图三问的第一问，也是制图者的自检清单。",
@@ -564,9 +564,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-029",
+      "id": "gis-06-029",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "分级地图的图例应标注每一档的数值范围。",
       "explanation": "没有数值范围的图例无法还原色档含义，图例是分级图的必需品。",
@@ -584,9 +584,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-030",
+      "id": "gis-06-030",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "分级把连续数据离散化，档内的数值差异信息必然被牺牲。",
       "explanation": "同一档内 12 与 13 看不出区别——这是分级换可读性的固有代价。",
@@ -604,9 +604,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-031",
+      "id": "gis-06-031",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "线要素标注可以倒置（上下颠倒）以节省图面空间。",
       "explanation": "倒置标注迫使读者歪头读图，线标注应沿线排布且不倒置。",
@@ -624,9 +624,9 @@
       "answer": false
     },
     {
-      "id": "gis-05-032",
+      "id": "gis-06-032",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "双变量地图（两个属性同时编码颜色）读图难度高，应谨慎使用。",
       "explanation": "双变量色带需要读者同时解耦两个视觉通道，只在高门槛场合使用。",
@@ -644,9 +644,9 @@
       "answer": true
     },
     {
-      "id": "gis-05-033",
+      "id": "gis-06-033",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "1:100 000 地形图上 1 cm 对应实地多远？",
       "explanation": "1 cm × 100 000 = 100 000 cm = 1 km。",
@@ -684,9 +684,9 @@
       ]
     },
     {
-      "id": "gis-05-034",
+      "id": "gis-06-034",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "全国人口密度分布图（数值从低到高）应选哪类配色？",
       "explanation": "单向数值 → 顺序配色，明度单调变化。",
@@ -724,9 +724,9 @@
       ]
     },
     {
-      "id": "gis-05-035",
+      "id": "gis-06-035",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "各地『相对全国平均气温的距平』图应选哪类配色？",
       "explanation": "距平有天然中性点（均值=0），发散配色红蓝两侧表达偏高/偏低。",
@@ -764,9 +764,9 @@
       ]
     },
     {
-      "id": "gis-05-036",
+      "id": "gis-06-036",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "土地利用类型图（耕地/林地/水体…）应选哪类配色？",
       "explanation": "无序类别 → 色相区分，每类一色，无深浅顺序。",
@@ -804,9 +804,9 @@
       ]
     },
     {
-      "id": "gis-05-037",
+      "id": "gis-06-037",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "医院用『十字』、机场用『飞机』符号，用的是哪个视觉变量？",
       "explanation": "形状表达定性类别，是点符号的语义化设计。",
@@ -844,9 +844,9 @@
       ]
     },
     {
-      "id": "gis-05-038",
+      "id": "gis-06-038",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "『圆越大人口越多』用的是哪个视觉变量？",
       "explanation": "大小是表达数量最直觉的变量。",
@@ -884,9 +884,9 @@
       ]
     },
     {
-      "id": "gis-05-039",
+      "id": "gis-06-039",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "风场图用箭头指向表示风的去向，用的是？",
       "explanation": "方向变量表达流向/走向。",
@@ -924,9 +924,9 @@
       ]
     },
     {
-      "id": "gis-05-040",
+      "id": "gis-06-040",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "数据严重偏斜（多数值小、少数值极大）时，首选分级方法是？",
       "explanation": "等间距会让多数样本挤进同一档、高档空置；分位数/自然断点贴合分布。",
@@ -964,9 +964,9 @@
       ]
     },
     {
-      "id": "gis-05-041",
+      "id": "gis-06-041",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "『每一档元素个数相同』是哪种分级方法？",
       "explanation": "分位数按排序位置均分，各档个数 = 总数/档数。",
@@ -1004,9 +1004,9 @@
       ]
     },
     {
-      "id": "gis-05-042",
+      "id": "gis-06-042",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "以均值为中心、按 ±σ 切档的是？",
       "explanation": "标准差分级突出与均值的偏离，天然配发散配色。",
@@ -1044,9 +1044,9 @@
       ]
     },
     {
-      "id": "gis-05-043",
+      "id": "gis-06-043",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "(最大值 − 最小值) ÷ 档数 计算组距的是？",
       "explanation": "等间距的定义式，各档宽度相等。",
@@ -1084,9 +1084,9 @@
       ]
     },
     {
-      "id": "gis-05-044",
+      "id": "gis-06-044",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "Jenks 自然断点分级在优化什么？",
       "explanation": "Jenks 的目标函数：档内尽量相似、档间尽量不同。",
@@ -1124,9 +1124,9 @@
       ]
     },
     {
-      "id": "gis-05-045",
+      "id": "gis-06-045",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "choropleth 最适合表达的数据是？",
       "explanation": "choropleth 的色深对应『单位面积的量』，比率化后才有可比性。",
@@ -1164,9 +1164,9 @@
       ]
     },
     {
-      "id": "gis-05-046",
+      "id": "gis-06-046",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "直接用各省人口总量做 choropleth 的主要问题是？",
       "explanation": "总量与面积耦合；应换密度（人均/单位面积）或比例符号图。",
@@ -1204,9 +1204,9 @@
       ]
     },
     {
-      "id": "gis-05-047",
+      "id": "gis-06-047",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "下列哪个是大比例尺？",
       "explanation": "分母越小比例尺越大：1:500 能看到门牌级细节。",
@@ -1244,9 +1244,9 @@
       ]
     },
     {
-      "id": "gis-05-048",
+      "id": "gis-06-048",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "1:25000 图上量得 8 cm，实地距离是？",
       "explanation": "8 cm × 25 000 = 200 000 cm = 2 km。",
@@ -1284,9 +1284,9 @@
       ]
     },
     {
-      "id": "gis-05-049",
+      "id": "gis-06-049",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "实地 45 km 的河道画在 1:900 万图上约多长？",
       "explanation": "45 km = 4 500 000 cm ÷ 9 000 000 = 0.5 cm = 5 mm。",
@@ -1324,9 +1324,9 @@
       ]
     },
     {
-      "id": "gis-05-050",
+      "id": "gis-06-050",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "比例符号图中，符号 size 应映射为数值的？",
       "explanation": "圆面积 ∝ r²，要面积∝数值则 r ∝ √数值——QGIS Assistant 里映射 sqrt(值)。",
@@ -1364,9 +1364,9 @@
       ]
     },
     {
-      "id": "gis-05-051",
+      "id": "gis-06-051",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "标注发生大面积压盖时，合理的做法是？",
       "explanation": "宁缺毋滥：压缩字号、按重要性取舍，保住可读性。",
@@ -1404,9 +1404,9 @@
       ]
     },
     {
-      "id": "gis-05-052",
+      "id": "gis-06-052",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "『把公路画得比实际宽度宽』属于地图综合的哪种手段？",
       "explanation": "符号宽度低于印刷/屏幕极限时必须夸大，否则要素不可见。",
@@ -1444,9 +1444,9 @@
       ]
     },
     {
-      "id": "gis-05-053",
+      "id": "gis-06-053",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "用 jet/彩虹色带表达顺序数据的主要问题是？",
       "explanation": "彩虹带明度忽明忽暗，读者会把色带中段感知为多个『边界』，歪曲数据。",
@@ -1484,9 +1484,9 @@
       ]
     },
     {
-      "id": "gis-05-054",
+      "id": "gis-06-054",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "QGIS 里『按数值字段分档着色』应选的符号化类型是？",
       "explanation": "Categorized 按类别字符串着色；Graduated 才是数值分档。",
@@ -1524,9 +1524,9 @@
       ]
     },
     {
-      "id": "gis-05-055",
+      "id": "gis-06-055",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "制图者想弱化某县数据在图上的『异常感』，故意用了等间距分级。这属于？",
       "explanation": "分级选择本身可以操纵结论——这是《How to Lie with Maps》的核心案例之一。",
@@ -1564,9 +1564,9 @@
       ]
     },
     {
-      "id": "gis-05-056",
+      "id": "gis-06-056",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "下列哪一项不是地图综合的手段？",
       "explanation": "综合是做减法/调变形；提高采集精度是数据生产，不是综合。",
@@ -1604,9 +1604,9 @@
       ]
     },
     {
-      "id": "gis-05-057",
+      "id": "gis-06-057",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "读图三问不包括以下哪一项？",
       "explanation": "三问针对分级敏感性、符号保真与信息取舍；字体是审美问题不是伦理问题。",
@@ -1644,9 +1644,9 @@
       ]
     },
     {
-      "id": "gis-05-058",
+      "id": "gis-06-058",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "点密度图（dot density）最适合表达？",
       "explanation": "点密度表达『分布形态』而非精确位置；每点代表固定数量。",
@@ -1684,9 +1684,9 @@
       ]
     },
     {
-      "id": "gis-05-059",
+      "id": "gis-06-059",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "类别配色超过 6 类的主要后果是？",
       "explanation": "类别过多色彩语义失效，应合并小类或改用其他编码。",
@@ -1724,9 +1724,9 @@
       ]
     },
     {
-      "id": "gis-05-060",
+      "id": "gis-06-060",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "viridis 被广泛采用，最重要的原因是？",
       "explanation": "感知均匀保证色差=数据差的可读性，色盲友好扩大受众。",
@@ -1764,9 +1764,9 @@
       ]
     },
     {
-      "id": "gis-05-061",
+      "id": "gis-06-061",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "1:500 图纸上量得 4 cm，实地距离是？",
       "explanation": "4 cm × 500 = 2 000 cm = 20 m——大比例尺才有这种门牌级细节。",
@@ -1804,9 +1804,9 @@
       ]
     },
     {
-      "id": "gis-05-062",
+      "id": "gis-06-062",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "表达『河流流量沿程变化』最合适的线符号方案是？",
       "explanation": "数值 → 大小变量：线宽渐变直观表达流量的沿程增减。",
@@ -1844,9 +1844,9 @@
       ]
     },
     {
-      "id": "gis-05-063",
+      "id": "gis-06-063",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "分级图上档边界的正确理解是？",
       "explanation": "档边界是分级方法的人为产物，同一数据换方法边界即移动。",
@@ -1884,9 +1884,9 @@
       ]
     },
     {
-      "id": "gis-05-064",
+      "id": "gis-06-064",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "类别配色开始难以分辨的临界大约是几类？",
       "explanation": "经验法则 6 类以内；更多类别应合并小类或改用其他编码。",
@@ -1924,9 +1924,9 @@
       ]
     },
     {
-      "id": "gis-05-065",
+      "id": "gis-06-065",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "表达数值（有序）数据，适合的视觉变量有？",
       "explanation": "数值用大小/明度；色相、形状是类别变量的领地。",
@@ -1965,9 +1965,9 @@
       ]
     },
     {
-      "id": "gis-05-066",
+      "id": "gis-06-066",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "表达类别（无序）数据，适合的视觉变量有？",
       "explanation": "类别无大小之分，明度/大小会暗示不存在的顺序。",
@@ -2006,9 +2006,9 @@
       ]
     },
     {
-      "id": "gis-05-067",
+      "id": "gis-06-067",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "数值数据的配色类型包括？",
       "explanation": "数值用顺序/发散；qualitative 用于无序类别。",
@@ -2047,9 +2047,9 @@
       ]
     },
     {
-      "id": "gis-05-068",
+      "id": "gis-06-068",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "以下哪些是常用的数据分级方法？",
       "explanation": "三种主流方法 + 标准差法；『最小众数』不是分级方法。",
@@ -2089,9 +2089,9 @@
       ]
     },
     {
-      "id": "gis-05-069",
+      "id": "gis-06-069",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "地图综合的常见手段包括？",
       "explanation": "四者都是：比例尺变小必须做减法与变形调整。",
@@ -2132,9 +2132,9 @@
       ]
     },
     {
-      "id": "gis-05-070",
+      "id": "gis-06-070",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "下列哪些属于『地图说谎』的常见手法？",
       "explanation": "四者分别操纵分级、符号、投影与色带——都是经典误导手法。",
@@ -2179,9 +2179,9 @@
       ]
     },
     {
-      "id": "gis-05-071",
+      "id": "gis-06-071",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "标注摆放的正确规则有？",
       "explanation": "标注宁缺毋滥，压盖会毁掉整张图。",
@@ -2221,9 +2221,9 @@
       ]
     },
     {
-      "id": "gis-05-072",
+      "id": "gis-06-072",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "QGIS 图层符号化提供的渲染类型包括？",
       "explanation": "栅格计算器是处理工具，不是符号化渲染类型。",
@@ -2263,9 +2263,9 @@
       ]
     },
     {
-      "id": "gis-05-073",
+      "id": "gis-06-073",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "数据严重偏斜时，等间距分级会出现什么图面问题？",
       "explanation": "多数样本挤进同一档、高档近乎空档，图面几乎单色，信息不可读。",
@@ -2289,9 +2289,9 @@
       ]
     },
     {
-      "id": "gis-05-074",
+      "id": "gis-06-074",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "为什么 choropleth 要用人口密度而不是人口总量着色？",
       "explanation": "总量与区域面积耦合，大区域天然色深；比率化后色深才反映真实强度。",
@@ -2315,9 +2315,9 @@
       ]
     },
     {
-      "id": "gis-05-075",
+      "id": "gis-06-075",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "发散配色适用的数据特征是什么？（关键词：中间值/中性点）",
       "explanation": "数据存在有意义的参照值（0、均值、法定分界），两侧代表两个方向的偏离。",
@@ -2341,9 +2341,9 @@
       ]
     },
     {
-      "id": "gis-05-076",
+      "id": "gis-06-076",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "比例符号图中，为什么 size 应映射为数值的平方根而不是数值本身？",
       "explanation": "圆面积 ∝ r²；要视觉面积与数值成正比，半径必须 ∝ √数值。",
@@ -2367,9 +2367,9 @@
       ]
     },
     {
-      "id": "gis-05-077",
+      "id": "gis-06-077",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "『大比例尺看小地方』——用分母大小说明大比例尺的定义。",
       "explanation": "比例尺大小看分母：分母越小比例尺越大，覆盖范围越小、细节越多。",
@@ -2393,9 +2393,9 @@
       ]
     },
     {
-      "id": "gis-05-078",
+      "id": "gis-06-078",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "地图综合（generalization）是什么？一句话定义。",
       "explanation": "比例尺变小时对几何与内容做化简、选取、合并、夸大等调整，保持可读性。",
@@ -2419,9 +2419,9 @@
       ]
     },
     {
-      "id": "gis-05-079",
+      "id": "gis-06-079",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "分级数为什么推荐 4~7 档而不是 20 档？",
       "explanation": "人眼可靠区分的颜色档数有限，20 档相邻档无法分辨，等于没有分级。",
@@ -2445,9 +2445,9 @@
       ]
     },
     {
-      "id": "gis-05-080",
+      "id": "gis-06-080",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "彩虹色带（jet）用于顺序数据的一个具体害处是什么？",
       "explanation": "明度忽明忽暗没有单调语感，且中段人为制造出数据并不存在的『分界』。",
@@ -2471,9 +2471,9 @@
       ]
     },
     {
-      "id": "gis-05-081",
+      "id": "gis-06-081",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "城市标注大量压盖时的两条处理原则是什么？",
       "explanation": "缩小字号 + 按重要性取舍（只标重要要素），宁缺毋滥。",
@@ -2497,9 +2497,9 @@
       ]
     },
     {
-      "id": "gis-05-082",
+      "id": "gis-06-082",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "制图时考虑色盲友好调色板的社会意义是什么？",
       "explanation": "红绿色盲约占男性 8%，不友好配色会让这部分读者无法正确读图。",
@@ -2523,9 +2523,9 @@
       ]
     },
     {
-      "id": "gis-05-083",
+      "id": "gis-06-083",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "拿到一张 choropleth，判断其结论是否可靠的第一个反问应该是什么？",
       "explanation": "反问分级/符号方案：换个分级方法，结论是否还成立？",
@@ -2549,9 +2549,9 @@
       ]
     },
     {
-      "id": "gis-05-084",
+      "id": "gis-06-084",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "在 QGIS 中给数值字段分档着色，应使用哪个符号化类型（中英文均可）？",
       "explanation": "Graduated = 数值分级着色；Categorized 用于类别字段。",
@@ -2573,9 +2573,9 @@
       ]
     },
     {
-      "id": "gis-05-085",
+      "id": "gis-06-085",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "1:2,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 2000 = 2000 cm = 20 m。",
@@ -2595,9 +2595,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-086",
+      "id": "gis-06-086",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "1:5,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 5000 = 5000 cm = 50 m。",
@@ -2617,9 +2617,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-087",
+      "id": "gis-06-087",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "1:10,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 10000 = 10000 cm = 100 m。",
@@ -2639,9 +2639,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-088",
+      "id": "gis-06-088",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "1:25,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 25000 = 25000 cm = 250 m。",
@@ -2661,9 +2661,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-089",
+      "id": "gis-06-089",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "1:50,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 50000 = 50000 cm = 500 m。",
@@ -2683,9 +2683,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-090",
+      "id": "gis-06-090",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "1:100,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 100000 = 100000 cm = 1,000 m。",
@@ -2705,9 +2705,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-091",
+      "id": "gis-06-091",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "1:250,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 250000 = 250000 cm = 2,500 m。",
@@ -2727,9 +2727,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-092",
+      "id": "gis-06-092",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "1:500,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 500000 = 500000 cm = 5,000 m。",
@@ -2749,9 +2749,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-093",
+      "id": "gis-06-093",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "1:1,000,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 1000000 = 1000000 cm = 10,000 m。",
@@ -2771,9 +2771,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-094",
+      "id": "gis-06-094",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "1:2,000,000 地形图上 1 cm 对应实地多少米？",
       "explanation": "1 cm × 2000000 = 2000000 cm = 20,000 m。",
@@ -2793,9 +2793,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-05-095",
+      "id": "gis-06-095",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "实地 10 km 的线段画在 1:50,000 图上约多少厘米？（保留 1 位小数）",
       "explanation": "10 km = 1,000,000 cm ÷ 50,000 = 20 cm。",
@@ -2815,9 +2815,9 @@
       "unit": "cm"
     },
     {
-      "id": "gis-05-096",
+      "id": "gis-06-096",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "实地 5 km 的线段画在 1:25,000 图上约多少厘米？（保留 1 位小数）",
       "explanation": "5 km = 500,000 cm ÷ 25,000 = 20 cm。",
@@ -2837,9 +2837,9 @@
       "unit": "cm"
     },
     {
-      "id": "gis-05-097",
+      "id": "gis-06-097",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "实地 120 km 的线段画在 1:1,000,000 图上约多少厘米？（保留 1 位小数）",
       "explanation": "120 km = 12,000,000 cm ÷ 1,000,000 = 12 cm。",
@@ -2859,9 +2859,9 @@
       "unit": "cm"
     },
     {
-      "id": "gis-05-098",
+      "id": "gis-06-098",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "实地 3 km 的线段画在 1:100,000 图上约多少厘米？（保留 1 位小数）",
       "explanation": "3 km = 300,000 cm ÷ 100,000 = 30 cm。",
@@ -2881,9 +2881,9 @@
       "unit": "cm"
     },
     {
-      "id": "gis-05-099",
+      "id": "gis-06-099",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "实地 80 km 的线段画在 1:4,000,000 图上约多少厘米？（保留 1 位小数）",
       "explanation": "80 km = 8,000,000 cm ÷ 4,000,000 = 2 cm。",
@@ -2903,9 +2903,9 @@
       "unit": "cm"
     },
     {
-      "id": "gis-05-100",
+      "id": "gis-06-100",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "实地 25 km 的线段画在 1:500,000 图上约多少厘米？（保留 1 位小数）",
       "explanation": "25 km = 2,500,000 cm ÷ 500,000 = 5 cm。",
@@ -2925,9 +2925,9 @@
       "unit": "cm"
     },
     {
-      "id": "gis-05-101",
+      "id": "gis-06-101",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "某县 GDP 最小 2.0、最大 22.0（亿元），等间距分 5 档，组距是多少？",
       "explanation": "(22 − 2) / 5 = 4 亿元/档。",
@@ -2946,9 +2946,9 @@
       "tolerance": 0.05
     },
     {
-      "id": "gis-05-102",
+      "id": "gis-06-102",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "某县 GDP 最小 8.5、最大 63.5，等间距分 5 档，组距是多少？",
       "explanation": "(63.5 − 8.5) / 5 = 11。",
@@ -2967,9 +2967,9 @@
       "tolerance": 0.05
     },
     {
-      "id": "gis-05-103",
+      "id": "gis-06-103",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "某指标最小 12.4、最大 92.4，等间距分 4 档，第 2 档的上边界是多少？",
       "explanation": "组距 = (92.4 − 12.4)/4 = 20；第 1 档上界 32.4，第 2 档上界 = 12.4 + 2×20 = 52.4。",
@@ -2988,9 +2988,9 @@
       "tolerance": 0.05
     },
     {
-      "id": "gis-05-104",
+      "id": "gis-06-104",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "40 个县按分位数法分 4 档，每档几个县？",
       "explanation": "40 / 4 = 10 个县/档。",
@@ -3009,9 +3009,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-05-105",
+      "id": "gis-06-105",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 1,
       "stem": "120 个乡镇按分位数法分 6 档，每档几个乡镇？",
       "explanation": "120 / 6 = 20。",
@@ -3030,9 +3030,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-05-106",
+      "id": "gis-06-106",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "18 个街道按分位数法分 6 档，每档几个街道？",
       "explanation": "18 / 6 = 3。",
@@ -3051,9 +3051,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-05-107",
+      "id": "gis-06-107",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "人口密度专题图上点出『胡焕庸线』北端的起点城市——黑河。",
       "explanation": "黑河—腾冲线是中国人口密度的分水岭，东南侧密、西北侧疏。",
@@ -3075,9 +3075,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-05-108",
+      "id": "gis-06-108",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "点出胡焕庸线南端的终点城市——腾冲。",
       "explanation": "胡焕庸线南端在云南腾冲。",
@@ -3099,9 +3099,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-05-109",
+      "id": "gis-06-109",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "在人口密度图上点出四川盆地的人口中心——成都。",
       "explanation": "四川盆地是中国西部人口最稠密的区域。",
@@ -3123,9 +3123,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-05-110",
+      "id": "gis-06-110",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 2,
       "stem": "点出青藏高原上人口稀疏的代表性省会——拉萨。",
       "explanation": "高海拔导致人口密度极低，与成都形成鲜明对比。",
@@ -3147,9 +3147,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-05-111",
+      "id": "gis-06-111",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "点出印度北方邦的人口稠密中心——勒克瑙。",
       "explanation": "恒河平原是世界上人口密度最高的区域之一。",
@@ -3171,9 +3171,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-05-112",
+      "id": "gis-06-112",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "点出蒙古国首都乌兰巴托——地广人稀国家里的孤立城市。",
       "explanation": "蒙古国人口几乎集中于此，其余区域密度极低——choropleth 与比例符号的典型对比案例。",
@@ -3195,9 +3195,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-05-113",
+      "id": "gis-06-113",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "点出尼罗河三角洲的核心——开罗。",
       "explanation": "绿色走廊里的超高密度区，卫星灯光图一目了然。",
@@ -3219,9 +3219,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-05-114",
+      "id": "gis-06-114",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "点出澳大利亚西海岸的孤立大城市——珀斯。",
       "explanation": "澳洲整体密度极低、城市孤立分布，是『总量 choropleth 失真』的经典案例区。",
@@ -3243,9 +3243,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-05-115",
+      "id": "gis-06-115",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "点出全球最大都市圈的核心——东京。",
       "explanation": "大都市圈人口 3700 万+，是世界人口密度地图上最醒目的斑点之一。",
@@ -3267,9 +3267,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-05-116",
+      "id": "gis-06-116",
       "skill": "gis",
-      "module": "05",
+      "module": "06",
       "difficulty": 3,
       "stem": "点出爪哇岛上的人口中心——雅加达。",
       "explanation": "爪哇岛以不足印尼 7% 的国土承载过半人口，是密度专题图必讲的案例。",

@@ -1,12 +1,12 @@
 {
   "skill": "gis",
-  "module": "13",
+  "module": "14",
   "version": 3,
   "questions": [
     {
-      "id": "gis-13-001",
+      "id": "gis-14-001",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WMS 的 GetMap 返回的是什么？",
       "explanation": "WMS 是「地图出图」服务：按 LAYERS/BBOX/WIDTH/HEIGHT/FORMAT 渲染成图片。样式在服务端定义，客户端拿不到要素属性。",
@@ -42,9 +42,9 @@
       ]
     },
     {
-      "id": "gis-13-002",
+      "id": "gis-14-002",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMTS 与 WMS 的关键区别是？",
       "explanation": "WMTS 按 TileMatrix 预生成图片瓦片，可加 CDN/长缓存，速度快；WMS 每次请求现场渲染，灵活（可定制样式/比例尺）但慢、难缓存。",
@@ -80,9 +80,9 @@
       ]
     },
     {
-      "id": "gis-13-003",
+      "id": "gis-14-003",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "需要客户端自己改样式、做属性查询时，应选择？",
       "explanation": "WFS 返回要素（GML/GeoJSON），客户端可自定义符号、查询属性、编辑。矢量瓦片是另一种「数据而非图片」的选择，适合大规模展示。",
@@ -118,9 +118,9 @@
       ]
     },
     {
-      "id": "gis-13-004",
+      "id": "gis-14-004",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WCS 主要面向什么数据？",
       "explanation": "WCS 提供 Coverage（如 DEM、多光谱影像）的子集与原始值，便于客户端做计算，而不是只看渲染图。",
@@ -156,9 +156,9 @@
       ]
     },
     {
-      "id": "gis-13-005",
+      "id": "gis-14-005",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "WMS 1.3.0 中写 `CRS=EPSG:4326` 时，BBOX 的顺序是？",
       "explanation": "WMS 1.3.0 按 CRS 定义的轴序解释 BBOX，EPSG:4326 是纬度在前。想要经度在前，可改用 `CRS=CRS:84`（OGC 定义），或退回 WMS 1.1.1 的 `SRS`。",
@@ -193,9 +193,9 @@
       ]
     },
     {
-      "id": "gis-13-006",
+      "id": "gis-14-006",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "OGC API - Features 相比经典 WFS 的主要变化是？",
       "explanation": "OGC API 系列用现代 Web API 风格（资源路径、JSON、OpenAPI 描述、limit/next 分页），对前端与 HTTP 缓存更友好。",
@@ -231,9 +231,9 @@
       ]
     },
     {
-      "id": "gis-13-007",
+      "id": "gis-14-007",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "Leaflet 的定位与限制是？",
       "explanation": "Leaflet 默认 EPSG:3857（也支持 4326），投影能力有限；矢量瓦片需 deck.gl/MapLibre 插件。优点是体积小、插件多、DOM 图层易定制。",
@@ -269,9 +269,9 @@
       ]
     },
     {
-      "id": "gis-13-008",
+      "id": "gis-14-008",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "MapLibre GL JS 渲染矢量瓦片依赖的是？",
       "explanation": "MapLibre 用 WebGL 批量绘制矢量瓦片，样式由 style JSON 描述（sources/layers/paint/layout），支持表达式与交互。",
@@ -307,9 +307,9 @@
       ]
     },
     {
-      "id": "gis-13-009",
+      "id": "gis-14-009",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "需要支持多种投影（如 CGCS2000 高斯带）与多种服务格式，最稳妥的选择是？",
       "explanation": "OpenLayers 原生支持大量投影与格式/服务（WMS/WMTS/WFS/矢量瓦片），配合 proj4 可注册任意 EPSG；代价是体积与 API 复杂度。",
@@ -345,9 +345,9 @@
       ]
     },
     {
-      "id": "gis-13-010",
+      "id": "gis-14-010",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "矢量瓦片的地图样式在哪里定义？",
       "explanation": "矢量瓦片只传数据，颜色、线宽、过滤与标注由客户端 style 决定，所以同一份瓦片可复用多套设计，也能随时调样式而不用重新切片。",
@@ -382,9 +382,9 @@
       ]
     },
     {
-      "id": "gis-13-011",
+      "id": "gis-14-011",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "为什么建议把地图库与瓦片层做成动态加载（dynamic import）？",
       "explanation": "地图库（尤其 WebGL 引擎）动辄数百 KB，放进首屏 bundle 会让 LCP/TTI 变差。按路由/交互动态加载，能让讲义、答题页保持轻量。",
@@ -420,9 +420,9 @@
       ]
     },
     {
-      "id": "gis-13-012",
+      "id": "gis-14-012",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "前端 fetch 一个跨域 WFS 服务报 CORS 错误，正确的处理方向是？",
       "explanation": "CORS 由服务端响应头控制（Access-Control-Allow-Origin 等）。前端可以通过同源代理/CDN 转发规避，但不能用前端代码「关掉」同源策略。",
@@ -458,9 +458,9 @@
       ]
     },
     {
-      "id": "gis-13-013",
+      "id": "gis-14-013",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "把 EPSG:3857（米）的 GeoJSON 直接交给 `L.geoJSON()` 会怎样？",
       "explanation": "Leaflet 的 geoJSON 图层按经纬度解释坐标；传入百万级米值会被裁剪到地图范围之外，表现为要素消失或跑偏。应先用 proj4/服务端转成 4326。",
@@ -495,9 +495,9 @@
       ]
     },
     {
-      "id": "gis-13-014",
+      "id": "gis-14-014",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "需要在前端同时叠加栅格底图与可交互矢量要素，最直接的组合是？",
       "explanation": "底图用可缓存的图片瓦片，业务要素用 WFS/矢量瓦片（可改样式、可查询），这是 Web GIS 最常见的分层结构。",
@@ -533,9 +533,9 @@
       ]
     },
     {
-      "id": "gis-13-015",
+      "id": "gis-14-015",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WMS 的 GetMap 请求最终返回的是什么？（填「图片」或「要素」）",
       "explanation": "WMS GetMap 返回服务端渲染的地图图片；要拿要素数据得用 WFS（或矢量瓦片），要拿栅格原始值得用 WCS。",
@@ -558,9 +558,9 @@
       "placeholder": "例如：图片"
     },
     {
-      "id": "gis-13-016",
+      "id": "gis-14-016",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -25°、纬度 12° 在第 11 级对应瓦片 x=881、y=955，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/11/881/955.png。客户端按视野逐瓦片生成此类 URL。",
@@ -577,9 +577,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-017",
+      "id": "gis-14-017",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -103°、纬度 -49° 在第 9 级对应瓦片 x=109、y=336，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/9/109/336.png。客户端按视野逐瓦片生成此类 URL。",
@@ -596,9 +596,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-018",
+      "id": "gis-14-018",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 3°、纬度 -29° 在第 12 级对应瓦片 x=2082、y=2393，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/12/2082/2393.png。客户端按视野逐瓦片生成此类 URL。",
@@ -615,9 +615,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-019",
+      "id": "gis-14-019",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -87°、纬度 14° 在第 4 级对应瓦片 x=4、y=7，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/4/4/7.png。客户端按视野逐瓦片生成此类 URL。",
@@ -634,9 +634,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-020",
+      "id": "gis-14-020",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -151°、纬度 18° 在第 12 级对应瓦片 x=329、y=1839，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/12/329/1839.png。客户端按视野逐瓦片生成此类 URL。",
@@ -653,9 +653,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-021",
+      "id": "gis-14-021",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 20°、纬度 45° 在第 5 级对应瓦片 x=17、y=11，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/5/17/11.png。客户端按视野逐瓦片生成此类 URL。",
@@ -672,9 +672,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-022",
+      "id": "gis-14-022",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -61°、纬度 -56° 在第 6 级对应瓦片 x=21、y=44，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/6/21/44.png。客户端按视野逐瓦片生成此类 URL。",
@@ -691,9 +691,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-023",
+      "id": "gis-14-023",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 160°、纬度 -58° 在第 4 级对应瓦片 x=15、y=11，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/4/15/11.png。客户端按视野逐瓦片生成此类 URL。",
@@ -710,9 +710,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-024",
+      "id": "gis-14-024",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 82°、纬度 6° 在第 10 级对应瓦片 x=745、y=494，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/745/494.png。客户端按视野逐瓦片生成此类 URL。",
@@ -729,9 +729,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-025",
+      "id": "gis-14-025",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -169°、纬度 -54° 在第 10 级对应瓦片 x=31、y=695，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/31/695.png。客户端按视野逐瓦片生成此类 URL。",
@@ -748,9 +748,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-026",
+      "id": "gis-14-026",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -86°、纬度 9° 在第 6 级对应瓦片 x=16、y=30，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/6/16/30.png。客户端按视野逐瓦片生成此类 URL。",
@@ -767,9 +767,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-027",
+      "id": "gis-14-027",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -2°、纬度 43° 在第 10 级对应瓦片 x=506、y=376，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/506/376.png。客户端按视野逐瓦片生成此类 URL。",
@@ -786,9 +786,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-028",
+      "id": "gis-14-028",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 83°、纬度 -15° 在第 10 级对应瓦片 x=748、y=555，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/748/555.png。客户端按视野逐瓦片生成此类 URL。",
@@ -805,9 +805,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-029",
+      "id": "gis-14-029",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -72°、纬度 52° 在第 4 级对应瓦片 x=4、y=5，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/4/4/5.png。客户端按视野逐瓦片生成此类 URL。",
@@ -824,9 +824,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-030",
+      "id": "gis-14-030",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -118°、纬度 -2° 在第 10 级对应瓦片 x=176、y=517，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/176/517.png。客户端按视野逐瓦片生成此类 URL。",
@@ -843,9 +843,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-031",
+      "id": "gis-14-031",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -5°、纬度 16° 在第 9 级对应瓦片 x=248、y=232，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/9/248/232.png。客户端按视野逐瓦片生成此类 URL。",
@@ -862,9 +862,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-032",
+      "id": "gis-14-032",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -77°、纬度 32° 在第 6 级对应瓦片 x=18、y=25，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/6/18/25.png。客户端按视野逐瓦片生成此类 URL。",
@@ -881,9 +881,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-033",
+      "id": "gis-14-033",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 -154°、纬度 -32° 在第 8 级对应瓦片 x=18、y=152，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/8/18/152.png。客户端按视野逐瓦片生成此类 URL。",
@@ -900,9 +900,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-034",
+      "id": "gis-14-034",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 34°、纬度 -42° 在第 7 级对应瓦片 x=76、y=80，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/7/76/80.png。客户端按视野逐瓦片生成此类 URL。",
@@ -919,9 +919,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-035",
+      "id": "gis-14-035",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "瓦片服务模板为 https://tiles.example.com/roads/{z}/{x}/{y}.png。经度 71°、纬度 -37° 在第 10 级对应瓦片 x=713、y=625，写出实际请求 URL（完整）。",
       "explanation": "把 {z}/{x}/{y} 替换为实际值：https://tiles.example.com/roads/10/713/625.png。客户端按视野逐瓦片生成此类 URL。",
@@ -938,9 +938,9 @@
       "placeholder": "https://..."
     },
     {
-      "id": "gis-13-036",
+      "id": "gis-14-036",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "返回服务端渲染地图图片的 OGC 标准缩写是？（三个字母）",
       "explanation": "WMS（Web Map Service）输出图片，符号化在服务端完成。",
@@ -965,9 +965,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-037",
+      "id": "gis-14-037",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "返回矢量要素、支持事务编辑的 OGC 标准缩写是？（三个字母）",
       "explanation": "WFS（Web Feature Service）输出要素本体，WFS-T 支持在线编辑。",
@@ -992,9 +992,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-038",
+      "id": "gis-14-038",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "返回预定义规则瓦片的 OGC 标准缩写是？（四个字母）",
       "explanation": "WMTS（Web Map Tile Service）基于瓦片矩阵集，性能与缓存友好。",
@@ -1019,9 +1019,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-039",
+      "id": "gis-14-039",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "返回原始栅格覆盖数据（Coverage）的 OGC 标准缩写是？（三个字母）",
       "explanation": "WCS（Web Coverage Service）输出 GeoTIFF 等数据本体，面向计算。",
@@ -1046,9 +1046,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-040",
+      "id": "gis-14-040",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 中获取服务能力文档的请求类型是？（Get + 六个字母）",
       "explanation": "REQUEST=GetCapabilities 返回 XML 能力文档：图层、CRS、格式与异常。",
@@ -1073,9 +1073,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-041",
+      "id": "gis-14-041",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 中查询图片某点要素属性的请求类型是？（Get + 十一个字母）",
       "explanation": "REQUEST=GetFeatureInfo 按像素坐标反查要素属性，弥补图片模式交互。",
@@ -1100,9 +1100,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-042",
+      "id": "gis-14-042",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WFS 中获取要素的请求类型是？（Get + 七个字母）",
       "explanation": "REQUEST=GetFeature 按 Filter/CQL 过滤返回 GML/GeoJSON 等要素。",
@@ -1127,9 +1127,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-043",
+      "id": "gis-14-043",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 1.3.0 中控制坐标系的参数名是？（三个字母大写）",
       "explanation": "1.3.0 用 CRS（1.1.1 为 SRS），BBOX 轴序遵循该 CRS 定义。",
@@ -1154,9 +1154,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-044",
+      "id": "gis-14-044",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 中控制输出图像格式的参数名是？（六个字母）",
       "explanation": "FORMAT=image/png、image/jpeg 等；需透明叠加时选支持 alpha 的 PNG。",
@@ -1181,9 +1181,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-045",
+      "id": "gis-14-045",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WMS GetMap 中控制透明背景的参数名是？（十一个字母）",
       "explanation": "TRANSPARENT=TRUE 配合 image/png 可让图层叠加到底图上。",
@@ -1208,9 +1208,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-046",
+      "id": "gis-14-046",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 中描述服务端符号样式的 XML 标准缩写是？（三个字母）",
       "explanation": "SLD（Styled Layer Descriptor）可随请求提交，实现样式客户端化。",
@@ -1235,9 +1235,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-047",
+      "id": "gis-14-047",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMTS 中描述瓦片网格定义的核心概念英文是？（Tile + Matrix + Set）",
       "explanation": "TileMatrixSet 定义 CRS、原点、瓦片尺寸与每级行列数。",
@@ -1262,9 +1262,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-048",
+      "id": "gis-14-048",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WMTS 的 REST 编码中，TileMatrix 参数对应 XYZ 方案中的哪个字母？",
       "explanation": "TileMatrix 即缩放级别 z；TileRow/TileCol 对应 y/x。",
@@ -1289,9 +1289,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-049",
+      "id": "gis-14-049",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "OGC API 系列用于描述接口的规范工具是？（Open + 三字母）",
       "explanation": "OGC API 用 OpenAPI 文档自描述接口，取代 XML Capabilities 的开发体验。",
@@ -1316,9 +1316,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-050",
+      "id": "gis-14-050",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 异常文档的根元素名是？（Exception + Report）",
       "explanation": "ServiceExceptionReport 内含 ExceptionCode 与描述，客户端应按约定解析。",
@@ -1343,9 +1343,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-051",
+      "id": "gis-14-051",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "用于缓存 WMS 并对外提供瓦片的开源服务 GeoWebCache 缩写是？（三个字母）",
       "explanation": "GWC 按 TileMatrixSet 缓存 WMS 渲染结果，提供 WMTS/XYZ 端点。",
@@ -1370,9 +1370,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-052",
+      "id": "gis-14-052",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "Web 地图中把多层瓦片/要素按上下顺序组织的概念叫？（中文两个字）",
       "explanation": "叠加顺序决定遮挡关系：底图在下、专题与交互层在上。",
@@ -1399,9 +1399,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-053",
+      "id": "gis-14-053",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WFS 过滤语言中「Bounding Box 空间过滤」的常用缩写是？（四个字母）",
       "explanation": "BBOX/CQL_INTERSECTS 是 WFS 最常用的空间过滤条件。",
@@ -1427,9 +1427,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-054",
+      "id": "gis-14-054",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "把地图服务渲染结果按网格落盘的策略统称什么？（中文两个字 + 缓存）",
       "explanation": "瓦片缓存把动态渲染变为静态分发，是性能优化的核心手段。",
@@ -1455,9 +1455,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-055",
+      "id": "gis-14-055",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "OGC API - Features 中列出所有要素集合的路径是？（/collections 或 /collections/{id}/items 选一）",
       "explanation": "GET /collections 列出集合清单；/collections/{id}/items 分页返回要素。",
@@ -1483,9 +1483,9 @@
       "placeholder": "如 GetMap"
     },
     {
-      "id": "gis-13-056",
+      "id": "gis-14-056",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WMS 是「服务器渲染图片」的服务，客户端拿到的是图像而不是原始要素。",
       "explanation": "WMS GetMap 返回栅格图（PNG/JPEG），符号化在服务端完成。",
@@ -1507,9 +1507,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-057",
+      "id": "gis-14-057",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WFS 返回的是矢量要素（如 GML/GeoJSON），客户端可再加工。",
       "explanation": "WFS 面向要素级交互：查询、过滤甚至事务编辑，返回的是几何+属性。",
@@ -1531,9 +1531,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-058",
+      "id": "gis-14-058",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "WMS GetCapabilities 请求用于获取服务能力描述文档。",
       "explanation": "GetCapabilities 返回 XML：图层清单、坐标系、范围、支持格式与异常等元信息。",
@@ -1555,9 +1555,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-059",
+      "id": "gis-14-059",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WMTS 与 WMS 的本质区别是 WMTS 返回预定义的规则瓦片。",
       "explanation": "WMTS 基于瓦片矩阵集（TileMatrixSet）固定切片，性能高、可强缓存。",
@@ -1579,9 +1579,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-060",
+      "id": "gis-14-060",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS GetFeatureInfo 可以在图片基础上查询指定点的要素属性。",
       "explanation": "用户点击地图位置，服务端反查该像素对应的要素并返回属性，弥补图片模式的交互短板。",
@@ -1603,9 +1603,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-061",
+      "id": "gis-14-061",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "WMS GetMap 请求中 BBOX 参数的坐标顺序与图层 CRS 无关。",
       "explanation": "BBOX 顺序严格遵循 CRS 轴序（如 EPSG:4326 官方轴序是 minLat,minLon,maxLat,maxLon），写反即报错或错位。",
@@ -1627,9 +1627,9 @@
       "answer": false
     },
     {
-      "id": "gis-13-062",
+      "id": "gis-14-062",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WFS-T 支持通过事务（Transaction）在线编辑要素。",
       "explanation": "WFS-T（Transactional）允许 Insert/Update/Delete，是实现 Web 端数据编辑的标准路径。",
@@ -1651,9 +1651,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-063",
+      "id": "gis-14-063",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WCS 提供的是覆盖（Coverage）原始栅格值，而非渲染图。",
       "explanation": "WCS 返回多波段栅格数据本体（GeoTIFF 等），适合科学计算；WMS 只给图。",
@@ -1675,9 +1675,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-064",
+      "id": "gis-14-064",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片矩阵集中，每上一个层级瓦片数在两个方向各翻倍。",
       "explanation": "标准瓦片矩阵集逐级 2 倍细分，与 XYZ 金字塔一致。",
@@ -1699,9 +1699,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-065",
+      "id": "gis-14-065",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "OGC API - Tiles 是基于 REST/JSON 的新一代瓦片服务规范。",
       "explanation": "OGC API 系列用 OpenAPI/JSON 描述能力，取代 XML 大文档，是 OGC 现代化方向。",
@@ -1723,9 +1723,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-066",
+      "id": "gis-14-066",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "CORS 问题是「前端拿不到跨域 GeoJSON」的常见原因。",
       "explanation": "浏览器同源策略要求服务端返回 Access-Control-Allow-Origin；瓦片 <img> 不受 CORS 限制但 fetch 受限。",
@@ -1747,9 +1747,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-067",
+      "id": "gis-14-067",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "WMS 的 STYLES 参数可以为空（传空串），表示使用服务端默认样式。",
       "explanation": "GetMap 要求必须带 STYLES 键，值可为空串（默认样式）或具名样式。",
@@ -1771,9 +1771,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-068",
+      "id": "gis-14-068",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "SLD 是用于描述地图符号化的 XML 标准，可随 WMS 请求提交。",
       "explanation": "SLD（Styled Layer Descriptor）让客户端定义服务端渲染样式，实现「样式客户端化」。",
@@ -1795,9 +1795,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-069",
+      "id": "gis-14-069",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 返回的图片分辨率与请求的 WIDTH/HEIGHT 无关。",
       "explanation": "WIDTH/HEIGHT 决定返回图像尺寸，比例需与 BBOX 宽高比一致，否则图会变形。",
@@ -1819,9 +1819,9 @@
       "answer": false
     },
     {
-      "id": "gis-13-070",
+      "id": "gis-14-070",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片矩阵集（TileMatrixSet）定义了层级、瓦片尺寸与每级的范围/分辨率。",
       "explanation": "TMS 是 WMTS 的核心概念：GridSet + 矩阵层级 + 原点 + 像元尺寸。",
@@ -1843,9 +1843,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-071",
+      "id": "gis-14-071",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "OGC API - Features 用简单的 REST 分页即可获取矢量要素。",
       "explanation": "GET /collections/{id}/items?limit&bbox 即分页查询，JSON-LD 友好，正替代 WFS 简单场景。",
@@ -1867,9 +1867,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-072",
+      "id": "gis-14-072",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 服务的图层可以设置不同的 CRS 支持，客户端必须选一个双方都支持的。",
       "explanation": "GetCapabilities 列出每图层支持的 CRS，客户端请求时指定其一。",
@@ -1891,9 +1891,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-073",
+      "id": "gis-14-073",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "GeoWebCache/MapProxy 这类「地图缓存服务」可以为 WMS 自动生成并代理瓦片。",
       "explanation": "缓存层把 WMS 渲染结果按瓦片矩阵落盘，对外提供 WMTS/XYZ，是性能优化的标准架构。",
@@ -1915,9 +1915,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-074",
+      "id": "gis-14-074",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "XYZ 瓦片 URL 方案是 OGC 正式标准。",
       "explanation": "XYZ 是事实标准（Google/OSM 惯例）；正式标准是 WMTS。",
@@ -1939,9 +1939,9 @@
       "answer": false
     },
     {
-      "id": "gis-13-075",
+      "id": "gis-14-075",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 支持透明背景（TRANSPARENT=TRUE）+ PNG 格式以便图层叠加。",
       "explanation": "叠加到自有底图时常用透明 WMS 图层，需配合支持 alpha 的格式。",
@@ -1963,9 +1963,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-076",
+      "id": "gis-14-076",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "GetFeatureInfo 的查询位置用与 GetMap 相同的 BBOX/WIDTH/HEIGHT 体系表达。",
       "explanation": "以图像像素坐标（X,Y）+ 同一 GetMap 参数定位，服务端换算回地图坐标查询。",
@@ -1987,9 +1987,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-077",
+      "id": "gis-14-077",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WMTS 的 Key-Value Pair（KVP）编码是唯一合法的请求方式。",
       "explanation": "WMTS 支持 KVP 与 RESTful 路径两种编码。",
@@ -2011,9 +2011,9 @@
       "answer": false
     },
     {
-      "id": "gis-13-078",
+      "id": "gis-14-078",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "地图服务超时/限流时，客户端应做退避重试而不是无限重试。",
       "explanation": "指数退避 + 上限重试是网络容错基本功，避免雪崩式打挂服务。",
@@ -2035,9 +2035,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-079",
+      "id": "gis-14-079",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "WMS 的 EXCEPTIONS 参数控制错误返回格式（如 XML/INIMAGE/BLANK）。",
       "explanation": "服务端异常可以按 XML 文档、嵌入式错误图或空白图返回，便于客户端统一处理。",
@@ -2059,9 +2059,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-080",
+      "id": "gis-14-080",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "一份 WMTS Capabilities 中可以同时包含多个瓦片矩阵集。",
       "explanation": "不同网格（3857 方格、4326 矩形格）可并存，客户端按需选择。",
@@ -2083,9 +2083,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-081",
+      "id": "gis-14-081",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "OGC 服务地址中的 service/version/request 是「操作三元组」。",
       "explanation": "KVP 风格约定 SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap，缺一即异常。",
@@ -2107,9 +2107,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-082",
+      "id": "gis-14-082",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "瓦片服务不适合做强缓存。",
       "explanation": "固定 z/x/y 内容不可变，恰是 CDN 缓存的最佳对象。",
@@ -2131,9 +2131,9 @@
       "answer": false
     },
     {
-      "id": "gis-13-083",
+      "id": "gis-14-083",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 1,
       "stem": "WFS 支持 CQL/OGC Filter 表达属性与空间过滤条件。",
       "explanation": "Filter Encoding / CQL 支持 BBOX、Within、Intersects 与属性比较，服务端过滤后再传输。",
@@ -2155,9 +2155,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-084",
+      "id": "gis-14-084",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "客户端用 fetch 获取跨域瓦片 JSON 配置时，若服务端无 CORS 头会失败。",
       "explanation": "配置类 JSON 请求走 XHR/fetch 通道受同源策略约束；瓦片图片加载则不受限。",
@@ -2179,9 +2179,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-085",
+      "id": "gis-14-085",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "OGC API - Maps 已把 WMS 能力现代化为 REST 风格图片输出。",
       "explanation": "OGC API - Maps（原 WMS 3.0 方向）以 REST+内容协商输出地图图片，延续 GetMap 语义。",
@@ -2203,9 +2203,9 @@
       "answer": true
     },
     {
-      "id": "gis-13-086",
+      "id": "gis-14-086",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "要在网页上「展示一张服务端渲染好的地图图片」，最轻量的 OGC 服务是？",
       "explanation": "WMS GetMap 一次请求返回一张成品图；WFS/WCS 返回数据本体；WMTS 适合固定金字塔浏览。",
@@ -2242,9 +2242,9 @@
       ]
     },
     {
-      "id": "gis-13-087",
+      "id": "gis-14-087",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "要对服务端图层做「点击查询属性」，WMS 里对应的操作是？",
       "explanation": "GetFeatureInfo 以 GetMap 参数 + 像素点坐标反查要素属性；是 WMS 补齐交互能力的关键操作。",
@@ -2281,9 +2281,9 @@
       ]
     },
     {
-      "id": "gis-13-088",
+      "id": "gis-14-088",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 1.3.0 中 EPSG:4326 的 BBOX 轴序是？",
       "explanation": "1.3.0 严格执行 CRS 轴序：4326 = 纬度在前。很多「WMS 报错」其实是 1.1.1→1.3.0 的 BBOX 轴序坑。",
@@ -2324,9 +2324,9 @@
       ]
     },
     {
-      "id": "gis-13-089",
+      "id": "gis-14-089",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "需要「前端可点击、可重样式」的底图，服务器数据更新频繁，最佳方案是？",
       "explanation": "MVT 把渲染放客户端：样式随时换、要素可交互、数据更新只影响受影响瓦片，是动态底图的最优解。",
@@ -2367,9 +2367,9 @@
       ]
     },
     {
-      "id": "gis-13-090",
+      "id": "gis-14-090",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪个操作属于 WFS 的能力范畴？",
       "explanation": "WFS 三件套：GetCapabilities/DescribeFeatureType/GetFeature；加 Transaction 即 WFS-T。",
@@ -2406,9 +2406,9 @@
       ]
     },
     {
-      "id": "gis-13-091",
+      "id": "gis-14-091",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMTS 中瓦片矩阵集（TileMatrixSet）的作用是？",
       "explanation": "TMS = 网格定义：CRS、原点、瓦片像素尺寸、每级 MatrixWidth/Height 与 ScaleDenominator，客户端据此算行列号。",
@@ -2445,9 +2445,9 @@
       ]
     },
     {
-      "id": "gis-13-092",
+      "id": "gis-14-092",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "浏览器控制台报 CORS 错误，最可能的场景是？",
       "explanation": "fetch/XHR 受同源策略约束，跨域需服务端 Access-Control-Allow-Origin；瓦片走 <img>/WebGL 纹理通道则不受限。",
@@ -2484,9 +2484,9 @@
       ]
     },
     {
-      "id": "gis-13-093",
+      "id": "gis-14-093",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "想让 WMS 按「用户在浏览器里定义的样式」出图，应该用？",
       "explanation": "SLD 让客户端定义符号化规则随 GetMap 提交，实现服务端渲染的「样式客户端化」。",
@@ -2523,9 +2523,9 @@
       ]
     },
     {
-      "id": "gis-13-094",
+      "id": "gis-14-094",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪种服务组合最适合「底图 + 实时矢量编辑」？",
       "explanation": "底图走瓦片（WMTS/XYZ），编辑走 WFS-T：展示与事务分离，是 Web GIS 的经典架构。",
@@ -2566,9 +2566,9 @@
       ]
     },
     {
-      "id": "gis-13-095",
+      "id": "gis-14-095",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS GetMap 请求中，BBOX 与 WIDTH/HEIGHT 比例不一致会怎样？",
       "explanation": "GetMap 按 BBOX 填满 WIDTH×HEIGHT 画布：比例不匹配即几何失真。客户端应保持 bbox 宽高比 = 图宽高比。",
@@ -2605,9 +2605,9 @@
       ]
     },
     {
-      "id": "gis-13-096",
+      "id": "gis-14-096",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "GeoWebCache 的核心价值是？",
       "explanation": "缓存中间层：种子/自动缓存按瓦片矩阵落盘，把昂贵的实时渲染变成廉价的静态文件服务。",
@@ -2644,9 +2644,9 @@
       ]
     },
     {
-      "id": "gis-13-097",
+      "id": "gis-14-097",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪个不是 OGC Web 服务（OWS）的通用约定？",
       "explanation": "OWS 家族共享「Capabilities + KVP/XML 请求 + 标准异常」的 HTTP 模式；WebSocket 不属于其约定。",
@@ -2684,9 +2684,9 @@
       ]
     },
     {
-      "id": "gis-13-098",
+      "id": "gis-14-098",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "前端地图库（如 Leaflet）加载 XYZ 瓦片时，URL 模板里的 {z}/{x}/{y} 由谁计算？",
       "explanation": "客户端由视野中心/范围 + zoom 推出所需瓦片行列区间，逐个填入模板请求，并做缓存与视口裁剪。",
@@ -2723,9 +2723,9 @@
       ]
     },
     {
-      "id": "gis-13-099",
+      "id": "gis-14-099",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列关于 OGC API 系列的说法，正确的是？",
       "explanation": "OGC API 家族用资源路径 + 内容协商取代 KVP 大请求，OpenAPI 文档自描述，是 OGC 的现代化主线。",
@@ -2762,9 +2762,9 @@
       ]
     },
     {
-      "id": "gis-13-100",
+      "id": "gis-14-100",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 图层叠加到第三方底图上偏移了约几百米，最可能的原因是？",
       "explanation": "数百米级系统性偏移的经典嫌疑：基准面不一致或 GCJ-02 偏移。核对服务端数据 CRS 与底图 CRS，必要时重投影。",
@@ -2805,9 +2805,9 @@
       ]
     },
     {
-      "id": "gis-13-101",
+      "id": "gis-14-101",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪个参数不属于 WMS GetMap 的必要参数？",
       "explanation": "GetMap 必备：LAYERS/STYLES/CRS(SRS)/BBOX/WIDTH/HEIGHT/FORMAT；TILEMATRIX 属于 WMTS GetTile。",
@@ -2842,9 +2842,9 @@
       ]
     },
     {
-      "id": "gis-13-102",
+      "id": "gis-14-102",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "想以「纯 HTTP 静态文件」的方式发布海量瓦片，不需要动态服务，选？",
       "explanation": "XYZ 目录/MBTiles/PMTiles 都能以静态文件服务分发瓦片；结合 CDN 即可支撑大规模访问，运维成本最低。",
@@ -2881,9 +2881,9 @@
       ]
     },
     {
-      "id": "gis-13-103",
+      "id": "gis-14-103",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "GetLegendGraphic 操作用于？",
       "explanation": "GetLegendGraphic 返回图层符号图例（PNG/SVG），与 GetMap 配套构成完整可视化体验。",
@@ -2920,9 +2920,9 @@
       ]
     },
     {
-      "id": "gis-13-104",
+      "id": "gis-14-104",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪种场景 WCS 优于 WMS？",
       "explanation": "WCS 输出 Coverage 本体（GeoTIFF 等，可裁剪/重采样），面向分析与建模；WMS 只输出渲染图。",
@@ -2959,9 +2959,9 @@
       ]
     },
     {
-      "id": "gis-13-105",
+      "id": "gis-14-105",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列关于 WMTS RESTful 编码的说法，正确的是？",
       "explanation": "WMTS REST 编码把参数编进路径，URL 自描述、缓存友好，与 XYZ 模板同构。",
@@ -2998,9 +2998,9 @@
       ]
     },
     {
-      "id": "gis-13-106",
+      "id": "gis-14-106",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "前端叠加多个 WMS 图层，各图层 CRS 支持不同，正确做法是？",
       "explanation": "以 Capabilities 为准求交集；无交集时由客户端/中间代理重投影，不能指望 WMS 服务器代劳。",
@@ -3037,9 +3037,9 @@
       ]
     },
     {
-      "id": "gis-13-107",
+      "id": "gis-14-107",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列关于「瓦片服务与 WMS 的性能差异」的说法，正确的是？",
       "explanation": "WMTS/XYZ：预渲染+静态分发+CDN，单请求成本趋近于文件读取；WMS：每次请求都重渲染，成本高且波动大。",
@@ -3080,9 +3080,9 @@
       ]
     },
     {
-      "id": "gis-13-108",
+      "id": "gis-14-108",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "想在自己的底图上叠加「用户上传的 GeoJSON」，正确的层叠顺序是？",
       "explanation": "Web 地图分层：底图瓦片 → 专题覆盖层（WMS 图片层/矢量层）→ 交互要素层。顺序与透明度决定可读性。",
@@ -3123,9 +3123,9 @@
       ]
     },
     {
-      "id": "gis-13-109",
+      "id": "gis-14-109",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪一项不属于 OGC 标准家族？",
       "explanation": "GCJ-02 是中国地图加密坐标约定，非 OGC 标准；WMS/WMTS/GeoPackage/GeoJSON（RFC 7946）都是正式标准。",
@@ -3163,9 +3163,9 @@
       ]
     },
     {
-      "id": "gis-13-110",
+      "id": "gis-14-110",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "同一 WMS 服务白天快晚上慢，最可能的瓶颈是？",
       "explanation": "WMS 每请求实时渲染，性能随并发/数据复杂度波动；夜间高峰（或白天高峰）波动是容量问题的信号，上缓存层可解。",
@@ -3202,9 +3202,9 @@
       ]
     },
     {
-      "id": "gis-13-111",
+      "id": "gis-14-111",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列关于「地图切片与原始数据的时效性」的说法，正确的是？",
       "explanation": "瓦片是某时刻的渲染快照：数据更新后按版本号/时间目录切换并清理旧缓存，是缓存一致性的基本功。",
@@ -3241,9 +3241,9 @@
       ]
     },
     {
-      "id": "gis-13-112",
+      "id": "gis-14-112",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "服务端用 PostGIS + GeoServer 发布图层，前端用 Leaflet 展示。GeoServer 的角色是？",
       "explanation": "典型栈：PostGIS（存储/空间计算）→ GeoServer（服务发布与渲染）→ CDN/缓存（可选）→ Leaflet（客户端展示）。",
@@ -3284,9 +3284,9 @@
       ]
     },
     {
-      "id": "gis-13-113",
+      "id": "gis-14-113",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪个不是瓦片矩阵集的组成部分？",
       "explanation": "TMS 只描述网格几何（CRS、原点、瓦片尺寸、每级行列数与比例分母），与客户端硬件无关。",
@@ -3321,9 +3321,9 @@
       ]
     },
     {
-      "id": "gis-13-114",
+      "id": "gis-14-114",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "把「动态 WMS 图层」改造为「高性能瓦片」的第一步通常是？",
       "explanation": "先定网格（3857 方格最通用）与层级范围，再选预切（种子）或按需缓存（GeoWebCache/MapProxy），最后配 CDN。",
@@ -3360,9 +3360,9 @@
       ]
     },
     {
-      "id": "gis-13-115",
+      "id": "gis-14-115",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列关于 WFS GetFeature 输出格式，说法正确的是？",
       "explanation": "WFS 标准输出 GML；GeoServer 等实现通过 outputFormat 提供 GeoJSON/CSV/shapefile-zip 等扩展。",
@@ -3399,9 +3399,9 @@
       ]
     },
     {
-      "id": "gis-13-116",
+      "id": "gis-14-116",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪个组合是「经典 Web GIS 服务栈」？",
       "explanation": "存储→服务→客户端三层：PostGIS 管数据与空间查询，GeoServer 发 OGC 服务，前端库渲染与交互。",
@@ -3442,9 +3442,9 @@
       ]
     },
     {
-      "id": "gis-13-117",
+      "id": "gis-14-117",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 请求返回了 XML 异常文档，客户端应当？",
       "explanation": "OGC 异常文档含 ExceptionCode 与文本（如 InvalidPoint/PointOutsideCoverage），客户端应解析并按类型提示/降级/退避。",
@@ -3481,9 +3481,9 @@
       ]
     },
     {
-      "id": "gis-13-118",
+      "id": "gis-14-118",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪个说法正确区分了 WMS 与 WMTS 的「按需性」？",
       "explanation": "灵活性排序：WMS（任意 BBOX/尺寸）> WMTS（固定网格）。灵活性的代价是渲染成本与缓存难度。",
@@ -3524,9 +3524,9 @@
       ]
     },
     {
-      "id": "gis-13-119",
+      "id": "gis-14-119",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "某 WMTS 服务提供 3857 与 4326 两个 TileMatrixSet，客户端底图是 3857，应选？",
       "explanation": "瓦片叠加的前提是网格一致：选与底图相同的 TileMatrixSet，瓦片边界与分辨率完全重合，零重投影成本。",
@@ -3567,9 +3567,9 @@
       ]
     },
     {
-      "id": "gis-13-120",
+      "id": "gis-14-120",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS GetMap 请求的必要参数包括？（选全部正确项）",
       "explanation": "GetMap = LAYERS+STYLES+CRS(SRS)+BBOX+WIDTH+HEIGHT+FORMAT（EXCEPTIONS 可选）；TILEMATRIX 是 WMTS 概念。",
@@ -3615,9 +3615,9 @@
       ]
     },
     {
-      "id": "gis-13-121",
+      "id": "gis-14-121",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "下列哪些属于 OGC 网络服务标准？（选全部正确项）",
       "explanation": "WMS/WMTS/WFS/WCS/CSW 等构成 OGC Web 服务家族；Shapefile/DBF 是文件格式不是服务标准。",
@@ -3663,9 +3663,9 @@
       ]
     },
     {
-      "id": "gis-13-122",
+      "id": "gis-14-122",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WFS 相比 WMS 的优势包括？（选全部正确项）",
       "explanation": "WFS 输出要素本体：可过滤、可编辑、可再加工；代价是传输量与客户端渲染成本，适合交互式数据应用而非底图。",
@@ -3711,9 +3711,9 @@
       ]
     },
     {
-      "id": "gis-13-123",
+      "id": "gis-14-123",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "下列哪些是瓦片服务（WMTS/XYZ）的性能优势来源？（选全部正确项）",
       "explanation": "预渲染+不可变+小块并行=高吞吐；这就是把 WMS 换成 WMTS 后延迟骤降的架构原因。",
@@ -3759,9 +3759,9 @@
       ]
     },
     {
-      "id": "gis-13-124",
+      "id": "gis-14-124",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "构造一个合法的 WMS GetMap URL，下列哪些写法是对的？（选全部正确项）",
       "explanation": "KVP 参数名不区分大小写；GetMap 必须带完整三元组+图层+范围+尺寸+格式。GetFeatureInfo 在 GetMap 基础上追加 X/Y/INFO_FORMAT。",
@@ -3802,9 +3802,9 @@
       ]
     },
     {
-      "id": "gis-13-125",
+      "id": "gis-14-125",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "下列哪些做法能降低瓦片服务的带宽成本？（选全部正确项）",
       "explanation": "压缩、缓存纪律、按需生成/裁剪是降带宽三板斧；切到用不到的层级只会浪费存储与流量。",
@@ -3850,9 +3850,9 @@
       ]
     },
     {
-      "id": "gis-13-126",
+      "id": "gis-14-126",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪些属于 GetFeatureInfo 请求的必要信息？（选全部正确项）",
       "explanation": "GetFeatureInfo = GetMap 参数 + X/Y + INFO_FORMAT（text/html、application/json 等），服务端把像素换算回地图坐标反查要素。",
@@ -3898,9 +3898,9 @@
       ]
     },
     {
-      "id": "gis-13-127",
+      "id": "gis-14-127",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "下列哪些是 OGC API - Features 相比传统 WFS 的改进？（选全部正确项）",
       "explanation": "OGC API - Features 把 WFS 的复杂度收敛为资源+查询参数+内容协商，开发体验接近现代 REST API。",
@@ -3946,9 +3946,9 @@
       ]
     },
     {
-      "id": "gis-13-128",
+      "id": "gis-14-128",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列哪些情况应优先选择 WMTS 而非 WMS？（选全部正确项）",
       "explanation": "稳定内容+大并发+CDN = WMTS 主场；任意出图或秒级更新则退回 WMS/动态矢量服务。",
@@ -3994,9 +3994,9 @@
       ]
     },
     {
-      "id": "gis-13-129",
+      "id": "gis-14-129",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "下列哪些参数/概念与 WMTS 强相关？（选全部正确项）",
       "explanation": "WMTS 词汇表：TileMatrixSet→TileMatrix→TileRow/TileCol；BBOX 与 SLD 是 WMS 世界的概念。",
@@ -4042,9 +4042,9 @@
       ]
     },
     {
-      "id": "gis-13-130",
+      "id": "gis-14-130",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "客户端加载跨域瓦片与 JSON 配置，下列说法正确的有？（选全部正确项）",
       "explanation": "同源策略约束「可编程读取」（fetch/XHR/纹理读取像素），不约束「展示」（img/script）。要读像素（如取色）还需 crossOrigin 配置。",
@@ -4090,9 +4090,9 @@
       ]
     },
     {
-      "id": "gis-13-131",
+      "id": "gis-14-131",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "下列哪些属于「把 WMS 变快」的常用手段？（选全部正确项）",
       "explanation": "缓存前置 + 存储优化 + CDN + 防御性限制是 WMS 调优标准清单；轴序问题只会导致报错不导致变慢。",
@@ -4138,9 +4138,9 @@
       ]
     },
     {
-      "id": "gis-13-132",
+      "id": "gis-14-132",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "关于服务端渲染（WMS）与客户端渲染（矢量/前端），下列说法正确的有？（选全部正确项）",
       "explanation": "渲染位置是架构权衡：服务端省客户端算力、样式可控；客户端灵活可交互。主流方案常常两者混用。",
@@ -4186,9 +4186,9 @@
       ]
     },
     {
-      "id": "gis-13-133",
+      "id": "gis-14-133",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "下列哪些是瓦片矩阵集常见的网格参考（TileMatrixSet）？（选全部正确项）",
       "explanation": "常见预定义 GridSet：WebMercatorQuad、WorldCRS84Quad、WorldMercatorWGS84Quad 等，也可自定义投影与范围网格。",
@@ -4234,9 +4234,9 @@
       ]
     },
     {
-      "id": "gis-13-134",
+      "id": "gis-14-134",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "WMS 服务的安全加固措施包括？（选全部正确项）",
       "explanation": "鉴权+限流+审计是服务加固三件套；WMS 只读，写操作应走 WFS-T 并单独鉴权。",
@@ -4282,9 +4282,9 @@
       ]
     },
     {
-      "id": "gis-13-135",
+      "id": "gis-14-135",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "Leaflet 中 L.map(...).setView([39.9, 116.4], 12) 把地图中心放在？",
       "explanation": "setView/交互 API 的坐标顺序是 [纬度, 经度]（lat, lng）。",
@@ -4322,9 +4322,9 @@
       ]
     },
     {
-      "id": "gis-13-136",
+      "id": "gis-14-136",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "GeoJSON 中 Point 的 coordinates: [116.4, 39.9] 表示？",
       "explanation": "GeoJSON（RFC 7946）位置顺序是 [经度, 纬度]——与 Leaflet 交互 API 相反。",
@@ -4362,9 +4362,9 @@
       ]
     },
     {
-      "id": "gis-13-137",
+      "id": "gis-14-137",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "下列 Leaflet 表述正确的有？",
       "explanation": "D 是经典事故：米当度要素飞出地球。",
@@ -4404,9 +4404,9 @@
       ]
     },
     {
-      "id": "gis-13-138",
+      "id": "gis-14-138",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "map.html 实战示例里 tileLayer 的关键配置有？",
       "explanation": "maxZoom 决定能放大到几级，必须设；D 错。",
@@ -4446,9 +4446,9 @@
       ]
     },
     {
-      "id": "gis-13-139",
+      "id": "gis-14-139",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "Leaflet 交互 API 与 GeoJSON 的经纬度顺序分别是什么？（各用两个字母缩写）",
       "explanation": "交互 API = [lat, lng]；GeoJSON = [lng, lat]——同一个点两种顺序。",
@@ -4470,9 +4470,9 @@
       ]
     },
     {
-      "id": "gis-13-140",
+      "id": "gis-14-140",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "3D Tiles 是什么？主流渲染库是哪个？",
       "explanation": "三维瓦片的 OGC 标准；CesiumJS 是最主流的渲染端。",
@@ -4495,9 +4495,9 @@
       ]
     },
     {
-      "id": "gis-13-141",
+      "id": "gis-14-141",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 3,
       "stem": "时空数据中『轨迹』的最简数据形态是什么？（PostGIS 视角一句话）",
       "explanation": "按时间排序的点序列（ST_MakeLine 可串成线）——轨迹 = 空间 + 时间双维。",
@@ -4520,9 +4520,9 @@
       ]
     },
     {
-      "id": "gis-13-142",
+      "id": "gis-14-142",
       "skill": "gis",
-      "module": "13",
+      "module": "14",
       "difficulty": 2,
       "stem": "数字孪生系统的三大组成是什么？（底图/数据/分析各用一词）",
       "explanation": "三维底图（3D Tiles）+ 实时数据（IoT）+ 空间分析（前几章全部方法）。",

@@ -1,12 +1,12 @@
 {
   "skill": "gis",
-  "module": "09",
+  "module": "10",
   "version": 1,
   "questions": [
     {
-      "id": "gis-09-001",
+      "id": "gis-10-001",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "缓冲区距离的单位由当前 CRS 决定，4326 上写 500 是『500 度』。",
       "explanation": "4326 单位是度；缓冲前必须转到米制投影或用 geography。",
@@ -24,9 +24,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-002",
+      "id": "gis-10-002",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "缓冲区半径扩大一倍，覆盖面积也扩大一倍。",
       "explanation": "圆面积 πr² 与半径平方成正比：半径翻倍面积 ×4。",
@@ -44,9 +44,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-003",
+      "id": "gis-10-003",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "多要素缓冲区做『总覆盖范围』分析时应先融合（dissolve）。",
       "explanation": "不融合则重叠部分重复计入覆盖面积；ST_Union 融掉公共边界。",
@@ -64,9 +64,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-004",
+      "id": "gis-10-004",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "直线缓冲区就是真实的服务可达范围。",
       "explanation": "河流、围墙、路网都会让实际可达范围缩水；真实范围要走网络分析。",
@@ -84,9 +84,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-005",
+      "id": "gis-10-005",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "叠置分析中『交』相当于逻辑 AND：两套条件同时满足。",
       "explanation": "A ∩ B = 同时落在两个范围内的区域，选址的核心操作。",
@@ -104,9 +104,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-006",
+      "id": "gis-10-006",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "『差』运算（A − B）用于从 A 中剔除与 B 重叠的部分。",
       "explanation": "典型如从可开发用地中剔除生态红线缓冲区。",
@@ -124,9 +124,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-007",
+      "id": "gis-10-007",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "ST_Union 与 ST_Collect 的结果完全相同。",
       "explanation": "ST_Union 融合边界去重叠；ST_Collect 只打包成 Multi，边界和重叠都保留。",
@@ -144,9 +144,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-008",
+      "id": "gis-10-008",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "空间连接要求两张表预先存好对方的 ID。",
       "explanation": "空间连接按位置关系匹配（Within/Intersects/最近），不需要人工维护外键。",
@@ -164,9 +164,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-009",
+      "id": "gis-10-009",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "ST_Within(点, 面) 与 ST_Contains(面, 点) 语义等价、参数方向相反。",
       "explanation": "同一关系两种表述；参数写反结果就反。",
@@ -184,9 +184,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-010",
+      "id": "gis-10-010",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "KNN 查询（ORDER BY geom <-> 点 LIMIT n）能走 GiST 索引。",
       "explanation": "这是 PostGIS 最近邻的标准写法，百万级毫秒返回。",
@@ -204,9 +204,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-011",
+      "id": "gis-10-011",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "ST_Distance(geom, p) < r 的写法可以充分利用 GiST 索引。",
       "explanation": "它对全表逐行算距离；应改用 ST_DWithin 或 KNN 排序。",
@@ -224,9 +224,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-012",
+      "id": "gis-10-012",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "渔网格网统计的点计数应除以格子面积变成密度。",
       "explanation": "计数受格子面积影响，比率化后才可比（同 choropleth 教训）。",
@@ -244,9 +244,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-013",
+      "id": "gis-10-013",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "六边形网格比正方形网格的邻接更均匀。",
       "explanation": "六边形 6 个邻居等距；正方形边邻/角邻距离不等。",
@@ -264,9 +264,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-014",
+      "id": "gis-10-014",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "分区统计（zonal statistics）用一个面图层对栅格求汇总值。",
       "explanation": "如『各行政区内的平均坡度』。",
@@ -284,9 +284,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-015",
+      "id": "gis-10-015",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "『15 分钟生活圈』用直线缓冲评估是可靠的。",
       "explanation": "必须沿路网计算（网络服务区），直线缓冲高估可达性。",
@@ -304,9 +304,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-016",
+      "id": "gis-10-016",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "pgRouting 可在 PostGIS 里做最短路径与服务区分析。",
       "explanation": "给路网表建拓扑后即可算路径、服务区与 OD 成本。",
@@ -324,9 +324,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-017",
+      "id": "gis-10-017",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "线要素的缓冲区端头只有圆头一种。",
       "explanation": "有圆头（round）与平头（flat）之分，默认圆头。",
@@ -344,9 +344,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-018",
+      "id": "gis-10-018",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "选址工作流的标准顺序是：缓冲 → 求交（AND）→ 求差（剔除）→ 空间连接。",
       "explanation": "正向条件求交、禁区求差，最后挂属性做统计。",
@@ -364,9 +364,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-019",
+      "id": "gis-10-019",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "两个缓冲区圆心相距小于半径之和时，两圆相交。",
       "explanation": "圆相交的几何条件：圆心距 < r1 + r2。",
@@ -384,9 +384,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-020",
+      "id": "gis-10-020",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "网格大小无所谓，反正最后都是聚合。",
       "explanation": "太粗丢空间信息、太细算不动且单格样本稀疏——格子大小是分析决策。",
@@ -404,9 +404,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-021",
+      "id": "gis-10-021",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "分区统计只能对栅格算均值，不能算占比。",
       "explanation": "均值/最大/最小/占比等汇总都支持，视工具而定。",
@@ -424,9 +424,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-022",
+      "id": "gis-10-022",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "把缓冲分析放在 3857 上做，中低纬度误差尚可接受但纬度越高越离谱。",
       "explanation": "3857 面积随纬度夸大（1/cos²φ），缓冲半径同样被拉伸；严肃分析用等积或米制当地投影。",
@@ -444,9 +444,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-023",
+      "id": "gis-10-023",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "空间连接的结果一定和人工维护的外键字段一致。",
       "explanation": "边界数据质量、谓词选择都会导致差异——位置关系才是权威。",
@@ -464,9 +464,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-024",
+      "id": "gis-10-024",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "KNN 查询只能找最近 1 个，不能取前 k 个。",
       "explanation": "LIMIT k 即取前 k 个，运算符天然支持。",
@@ -484,9 +484,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-025",
+      "id": "gis-10-025",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "叠置分析前应先统一两图层的 CRS。",
       "explanation": "不同 CRS 直接叠置是坐标错位灾难（第 01/03 章）。",
@@ -504,9 +504,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-026",
+      "id": "gis-10-026",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "缓冲区可以对面、线、点任何要素类型生成。",
       "explanation": "点的圆、线的走廊、面的外扩/内缩都是缓冲。",
@@ -524,9 +524,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-027",
+      "id": "gis-10-027",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "面的内缩（负缓冲）也是合法操作。",
       "explanation": "负半径向内收缩，常用于『距边界至少 r 米』的约束。",
@@ -544,9 +544,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-028",
+      "id": "gis-10-028",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "渔网格网的格子数只与研究区面积有关。",
       "explanation": "还取决于格子大小：格数 ≈ 面积/单格面积。",
@@ -564,9 +564,9 @@
       "answer": false
     },
     {
-      "id": "gis-09-029",
+      "id": "gis-10-029",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "OD 成本矩阵是配送排线、可达性评估的输入。",
       "explanation": "任意起点—终点的通行成本表是路径优化的基础数据。",
@@ -584,9 +584,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-030",
+      "id": "gis-10-030",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "ST_Intersection 结果可能为空几何（两范围不相交时）。",
       "explanation": "空几何要靠 ST_Intersects/ST_IsEmpty 过滤，否则下游报错。",
@@ -604,9 +604,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-031",
+      "id": "gis-10-031",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "对大表做空间连接前，给两边的几何列建 GiST 索引是标准动作。",
       "explanation": "无索引 = 全表两两比较，索引能省 99% 的计算。",
@@ -624,9 +624,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-032",
+      "id": "gis-10-032",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "『每个网格 1 km 内的平均房价』属于近邻/邻域统计。",
       "explanation": "每个对象看周围——邻域统计的典型表述。",
@@ -644,9 +644,9 @@
       "answer": true
     },
     {
-      "id": "gis-09-033",
+      "id": "gis-10-033",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "给河流画 50 m 两岸保护带，属于哪种分析操作？",
       "explanation": "线要素按半径生成走廊 = 缓冲区。",
@@ -684,9 +684,9 @@
       ]
     },
     {
-      "id": "gis-09-034",
+      "id": "gis-10-034",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "『地铁站 500 m 范围 ∩ 商业用地』用的是哪种运算？",
       "explanation": "两套条件同时满足 = 求交。",
@@ -724,9 +724,9 @@
       ]
     },
     {
-      "id": "gis-09-035",
+      "id": "gis-10-035",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "从可开发用地中剔除生态红线 200 m 缓冲区，用的是？",
       "explanation": "A − B 剔除重叠部分，排除法的减法。",
@@ -764,9 +764,9 @@
       ]
     },
     {
-      "id": "gis-09-036",
+      "id": "gis-10-036",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "3 个地铁站各自 500 m 缓冲区要合成一片『轨交服务圈』，应使用？",
       "explanation": "融合重叠、融掉内部边界 = ST_Union；ST_Collect 只打包。",
@@ -804,9 +804,9 @@
       ]
     },
     {
-      "id": "gis-09-037",
+      "id": "gis-10-037",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "在 EPSG:4326 上直接 ST_Buffer(geom, 500)，得到的缓冲半径实际是？",
       "explanation": "4326 单位是度——500 度覆盖大半个地球。先转米制 CRS。",
@@ -844,9 +844,9 @@
       ]
     },
     {
-      "id": "gis-09-038",
+      "id": "gis-10-038",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 1 km 的圆形缓冲区面积约是？",
       "explanation": "πr² = 3.14 × 1² ≈ 3.14 km²。",
@@ -884,9 +884,9 @@
       ]
     },
     {
-      "id": "gis-09-039",
+      "id": "gis-10-039",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "服务半径从 500 m 扩大到 1000 m，覆盖面积约变为原来的？",
       "explanation": "πr² 平方关系：2² = 4 倍。",
@@ -924,9 +924,9 @@
       ]
     },
     {
-      "id": "gis-09-040",
+      "id": "gis-10-040",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "把 10 万个 POI 按『落在哪个区』挂上区名，应使用？",
       "explanation": "位置关系当外键：ST_Within(点, 面) JOIN。",
@@ -964,9 +964,9 @@
       ]
     },
     {
-      "id": "gis-09-041",
+      "id": "gis-10-041",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "『每个社区找最近的 1 家医院』最高效的写法是？",
       "explanation": "KNN 索引扫描，避免全表距离计算。",
@@ -1004,9 +1004,9 @@
       ]
     },
     {
-      "id": "gis-09-042",
+      "id": "gis-10-042",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "判断『某设施 1000 m 内有无住宅』最高效的函数是？",
       "explanation": "ST_DWithin 可走索引；ST_Distance 逐行全表算。",
@@ -1044,9 +1044,9 @@
       ]
     },
     {
-      "id": "gis-09-043",
+      "id": "gis-10-043",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "把研究区切成 1 km 网格统计事故数，属于？",
       "explanation": "网格化 + 点计数，热力图的第一步。",
@@ -1084,9 +1084,9 @@
       ]
     },
     {
-      "id": "gis-09-044",
+      "id": "gis-10-044",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "『各行政区内的平均坡度』用哪种操作实现？",
       "explanation": "面图层对栅格求汇总值 = 分区统计。",
@@ -1124,9 +1124,9 @@
       ]
     },
     {
-      "id": "gis-09-045",
+      "id": "gis-10-045",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "『15 分钟步行生活圈』的正确评估方式是？",
       "explanation": "步行沿路网，直线缓冲高估；用 QGIS 网络分析或 pgRouting。",
@@ -1164,9 +1164,9 @@
       ]
     },
     {
-      "id": "gis-09-046",
+      "id": "gis-10-046",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "下列哪项不是叠置分析的基本操作？",
       "explanation": "透视变换是图像处理概念；叠置基本操作是交/并/差。",
@@ -1204,9 +1204,9 @@
       ]
     },
     {
-      "id": "gis-09-047",
+      "id": "gis-10-047",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "ST_Intersection 对两个不相交的范围求交，返回？",
       "explanation": "返回空几何，下游要用 ST_IsEmpty/ST_Intersects 过滤。",
@@ -1244,9 +1244,9 @@
       ]
     },
     {
-      "id": "gis-09-048",
+      "id": "gis-10-048",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "六边形网格相对正方形网格的主要优势是？",
       "explanation": "正方形有边邻/角邻距离不等的问题；H3 等六边形网格解决之。",
@@ -1284,9 +1284,9 @@
       ]
     },
     {
-      "id": "gis-09-049",
+      "id": "gis-10-049",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "配送排线前的『任意起点到终点的通行成本表』叫？",
       "explanation": "OD（Origin-Destination）矩阵是路径优化的标准输入。",
@@ -1324,9 +1324,9 @@
       ]
     },
     {
-      "id": "gis-09-050",
+      "id": "gis-10-050",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "选址三步『住宅 300 m 内 → 主干道 100 m 外 → 学校 200 m 外』中，对禁区用的是？",
       "explanation": "禁区从候选集中剔除 = 求差。",
@@ -1364,9 +1364,9 @@
       ]
     },
     {
-      "id": "gis-09-051",
+      "id": "gis-10-051",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "面的『负缓冲』（负半径）效果是？",
       "explanation": "负缓冲内缩，常用于『距边界至少 r 米』的退线约束。",
@@ -1404,9 +1404,9 @@
       ]
     },
     {
-      "id": "gis-09-052",
+      "id": "gis-10-052",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "空间连接大表慢如蜗牛，最可能缺的是？",
       "explanation": "无 GiST 索引 = 全表两两几何判断。",
@@ -1444,9 +1444,9 @@
       ]
     },
     {
-      "id": "gis-09-053",
+      "id": "gis-10-053",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "线缓冲的端头（cap）默认样式通常是？",
       "explanation": "圆头最通用，避免端点处『缺角』。",
@@ -1484,9 +1484,9 @@
       ]
     },
     {
-      "id": "gis-09-054",
+      "id": "gis-10-054",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点计数渔网格图的格子计数应转化为？",
       "explanation": "计数受格子面积影响，密度化才可比（第 05 章同源教训）。",
@@ -1524,9 +1524,9 @@
       ]
     },
     {
-      "id": "gis-09-055",
+      "id": "gis-10-055",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "下列哪个场景适合『求并』而不是『求交』？",
       "explanation": "并 = 合并总覆盖；交 = 同时满足；差 = 剔除。",
@@ -1564,9 +1564,9 @@
       ]
     },
     {
-      "id": "gis-09-056",
+      "id": "gis-10-056",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "叠置两图层前发现 CRS 一个 4326 一个 32650，正确动作是？",
       "explanation": "不同 CRS 几何叠置 = 坐标错位灾难；先 ST_Transform 统一。",
@@ -1604,9 +1604,9 @@
       ]
     },
     {
-      "id": "gis-09-057",
+      "id": "gis-10-057",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "『广告牌 100 m 范围内有无住宅』判断，最合适的函数是？",
       "explanation": "距离阈值判断 = ST_DWithin，且可走索引。",
@@ -1644,9 +1644,9 @@
       ]
     },
     {
-      "id": "gis-09-058",
+      "id": "gis-10-058",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "把数万顶点的大行政边界与大表做相交判断很慢，PostGIS 的优化手段是？",
       "explanation": "大几何切碎后 bbox 更紧，粗筛效率大幅提升（第 12 章）。",
@@ -1684,9 +1684,9 @@
       ]
     },
     {
-      "id": "gis-09-059",
+      "id": "gis-10-059",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "KNN 运算符 <-> 的作用是？",
       "explanation": "<-> 返回几何间距离用于排序，走 GiST 索引。",
@@ -1724,9 +1724,9 @@
       ]
     },
     {
-      "id": "gis-09-060",
+      "id": "gis-10-060",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "『每个网格 1 km 内的平均房价』在栅格语境里叫？",
       "explanation": "每个像元看它周围的窗口 = focal/邻域统计。",
@@ -1764,9 +1764,9 @@
       ]
     },
     {
-      "id": "gis-09-061",
+      "id": "gis-10-061",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "两个半径 1 km 的缓冲圆，圆心相距 1.5 km，两圆的关系是？",
       "explanation": "圆心距 1.5 < r1+r2 = 2 → 相交。",
@@ -1804,9 +1804,9 @@
       ]
     },
     {
-      "id": "gis-09-062",
+      "id": "gis-10-062",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "做全国范围的『距省界 10 km 内』缓冲，最合适的 CRS 策略是？",
       "explanation": "跨大范围单一投影变形不均；分带当地投影保证 10 m 级半径真实。",
@@ -1844,9 +1844,9 @@
       ]
     },
     {
-      "id": "gis-09-063",
+      "id": "gis-10-063",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "网络服务区（service area）与直线缓冲的根本区别是？",
       "explanation": "服务区沿路网展开，围墙/单行道/限速都计入——这才是真实可达范围。",
@@ -1884,9 +1884,9 @@
       ]
     },
     {
-      "id": "gis-09-064",
+      "id": "gis-10-064",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "分析『新建高铁站 2 km 内的土地利用构成』，四类基本功的调用顺序是？",
       "explanation": "先缓冲出 2 km 范围，再与土地利用（栅格或面）叠置，最后分区统计构成比。",
@@ -1924,9 +1924,9 @@
       ]
     },
     {
-      "id": "gis-09-065",
+      "id": "gis-10-065",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "ST_SquareGrid / H3 这类网格化工具解决的核心问题是？",
       "explanation": "渔网/六边形网格提供统一统计单元，让『数一数』有处安放。",
@@ -1964,9 +1964,9 @@
       ]
     },
     {
-      "id": "gis-09-066",
+      "id": "gis-10-066",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "下列哪个说法正确？",
       "explanation": "边界更新后重跑即可；人工字段会腐化。QGIS/GeoPandas 也能做空间连接。",
@@ -2004,9 +2004,9 @@
       ]
     },
     {
-      "id": "gis-09-067",
+      "id": "gis-10-067",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "圆心相距 3 km 的两个 1 km 缓冲圆，位置关系是？",
       "explanation": "3 > 1 + 1 = 2 → 相离，覆盖分析时互不重叠。",
@@ -2044,9 +2044,9 @@
       ]
     },
     {
-      "id": "gis-09-068",
+      "id": "gis-10-068",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "用缓冲区近似『步行 10 分钟生活圈』（按 5 km/h），半径应约取？",
       "explanation": "10/60 h × 5000 m/h ≈ 833 m——但注意这只是直线近似，真实范围要走网络。",
@@ -2084,9 +2084,9 @@
       ]
     },
     {
-      "id": "gis-09-069",
+      "id": "gis-10-069",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "空间分析四类基本功包括？",
       "explanation": "四类操作组合可搭出绝大多数分析需求。",
@@ -2127,9 +2127,9 @@
       ]
     },
     {
-      "id": "gis-09-070",
+      "id": "gis-10-070",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "缓冲区分析前要想清楚的细节有？",
       "explanation": "D 是制图问题，不影响缓冲几何本身。",
@@ -2169,9 +2169,9 @@
       ]
     },
     {
-      "id": "gis-09-071",
+      "id": "gis-10-071",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "关于叠置三操作，正确的有？",
       "explanation": "差有方向性（A−B ≠ B−A），D 错误。",
@@ -2211,9 +2211,9 @@
       ]
     },
     {
-      "id": "gis-09-072",
+      "id": "gis-10-072",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "空间连接的合法连接谓词包括？",
       "explanation": "Transform 是坐标转换函数，不是连接谓词。",
@@ -2253,9 +2253,9 @@
       ]
     },
     {
-      "id": "gis-09-073",
+      "id": "gis-10-073",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "下列能用 GiST 索引加速的写法有？",
       "explanation": "D 逐行全表算距离，走不了索引（第 12 章）。",
@@ -2295,9 +2295,9 @@
       ]
     },
     {
-      "id": "gis-09-074",
+      "id": "gis-10-074",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "渔网格网分析要做对，需要决定？",
       "explanation": "D 是可视化层的事，不影响分析正确性。",
@@ -2337,9 +2337,9 @@
       ]
     },
     {
-      "id": "gis-09-075",
+      "id": "gis-10-075",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "直线缓冲低估/高估可达性的原因包括？",
       "explanation": "半径本身只是参数；A/B/C 是直线模型忽略的真实约束。",
@@ -2379,9 +2379,9 @@
       ]
     },
     {
-      "id": "gis-09-076",
+      "id": "gis-10-076",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "关于缓冲区面积，正确的有？",
       "explanation": "面积与半径是平方关系不是正比，D 错。",
@@ -2421,9 +2421,9 @@
       ]
     },
     {
-      "id": "gis-09-077",
+      "id": "gis-10-077",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "选址流水线中可能出现的基本功组合有？",
       "explanation": "四类基本功都能在选址里出现。",
@@ -2464,9 +2464,9 @@
       ]
     },
     {
-      "id": "gis-09-078",
+      "id": "gis-10-078",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "网络分析能回答的问题有？",
       "explanation": "面积对比是量算/投影问题，与网络无关。",
@@ -2506,9 +2506,9 @@
       ]
     },
     {
-      "id": "gis-09-079",
+      "id": "gis-10-079",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "在 4326 上直接做 500 缓冲会得到什么荒谬结果？",
       "explanation": "500 度的巨型缓冲区覆盖大半个地球——缓冲前必须转米制 CRS。",
@@ -2531,9 +2531,9 @@
       ]
     },
     {
-      "id": "gis-09-080",
+      "id": "gis-10-080",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "选址中『地铁 500 m ∩ 商业用地 − 学校 300 m』三个步骤分别用了哪些叠置操作？",
       "explanation": "正向条件求交（AND），禁区求差（剔除）——先交后差。",
@@ -2555,9 +2555,9 @@
       ]
     },
     {
-      "id": "gis-09-081",
+      "id": "gis-10-081",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "多站服务圈合成一片要用 ST_Union 而不是 ST_Collect，为什么？",
       "explanation": "ST_Union 融掉公共边界、去重重叠部分，覆盖统计才不重复计数。",
@@ -2580,9 +2580,9 @@
       ]
     },
     {
-      "id": "gis-09-082",
+      "id": "gis-10-082",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "空间连接为什么说『位置就是外键』？",
       "explanation": "按位置关系（Within/Intersects）即可连接，无需任何一方人工维护对方 ID。",
@@ -2606,9 +2606,9 @@
       ]
     },
     {
-      "id": "gis-09-083",
+      "id": "gis-10-083",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "找『最近的 k 个』，写出 PostGIS 的 KNN 关键句式。",
       "explanation": "ORDER BY geom <-> 目标点 LIMIT k，走 GiST 索引。",
@@ -2631,9 +2631,9 @@
       ]
     },
     {
-      "id": "gis-09-084",
+      "id": "gis-10-084",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "为什么 ST_Distance < r 不能走索引，应换成什么？",
       "explanation": "ST_Distance 对每行都算几何距离；ST_DWithin 先 bbox 粗筛，可走 GiST。",
@@ -2656,9 +2656,9 @@
       ]
     },
     {
-      "id": "gis-09-085",
+      "id": "gis-10-085",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点计数渔网格图为什么要转密度？",
       "explanation": "格子面积不同（或只看相对大小会失真），除以面积后才有可比性。",
@@ -2681,9 +2681,9 @@
       ]
     },
     {
-      "id": "gis-09-086",
+      "id": "gis-10-086",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "『15 分钟生活圈』为什么不能只用直线缓冲评估？",
       "explanation": "步行沿路网走，河流/围墙/单行道让实际范围缩水；要用网络服务区。",
@@ -2706,9 +2706,9 @@
       ]
     },
     {
-      "id": "gis-09-087",
+      "id": "gis-10-087",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "pgRouting 解决什么问题？",
       "explanation": "给 PostGIS 路网建拓扑后做最短路径、服务区与 OD 成本矩阵。",
@@ -2732,9 +2732,9 @@
       ]
     },
     {
-      "id": "gis-09-088",
+      "id": "gis-10-088",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "大行政边界与大表相交判断慢，PostGIS 的两个优化手段？",
       "explanation": "几何列建 GiST 索引 + ST_Subdivide 切碎大几何。",
@@ -2757,9 +2757,9 @@
       ]
     },
     {
-      "id": "gis-09-089",
+      "id": "gis-10-089",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 500 m 与 2000 m 的服务圈面积比是多少（用 πr² 心算）？",
       "explanation": "(2000/500)² = 16 倍——平方关系。",
@@ -2781,9 +2781,9 @@
       ]
     },
     {
-      "id": "gis-09-090",
+      "id": "gis-10-090",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "为什么分区统计里『点计数』和『密度』是两种不同结论？",
       "explanation": "计数是总量（受面积影响），密度是强度（可比）—— choropleth 同源教训。",
@@ -2806,9 +2806,9 @@
       ]
     },
     {
-      "id": "gis-09-091",
+      "id": "gis-10-091",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "叠置前两图层 CRS 不一致，直接分析会发生什么？",
       "explanation": "几何坐标基准不同 = 空间关系全错；先 ST_Transform 统一 CRS。",
@@ -2831,9 +2831,9 @@
       ]
     },
     {
-      "id": "gis-09-092",
+      "id": "gis-10-092",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "面要素的负缓冲通常用于表达什么约束？",
       "explanation": "『距边界至少 r 米』的退线/禁建约束——内缩 r 的面。",
@@ -2856,9 +2856,9 @@
       ]
     },
     {
-      "id": "gis-09-093",
+      "id": "gis-10-093",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "六边形网格（如 H3）比正方形网格好在哪？",
       "explanation": "六边形 6 个邻居等距，正方形边邻/角邻距离不等，统计偏倚更小。",
@@ -2881,9 +2881,9 @@
       ]
     },
     {
-      "id": "gis-09-094",
+      "id": "gis-10-094",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "OD 成本矩阵是什么？给一个使用场景。",
       "explanation": "任意起点—终点对的通行成本表；配送排线、可达性评估的标准输入。",
@@ -2907,9 +2907,9 @@
       ]
     },
     {
-      "id": "gis-09-095",
+      "id": "gis-10-095",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 100 m 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 0.1² ≈ 0.0314 km²。",
@@ -2929,9 +2929,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-096",
+      "id": "gis-10-096",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 300 m 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 0.3² ≈ 0.2827 km²。",
@@ -2951,9 +2951,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-097",
+      "id": "gis-10-097",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 500 m 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 0.5² ≈ 0.7854 km²。",
@@ -2973,9 +2973,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-098",
+      "id": "gis-10-098",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 800 m 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 0.8² ≈ 2.0106 km²。",
@@ -2995,9 +2995,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-099",
+      "id": "gis-10-099",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 1 km 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 1² ≈ 3.1416 km²。",
@@ -3017,9 +3017,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-100",
+      "id": "gis-10-100",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "半径 2 km 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 2² ≈ 12.5664 km²。",
@@ -3039,9 +3039,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-101",
+      "id": "gis-10-101",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "半径 5 km 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 5² ≈ 78.5398 km²。",
@@ -3061,9 +3061,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-102",
+      "id": "gis-10-102",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "半径 10 km 的圆形缓冲区覆盖面积约是多少 km²？（π 取 3.1416，保留 4 位小数）",
       "explanation": "πr² = 3.1416 × 10² ≈ 314.1593 km²。",
@@ -3083,9 +3083,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-103",
+      "id": "gis-10-103",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "2 km × 2 km 的方形地块做 0.5 km 平头（flat）缓冲，外扩后边长 3 km，面积约多少 km²？",
       "explanation": "(2 + 2×0.5)² = 3² = 9 km²（忽略圆角）。",
@@ -3105,9 +3105,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-104",
+      "id": "gis-10-104",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "外圆半径 3 km、内圆半径 1 km 的环形缓冲带面积约多少 km²？（π 取 3.1416，保留 2 位）",
       "explanation": "π(R²−r²) = 3.1416 × 8 ≈ 25.13 km²。",
@@ -3127,9 +3127,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-105",
+      "id": "gis-10-105",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "100 km × 100 km 的研究区按 10 km 网格切分，共多少格？",
       "explanation": "(100/10) × (100/10) = 100 格。",
@@ -3148,9 +3148,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-09-106",
+      "id": "gis-10-106",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "50 km × 30 km 区域按 5 km 网格切分，共多少格？",
       "explanation": "10 × 6 = 60 格。",
@@ -3169,9 +3169,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-09-107",
+      "id": "gis-10-107",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "12 km × 12 km 区域按 3 km 网格切分，共多少格？",
       "explanation": "4 × 4 = 16 格。",
@@ -3190,9 +3190,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-09-108",
+      "id": "gis-10-108",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "矩形 A=[0,2]×[0,2]、矩形 B=[1,3]×[1,3]（单位 km），交集面积约多少 km²？",
       "explanation": "重叠区 [1,2]×[1,2] = 1 km²。",
@@ -3212,9 +3212,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-109",
+      "id": "gis-10-109",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "半径 2 km 的圆中挖去完全内含的半径 1 km 的圆（差集），剩余面积约多少 km²？（π 取 3.1416，保留 2 位）",
       "explanation": "π(4−1) = 9.42 km²。",
@@ -3234,9 +3234,9 @@
       "unit": "km²"
     },
     {
-      "id": "gis-09-110",
+      "id": "gis-10-110",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "某市面积 100 km²，多站服务圈融合后覆盖 45 km²，覆盖率是多少百分比？",
       "explanation": "45/100 = 45%。",
@@ -3256,9 +3256,9 @@
       "unit": "%"
     },
     {
-      "id": "gis-09-111",
+      "id": "gis-10-111",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "3 家医院服务区各 2 km²，完全不相交，城市总面积 20 km²，覆盖率是多少百分比？",
       "explanation": "总覆盖 6 km² / 20 km² = 30%。",
@@ -3278,9 +3278,9 @@
       "unit": "%"
     },
     {
-      "id": "gis-09-112",
+      "id": "gis-10-112",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 1,
       "stem": "米制坐标系下两点 (0,0) 与 (3,4)（km），直线距离是多少 km？",
       "explanation": "勾股：sqrt(3²+4²) = 5 km。",
@@ -3299,9 +3299,9 @@
       "tolerance": 0.001
     },
     {
-      "id": "gis-09-113",
+      "id": "gis-10-113",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "100 m 像元的一边可容纳多少个 50 m 像元？",
       "explanation": "(100/50)² = 4 个。",
@@ -3320,9 +3320,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-09-114",
+      "id": "gis-10-114",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点出长江与汉江交汇的城市——武汉（水系叠置的经典交汇点）。",
       "explanation": "两江交汇是『线与线相交』的天然案例，空间连接可直接判断归属关系。",
@@ -3344,9 +3344,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-09-115",
+      "id": "gis-10-115",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点出嘉陵江汇入长江的城市——重庆。",
       "explanation": "嘉陵江与长江在重庆朝天门交汇。",
@@ -3368,9 +3368,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-09-116",
+      "id": "gis-10-116",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点出珠江入海口的核心城市——广州。",
       "explanation": "河口三角洲是面/线叠置分析的高频区域。",
@@ -3392,9 +3392,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-09-117",
+      "id": "gis-10-117",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "点出连接地中海与红海的人工水道——苏伊士运河。",
       "explanation": "人工要素连接两个大洋面——网络连通性的极端案例。",
@@ -3416,9 +3416,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-09-118",
+      "id": "gis-10-118",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "点出连接太平洋与大西洋的运河——巴拿马运河。",
       "explanation": "同上：网络中『桥/隧道/运河』类连接要素。",
@@ -3440,9 +3440,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-09-119",
+      "id": "gis-10-119",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点出世界最大的湖泊（面要素）——里海。",
       "explanation": "里海是最大湖泊，面要素缓冲/分区统计的天然素材。",
@@ -3464,9 +3464,9 @@
       "toleranceKm": 600
     },
     {
-      "id": "gis-09-120",
+      "id": "gis-10-120",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "点出世界最深的湖泊——贝加尔湖。",
       "explanation": "贝加尔湖最深约 1642 m。",
@@ -3488,9 +3488,9 @@
       "toleranceKm": 500
     },
     {
-      "id": "gis-09-121",
+      "id": "gis-10-121",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点出中国最大的湖泊——青海湖。",
       "explanation": "咸水湖，面积 4600+ km²。",
@@ -3512,9 +3512,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-09-122",
+      "id": "gis-10-122",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "点出直布罗陀海峡的位置（欧洲与非洲最近处）。",
       "explanation": "海峡是『两个面最接近』的近邻分析案例。",
@@ -3536,9 +3536,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-09-123",
+      "id": "gis-10-123",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "点出扼守马六甲海峡的城市——新加坡。",
       "explanation": "全球航运网络的关键节点。",
@@ -3560,9 +3560,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-09-124",
+      "id": "gis-10-124",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 2,
       "stem": "点出与雷州半岛隔海峡相望的海南省会——海口。",
       "explanation": "琼州海峡宽约 20-30 km，直线缓冲与网络（轮渡）可达性差异明显。",
@@ -3584,9 +3584,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-09-125",
+      "id": "gis-10-125",
       "skill": "gis",
-      "module": "09",
+      "module": "10",
       "difficulty": 3,
       "stem": "点出台湾海峡西岸的平潭岛附近（大陆距台湾岛最近处）。",
       "explanation": "海峡最窄处约 130 km——缓冲圈叠置可判断覆盖情况。",

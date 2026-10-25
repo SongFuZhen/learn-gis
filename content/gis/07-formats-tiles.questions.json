@@ -1,12 +1,12 @@
 {
   "skill": "gis",
-  "module": "06",
+  "module": "07",
   "version": 4,
   "questions": [
     {
-      "id": "gis-06-001",
+      "id": "gis-07-001",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "RFC 7946 允许的 GeoJSON 顶层对象类型不包括？",
       "explanation": "RFC 7946 定义了 FeatureCollection、Feature 以及 7 种几何对象。GeoJSON 没有 Layer/Map 这类概念。",
@@ -41,9 +41,9 @@
       ]
     },
     {
-      "id": "gis-06-002",
+      "id": "gis-07-002",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "GeoJSON 中坐标数组的顺序是？",
       "explanation": "RFC 7946 §3.1.1 规定坐标顺序为经度、纬度（可带高程）。这也是 OGC CRS:84 的约定，与 EPSG:4326 的轴序相反。",
@@ -78,9 +78,9 @@
       ]
     },
     {
-      "id": "gis-06-003",
+      "id": "gis-07-003",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "标准 GeoJSON 能存放 EPSG:3857（米）坐标吗？",
       "explanation": "RFC 7946 规定 GeoJSON 坐标必须是 WGS84 经纬度，删除了 crs 成员。若数据是 3857，应先投影回 4326 再输出 GeoJSON，或在非标准扩展里自担风险。",
@@ -115,9 +115,9 @@
       ]
     },
     {
-      "id": "gis-06-004",
+      "id": "gis-07-004",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "一个可用的 Shapefile 至少需要哪些文件？（多选）",
       "explanation": "Shapefile 是「至少三个文件」的格式：几何（.shp）、几何索引（.shx）、属性表（.dbf）。缺 .shx 很多软件无法读取，缺 .prj 则丢失 CRS 信息。",
@@ -154,9 +154,9 @@
       ]
     },
     {
-      "id": "gis-06-005",
+      "id": "gis-07-005",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "Shapefile 的典型限制是？",
       "explanation": "Shapefile 是 1990 年代的设计：.shp/.dbf 都用 32 位偏移（2 GB 上限），dbf 字段名限 10 字符，且一个图层不能混存点线面。中文支持取决于 .cpg/dbf 编码设置，常出乱码。",
@@ -192,9 +192,9 @@
       ]
     },
     {
-      "id": "gis-06-006",
+      "id": "gis-07-006",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoPackage（.gpkg）本质上是什么？",
       "explanation": "GeoPackage 用 SQLite 作为容器，定义了要素表、瓦片金字塔表、栅格表与空间索引（RTree）等，单文件即可携带数据与索引。",
@@ -230,9 +230,9 @@
       ]
     },
     {
-      "id": "gis-06-007",
+      "id": "gis-07-007",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoTIFF 与普通 TIFF 的区别是？",
       "explanation": "GeoTIFF 在 TIFF 的标签里写入 ModelTiepoint/ModelPixelScale 或 GeoKeyDirectory，使像素能对应到地图坐标；普通 TIFF 只知像素不知位置。",
@@ -268,9 +268,9 @@
       ]
     },
     {
-      "id": "gis-06-008",
+      "id": "gis-07-008",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "COG（Cloud Optimized GeoTIFF）相比普通 GeoTIFF 的关键优化是？",
       "explanation": "COG 把影像切成内部瓦片（tiles）并写入多级 overview，头部元数据完整，客户端用 Range 请求只下载当前视窗需要的块，避免整文件下载。",
@@ -306,9 +306,9 @@
       ]
     },
     {
-      "id": "gis-06-009",
+      "id": "gis-07-009",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "矢量瓦片（MVT）里装的是什么？",
       "explanation": "MVT 只传几何（含简化）与属性字段，客户端按 style 渲染。同一份瓦片可切换多套样式，也能做点击查询（feature-state / querySourceFeatures）。",
@@ -344,9 +344,9 @@
       ]
     },
     {
-      "id": "gis-06-010",
+      "id": "gis-07-010",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "同样一份全国道路数据，用矢量瓦片而不是一个大 GeoJSON 的主要好处是？",
       "explanation": "整份 GeoJSON 必须全量下载与解析；瓦片按 z/x/y 分块，每级只传当前视窗的少量要素，并可在低级别预先简化，显著降低首屏开销。",
@@ -382,9 +382,9 @@
       ]
     },
     {
-      "id": "gis-06-011",
+      "id": "gis-07-011",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片编号 z/x/y 中，z 表示？",
       "explanation": "z 是缩放级别，第 z 级把世界切成 2^z × 2^z 张瓦片；x 为列（西→东），y 为行（北→南，XYZ 约定）。",
@@ -420,9 +420,9 @@
       ]
     },
     {
-      "id": "gis-06-012",
+      "id": "gis-07-012",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "XYZ 与 TMS 两种瓦片方案的主要差别是？",
       "explanation": "换算关系 y_tms = 2^z − 1 − y_xyz。接错会得到上下颠倒（南北镜像）的地图，是接入第三方瓦片服务的高频错误。",
@@ -458,9 +458,9 @@
       ]
     },
     {
-      "id": "gis-06-013",
+      "id": "gis-07-013",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "TopoJSON 相比 GeoJSON 的核心优势是？",
       "explanation": "TopoJSON 把几何拆成 arcs 并记录引用，相邻面的公共边只存一次，压缩率高且能直接判断邻接；代价是解析比 GeoJSON 复杂。",
@@ -496,9 +496,9 @@
       ]
     },
     {
-      "id": "gis-06-014",
+      "id": "gis-07-014",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "PMTiles 的典型用法是？",
       "explanation": "PMTiles 把多级瓦片组织为单文件索引，客户端按 z/x/y 发起 Range 请求直接取块，无需瓦片服务，适合静态托管（S3/R2/OSS）。",
@@ -534,9 +534,9 @@
       ]
     },
     {
-      "id": "gis-06-015",
+      "id": "gis-07-015",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "把 200 MB 的行政区 GeoJSON 直接放到前端首屏加载，最可能的后果是？",
       "explanation": "大体量 GeoJSON 是字符串解析 + 一次性构建几何对象，主线程容易长时间阻塞。正确做法：服务端简化 + 矢量瓦片/PMTiles，或按需分块加载。",
@@ -576,9 +576,9 @@
       ]
     },
     {
-      "id": "gis-06-016",
+      "id": "gis-07-016",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "Web 墨卡托瓦片方案：经度 -177°、纬度 -10° 在第 3 级的瓦片列号 x 是多少？",
       "explanation": "x = ⌊(经度+180)/360 × 2^3⌋ = ⌊(-177+180)/360 × 8⌋ = 0。列号只与经度有关。",
@@ -594,9 +594,9 @@
       "placeholder": "如 1234"
     },
     {
-      "id": "gis-06-017",
+      "id": "gis-07-017",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "Web 墨卡托瓦片方案：经度 29°、纬度 -38° 在第 4 级的瓦片列号 x 是多少？",
       "explanation": "x = ⌊(经度+180)/360 × 2^4⌋ = ⌊(29+180)/360 × 16⌋ = 9。列号只与经度有关。",
@@ -612,9 +612,9 @@
       "placeholder": "如 1234"
     },
     {
-      "id": "gis-06-018",
+      "id": "gis-07-018",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "Web 墨卡托瓦片方案：经度 170°、纬度 -27° 在第 5 级的瓦片列号 x 是多少？",
       "explanation": "x = ⌊(经度+180)/360 × 2^5⌋ = ⌊(170+180)/360 × 32⌋ = 31。列号只与经度有关。",
@@ -630,9 +630,9 @@
       "placeholder": "如 1234"
     },
     {
-      "id": "gis-06-046",
+      "id": "gis-07-046",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "Web 墨卡托瓦片方案：经度 -177°、纬度 48° 在第 6 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
       "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^6⌋ = 22。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
@@ -648,9 +648,9 @@
       "placeholder": "如 678"
     },
     {
-      "id": "gis-06-047",
+      "id": "gis-07-047",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "Web 墨卡托瓦片方案：经度 137°、纬度 -3° 在第 7 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
       "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^7⌋ = 65。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
@@ -666,9 +666,9 @@
       "placeholder": "如 678"
     },
     {
-      "id": "gis-06-048",
+      "id": "gis-07-048",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "Web 墨卡托瓦片方案：经度 -45°、纬度 8° 在第 8 级的瓦片行号 y 是多少（XYZ 方案，北为 0）？",
       "explanation": "y = ⌊(1 − ln(tan φ + sec φ)/π)/2 × 2^8⌋ = 122。行号与墨卡托纵坐标有关，纬度越高越靠 0。",
@@ -684,9 +684,9 @@
       "placeholder": "如 678"
     },
     {
-      "id": "gis-06-076",
+      "id": "gis-07-076",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片金字塔第 13 级一共有多少块瓦片？",
       "explanation": "总数 = 4^z = 4^13 = 67,108,864 块（每级行列数各为 2^13）。",
@@ -701,9 +701,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-06-077",
+      "id": "gis-07-077",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片金字塔第 9 级一共有多少块瓦片？",
       "explanation": "总数 = 4^z = 4^9 = 262,144 块（每级行列数各为 2^9）。",
@@ -718,9 +718,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-06-078",
+      "id": "gis-07-078",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片金字塔第 11 级一共有多少块瓦片？",
       "explanation": "总数 = 4^z = 4^11 = 4,194,304 块（每级行列数各为 2^11）。",
@@ -735,9 +735,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-06-083",
+      "id": "gis-07-083",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "EPSG:3857 第 8 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
       "explanation": "分辨率 = 156543.03392 / 2^8 = 611.5 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
@@ -757,9 +757,9 @@
       "unit": "m/px"
     },
     {
-      "id": "gis-06-084",
+      "id": "gis-07-084",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "EPSG:3857 第 16 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
       "explanation": "分辨率 = 156543.03392 / 2^16 = 2.39 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
@@ -779,9 +779,9 @@
       "unit": "m/px"
     },
     {
-      "id": "gis-06-085",
+      "id": "gis-07-085",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "EPSG:3857 第 2 级在赤道处的地面分辨率是多少米/像素？（256px 瓦片，保留 2 位小数）",
       "explanation": "分辨率 = 156543.03392 / 2^2 = 39135.76 m/px。每 +1 级分辨率减半、瓦片总数 ×4。",
@@ -801,9 +801,9 @@
       "unit": "m/px"
     },
     {
-      "id": "gis-06-093",
+      "id": "gis-07-093",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片 z=3, x=1, y=4 左上角的经度是多少度？（保留 4 位小数）",
       "explanation": "左上角经度 = x/2^3 × 360 − 180 = 1/8 × 360 − 180 = -135°。瓦片西边界即该经度。",
@@ -819,9 +819,9 @@
       "unit": "°"
     },
     {
-      "id": "gis-06-094",
+      "id": "gis-07-094",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片 z=4, x=13, y=9 左上角的经度是多少度？（保留 4 位小数）",
       "explanation": "左上角经度 = x/2^4 × 360 − 180 = 13/16 × 360 − 180 = 112.5°。瓦片西边界即该经度。",
@@ -837,9 +837,9 @@
       "unit": "°"
     },
     {
-      "id": "gis-06-095",
+      "id": "gis-07-095",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "瓦片 z=5, x=26, y=12 左上角的经度是多少度？（保留 4 位小数）",
       "explanation": "左上角经度 = x/2^5 × 360 − 180 = 26/32 × 360 − 180 = 112.5°。瓦片西边界即该经度。",
@@ -855,9 +855,9 @@
       "unit": "°"
     },
     {
-      "id": "gis-06-108",
+      "id": "gis-07-108",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片 z=8, x=17, y=90 左上角的纬度是多少度？（保留 4 位小数）",
       "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^8))) ≈ 47.0402°。注意 y 越小纬度越高。",
@@ -877,9 +877,9 @@
       "unit": "°"
     },
     {
-      "id": "gis-06-109",
+      "id": "gis-07-109",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片 z=9, x=238, y=263 左上角的纬度是多少度？（保留 4 位小数）",
       "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^9))) ≈ -4.9158°。注意 y 越小纬度越高。",
@@ -899,9 +899,9 @@
       "unit": "°"
     },
     {
-      "id": "gis-06-110",
+      "id": "gis-07-110",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "瓦片 z=10, x=147, y=514 左上角的纬度是多少度？（保留 4 位小数）",
       "explanation": "左上角纬度由墨卡托反解：φ = atan(sinh(π(1 − 2y/2^10))) ≈ -0.7031°。注意 y 越小纬度越高。",
@@ -921,9 +921,9 @@
       "unit": "°"
     },
     {
-      "id": "gis-06-123",
+      "id": "gis-07-123",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片 z=3, x=7, y=3 的 Bing quadkey 是什么？",
       "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 133。",
@@ -940,9 +940,9 @@
       "placeholder": "如 0123"
     },
     {
-      "id": "gis-06-124",
+      "id": "gis-07-124",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片 z=4, x=8, y=9 的 Bing quadkey 是什么？",
       "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 3002。",
@@ -959,9 +959,9 @@
       "placeholder": "如 0123"
     },
     {
-      "id": "gis-06-125",
+      "id": "gis-07-125",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "瓦片 z=5, x=30, y=10 的 Bing quadkey 是什么？",
       "explanation": "quadkey 把 x/y 的二进制逐位交错（y 为高位、x 为低位）转成 0/1/2/3 字符串，长度等于 z。该瓦片的 quadkey = 13130。",
@@ -978,9 +978,9 @@
       "placeholder": "如 0123"
     },
     {
-      "id": "gis-06-143",
+      "id": "gis-07-143",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "同一瓦片（z=3, x=0, XYZ y=4）在 TMS 方案中的行号是多少？",
       "explanation": "TMS y = 2^z − 1 − y_xyz = 8 − 1 − 4 = 3。两方案只差 y 轴镜像。",
@@ -995,9 +995,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-06-144",
+      "id": "gis-07-144",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "同一瓦片（z=4, x=2, XYZ y=10）在 TMS 方案中的行号是多少？",
       "explanation": "TMS y = 2^z − 1 − y_xyz = 16 − 1 − 10 = 5。两方案只差 y 轴镜像。",
@@ -1012,9 +1012,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-06-145",
+      "id": "gis-07-145",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "同一瓦片（z=5, x=30, XYZ y=21）在 TMS 方案中的行号是多少？",
       "explanation": "TMS y = 2^z − 1 − y_xyz = 32 − 1 − 21 = 10。两方案只差 y 轴镜像。",
@@ -1029,9 +1029,9 @@
       "tolerance": 0
     },
     {
-      "id": "gis-06-153",
+      "id": "gis-07-153",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "XYZ 瓦片方案中，y 轴自上而下（北在上），TMS 则自下而上。",
       "explanation": "TMS 的 y 原点在南极；换算关系为 y_tms = 2^z − 1 − y_xyz。",
@@ -1053,9 +1053,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-154",
+      "id": "gis-07-154",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "缩放级别 z 的瓦片总数是 4^z。",
       "explanation": "每级行列数都是 2^z，总数 (2^z)² = 4^z：z=0 全图 1 块，z=10 约 105 万块。",
@@ -1077,9 +1077,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-155",
+      "id": "gis-07-155",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "瓦片地图把全球投影成一整块正方形（256×256 或 512×512 像素）。",
       "explanation": "z=0 的单块瓦片即全球底图，Web 墨卡托把全球摊成以赤道为边长的正方形。",
@@ -1101,9 +1101,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-156",
+      "id": "gis-07-156",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "Web 墨卡托瓦片可以表示南北纬 90°（极点）区域。",
       "explanation": "y 公式在 ±85.0511° 之外发散，瓦片方案只覆盖到该纬度。",
@@ -1125,9 +1125,9 @@
       "answer": false
     },
     {
-      "id": "gis-06-157",
+      "id": "gis-07-157",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "矢量瓦片（MVT）存的是几何与属性，由客户端渲染。",
       "explanation": "与栅格瓦片不同，MVT 传输编码后的要素，样式在前端实时渲染，可交互可换肤。",
@@ -1149,9 +1149,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-158",
+      "id": "gis-07-158",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "GeoJSON 强制使用 WGS84 经纬度（lon, lat 顺序）。",
       "explanation": "RFC 7946 规定坐标为 WGS84 且 lon 在前，其他 CRS 需另行扩展（非标准成员）。",
@@ -1173,9 +1173,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-159",
+      "id": "gis-07-159",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "KML 是 OGC 标准格式，通常用于三维地球展示。",
       "explanation": "KML 由 Google 提出、后成 OGC 标准，坐标为 WGS84，Google Earth 原生支持。",
@@ -1197,9 +1197,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-160",
+      "id": "gis-07-160",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "MBTiles 把成千上万张瓦片打包进一个 SQLite 文件。",
       "explanation": "MBTiles 是单文件瓦片容器（SQLite），离线地图分发的主流方案之一。",
@@ -1221,9 +1221,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-161",
+      "id": "gis-07-161",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "PMTiles 支持单文件瓦片归档的 HTTP Range 直接读取，无需瓦片服务器。",
       "explanation": "PMTiles 把目录与瓦片组织成可区间请求的结构，静态托管即可当瓦片服务。",
@@ -1245,9 +1245,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-162",
+      "id": "gis-07-162",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片 URL 模板中的 {z}/{x}/{y} 会被客户端替换为具体层级与行列号。",
       "explanation": "客户端按当前视图计算 z/x/y 后填入模板发起请求，{s} 等子域占位符同理。",
@@ -1269,9 +1269,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-163",
+      "id": "gis-07-163",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoTIFF 的瓦片化（Tiled TIFF）与网络地图瓦片（XYZ）是同一概念。",
       "explanation": "前者是 TIFF 内部存储组织（块），后者是网络地图的金字塔目录结构，只是术语相似。",
@@ -1293,9 +1293,9 @@
       "answer": false
     },
     {
-      "id": "gis-06-164",
+      "id": "gis-07-164",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "COG（Cloud Optimized GeoTIFF）支持 HTTP Range 请求按需读取局部数据。",
       "explanation": "COG 把索引置前、数据分块，客户端只取视野范围所需字节，是云上栅格标准。",
@@ -1317,9 +1317,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-165",
+      "id": "gis-07-165",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片级别越高，单块瓦片覆盖的地面范围越大。",
       "explanation": "z 越大分辨率越高、单块覆盖越小：每 +1 级，单块地面边长减半。",
@@ -1341,9 +1341,9 @@
       "answer": false
     },
     {
-      "id": "gis-06-166",
+      "id": "gis-07-166",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "Shapefile 能直接存储坐标系定义在 .shp 主文件内。",
       "explanation": "坐标系在可选的 .prj 旁挂文件里，主文件只有几何。",
@@ -1365,9 +1365,9 @@
       "answer": false
     },
     {
-      "id": "gis-06-167",
+      "id": "gis-07-167",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "GPX 常用于记录 GPS 轨迹与航点，属于 XML 格式。",
       "explanation": "GPX 以 XML 存航点（wpt）、轨迹（trk）、路线（rte），是户外与轨迹交换通用格式。",
@@ -1389,9 +1389,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-168",
+      "id": "gis-07-168",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "同一 zoom 下的所有瓦片都表示相同的地面分辨率（Web 墨卡托）。",
       "explanation": "Web 墨卡托同层级分辨率恒定（赤道口径），因此瓦片网格规则整齐。",
@@ -1413,9 +1413,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-169",
+      "id": "gis-07-169",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoJSON 的 MultiPolygon 可以包含多个不相邻的多边形。",
       "explanation": "Multi* 几何即同类型要素的集合，天然支持飞地、群岛等情形。",
@@ -1437,9 +1437,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-170",
+      "id": "gis-07-170",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "TopoJSON 用弧段（arc）共享编码减少冗余，还能表达拓扑关系。",
       "explanation": "TopoJSON 存弧段索引而非重复坐标，文件更小且保留邻接信息。",
@@ -1461,9 +1461,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-171",
+      "id": "gis-07-171",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片金字塔中，z=1 有 4 块瓦片。",
       "explanation": "2^1=2，2×2=4 块。",
@@ -1485,9 +1485,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-172",
+      "id": "gis-07-172",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "客户端可以根据当前视野只请求落在视口内的瓦片。",
       "explanation": "视口裁剪是瓦片地图省流量的核心机制，配合缓存与预取策略。",
@@ -1509,9 +1509,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-173",
+      "id": "gis-07-173",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "GeoJSON 属性（properties）的值可以是任意 JSON 类型。",
       "explanation": "properties 是 JSON 对象，值支持字符串、数字、布尔、嵌套对象等。",
@@ -1533,9 +1533,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-174",
+      "id": "gis-07-174",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片服务返回 404 时，通常表示该层级/行列号超出范围或不存在的空瓦片。",
       "explanation": "合法但无数据的瓦片有的服务返回 404、有的返回空瓦片图，客户端需容错。",
@@ -1557,9 +1557,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-175",
+      "id": "gis-07-175",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "EPSG:3857 瓦片的地面分辨率与纬度有关：纬度越高，同层级瓦片内地面细节越少。",
       "explanation": "墨卡托把纬度拉伸，同 z 下高纬瓦片覆盖的实地范围反而更大、比例尺更小（图上等像素）。",
@@ -1581,9 +1581,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-176",
+      "id": "gis-07-176",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "栅格瓦片的透明背景（海洋等无数据区）通常用 PNG 通道实现。",
       "explanation": "栅格瓦片格式多为 PNG/JPEG/WebP：需要透明或 256 色调色板时选 PNG。",
@@ -1605,9 +1605,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-177",
+      "id": "gis-07-177",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "把 GeoJSON 转成 TopoJSON 后坐标精度一定会损失。",
       "explanation": "精度取决于量化参数（quantization），可选保留所需精度，量化换体积是可控行为。",
@@ -1629,9 +1629,9 @@
       "answer": false
     },
     {
-      "id": "gis-06-178",
+      "id": "gis-07-178",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "OSM 官方瓦片服务的 URL 模板形如？",
       "explanation": "XYZ 模板即 {z}/{x}/{y}，官方服务为 https://tile.openstreetmap.org/{z}/{x}/{y}.png，并要求合理的 UA 与使用政策。",
@@ -1668,9 +1668,9 @@
       ]
     },
     {
-      "id": "gis-06-179",
+      "id": "gis-07-179",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "z=5 时全球共有多少块瓦片？",
       "explanation": "4^5 = (2^5)² = 1024 块。总数随 z 指数增长：z=10 约 105 万，z=14 约 2.7 亿。",
@@ -1707,9 +1707,9 @@
       ]
     },
     {
-      "id": "gis-06-180",
+      "id": "gis-07-180",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoJSON 与 Shapefile 的比较，下列正确的是？",
       "explanation": "GeoJSON（RFC 7946）文本化、浏览器原生可解析，代价是冗长与解析开销；shapefile 二进制紧凑但格式老旧（2GB、字段名 10 字符、编码混乱）。",
@@ -1750,9 +1750,9 @@
       ]
     },
     {
-      "id": "gis-06-181",
+      "id": "gis-07-181",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪个格式最适合「在线底图 + 离线打包」场景（单文件、可含数百万瓦片）？",
       "explanation": "MBTiles（SQLite 容器）与 PMTiles（可 Range 请求的单文件归档）都把海量瓦片打包成单文件，离线/自托管首选。",
@@ -1789,9 +1789,9 @@
       ]
     },
     {
-      "id": "gis-06-182",
+      "id": "gis-07-182",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "TMS y=0 的瓦片位于全球的哪一侧？",
       "explanation": "TMS 原点在西南角（y 向北递增）；XYZ（OSM/Google）原点在西北角。换算 y_tms = 2^z − 1 − y_xyz。",
@@ -1828,9 +1828,9 @@
       ]
     },
     {
-      "id": "gis-06-183",
+      "id": "gis-07-183",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "矢量瓦片相比栅格瓦片的优势是？",
       "explanation": "MVT 存编码几何+属性：文件更小、可多主题复用、交互查询与重样式都在客户端完成，代价是渲染算力与样式复杂度。",
@@ -1867,9 +1867,9 @@
       ]
     },
     {
-      "id": "gis-06-184",
+      "id": "gis-07-184",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪种格式「单个文件存整幅影像 + 内嵌坐标参考」，是栅格事实标准？",
       "explanation": "GeoTIFF 用 TIFF 标签承载 CRS 与仿射参数，GDAL 生态下栅格交换的事实标准；云上进化版是 COG。",
@@ -1906,9 +1906,9 @@
       ]
     },
     {
-      "id": "gis-06-185",
+      "id": "gis-07-185",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片级别每 +1，地面分辨率（m/px）如何变化？",
       "explanation": "分辨率 = 156543.03392 / 2^z（赤道 m/px，256px 瓦片）：z 每加 1，瓦片数 ×4、单块地面边长减半。",
@@ -1949,9 +1949,9 @@
       ]
     },
     {
-      "id": "gis-06-186",
+      "id": "gis-07-186",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "关于 {s} 子域占位符（如 a/b/c.tile.example.com），其目的是？",
       "explanation": "HTTP/1.1 时代浏览器对单域名并发数有限制，子域轮换（a/b/c）可并行拉瓦片；HTTP/2 多路复用后此技巧已不必要。",
@@ -1988,9 +1988,9 @@
       ]
     },
     {
-      "id": "gis-06-187",
+      "id": "gis-07-187",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪种情况瓦片服务应该返回空瓦片（或 404）？",
       "explanation": "越界/空区域的瓦片按约定返回空图或 404；客户端应把 404 视为「无此瓦片」而不是致命错误。",
@@ -2027,9 +2027,9 @@
       ]
     },
     {
-      "id": "gis-06-188",
+      "id": "gis-07-188",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪个不是瓦片方案的层级选择依据？",
       "explanation": "层级选择 = 显示比例尺 + 源数据分辨率 + 视野/屏宽；与硬件品牌无关。",
@@ -2067,9 +2067,9 @@
       ]
     },
     {
-      "id": "gis-06-189",
+      "id": "gis-07-189",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "把同一份数据同时切成 XYZ 与 TMS 两套瓦片，它们的关系是？",
       "explanation": "两方案覆盖同一网格，仅 y 轴方向相反：y_tms = 2^z − 1 − y_xyz。加载错方案会出现南北镜像。",
@@ -2106,9 +2106,9 @@
       ]
     },
     {
-      "id": "gis-06-190",
+      "id": "gis-07-190",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列关于 KML 的说法，正确的是？",
       "explanation": "KML（OGC 标准）以 XML 描述地标、路径、面、模型与样式，坐标 WGS84；打包压缩版为 KMZ。",
@@ -2145,9 +2145,9 @@
       ]
     },
     {
-      "id": "gis-06-191",
+      "id": "gis-07-191",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "要在浏览器里对 GeoJSON 做要素点击高亮，最直接的理由是？",
       "explanation": "GeoJSON 的 JSON 结构让「数据 ↔ UI 状态」绑定非常自然，配合 Leaflet 等库即可逐要素绑定事件与样式。",
@@ -2184,9 +2184,9 @@
       ]
     },
     {
-      "id": "gis-06-192",
+      "id": "gis-07-192",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪种瓦片「按需编码、按需渲染」，最适合数据频繁更新的底图？",
       "explanation": "MVT 按视野实时编码生成（或预生成），样式与渲染解耦：数据更新只需重生成受影响矢量瓦片，不需重绘全部样式。",
@@ -2223,9 +2223,9 @@
       ]
     },
     {
-      "id": "gis-06-193",
+      "id": "gis-07-193",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "关于瓦片缓存（浏览器/服务端），正确的策略是？",
       "explanation": "不可变内容用长 TTL + 显式失效（版本目录、ETag），是瓦片分发的基本缓存纪律。",
@@ -2262,9 +2262,9 @@
       ]
     },
     {
-      "id": "gis-06-194",
+      "id": "gis-07-194",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪个操作最可能让瓦片地图的流量暴涨？",
       "explanation": "高分屏需要 @2x 瓦片、快速缩放会连带请求多级瓦片；预取策略要设上限并尊重服务条款。",
@@ -2301,9 +2301,9 @@
       ]
     },
     {
-      "id": "gis-06-195",
+      "id": "gis-07-195",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "关于 COG 与传统 GeoTIFF 的关系，正确的是？",
       "explanation": "COG 规定了 TIFF 内部布局（IFD 置前、瓦片化+Overviews），使 HTTP Range 只读所需块；普通 GIS 软件仍可当普通 GeoTIFF 打开。",
@@ -2340,9 +2340,9 @@
       ]
     },
     {
-      "id": "gis-06-196",
+      "id": "gis-07-196",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪个说法符合「shapefile 字段名最长 10 字符」的影响？",
       "explanation": "dBASE 字段名上限 10 字符（还有类型/宽度限制），迁移到 GeoPackage/PostGIS 时常见字段名被截断的坑。",
@@ -2379,9 +2379,9 @@
       ]
     },
     {
-      "id": "gis-06-197",
+      "id": "gis-07-197",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片方案中「重投影服务」的意义是？",
       "explanation": "多数瓦片方案固定 3857（或 4326 网格变体）；源数据坐标系不同时由地图服务（GeoServer 等）重采样到瓦片网格。",
@@ -2422,9 +2422,9 @@
       ]
     },
     {
-      "id": "gis-06-198",
+      "id": "gis-07-198",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪个不是选择「栅格瓦片 vs 矢量瓦片」时需要考虑的因素？",
       "explanation": "选型三要素：客户端算力、样式/交互需求、数据规模与更新频率；影像类底图仍常选栅格瓦片。",
@@ -2462,9 +2462,9 @@
       ]
     },
     {
-      "id": "gis-06-199",
+      "id": "gis-07-199",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoJSON 中一个 FeatureCollection 至少可以包含几个 Feature？",
       "explanation": "RFC 7946：FeatureCollection.features 可为空数组，也可混合不同几何类型。",
@@ -2501,9 +2501,9 @@
       ]
     },
     {
-      "id": "gis-06-200",
+      "id": "gis-07-200",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "下列哪个格式以「弧段共享」为特征，专门优化邻接表达与文件体积？",
       "explanation": "TopoJSON 把共享边界编码为 arcs，消除冗余并显式表达拓扑（邻接/包含），适合 D3 等前端可视化。",
@@ -2540,9 +2540,9 @@
       ]
     },
     {
-      "id": "gis-06-201",
+      "id": "gis-07-201",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片地图上「层级的视觉连续性」指的是？",
       "explanation": "金字塔的层级语义：z+1 是 z 的细化版本。若各级内容不一致，缩放时会「跳变」。矢量瓦片靠要素分级 LOD 保证连续性。",
@@ -2579,9 +2579,9 @@
       ]
     },
     {
-      "id": "gis-06-202",
+      "id": "gis-07-202",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "把一份 4326 数据直接当 3857 显示（不做投影），会看到什么？",
       "explanation": "4326 是角度坐标，3857 是米制平面：把度当米渲染，位置与形状全错（且纬度方向失真随纬度变化），必须重投影。",
@@ -2622,9 +2622,9 @@
       ]
     },
     {
-      "id": "gis-06-203",
+      "id": "gis-07-203",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "瓦片 URL 模板中代表缩放级别的占位符是？（单个字母）",
       "explanation": "{z} 缩放级别、{x} 列、{y} 行，另有 {s} 子域与 {bbox-epsg-3857} 等变体。",
@@ -2641,9 +2641,9 @@
       ]
     },
     {
-      "id": "gis-06-204",
+      "id": "gis-07-204",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "把 GeoJSON 与瓦片绑定最常用的 MIME 类型是？（application/…）",
       "explanation": "标准为 application/geo+json（RFC 7946），实践中也常见 application/json。",
@@ -2661,9 +2661,9 @@
       ]
     },
     {
-      "id": "gis-06-205",
+      "id": "gis-07-205",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "瓦片容器格式中基于 SQLite 的开放规范缩写是？（6 个字母）",
       "explanation": "MBTiles：SQLite 单文件瓦片库，Mapbox 发起、广泛支持。",
@@ -2679,9 +2679,9 @@
       ]
     },
     {
-      "id": "gis-06-206",
+      "id": "gis-07-206",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "面向云对象存储优化的 GeoTIFF 布局规范缩写是？（3 个字母）",
       "explanation": "COG（Cloud Optimized GeoTIFF）支持 Range 请求按需读取。",
@@ -2698,9 +2698,9 @@
       ]
     },
     {
-      "id": "gis-06-207",
+      "id": "gis-07-207",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "OGC 矢量瓦片编码规范的通行缩写是？（3 个字母）",
       "explanation": "MVT（Mapbox Vector Tile）已是 OGC 社区标准（OGC:20-142）。",
@@ -2717,9 +2717,9 @@
       ]
     },
     {
-      "id": "gis-06-208",
+      "id": "gis-07-208",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "KML 打包压缩后的文件扩展名是？（含点号）",
       "explanation": "KMZ = KML（doc.kml）+ 关联资源的 ZIP 包。",
@@ -2736,9 +2736,9 @@
       ]
     },
     {
-      "id": "gis-06-209",
+      "id": "gis-07-209",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "GPX 中记录轨迹的 XML 元素名是？（小写三个字母）",
       "explanation": "trk/trkseg/trkpt 组成轨迹层次；wpt 为航点，rte 为路线。",
@@ -2756,9 +2756,9 @@
       ]
     },
     {
-      "id": "gis-06-210",
+      "id": "gis-07-210",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "Web 墨卡托下瓦片网格的坐标单位是？（中文两个字）",
       "explanation": "3857 是米制平面坐标（赤道处 1 单位≈1 米），瓦片金字塔建立在该网格上。",
@@ -2776,9 +2776,9 @@
       ]
     },
     {
-      "id": "gis-06-211",
+      "id": "gis-07-211",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "XYZ 瓦片 y 轴的正方向是自北向南还是自南向北？（四个字）",
       "explanation": "XYZ（OSM/Google）y=0 在最北，向下递增；TMS 相反。",
@@ -2796,9 +2796,9 @@
       ]
     },
     {
-      "id": "gis-06-212",
+      "id": "gis-07-212",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "把海量 PNG/JPEG 瓦片按层级目录组织成的结构统称什么？（两个字 + 金字塔）",
       "explanation": "金字塔逐级概化：低级概览、高级精细，按视野取级加载。",
@@ -2816,9 +2816,9 @@
       ]
     },
     {
-      "id": "gis-06-213",
+      "id": "gis-07-213",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "GeoParquet 采用列式存储，适合大规模空间数据分析。",
       "explanation": "列存 + 谓词下推 + 高压缩比，是数据湖时代空间表格事实标准。",
@@ -2836,9 +2836,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-214",
+      "id": "gis-07-214",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "FlatGeobuf 是单文件二进制矢量格式，支持随机访问。",
       "explanation": "流式/随机读取、比 GeoJSON 紧凑数倍，Web 与桌面端都有库支持。",
@@ -2856,9 +2856,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-215",
+      "id": "gis-07-215",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "GeoPackage 是基于 SQLite 的 OGC 标准格式，可同时存矢量、栅格与瓦片。",
       "explanation": "单文件 .gpkg，OGC 标准，替代 Shapefile 的首选。",
@@ -2876,9 +2876,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-216",
+      "id": "gis-07-216",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "Shapefile 的字段名最长 10 个字符。",
       "explanation": "dBase 时代的遗留限制，中文/长字段名经常被截断。",
@@ -2896,9 +2896,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-217",
+      "id": "gis-07-217",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "Shapefile 单个文件有 2 GB 容量上限。",
       "explanation": "主文件 2GB 限制使大数据集必须切片或换格式。",
@@ -2916,9 +2916,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-218",
+      "id": "gis-07-218",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "Shapefile 的坐标系定义存在可选的 .prj 文件里。",
       "explanation": "缺 .prj 时软件只能猜坐标系——数据对接错位的常见来源。",
@@ -2936,9 +2936,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-219",
+      "id": "gis-07-219",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "tippecanoe 用于把大规模矢量数据切成本地/托管的矢量瓦片。",
       "explanation": "Mapbox 出品的 MVT 生成利器，支持智能抽稀与多级缩放。",
@@ -2956,9 +2956,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-220",
+      "id": "gis-07-220",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "MBTiles 把瓦片打包进一个 SQLite 文件，便于离线分发。",
       "explanation": "单文件容器，服务器与移动端离线地图的主流载体。",
@@ -2976,9 +2976,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-221",
+      "id": "gis-07-221",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "读取 COG 需要 HTTP Range 请求支持。",
       "explanation": "COG 的核心机制：客户端只取视野所需字节，跳过整文件下载。",
@@ -2996,9 +2996,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-222",
+      "id": "gis-07-222",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "矢量瓦片（MVT）的渲染发生在客户端。",
       "explanation": "服务端只发几何+属性，样式在前端实时套用，可换肤可交互。",
@@ -3016,9 +3016,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-223",
+      "id": "gis-07-223",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoJSON（RFC 7946）强制使用 WGS84 且经度在前。",
       "explanation": "lon, lat 顺序 + WGS84；其他坐标系属于非标准扩展。",
@@ -3036,9 +3036,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-224",
+      "id": "gis-07-224",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "TopoJSON 通过弧段共享编码减少冗余并保留拓扑关系。",
       "explanation": "存弧段索引而非重复坐标，文件更小、邻接信息可查。",
@@ -3056,9 +3056,9 @@
       "answer": true
     },
     {
-      "id": "gis-06-225",
+      "id": "gis-07-225",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "数据湖里存数十亿行带几何的表格数据，做大规模分析首选？",
       "explanation": "列存、压缩、谓词下推，配合 DuckDB/Spark 是大数据空间分析标准栈。",
@@ -3096,9 +3096,9 @@
       ]
     },
     {
-      "id": "gis-06-226",
+      "id": "gis-07-226",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "需要一个单文件、可 Web 端随机访问的二进制矢量格式，选？",
       "explanation": "FlatGeobuf 支持空间索引 + 随机访问，单文件无依赖。",
@@ -3136,9 +3136,9 @@
       ]
     },
     {
-      "id": "gis-06-227",
+      "id": "gis-07-227",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "要把矢量+栅格+瓦片打包成一个标准单文件交付，选？",
       "explanation": "GeoPackage（.gpkg）是 OGC 标准、SQLite 底座，全能力单文件。",
@@ -3176,9 +3176,9 @@
       ]
     },
     {
-      "id": "gis-06-228",
+      "id": "gis-07-228",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "Shapefile 的辅助文件中不包含？",
       "explanation": "三件套 shp/shx/dbf + 可选 prj/cpg 等；docx 是 Word 文档。",
@@ -3216,9 +3216,9 @@
       ]
     },
     {
-      "id": "gis-06-229",
+      "id": "gis-07-229",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "把千万级点数据切成多级矢量瓦片，最常用的命令行工具是？",
       "explanation": "tippecanoe 专精 MVT 生成，自动抽稀与分层。",
@@ -3256,9 +3256,9 @@
       ]
     },
     {
-      "id": "gis-06-230",
+      "id": "gis-07-230",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "PMTiles 相比 MBTiles 的核心优势是？",
       "explanation": "PMTiles 目录内置、支持 HTTP Range 直读，放对象存储/静态站点就能当瓦片服务。",
@@ -3296,9 +3296,9 @@
       ]
     },
     {
-      "id": "gis-06-231",
+      "id": "gis-07-231",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "查看矢量数据图层结构与元信息的 GDAL 命令是？",
       "explanation": "ogr 面向矢量：ogrinfo 看结构；gdalinfo 看栅格。",
@@ -3336,9 +3336,9 @@
       ]
     },
     {
-      "id": "gis-06-232",
+      "id": "gis-07-232",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "矢量格式之间转换（如 Shapefile → GeoPackage）用？",
       "explanation": "ogr2ogr 是矢量转换/过滤/重投影的瑞士军刀。",
@@ -3376,9 +3376,9 @@
       ]
     },
     {
-      "id": "gis-06-233",
+      "id": "gis-07-233",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "栅格格式转换（如 TIFF → COG）用？",
       "explanation": "gdal_translate 转栅格格式，配合 COG driver 一键云优化。",
@@ -3416,9 +3416,9 @@
       ]
     },
     {
-      "id": "gis-06-234",
+      "id": "gis-07-234",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "栅格重投影与裁剪用？",
       "explanation": "gdalwarp 处理栅格的投影变换、裁剪与重采样。",
@@ -3456,9 +3456,9 @@
       ]
     },
     {
-      "id": "gis-06-235",
+      "id": "gis-07-235",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "Shapefile 的已知缺陷包括？",
       "explanation": "Shapefile 不支持拓扑（那是 TopoJSON/GeoPackage/数据库的能力），D 错误。",
@@ -3498,9 +3498,9 @@
       ]
     },
     {
-      "id": "gis-06-236",
+      "id": "gis-07-236",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GeoPackage 的优势包括？",
       "explanation": "SQLite 无 2GB 限制（理论上限 TB 级），D 是 Shapefile 的缺陷。",
@@ -3540,9 +3540,9 @@
       ]
     },
     {
-      "id": "gis-06-237",
+      "id": "gis-07-237",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "COG（Cloud Optimized GeoTIFF）的特性包括？",
       "explanation": "COG 结构自带瓦片与概览，绝不要 zip（会破坏 Range 读取）。",
@@ -3582,9 +3582,9 @@
       ]
     },
     {
-      "id": "gis-06-238",
+      "id": "gis-07-238",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "矢量瓦片（MVT）的优点包括？",
       "explanation": "MVT 恰恰把渲染从服务端挪到客户端；D 说反了。",
@@ -3624,9 +3624,9 @@
       ]
     },
     {
-      "id": "gis-06-239",
+      "id": "gis-07-239",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "GDAL/OGR 命令与用途配对正确的有？",
       "explanation": "gdalwarp 是栅格重投影/裁剪；矢量转换是 ogr2ogr。",
@@ -3666,9 +3666,9 @@
       ]
     },
     {
-      "id": "gis-06-240",
+      "id": "gis-07-240",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "以下属于『现代格式』的有？",
       "explanation": "三者分别面向数据湖、单文件矢量与单文件瓦片；Excel 无空间类型标准。",
@@ -3708,9 +3708,9 @@
       ]
     },
     {
-      "id": "gis-06-241",
+      "id": "gis-07-241",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "Shapefile 的『三件套』主文件扩展名是哪三个？",
       "explanation": "shp（几何）+ shx（空间索引）+ dbf（属性表），另配可选 prj/cpg。",
@@ -3732,9 +3732,9 @@
       ]
     },
     {
-      "id": "gis-06-242",
+      "id": "gis-07-242",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "大规模空间表格分析选 GeoParquet 的两个核心理由？",
       "explanation": "列式存储只读所需列 + 高压缩；配合谓词下推跳过无关数据块。",
@@ -3758,9 +3758,9 @@
       ]
     },
     {
-      "id": "gis-06-243",
+      "id": "gis-07-243",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 3,
       "stem": "PMTiles 与 MBTiles 的本质区别是什么？",
       "explanation": "PMTiles 目录内置、可 HTTP Range 直读（静态托管即可）；MBTiles 通常需要瓦片服务器/应用层查询 SQLite。",
@@ -3784,9 +3784,9 @@
       ]
     },
     {
-      "id": "gis-06-244",
+      "id": "gis-07-244",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 1,
       "stem": "查看栅格数据元信息（波段、分辨率、NoData）的 GDAL 命令是？",
       "explanation": "gdalinfo 输出尺寸、CRS、波段统计、金字塔等信息。",
@@ -3807,9 +3807,9 @@
       ]
     },
     {
-      "id": "gis-06-245",
+      "id": "gis-07-245",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "tippecanoe 的用途是什么？",
       "explanation": "把大规模 GeoJSON 等矢量数据切成分级矢量瓦片（MVT），支持智能抽稀。",
@@ -3832,9 +3832,9 @@
       ]
     },
     {
-      "id": "gis-06-246",
+      "id": "gis-07-246",
       "skill": "gis",
-      "module": "06",
+      "module": "07",
       "difficulty": 2,
       "stem": "要把 Shapefile 导入 PostGIS，ogr2ogr 之外还可用什么内置工具？（提示：PostGIS 自带）",
       "explanation": "PostGIS 自带 shp2pgsql（配合 psql 导入），反向是 pgsql2shp。",

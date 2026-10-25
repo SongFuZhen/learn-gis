@@ -1,16 +1,16 @@
 ## 一句话
 
-OGC 服务解决「数据怎么发布」，前端库解决「地图怎么画」；两者通过标准参数和坐标约定对接。
+OGC（/ˌoʊ ˌdʒiː ˈsiː/，「欧-吉-西」）服务解决「数据怎么发布」，前端库解决「地图怎么画」；两者通过标准参数和坐标约定对接。
 
 ## 1. 四个经典 OGC 服务
 
 | 服务 | 返回什么 | 典型用途 |
 |---|---|---|
-| **WMS** | 服务端渲染好的**图片** | 出图、专题图 |
-| **WMTS** | 预生成的**图片瓦片** | 底图、缓存友好 |
-| **WFS** | **矢量要素**（GML/GeoJSON） | 要素编辑、客户端样式化 |
-| **WCS** | **栅格覆盖**（原始值） | 高程、影像分析 |
-| WPS | 处理结果 | 服务端空间分析 |
+| **WMS**（/ˌdʌbəljuː ˌɛm ˈɛs/，「达布留-艾姆-艾斯」） | 服务端渲染好的**图片** | 出图、专题图 |
+| **WMTS**（/ˌdʌbəljuː ˌɛm ˈtiː ˈɛs/，「达布留-艾姆-提-艾斯」） | 预生成的**图片瓦片** | 底图、缓存友好 |
+| **WFS**（/ˌdʌbəljuː ˌɛf ˈɛs/，「达布留-艾夫-艾斯」） | **矢量要素**（GML（/ˌdʒiː ˌɛm ˈɛl/，「吉-艾姆-艾勒」）/GeoJSON（/ˈdʒiːoʊˌdʒeɪsən/，「吉欧-杰森」）） | 要素编辑、客户端样式化 |
+| **WCS**（/ˌdʌbəljuː ˌsiː ˈɛs/，「达布留-西-艾斯」） | **栅格覆盖**（原始值） | 高程、影像分析 |
+| WPS（/ˌdʌbəljuː ˌpiː ˈɛs/，「达布留-皮-艾斯」） | 处理结果 | 服务端空间分析 |
 
 关键区别：WMS/WMTS 给你「画好的图」，你只能看；WFS/WCS 给你「数据」，你可以再计算。
 
@@ -24,7 +24,7 @@ OGC 服务解决「数据怎么发布」，前端库解决「地图怎么画」�
 - 只想给用户看一张省界专题图，不要求交互 → **WMS**
 - 大量用户看同一张底图，要求秒开 → **WMTS**（预缓存）
 - 用户要点省界弹出属性、前端改配色 → **WFS**（拿到矢量自己画）
-- 要拿 DEM 高程算坡度 → **WCS**（要原始值，图片截图没法算）
+- 要拿 DEM（/dɛm/，「戴姆」）高程算坡度 → **WCS**（要原始值，图片截图没法算）
 </Callout>
 
 ## 2. WMS 的必填参数
@@ -36,7 +36,7 @@ SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap
 &WIDTH=1024&HEIGHT=768&FORMAT=image/png
 ```
 
-**axis order 陷阱**：WMS 1.3.0 里 `CRS=EPSG:4326` 的 BBOX 顺序是 `miny,minx,maxy,maxx`（纬度在前）；想用「经度在前」就写 `CRS=CRS:84`。WMS 1.1.1 用的是 `SRS` 且经纬度顺序固定。
+**axis order（/ˈæksɪs ˈɔːrdər/，「艾克西斯-奥德」）陷阱**：WMS 1.3.0 里 `CRS=EPSG:4326` 的 BBOX 顺序是 `miny,minx,maxy,maxx`（纬度在前）；想用「经度在前」就写 `CRS=CRS:84`。WMS 1.1.1 用的是 `SRS` 且经纬度顺序固定。
 
 <Callout type="must" title="必背 · axis order 陷阱">
 - WMS 1.3.0 + `EPSG:4326`：BBOX 顺序 `miny,minx,maxy,maxx`（纬度在前）
@@ -65,7 +65,7 @@ WMTS 提供 `TileMatrixSet`（每一级的矩阵宽高、分辨率、原点）�
 </Callout>
 
 <Callout type="example" title="例子 · 算北京 (116.4°E, 39.9°N) 在 z=10 的瓦片号">
-以最常见的 Web Mercator 瓦片方案（EPSG:3857）为例，z=10 时全图共 2^10 × 2^10 = 1024×1024 块瓦片。
+以最常见的 Web Mercator（/wɛb mərˈkeɪtər/，「韦布-默-凯-特」）瓦片方案（EPSG:3857）为例，z=10 时全图共 2^10 × 2^10 = 1024×1024 块瓦片。
 
 1. 列号：`TileCol = (116.4 + 180) / 360 × 1024 ≈ 0.8233 × 1024 ≈ 843`
 2. 行号：先算墨卡托纵向比例 `(1 − ln(tan(39.9°) + 1/cos(39.9°)) / π) / 2 ≈ 0.3790`，再 `× 1024 ≈ 388`
@@ -75,7 +75,7 @@ WMTS 提供 `TileMatrixSet`（每一级的矩阵宽高、分辨率、原点）�
 
 ## 4. 新标准：OGC API
 
-OGC API - Features / Tiles / Maps 用 REST + JSON + OpenAPI 取代老服务：
+OGC API - Features / Tiles / Maps 用 REST（/rɛst/，「瑞斯特」）+ JSON + OpenAPI 取代老服务：
 
 ```
 GET /collections
@@ -98,10 +98,10 @@ GET /collections/roads/items/{id}
 
 | 库 | 强项 | 代价 |
 |---|---|---|
-| **Leaflet** | 轻（~40 KB）、插件多、上手快、栅格瓦片 | 默认只支持 3857 等少数 CRS；矢量瓦片需插件 |
-| **MapLibre GL JS** | WebGL、矢量瓦片、style JSON、3D | 学习曲线、样式体系重 |
-| **OpenLayers** | 投影/格式/服务支持最全 | 体积大、API 复杂 |
-| **deck.gl** | 十万级点/线的大数据可视化 | 不是通用底图库 |
+| **Leaflet**（/ˈliːflət/，「利弗-莱特」） | 轻（~40 KB）、插件多、上手快、栅格瓦片 | 默认只支持 3857 等少数 CRS（/ˌsiː ˌɑːr ˈɛs/，「西-阿-艾斯」）；矢量瓦片需插件 |
+| **MapLibre GL JS**（/mæpˈliːbrə/，「马普-利布拉」） | WebGL（/ˈwɛb ˌdʒiː ˈɛl/，「韦布-吉-艾勒」）、矢量瓦片、style JSON、3D | 学习曲线、样式体系重 |
+| **OpenLayers**（/ˈoʊpən ˈleɪərz/，「欧盆-莱厄斯」） | 投影/格式/服务支持最全 | 体积大、API 复杂 |
+| **deck.gl**（/dɛk ˌdʒiː ˈɛl/，「戴克-吉-艾勒」） | 十万级点/线的大数据可视化 | 不是通用底图库 |
 
 约定：Leaflet 的 `L.geoJSON()` 期望 **4326 经纬度**；把 3857 的米直接丢进去，要素会跑到南极附近。
 
@@ -121,7 +121,7 @@ GET /collections/roads/items/{id}
 
 ## 6. 实战：亲手把地图跑起来
 
-看懂服务只是前半段，前端工程师要的是**能跑的代码**。下面这段完整 HTML，复制存成 map.html 用浏览器打开，一张带标注和 GeoJSON 点的地图就活了（Leaflet CDN + 高德瓦片）。
+看懂服务只是前半段，前端工程师要的是**能跑的代码**。下面这段完整 HTML，复制存成 map.html 用浏览器打开，一张带标注和 GeoJSON 点的地图就活了（Leaflet CDN（/ˌsiː ˌdiː ˈɛn/，「西-迪-艾恩」）+ 高德瓦片）。
 
 ```html
 <!DOCTYPE html>
@@ -182,17 +182,17 @@ GET /collections/roads/items/{id}
 
 1. **按需加载**：地图库与瓦片层动态 `import()`，不要进首屏 bundle。
 2. **别把大地图塞进首屏**：底图瓦片懒加载，矢量数据用瓦片。
-3. **CORS**：WMS/WFS 跨域需要服务端 `Access-Control-Allow-Origin`，否则 fetch 失败（图片瓦片能在 `<img>` 显示但污染 canvas）。
+3. **CORS**（/kɔːrz/，「扣尔斯」）：WMS/WFS 跨域需要服务端 `Access-Control-Allow-Origin`，否则 fetch 失败（图片瓦片能在 `<img>` 显示但污染 canvas）。
 4. **缓存**：瓦片设长 `Cache-Control`，别把 `/tiles/{z}/{x}/{y}` 当成动态接口。
 
 ## 8. 延伸：时空数据与三维 GIS
 
 课程收尾，把两块「下一站」的地图留在路标上：
 
-- **时空数据（spatio-temporal）**：轨迹（GPS 轨迹、船舶 AIS）、移动对象数据库、时序栅格堆栈。PostGIS 的 `ST_MakeLine` 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放，『共享单车潮汐』就是时空数据的经典教学案例；
-- **地理编码（geocoding）**：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；
-- **三维 GIS**：3D Tiles（OGC 标准）把倾斜摄影/BIM 切成流式瓦片，CesiumJS / MapLibre GL 负责渲染，是数字孪生的数据底座；
-- **数字孪生**：实时 IoT 数据 + 三维底图 + 时空分析，本章到第 12 章的全部知识都在它身上汇合。
+- **时空数据（spatio-temporal，/ˈspeɪʃioʊ ˈtempərəl/，「斯佩-修-坦-普洛」）**：轨迹（GPS 轨迹、船舶 AIS（/ˌeɪ ˌaɪ ˈɛs/，「艾-艾-艾斯」））、移动对象数据库、时序栅格堆栈。PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的 `ST_MakeLine` 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放，『共享单车潮汐』就是时空数据的经典教学案例；
+- **地理编码（geocoding，/ˈdʒiːoʊˌkoʊdɪŋ/，「吉欧-扣丁」）**：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；
+- **三维 GIS**：3D Tiles（OGC 标准）把倾斜摄影/BIM（/bɪm/，「比姆」）切成流式瓦片，CesiumJS（/ˈsiːziəm ˌdʒeɪ ˈɛs/，「西兹昂-杰-艾斯」）/ MapLibre GL 负责渲染，是数字孪生的数据底座；
+- **数字孪生**：实时 IoT（/ˌaɪ ˌoʊ ˈtiː/，「艾-欧-提」）数据 + 三维底图 + 时空分析，本章到第 12 章的全部知识都在它身上汇合。
 
 <Callout type="must" title="必背 · 收尾三句话">
 - 时空数据 = 空间 + 时间两个维度：轨迹是点的时序，影像堆栈是面的时序

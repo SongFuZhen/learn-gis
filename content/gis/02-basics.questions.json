@@ -1,12 +1,12 @@
 {
   "skill": "gis",
-  "module": "01",
+  "module": "02",
   "version": 3,
   "questions": [
     {
-      "id": "gis-01-001",
+      "id": "gis-02-001",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "在 GIS 计算与制图中，地球最常用的数学近似模型是？",
       "explanation": "真实地球沿赤道略鼓、两极略扁，扁率约 1/298.257。GIS 用旋转椭球作为几何近似（如 WGS84 椭球 a=6378137 m）。正球体只是进一步简化，用于 Web 墨卡托等对精度要求不高的场景。",
@@ -47,9 +47,9 @@
       ]
     },
     {
-      "id": "gis-01-002",
+      "id": "gis-02-002",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "一个大地基准面（geodetic datum）由哪些要素确定？",
       "explanation": "基准面 = 椭球尺寸/形状 + 椭球如何摆放在地球上。地心基准（如 WGS84）把椭球中心放在质心；局部基准（如 Beijing54、Xian80）把椭球贴合某个区域的大地水准面。同一经纬度在不同基准下指向的地面点可能相差上百米。",
@@ -88,9 +88,9 @@
       ]
     },
     {
-      "id": "gis-01-003",
+      "id": "gis-02-003",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "WGS84 属于哪一类基准面？",
       "explanation": "WGS84 是地心基准，椭球中心与地球质心重合，因此 GPS 直接输出的经纬度就是以它为参考。局部基准则把椭球贴合某片区域，代价是离开该区域后偏差迅速变大。",
@@ -127,9 +127,9 @@
       ]
     },
     {
-      "id": "gis-01-009",
+      "id": "gis-02-009",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "中国现行国家大地坐标系是哪一个？",
       "explanation": "我国自 2008 年起启用 CGCS2000，属地心坐标系；它与 WGS84 在定义层面接近，实现差异通常在厘米级，但两者仍是不同基准，精度要求高时不能随意互当。Beijing54/Xian80 是历史坐标系。",
@@ -163,9 +163,9 @@
       ]
     },
     {
-      "id": "gis-01-010",
+      "id": "gis-02-010",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "EPSG:4326 的坐标单位是什么？（填一个词即可）",
       "explanation": "EPSG:4326 是 WGS84 地理坐标系，坐标是经纬度，单位为度（degree），不是米。而 EPSG:3857 的坐标单位是米——混用这两个 CRS 是 Web GIS 最常见的错误来源之一。",
@@ -186,9 +186,9 @@
       "placeholder": "例如：度"
     },
     {
-      "id": "gis-01-011",
+      "id": "gis-02-011",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "GIS 的三大核心要素通常概括为：硬件、软件、数据（再加人与方法）。",
       "explanation": "GIS 系统构成常概括为硬件、软件、数据、人员、方法（流程）五大要素，其中数据常被称为 GIS 的核心。",
@@ -206,9 +206,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-012",
+      "id": "gis-02-012",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "矢量数据用点、线、面来表示地理要素。",
       "explanation": "矢量模型以坐标点为基础，点构成线、线构成面，是 GIS 表示离散要素的基本方式。",
@@ -226,9 +226,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-013",
+      "id": "gis-02-013",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "栅格数据用规则格网（像元）表示连续现象，如高程、温度。",
       "explanation": "连续场（DEM、气温、遥感影像）天然适合规则格网离散化表达。",
@@ -246,9 +246,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-014",
+      "id": "gis-02-014",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "矢量数据放大后会像栅格一样出现马赛克。",
       "explanation": "矢量是坐标描述，任意放大都光滑；栅格放大到像元可见时才出现马赛克。",
@@ -266,9 +266,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-015",
+      "id": "gis-02-015",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "比例尺越大，地图表示的实地范围越大。",
       "explanation": "比例尺大 = 分母小 = 图上单位长度代表的实地距离短，通常表示更小的范围、更多的细节。",
@@ -286,9 +286,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-016",
+      "id": "gis-02-016",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "1:10000 比 1:100000 的比例尺大。",
       "explanation": "分母越小比例尺越大，1:10000 是大比例尺图，内容更精细。",
@@ -306,9 +306,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-017",
+      "id": "gis-02-017",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "属性数据描述地理要素「是什么」，几何数据描述「在哪里」。",
       "explanation": "空间数据 = 空间特征（几何/位置）+ 属性特征（非空间描述）+ 时间特征。",
@@ -326,9 +326,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-018",
+      "id": "gis-02-018",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "元数据（Metadata）是「关于数据的数据」。",
       "explanation": "元数据记录数据来源、坐标系、精度、采集时间等，是数据共享与检索的基础。",
@@ -346,9 +346,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-019",
+      "id": "gis-02-019",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "只要坐标对得上，不同坐标系的数据可以直接叠加分析。",
       "explanation": "必须先统一坐标参考系（重投影/变换），否则位置会错开几十到几百米甚至更多。",
@@ -366,9 +366,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-020",
+      "id": "gis-02-020",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "拓扑（Topology）关注要素之间的相邻、连通、包含等关系。",
       "explanation": "拓扑描述空间关系的规则与结构，如共享边界、连通性，不做坐标重复存储。",
@@ -386,9 +386,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-021",
+      "id": "gis-02-021",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GPS 采集的点位坐标天然就是 WGS84 经纬度。",
       "explanation": "GNSS 接收机输出的定位结果基于 WGS84（或其实现），在国内地图上直接用会与 GCJ-02 火星坐标偏移。",
@@ -406,9 +406,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-022",
+      "id": "gis-02-022",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "数字化的过程可以理解为把模拟地图转换为计算机可用的数据。",
       "explanation": "手扶跟踪数字化、扫描矢量化都是模拟→数字的转换手段。",
@@ -426,9 +426,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-023",
+      "id": "gis-02-023",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "缓冲区分析（Buffer）是矢量数据的基本空间分析之一。",
       "explanation": "缓冲区围绕点线面生成指定距离的邻域多边形，是最常用的邻近性分析工具。",
@@ -446,9 +446,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-024",
+      "id": "gis-02-024",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "栅格叠加分析的「地图代数」只支持加减乘除。",
       "explanation": "地图代数支持函数、条件、逻辑运算等，远不止四则运算。",
@@ -466,9 +466,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-025",
+      "id": "gis-02-025",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "TIN 是用不规则三角网表示地形表面的矢量结构。",
       "explanation": "TIN 用互不交叉的三角形拟合地表，能自适应地形起伏、节省数据量。",
@@ -486,9 +486,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-026",
+      "id": "gis-02-026",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "DEM 是数字高程模型，属于矢量数据。",
       "explanation": "DEM 通常以规则格网（栅格）表达高程面，也有 TIN 形式但主流格网是栅格。",
@@ -506,9 +506,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-027",
+      "id": "gis-02-027",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GIS 中「图层」是把不同主题的要素分门别类组织与叠加显示的机制。",
       "explanation": "图层按主题组织数据，多图层叠合即形成综合地图视图。",
@@ -526,9 +526,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-028",
+      "id": "gis-02-028",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "遥感影像是 GIS 的重要数据来源之一。",
       "explanation": "遥感提供大范围、周期性的影像/栅格数据，与 GIS 分析深度耦合。",
@@ -546,9 +546,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-029",
+      "id": "gis-02-029",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "专题地图强调某个主题的属性分布，如人口密度图。",
       "explanation": "专题图突出表现一种或几种属性的空间分布，与普通参考地图相对。",
@@ -566,9 +566,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-030",
+      "id": "gis-02-030",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "OpenStreetMap 的数据可以免费使用，没有任何使用条件。",
       "explanation": "OSM 数据基于 ODbL 许可，免费但要求署名并以相同方式共享，不是「无条件」。",
@@ -586,9 +586,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-031",
+      "id": "gis-02-031",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "地理编码（Geocoding）是把地址文本转换为坐标的过程。",
       "explanation": "地理编码把「XX路XX号」解析成经纬度；逆地理编码则相反。",
@@ -606,9 +606,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-032",
+      "id": "gis-02-032",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "矢量数据的属性表与几何要素一一关联。",
       "explanation": "每个要素有唯一 id 关联属性记录，这是空间查询与分析的基础。",
@@ -626,9 +626,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-033",
+      "id": "gis-02-033",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "栅格像元越小，数据量越大，表达的细节越多。",
       "explanation": "分辨率与数据量呈平方反比关系：像元减半，像元数约变 4 倍。",
@@ -646,9 +646,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-034",
+      "id": "gis-02-034",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "空间插值（如 IDW、Kriging）是用离散采样点估计连续场的方法。",
       "explanation": "插值从有限样本估计未采样位置的值，气象、土壤领域常用。",
@@ -666,9 +666,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-035",
+      "id": "gis-02-035",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "GIS 只能处理二维数据，不支持三维。",
       "explanation": "现代 GIS 支持 2.5D/3D（DEM、倾斜摄影、BIM、体素）表达与分析。",
@@ -686,9 +686,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-036",
+      "id": "gis-02-036",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "无拓扑检查的相邻多边形可能出现缝隙与重叠。",
       "explanation": "共享边未对齐时缝隙/重叠是数字化常见错误，拓扑检查（dangle、sliver）用于发现它们。",
@@ -706,9 +706,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-038",
+      "id": "gis-02-038",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "空间索引（如 R 树）用于加速空间查询。",
       "explanation": "R 树、四叉树等把空间对象组织成层次包围盒，避免全表扫描。",
@@ -726,9 +726,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-039",
+      "id": "gis-02-039",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GIS 的「地理数据库」与普通数据库没有区别。",
       "explanation": "地理数据库在关系库基础上扩展了空间类型、空间索引与拓扑/网络等能力。",
@@ -746,9 +746,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-040",
+      "id": "gis-02-040",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "矢量数据一定比栅格数据省空间。",
       "explanation": "视数据而定：稀疏要素矢量省；密集连续现象（影像）栅格更合适，矢量画密集等高线反而更庞大。",
@@ -766,9 +766,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-041",
+      "id": "gis-02-041",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "地理要素都有明确、稳定的边界。",
       "explanation": "自然现象（土壤、气候区、海岸线）边界常模糊或动态变化，需要模糊/时态建模。",
@@ -786,9 +786,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-042",
+      "id": "gis-02-042",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "网络分析可用于最短路径、服务区等设施选址问题。",
       "explanation": "网络数据集 + 最短路径/服务区/OD 成本矩阵是设施选址、物流规划的基础工具。",
@@ -806,9 +806,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-043",
+      "id": "gis-02-043",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "制图综合（Generalization）是制图时对要素进行取舍、简化与夸大。",
       "explanation": "小比例尺图无法容纳全部细节，需要综合：简化、合并、移位、选取。",
@@ -826,9 +826,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-044",
+      "id": "gis-02-044",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "地理数据的「现势性」指数据反映当前状况的程度。",
       "explanation": "数据有生命周期，现势性差会直接影响分析结论，需注明时点并定期更新。",
@@ -846,9 +846,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-045",
+      "id": "gis-02-045",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "WGS84 与 CGCS2000 的经纬度数值在我国境内相差通常在分米级，工程上常忽略。",
       "explanation": "两参考椭球实现接近，点位差异一般在厘米~分米级，普通应用可视为同用；高精度测量则不可忽略。",
@@ -866,9 +866,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-046",
+      "id": "gis-02-046",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "在 GIS 里，「位置」只是一串坐标，没有语义。",
       "explanation": "坐标只有配合坐标参考系（基准面、单位、轴序）才有明确的地面对应，语义由 CRS 与属性共同赋予。",
@@ -886,9 +886,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-047",
+      "id": "gis-02-047",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "直方图拉伸可以改善栅格影像的显示对比度。",
       "explanation": "拉伸把原始像元值映射到显示动态范围，不改变数据本身的地学含义。",
@@ -906,9 +906,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-048",
+      "id": "gis-02-048",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "矢量栅格化会损失位置精度。",
       "explanation": "栅格化把坐标离散到像元，产生半个像元以内的位置误差。",
@@ -926,9 +926,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-049",
+      "id": "gis-02-049",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "栅格矢量化（如等高线追踪）是可逆的、无信息损失。",
       "explanation": "矢量化同样有取舍（阈值、平滑），不可能完全还原原栅格信息。",
@@ -946,9 +946,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-050",
+      "id": "gis-02-050",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "GIS 中的「查询」既包括属性查询，也包括空间查询（如相交、包含）。",
       "explanation": "空间查询以几何关系为条件（ST_Within、相交等）是 GIS 相对普通信息系统的标志性能力。",
@@ -966,9 +966,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-051",
+      "id": "gis-02-051",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "比例精度：大比例尺图通常比小比例尺图的位置精度要求更高。",
       "explanation": "大比例尺制图容许误差更小（图上 0.1mm 对应的实地距离更短），数据采集精度要求随之提高。",
@@ -986,9 +986,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-052",
+      "id": "gis-02-052",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "电子地图可随意复制传播，不存在数据许可问题。",
       "explanation": "地图数据受版权/许可约束（ODbL、国家测绘法规等），使用前应确认授权范围。",
@@ -1006,9 +1006,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-053",
+      "id": "gis-02-053",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "在地图上「北上南下」是永恒不变的约定。",
       "explanation": "指北针/方位可以变化，南半球国家常采用不同图面朝向，方向是制图约定而非物理事实。",
@@ -1026,9 +1026,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-055",
+      "id": "gis-02-055",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "空间自相关指邻近位置的值更相似，是地理学第一定律的体现。",
       "explanation": "Tobler 第一定律：近处事物比远处更相关，是空间统计与插值的基石。",
@@ -1046,9 +1046,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-056",
+      "id": "gis-02-056",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "把照片、视频与位置绑定属于 GIS 中「多媒体地理数据」的应用。",
       "explanation": "带地理标签的多媒体（geotag）已广泛用于巡检、社交、档案管理。",
@@ -1066,9 +1066,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-057",
+      "id": "gis-02-057",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GIS 分析结果不受数据质量影响，只要算法正确就可靠。",
       "explanation": "垃圾进垃圾出（GIGO）：源数据精度、完整性、时点直接决定结论可信度。",
@@ -1086,9 +1086,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-058",
+      "id": "gis-02-058",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "天地图、高德、百度地图的坐标体系完全一致。",
       "explanation": "天地图用 CGCS2000，高德用 GCJ-02，百度在 GCJ-02 基础上再加密（BD-09），混用会偏移。",
@@ -1106,9 +1106,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-059",
+      "id": "gis-02-059",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "空间数据可以没有时间属性。",
       "explanation": "一切数据都有采集时点；时态 GIS 更是把时间作为第一维度组织数据。",
@@ -1126,9 +1126,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-060",
+      "id": "gis-02-060",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "地图符号的大小、颜色、形状都可以编码属性信息。",
       "explanation": "视觉变量（尺寸/色相/明度/形状）是专题制图表达定性与定量差异的基本手段。",
@@ -1146,9 +1146,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-061",
+      "id": "gis-02-061",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "「数字地球」指用数字方式重构和表达地球及各类空间信息。",
       "explanation": "数字地球是多源空间数据、网络与可视化集成的概念框架。",
@@ -1166,9 +1166,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-062",
+      "id": "gis-02-062",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "数据库中的空间列可以直接用普通 B 树索引高效支持「相交」查询。",
       "explanation": "相交是二维关系，需要 R 树/GiST 等空间索引，一维排序的 B 树无法直接支持。",
@@ -1186,9 +1186,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-063",
+      "id": "gis-02-063",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "开源 GIS 软件生态包括 QGIS、GDAL、PostGIS、GEOS 等。",
       "explanation": "QGIS（桌面）、GDAL/OGR（数据转换）、PostGIS（空间库）、GEOS（几何引擎）是常用开源栈。",
@@ -1206,9 +1206,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-064",
+      "id": "gis-02-064",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "凡是以 Geo 开头的文件格式都是开放标准。",
       "explanation": "格式是否开放与其名字无关，需查证其规范与许可（如 shapefile 虽公开但非 OGC 标准）。",
@@ -1226,9 +1226,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-065",
+      "id": "gis-02-065",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "GIS 可以辅助应急管理，如洪水淹没范围模拟与疏散路径规划。",
       "explanation": "洪水分析（DEM+水文模型）与网络疏散分析是 GIS 在应急管理中的典型应用。",
@@ -1246,9 +1246,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-066",
+      "id": "gis-02-066",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "瓦片地图把预先切好的图像按金字塔组织，以提高网络地图的访问效率。",
       "explanation": "金字塔式多级瓦片缓存让客户端按需加载对应级别的固定小块。",
@@ -1266,9 +1266,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-067",
+      "id": "gis-02-067",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "地理信息的共享只需要交换数据文件，不必附带说明文档。",
       "explanation": "缺坐标系、字段说明与精度信息的「裸数据」极易误用，元数据与说明是共享必备件。",
@@ -1286,9 +1286,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-068",
+      "id": "gis-02-068",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪一项最准确地概括了 GIS 的定义？",
       "explanation": "GIS（Geographic Information System）是以空间数据为核心，集采集、存储、管理、分析、建模与可视化于一体的信息系统，回答「在哪里、是什么、如何变化」。",
@@ -1325,9 +1325,9 @@
       ]
     },
     {
-      "id": "gis-01-069",
+      "id": "gis-02-069",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列数据中，最适合用栅格模型表达的是？",
       "explanation": "连续场（气温、高程、降水）天然适合规则格网离散化；离散要素（点线面、网络）更适合矢量模型。",
@@ -1364,9 +1364,9 @@
       ]
     },
     {
-      "id": "gis-01-070",
+      "id": "gis-02-070",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "比例尺 1:25000 地图上 4 cm 代表实地多远？",
       "explanation": "实地距离 = 图上距离 × 比例尺分母 = 4 cm × 25000 = 100000 cm = 1 km。",
@@ -1403,9 +1403,9 @@
       ]
     },
     {
-      "id": "gis-01-071",
+      "id": "gis-02-071",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "关于矢量与栅格数据的选择，下列说法最合理的是？",
       "explanation": "数据模型没有绝对优劣：离散要素、拓扑网络选矢量；连续场、影像运算选栅格；GIS 支持两者互转并按需选择。",
@@ -1442,9 +1442,9 @@
       ]
     },
     {
-      "id": "gis-01-072",
+      "id": "gis-02-072",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "「图层（Layer）」在 GIS 中的含义是？",
       "explanation": "图层把同类主题（道路、水系、地块）组织成一个数据集+渲染配置，多个图层按空间参照叠加形成综合地图。",
@@ -1481,9 +1481,9 @@
       ]
     },
     {
-      "id": "gis-01-073",
+      "id": "gis-02-073",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪项属于 GIS 的空间分析功能？",
       "explanation": "叠加（Overlay）、缓冲、邻域、网络分析等以空间关系为运算对象，是 GIS 区别于一般信息系统的核心能力。",
@@ -1520,9 +1520,9 @@
       ]
     },
     {
-      "id": "gis-01-074",
+      "id": "gis-02-074",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下面关于元数据的说法，正确的是？",
       "explanation": "元数据（ISO 19115 等）系统化描述数据集的标识、范围、坐标参考、质量与 lineage，是数据共享、检索与复用的前提。",
@@ -1559,9 +1559,9 @@
       ]
     },
     {
-      "id": "gis-01-075",
+      "id": "gis-02-075",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "某项目需要把 10 万个 POI 点与全国路网做「最近设施」分析，最合适的数据组织是？",
       "explanation": "最近设施/服务区分析依赖带拓扑的网络数据集与空间索引；POI 用点要素图层关联属性即可高效参与计算。",
@@ -1602,9 +1602,9 @@
       ]
     },
     {
-      "id": "gis-01-076",
+      "id": "gis-02-076",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪种现象的边界最适合用「模糊边界」表达？",
       "explanation": "土壤、气候、植被等自然现象存在渐变过渡，需要模糊/概率边界或栅格过渡表达；行政与法律边界则是明确界线。",
@@ -1641,9 +1641,9 @@
       ]
     },
     {
-      "id": "gis-01-077",
+      "id": "gis-02-077",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "空间自相关分析（如 Moran's I）主要回答什么问题？",
       "explanation": "空间自相关度量「邻近相似性」：Moran's I 为正表示高-高/低-低集聚，为负表示高低交错，零附近接近随机。它是地理学第一定律的定量化。",
@@ -1680,9 +1680,9 @@
       ]
     },
     {
-      "id": "gis-01-078",
+      "id": "gis-02-078",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪个操作属于「制图综合」？",
       "explanation": "制图综合随比例尺缩小对要素进行选取、简化、合并、夸大与移位，保证图面清晰且保留关键地理特征。",
@@ -1719,9 +1719,9 @@
       ]
     },
     {
-      "id": "gis-01-079",
+      "id": "gis-02-079",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "「数据质量」评价通常不包括下列哪一项？",
       "explanation": "空间数据质量经典维度：位置精度、属性精度、时间精度、完整性、逻辑一致性、谱系（来源）。加密与否属于数据安全管理范畴。",
@@ -1756,9 +1756,9 @@
       ]
     },
     {
-      "id": "gis-01-080",
+      "id": "gis-02-080",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "全国 DEM 与某段新修道路矢量叠加后道路「悬空」，最可能的原因是？",
       "explanation": "多源数据叠加前必须统一坐标参考（基准面+投影+高程基准）。「悬空」「错位」几百米内的系统性偏差，首先怀疑 CRS 不一致。",
@@ -1799,9 +1799,9 @@
       ]
     },
     {
-      "id": "gis-01-081",
+      "id": "gis-02-081",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列关于「地理数据库（Geodatabase）」的说法，正确的是？",
       "explanation": "地理数据库 = 通用数据库/文件容器 + 空间类型 + 空间索引 + 语义规则（拓扑、网络、域、子类型），是 GIS 数据组织的主流形态。",
@@ -1838,9 +1838,9 @@
       ]
     },
     {
-      "id": "gis-01-082",
+      "id": "gis-02-082",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "要把「每个医院 3 公里服务范围覆盖多少社区」算清楚，最合适的分析流程是？",
       "explanation": "典型的「缓冲/服务区 + 叠加（intersect/spatial join）+ 汇总统计」流程，是可达性评估的基本范式；用路网服务区比欧氏缓冲更贴近实际。",
@@ -1877,9 +1877,9 @@
       ]
     },
     {
-      "id": "gis-01-083",
+      "id": "gis-02-083",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪一项属于「属性数据」？",
       "explanation": "属性数据描述要素的非空间特征（名称、类别、数值、时间），与几何通过 id 关联；坐标串属于几何数据。",
@@ -1916,9 +1916,9 @@
       ]
     },
     {
-      "id": "gis-01-084",
+      "id": "gis-02-084",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "关于「空间插值」，下列说法正确的是？",
       "explanation": "空间插值利用空间自相关，从离散样本构建连续场：IDW 按距离加权，Kriging 用变异函数建模并给出估计方差。",
@@ -1955,9 +1955,9 @@
       ]
     },
     {
-      "id": "gis-01-085",
+      "id": "gis-02-085",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪个不是 GIS 常用的空间索引？",
       "explanation": "R 树、四叉树、格网、K-D 树等以二维/多维包围盒组织对象加速空间查询；B 树用于一维属性，冒泡排序则与索引无关。",
@@ -1996,9 +1996,9 @@
       ]
     },
     {
-      "id": "gis-01-086",
+      "id": "gis-02-086",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "把纸质地形图扫描后跟踪矢量化，这个过程属于？",
       "explanation": "扫描几何纠正 + 屏幕跟踪/自动矢量化把模拟地图转为矢量数据，属于 GIS 数据采集与预处理环节。",
@@ -2035,9 +2035,9 @@
       ]
     },
     {
-      "id": "gis-01-087",
+      "id": "gis-02-087",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列关于「缓冲区分析」的说法，错误的是？",
       "explanation": "缓冲区在几何上随时可算，但在地理坐标系下「度」不是长度单位，结果失真；正确做法是投影到等距/等积坐标系或使用测地线缓冲。D 的说法过于绝对。",
@@ -2075,9 +2075,9 @@
       ]
     },
     {
-      "id": "gis-01-088",
+      "id": "gis-02-088",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "「地理学第一定律」（Tobler's Law）的内容是？",
       "explanation": "Tobler（1970）：Everything is related to everything else, but near things are more related than distant things. 它是空间自相关与插值的理论基础。",
@@ -2114,9 +2114,9 @@
       ]
     },
     {
-      "id": "gis-01-089",
+      "id": "gis-02-089",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪种数据「更新频率」通常最高？",
       "explanation": "云图等遥感观测产品分钟级更新；基础地形图与普查数据周期长。现势性需求决定了数据更新策略。",
@@ -2153,9 +2153,9 @@
       ]
     },
     {
-      "id": "gis-01-090",
+      "id": "gis-02-090",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "在 GIS 中给河流做「两岸各 50 m」的受限缓冲，最需要额外考虑什么？",
       "explanation": "左右缓冲依赖线要素方向与 left/right 选项；还要处理端点（flat/round）与自相交，是线缓冲的典型细节。",
@@ -2192,9 +2192,9 @@
       ]
     },
     {
-      "id": "gis-01-091",
+      "id": "gis-02-091",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列关于拓扑规则的说法，正确的是？",
       "explanation": "拓扑规则（不重叠、无缝隙、无悬挂、必须被覆盖等）形式化约束空间关系，用于发现数字化错误并保证数据逻辑一致性。",
@@ -2231,9 +2231,9 @@
       ]
     },
     {
-      "id": "gis-01-092",
+      "id": "gis-02-092",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "「最近邻分析」得到平均最近邻距离显著小于随机分布期望，说明点分布趋于？",
       "explanation": "最近邻指数 R = 实测平均距离 / 随机期望。R < 1 说明点比随机更靠近 → 集聚；R > 1 → 趋于均匀。",
@@ -2270,9 +2270,9 @@
       ]
     },
     {
-      "id": "gis-01-093",
+      "id": "gis-02-093",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪项不是空间数据「逻辑一致性」问题？",
       "explanation": "逻辑一致性指数据结构与关系自洽（几何、拓扑、编码一致）；数值本身准不准属于属性精度。",
@@ -2310,9 +2310,9 @@
       ]
     },
     {
-      "id": "gis-01-094",
+      "id": "gis-02-094",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "要把新的 POI 点批量匹配到最近的行政区并带上区名，最直接的工具是？",
       "explanation": "空间连接按几何关系（点在面内）把面的属性赋给点，等价于 Point-in-Polygon 批量判定，是属性挂接的基本手段。",
@@ -2349,9 +2349,9 @@
       ]
     },
     {
-      "id": "gis-01-095",
+      "id": "gis-02-095",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "关于 GIS 与遥感（RS）、GNSS 的关系，正确的说法是？",
       "explanation": "3S 集成：GNSS 提供定位、RS 提供大范围观测数据，GIS 汇聚并分析。数据流：观测 → 管理 → 分析 → 决策。",
@@ -2388,9 +2388,9 @@
       ]
     },
     {
-      "id": "gis-01-096",
+      "id": "gis-02-096",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "某图层属性表出现大量空值，最先应该做什么？",
       "explanation": "空值处理流程：溯源（缺采/丢字段/编码不同）→ 明确语义（unknown ≠ 0）→ 按分析需求选择剔除、插补或标记。",
@@ -2427,9 +2427,9 @@
       ]
     },
     {
-      "id": "gis-01-097",
+      "id": "gis-02-097",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "下列哪种地图属于「专题地图」？",
       "explanation": "专题图突出某一主题属性的空间分布（分级统计、点密图、比例符号等）；地形图、影像底图属于普通地图/参考图。",
@@ -2466,9 +2466,9 @@
       ]
     },
     {
-      "id": "gis-01-098",
+      "id": "gis-02-098",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "GIS 的中文全称是什么？",
       "explanation": "GIS = Geographic Information System，地理信息系统。",
@@ -2486,9 +2486,9 @@
       ]
     },
     {
-      "id": "gis-01-099",
+      "id": "gis-02-099",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "表示连续地形起伏最常用的栅格数据产品缩写是？",
       "explanation": "DEM（Digital Elevation Model，数字高程模型）以规则格网存储高程。",
@@ -2504,9 +2504,9 @@
       ]
     },
     {
-      "id": "gis-01-100",
+      "id": "gis-02-100",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "把地址文本解析为经纬度坐标的过程叫什么？（四个字）",
       "explanation": "地理编码（Geocoding）：地址 → 坐标；反向则称逆地理编码。",
@@ -2523,9 +2523,9 @@
       ]
     },
     {
-      "id": "gis-01-101",
+      "id": "gis-02-101",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "描述数据「来源、坐标系、精度」等信息的「关于数据的数据」叫什么？",
       "explanation": "元数据（Metadata）是数据集的自描述信息，是共享与检索的基础。",
@@ -2542,9 +2542,9 @@
       ]
     },
     {
-      "id": "gis-01-102",
+      "id": "gis-02-102",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "矢量数据的三种基本几何类型是点、线、？（一个字）",
       "explanation": "点→线→面（多边形）逐级构成矢量模型的几何体系。",
@@ -2562,9 +2562,9 @@
       ]
     },
     {
-      "id": "gis-01-103",
+      "id": "gis-02-103",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "1:25000 地图上 1 cm 代表实地多少米？（纯数字）",
       "explanation": "1 cm × 25000 = 25000 cm = 250 m。",
@@ -2581,9 +2581,9 @@
       ]
     },
     {
-      "id": "gis-01-104",
+      "id": "gis-02-104",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "围绕点线面生成指定距离邻域的分析叫什么分析？（三个字）",
       "explanation": "缓冲区分析（Buffer）生成邻域多边形，用于邻近性评估。",
@@ -2600,9 +2600,9 @@
       ]
     },
     {
-      "id": "gis-01-105",
+      "id": "gis-02-105",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GNSS 接收机输出的经纬度基于哪个大地坐标系？（英文缩写）",
       "explanation": "GNSS 定位结果基于 WGS84；在中国地图平台上直接使用需注意 GCJ-02 偏移问题。",
@@ -2619,9 +2619,9 @@
       ]
     },
     {
-      "id": "gis-01-106",
+      "id": "gis-02-106",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "把相邻多边形共享边界只存储一次的数据结构思想叫什么？（两个字）",
       "explanation": "拓扑结构共享边界（弧段-结点模型），保证无缝隙无重叠并加速邻接查询。",
@@ -2637,9 +2637,9 @@
       ]
     },
     {
-      "id": "gis-01-107",
+      "id": "gis-02-107",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "专题地图中最常用的「按区域统计值分级填色」表现手法叫什么？",
       "explanation": "Choropleth（分级统计图/等值区域图）按行政单元填色表达统计值。",
@@ -2657,9 +2657,9 @@
       ]
     },
     {
-      "id": "gis-01-108",
+      "id": "gis-02-108",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "用于加速空间查询的多维数据结构统称什么索引？（两个字）",
       "explanation": "R 树、四叉树、格网索引等统称空间索引。",
@@ -2676,9 +2676,9 @@
       ]
     },
     {
-      "id": "gis-01-109",
+      "id": "gis-02-109",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "R=6371 km 时，纬度 1° 沿经线长约多少 km？（结果取整）",
       "explanation": "经线周长的一半 ≈ 20015 km，除以 180° ≈ 111.19 km/°。",
@@ -2694,9 +2694,9 @@
       ]
     },
     {
-      "id": "gis-01-110",
+      "id": "gis-02-110",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "把矢量数据按像元离散化的过程叫什么？（三个字）",
       "explanation": "栅格化（Rasterization）产生 ≤ 半像元的位置误差；反过程为矢量化。",
@@ -2713,9 +2713,9 @@
       ]
     },
     {
-      "id": "gis-01-111",
+      "id": "gis-02-111",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "点在多边形内的判定属于哪类查询？（两个字 + 查询）",
       "explanation": "Point-in-Polygon 是典型的空间查询（几何关系判定），与属性查询相对。",
@@ -2731,9 +2731,9 @@
       ]
     },
     {
-      "id": "gis-01-112",
+      "id": "gis-02-112",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "「近的事物比远的事物更相关」被称为地理学第几定律？（数字）",
       "explanation": "Tobler 地理学第一定律（1970）是空间自相关与插值的理论基石。",
@@ -2751,9 +2751,9 @@
       ]
     },
     {
-      "id": "gis-01-113",
+      "id": "gis-02-113",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "下列哪些属于矢量数据格式？（选全部正确项）",
       "explanation": "Shapefile/GeoJSON/GeoPackage 存矢量要素；GeoTIFF、IMG 存栅格影像。选格式先分清矢量/栅格阵营。",
@@ -2795,9 +2795,9 @@
       ]
     },
     {
-      "id": "gis-01-114",
+      "id": "gis-02-114",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "下列哪些是栅格数据的典型来源？（选全部正确项）",
       "explanation": "影像（光学/雷达）与 DEM 是栅格典型来源；轨迹、界址点是矢量要素。",
@@ -2839,9 +2839,9 @@
       ]
     },
     {
-      "id": "gis-01-115",
+      "id": "gis-02-115",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "空间数据的基本特征包括？（选全部正确项）",
       "explanation": "空间（在哪里）、属性（是什么）、时间（何时）构成地理数据的三维描述，缺一则信息不完整。",
@@ -2878,9 +2878,9 @@
       ]
     },
     {
-      "id": "gis-01-116",
+      "id": "gis-02-116",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "下列哪些属于空间分析？（选全部正确项）",
       "explanation": "叠加、缓冲、邻域统计、网络分析、插值、地形分析等以几何关系为核心运算，是空间分析的范畴。",
@@ -2922,9 +2922,9 @@
       ]
     },
     {
-      "id": "gis-01-117",
+      "id": "gis-02-117",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "关于比例尺，下列说法正确的有？（选全部正确项）",
       "explanation": "比例尺 = 图上距离/实地距离，分母小则比例尺大；大比例尺精细而范围小，小比例尺概略而范围大。",
@@ -2961,9 +2961,9 @@
       ]
     },
     {
-      "id": "gis-01-118",
+      "id": "gis-02-118",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "下列哪些操作可能引入位置误差？（选全部正确项）",
       "explanation": "未纠正的扫描、数字化抖动、栅格离散化、低精度定位都会引入位置误差；改字段名只动属性结构。",
@@ -3005,9 +3005,9 @@
       ]
     },
     {
-      "id": "gis-01-119",
+      "id": "gis-02-119",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "下列哪些属于数据质量的经典维度？（选全部正确项）",
       "explanation": "ISO 19157 等把位置精度、属性精度、时间精度、完整性、逻辑一致性、谱系统称为质量元素。",
@@ -3049,9 +3049,9 @@
       ]
     },
     {
-      "id": "gis-01-120",
+      "id": "gis-02-120",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "下列哪些场景适合用栅格模型？（选全部正确项）",
       "explanation": "连续场与影像运算（地形分析、扩散模拟）选栅格；权属、网络等离散要素选矢量。",
@@ -3093,9 +3093,9 @@
       ]
     },
     {
-      "id": "gis-01-121",
+      "id": "gis-02-121",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "大地高（椭球高）是从椭球面起算的高度。",
       "explanation": "大地高以参考椭球面为基准起算，GPS/RTK 直接输出的就是它。",
@@ -3113,9 +3113,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-122",
+      "id": "gis-02-122",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GPS 接收机直接显示的高程就是地图上标注的海拔。",
       "explanation": "GPS 给的是大地高；海拔从大地水准面起算，两者差一个高程异常 N，可达几十米。",
@@ -3133,9 +3133,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-123",
+      "id": "gis-02-123",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "关系式：大地高 = 海拔 + 高程异常 N。",
       "explanation": "N 是大地水准面相对椭球面的起伏，全球在 −100 m 到 +70 m 之间。",
@@ -3153,9 +3153,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-124",
+      "id": "gis-02-124",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "高程异常 N 在全球范围内不超过几厘米。",
       "explanation": "N 的全球起伏可达上百米量级，直接混用大地高与海拔会差几十米。",
@@ -3173,9 +3173,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-125",
+      "id": "gis-02-125",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "中国法定的高程基准是 1985 国家高程基准，以青岛水准原点为起点。",
       "explanation": "以青岛验潮站 1952—1979 年潮位推算的平均海面为高程零点，珠峰 8848.86 m 即由此量起。",
@@ -3193,9 +3193,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-126",
+      "id": "gis-02-126",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "海拔是从椭球面量到地面点的高度。",
       "explanation": "海拔（正高/正常高）从大地水准面（平均海面）量起；从椭球面量起的是大地高。",
@@ -3213,9 +3213,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-127",
+      "id": "gis-02-127",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "七参数基准转换包含 3 个平移、3 个旋转和 1 个尺度参数。",
       "explanation": "Bursa-Wolf 七参数 = ΔX/ΔY/ΔZ 平移 + 3 个旋转角 + 1 个尺度比。",
@@ -3233,9 +3233,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-128",
+      "id": "gis-02-128",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "三参数转换的精度比网格校正（NTv2）更高。",
       "explanation": "精度排序：网格校正（厘米级）> 七参数（厘米~分米级）> 三参数（米~十米级）。",
@@ -3253,9 +3253,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-129",
+      "id": "gis-02-129",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "WGS84 与 CGCS2000 的差异在厘米~分米级，普通应用可直接混用。",
       "explanation": "两系统椭球与地心定义几乎一致，较真场景只有高精度形变监测等。",
@@ -3273,9 +3273,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-130",
+      "id": "gis-02-130",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "NTv2 是一种网格校正格网文件格式，用于高精度基准转换。",
       "explanation": "以全国密集控制点预计算偏移量，查表内插，精度可达厘米级。",
@@ -3293,9 +3293,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-131",
+      "id": "gis-02-131",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GCJ-02 对 WGS84 的偏移是线性平移，可以精确逆变换。",
       "explanation": "GCJ-02 是非线性偏移且无公开逆算法，网传纠偏算法只有米级近似精度。",
@@ -3313,9 +3313,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-132",
+      "id": "gis-02-132",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "BD-09 是百度在 GCJ-02 基础上再叠加自有偏移的坐标系。",
       "explanation": "于是国内至少有 WGS84、GCJ-02、BD-09 三套坐标在流转。",
@@ -3333,9 +3333,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-133",
+      "id": "gis-02-133",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "在高德底图上直接叠加 WGS84 的 GPS 轨迹，会整体错位几百米。",
       "explanation": "高德底图是 GCJ-02，WGS84 数据必须先转坐标系再叠图。",
@@ -3353,9 +3353,9 @@
       "answer": true
     },
     {
-      "id": "gis-01-134",
+      "id": "gis-02-134",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GCJ-02 只偏移高程，不影响平面位置。",
       "explanation": "GCJ-02 是平面经纬度的偏移，与高程无关。",
@@ -3373,9 +3373,9 @@
       "answer": false
     },
     {
-      "id": "gis-01-135",
+      "id": "gis-02-135",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "手持 GPS 直接显示的高程是什么高？",
       "explanation": "GPS 解算以椭球为基准，输出大地高；要得海拔需用大地水准面模型改正。",
@@ -3413,9 +3413,9 @@
       ]
     },
     {
-      "id": "gis-01-136",
+      "id": "gis-02-136",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "珠穆朗玛峰 8848.86 m 的高程从哪里量起？",
       "explanation": "中国法定高程零点：青岛水准原点（1985 国家高程基准）。",
@@ -3453,9 +3453,9 @@
       ]
     },
     {
-      "id": "gis-01-137",
+      "id": "gis-02-137",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "把 GPS 大地高直接标注到地形图上，典型误差量级是？",
       "explanation": "高程异常 N 可达几十米，直接混用就是几十米级系统错误。",
@@ -3493,9 +3493,9 @@
       ]
     },
     {
-      "id": "gis-01-138",
+      "id": "gis-02-138",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "美国常用的垂直基准名称是？",
       "explanation": "NAVD88 是美国/加拿大常用的正高基准；NAD27 是水平基准。",
@@ -3533,9 +3533,9 @@
       ]
     },
     {
-      "id": "gis-01-139",
+      "id": "gis-02-139",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "高程异常 N 的定义是？",
       "explanation": "N = 大地高 − 海拔，是两个高程基准面之差。",
@@ -3573,9 +3573,9 @@
       ]
     },
     {
-      "id": "gis-01-140",
+      "id": "gis-02-140",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "EGM96 / EGM2008 属于哪类模型？",
       "explanation": "用重力数据拟合的全球高程异常模型，把大地高换算成海拔。",
@@ -3613,9 +3613,9 @@
       ]
     },
     {
-      "id": "gis-01-141",
+      "id": "gis-02-141",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "proj4 定义串中 +towgs84=dx,dy,dz 属于几参数转换？",
       "explanation": "三个平移量为三参数；补 3 旋转 + 1 尺度才是七参数。",
@@ -3649,9 +3649,9 @@
       ]
     },
     {
-      "id": "gis-01-142",
+      "id": "gis-02-142",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "追求厘米级基准转换精度，应优先采用？",
       "explanation": "网格校正用密集控制点查表内插，精度最高；七参数次之。",
@@ -3685,9 +3685,9 @@
       ]
     },
     {
-      "id": "gis-01-143",
+      "id": "gis-02-143",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "Bursa-Wolf 模型属于哪类基准转换？",
       "explanation": "3 平移 + 3 旋转 + 1 尺度的经典七参数模型。",
@@ -3721,9 +3721,9 @@
       ]
     },
     {
-      "id": "gis-01-144",
+      "id": "gis-02-144",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "局部基准（如 Beijing 1954）转到地心基准（如 WGS84）的常规手段是？",
       "explanation": "局部基准与地心基准存在系统差异，需七参数或格网文件做基准转换。",
@@ -3757,9 +3757,9 @@
       ]
     },
     {
-      "id": "gis-01-145",
+      "id": "gis-02-145",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "国行手机地图 App 上显示的『你在哪里』使用的坐标系统通常是？",
       "explanation": "中国大陆公开地图依法使用 GCJ-02；百度再转 BD-09。",
@@ -3793,9 +3793,9 @@
       ]
     },
     {
-      "id": "gis-01-146",
+      "id": "gis-02-146",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 1,
       "stem": "GeoJSON 规范（RFC 7946）默认的坐标系是？",
       "explanation": "RFC 7946 规定 GeoJSON 用 WGS84（轴序 lon, lat）。",
@@ -3829,9 +3829,9 @@
       ]
     },
     {
-      "id": "gis-01-147",
+      "id": "gis-02-147",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GCJ-02 的民间俗称是？",
       "explanation": "因偏移让人『落点在火星上』而得名火星坐标。",
@@ -3865,9 +3865,9 @@
       ]
     },
     {
-      "id": "gis-01-148",
+      "id": "gis-02-148",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "中国大陆公开地图必须使用 GCJ-02，依据是？",
       "explanation": "法律要求公开地图产品做位置偏移处理，境外服务在大陆展示同样偏移。",
@@ -3901,9 +3901,9 @@
       ]
     },
     {
-      "id": "gis-01-149",
+      "id": "gis-02-149",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "某点大地高（椭球高）为 1520.5 m，该处高程异常 N = 30.0 m，海拔是多少米？",
       "explanation": "海拔 = 大地高 − N = 1520.5 − 30.0 = 1490.5 m（大地高 = 海拔 + N）。",
@@ -3922,9 +3922,9 @@
       "tolerance": 0.5
     },
     {
-      "id": "gis-01-150",
+      "id": "gis-02-150",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "某点海拔为 860.0 m，该处高程异常 N = −25.0 m，大地高是多少米？",
       "explanation": "大地高 = 海拔 + N = 860 + (−25) = 835 m。N 为负说明大地水准面在椭球面之下。",
@@ -3943,9 +3943,9 @@
       "tolerance": 0.5
     },
     {
-      "id": "gis-01-151",
+      "id": "gis-02-151",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 2,
       "stem": "GPS 测得的大地高为什么不能直接当地图高程用？用一句话说明（提及两者差什么）。",
       "explanation": "两者差高程异常 N（大地水准面与椭球面之差），可达几十米，需用 EGM 类模型或水准联测改正。",
@@ -3969,9 +3969,9 @@
       "placeholder": "提示：两者差的是……"
     },
     {
-      "id": "gis-01-152",
+      "id": "gis-02-152",
       "skill": "gis",
-      "module": "01",
+      "module": "02",
       "difficulty": 3,
       "stem": "在高德底图上叠加 GPS 轨迹发现整体偏移几百米。说出原因和处理步骤。",
       "explanation": "原因：底图 GCJ-02、轨迹 WGS84 未对齐；处理：把轨迹转成 GCJ-02（或底图源换 WGS84 瓦片）再叠图。",

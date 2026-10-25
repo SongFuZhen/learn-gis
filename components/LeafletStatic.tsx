@@ -1,9 +1,23 @@
 "use client";
 
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { useState } from "react";
+import { MapContainer, TileLayer, Marker, useMapEvents } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { gaodeBase } from "@/lib/mapTiles";
+
+/** 右下角实时坐标读数：拖动地图时随中心点变化 */
+function CoordReadout({ lat, lng }: { lat: number; lng: number }) {
+  const [center, setCenter] = useState({ lat, lng });
+  useMapEvents({ move: (e) => setCenter(e.target.getCenter()) });
+  return (
+    <div
+      className="pointer-events-none absolute bottom-2 right-2 z-[1000] select-none rounded bg-black/60 px-2 py-0.5 font-mono text-[11px] text-white"
+    >
+      {center.lat.toFixed(4)}°N, {center.lng.toFixed(4)}°E
+    </div>
+  );
+}
 
 const icon = L.divIcon({
   className: "",
@@ -28,6 +42,7 @@ export default function LeafletStatic({
     >
       <TileLayer {...gaodeBase} />
       <Marker position={[lat, lng]} icon={icon} />
+      <CoordReadout lat={lat} lng={lng} />
     </MapContainer>
   );
 }

@@ -1,12 +1,12 @@
 {
   "skill": "gis",
-  "module": "08",
+  "module": "09",
   "version": 1,
   "questions": [
     {
-      "id": "gis-08-001",
+      "id": "gis-09-001",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "GNSS 定位的基本原理是三边测量（测距交会）。",
       "explanation": "由到多颗卫星的伪距交会出位置。",
@@ -20,9 +20,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-002",
+      "id": "gis-09-002",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "GNSS 定位至少需要接收到 4 颗卫星的信号。",
       "explanation": "3 个解位置 + 1 个解接收机钟差。",
@@ -36,9 +36,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-003",
+      "id": "gis-09-003",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "手机 GNSS 定位精度通常是厘米级。",
       "explanation": "手机单点定位米级（5~20 m）；厘米级要 RTK。",
@@ -52,9 +52,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-004",
+      "id": "gis-09-004",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "RTK 通过载波相位差分可达到厘米级精度。",
       "explanation": "实时动态差分：基准站改正 + 载波相位。",
@@ -68,9 +68,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-005",
+      "id": "gis-09-005",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "高层建筑旁 GNSS 轨迹漂移的主因是多路径效应。",
       "explanation": "玻璃幕墙反射信号 + 遮挡，城市峡谷误差几十米常见。",
@@ -84,9 +84,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-006",
+      "id": "gis-09-006",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "GNSS 的高程精度通常优于水平精度。",
       "explanation": "垂直精度一般只有水平的约一半（几何构型所致）。",
@@ -100,9 +100,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-007",
+      "id": "gis-09-007",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "GPS 是 GNSS 的唯一系统。",
       "explanation": "GPS/北斗/GLONASS/Galileo 都是 GNSS。",
@@ -116,9 +116,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-008",
+      "id": "gis-09-008",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "屏幕数字化前必须先给扫描图配准。",
       "explanation": "不配准的图没有地理坐标，描出来的矢量没有意义。",
@@ -132,9 +132,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-009",
+      "id": "gis-09-009",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "地图数字化后应做拓扑/有效性检查。",
       "explanation": "新手数字化最常见未闭合、自相交——检查是固定工序。",
@@ -148,9 +148,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-010",
+      "id": "gis-09-010",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "OSM 是全球最大的志愿者地理信息（VGI）项目。",
       "explanation": "人人可编辑，城市完备性高。",
@@ -164,9 +164,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-011",
+      "id": "gis-09-011",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "OSM 数据使用 ODbL 许可，署名且相同方式共享。",
       "explanation": "Open Database License：衍生库须同样开放。",
@@ -180,9 +180,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-012",
+      "id": "gis-09-012",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "志愿者数据在乡村的完备性通常优于城市。",
       "explanation": "反了：志愿者集中在城市，乡村覆盖稀疏。",
@@ -196,9 +196,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-013",
+      "id": "gis-09-013",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "准确度（accuracy）与精确度（precision）是同一概念。",
       "explanation": "accuracy = 离真值多远；precision = 重复测量的离散度。",
@@ -212,9 +212,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-014",
+      "id": "gis-09-014",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "重复测量很密集但整体偏离真值，属于精确但不准确。",
       "explanation": "打靶密集但偏左的经典比喻。",
@@ -228,9 +228,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-015",
+      "id": "gis-09-015",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "坐标小数点后 8 位代表定位准确到毫米。",
       "explanation": "小数位只是存储分辨率；数据本身可能只准到米。",
@@ -244,9 +244,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-016",
+      "id": "gis-09-016",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "数据完备性指『该有的要素有没有』。",
       "explanation": "缺街、缺楼是完备性问题，不是精度问题。",
@@ -260,9 +260,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-017",
+      "id": "gis-09-017",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "自相交的多边形属于逻辑一致性缺陷。",
       "explanation": "OGC 有效性违例即一致性缺陷（第 04 章）。",
@@ -276,9 +276,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-018",
+      "id": "gis-09-018",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "分辨率可以设得很高，从而提高数据准确度。",
       "explanation": "分辨率是存储粒度，不改变真实精度。",
@@ -292,9 +292,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-019",
+      "id": "gis-09-019",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "元数据是『关于数据的数据』。",
       "explanation": "来源、时间、方法、许可、质量的总目录。",
@@ -308,9 +308,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-020",
+      "id": "gis-09-020",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "数据溯源（lineage）记录数据的来源与加工过程。",
       "explanation": "谁、何时、用什么方法、做了哪些加工。",
@@ -324,9 +324,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-021",
+      "id": "gis-09-021",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "ISO 19115 是空间元数据国际标准。",
       "explanation": "ISO 19157 则定义数据质量维度。",
@@ -340,9 +340,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-022",
+      "id": "gis-09-022",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "数据交付可以不带元数据，反正有文件名。",
       "explanation": "无 lineage 的数据半年后必然扯皮——元数据是资产的一部分。",
@@ -356,9 +356,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-023",
+      "id": "gis-09-023",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "差分 GNSS（DGPS）的思路是已知站算改正数再广播。",
       "explanation": "基准站已知位置 → 算误差改正 → 用户叠加改正。",
@@ -372,9 +372,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-024",
+      "id": "gis-09-024",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "开放政府数据全部都是 CC0 许可、可任意商用。",
       "explanation": "许可各异：ODbL/CC BY/不可商用等，用前必读条款。",
@@ -388,9 +388,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-025",
+      "id": "gis-09-025",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "GNSS 高程可以直接当海拔用，无需换算。",
       "explanation": "GNSS 给大地高，差一个高程异常 N（可达几十米）。",
@@ -404,9 +404,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-026",
+      "id": "gis-09-026",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "扫描地形图数字化时，控制点越多配准一定越好。",
       "explanation": "关键在控制点分布均匀且准确；垃圾控制点越多越糟。",
@@ -420,9 +420,9 @@
       "answer": false
     },
     {
-      "id": "gis-08-027",
+      "id": "gis-09-027",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "数据时效性是数据质量的维度之一。",
       "explanation": "2010 年的路网对 2026 年的分析可能毫无价值。",
@@ -436,9 +436,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-028",
+      "id": "gis-09-028",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "A-GPS 是用网络辅助加速 GNSS 首次定位。",
       "explanation": "下载星历/近似位置辅助，冷启动更快。",
@@ -452,9 +452,9 @@
       "answer": true
     },
     {
-      "id": "gis-08-029",
+      "id": "gis-09-029",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "地块界址测量要求厘米级位置精度，应使用？",
       "explanation": "RTK 载波相位差分厘米级；界址/施工的标准。",
@@ -488,9 +488,9 @@
       ]
     },
     {
-      "id": "gis-08-030",
+      "id": "gis-09-030",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "GNSS 解算位置需要至少几颗卫星？",
       "explanation": "3 颗定位置，第 4 颗解接收机钟差。",
@@ -524,9 +524,9 @@
       ]
     },
     {
-      "id": "gis-08-031",
+      "id": "gis-09-031",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "『信号经玻璃幕墙反射到达接收机』造成的误差叫？",
       "explanation": "多路径让测距变长、位置漂移——城市峡谷主因。",
@@ -560,9 +560,9 @@
       ]
     },
     {
-      "id": "gis-08-032",
+      "id": "gis-09-032",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "GNSS 垂直精度与水平精度的典型关系是？",
       "explanation": "卫星几何对高程不利，垂直误差约是水平的 1.5~3 倍。",
@@ -596,9 +596,9 @@
       ]
     },
     {
-      "id": "gis-08-033",
+      "id": "gis-09-033",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "把纸质地形图转成矢量的工作叫？",
       "explanation": "数字化（digitizing）：配准 + 屏幕描图 + 拓扑检查。",
@@ -632,9 +632,9 @@
       ]
     },
     {
-      "id": "gis-08-034",
+      "id": "gis-09-034",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "扫描图配准时，控制点的选择原则是？",
       "explanation": "均匀分布的准确控制点才能约束整幅图的仿射变换。",
@@ -668,9 +668,9 @@
       ]
     },
     {
-      "id": "gis-08-035",
+      "id": "gis-09-035",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "OSM 数据的许可是？",
       "explanation": "ODbL：数据库许可，衍生数据库须同方式开放。",
@@ -704,9 +704,9 @@
       ]
     },
     {
-      "id": "gis-08-036",
+      "id": "gis-09-036",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "评估 OSM 是否『该有的街道都有』，检查的质量维度是？",
       "explanation": "completeness = 要素应存尽存的程度。",
@@ -740,9 +740,9 @@
       ]
     },
     {
-      "id": "gis-08-037",
+      "id": "gis-09-037",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "『打靶很密集但整体偏左』说明？",
       "explanation": "precision 高、accuracy 低——系统偏差的典型。",
@@ -776,9 +776,9 @@
       ]
     },
     {
-      "id": "gis-08-038",
+      "id": "gis-09-038",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "两个图层位置误差各 ±1 m（独立），叠加后位置的合成不确定度约？",
       "explanation": "误差平方和开根：√(1²+1²) ≈ 1.41 m。",
@@ -812,9 +812,9 @@
       ]
     },
     {
-      "id": "gis-08-039",
+      "id": "gis-09-039",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "ISO 19115 是什么标准？",
       "explanation": "19115 元数据；19157 数据质量。",
@@ -848,9 +848,9 @@
       ]
     },
     {
-      "id": "gis-08-040",
+      "id": "gis-09-040",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "查一份 2019 年数字化的地块数据为什么对不上 2026 规划，应看元数据的？",
       "explanation": "溯源记录来源与加工时间链——时效性问题的诊断入口。",
@@ -884,9 +884,9 @@
       ]
     },
     {
-      "id": "gis-08-041",
+      "id": "gis-09-041",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "差分 GNSS（DGPS）提升精度的核心思想是？",
       "explanation": "误差空间相关 → 基准站改正对附近用户有效。",
@@ -920,9 +920,9 @@
       ]
     },
     {
-      "id": "gis-08-042",
+      "id": "gis-09-042",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "下列哪项不是数据质量的 ISO 维度？",
       "explanation": "压缩率与质量无关；六维见本章表。",
@@ -956,9 +956,9 @@
       ]
     },
     {
-      "id": "gis-08-043",
+      "id": "gis-09-043",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "城市 GNSS 轨迹『穿楼』最合理的解释是？",
       "explanation": "城市峡谷是 GNSS 误差重灾区（若底图还叠了 GCJ-02 会更糟，先分清两件事）。",
@@ -992,9 +992,9 @@
       ]
     },
     {
-      "id": "gis-08-044",
+      "id": "gis-09-044",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "经纬度保留 5 位小数，坐标分辨率约为？",
       "explanation": "0.00001° × 111 km ≈ 1.1 m（第 00 章）。",
@@ -1028,9 +1028,9 @@
       ]
     },
     {
-      "id": "gis-08-045",
+      "id": "gis-09-045",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "数字化等高线后应立刻做的检查是？",
       "explanation": "自相交/未闭合是数字化高频错误，先查有效性。",
@@ -1064,9 +1064,9 @@
       ]
     },
     {
-      "id": "gis-08-046",
+      "id": "gis-09-046",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "接收机时钟误差 1 微秒（1e-6 s）对应伪距误差约？",
       "explanation": "光速 × 1 μs = 3×10⁸ × 10⁻⁶ = 300 m——这就是为什么需要第 4 颗卫星解钟差。",
@@ -1100,9 +1100,9 @@
       ]
     },
     {
-      "id": "gis-08-047",
+      "id": "gis-09-047",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "A-GPS 的『辅助』指什么？",
       "explanation": "省去自己等卫星广播星历，冷启动秒级完成。",
@@ -1136,9 +1136,9 @@
       ]
     },
     {
-      "id": "gis-08-048",
+      "id": "gis-09-048",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "PPK 与 RTK 的本质区别是？",
       "explanation": "Post-Processed Kinematic 把观测拿回办公室算，无需实时链路。",
@@ -1172,9 +1172,9 @@
       ]
     },
     {
-      "id": "gis-08-049",
+      "id": "gis-09-049",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "VGI 数据质量的空间规律通常是？",
       "explanation": "志愿者分布决定：人多图热闹，人少靠遥感补。",
@@ -1208,9 +1208,9 @@
       ]
     },
     {
-      "id": "gis-08-050",
+      "id": "gis-09-050",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "采集 1 小时、每秒 1 个点的轨迹，共多少个记录？",
       "explanation": "3600 s × 1 = 3600 点——轨迹数据量的基本估算。",
@@ -1244,9 +1244,9 @@
       ]
     },
     {
-      "id": "gis-08-051",
+      "id": "gis-09-051",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "下列哪个操作不能提升数字化质量？",
       "explanation": "垃圾控制点反而污染仿射变换；质比量重要。",
@@ -1280,9 +1280,9 @@
       ]
     },
     {
-      "id": "gis-08-052",
+      "id": "gis-09-052",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "遥感解译的『混合像元』问题指？",
       "explanation": "30 m 像元横跨屋顶与草地，只能给一个值——分辨率本质约束。",
@@ -1316,9 +1316,9 @@
       ]
     },
     {
-      "id": "gis-08-053",
+      "id": "gis-09-053",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "企业内部交付 GIS 数据，必备的文件是？",
       "explanation": "无元数据 = 无法评估可用性，半年后必然扯皮。",
@@ -1352,9 +1352,9 @@
       ]
     },
     {
-      "id": "gis-08-054",
+      "id": "gis-09-054",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "中国大地坐标的起算点（大地原点）位于？",
       "explanation": "1980 国家大地坐标系大地原点在陕西泾阳；高程原点在青岛。",
@@ -1388,9 +1388,9 @@
       ]
     },
     {
-      "id": "gis-08-055",
+      "id": "gis-09-055",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "中国高程基准的水准原点位于？",
       "explanation": "青岛验潮站推算平均海面，1985 国家高程基准零点。",
@@ -1424,9 +1424,9 @@
       ]
     },
     {
-      "id": "gis-08-056",
+      "id": "gis-09-056",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "开放数据许可里『ND』（No-Derivatives）意味着？",
       "explanation": "ND 禁衍生；做 GIS 分析前先确认许可允许你的加工方式。",
@@ -1460,9 +1460,9 @@
       ]
     },
     {
-      "id": "gis-08-057",
+      "id": "gis-09-057",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": " GNSS 误差源不包括？",
       "explanation": "配色是制图；前三者都是 GNSS 系统误差源（可部分改正）。",
@@ -1496,9 +1496,9 @@
       ]
     },
     {
-      "id": "gis-08-058",
+      "id": "gis-09-058",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "为什么 GNSS 高程还要过基准换算才能当地图高程？",
       "explanation": "差 N 可达几十米（第 01 章高程基准）。",
@@ -1532,9 +1532,9 @@
       ]
     },
     {
-      "id": "gis-08-059",
+      "id": "gis-09-059",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "在 QGIS 里描图前，扫描底图必须先完成？",
       "explanation": "Georeferencer 贴坐标后描出的矢量才有地理意义。",
@@ -1568,9 +1568,9 @@
       ]
     },
     {
-      "id": "gis-08-060",
+      "id": "gis-09-060",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "GIS 数据的采集途径包括？",
       "explanation": "五种途径（再加传感器/IoT）各有精度与成本特征。",
@@ -1607,9 +1607,9 @@
       ]
     },
     {
-      "id": "gis-08-061",
+      "id": "gis-09-061",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "ISO 数据质量维度包括？",
       "explanation": "六维还有时效性与分辨率；命名不在标准里。",
@@ -1645,9 +1645,9 @@
       ]
     },
     {
-      "id": "gis-08-062",
+      "id": "gis-09-062",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "GNSS 定位的误差源包括？",
       "explanation": "四者都直接拉低定位精度；RTK/DGPS 可改正大部分。",
@@ -1684,9 +1684,9 @@
       ]
     },
     {
-      "id": "gis-08-063",
+      "id": "gis-09-063",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "数字化的配套工作包括？",
       "explanation": "瓦片发布是服务化环节，不属于数字化工序。",
@@ -1722,9 +1722,9 @@
       ]
     },
     {
-      "id": "gis-08-064",
+      "id": "gis-09-064",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "关于 accuracy 与 precision，正确的有？",
       "explanation": "D 是最常见的概念混淆。",
@@ -1760,9 +1760,9 @@
       ]
     },
     {
-      "id": "gis-08-065",
+      "id": "gis-09-065",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "使用 OSM 数据前应检查？",
       "explanation": "OSM 没有实时交通层；D 不存在。",
@@ -1798,9 +1798,9 @@
       ]
     },
     {
-      "id": "gis-08-066",
+      "id": "gis-09-066",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "元数据的核心字段包括？",
       "explanation": "D 开玩笑的；前三者 + 质量报告与许可是标配。",
@@ -1836,9 +1836,9 @@
       ]
     },
     {
-      "id": "gis-08-067",
+      "id": "gis-09-067",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "提升数字化质量的正确做法有？",
       "explanation": "D 是质量事故高发步骤——检查必须做。",
@@ -1874,9 +1874,9 @@
       ]
     },
     {
-      "id": "gis-08-068",
+      "id": "gis-09-068",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "GNSS 地面控制段（监测/主控站）的所在地包括？",
       "explanation": "GPS 监测站沿赤道带分布（含阿森松、夏威夷）；D 不在其中。",
@@ -1912,9 +1912,9 @@
       ]
     },
     {
-      "id": "gis-08-069",
+      "id": "gis-09-069",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "关于开放数据许可，正确的有？",
       "explanation": "D 是法律风险之源；商用前必须读条款。",
@@ -1950,9 +1950,9 @@
       ]
     },
     {
-      "id": "gis-08-070",
+      "id": "gis-09-070",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "GNSS 定位至少需要几颗卫星？为什么？",
       "explanation": "3 颗交会位置，第 4 颗解接收机钟差。",
@@ -1970,9 +1970,9 @@
       ]
     },
     {
-      "id": "gis-08-071",
+      "id": "gis-09-071",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "城市峡谷里 GNSS 漂移的两个主因？",
       "explanation": "玻璃幕墙多路径反射 + 天空视野差（可见卫星少、PDOP 大）。",
@@ -1991,9 +1991,9 @@
       ]
     },
     {
-      "id": "gis-08-072",
+      "id": "gis-09-072",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "RTK 达到厘米级的差分原理是什么？",
       "explanation": "基准站已知位置算改正，载波相位观测 + 实时改正。",
@@ -2012,9 +2012,9 @@
       ]
     },
     {
-      "id": "gis-08-073",
+      "id": "gis-09-073",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "accuracy 与 precision 的区别一句话？",
       "explanation": "accuracy 离真值多远；precision 重复测量的离散度。",
@@ -2034,9 +2034,9 @@
       ]
     },
     {
-      "id": "gis-08-074",
+      "id": "gis-09-074",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "OSM 缺了半条街，属于哪个质量维度的问题？",
       "explanation": "完备性（completeness），不是精度问题。",
@@ -2054,9 +2054,9 @@
       ]
     },
     {
-      "id": "gis-08-075",
+      "id": "gis-09-075",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "自相交多边形属于哪个质量维度？",
       "explanation": "逻辑一致性（几何有效性违例，第 04 章）。",
@@ -2075,9 +2075,9 @@
       ]
     },
     {
-      "id": "gis-08-076",
+      "id": "gis-09-076",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "元数据的 lineage 字段解决什么实际问题？",
       "explanation": "记录谁/何时/如何生产加工——数据争议与更新维护的依据。",
@@ -2096,9 +2096,9 @@
       ]
     },
     {
-      "id": "gis-08-077",
+      "id": "gis-09-077",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "扫描图配准最少需要几个分布均匀的控制点？",
       "explanation": "至少 4 个仿射变换约束点，实践中 6~10 个更稳。",
@@ -2116,9 +2116,9 @@
       ]
     },
     {
-      "id": "gis-08-078",
+      "id": "gis-09-078",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "接收机钟差 1 μs 对应多大伪距误差？",
       "explanation": "光速 × 1 μs ≈ 300 m——钟差必须解算。",
@@ -2136,9 +2136,9 @@
       ]
     },
     {
-      "id": "gis-08-079",
+      "id": "gis-09-079",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "为什么说 OSM 在乡村的完备性不如城市？",
       "explanation": "志愿者地理信息（VGI）的覆盖跟随人口分布。",
@@ -2157,9 +2157,9 @@
       ]
     },
     {
-      "id": "gis-08-080",
+      "id": "gis-09-080",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "数字化完成后、交付前的两项必做检查？",
       "explanation": "几何有效性检查 + 属性抽查（拓扑/一致性）。",
@@ -2178,9 +2178,9 @@
       ]
     },
     {
-      "id": "gis-08-081",
+      "id": "gis-09-081",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "两个图层各 ±2 m 独立位置误差，叠加后合成不确定度约多少米（保留 2 位）？",
       "explanation": "√(2²+2²) = √8 ≈ 2.83 m——误差传播平方和开根。",
@@ -2198,9 +2198,9 @@
       ]
     },
     {
-      "id": "gis-08-082",
+      "id": "gis-09-082",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "中国的高程基准零点在哪个城市？",
       "explanation": "青岛验潮站（1985 国家高程基准）。",
@@ -2217,9 +2217,9 @@
       ]
     },
     {
-      "id": "gis-08-083",
+      "id": "gis-09-083",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "ND 许可对 GIS 加工的限制是什么？",
       "explanation": "No-Derivatives 禁止修改/衍生产品——裁剪重投影都可能越界。",
@@ -2238,9 +2238,9 @@
       ]
     },
     {
-      "id": "gis-08-084",
+      "id": "gis-09-084",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "GNSS 定位最少需要接收几颗卫星的信号？",
       "explanation": "3 颗交会位置 + 1 颗解钟差。",
@@ -2256,9 +2256,9 @@
       "unit": "颗"
     },
     {
-      "id": "gis-08-085",
+      "id": "gis-09-085",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "接收机钟差 1 μs 对应的伪距误差约多少米？（光速 3×10⁸ m/s）",
       "explanation": "3×10⁸ × 1×10⁻⁶ = 300 m。",
@@ -2274,9 +2274,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-08-086",
+      "id": "gis-09-086",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "接收机钟差 1 ms 对应的伪距误差约多少 km？",
       "explanation": "3×10⁸ × 10⁻³ = 3×10⁵ m = 300 km。",
@@ -2292,9 +2292,9 @@
       "unit": "km"
     },
     {
-      "id": "gis-08-087",
+      "id": "gis-09-087",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "经纬度保留 5 位小数，坐标分辨率约多少米（1° ≈ 111 km，保留 1 位）？",
       "explanation": "0.00001 × 111000 = 1.11 m。",
@@ -2310,9 +2310,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-08-088",
+      "id": "gis-09-088",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "经纬度保留 6 位小数，坐标分辨率约多少米（保留 2 位）？",
       "explanation": "0.000001 × 111000 ≈ 0.11 m。",
@@ -2328,9 +2328,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-08-089",
+      "id": "gis-09-089",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "每秒 1 个轨迹点，连续记录 1 小时共多少个点？",
       "explanation": "60 min × 60 s = 3600 s，每秒一点即 3600 个记录。",
@@ -2346,9 +2346,9 @@
       "unit": "个"
     },
     {
-      "id": "gis-08-090",
+      "id": "gis-09-090",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "两个图层位置误差各 ±1 m（独立），叠加后合成不确定度约多少米（保留 2 位）？",
       "explanation": "√(1²+1²) ≈ 1.41 m。",
@@ -2364,9 +2364,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-08-091",
+      "id": "gis-09-091",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "两个图层位置误差各 ±2 m（独立），叠加后合成不确定度约多少米（保留 2 位）？",
       "explanation": "√(2²+2²) ≈ 2.83 m。",
@@ -2382,9 +2382,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-08-092",
+      "id": "gis-09-092",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "GNSS 水平精度 1.5 m，垂直精度按 2 倍估算约多少米？",
       "explanation": "垂直 ≈ 2 × 水平 = 3 m。",
@@ -2400,9 +2400,9 @@
       "unit": "m"
     },
     {
-      "id": "gis-08-093",
+      "id": "gis-09-093",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "RTK 定位精度标称 2 cm，测 100 次的合理离散范围约为 ±多少 cm（填数字）？",
       "explanation": "标称 ±2 cm；精度指标本身就是离散度描述。",
@@ -2418,9 +2418,9 @@
       "unit": "cm"
     },
     {
-      "id": "gis-08-094",
+      "id": "gis-09-094",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "扫描图配准最少需要几个控制点（仿射变换约束）？",
       "explanation": "4 个点约束仿射六参；实践建议 6~10 个。",
@@ -2436,9 +2436,9 @@
       "unit": "个"
     },
     {
-      "id": "gis-08-095",
+      "id": "gis-09-095",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "某轨迹总长 42 km，GPS 水平误差 ±10 m，相对误差约百分之几（保留 2 位）？",
       "explanation": "10 m / 42000 m ≈ 0.024% ≈ 0.02%——长轨迹相对误差很小。",
@@ -2454,9 +2454,9 @@
       "unit": "%"
     },
     {
-      "id": "gis-08-096",
+      "id": "gis-09-096",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 1,
       "stem": "点出世界最高峰珠穆朗玛峰（高程基准讨论的标志地）。",
       "explanation": "8848.86 m 由 1985 国家高程基准量起。",
@@ -2474,9 +2474,9 @@
       "toleranceKm": 200
     },
     {
-      "id": "gis-08-097",
+      "id": "gis-09-097",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "点出中国高程基准的原点所在地——青岛。",
       "explanation": "青岛验潮站 → 1985 国家高程基准零点。",
@@ -2494,9 +2494,9 @@
       "toleranceKm": 150
     },
     {
-      "id": "gis-08-098",
+      "id": "gis-09-098",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "点出中国大地坐标的起算点——陕西泾阳大地原点。",
       "explanation": "国家大地原点：80/2000 系坐标起算的几何中心。",
@@ -2514,9 +2514,9 @@
       "toleranceKm": 300
     },
     {
-      "id": "gis-08-099",
+      "id": "gis-09-099",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "点出欧洲高程基准 NAP 的原点所在城市——阿姆斯特丹。",
       "explanation": "NAP（Normaal Amsterdams Peil）是欧洲主要水准基准。",
@@ -2534,9 +2534,9 @@
       "toleranceKm": 500
     },
     {
-      "id": "gis-08-100",
+      "id": "gis-09-100",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "点出 GPS 系统主控站所在的美国科罗拉多州斯普林斯。",
       "explanation": "GPS 地面控制段主控站（Schriever SFB）。",
@@ -2554,9 +2554,9 @@
       "toleranceKm": 600
     },
     {
-      "id": "gis-08-101",
+      "id": "gis-09-101",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "点出太平洋上的 GPS 监测站——夸贾林环礁。",
       "explanation": "沿赤道带布设的监测站之一。",
@@ -2574,9 +2574,9 @@
       "toleranceKm": 800
     },
     {
-      "id": "gis-08-102",
+      "id": "gis-09-102",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "点出印度洋上的 GPS 监测站——迪戈加西亚。",
       "explanation": "赤道带监测站，保证全球覆盖。",
@@ -2594,9 +2594,9 @@
       "toleranceKm": 800
     },
     {
-      "id": "gis-08-103",
+      "id": "gis-09-103",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "点出大西洋上的 GPS 监测站——阿森松岛。",
       "explanation": "南大西洋监测站：沿赤道带布设以保证全球轨道覆盖。",
@@ -2614,9 +2614,9 @@
       "toleranceKm": 800
     },
     {
-      "id": "gis-08-104",
+      "id": "gis-09-104",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 3,
       "stem": "点出太平洋中部的 GPS 监测站——夏威夷。",
       "explanation": "哈莱阿卡拉监测站：太平洋中部的轨道跟踪节点。",
@@ -2634,9 +2634,9 @@
       "toleranceKm": 500
     },
     {
-      "id": "gis-08-105",
+      "id": "gis-09-105",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "点出『城市峡谷』多路径效应最典型的大都市——纽约曼哈顿。",
       "explanation": "摩天楼峡谷是 GNSS 漂移的重灾区。",
@@ -2654,9 +2654,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-08-106",
+      "id": "gis-09-106",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "点出长江上的三峡大坝（工程测量的厘米级 RTK 应用场景）。",
       "explanation": "大坝变形监测要求毫米~厘米级，GNSS+其他传感器融合。",
@@ -2674,9 +2674,9 @@
       "toleranceKm": 400
     },
     {
-      "id": "gis-08-107",
+      "id": "gis-09-107",
       "skill": "gis",
-      "module": "08",
+      "module": "09",
       "difficulty": 2,
       "stem": "点出常被数字矢量化教学使用的地标——八达岭长城。",
       "explanation": "线性地物数字化描点的经典素材。",

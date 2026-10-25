@@ -1,0 +1,1509 @@
+{
+  "skill": "gis",
+  "module": "01",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-01-001",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "直角三角形中，sin θ 的定义是？",
+      "explanation": "sin θ = 对边 / 斜边。口诀 SOH-CAH-TOA 的 S-O-H：Sin = Opposite / Hypotenuse。cos 是邻比斜，tan 是对比邻。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "对边 ÷ 斜边",
+          "hint": "这是 sin 的定义，SOH 口诀的第一条。",
+          "key": "A"
+        },
+        {
+          "text": "邻边 ÷ 斜边",
+          "hint": "邻比斜是 cos（余弦），不是 sin。",
+          "key": "B"
+        },
+        {
+          "text": "对边 ÷ 邻边",
+          "hint": "对比邻是 tan（正切）。",
+          "key": "C"
+        },
+        {
+          "text": "斜边 ÷ 对边",
+          "hint": "这是 sin 的倒数（cosec），初学用不到。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-002",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "tan θ 的读法，下列哪个最接近英语原音 /ˈtændʒənt/？",
+      "explanation": "tan 全称 tangent，读「坦进特」，重音在前。GIS 里坡度（slope）计算天天用它。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "坦-进特",
+          "key": "A"
+        },
+        {
+          "text": "特-那恩特",
+          "hint": "顺序反了，t-an 不是 an-t。",
+          "key": "B"
+        },
+        {
+          "text": "谭-特",
+          "hint": "丢了中间的 /dʒ/ 音。",
+          "key": "C"
+        },
+        {
+          "text": "坦-琴特",
+          "hint": "/dʒ/ 读「进/吉」不是「琴」。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-003",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "坡度角 30° 对应的坡度百分比约是多少？（tan 30° ≈ 0.577）",
+      "explanation": "坡度百分比 = tan(坡度角) × 100%。tan 30° ≈ 0.577，即 57.7%。坡度 45° 时 tan = 1，即 100%。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "约 57.7%",
+          "key": "A"
+        },
+        {
+          "text": "约 30%",
+          "hint": "把角度数当成了百分比。",
+          "key": "B"
+        },
+        {
+          "text": "约 50%",
+          "hint": "0.5 对应的角约 26.6°，不是 30°。",
+          "key": "C"
+        },
+        {
+          "text": "约 76.6%",
+          "hint": "0.766 是 cos 40°，记混了。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-004",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "北纬 40° 处的纬线圈周长约是赤道周长的多少倍？（cos 40° ≈ 0.766）",
+      "explanation": "纬度 φ 处纬圈周长 = 赤道周长 × cos φ。cos 40° ≈ 0.766，所以约 76.6%。这就是高纬度地区经度一度更短的原因。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "约 76.6%",
+          "key": "A"
+        },
+        {
+          "text": "约 40%",
+          "hint": "纬度角本身不等于周长比例，中间隔了一个 cos。",
+          "key": "B"
+        },
+        {
+          "text": "约 88.3%",
+          "hint": "没有依据的数值。",
+          "key": "C"
+        },
+        {
+          "text": "100%，纬线圈和赤道一样长",
+          "hint": "只有赤道（纬度 0°）才满足 cos 0° = 1。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-005",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "口诀 SOH-CAH-TOA 里的 TOA 表示 tan = 对边 ÷ 邻边。",
+      "explanation": "TOA = Tan = Opposite / Adjacent，即对比邻。完整口诀：Sin=对/斜，Cos=邻/斜，Tan=对/邻。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-006",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "45° 坡在 GIS 里的坡度百分比是多少？",
+      "explanation": "tan 45° = 1（对边等于邻边），即 100%。这也是「100% 坡度 = 45°」这条常用换算的由来。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "100%",
+          "key": "A"
+        },
+        {
+          "text": "45%",
+          "hint": "坡度百分比不是角度数。",
+          "key": "B"
+        },
+        {
+          "text": "50%",
+          "key": "C"
+        },
+        {
+          "text": "无法确定",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-007",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "已知直角三角形斜边为 5、角 θ 的对边为 3，sin θ = ？",
+      "explanation": "sin θ = 对边/斜边 = 3/5 = 0.6。邻边按勾股定理是 4，所以 cos θ = 0.8、tan θ = 0.75——经典的 3-4-5 三角形。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "0.6",
+          "key": "A"
+        },
+        {
+          "text": "0.8",
+          "hint": "0.8 = 4/5 是 cos θ（邻比斜）。",
+          "key": "B"
+        },
+        {
+          "text": "0.75",
+          "hint": "0.75 = 3/4 是 tan θ（对比邻）。",
+          "key": "C"
+        },
+        {
+          "text": "1.25",
+          "hint": "5/3 是 sin 的倒数。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-008",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "已知坡度百分比为 57.7%，反算坡度角应使用哪个函数？",
+      "explanation": "由比例反求角度用反三角函数：atan(0.577) ≈ 30°。tan 把角变成比例，atan 把比例变回角。",
+      "refs": [
+        {
+          "title": "atan2 — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Atan2"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "atan（反正切）",
+          "hint": "tan 的逆运算，由对比邻的比例求角，正确。",
+          "key": "A"
+        },
+        {
+          "text": "sin",
+          "hint": "sin 是由角求比例，方向反了。",
+          "key": "B"
+        },
+        {
+          "text": "cos",
+          "hint": "cos 也是由角求比例。",
+          "key": "C"
+        },
+        {
+          "text": "log",
+          "hint": "对数与角度反算无关。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-009",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "atan2(y, x) 与 atan(y/x) 相比，最大的优势是？",
+      "explanation": "atan2 接收两个参数并根据 x、y 的符号判断象限，全圆域（−π, π] 内结果唯一；atan(y/x) 丢失象限信息，第二、三象限会差 180°，且 x=0 时除零。",
+      "refs": [
+        {
+          "title": "atan2 — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Atan2"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "能根据 x、y 的正负正确判断象限",
+          "hint": "这正是引入 atan2 的原因，GIS 方位角计算必用。",
+          "key": "A"
+        },
+        {
+          "text": "计算速度更快",
+          "hint": "性能差异可忽略，优势在正确性。",
+          "key": "B"
+        },
+        {
+          "text": "参数顺序是 x 在前 y 在后",
+          "hint": "atan2 是 y 在前、x 在后，这不是优势而是约定。",
+          "key": "C"
+        },
+        {
+          "text": "返回值的单位是度而不是弧度",
+          "hint": "返回值同样是弧度。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-010",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "JavaScript 里计算「从 A 点到 B 点的方位角」，正确写法是？",
+      "explanation": "方位角 = atan2(Δlng, Δlat)：y 参数是经度差（东西向），x 参数是纬度差（南北向）。y 在前是 atan2 的固定约定。",
+      "refs": [
+        {
+          "title": "atan2 — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Atan2"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "Math.atan2(Δlng, Δlat)",
+          "hint": "y（东西分量）在前，x（南北分量）在后，正确。",
+          "key": "A"
+        },
+        {
+          "text": "Math.atan2(Δlat, Δlng)",
+          "hint": "参数反了，算出的角度会以南北轴为基准错乱。",
+          "key": "B"
+        },
+        {
+          "text": "Math.atan(Δlng / Δlat)",
+          "hint": "atan 会丢失象限信息，朝西走时差 180°。",
+          "key": "C"
+        },
+        {
+          "text": "Math.asin(Δlng / Δlat)",
+          "hint": "asin 的参数必须是 −1 到 1 的比例，这里不满足，语义也不对。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-011",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "arcsin 里的 arc- 表示「取回角」：sin 把角变成比例，arcsin 把比例变回角。",
+      "explanation": "arc- 前缀就是互逆的含义。arcsin(0.5) = 30°，因为 sin 30° = 0.5。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-012",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "arctan 的读法，哪个最接近 /ˈærtæn/？",
+      "explanation": "arctan 读「阿斯-坦」（英式）或「阿克-坦」（美式）。arcsin、arccos 同理，arc 读「阿克/阿斯」。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "阿斯-坦",
+          "key": "A"
+        },
+        {
+          "text": "阿-塔恩",
+          "hint": "丢了 t 的爆破音。",
+          "key": "B"
+        },
+        {
+          "text": "阿-克坦-杰特",
+          "hint": "那是 arctangent 全称的读法。",
+          "key": "C"
+        },
+        {
+          "text": "坦-阿斯",
+          "hint": "顺序反了。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-013",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "用 atan2 求：从原点出发到点 (x=1, y=1) 的方向角是多少度？（结果填角度，不是弧度）",
+      "explanation": "atan2(1, 1) = π/4 rad = 45°。x、y 相等时方向正好是东北 45°。",
+      "refs": [
+        {
+          "title": "atan2 — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Atan2"
+        }
+      ],
+      "type": "numeric",
+      "answer": 45,
+      "tolerance": 0.5,
+      "unit": "度"
+    },
+    {
+      "id": "gis-01-014",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "已知坡度百分比为 100%，对应的坡度角是多少度？",
+      "explanation": "atan(1.0) = 45°。tan 45° = 1，即 100% 坡度正好对应 45°。",
+      "refs": [
+        {
+          "title": "atan2 — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Atan2"
+        }
+      ],
+      "type": "numeric",
+      "answer": 45,
+      "tolerance": 0.5,
+      "unit": "度"
+    },
+    {
+      "id": "gis-01-015",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "180° 等于多少弧度？",
+      "explanation": "一周 = 360° = 2π rad，所以 180° = π rad ≈ 3.14159。1 rad ≈ 57.3°。",
+      "refs": [
+        {
+          "title": "Radian — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Radian"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "π rad ≈ 3.14159 rad",
+          "key": "A"
+        },
+        {
+          "text": "1 rad",
+          "hint": "1 rad ≈ 57.3°，远小于 180°。",
+          "key": "B"
+        },
+        {
+          "text": "2π rad ≈ 6.283 rad",
+          "hint": "2π rad 是一整周 360°。",
+          "key": "C"
+        },
+        {
+          "text": "90 rad",
+          "hint": "数量级完全不对。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-016",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "JavaScript 的 Math.tan() 要算 30° 的正切，入参 x 应填多少弧度？（保留两位小数）",
+      "explanation": "30° × π/180 ≈ 0.5236 rad。Math 系列三角函数只接受弧度，30 × Math.PI / 180 ≈ 0.52。",
+      "refs": [
+        {
+          "title": "Radian — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Radian"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.52,
+      "tolerance": 0.02,
+      "unit": "rad"
+    },
+    {
+      "id": "gis-01-017",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "Math.tan(30) 的返回值约等于 -6.4，说明 JavaScript 的三角函数把 30 当成了 30 弧度而不是 30 度。",
+      "explanation": "Math.tan 只吃弧度：tan(30 rad) ≈ -6.405。想算 30° 必须写 Math.tan(30 * Math.PI / 180) ≈ 0.577。",
+      "refs": [
+        {
+          "title": "Math.tan() — MDN",
+          "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/tan"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-018",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "为什么数学公式偏爱用弧度而不是度？",
+      "explanation": "弧度下 sin x ≈ x（x 很小时）、导数 (sin x)′ = cos x 等公式最简洁；弧度定义是弧长/半径，本身无量纲，和代码里的长度运算衔接自然。",
+      "refs": [
+        {
+          "title": "Radian — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Radian"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "弧度无量纲且使微积分公式最简洁",
+          "hint": "这是数学上选弧度的根本原因。",
+          "key": "A"
+        },
+        {
+          "text": "度不是 10 进制",
+          "hint": "这不是数学偏爱弧度的主因。",
+          "key": "B"
+        },
+        {
+          "text": "弧度数值更小更好算",
+          "hint": "数值大小无所谓，关键是公式简洁。",
+          "key": "C"
+        },
+        {
+          "text": "计算器只支持弧度",
+          "hint": "计算器两种都支持。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-019",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "希腊字母 λ（读「兰姆达」，/ˈlæmdə/）在 GIS 经纬度公式里通常表示？",
+      "explanation": "λ 表示经度（longitude），φ（读「法伊」）表示纬度（latitude）。这是球面距离、投影公式里的通用约定。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "经度",
+          "key": "A"
+        },
+        {
+          "text": "纬度",
+          "hint": "纬度是 φ（phi，法伊）。",
+          "key": "B"
+        },
+        {
+          "text": "地球半径",
+          "hint": "半径通常用 R 或 a。",
+          "key": "C"
+        },
+        {
+          "text": "比例尺",
+          "hint": "比例尺常用 1:n 表示。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-020",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "公式里的 Δ（读「戴奥塔」，/ˈdeltə/）通常表示？",
+      "explanation": "Δ 是「差值」符号：Δφ = φ₂ − φ₁（纬度差），Δλ = 经度差。它是「difference（差）」的惯用记号。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "两个量的差值",
+          "key": "A"
+        },
+        {
+          "text": "求和",
+          "hint": "求和是 Σ（sigma，西格玛）。",
+          "key": "B"
+        },
+        {
+          "text": "圆周率",
+          "hint": "圆周率是 π（派）。",
+          "key": "C"
+        },
+        {
+          "text": "无穷大",
+          "hint": "无穷大是 ∞。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-021",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "Σ（读「西格玛」，/ˈsɪɡmə/）在公式里表示？",
+      "explanation": "大写 Σ 是求和符号：∑hᵢ 表示把所有 hᵢ 依次相加。比如 DEM 高程求和再除以数量就是平均值。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "一串数求和",
+          "key": "A"
+        },
+        {
+          "text": "差值",
+          "hint": "差值是 Δ（戴奥塔）。",
+          "key": "B"
+        },
+        {
+          "text": "乘积",
+          "hint": "连乘是 Π（大写 pi）。",
+          "key": "C"
+        },
+        {
+          "text": "积分",
+          "hint": "连续求和是 ∫（integral，因提格罗）。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-022",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "φ（读「法伊」，/faɪ/）在 GIS 球面公式里通常表示？",
+      "explanation": "φ 是纬度（latitude）的通用符号，λ 是经度。haversine 公式里 sin²(Δφ/2) 的 φ 就是纬度。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "纬度",
+          "key": "A"
+        },
+        {
+          "text": "经度",
+          "hint": "经度是 λ（兰姆达）。",
+          "key": "B"
+        },
+        {
+          "text": "坡度角",
+          "hint": "坡度角常用 θ 或 slope 文字。",
+          "key": "C"
+        },
+        {
+          "text": "地球半径",
+          "hint": "半径用 R。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-023",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "θ（读「斯-塔」，/ˈθiːtə/，th 要咬舌）在公式里最常表示？",
+      "explanation": "θ 是「角度」的通用符号，三角函数的自变量几乎都写成 θ。λ、φ 有固定分工（经/纬度），θ 是泛用的角。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "通用的角度符号",
+          "key": "A"
+        },
+        {
+          "text": "经度",
+          "hint": "经度是 λ。",
+          "key": "B"
+        },
+        {
+          "text": "求和",
+          "hint": "求和是 Σ。",
+          "key": "C"
+        },
+        {
+          "text": "误差",
+          "hint": "小误差常用 ε（艾普西隆）。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-024",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "ε（读「艾普-西隆」，/ˈepsɪlɒn/）在测量与 GIS 文档里通常表示？",
+      "explanation": "ε 惯用表示「很小的量/误差」，比如定位误差、数值方法的容差。Δ 表示「差了多少」，ε 表示「误差有多小」。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "很小的误差量",
+          "key": "A"
+        },
+        {
+          "text": "方位角",
+          "hint": "方位角常用 α 或 azimuth 文字。",
+          "key": "B"
+        },
+        {
+          "text": "纬度",
+          "hint": "纬度是 φ。",
+          "key": "C"
+        },
+        {
+          "text": "求和",
+          "hint": "求和是 Σ。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-025",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "α（读「艾奥-法」，/ˈælfə/）在椭球与坐标公式里的常见含义是？",
+      "explanation": "α 最常见的两个用法：一是方位角（从北顺时针到目标线的角），二是椭球/投影推导中的比例或扁率相关参数（02 章扁率记作 f，个别文献用 α）。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "方位角或扁率类参数",
+          "key": "A"
+        },
+        {
+          "text": "经度",
+          "hint": "经度是 λ。",
+          "key": "B"
+        },
+        {
+          "text": "求和",
+          "hint": "求和是 Σ。",
+          "key": "C"
+        },
+        {
+          "text": "圆周率",
+          "hint": "圆周率是 π。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-026",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "下列哪一组「符号—读音」对应完全正确？",
+      "explanation": "λ 读「兰姆达」（lambda），φ 读「法伊」（phi），Δ 读「戴奥塔」（delta），Σ 读「西格玛」（sigma）。φ 美式读 /faɪ/「法伊」，英式可读 /fiː/「菲」。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "λ=兰姆达，φ=法伊，Δ=戴奥塔，Σ=西格玛",
+          "key": "A"
+        },
+        {
+          "text": "λ=纬度，φ=经度",
+          "hint": "含义弄反了：λ 经度、φ 纬度。",
+          "key": "B"
+        },
+        {
+          "text": "Δ=西格玛，Σ=戴奥塔",
+          "hint": "两者读法互换了。",
+          "key": "C"
+        },
+        {
+          "text": "λ=艾奥，φ=伽马",
+          "hint": "三个读音全错。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-027",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "π 的英文读法是 /paɪ/，与中文谐音「派」一致。",
+      "explanation": "pi 读 /paɪ/「派」。GIS 里弧度换算 1° = π/180 处处用它。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-028",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "γ（读「盖奥-玛」，/ˈɡæmə/）在高斯投影与 UTM 文档里常表示？",
+      "explanation": "γ 常表示子午线收敛角（grid convergence）：真北与坐标北的夹角。04 章讲分带投影时会正式用到。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "子午线收敛角（真北与坐标北的夹角）",
+          "key": "A"
+        },
+        {
+          "text": "纬度",
+          "hint": "纬度是 φ。",
+          "key": "B"
+        },
+        {
+          "text": "求和",
+          "hint": "求和是 Σ。",
+          "key": "C"
+        },
+        {
+          "text": "地球扁率",
+          "hint": "扁率常用 f（个别文献用 α）。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-029",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "√ 的名称和读法是？",
+      "explanation": "√ 读 square root /skwɛər ruːt/「斯奎尔-鲁特」，即平方根。两点距离公式 d = √(Δx² + Δy²) 里的它。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "square root「斯奎尔-鲁特」，平方根",
+          "key": "A"
+        },
+        {
+          "text": "square「斯奎尔」，平方",
+          "hint": "平方是上标 ²，读 squared。",
+          "key": "B"
+        },
+        {
+          "text": "cube root「克尤布」，立方根",
+          "hint": "立方根是 ∛。",
+          "key": "C"
+        },
+        {
+          "text": "sigma「西格玛」，求和",
+          "hint": "求和是 Σ。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-030",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "± 的读法和含义是？",
+      "explanation": "± 读 plus or minus「普拉-斯-奥-迈-纳斯」，表示正负偏差。GPS 标称精度 ±5 m 就是它。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "plus or minus「普拉-斯-奥-迈-纳斯」，正负号",
+          "key": "A"
+        },
+        {
+          "text": "percentage「百分号」",
+          "hint": "百分号是 %。",
+          "key": "B"
+        },
+        {
+          "text": "approximately「约等于」",
+          "hint": "约等于是 ≈。",
+          "key": "C"
+        },
+        {
+          "text": "equals「等于」",
+          "hint": "等于是 =。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-031",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "公式里 ≈ 的读法和含义是？",
+      "explanation": "≈ 读 approximately equal to「阿-普罗克-西姆特利」，约等于。如 1 rad ≈ 57.3°——由四舍五入或近似模型带来的「基本相等」。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "approximately equal to「阿-普罗克-西姆特利」，约等于",
+          "key": "A"
+        },
+        {
+          "text": "equals「伊奎沃兹」，完全等于",
+          "hint": "完全等于是 =。",
+          "key": "B"
+        },
+        {
+          "text": "not equal「不等于」",
+          "hint": "不等于是 ≠。",
+          "key": "C"
+        },
+        {
+          "text": "defined as「定义为」",
+          "hint": "定义为常用 ≡ 或 :=。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-032",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "x² 的标准英语读法是？",
+      "explanation": "x² 读 x squared「艾克斯-斯奎尔德」；x³ 读 x cubed「克尤布德」。坐标旋转公式里的 cos²θ 读 cos squared theta。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "x squared「斯奎尔德」",
+          "key": "A"
+        },
+        {
+          "text": "x square「斯奎尔」",
+          "hint": "少了 -d，不地道。",
+          "key": "B"
+        },
+        {
+          "text": "x times two",
+          "hint": "那是 x×2 的读法，语义不同。",
+          "key": "C"
+        },
+        {
+          "text": "x second「塞肯德」",
+          "hint": "second 是秒/第二，不是平方。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-033",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "经纬度的 °′″ 三个符号分别读什么？",
+      "explanation": "°=degree「迪-格里」（度），′=minute「米尼特」（分），″=second「塞肯德」（秒）。DMS 记法 39°54′17″ 读「三十九度五十四分十七秒」。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "degree「迪格里」/ minute「米尼特」/ second「塞肯德」",
+          "key": "A"
+        },
+        {
+          "text": "degree / prime「普莱姆」/ double prime",
+          "hint": "prime 是符号名，DMS 语境读 minute/second。",
+          "key": "B"
+        },
+        {
+          "text": "hour「奥厄」/ minute / second",
+          "hint": "角度单位没有 hour。",
+          "key": "C"
+        },
+        {
+          "text": "circle「瑟寇」/ minute / second",
+          "hint": "° 的名称是 degree。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-034",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "∈ 的读法和含义是？",
+      "explanation": "∈ 读 belongs to /bɪˈlɒŋz tuː/「比-龙兹-图」，表示「属于」。x ∈ ℝ 读「x 属于实数集」。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "belongs to「比-龙兹-图」，属于",
+          "key": "A"
+        },
+        {
+          "text": "infinity「因菲尼提」，无穷大",
+          "hint": "那是 ∞。",
+          "key": "B"
+        },
+        {
+          "text": "proportional「普罗波申」，正比",
+          "hint": "正比是 ∝。",
+          "key": "C"
+        },
+        {
+          "text": "integral「因提格罗」，积分",
+          "hint": "积分是 ∫。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-035",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "|x| 的读法和含义是？",
+      "explanation": "|x| 读 the absolute value of x「艾布-索-鲁特-维尔尤」，绝对值，负数变正。经度差 Δλ 常要取绝对值保证结果非负。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "absolute value「艾布索鲁特-维尔尤」，绝对值",
+          "key": "A"
+        },
+        {
+          "text": "vector「维克特」，向量",
+          "hint": "向量要加粗或加箭头。",
+          "key": "B"
+        },
+        {
+          "text": "average「艾沃瑞吉」，平均",
+          "hint": "平均常用 x̄（x-bar）。",
+          "key": "C"
+        },
+        {
+          "text": "parallel「派若莱尔」，平行",
+          "hint": "平行是 ∥（双竖线）。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-036",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "∫ 的名称、读法和与 Σ 的区别是？",
+      "explanation": "∫ 读 integral /ˈɪntɪɡrəl/「因-提-格罗」，积分——对连续量求和；Σ（summation「萨-梅-申」）对离散数列求和。GIS 里连续累积用积分思想，逐像元累加用 Σ。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "integral「因提格罗」，连续求和；Σ 是离散求和",
+          "key": "A"
+        },
+        {
+          "text": "integral，与 Σ 完全等价可互换",
+          "hint": "连续与离散不同，不能互换。",
+          "key": "B"
+        },
+        {
+          "text": "infinity「因菲尼提」，无穷大",
+          "hint": "那是 ∞。",
+          "key": "C"
+        },
+        {
+          "text": "interpolation，插值",
+          "hint": "插值是 interpolation，不是 ∫。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-037",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "「°′″」在 39°54′17″N 中，17″ 换算成度是多少？",
+      "explanation": "1° = 60′，1′ = 60″，所以 17″ = 17/3600° ≈ 0.00472°。度分秒转十进制度：39 + 54/60 + 17/3600 ≈ 39.9047°。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "约 0.00472°",
+          "key": "A"
+        },
+        {
+          "text": "约 0.17°",
+          "hint": "把秒当成了度的百分位。",
+          "key": "B"
+        },
+        {
+          "text": "约 0.283°",
+          "hint": "17/60 的结果，进率用错。",
+          "key": "C"
+        },
+        {
+          "text": "不能换算",
+          "hint": "可以换算：1° = 3600″。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-038",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "haversine 公式 a = sin²(Δφ/2) + cos φ₁·cos φ₂·sin²(Δλ/2) 中，Δλ 表示？",
+      "explanation": "Δλ 是两点的经度差 λ₂ − λ₁（读「戴奥塔-兰姆达」），Δφ 是纬度差。haversine 用这两个差量和绝对纬度算球面距离。",
+      "refs": [
+        {
+          "title": "Haversine formula — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Haversine_formula"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "λ₂ − λ₁，两点的经度差",
+          "key": "A"
+        },
+        {
+          "text": "λ₁ + λ₂，经度之和",
+          "hint": "Δ 恒表示差值不是和。",
+          "key": "B"
+        },
+        {
+          "text": "本初子午线经度",
+          "hint": "无此含义。",
+          "key": "C"
+        },
+        {
+          "text": "经度的单位名",
+          "hint": "λ 是经度符号，Δλ 指经度差本身。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-039",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "haversine 公式里的三角函数参数都是弧度。若输入是十进制度，使用前必须？",
+      "explanation": "所有角度先乘 π/180 转成弧度再进三角函数。忘了转换是最常见的静默错误——不报错但结果离谱。",
+      "refs": [
+        {
+          "title": "Haversine formula — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Haversine_formula"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "乘 π/180 转成弧度",
+          "key": "A"
+        },
+        {
+          "text": "乘 180/π",
+          "hint": "方向反了，180/π 是弧度转度。",
+          "key": "B"
+        },
+        {
+          "text": "直接使用，函数自动识别",
+          "hint": "Math.sin 等从不自动识别单位。",
+          "key": "C"
+        },
+        {
+          "text": "先开平方",
+          "hint": "开方与单位转换无关。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-040",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "「d = 2R · atan2(√a, √(1−a))」的正确读法是？",
+      "explanation": "读作：「d 等于，二乘 R，乘，阿斯坦-图，根号 a，逗号，根号下一减 a」。atan2(y, x) 的 y=√a 在前。",
+      "refs": [
+        {
+          "title": "Haversine formula — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Haversine_formula"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "d 等于，二 R 乘，阿斯坦-图（根号 a，根号一减 a）",
+          "key": "A"
+        },
+        {
+          "text": "d 等于，二 R 乘，阿坦（根号一减 a，根号 a）",
+          "hint": "atan2 两个参数顺序反了。",
+          "key": "B"
+        },
+        {
+          "text": "d 等于，二 R 除以，根号 a 加根号一减 a",
+          "hint": "乘法读成除法、atan2 读成了四则。",
+          "key": "C"
+        },
+        {
+          "text": "d 等于，平方根 R 乘 atan2",
+          "hint": "2R 是 2 乘 R，不是平方根。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-041",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "cos²θ 的读法是「cos squared theta」（抠赛恩-斯奎尔德-斯塔），意思是 (cos θ)²。",
+      "explanation": "cos²θ = (cos θ)²，读 cos squared theta。haversine 里 sin²(Δφ/2) 同理读「赛恩-斯奎尔德」。",
+      "refs": [
+        {
+          "title": "Trigonometric functions — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Trigonometric_functions"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-01-042",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "读公式「φ₂ − φ₁」最地道的读法是？",
+      "explanation": "读「法伊-图-迈纳斯-法伊-万」（phi two minus phi one）。下标 1、2 读 one、two；Δφ 则直接读「戴奥塔-法伊」。",
+      "refs": [
+        {
+          "title": "Greek alphabet — Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Greek_alphabet"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "法伊-图-迈纳斯-法伊-万",
+          "key": "A"
+        },
+        {
+          "text": "法伊减法伊",
+          "hint": "下标丢了，无法区分 φ₁ 和 φ₂。",
+          "key": "B"
+        },
+        {
+          "text": "德尔塔-法伊",
+          "hint": "那是 Δφ 的读法，本式是展开形式。",
+          "key": "C"
+        },
+        {
+          "text": "法伊-二-除-法伊-一",
+          "hint": "minus 是减不是除。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-01-043",
+      "skill": "gis",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本课程读音约定的「谐音」应该怎么用？",
+      "explanation": "谐音是帮助起步的拐杖：先用谐音建立读音直觉，逐步过渡到 IPA 音标的标准发音。谐音不是标准，方言差异可能让谐音失真。",
+      "refs": [
+        {
+          "title": "ISO 80000-2 数学记号标准",
+          "url": "https://www.iso.org/standard/64973.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "text": "先用谐音起步，逐步向 IPA 标准发音靠拢",
+          "key": "A"
+        },
+        {
+          "text": "谐音就是标准发音，照抄即可",
+          "hint": "谐音受方言影响，只是近似。",
+          "key": "B"
+        },
+        {
+          "text": "谐音没有用，直接背 IPA",
+          "hint": "对零基础读者谐音更友好，两者配合最好。",
+          "key": "C"
+        },
+        {
+          "text": "术语只需要会写不需要会读",
+          "hint": "会读是团队沟通和查文档的基础。",
+          "key": "D"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    }
+  ]
+}
