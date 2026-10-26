@@ -2,7 +2,7 @@
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "https://learn-gis.vercel.app";
+  "https://gis.ason.top";
 
 export const SITE_NAME = "learn-gis";
 
