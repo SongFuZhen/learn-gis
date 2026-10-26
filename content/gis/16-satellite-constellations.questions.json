@@ -1,0 +1,3388 @@
+{
+  "skill": "gis",
+  "module": "16",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-16-001",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "低轨星座存在的根本原因是？",
+      "explanation": "单星覆盖是「路过式」的；星座让任何时刻头顶至少一颗星。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "单颗 LEO 过顶窗口只有几分钟，连续服务必须多星接力"
+        },
+        {
+          "key": "B",
+          "text": "火箭运力过剩"
+        },
+        {
+          "key": "C",
+          "text": "为了好看"
+        },
+        {
+          "key": "D",
+          "text": "GEO 卫星太贵"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-002",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 主力壳层的轨道高度约为？",
+      "explanation": "Starlink 主力壳层约 550 km；OneWeb 约 1200 km。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "420 km"
+        },
+        {
+          "key": "B",
+          "text": "550 km"
+        },
+        {
+          "key": "C",
+          "text": "1200 km"
+        },
+        {
+          "key": "D",
+          "text": "20200 km"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-16-003",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 主力壳层的轨道倾角是？",
+      "explanation": "53° 倾角重点覆盖中低纬度人口密集区；87.9° 近极轨是 OneWeb。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "0°"
+        },
+        {
+          "key": "B",
+          "text": "51.6°"
+        },
+        {
+          "key": "C",
+          "text": "53°"
+        },
+        {
+          "key": "D",
+          "text": "87.9°"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-004",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "OneWeb 星座的轨道高度约为？",
+      "explanation": "OneWeb 约 1200 km，比 Starlink 高，单星覆盖更大。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "550 km"
+        },
+        {
+          "key": "B",
+          "text": "780 km"
+        },
+        {
+          "key": "C",
+          "text": "1200 km"
+        },
+        {
+          "key": "D",
+          "text": "35786 km"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-005",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "OneWeb 用约 648 颗就实现全球覆盖，而 Starlink 要数千颗，因为？",
+      "explanation": "高度换覆盖：1200 km 单星覆盖远大于 550 km，所需星数自然更少——代价是延迟略高。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "OneWeb 轨道更高，单星覆盖更大"
+        },
+        {
+          "key": "B",
+          "text": "OneWeb 技术更先进"
+        },
+        {
+          "key": "C",
+          "text": "Starlink 效率低"
+        },
+        {
+          "key": "D",
+          "text": "Starlink 卫星更小所以更多"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-006",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Walker 星座的设计参数不包括？",
+      "explanation": "高度、倾角、星数（壳层×每壳）是设计三参数。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "高度"
+        },
+        {
+          "key": "B",
+          "text": "倾角"
+        },
+        {
+          "key": "C",
+          "text": "壳层数与每壳星数"
+        },
+        {
+          "key": "D",
+          "text": "卫星颜色"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-16-007",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 新一代卫星之间的激光链路（星间链路）解决什么问题？",
+      "explanation": "星间激光链路让数据不依赖地面站接力，跨洋覆盖成为可能。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "星与星在太空直接传数据，海洋荒漠上空也能落地回传"
+        },
+        {
+          "key": "B",
+          "text": "给卫星充电"
+        },
+        {
+          "key": "C",
+          "text": "防御攻击"
+        },
+        {
+          "key": "D",
+          "text": "节省太阳能板"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-008",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 用户端天线的大小和形态大约是？",
+      "explanation": "平板相控阵天线，自动对准头顶的星。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一口大锅"
+        },
+        {
+          "key": "B",
+          "text": "披萨盒大小的相控阵天线"
+        },
+        {
+          "key": "C",
+          "text": "一根电视天线"
+        },
+        {
+          "key": "D",
+          "text": "需要建铁塔"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-16-009",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "NASA 的角色是？",
+      "explanation": "NASA 是科研机构（Landsat 等）；商业星座由 SpaceX 等公司运营；频率协调归 ITU/FCC。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        },
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "科研机构，做科学任务与数据发布"
+        },
+        {
+          "key": "B",
+          "text": "商业宽带运营商"
+        },
+        {
+          "key": "C",
+          "text": "频率监管机构"
+        },
+        {
+          "key": "D",
+          "text": "火箭回收公司"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-010",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "协调全球无线电频率与轨道位置申报的国际机构是？",
+      "explanation": "ITU 是联合国专门机构，频轨资源先到先得、申报有部署时限。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "NASA"
+        },
+        {
+          "key": "B",
+          "text": "ITU（国际电信联盟）"
+        },
+        {
+          "key": "C",
+          "text": "WTO"
+        },
+        {
+          "key": "D",
+          "text": "ISO"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-16-011",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "查询卫星可见过境预报最常用的免费网站是？",
+      "explanation": "Heavens-Above / N2YO 输入经纬度即可列出可见过境。",
+      "refs": [
+        {
+          "title": "Heavens-Above 过境预报",
+          "url": "https://www.heavens-above.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Heavens-Above"
+        },
+        {
+          "key": "B",
+          "text": "淘宝"
+        },
+        {
+          "key": "C",
+          "text": "Wikipedia"
+        },
+        {
+          "key": "D",
+          "text": "App Store"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-012",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "中国「千帆星座（G60）」的规划规模约为？",
+      "explanation": "千帆由上海垣信主导，规划约 1.5 万颗，2024 年首批组网星发射。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "66 颗"
+        },
+        {
+          "key": "B",
+          "text": "648 颗"
+        },
+        {
+          "key": "C",
+          "text": "约 1.5 万颗"
+        },
+        {
+          "key": "D",
+          "text": "3 颗"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-013",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座「倾角 53°」的覆盖含义是？",
+      "explanation": "倾角定南北边界：53° 主壳层放弃极区，高纬度靠其他倾角壳层补。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "南北纬 53° 以外覆盖骤减"
+        },
+        {
+          "key": "B",
+          "text": "只能覆盖赤道"
+        },
+        {
+          "key": "C",
+          "text": "覆盖全球每个角落"
+        },
+        {
+          "key": "D",
+          "text": "只能覆盖南半球"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-014",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座设计里「星数」本质上决定什么？",
+      "explanation": "星越多：同地重访越短、总容量越大。成本是结果不是设计目标。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "重访间隔与总容量"
+        },
+        {
+          "key": "B",
+          "text": "卫星颜色"
+        },
+        {
+          "key": "C",
+          "text": "发射成本（仅成本）"
+        },
+        {
+          "key": "D",
+          "text": "轨道形状"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-015",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "OneWeb 用 87.9° 近极轨的得失是？",
+      "explanation": "近极轨覆盖高纬度；但中低纬人口密集区的容量密度靠低倾角才高。",
+      "refs": [
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "能服务高纬度，但中低纬容量密度不如低倾角星座"
+        },
+        {
+          "key": "B",
+          "text": "完全没有缺点"
+        },
+        {
+          "key": "C",
+          "text": "覆盖不了赤道"
+        },
+        {
+          "key": "D",
+          "text": "延迟比 Starlink 更低"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-016",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "ESA（欧洲航天局）运营的对地观测系列卫星叫？",
+      "explanation": "Sentinel 是 ESA 哥白尼计划系列；Landsat 是 NASA/USGS；GOES 是 NOAA 气象卫星。",
+      "refs": [
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Landsat"
+        },
+        {
+          "key": "B",
+          "text": "Sentinel（哨兵）"
+        },
+        {
+          "key": "C",
+          "text": "Starlink"
+        },
+        {
+          "key": "D",
+          "text": "GOES"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-16-017",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "NOAA 负责的领域是？",
+      "explanation": "NOAA 管气象海洋卫星，同时负责美国商业遥感许可。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "气象卫星（如 GOES）与商业遥感许可"
+        },
+        {
+          "key": "B",
+          "text": "载人登月"
+        },
+        {
+          "key": "C",
+          "text": "火星车"
+        },
+        {
+          "key": "D",
+          "text": "互联网星座"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-018",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "「过顶窗口（pass window）」指的是？",
+      "explanation": "LEO 过顶窗口约 5–10 分钟，是星座规模的底层驱动。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星对地面某固定点可见的时间段"
+        },
+        {
+          "key": "B",
+          "text": "卫星发射的时间窗口"
+        },
+        {
+          "key": "C",
+          "text": "地面站的营业时间"
+        },
+        {
+          "key": "D",
+          "text": "太阳直射卫星的时间"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-019",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "截至 2024 年，Starlink 在轨数量级是？",
+      "explanation": "2024 年在轨超 6000 颗，占人类在轨卫星一半以上。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "几十颗"
+        },
+        {
+          "key": "B",
+          "text": "几百颗"
+        },
+        {
+          "key": "C",
+          "text": "超过 6000 颗"
+        },
+        {
+          "key": "D",
+          "text": "超过 100 万颗"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-020",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "频轨资源「先到先得、逾期收回」的规则由谁执行？",
+      "explanation": "ITU 申报协调机制：申报后有部署时限，逾期不部署收回——这是各星座抢发射的原因之一。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ITU"
+        },
+        {
+          "key": "B",
+          "text": "NASA"
+        },
+        {
+          "key": "C",
+          "text": "联合国安理会"
+        },
+        {
+          "key": "D",
+          "text": "各国自行决定"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-021",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 多壳层设计（53°/70°/97.6°）的目的是？",
+      "explanation": "倾角决定纬度覆盖：53° 管中低纬，70°/97.6° 补高纬与极区。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "不同倾角壳层覆盖不同纬度带，组合起来覆盖全球"
+        },
+        {
+          "key": "B",
+          "text": "备份冗余"
+        },
+        {
+          "key": "C",
+          "text": "试验不同技术"
+        },
+        {
+          "key": "D",
+          "text": "节省燃料"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-022",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "想拿到 Starlink 卫星的轨道数据自己画轨迹，应该去？",
+      "explanation": "CelesTrak 公开发布包括 Starlink 在内的在轨物体 TLE。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "CelesTrak 下载 TLE"
+        },
+        {
+          "key": "B",
+          "text": "SpaceX 官网商城"
+        },
+        {
+          "key": "C",
+          "text": "拨打客服电话"
+        },
+        {
+          "key": "D",
+          "text": "App Store"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-023",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星间激光链路出现之前，LEO 互联网星座在海洋上空的瓶颈是？",
+      "explanation": "早期星只能与地面站通信，海洋上空无站可用；星间链路解决了这个问题。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "没有地面站可落地，数据传不回去"
+        },
+        {
+          "key": "B",
+          "text": "海水反射信号"
+        },
+        {
+          "key": "C",
+          "text": "鱼群干扰"
+        },
+        {
+          "key": "D",
+          "text": "卫星会掉进海里"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-024",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "OneWeb 的目标用户定位是？",
+      "explanation": "OneWeb 主打企业/运营商市场；Starlink 主打个人家庭终端。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "企业与运营商回传"
+        },
+        {
+          "key": "B",
+          "text": "个人家庭宽带为主"
+        },
+        {
+          "key": "C",
+          "text": "军用专用"
+        },
+        {
+          "key": "D",
+          "text": "广播电台"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-025",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "GW（国网星座）的主导方是？",
+      "explanation": "GW 由中国卫星网络集团（中国星网）主导，规划约 1.3 万颗。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "中国星网"
+        },
+        {
+          "key": "B",
+          "text": "SpaceX"
+        },
+        {
+          "key": "C",
+          "text": "中国移动"
+        },
+        {
+          "key": "D",
+          "text": "中科院"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-026",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "卫星星座对 GIS 可视化的意义是？",
+      "explanation": "TLE + 地图投影 + 轨迹渲染，是 GIS 开发者的标准练习。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "数千颗星的大规模轨迹是经典的地图可视化练手数据"
+        },
+        {
+          "key": "B",
+          "text": "与 GIS 完全无关"
+        },
+        {
+          "key": "C",
+          "text": "只能做 3D 游戏"
+        },
+        {
+          "key": "D",
+          "text": "可以提高地图分辨率"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-027",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "判断某星座能否服务北极地区，看哪个参数最直接？",
+      "explanation": "倾角必须接近 90° 才有极区覆盖（如 OneWeb 87.9°、Starlink 97.6° 壳层）。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "倾角"
+        },
+        {
+          "key": "B",
+          "text": "卫星质量"
+        },
+        {
+          "key": "C",
+          "text": "发射年份"
+        },
+        {
+          "key": "D",
+          "text": "火箭型号"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-028",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "肉眼观看 ISS 过境时，它看起来是？",
+      "explanation": "ISS 亮度高、移动均匀，晴夜肉眼可见。",
+      "refs": [
+        {
+          "title": "Heavens-Above 过境预报",
+          "url": "https://www.heavens-above.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一颗不慢不快移动的亮星"
+        },
+        {
+          "key": "B",
+          "text": "一道闪电"
+        },
+        {
+          "key": "C",
+          "text": "静止的亮点"
+        },
+        {
+          "key": "D",
+          "text": "红色的流星"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-029",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座里「同一轨道面均匀放 M 颗星」的好处是？",
+      "explanation": "均匀相位分布让同面卫星前后等距接力。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "同一地面轨迹上卫星均匀接力，覆盖更平滑"
+        },
+        {
+          "key": "B",
+          "text": "节省火箭"
+        },
+        {
+          "key": "C",
+          "text": "防止卫星相撞（仅此目的）"
+        },
+        {
+          "key": "D",
+          "text": "方便命名"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-030",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "LEO 星座相比 GEO 做宽带的核心优势是？",
+      "explanation": "GEO 往返近半秒，LEO 几十毫秒级，宽带体验差距本质在延迟。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "延迟低一个量级以上，接近地面光纤体验"
+        },
+        {
+          "key": "B",
+          "text": "覆盖更大"
+        },
+        {
+          "key": "C",
+          "text": "不需要用户天线"
+        },
+        {
+          "key": "D",
+          "text": "永不掉线"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-031",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "LEO 星座相比 GEO 的代价是？",
+      "explanation": "单星覆盖小、过顶快，数量是连续覆盖的硬门槛。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "需要成千上万颗卫星组网"
+        },
+        {
+          "key": "B",
+          "text": "完全无法通信"
+        },
+        {
+          "key": "C",
+          "text": "只能在夜间工作"
+        },
+        {
+          "key": "D",
+          "text": "信号更强"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-032",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "历史上最早的低轨通信星座代表（66 颗、780 km）是？",
+      "explanation": "铱星 66 颗 780 km 近极轨，1990 年代末商用卫星电话先驱。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "铱星（Iridium）"
+        },
+        {
+          "key": "B",
+          "text": "GPS"
+        },
+        {
+          "key": "C",
+          "text": "哈勃"
+        },
+        {
+          "key": "D",
+          "text": "北斗"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-033",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 终端「自动对准」依赖的天线技术是？",
+      "explanation": "相控阵电子扫描无需机械转动即可跟踪快速移动的卫星。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "相控阵（电子扫描）"
+        },
+        {
+          "key": "B",
+          "text": "机械转动的抛物面锅"
+        },
+        {
+          "key": "C",
+          "text": "八木天线"
+        },
+        {
+          "key": "D",
+          "text": "鞭状天线"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-034",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座总容量的提升手段不包括？",
+      "explanation": "前三项是真实手段；涂装颜色与容量无关。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "增加星数"
+        },
+        {
+          "key": "B",
+          "text": "多波束频率复用"
+        },
+        {
+          "key": "C",
+          "text": "星间链路组网"
+        },
+        {
+          "key": "D",
+          "text": "把卫星涂成黑色"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-16-035",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "关于星座与地面 5G 的关系，正确的是？",
+      "explanation": "星座单波束容量有限，城市密度场景不如 5G；广覆盖无人区是星座主场。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "互补：星座覆盖海洋荒漠，5G 覆盖城市"
+        },
+        {
+          "key": "B",
+          "text": "星座会取代 5G"
+        },
+        {
+          "key": "C",
+          "text": "5G 会取代星座"
+        },
+        {
+          "key": "D",
+          "text": "两者频率完全相同"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-036",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "「千帆星座」2024 年的里程碑是？",
+      "explanation": "2024 年千帆首批组网星发射入轨。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "首批组网星发射"
+        },
+        {
+          "key": "B",
+          "text": "完成全部 1.5 万颗部署"
+        },
+        {
+          "key": "C",
+          "text": "登陆火星"
+        },
+        {
+          "key": "D",
+          "text": "实现 6G"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-037",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "评估一个星座项目是否靠谱，最务实的看法是？",
+      "explanation": "ITU 部署时限是硬约束，部署节奏是项目健康度的直接指标。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "看已发射数量和部署节奏是否符合 ITU 时限"
+        },
+        {
+          "key": "B",
+          "text": "看 PPT 精美程度"
+        },
+        {
+          "key": "C",
+          "text": "看公司注册地"
+        },
+        {
+          "key": "D",
+          "text": "看卫星名字好不好听"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-038",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "从 GIS 角度，Starlink 公开 TLE 的价值是？",
+      "explanation": "大规模动态地理数据 + 地图渲染，是 WebGIS 的性能与可视化双重练手。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "可做大规模（数千目标）轨迹可视化与分析"
+        },
+        {
+          "key": "B",
+          "text": "可蹭网"
+        },
+        {
+          "key": "C",
+          "text": "可控制卫星"
+        },
+        {
+          "key": "D",
+          "text": "可预测天气"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-039",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座的「壳层（shell）」指？",
+      "explanation": "一个壳层 = 同一高度与倾角下的若干轨道面；多壳层组合出完整覆盖。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "同一高度/倾角的一组轨道面集合"
+        },
+        {
+          "key": "B",
+          "text": "卫星外壳材料"
+        },
+        {
+          "key": "C",
+          "text": "大气层"
+        },
+        {
+          "key": "D",
+          "text": "火箭整流罩"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-040",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Sentinel 系列卫星数据的获取成本是？",
+      "explanation": "ESA 哥白尼计划 Sentinel 数据全球免费。",
+      "refs": [
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "全免费"
+        },
+        {
+          "key": "B",
+          "text": "每景上万元"
+        },
+        {
+          "key": "C",
+          "text": "仅限欧盟公民"
+        },
+        {
+          "key": "D",
+          "text": "需 NASA 审批"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-041",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "为什么 Starlink 用户终端在城市里的体验不如 5G？",
+      "explanation": "卫星单波束容量摊给整个覆盖区，人口越密人均越低——城市是地面网的主场。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "单波束覆盖区内用户共享有限容量，城市密度太高"
+        },
+        {
+          "key": "B",
+          "text": "城市电磁环境干扰卫星"
+        },
+        {
+          "key": "C",
+          "text": "高楼会挡住所有卫星"
+        },
+        {
+          "key": "D",
+          "text": "终端在城市违法"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-042",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座对天文观测的争议主要是？",
+      "explanation": "星链反光条问题是天文界的公开争议，SpaceX 后续采取了减光措施。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "大量低轨卫星在夜空中留下光痕，干扰天文摄影与观测"
+        },
+        {
+          "key": "B",
+          "text": "卫星会撞月球"
+        },
+        {
+          "key": "C",
+          "text": "星座吸收星光"
+        },
+        {
+          "key": "D",
+          "text": "地面站太吵"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-043",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "NORAD 编号 25544 对应哪个物体？",
+      "explanation": "ISS 的 NORAD 编号 25544 是最常用的 TLE 示例。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ISS（国际空间站）"
+        },
+        {
+          "key": "B",
+          "text": "哈勃望远镜"
+        },
+        {
+          "key": "C",
+          "text": "第一颗人造卫星"
+        },
+        {
+          "key": "D",
+          "text": "月球"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-044",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "一颗 LEO 通信星从地平线升起到落下，用户要连续上网需要？",
+      "explanation": "星座 + 终端自动切换，前星落、后星起，无缝接力。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "终端切换到下一颗星（接力）"
+        },
+        {
+          "key": "B",
+          "text": "等这颗星绕回来"
+        },
+        {
+          "key": "C",
+          "text": "用户自己移动"
+        },
+        {
+          "key": "D",
+          "text": "暂停使用 90 分钟"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-045",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "下列哪个不是星座设计参数？",
+      "explanation": "高度/倾角/星数三参数决定覆盖与容量。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "高度"
+        },
+        {
+          "key": "B",
+          "text": "倾角"
+        },
+        {
+          "key": "C",
+          "text": "星数"
+        },
+        {
+          "key": "D",
+          "text": "卫星油漆颜色"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "gis-16-046",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "对「偏远海岛宽带」场景，最合适的方案是？",
+      "explanation": "无人区/海岛是星座的主场：无需地面基础设施。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "LEO 星座（如 Starlink）"
+        },
+        {
+          "key": "B",
+          "text": "5G 宏站"
+        },
+        {
+          "key": "C",
+          "text": "光纤到岛（若可行则成本极高时的备选）"
+        },
+        {
+          "key": "D",
+          "text": "短波电台"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-047",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "「SpaceX 之外做低轨星座的欧洲公司」是？",
+      "explanation": "OneWeb 已并入 Eutelsat，是欧洲低轨星座代表。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Eutelsat OneWeb"
+        },
+        {
+          "key": "B",
+          "text": "空中客车防务（造星但不运营宽带星座）"
+        },
+        {
+          "key": "C",
+          "text": "诺基亚"
+        },
+        {
+          "key": "D",
+          "text": "沃达丰"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-16-048",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "单颗 LEO 卫星可以为地面固定点提供 24 小时连续通信。",
+      "explanation": "过顶窗口仅 5–10 分钟，连续服务靠星座接力。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-049",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 主力壳层倾角为 53°。",
+      "explanation": "53° 倾角覆盖中低纬度人口密集区。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-050",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "OneWeb 的轨道高度比 Starlink 低。",
+      "explanation": "OneWeb 约 1200 km，高于 Starlink 的约 550 km。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-051",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "星座中卫星越多，同一地点的重访间隔越短。",
+      "explanation": "星数直接决定接力密度。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-052",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "星间激光链路让卫星数据可以不依赖海洋上空的地面站。",
+      "explanation": "星间链路在太空接力回传，解决无地面站区域落地问题。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-053",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "NASA 是 Starlink 的运营方。",
+      "explanation": "Starlink 由 SpaceX 运营；NASA 是科研机构。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-054",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "ITU 负责协调全球频率与轨道位置的申报。",
+      "explanation": "频轨资源先到先得、申报有部署时限。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-055",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "53° 倾角的星座可以很好地覆盖北极。",
+      "explanation": "倾角定南北边界，极区需要接近 90° 的倾角壳层。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-056",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Walker 星座所有轨道面倾角相同、沿赤道均匀分布。",
+      "explanation": "Walker 星座：N 个等倾角轨道面 × 每面 M 颗星。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-057",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "OneWeb 主打个人家庭宽带市场。",
+      "explanation": "OneWeb 主打企业与运营商回传；Starlink 主打个人家庭。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-058",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "CelesTrak 发布的 TLE 数据是收费的。",
+      "explanation": "TLE 公开发布，免费（Space-Track 需免费注册）。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-059",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "千帆星座规划规模约 1.5 万颗。",
+      "explanation": "千帆（G60）规划约 1.5 万颗，2024 年首批发射。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-060",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "星座可以完全取代地面 5G 网络。",
+      "explanation": "城市高密度场景单波束容量不足，星座与地面网互补。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-061",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "星间链路出现前，LEO 星座在海洋上空无法回传用户数据。",
+      "explanation": "早期星只能直连地面站，海洋上空无站可用。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-062",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Sentinel 系列卫星数据全球免费。",
+      "explanation": "ESA 哥白尼计划数据开放免费。",
+      "refs": [
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-063",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "轨道越高，覆盖全球连续服务所需的卫星数量越少。",
+      "explanation": "高度换覆盖：GEO 三颗组网，LEO 需要成千上万。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-064",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 用户终端是机械转动的抛物面大锅。",
+      "explanation": "是披萨盒大小的相控阵平板天线，电子扫描对准。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-065",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "GW 星座由中国星网主导。",
+      "explanation": "GW（国网）规划约 1.3 万颗，国家级低轨工程。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-066",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Heavens-Above 可以查询 ISS 可见过境时间。",
+      "explanation": "输入经纬度即可列出未来可见过境。",
+      "refs": [
+        {
+          "title": "Heavens-Above 过境预报",
+          "url": "https://www.heavens-above.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-067",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "星座里的卫星在同一轨道面上均匀分布。",
+      "explanation": "均匀相位让接力平滑。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-068",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "LEO 星座的宽带延迟体验接近地面光纤。",
+      "explanation": "几十毫秒级，远低于 GEO 的近半秒。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-069",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "铱星是 GEO 星座。",
+      "explanation": "铱星是 66 颗 780 km 的 LEO 近极轨星座。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-070",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "多波束天线可以提升星座总容量。",
+      "explanation": "点波束频率复用，总容量成倍提升。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-071",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "任何星座都能自然覆盖极区。",
+      "explanation": "只有近极轨（倾角近 90°）壳层能覆盖极区。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-072",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 占人类在轨卫星数量的一半以上（截至 2024 年）。",
+      "explanation": "2024 年在轨超 6000 颗，超过其他所有卫星总和。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-073",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "NOAA 既运营气象卫星也管商业遥感许可。",
+      "explanation": "GOES 系列归 NOAA，商业遥感许可也归其管理。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-074",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "频轨资源申报后可以无限期占而不用。",
+      "explanation": "ITU 有部署时限，逾期不部署会被收回。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-075",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "ESA 是商业宽带运营商。",
+      "explanation": "ESA 是欧洲航天局，科研机构，Sentinel 系列运营方之一。",
+      "refs": [
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-076",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座越大，对天文观测的影响越受关注。",
+      "explanation": "低轨卫星夜空的反光痕是天文界的公开争议。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-16-077",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 的 TLE 数据不公开。",
+      "explanation": "CelesTrak 公开发布包括 Starlink 在内的 TLE。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-16-078",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "低轨星座「连续覆盖」的条件包括？",
+      "explanation": "卫星不可能停住（除非 GEO），D 错。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "任何地点任何时刻头顶至少一颗星"
+        },
+        {
+          "key": "B",
+          "text": "足够多的卫星数量"
+        },
+        {
+          "key": "C",
+          "text": "合适的倾角覆盖目标纬度"
+        },
+        {
+          "key": "D",
+          "text": "卫星全部停在天上不动"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-079",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 的架构特点包括？",
+      "explanation": "Starlink 是纯 LEO 星座，D 错。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "主力壳层约 550 km / 53°"
+        },
+        {
+          "key": "B",
+          "text": "多壳层补高纬度"
+        },
+        {
+          "key": "C",
+          "text": "新一代带星间激光链路"
+        },
+        {
+          "key": "D",
+          "text": "用 GEO 卫星做骨干"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-080",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "OneWeb 与 Starlink 的差异包括？",
+      "explanation": "OneWeb 主打企业/运营商，D 错。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "OneWeb 更高（约 1200 km）"
+        },
+        {
+          "key": "B",
+          "text": "OneWeb 近极轨（87.9°）"
+        },
+        {
+          "key": "C",
+          "text": "OneWeb 星数更少（约 648）"
+        },
+        {
+          "key": "D",
+          "text": "OneWeb 主打个人家庭市场"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-081",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "下列机构分工正确的有？",
+      "explanation": "ITU 协调频轨资源，不造火箭，D 错。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "NASA——科研与 Landsat"
+        },
+        {
+          "key": "B",
+          "text": "ESA——Sentinel 系列"
+        },
+        {
+          "key": "C",
+          "text": "NOAA——气象卫星与遥感许可"
+        },
+        {
+          "key": "D",
+          "text": "ITU——制造火箭"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-082",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Walker 星座的设计参数有？",
+      "explanation": "三参数定覆盖与容量，涂装无关。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "高度"
+        },
+        {
+          "key": "B",
+          "text": "倾角"
+        },
+        {
+          "key": "C",
+          "text": "壳层数 × 每壳星数"
+        },
+        {
+          "key": "D",
+          "text": "卫星涂装"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-083",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座相比单颗 GEO 做宽带的优势有？",
+      "explanation": "成千上万颗的发射成本巨大，D 错。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "延迟低一个量级以上"
+        },
+        {
+          "key": "B",
+          "text": "终端可以小型化"
+        },
+        {
+          "key": "C",
+          "text": "极区也能覆盖（近极轨壳层）"
+        },
+        {
+          "key": "D",
+          "text": "完全不需要发射成本"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-084",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "中国的低轨星座工程包括？",
+      "explanation": "北斗是 MEO/GEO/IGSO 导航星座，嫦娥是探月工程，都不是低轨互联网星座。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "千帆星座（G60）"
+        },
+        {
+          "key": "B",
+          "text": "GW（国网星座）"
+        },
+        {
+          "key": "C",
+          "text": "北斗导航星座"
+        },
+        {
+          "key": "D",
+          "text": "嫦娥探月工程"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "gis-16-085",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "关于星间激光链路，正确的有？",
+      "explanation": "激光链路传数据不传能量，D 错。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "星与星在太空直接传数据"
+        },
+        {
+          "key": "B",
+          "text": "解决海洋/荒漠上空落地问题"
+        },
+        {
+          "key": "C",
+          "text": "提升网络韧性"
+        },
+        {
+          "key": "D",
+          "text": "可以给卫星充电"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-086",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "想自己查卫星过境预报，可以？",
+      "explanation": "公开数据源 + 在线工具足够，无需邮件，D 错。",
+      "refs": [
+        {
+          "title": "Heavens-Above 过境预报",
+          "url": "https://www.heavens-above.com/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "CelesTrak 下载 TLE + SGP4 库自己算"
+        },
+        {
+          "key": "B",
+          "text": "Heavens-Above 查可见过境"
+        },
+        {
+          "key": "C",
+          "text": "N2YO 在线追踪"
+        },
+        {
+          "key": "D",
+          "text": "给 NASA 写邮件"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-087",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "关于星座容量的正确说法有？",
+      "explanation": "容量有限，城市密集区是短板，D 错。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "增加星数提升总容量"
+        },
+        {
+          "key": "B",
+          "text": "多波束频率复用提升容量"
+        },
+        {
+          "key": "C",
+          "text": "城市高密度区容量是瓶颈"
+        },
+        {
+          "key": "D",
+          "text": "容量无限"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-088",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "下列哪些是免费公开的卫星数据来源？",
+      "explanation": "前三项免费公开；D 是反例。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "CelesTrak TLE"
+        },
+        {
+          "key": "B",
+          "text": "NASA Earthdata（Landsat/MODIS）"
+        },
+        {
+          "key": "C",
+          "text": "ESA Copernicus（Sentinel）"
+        },
+        {
+          "key": "D",
+          "text": "商业公司付费专供"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-089",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 对社会的争议点包括？",
+      "explanation": "光污染、轨道拥堵、频轨占用都是公开争议，D 错。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "夜空光痕干扰天文观测"
+        },
+        {
+          "key": "B",
+          "text": "轨道拥挤与碰撞风险"
+        },
+        {
+          "key": "C",
+          "text": "频轨资源占用"
+        },
+        {
+          "key": "D",
+          "text": "完全没有争议"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-090",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "从 GIS 视角能用星座数据做什么？",
+      "explanation": "TLE 只读不可控，D 错。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "大规模轨迹可视化"
+        },
+        {
+          "key": "B",
+          "text": "覆盖区分析"
+        },
+        {
+          "key": "C",
+          "text": "过境预报地图"
+        },
+        {
+          "key": "D",
+          "text": "控制卫星变轨"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-091",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "评估星座项目健康度的务实指标有？",
+      "explanation": "logo 与工程无关，D 错。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "已发射数量"
+        },
+        {
+          "key": "B",
+          "text": "部署节奏与 ITU 时限匹配度"
+        },
+        {
+          "key": "C",
+          "text": "目标市场与参数匹配"
+        },
+        {
+          "key": "D",
+          "text": "公司 logo 颜值"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-092",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "LEO 互联网星座适合的场景有？",
+      "explanation": "城市高密度场景容量不足，无法替代光纤/5G，D 错。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "偏远海岛宽带"
+        },
+        {
+          "key": "B",
+          "text": "远洋船舶"
+        },
+        {
+          "key": "C",
+          "text": "荒漠科考队"
+        },
+        {
+          "key": "D",
+          "text": "千万级人口城市全域替代光纤"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-16-093",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 主力壳层的轨道高度约多少公里？",
+      "explanation": "Starlink 主力壳层约 550 km，低高度换低延迟，但单星覆盖小需要海量组网。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "550"
+      ]
+    },
+    {
+      "id": "gis-16-094",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 主力壳层的倾角是多少度？",
+      "explanation": "53° 覆盖中低纬度。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "53"
+      ]
+    },
+    {
+      "id": "gis-16-095",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "OneWeb 的轨道高度约多少公里？",
+      "explanation": "约 1200 km。",
+      "refs": [
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "1200"
+      ]
+    },
+    {
+      "id": "gis-16-096",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "OneWeb 的倾角约多少度？（一位小数）",
+      "explanation": "87.9° 近极轨。",
+      "refs": [
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "87.9"
+      ]
+    },
+    {
+      "id": "gis-16-097",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "OneWeb 设计星数约多少颗？",
+      "explanation": "OneWeb 约 648 颗：轨道更高（1200 km）单星覆盖大，所需星数远少于 Starlink。",
+      "refs": [
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "648"
+      ]
+    },
+    {
+      "id": "gis-16-098",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "LEO 单星对地面固定点的可见窗口叫什么？（四个字）",
+      "explanation": "pass window，约 5–10 分钟。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "过顶窗口"
+      ]
+    },
+    {
+      "id": "gis-16-099",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "「N 个轨道面 × 每面 M 颗星、同倾角」的星座构型叫什么星座？",
+      "explanation": "Walker 星座是经典设计。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Walker",
+        "walker",
+        "Walker 星座"
+      ]
+    },
+    {
+      "id": "gis-16-100",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "协调全球频率与轨道位置的国际机构英文缩写是？",
+      "explanation": "ITU（国际电信联盟）是联合国专门机构，频轨资源申报先到先得、逾期收回。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ITU",
+        "itu"
+      ]
+    },
+    {
+      "id": "gis-16-101",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Starlink 的运营公司是？",
+      "explanation": "Starlink 由 SpaceX 运营；NASA 是科研机构，不运营商业星座。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "SpaceX",
+        "spacex"
+      ]
+    },
+    {
+      "id": "gis-16-102",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 新一代卫星之间在太空直接传数据的链路叫什么？（五个字）",
+      "explanation": "laser inter-satellite link。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "星间链路",
+        "星间激光链路",
+        "激光链路"
+      ]
+    },
+    {
+      "id": "gis-16-103",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "中国星网主导的低轨星座叫什么？（两个字母）",
+      "explanation": "GW（国网星座），规划约 1.3 万颗。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "GW"
+      ]
+    },
+    {
+      "id": "gis-16-104",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "上海垣信主导的星座叫？（两个字）",
+      "explanation": "千帆星座（G60），规划约 1.5 万颗。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "千帆"
+      ]
+    },
+    {
+      "id": "gis-16-105",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "美国负责气象卫星与商业遥感许可的机构缩写是？",
+      "explanation": "美国国家海洋和大气管理局。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "NOAA",
+        "noaa"
+      ]
+    },
+    {
+      "id": "gis-16-106",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "ESA 运营的免费对地观测卫星系列叫？",
+      "explanation": "Sentinel（哨兵）系列，哥白尼计划。",
+      "refs": [
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Sentinel",
+        "sentinel",
+        "哨兵"
+      ]
+    },
+    {
+      "id": "gis-16-107",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "查询 ISS 可见过境的经典免费网站叫？（英文）",
+      "explanation": "Heavens-Above / N2YO。",
+      "refs": [
+        {
+          "title": "Heavens-Above 过境预报",
+          "url": "https://www.heavens-above.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Heavens-Above",
+        "heavens-above",
+        "HeavensAbove"
+      ]
+    },
+    {
+      "id": "gis-16-108",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "截至 2024 年，Starlink 在轨数量超过多少颗？（整千数）",
+      "explanation": "2024 年在轨超 6000 颗。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "6000"
+      ]
+    },
+    {
+      "id": "gis-16-109",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "历史上 66 颗 780 km 的低轨通信星座先驱叫？",
+      "explanation": "铱星（Iridium）。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "铱星",
+        "Iridium",
+        "iridium"
+      ]
+    },
+    {
+      "id": "gis-16-110",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "Landsat 系列卫星由哪两个美国机构合作？（写一个英文缩写即可）",
+      "explanation": "NASA/USGS 合作的陆地卫星系列。",
+      "refs": [
+        {
+          "title": "NASA",
+          "url": "https://www.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "NASA",
+        "USGS"
+      ]
+    },
+    {
+      "id": "gis-16-111",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座中「同一高度与倾角的轨道面集合」叫什么？（两个字）",
+      "explanation": "shell，多壳层组合覆盖全球。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "壳层"
+      ]
+    },
+    {
+      "id": "gis-16-112",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 用户端的天线技术叫什么？（四个字）",
+      "explanation": "平板相控阵，电子扫描跟踪卫星。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "相控阵"
+      ]
+    },
+    {
+      "id": "gis-16-113",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "千帆星座首批组网星发射年份是？",
+      "explanation": "2024 年首批发射入轨。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "2024"
+      ]
+    },
+    {
+      "id": "gis-16-114",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座规模（星数）直接决定哪两个指标？（写一个即可）",
+      "explanation": "星数决定重访间隔与总容量。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "重访",
+        "容量",
+        "重访间隔",
+        "总容量"
+      ]
+    },
+    {
+      "id": "gis-16-115",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "近极轨星座（如 OneWeb 87.9°）能覆盖 Starlink 53° 壳层覆盖不了的什么区域？",
+      "explanation": "倾角近 90° 才能覆盖极区。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        },
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "极区",
+        "高纬度",
+        "北极",
+        "两极",
+        "极地"
+      ]
+    },
+    {
+      "id": "gis-16-116",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "ISS 的 NORAD 编号是？（五位数字）",
+      "explanation": "25544 是最常用的 TLE 示例。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "25544"
+      ]
+    },
+    {
+      "id": "gis-16-117",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "星座卫星在夜空留下光痕引发的争议来自哪个领域？",
+      "explanation": "天文观测界对低轨星座光污染的公开争议。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "天文",
+        "天文观测",
+        "天文学"
+      ]
+    },
+    {
+      "id": "gis-16-118",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "频轨资源「申报后逾期不部署会怎样」？",
+      "explanation": "ITU 部署时限机制：逾期收回。",
+      "refs": [
+        {
+          "title": "ITU（国际电信联盟）",
+          "url": "https://www.itu.int/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "收回",
+        "被收回",
+        "取消"
+      ]
+    },
+    {
+      "id": "gis-16-119",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "OneWeb 后来并入了哪家欧洲卫星公司？",
+      "explanation": "Eutelsat OneWeb。",
+      "refs": [
+        {
+          "title": "Eutelsat OneWeb",
+          "url": "https://www.eutelsat.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Eutelsat",
+        "eutelsat"
+      ]
+    },
+    {
+      "id": "gis-16-120",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "城市高密度区用星座上网体验差的原因是单波束什么有限？",
+      "explanation": "单波束容量摊给整个覆盖区，人越多人均越低。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "容量"
+      ]
+    },
+    {
+      "id": "gis-16-121",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 2,
+      "stem": "Starlink 多壳层中补高纬度的壳层倾角约多少度？（写一个，一位小数）",
+      "explanation": "70° 与 97.6° 壳层补高纬与极区。",
+      "refs": [
+        {
+          "title": "Starlink 官网",
+          "url": "https://www.starlink.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "97.6",
+        "70"
+      ]
+    },
+    {
+      "id": "gis-16-122",
+      "skill": "gis",
+      "module": "16",
+      "difficulty": 1,
+      "stem": "肉眼可见的最亮人造天体过境对象通常是？（英文缩写）",
+      "explanation": "ISS 亮度高，晴夜肉眼可见。",
+      "refs": [
+        {
+          "title": "Heavens-Above 过境预报",
+          "url": "https://www.heavens-above.com/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ISS",
+        "iss"
+      ]
+    }
+  ]
+}

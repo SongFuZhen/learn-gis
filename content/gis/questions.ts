@@ -14,6 +14,8 @@ import terrain from "./11-terrain.questions.json";
 import remoteSensing from "./12-remote-sensing.questions.json";
 import spatialDb from "./13-spatial-db.questions.json";
 import webgis from "./14-webgis.questions.json";
+import satelliteOrbits from "./15-satellite-orbits.questions.json";
+import satelliteConstellations from "./16-satellite-constellations.questions.json";
 
 /**
  * 题库注册表：显式 import 让内容进入 bundle 且被 TS 检查，
@@ -36,6 +38,8 @@ const RAW_BY_MODULE: Record<string, unknown> = {
   "12": remoteSensing,
   "13": spatialDb,
   "14": webgis,
+  "15": satelliteOrbits,
+  "16": satelliteConstellations,
 };
 
 export function rawQuestionsFor(moduleSlug: string): unknown {

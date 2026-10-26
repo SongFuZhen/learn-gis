@@ -21,6 +21,8 @@ const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "12-remote-sensing": () => import("./12-remote-sensing.mdx"),
   "13-spatial-db": () => import("./13-spatial-db.mdx"),
   "14-webgis": () => import("./14-webgis.mdx"),
+  "15-satellite-orbits": () => import("./15-satellite-orbits.mdx"),
+  "16-satellite-constellations": () => import("./16-satellite-constellations.mdx"),
 };
 
 export const LESSON_FILES = Object.keys(LESSONS);

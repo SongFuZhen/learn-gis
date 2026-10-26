@@ -1,0 +1,3293 @@
+{
+  "skill": "gis",
+  "module": "15",
+  "version": 1,
+  "questions": [
+    {
+      "id": "gis-15-001",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "LEO（低地球轨道）的高度范围大约是？",
+      "explanation": "LEO 指 160–2000 km 的低地球轨道；ISS、遥感卫星、互联网星座都在这一档。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        },
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "160–2000 km"
+        },
+        {
+          "key": "B",
+          "text": "2000–20000 km"
+        },
+        {
+          "key": "C",
+          "text": "约 35786 km"
+        },
+        {
+          "key": "D",
+          "text": "100 km 以下"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-002",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "GEO（地球静止轨道）的高度是？",
+      "explanation": "GEO 高度 35786 km，周期恰为一个恒星日，与地球自转同步。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "约 420 km"
+        },
+        {
+          "key": "B",
+          "text": "约 20200 km"
+        },
+        {
+          "key": "C",
+          "text": "约 35786 km"
+        },
+        {
+          "key": "D",
+          "text": "约 38 万 km"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-003",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "ISS（国际空间站）绕地球一圈大约需要？",
+      "explanation": "ISS 在约 420 km 高度，周期约 90–93 分钟，一天绕地球 15 圈多。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "45 分钟"
+        },
+        {
+          "key": "B",
+          "text": "约 90 分钟"
+        },
+        {
+          "key": "C",
+          "text": "12 小时"
+        },
+        {
+          "key": "D",
+          "text": "24 小时"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-004",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "开普勒第三定律描述的关系是？",
+      "explanation": "T²∝a³：轨道越高，周期越长，且增长比线性更快。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "周期与轨道高度成正比"
+        },
+        {
+          "key": "B",
+          "text": "周期平方与半长轴立方成正比"
+        },
+        {
+          "key": "C",
+          "text": "速度与高度成正比"
+        },
+        {
+          "key": "D",
+          "text": "周期与质量成反比"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-005",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "GEO 卫星的单向信号延迟（地面→卫星）约为？",
+      "explanation": "35786 km ÷ 光速约 0.12 s；用户到卫星再回地面站的往返约 240–500 ms。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 ms"
+        },
+        {
+          "key": "B",
+          "text": "10 ms"
+        },
+        {
+          "key": "C",
+          "text": "约 120 ms"
+        },
+        {
+          "key": "D",
+          "text": "超过 1 s"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-006",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "星下点（sub-satellite point）指的是？",
+      "explanation": "卫星与地心连线和地面的交点，是「卫星现在在哪」的地理表达。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星正下方地面上的点"
+        },
+        {
+          "key": "B",
+          "text": "卫星天线的质心"
+        },
+        {
+          "key": "C",
+          "text": "地面站的位置"
+        },
+        {
+          "key": "D",
+          "text": "轨道面的中心"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-007",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "星下点轨迹在平面地图上呈正弦波，根本原因是？",
+      "explanation": "轨道面与赤道面有夹角（倾角），叠加地球自转，轨迹自然成为波浪线并逐圈西移。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星速度不均匀"
+        },
+        {
+          "key": "B",
+          "text": "轨道面倾斜且地球在自转"
+        },
+        {
+          "key": "C",
+          "text": "地图投影误差"
+        },
+        {
+          "key": "D",
+          "text": "大气阻力扰动"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-008",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "某卫星轨道倾角为 51.6°，其星下点轨迹能到达的最北纬度是？",
+      "explanation": "轨迹纬度范围 = ±倾角。ISS 倾角 51.6°，所以它的轨迹在 51.6°N–51.6°S 之间。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "23.5°N"
+        },
+        {
+          "key": "B",
+          "text": "51.6°N"
+        },
+        {
+          "key": "C",
+          "text": "66.5°N"
+        },
+        {
+          "key": "D",
+          "text": "90°N"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-009",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "想让一颗遥感卫星「扫遍」全球，最合适的倾角是？",
+      "explanation": "接近 90° 的轨道南北贯串两极，配合地球自转，一天即可扫完全球。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "0°（赤道轨道）"
+        },
+        {
+          "key": "B",
+          "text": "约 45°"
+        },
+        {
+          "key": "C",
+          "text": "接近 90°（极地/太阳同步轨道）"
+        },
+        {
+          "key": "D",
+          "text": "任意倾角都可以"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-010",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "太阳同步轨道（SSO）卫星的特点是？",
+      "explanation": "SSO（约 600–800 km，倾角约 98°）利用轨道面进动，让每次过境的当地光照条件一致，便于遥感影像对比。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "轨道面与太阳同步旋转，每天同一地方时过境"
+        },
+        {
+          "key": "B",
+          "text": "始终停在赤道上空"
+        },
+        {
+          "key": "C",
+          "text": "周期恰为 24 小时"
+        },
+        {
+          "key": "D",
+          "text": "不受大气阻力"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-011",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "TLE（两行根数）的作用是？",
+      "explanation": "TLE 是文本格式的轨道根数，配合 SGP4 模型可推算卫星任意时刻位置。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "描述卫星某一时刻的轨道状态，供模型推算位置"
+        },
+        {
+          "key": "B",
+          "text": "存储卫星拍摄的影像"
+        },
+        {
+          "key": "C",
+          "text": "记录地面站频率"
+        },
+        {
+          "key": "D",
+          "text": "卫星的出厂序列号"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-012",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "公开发布 TLE 星历数据的网站是？",
+      "explanation": "CelesTrak（及 Space-Track）公开发布由北美防空体系测定的 TLE 数据。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GitHub"
+        },
+        {
+          "key": "B",
+          "text": "CelesTrak"
+        },
+        {
+          "key": "C",
+          "text": "StackOverflow"
+        },
+        {
+          "key": "D",
+          "text": "Google Earth"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-013",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "星下点轨迹「逐圈西移」的原因是？",
+      "explanation": "卫星飞一圈约 90 分钟，地球自转约 22.5°，下一圈轨迹整体向西平移。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "轨道面在进动"
+        },
+        {
+          "key": "B",
+          "text": "地球在卫星飞行期间自转"
+        },
+        {
+          "key": "C",
+          "text": "太阳引力摄动"
+        },
+        {
+          "key": "D",
+          "text": "地图投影变形"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-014",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "卫星对地通信中「波束（beam）」的作用是？",
+      "explanation": "波束像手电筒光斑，把能量集中到地面小区；多波束天线可同时打几十个波束复用频率。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把信号能量聚成一束照向地面特定区域"
+        },
+        {
+          "key": "B",
+          "text": "给卫星供电"
+        },
+        {
+          "key": "C",
+          "text": "测量地面温度"
+        },
+        {
+          "key": "D",
+          "text": "改变卫星轨道"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-015",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "工程上评估卫星「有效覆盖」时，为什么要设最小仰角？",
+      "explanation": "仰角太低（如 <10°）时信号路径长、遮挡多，实际不可用；有效覆盖按最小仰角门限计算。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "低仰角信号穿大气厚、易被遮挡，质量不可用"
+        },
+        {
+          "key": "B",
+          "text": "法律规定"
+        },
+        {
+          "key": "C",
+          "text": "卫星天线只能向下看"
+        },
+        {
+          "key": "D",
+          "text": "为了省电"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-016",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "MEO 最典型的应用是？",
+      "explanation": "GPS/北斗/Galileo 等导航星座多在中轨，兼顾覆盖与信号强度。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "电视直播"
+        },
+        {
+          "key": "B",
+          "text": "导航卫星（GPS 约 20200 km）"
+        },
+        {
+          "key": "C",
+          "text": "空间站"
+        },
+        {
+          "key": "D",
+          "text": "深空探测"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-017",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "星下点给出的纬度与地图上标注的纬度之间的差异是？",
+      "explanation": "地心纬度从地心量、大地纬度沿椭球法线量；赤道两极重合，中间最多差约 0.2°。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "星下点是地心纬度，地图是大地纬度，中间纬度最多差约 0.2°"
+        },
+        {
+          "key": "B",
+          "text": "完全一致"
+        },
+        {
+          "key": "C",
+          "text": "差 90°"
+        },
+        {
+          "key": "D",
+          "text": "差一个常数 1°"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-018",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "恒星日（23h56m4s）比平太阳日（24h）短约 4 分钟，因为？",
+      "explanation": "地球公转使「相对恒星一周」与「相对太阳一周」差约 4 分钟；轨道周期按恒星日算。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "地球在自转的同时绕太阳公转"
+        },
+        {
+          "key": "B",
+          "text": "地球自转在变慢"
+        },
+        {
+          "key": "C",
+          "text": "月球引力"
+        },
+        {
+          "key": "D",
+          "text": "历法规定"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-019",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "下列哪项是 LEO 相比 GEO 的优势？",
+      "explanation": "LEO 近，信号强、延迟毫秒级；GEO 远，单向延迟就超百毫秒。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "单星覆盖更大"
+        },
+        {
+          "key": "B",
+          "text": "延迟低、路径损耗小"
+        },
+        {
+          "key": "C",
+          "text": "相对地面静止"
+        },
+        {
+          "key": "D",
+          "text": "不需要轨道控制"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-020",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "下列哪颗卫星「相对地面固定」？",
+      "explanation": "只有 GEO（赤道上方 35786 km、零倾角）与地球自转同步，星下点固定。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ISS"
+        },
+        {
+          "key": "B",
+          "text": "Landsat 8"
+        },
+        {
+          "key": "C",
+          "text": "GEO 气象卫星"
+        },
+        {
+          "key": "D",
+          "text": "Starlink 卫星"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-021",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "GPS 卫星周期约 11 小时 58 分，这个值的设计意图是？",
+      "explanation": "半恒星日周期让 GPS 星座每天同一时刻回到同样的地面构型，利于定位解算与预报。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "恰好半个恒星日，星下点轨迹每天重复，便于地面推算"
+        },
+        {
+          "key": "B",
+          "text": "节省燃料"
+        },
+        {
+          "key": "C",
+          "text": "避开太阳辐射"
+        },
+        {
+          "key": "D",
+          "text": "与 ISS 同步"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-022",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "「重访周期（revisit）」指的是？",
+      "explanation": "重访决定遥感「多久能给同一区域拍新图」；加卫星数可缩短（Sentinel-2 单星 10 天、双星 5 天）。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星绕地球一圈的时间"
+        },
+        {
+          "key": "B",
+          "text": "同一卫星再次经过同一地点上空的时间间隔"
+        },
+        {
+          "key": "C",
+          "text": "卫星的设计寿命"
+        },
+        {
+          "key": "D",
+          "text": "电池充电周期"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-023",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "TLE 数据的「保质期」特性是？",
+      "explanation": "大气阻力等摄动让轨道缓变，TLE 越旧误差越大，实用中取近期数据。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "永久有效"
+        },
+        {
+          "key": "B",
+          "text": "会过期，实用中取几天内的新数据"
+        },
+        {
+          "key": "C",
+          "text": "每小时必须更新否则报废"
+        },
+        {
+          "key": "D",
+          "text": "只在发射当天有效"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-024",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "把 TLE 推算成「任意时刻卫星位置」的标准模型是？",
+      "explanation": "SGP4 是配合 TLE 的轨道传播模型，Python sgp4、JS satellite.js 等库都有实现。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "SGP4"
+        },
+        {
+          "key": "B",
+          "text": "NDVI"
+        },
+        {
+          "key": "C",
+          "text": "WGS84"
+        },
+        {
+          "key": "D",
+          "text": "EPSG:3857"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-025",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "多波束天线的核心价值是？",
+      "explanation": "点波束把地面划分成小区，频率在不相邻小区复用，总容量成倍提升。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "同时形成多个独立小波束，像蜂窝一样复用频率提升容量"
+        },
+        {
+          "key": "B",
+          "text": "让卫星飞得更快"
+        },
+        {
+          "key": "C",
+          "text": "降低发射成本"
+        },
+        {
+          "key": "D",
+          "text": "延长卫星寿命"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-026",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "LEO 单星对地面某固定点的可见窗口大约是？",
+      "explanation": "低轨卫星过顶飞快，单次可见只有几分钟——连续服务必须靠星座接力。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "24 小时连续可见"
+        },
+        {
+          "key": "B",
+          "text": "5–10 分钟"
+        },
+        {
+          "key": "C",
+          "text": "整整一天"
+        },
+        {
+          "key": "D",
+          "text": "1 秒钟"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-027",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "覆盖区（footprint）大小的主要决定因素是？",
+      "explanation": "越高覆盖越大；按最小仰角算的有效覆盖比几何视线极限小得多。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星高度与天线视场（及最小仰角门限）"
+        },
+        {
+          "key": "B",
+          "text": "卫星颜色"
+        },
+        {
+          "key": "C",
+          "text": "发射年份"
+        },
+        {
+          "key": "D",
+          "text": "地面人口密度"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-028",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "某星 550 km 高度，按最小仰角 25° 评估覆盖，比按「几何视线极限」评估？",
+      "explanation": "几何极限对应 0° 仰角；抬高仰角门限后有效覆盖半径显著缩水。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "覆盖明显更小"
+        },
+        {
+          "key": "B",
+          "text": "覆盖一样"
+        },
+        {
+          "key": "C",
+          "text": "覆盖更大"
+        },
+        {
+          "key": "D",
+          "text": "无法比较"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-029",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "轨道倾角（inclination）的定义是？",
+      "explanation": "倾角决定轨迹能到达的南北纬度范围：±i。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "轨道面与赤道面的夹角"
+        },
+        {
+          "key": "B",
+          "text": "轨道面与黄道面的夹角"
+        },
+        {
+          "key": "C",
+          "text": "卫星天线的俯仰角"
+        },
+        {
+          "key": "D",
+          "text": "椭圆轨道的扁率"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-030",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "倾角 0° 的圆轨道，其星下点轨迹是？",
+      "explanation": "零倾角轨迹沿赤道走；若高度恰为 GEO 则缩成一个点。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "正弦波"
+        },
+        {
+          "key": "B",
+          "text": "贴着赤道的一条直线"
+        },
+        {
+          "key": "C",
+          "text": "覆盖两极"
+        },
+        {
+          "key": "D",
+          "text": "一个固定点（除非同时是 GEO）"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-031",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "轨道越高，卫星的线速度？",
+      "explanation": "由 T²∝a³ 可推：轨道越高周期越长、线速度越低（LEO 约 7.8 km/s，GEO 约 3.1 km/s）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "越快"
+        },
+        {
+          "key": "B",
+          "text": "越慢"
+        },
+        {
+          "key": "C",
+          "text": "与高度无关"
+        },
+        {
+          "key": "D",
+          "text": "先快后慢"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-032",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "下列哪组高度对应关系正确？",
+      "explanation": "三个高度是轨道直觉的锚点，建议背下来。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ISS≈420 km，GPS≈20200 km，GEO≈35786 km"
+        },
+        {
+          "key": "B",
+          "text": "ISS≈35786 km，GPS≈420 km"
+        },
+        {
+          "key": "C",
+          "text": "GEO≈420 km"
+        },
+        {
+          "key": "D",
+          "text": "GPS≈800 km"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-033",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "遥感卫星偏爱太阳同步轨道的业务原因是？",
+      "explanation": "同一地方时过境 = 同样的太阳高度角，多期影像才好做变化检测。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每次过境时光照角度一致，影像可比性强"
+        },
+        {
+          "key": "B",
+          "text": "轨道最省燃料"
+        },
+        {
+          "key": "C",
+          "text": "可以永远不被发现"
+        },
+        {
+          "key": "D",
+          "text": "速度最快"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-034",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "想精确分析覆盖，星下点的地心纬度需要？",
+      "explanation": "精确覆盖/分析用大地纬度；粗略可视化可忽略这约 0.2° 的差。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "直接使用即可"
+        },
+        {
+          "key": "B",
+          "text": "转换为大地纬度（椭球法线方向）"
+        },
+        {
+          "key": "C",
+          "text": "转换成经度"
+        },
+        {
+          "key": "D",
+          "text": "取绝对值"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-035",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "NORAD 在 TLE 体系中的角色是？",
+      "explanation": "TLE 首行含 NORAD 编号（如 ISS 为 25544），数据源于北美防空体系的跟踪网。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        },
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "测定并编号跟踪在轨物体"
+        },
+        {
+          "key": "B",
+          "text": "制造卫星"
+        },
+        {
+          "key": "C",
+          "text": "发射火箭"
+        },
+        {
+          "key": "D",
+          "text": "分配 IP 地址"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-036",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "一颗 LEO 卫星一天（24h）大约绕地球几圈（按 90 分钟周期估）？",
+      "explanation": "24×60÷90 ≈ 16 圈，ISS 乘组每天看 16 次日出日落。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1 圈"
+        },
+        {
+          "key": "B",
+          "text": "4 圈"
+        },
+        {
+          "key": "C",
+          "text": "约 16 圈"
+        },
+        {
+          "key": "D",
+          "text": "100 圈"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-037",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "卫星「回归周期（repeat cycle）」指？",
+      "explanation": "轨道设计让圈数/天数成整数比，轨迹按固定天数精确重复，方便任务规划。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "电池循环次数"
+        },
+        {
+          "key": "B",
+          "text": "星下点轨迹精确重复的时间间隔"
+        },
+        {
+          "key": "C",
+          "text": "卫星退役周期"
+        },
+        {
+          "key": "D",
+          "text": "地面站换班周期"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-038",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "判断一颗星能否飞抵某地上空，最该看轨道的哪个参数？",
+      "explanation": "倾角 ≥ 该地纬度（绝对值）才可能过境，这是充分必要条件中的关键一项。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "偏心率"
+        },
+        {
+          "key": "B",
+          "text": "倾角（决定纬度覆盖范围）"
+        },
+        {
+          "key": "C",
+          "text": "卫星质量"
+        },
+        {
+          "key": "D",
+          "text": "天线增益"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-039",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "哈尔滨（约 45.8°N）能看到 ISS（倾角 51.6°）过境吗？",
+      "explanation": "45.8° 在 ±51.6° 范围内，ISS 轨迹覆盖哈尔滨。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "能，45.8 < 51.6"
+        },
+        {
+          "key": "B",
+          "text": "不能"
+        },
+        {
+          "key": "C",
+          "text": "只能看到地平线附近微光"
+        },
+        {
+          "key": "D",
+          "text": "只有夏天能"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-040",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "摩尔曼斯克（约 69°N）能看到 ISS 过境吗？",
+      "explanation": "69° > 51.6°，ISS 星下点轨迹永远到不了那里。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "能"
+        },
+        {
+          "key": "B",
+          "text": "不能，超出倾角范围"
+        },
+        {
+          "key": "C",
+          "text": "每天一次"
+        },
+        {
+          "key": "D",
+          "text": "只能看到轨迹的端点"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-041",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "低轨通信延迟低的主要原因是？",
+      "explanation": "550 km 对比 35786 km，光程差两个量级，延迟天然低。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "距离近，信号传播路程短"
+        },
+        {
+          "key": "B",
+          "text": "卫星功率大"
+        },
+        {
+          "key": "C",
+          "text": "频率更高"
+        },
+        {
+          "key": "D",
+          "text": "用户少"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-042",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "把卫星三维位置换算成星下点经纬度，本质上是？",
+      "explanation": "向量与赤道面夹角得纬度、在赤道面投影与本初子午线夹角得经度。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把位置向量转成地心球坐标"
+        },
+        {
+          "key": "B",
+          "text": "做一次地图投影"
+        },
+        {
+          "key": "C",
+          "text": "查 EPSG 表"
+        },
+        {
+          "key": "D",
+          "text": "做一次插值"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-043",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "「轨迹西移量」一圈约 22.5° 是怎么来的？",
+      "explanation": "地球每小时自转 15°，一圈 90 分钟即自转 22.5°，轨迹随之西移。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "360° × (90 分钟 / 24 小时)"
+        },
+        {
+          "key": "B",
+          "text": "地球半径/轨道高度"
+        },
+        {
+          "key": "C",
+          "text": "倾角的余弦"
+        },
+        {
+          "key": "D",
+          "text": "随机摄动"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-044",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "下列哪个是 MEO 的高度量级？",
+      "explanation": "MEO 介于 LEO 与 GEO 之间，GPS 约 20200 km 是代表。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "约 420 km"
+        },
+        {
+          "key": "B",
+          "text": "约 2 万 km"
+        },
+        {
+          "key": "C",
+          "text": "约 3.6 万 km"
+        },
+        {
+          "key": "D",
+          "text": "约 100 km"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-045",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "关于 GEO 覆盖，正确的是？",
+      "explanation": "单颗 GEO 视场覆盖约 1/3 球面（但高纬度仰角极低，实际服务中低纬），三颗可组网覆盖全球（除极区）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一颗 GEO 约能覆盖地球表面的三分之一"
+        },
+        {
+          "key": "B",
+          "text": "一颗 GEO 覆盖全球"
+        },
+        {
+          "key": "C",
+          "text": "GEO 看不到两极附近区域的说法完全错误"
+        },
+        {
+          "key": "D",
+          "text": "GEO 只能覆盖赤道"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-046",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "做「实时卫星追踪地图」的正确数据链路是？",
+      "explanation": "这是公开数据 + 开源库即可完成的经典可视化练手项目。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "TLE → SGP4 算位置 → 转星下点经纬度 → 画到地图"
+        },
+        {
+          "key": "B",
+          "text": "Excel → 截图 → 贴图"
+        },
+        {
+          "key": "C",
+          "text": "肉眼观察 → 手画"
+        },
+        {
+          "key": "D",
+          "text": "GPS 接收机直连卫星"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "gis-15-047",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "GEO 卫星在天上是静止不动的。",
+      "explanation": "GEO 卫星以约 3 km/s 高速飞行，只是与地球自转同步，相对地面静止。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-048",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "LEO 单颗卫星可以 24 小时连续覆盖地面同一地点。",
+      "explanation": "LEO 过顶窗口仅 5–10 分钟，连续覆盖必须靠星座。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-049",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "星下点轨迹的纬度范围由轨道倾角决定。",
+      "explanation": "轨迹纬度范围 = ±倾角。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-050",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "轨道倾角 90° 的卫星星下点轨迹可以经过两极上空。",
+      "explanation": "极地轨道南北贯串，地球自转配合下可扫全球。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-051",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "轨道越高，卫星绕地球一圈越快。",
+      "explanation": "开普勒第三定律：越高周期越长（T²∝a³），线速度也更低。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-052",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "TLE 数据可以永久使用。",
+      "explanation": "轨道受摄动缓变，TLE 会过期，实用中取几天内的新数据。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-053",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "恒星日比平太阳日长约 4 分钟。",
+      "explanation": "恒星日约 23h56m4s，比 24 小时短约 4 分钟。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-054",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "GPS 卫星位于 GEO。",
+      "explanation": "GPS 在约 20200 km 的 MEO，周期约半恒星日。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-055",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "多波束天线可以让频率在不同地面小区复用。",
+      "explanation": "点波束划分小区、频率复用，是提升总容量的关键手段。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-056",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "按几何视线极限评估的覆盖与按最小仰角评估的覆盖一样大。",
+      "explanation": "最小仰角门限会显著缩小有效覆盖半径。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-057",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "星下点就是卫星天线的物理中心。",
+      "explanation": "星下点是卫星-地心连线与地面的交点，是地理概念。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-058",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "星下点纬度与地图标注的大地纬度完全一致。",
+      "explanation": "星下点是地心纬度，与大地纬度中间最多差约 0.2°，精确分析需转换。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-059",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "ISS 的星下点轨迹能到达北纬 60°。",
+      "explanation": "ISS 倾角 51.6°，轨迹范围 ±51.6°，到不了 60°N。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-060",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "太阳同步轨道每次过境的地方时大致相同。",
+      "explanation": "SSO 轨道面进动与地球公转同步，保证光照条件一致。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-061",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "一颗 GEO 卫星即可覆盖整个地球表面。",
+      "explanation": "单颗 GEO 覆盖约三分之一球面，且高纬度仰角低不可用。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-062",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "SGP4 是把 TLE 推算成卫星位置的传播模型。",
+      "explanation": "TLE + SGP4 是公开轨道数据的标准用法。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-063",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "LEO 的单向延迟比 GEO 低约两个数量级。",
+      "explanation": "550 km vs 35786 km，光程差约 65 倍，延迟相应悬殊。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-064",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "地球自转导致星下点轨迹逐圈向东平移。",
+      "explanation": "是向西平移（地球向东转，相对效果轨迹西移）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-065",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "赤道上空的 GEO 卫星星下点固定不动。",
+      "explanation": "零倾角 + 恒星日周期，星下点固定在赤道上某经度。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-066",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "波束聚得越窄，单波束覆盖区越小、天线增益越高。",
+      "explanation": "能量更集中：覆盖小但信号强，是多波束设计的基础。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-067",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "重访周期越短，说明对同一区域获取新影像的间隔越长。",
+      "explanation": "重访越短 = 拍得越勤。双星组网可减半重访。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-068",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "TLE 里包含轨道倾角信息。",
+      "explanation": "TLE 第二行含倾角、升交点赤经、偏心率等根数。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-069",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "卫星越高，看到的地表范围越大，延迟也越低。",
+      "explanation": "高则范围大但延迟更高——覆盖与延迟是此消彼长。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-070",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "MEO 只有 GPS 在用。",
+      "explanation": "GPS/北斗/Galileo/GLONASS 等导航星座多在 MEO，部分通信星座也用。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-071",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "在地图上将一段时间的星下点连线，会得到一条直线。",
+      "explanation": "是正弦波浪线，且逐圈西移。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-072",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "遥感卫星用接近 90° 倾角是为了覆盖全球。",
+      "explanation": "近极地轨道 + 地球自转 = 逐日扫描全球。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-073",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "卫星轨道计算使用 24 小时制平太阳日。",
+      "explanation": "用恒星日（23h56m4s）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-074",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "倾角小于某地纬度的卫星，该地永远看不到它过境。",
+      "explanation": "轨迹纬度范围 ±i，纬度超出范围即不可见。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-075",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "ISS 一天经历约 16 次日出日落。",
+      "explanation": "周期约 90 分钟，24×60/90 ≈ 16。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "gis-15-076",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "最小仰角设得越高，卫星有效覆盖区越大。",
+      "explanation": "仰角门限越高，有效覆盖越小。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "gis-15-077",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "关于 LEO / MEO / GEO 三档轨道，正确的有？",
+      "explanation": "GEO 高度 35786 km，延迟远高于 LEO，D 错。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "LEO 延迟低但单星覆盖小"
+        },
+        {
+          "key": "B",
+          "text": "MEO 典型应用是导航星座"
+        },
+        {
+          "key": "C",
+          "text": "GEO 与地球自转同步"
+        },
+        {
+          "key": "D",
+          "text": "GEO 的延迟比 LEO 低"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-078",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "星下点轨迹呈正弦波的原因是？",
+      "explanation": "倾角决定波幅、自转决定逐圈西移；与投影和发动机无关。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "轨道面相对赤道面有倾角"
+        },
+        {
+          "key": "B",
+          "text": "地球在自转"
+        },
+        {
+          "key": "C",
+          "text": "地图投影把球面展平"
+        },
+        {
+          "key": "D",
+          "text": "卫星发动机一直在点火"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "gis-15-079",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "TLE 数据中包含的轨道信息有？",
+      "explanation": "TLE 是轨道根数文本，不含图像。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "倾角"
+        },
+        {
+          "key": "B",
+          "text": "偏心率"
+        },
+        {
+          "key": "C",
+          "text": "升交点赤经"
+        },
+        {
+          "key": "D",
+          "text": "卫星的照片"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-080",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "关于太阳同步轨道（SSO），正确的有？",
+      "explanation": "SSO 同步的是轨道面相对太阳的进动，不是相对地面静止，D 错。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "高度约 600–800 km"
+        },
+        {
+          "key": "B",
+          "text": "倾角约 98°"
+        },
+        {
+          "key": "C",
+          "text": "每天同一地方时过境"
+        },
+        {
+          "key": "D",
+          "text": "与地球自转完全同步"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-081",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "评估卫星对地有效覆盖时，需要考虑？",
+      "explanation": "覆盖是几何问题：高度、视场、仰角门限三要素。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星高度"
+        },
+        {
+          "key": "B",
+          "text": "天线视场/波束宽度"
+        },
+        {
+          "key": "C",
+          "text": "最小仰角门限"
+        },
+        {
+          "key": "D",
+          "text": "卫星的颜色"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-082",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "下列哪些属于 LEO 的典型应用？",
+      "explanation": "GPS 在 MEO，D 错。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "ISS 空间站"
+        },
+        {
+          "key": "B",
+          "text": "Starlink 星座"
+        },
+        {
+          "key": "C",
+          "text": "高分遥感卫星"
+        },
+        {
+          "key": "D",
+          "text": "GPS 导航星"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-083",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "关于波束与多波束，正确的有？",
+      "explanation": "波束是通信概念，不改变轨道，D 错。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "波束把信号能量聚向地面小区"
+        },
+        {
+          "key": "B",
+          "text": "多波束可复用频率提升容量"
+        },
+        {
+          "key": "C",
+          "text": "波束越窄增益越高"
+        },
+        {
+          "key": "D",
+          "text": "波束可以改变卫星轨道"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-084",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "想自己画星下点轨迹图，需要？",
+      "explanation": "公开数据 + 开源库即可，无需望远镜。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "TLE 数据"
+        },
+        {
+          "key": "B",
+          "text": "SGP4 传播模型/库"
+        },
+        {
+          "key": "C",
+          "text": "把卫星位置转成星下点经纬度"
+        },
+        {
+          "key": "D",
+          "text": "一台天文望远镜"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-085",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "关于 GEO 卫星，正确的有？",
+      "explanation": "GEO 单向延迟约 120 ms+，往返近半秒，实时通话体验差，D 错。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "高度 35786 km"
+        },
+        {
+          "key": "B",
+          "text": "周期一个恒星日"
+        },
+        {
+          "key": "C",
+          "text": "星下点固定在赤道上"
+        },
+        {
+          "key": "D",
+          "text": "适合打实时视频电话"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-086",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "卫星轨道逐圈西移带来的影响有？",
+      "explanation": "西移是自转的几何效果，不影响卫星速度，D 错。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "同一地点相邻两圈过境经度不同"
+        },
+        {
+          "key": "B",
+          "text": "遥感卫星可逐日扫描不同条带"
+        },
+        {
+          "key": "C",
+          "text": "轨迹图上一圈圈波浪向西错开"
+        },
+        {
+          "key": "D",
+          "text": "卫星会越来越慢"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-087",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "关于重访与回归，正确的有？",
+      "explanation": "D 是无意义干扰项。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "重访 = 再次经过同一地点的时间间隔"
+        },
+        {
+          "key": "B",
+          "text": "加卫星数量可缩短重访"
+        },
+        {
+          "key": "C",
+          "text": "回归周期 = 轨迹精确重复的间隔"
+        },
+        {
+          "key": "D",
+          "text": "重访只与卫星颜色有关"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-088",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "关于地心纬度与大地纬度，正确的有？",
+      "explanation": "最大差约 0.2°，不是 10°，D 错。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "星下点天然是地心纬度"
+        },
+        {
+          "key": "B",
+          "text": "地图标注是大地纬度"
+        },
+        {
+          "key": "C",
+          "text": "赤道和两极两者相等"
+        },
+        {
+          "key": "D",
+          "text": "两者最大差约 10°"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-089",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "下列哪些参数属于描述轨道的核心三要素（按本章口径）？",
+      "explanation": "多高、多斜、什么形状，其余由此推导。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "高度"
+        },
+        {
+          "key": "B",
+          "text": "倾角"
+        },
+        {
+          "key": "C",
+          "text": "轨道形状（圆/椭圆）"
+        },
+        {
+          "key": "D",
+          "text": "卫星品牌"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-090",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "选择遥感卫星轨道时，正确的考量有？",
+      "explanation": "轨道越高地面分辨率越差（同样的相机），D 错。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "需要全球覆盖选近极轨"
+        },
+        {
+          "key": "B",
+          "text": "需要固定光照条件选 SSO"
+        },
+        {
+          "key": "C",
+          "text": "需要高频重访靠多星组网"
+        },
+        {
+          "key": "D",
+          "text": "轨道越高分辨率必然越好"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-091",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "下列机构与角色对应正确的有？",
+      "explanation": "ITU 协调频率与轨道资源，不造卫星，D 错。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "CelesTrak——发布 TLE"
+        },
+        {
+          "key": "B",
+          "text": "NORAD——跟踪编号在轨物体"
+        },
+        {
+          "key": "C",
+          "text": "NASA——科研机构"
+        },
+        {
+          "key": "D",
+          "text": "ITU——制造卫星"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "gis-15-092",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "GEO 轨道的高度是多少公里？（填数字，取整数）",
+      "explanation": "GEO 位于赤道上方 35786 km。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "35786"
+      ]
+    },
+    {
+      "id": "gis-15-093",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "描述轨道周期与半长轴关系的定律叫什么？（开普勒第几定律，填数字）",
+      "explanation": "开普勒第三定律：T²∝a³。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "3",
+        "三",
+        "第三"
+      ]
+    },
+    {
+      "id": "gis-15-094",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "卫星与地心连线和地面的交点叫什么？（四个字）",
+      "explanation": "星下点（sub-satellite point）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "星下点"
+      ]
+    },
+    {
+      "id": "gis-15-095",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "星下点在地图上连成的曲线形状像什么波？",
+      "explanation": "倾角 + 自转叠加出正弦形轨迹。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "正弦",
+        "正弦波",
+        "波浪"
+      ]
+    },
+    {
+      "id": "gis-15-096",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "轨迹纬度范围 = ±什么参数？",
+      "explanation": "倾角 i 决定轨迹南北边界。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "倾角",
+        "轨道倾角",
+        "i"
+      ]
+    },
+    {
+      "id": "gis-15-097",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "公开 TLE 星历的网站叫什么？",
+      "explanation": "CelesTrak / Space-Track 公开发布 TLE。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "CelesTrak",
+        "celestrak"
+      ]
+    },
+    {
+      "id": "gis-15-098",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "把 TLE 传播为任意时刻位置的标准模型缩写是？",
+      "explanation": "SGP4 是配合 TLE 的轨道传播模型。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "SGP4",
+        "sgp4"
+      ]
+    },
+    {
+      "id": "gis-15-099",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "一个恒星日是多少小时多少分？（填形如 23h56m 的答案）",
+      "explanation": "恒星日 23h56m4s。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "23h56m",
+        "23小时56分",
+        "23h56m4s"
+      ]
+    },
+    {
+      "id": "gis-15-100",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "ISS 轨道高度约多少公里？（整百数）",
+      "explanation": "ISS 在约 420 km 的 LEO 运行，周期约 90 分钟。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "420",
+        "400"
+      ]
+    },
+    {
+      "id": "gis-15-101",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "GPS 卫星轨道高度约多少公里？（整万/整千数）",
+      "explanation": "约 20200 km。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "20200",
+        "20000"
+      ]
+    },
+    {
+      "id": "gis-15-102",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "每天同一地方时过境、光照一致的遥感常用轨道叫什么？（中文简称）",
+      "explanation": "SSO 轨道面随地球公转进动。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "太阳同步轨道",
+        "太阳同步",
+        "SSO"
+      ]
+    },
+    {
+      "id": "gis-15-103",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "LEO 单星对地面固定点的可见窗口大约几分钟？（填区间）",
+      "explanation": "低轨过顶只有几分钟。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "5-10",
+        "5到10",
+        "几分钟",
+        "5~10"
+      ]
+    },
+    {
+      "id": "gis-15-104",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "多波束天线把地面划分成小区复用什么资源？",
+      "explanation": "频率复用是多波束提升容量的核心。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "频率",
+        "频谱"
+      ]
+    },
+    {
+      "id": "gis-15-105",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "卫星天线聚成的一束信号叫什么？（两个字）",
+      "explanation": "波束（beam）把信号能量聚向地面小区，多波束可复用频率。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "波束"
+      ]
+    },
+    {
+      "id": "gis-15-106",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "波束在地面照出的覆盖区域英文叫什么？",
+      "explanation": "覆盖区（footprint）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "footprint",
+        "Footprint"
+      ]
+    },
+    {
+      "id": "gis-15-107",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "评估有效覆盖时给定的最低仰角门限叫什么？（五个字）",
+      "explanation": "低于最小仰角的链路不可用。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "最小仰角"
+      ]
+    },
+    {
+      "id": "gis-15-108",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "星下点的纬度是地心纬度还是大地纬度？",
+      "explanation": "地心纬度；地图标注用大地纬度，最多差约 0.2°。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "地心纬度",
+        "地心"
+      ]
+    },
+    {
+      "id": "gis-15-109",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "同一卫星再次经过同一地点上空的时间间隔叫什么？",
+      "explanation": "重访（revisit）周期。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "重访",
+        "重访周期"
+      ]
+    },
+    {
+      "id": "gis-15-110",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "星下点轨迹精确重复的时间间隔叫什么周期？",
+      "explanation": "回归周期（repeat cycle）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "回归",
+        "回归周期"
+      ]
+    },
+    {
+      "id": "gis-15-111",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "轨道面与赤道面的夹角叫什么？（两个字）",
+      "explanation": "轨道倾角（inclination）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "倾角"
+      ]
+    },
+    {
+      "id": "gis-15-112",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "LEO 的高度上限大约是多少公里？（填数字）",
+      "explanation": "LEO 约 160–2000 km。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "2000"
+      ]
+    },
+    {
+      "id": "gis-15-113",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "地球自转每小时多少度，导致轨迹西移？（填数字）",
+      "explanation": "360°/24h = 15°/h。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "15"
+      ]
+    },
+    {
+      "id": "gis-15-114",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "ISS 的轨道倾角约多少度？（填一位小数）",
+      "explanation": "ISS 倾角约 51.6°。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "51.6"
+      ]
+    },
+    {
+      "id": "gis-15-115",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "「低地球轨道」的英文缩写是？",
+      "explanation": "Low Earth Orbit。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "LEO",
+        "leo"
+      ]
+    },
+    {
+      "id": "gis-15-116",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "「地球静止轨道」的英文缩写是？",
+      "explanation": "Geostationary Orbit。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "GEO",
+        "geo"
+      ]
+    },
+    {
+      "id": "gis-15-117",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "TLE 的中文名是什么？（提示：两行……）",
+      "explanation": "Two-Line Element set，两行根数。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "两行根数",
+        "两行轨道根数"
+      ]
+    },
+    {
+      "id": "gis-15-118",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "TLE 中在轨物体的编号体系叫什么？（英文缩写）",
+      "explanation": "NORAD 编号，ISS 是 25544。",
+      "refs": [
+        {
+          "title": "CelesTrak 星历库",
+          "url": "https://celestrak.org/"
+        },
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "NORAD"
+      ]
+    },
+    {
+      "id": "gis-15-119",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "遥感影像对比需要一致的光照条件，这解释了为什么遥感卫星爱用什么轨道？",
+      "explanation": "同一地方时过境 = 同样的太阳高度角。",
+      "refs": [
+        {
+          "title": "USGS Landsat",
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "太阳同步轨道",
+        "SSO",
+        "太阳同步"
+      ]
+    },
+    {
+      "id": "gis-15-120",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 1,
+      "stem": "单颗 GEO 约能覆盖地球表面的几分之一？（填数字）",
+      "explanation": "约三分之一（高纬度除外）。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "3",
+        "三分之一",
+        "1/3"
+      ]
+    },
+    {
+      "id": "gis-15-121",
+      "skill": "gis",
+      "module": "15",
+      "difficulty": 2,
+      "stem": "轨迹一圈西移约多少度（按 90 分钟周期）？（填数字）",
+      "explanation": "15°/h × 1.5h = 22.5°。",
+      "refs": [
+        {
+          "title": "NASA Spot the Station",
+          "url": "https://spotthestation.nasa.gov/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "22.5"
+      ]
+    }
+  ]
+}

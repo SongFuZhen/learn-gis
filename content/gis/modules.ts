@@ -120,6 +120,20 @@ export const GIS_MODULES: ModuleMeta[] = [
     summary:
       "WMS / WMTS / WFS / WCS / OGC API，Leaflet、MapLibre、OpenLayers 的分工与性能取舍。",
   },
+  {
+    slug: "15",
+    file: "15-satellite-orbits",
+    title: "卫星轨道与星下点",
+    summary:
+      "LEO/MEO/GEO 三档轨道、开普勒直觉、星下点轨迹为什么是正弦波、波束与覆盖、TLE 两行根数。",
+  },
+  {
+    slug: "16",
+    file: "16-satellite-constellations",
+    title: "卫星星座与互联网",
+    summary:
+      "为什么单星不够、Walker 星座设计、Starlink / OneWeb / 千帆 / GW 的取舍、NASA/ESA/ITU 的角色。",
+  },
 ];
 
 /** 已规划但尚未交付的章节（全部交付后应为空） */
