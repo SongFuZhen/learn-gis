@@ -15,7 +15,7 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="sticky top-0 hidden h-dvh w-sidebar shrink-0 flex-col border-r border-border bg-card px-3 py-5 lg:flex">
+    <aside className="fixed inset-y-0 left-0 z-30 hidden h-dvh w-sidebar flex-col border-r border-border bg-card px-3 py-5 lg:flex">
       <Link href="/" className="flex items-center gap-2.5 px-2">
         <Image src={logoMark} alt="" priority className="h-9 w-9" />
         <span className="text-[15px] font-semibold tracking-tight">

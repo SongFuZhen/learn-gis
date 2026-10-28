@@ -71,7 +71,7 @@ export default async function ModulePage({
         <span className="text-foreground-tertiary">{moduleMeta.title}</span>
       </nav>
 
-      <header className="mt-3 max-w-3xl">
+      <header className="mt-3 max-w-3xl lg:max-w-none">
         <h1 className="text-[24px] font-semibold leading-snug tracking-[-0.02em] sm:text-[30px] lg:text-[32px]">
           {moduleMeta.title}
         </h1>
@@ -92,7 +92,7 @@ export default async function ModulePage({
       </header>
 
       <div className="mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-12 lg:items-start">
-        <article className="prose-lesson max-w-[42rem]">
+        <article className="prose-lesson max-w-[42rem] lg:max-w-none">
           {Lesson ? <Lesson /> : <p>讲义正在编写中。</p>}
         </article>
 

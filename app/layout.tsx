@@ -75,7 +75,7 @@ export default function RootLayout({
           </a>
           <div className="flex min-h-screen">
             <Sidebar />
-            <div className="flex min-w-0 flex-1 flex-col">
+            <div className="flex min-w-0 flex-1 flex-col lg:pl-56">
               <SiteHeader />
               <main id="main" tabIndex={-1} className="flex-1 outline-none">
                 {children}

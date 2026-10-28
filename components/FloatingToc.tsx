@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { List, X } from "lucide-react";
 import type { TocItem } from "@/lib/toc";
 import { cn } from "@/lib/utils";
@@ -8,11 +8,29 @@ import { cn } from "@/lib/utils";
 /** 移动端悬浮「本章目录」：右下角圆钮，点开面板后点条目快速跳转（桌面端用侧栏 TOC） */
 export default function FloatingToc({ items }: { items: TocItem[] }) {
   const [open, setOpen] = useState(false);
+  // 页末「章节导航」进入按钮所在区域时隐藏按钮，避免压住上一章/下一章卡片
+  const [pagerInView, setPagerInView] = useState(false);
+
+  useEffect(() => {
+    const target = document.querySelector('nav[aria-label="章节导航"]');
+    if (!target) return;
+    const io = new IntersectionObserver(
+      (entries) => setPagerInView(Boolean(entries[0]?.isIntersecting)),
+      { rootMargin: "0px 0px -88px 0px" },
+    );
+    io.observe(target);
+    return () => io.disconnect();
+  }, []);
 
   if (items.length === 0) return null;
 
   return (
-    <div className="fixed right-4 bottom-[5.5rem] z-30 lg:hidden">
+    <div
+      className={cn(
+        "fixed right-4 bottom-[5.5rem] z-30 transition-opacity duration-200 lg:hidden",
+        pagerInView && "pointer-events-none opacity-0",
+      )}
+    >
       {/* 展开时点面板外任意处收起 */}
       {open && (
         <div
