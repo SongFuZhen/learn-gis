@@ -8,7 +8,7 @@
 
 **我见过的坑（你大概率也会踩）**：
 
-- **WMS 1.3.0 的 BBOX 轴序**：`CRS=EPSG:4326` 时纬度在前（`miny,minx,maxy,maxx`），按经度在前写会**图能出来但内容错位**——最难排查的一种错。想经度在前就写 `CRS=CRS:84`。
+- **WMS 1.3.0 的 BBOX 轴序**：`CRS=EPSG:4326` 时纬度在前（`miny,minx,maxy,maxx`），按经度在前写会**图能出来但内容错位**，这是最难排查的一种错。想经度在前就写 `CRS=CRS:84`。
 - **要素多还硬用 WFS 前端渲染**：几千个面全推给浏览器画，卡成 PPT。出图场景用 WMS/WMTS，让服务端干渲染的活。
 - **前端库乱选**：Leaflet 轻量适合快速出活，OpenLayers 功能全适合复杂项目，MapLibre GL 用矢量瓦片最流畅。没有银弹，看需求。
 
@@ -32,7 +32,7 @@ OGC（/ˌoʊ ˌdʒiː ˈsiː/，「欧-吉-西」）服务解决「数据怎么�
 | **WCS**（/ˌdʌbəljuː ˌsiː ˈɛs/，「达布留-西-艾斯」） | **栅格覆盖**（原始值） | 高程、影像分析 |
 | WPS（/ˌdʌbəljuː ˌpiː ˈɛs/，「达布留-皮-艾斯」） | 处理结果 | 服务端空间分析 |
 
-关键区别：WMS/WMTS 给你「画好的图」，你只能看；WFS/WCS 给你「数据」，你可以再计算。
+关键区别：前者给图只能看，后者给数据可以再算。
 
 <Callout type="must" title="必背 · 四个服务给什么">
 - WMS → 图片；WMTS → 预生成图片瓦片；WFS → 矢量要素；WCS → 栅格原始值
@@ -177,7 +177,7 @@ GET /collections/roads/items/{id}
 2. 瓦片模板里的 `{z}/{x}/{y}` 占位符由 Leaflet 按当前视野自动填充（第 07 章瓦片矩阵的落地）；
 3. 真实项目里地图库要**按需加载**（动态 `import()`），别让 40 KB 的 Leaflet 挤进首屏 bundle。
 
-<MapExample lat={39.9} lng={116.4} zoom={11} label="本站内嵌的 Leaflet 地图（高德瓦片 + 中文标注）——与你刚写的 map.html 同源同款" />
+<MapExample lat={39.9} lng={116.4} zoom={11} label="本站内嵌的 Leaflet 地图（高德瓦片 + 中文标注），和你刚写的 map.html 同源同款" />
 
 <Exercise
   tool="leaflet"
@@ -207,7 +207,7 @@ GET /collections/roads/items/{id}
 
 ## 8. 延伸：时空数据与三维 GIS
 
-课程收尾，把两块「下一站」的地图留在路标上：
+课程收尾，把几块「下一站」的地图留在路标上：
 
 - **时空数据（spatio-temporal，/ˈspeɪʃioʊ ˈtempərəl/，「斯佩-修-坦-普洛」）**：轨迹（GPS 轨迹、船舶 AIS（/ˌeɪ ˌaɪ ˈɛs/，「艾-艾-艾斯」））、移动对象数据库、时序栅格堆栈。PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的 `ST_MakeLine` 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放，『共享单车潮汐』就是时空数据的经典教学案例；
 - **地理编码（geocoding，/ˈdʒiːoʊˌkoʊdɪŋ/，「吉欧-扣丁」）**：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；
