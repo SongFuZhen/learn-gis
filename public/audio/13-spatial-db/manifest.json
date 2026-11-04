@@ -1,0 +1,488 @@
+{
+  "slug": "13-spatial-db",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T17:31:14.032Z",
+  "segmentCount": 80,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：空间分析在代码和数据库里怎么落地：前端用 Turf.js，后端用 PostGIS。空间运算本身不难，难的是 单位、SRID、索引 三件事，搞错任何一件，结果都静默地错。",
+      "hash": "64c09fef91dee718",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：把空间函数当普通 API 用，但 永远先问单位 。两个最出名的坑我都见过：",
+      "hash": "e7ede2cee9ee2a47",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "turf.buffer(point, 1000) 想画 1000 米的服务圈，结果 Turf 默认单位是 公里 ，画了个 1000 公里的巨无霸，覆盖了半个中国。",
+      "hash": "aa20ec7e44bed103",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "PostGIS 里 geometry 类型在 4326 下 STDistance 返回的是「度」——不是米，没有业务意义。要米，用 geography 类型或先转投影。",
+      "hash": "c43689626d91e45b",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "忘了建空间索引 ：百万条数据的相交查询跑几分钟；建个 GiST 索引（ CREATE INDEX ... USING GIST(geom) ）变毫秒。",
+      "hash": "66ee8cafcef668f1",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "SRID 不一致直接 join ：两张表一个 4326 一个 3857，查询结果全错还不报错。先 STTransform 统一。",
+      "hash": "8b115300adaa1ec0",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "前端扛大数据 ：十万条要素全推给浏览器直接卡死。重计算下沉到 PostGIS，前端只拿结果。",
+      "hash": "4ebeb8ef1c43c59a",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "Turf 默认单位是公里，不是米",
+      "hash": "51b358590f44c58f",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "PostGIS 里 geography 按米算球面距离，geometry 看 SRID 单位",
+      "hash": "ba419e88e92aabcc",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "空间表必须建 GiST 索引；SRID 不一致先转换",
+      "hash": "989c5672387a76e7",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "一句话",
+      "hash": "a25aca1814333b3a",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "空间运算本身不难，难的是「单位、SRID（ ，「艾斯-阿-艾-迪」）、索引」三件事；搞错任何一件，结果就会静默地出错。",
+      "hash": "df46c92b5e2472e1",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "1. 前端：Turf.js",
+      "hash": "c9f309010159fd75",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "turf.distance(a, b) 默认单位 kilometers 。",
+      "hash": "167e26d1fb14ee91",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "turf.area(polygon) 返回 平方米 （球面计算）。",
+      "hash": "248f2cb94ff8c203",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "turf.buffer 的半径单位由 options.units 指定， 默认 kilometers 。",
+      "hash": "be41436377b360b6",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "Turf（ ，「特尔夫」）在经纬度上做球面近似，适合交互与轻量分析；大数据、精确椭球计算交给后端。",
+      "hash": "77579fe9ab572920",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "turf.distance 默认单位是 公里 ，不是米",
+      "hash": "801456e78c7c6056",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "turf.area 返回 平方米 （球面近似）",
+      "hash": "edd8c589f6794e22",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "turf.buffer 半径单位由 options.units 决定， 默认公里",
+      "hash": "851c4c72dd267920",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "Turf 是球面近似，适合交互；精确椭球计算交给后端",
+      "hash": "619c3461c2fc88c4",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "想给一个门店画 1 公里的服务范围：",
+      "hash": "eeb665496fdb016f",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "漏掉 units 时半径默认按 公里 算，写 1000 想表达「1000 米」，实际画出一个 1000 公里的巨型缓冲区。地图上放大看局部根本察觉不到，等业务方发现就晚了。",
+      "hash": "68443fcee5bcf772",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "2. 后端：PostGIS 的两种几何",
+      "hash": "e6c9d523bb51222b",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "北京 (116.4, 39.9) 与上海 (121.5, 31.2) 之间量距离：",
+      "hash": "5342a56255532c63",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "geometry（SRID 4326） ：把经纬度当平面坐标算直线距离： sqrt((121.5-116.4)² + (31.2-39.9)²) = sqrt(5.1² + 8.7²) 约等于 10.1 返回 10.1 ，单位是「度」，既不是公里也不是米，没有业务意义。",
+      "hash": "45afbe31d09300f5",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "geography ：沿椭球面量测，返回约 1068000 ，单位是 米 ，约 1068 公里，和地图软件量的基本一致。",
+      "hash": "f098d72f3f0a6294",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "同一个函数 STDistance ，类型不同，答案差 10 万倍，而且 不报任何错 。",
+      "hash": "a546ec3cd41b3e0a",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "3. 必记函数",
+      "hash": "7734fa2969cca54b",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "STTransform 会 换算坐标 ； STSetSRID 只 贴标签不换算 ，不改变任何坐标值",
+      "hash": "46c33ead63ead13f",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "STContains(a, b) 是「a 包含 b」， STWithin(a, b) 是「a 在 b 内」， 方向相反 ，参数别写反",
+      "hash": "963f07339a28fdfc",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "判断「距离不超过 r」用 STDWithin(a, b, r) ，不要用 STDistance 再比较，前者能用索引",
+      "hash": "574c4c8461b3641d",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "STBuffer STLength 的单位 = 当前 CRS（ ，「西-阿-艾斯」）的单位 ，4326 上就是「度」",
+      "hash": "68aa6e98fae8cc77",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "4. 叠加函数族：合并、求交、求差",
+      "hash": "785d1a52367e337d",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "第 10 章讲叠置分析的「语义」（交 差解决什么问题），这里补上 PostGIS（ ，「剖斯特-吉斯」）的「语法」：",
+      "hash": "68d6319c7e346fef",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "空间连接（把位置当外键）的完整 SQL 长这样：",
+      "hash": "2c9742d44ebdab86",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "大几何与大表 ：一个几万个顶点的行政边界，每次相交判断都很贵。 STSubdivide(geom) 把大几何切成小碎块，配合 GiST（ ，「吉斯特」）的 && 粗筛，能让大表叠加快一个数量级：",
+      "hash": "3533ee9e7e913648",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "有效性检查 （第 05 章的概念，这里是工程落地）：",
+      "hash": "f0e54dd383c9fd4a",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "STUnion 真合并（融边界、去重叠）； STCollect 只打包（快，边界还在）。聚合统计用 Union，简单分组用 Collect",
+      "hash": "aeceeffc7e407b27",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "STIntersection 求交、 STDifference 求差，选址 = 交，剔除 = 差",
+      "hash": "0a38ce6bb6d6b181",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "大表叠加前先 STSubdivide 切碎大几何，配合索引快一个数量级",
+      "hash": "b6421fec715dadb2",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "入库先跑 STIsValid ，脏数据用 STMakeValid 修复",
+      "hash": "27eb7e72f2f303ce",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "表： poi(id, geom) （点）、 districts(id, name, geom) （面），都是 EPSG:4326。 写 SQL：给每个 POI（ ，「皮-欧-艾」）挂上所在区的 name ；没有落在任何区里的 POI 也要保留（提示：LEFT JOIN）。",
+      "hash": "ddb81bfc0966257d",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "需求：找「地铁站 500 m 服务范围 ∩ 商业用地」的候选地块（米制 CRS 32650）。",
+      "hash": "b1ffa55e7f107342",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "5. 索引：让查询真的快",
+      "hash": "6e75812097d6d32c",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "GiST 索引靠外接矩形（ && ）先粗筛。 STDWithin 内部会先做 bbox 判断，所以比 STDistance < x 快得多。",
+      "hash": "64b65338274e84dd",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "最近邻：",
+      "hash": "20521c8a6229da7b",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "GiST 靠外接矩形（ && ）先粗筛，再做精确判断",
+      "hash": "718e0358beb8c528",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "能走索引： && + STIntersects 、 STDWithin 、 ORDER BY geom <-> 点",
+      "hash": "9c55ac6813e179e5",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "走不了索引： STDistance(geom, p) < r ，全表逐行算距离",
+      "hash": "c10ccb59c1c7763f",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "最近邻固定写法： ORDER BY geom <-> 点 LIMIT n",
+      "hash": "47f22bf2cda08975",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "乘客在 (116.4, 39.9)，要找最近的 5 辆车，表里有 500 万条车辆位置：",
+      "hash": "2c2421abc952f59d",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "<-> 是 KNN（ ，「凯-恩-恩」）运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 STDistance ，再排序取前 5 条，结果一样，慢几百倍。",
+      "hash": "ee185f0bfe7e23f3",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "6. 三个静默错误",
+      "hash": "e0fe49109d26ab6a",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "在 4326 上做 buffer ： STBuffer(geom, 1000) 得到的是「1000 度」的怪物。先 STTransform 到米制 CRS，或用 geography 。",
+      "hash": "82c22d8c1b850c54",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "只改 SRID 不转换 ： STSetSRID 只是换标签，位置不变。",
+      "hash": "30b1eca2f5965903",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "在 3857 上量面积 ：高纬度面积被严重高估；用等积投影或 geography 。",
+      "hash": "292f4dcea6cdbc2c",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "4326 上 STBuffer(geom, 1000) 得到的是「 1000 度 」的怪物，先 STTransform 到米制 CRS，或用 geography",
+      "hash": "1e8c760e1f81c8e4",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "STSetSRID 不换算坐标 ，只改 SRID 标签",
+      "hash": "ec6c4134c8a16352",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "3857 不能量面积 ，高纬度严重高估，用等积投影或 geography",
+      "hash": "efc1888d3484f7ea",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "这三类错都 不报错 ，只返回错误结果，必须形成肌肉记忆",
+      "hash": "47e4fa5e732d0e68",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "在北京（约 40°N）量一块真实面积 100 平方公里的地块：",
+      "hash": "ee9c41a5b64568db",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "Web Mercator（ ，「韦布-默-凯-特」）的线性放大倍数 = 1 / cos(40°) 约等于 1.31",
+      "hash": "c7484f2c88bfda76",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "面积放大倍数 = 线性倍数的平方 约等于 1.31 × 1.31 约等于 1.70",
+      "hash": "00deb48c230737a9",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "STArea 在 3857 上返回约 170 平方公里 ，凭空多出 70%，且不报错。",
+      "hash": "3698669f08f1fd74",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "换成等积投影，或用 geography 类型的 STArea ，才会得到接近 100 平方公里的正确值。",
+      "hash": "f003a26cf07c1339",
+      "audio": "seg70.mp3"
+    },
+    {
+      "index": 71,
+      "text": "7. 组合建议",
+      "hash": "f2563214c971f955",
+      "audio": "seg71.mp3"
+    },
+    {
+      "index": 72,
+      "text": "展示/交互：Turf 在前端，数据量小、延迟低。",
+      "hash": "4946e8bec91114a8",
+      "audio": "seg72.mp3"
+    },
+    {
+      "index": 73,
+      "text": "需要索引、事务、大数据、精确统计：PostGIS。",
+      "hash": "4869acc61cd6d31d",
+      "audio": "seg73.mp3"
+    },
+    {
+      "index": 74,
+      "text": "前端只传参数，后端返回 GeoJSON（ ，「吉欧-杰森」）： STAsGeoJSON(STTransform(...)) 。",
+      "hash": "664de8d96656a5c3",
+      "audio": "seg74.mp3"
+    },
+    {
+      "index": 75,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg75.mp3"
+    },
+    {
+      "index": 76,
+      "text": "PostGIS 函数索引： postgis.net/docs",
+      "hash": "31c5c32f4605f1e9",
+      "audio": "seg76.mp3"
+    },
+    {
+      "index": 77,
+      "text": "STDWithin： postgis.net STDWithin",
+      "hash": "ecb7039c884e92c7",
+      "audio": "seg77.mp3"
+    },
+    {
+      "index": 78,
+      "text": "STDistance： postgis.net STDistance",
+      "hash": "a9a42a597b4834e6",
+      "audio": "seg78.mp3"
+    },
+    {
+      "index": 79,
+      "text": "Turf.js buffer： turfjs.org api/buffer",
+      "hash": "e4a81fab5dfdbfcc",
+      "audio": "seg79.mp3"
+    }
+  ]
+}

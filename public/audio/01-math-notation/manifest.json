@@ -1,0 +1,350 @@
+{
+  "slug": "01-math-notation",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T13:02:22.640Z",
+  "segmentCount": 57,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：翻开 GIS 文档看到 d = 2R乘atan2(√a, √(1−a)) 就头皮发麻——你不是不会算，是不敢读。这章把公式变成「能读出声的东西」。",
+      "hash": "5d6470916f5f4ac9",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：公式就是代码。 sin 、 cos 、 tan 是函数调用， λ 、 φ 只是变量名（λ=经度、φ=纬度， Δ 是「差值」的意思）。 能把公式从左到右读出声，你就已经赢了 。",
+      "hash": "0a6e3af5329c3cbb",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "用得最多的就这几个 ：",
+      "hash": "0c2cebcc91aae594",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "sin tan ：对比斜、邻比斜、对比邻（直角三角形里的边长比例）",
+      "hash": "8dba1276ea2abe12",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "atan2(y, x) ：由坐标差直接求方向角， 导航方位全用它 ，别用 atan （象限会错 180°）",
+      "hash": "703150296b3db706",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "λ （经度）、 φ （纬度）、 Δ （差值）、 ∑ （求和）",
+      "hash": "93824f3a4285b5bb",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "Math.tan(30) 算出巨大负数——代码里的三角函数只吃 弧度 ，30° 要先乘 π/180 。",
+      "hash": "c78f795576bb6e93",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "用 atan(Δy/Δx) 算方位角，第二三象限方向差了 180°——永远用 atan2 。",
+      "hash": "8e0bc68ee8338d23",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "公式 = 代码，读出声就懂了",
+      "hash": "2814d3134fc27ba1",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "λ 是经度、φ 是纬度",
+      "hash": "3c6bf7c283a25830",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "代码里三角函数只认弧度；方向角用 atan2",
+      "hash": "299cb6b089f29962",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "GIS 的公式和文档里全是符号与英文缩写： tan(45°) 、 λ 、 Δλ 、 ∑ 、 √ ……很多初学者看到公式就发怵： 不敢读出声，也不知道它在说什么 。本章把 GIS 里最高频的三角函数和数学符号一次讲透：每个都给你 国际音标（IPA）注音 和 方便记忆的中文谐音读法 ，再配一个 GIS 里的真实用法。读完这一章，你可以把任何一段 GIS 公式流畅地\"读\"出来。",
+      "hash": "926cdbe0ae8946ac",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "本章的读音约定：英文术语标注 音标，再加一个「谐音」帮助起步。谐音只是拐杖，读准了就丢掉拐杖。",
+      "hash": "f4f1148cdc48f18e",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "1. 三角函数：sin、cos、tan",
+      "hash": "6efce2491e251bfa",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "三角函数回答一个问题： 直角三角形里，角和边长比例是什么关系 。GIS 里它无处不在——坡度、方位角、经纬圈长度、投影公式，底层全是它。",
+      "hash": "2858c7c2ebf18e58",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "以一个直角三角形为例，斜边是 c ，角 θ 的对边是 a 、邻边是 b ：",
+      "hash": "b6b273271cf2b7fb",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "SOH-CAH-TOA （读「扫-卡-图-阿」）： S in = O pposite H ypotenuse， T an = O pposite/ A djacent。中文可以记\"对比斜、邻比斜、对比邻\"。",
+      "hash": "4168db9725ee4d37",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "GIS 里的真实用法",
+      "hash": "06e229959fe7c39e",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "用法一：坡度。 坡度角 θ（比如 30°）对应的坡度百分比就是 tan θ × 100% 。 tan 30° 约等于 0.577 ，即 57.7%。第 11 章地形分析里的 slope（ ，「斯楼普」，坡度）图层，每个像元存的就是这个角度或百分比。",
+      "hash": "5e91bc338611028b",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "用法二：纬线圈周长。 纬度 φ 处的纬线圈周长 = 赤道周长 × cos φ 。北京在北纬 40°， cos 40° 约等于 0.766 ，所以北京纬线上绕一圈只有赤道的约 76.6%。这就是 00 章\"经度一度有多长随纬度变短\"的数学原因。",
+      "hash": "a8278d81c28312d1",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "用法三：坐标旋转。 投影公式里的 cos λ 、 sin φ 都是同一套东西——把球面上的点\"旋转、摊平\"到图纸上。",
+      "hash": "f94c05f922ad32e0",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "2. 反三角函数：asin、acos、atan、atan2",
+      "hash": "974130e5334f7e53",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "三角函数是\"角 到 比例\"，反三角函数反过来：\"比例 到 角\"。名字里的 arc-（ ，「阿克」）意思是\"取回那个角\"。",
+      "hash": "61a85a42fb17fcd7",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "atan2(y, x) 接收 两个参数 （y 在前、x 在后），直接算出点 (x, y) 相对原点的方位角， 返回值的正负号已经处理好了 ，范围是 −π 到 π。算\"从 A 点到 B 点朝哪个方向走\"都用它（方位角 azimuth， ，「艾兹-莫-斯」，下一章会正式用到）：",
+      "hash": "534b0c4d5764323c",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "只用 atan(Δy/Δx) 会在第二、三象限算错方向——差了 180°。这是新手最常见的坑。",
+      "hash": "ac7cb57bae8ffca1",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "3. 度与弧度：°和 rad",
+      "hash": "8acc1bb4f9720f08",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "同一个角有两套单位： 度 （degree， ，「迪-格里」）和 弧度 （radian， ，「瑞-迪恩」）。一周 = 360° = 2π rad ，所以：",
+      "hash": "15556e3b0f4fa0f9",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "JavaScript、Python 的 Math.sin() 、 math.cos() 只吃弧度 。想算 30° 的正切，必须先转：",
+      "hash": "cebd4917bd89c530",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "报错不会提醒你——结果只是\"看起来离谱\"。凡是算出来正切是个巨大的负数，先查单位。",
+      "hash": "4dee47e8820bac9b",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "4. 希腊字母速查表",
+      "hash": "c29a19a62b7d4f0c",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "数学公式里的\"外文字\"大多是希腊字母（Greek letters， ，「格里克-莱特兹」）。GIS 文档里高频出现的是下面这些，每个都要会读、知道常表示什么：",
+      "hash": "ac41414ededf2417",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "地球正球模型下，两点间大圆距离的一个中间量写作 Δσ ，读「戴奥塔-西格玛」，意思是\"球面角的差量\"。看到希腊字母先 读出声 ，再问\"它在这里代表什么\"，公式立刻没那么吓人。",
+      "hash": "a0da394b4f78047a",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "5. 运算符号：∑、√、∫ 都怎么读",
+      "hash": "c74b4716122400e5",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "从左到右读，遇到符号就读它的名字： d = √((x₂−x₁)² + (y₂−y₁)²) 读作\"d 等于，根号下，x 二减 x 一的平方，加，y 二减 y 一的平方\"。 能读出来 = 真看懂了 。这就是本章训练的目标。",
+      "hash": "cd0ecad2ab7aeeca",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "6. 实战：把 haversine 公式完整读一遍",
+      "hash": "d3afac5e8ed077b7",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "下面是计算两经纬度点间球面距离的 haversine （ ，「海奥-沃尔-赛恩」）公式核心：",
+      "hash": "1c287ef353bc8d06",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "请把它 完整读出声 ，并说出每个符号的含义。",
+      "hash": "b06b62a4774fe0ee",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "三个三角函数 ：sin「赛恩」、cos「抠赛恩」、tan「坦进特」——对比斜、邻比斜、对比邻",
+      "hash": "a76b14e6f639f255",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "一个反三角 ： atan2(y, x) 「阿斯坦-图」算方位角，y 在前",
+      "hash": "5311612d2d0d7843",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "一个单位坑 ：代码里的三角函数只吃 弧度 ，度要先乘 π/180",
+      "hash": "b7c4d59bd95b7083",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "五个高频希腊字母 ：λ「兰姆达」经度、φ「法伊」纬度、Δ「戴奥塔」差值、Σ「西格玛」求和、θ「斯塔」角度",
+      "hash": "88b2953a27a01df7",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "两个运算符 ：√「斯奎尔-鲁特」、∑「萨-梅-申」",
+      "hash": "881534bcb384945b",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "7. 小结",
+      "hash": "69d7d5e36a98b4fc",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "三角函数是\"角 ↔ 边比例\"的翻译官：坡度用 tan，纬圈长度用 cos，方位角用 atan2。",
+      "hash": "bb7d13cfb929b6b0",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "反三角函数名字里的 arc- 就是\"取回角\"；atan2 是 GIS 里最实用的一个。",
+      "hash": "363ef257f9fb2d56",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "希腊字母不是装饰：λ、φ、Δ、Σ 各有固定含义，会读才敢用。",
+      "hash": "f669fd44694d7fcf",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "一切三角函数在代码里都以弧度为输入； Math.tan(30) 是经典的静默错误。",
+      "hash": "e64c14ff22318d87",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "下一章（02 椭球与基准面）会用到本章的 cos：算\"纬度 1 度有多长\"。读音表建议收藏，遇到陌生符号回来查。",
+      "hash": "7cafd0fbd1f4ed7a",
+      "audio": "seg56.mp3"
+    }
+  ]
+}

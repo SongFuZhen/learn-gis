@@ -1,0 +1,368 @@
+{
+  "slug": "12-remote-sensing",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T17:13:13.916Z",
+  "segmentCount": 60,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：卫星在天上怎么「看出」哪是森林、哪是水体、哪片庄稼长得不好？遥感就是「不接触就测量」。",
+      "hash": "7732bcb362244c1a",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：遥感不是拍照——是同时拍几十张「单色照片」（波段），包括人眼看不见的红外。每种地物有自己的「亮度指纹」： 健康植被在红光波段暗（被光合作用吸收）、在近红外波段特别亮 ；水体在近红外几乎全黑。NDVI 就是把植被指纹算成一个数： (近红外 − 红光) / (近红外 + 红光) ，越接近 1 植被越茂盛。",
+      "hash": "1a90ae8b2108d780",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "以为分辨率越高越好 ：亚米级卫星覆盖小、重访慢、价格贵。城市精细分类用亚米级，全国尺度监测用 30 m 免费数据（Landsat/Sentinel）就够。 按问题选分辨率 。",
+      "hash": "f550d469fb54fc6f",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "看到假彩色图以为是假数据 ：假彩色只是把看不见的近红外波段映射到红色显示，数据是真的，只是换了显示通道。植被在标准假彩色里呈红色是正常的。",
+      "hash": "97e4ace25050e61a",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "不做大气校正就跨日期对比 ：雾霾天和大晴天的同一地块亮度差很多，直接比会得出假结论。",
+      "hash": "14f42e3fcc961246",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "植被指纹：红光吸收、近红外强反射 到 NDVI",
+      "hash": "9abd65e371d9188d",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "四个分辨率（空间 时间/辐射）按问题选",
+      "hash": "30d82dd298e5612d",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "免费数据先用 Landsat/Sentinel",
+      "hash": "7e216eb3b3b8531c",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "卫星每天从 700 km 高空扫过你的头顶，把地表拍成一张张数字影像。遥感（Remote Sensing， ，「瑞-莫特-森-辛」）是『不接触就测量』的科学，本章覆盖：电磁波谱与地物波谱响应、四类分辨率、主流卫星数据源、NDVI 与假彩色，以及遥感分类的入门套路。",
+      "hash": "82498b703611c2eb",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "1. 电磁波谱与波谱响应",
+      "hash": "8e77ac2565fa4f4d",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "遥感和普通拍照的差别在波段：传感器按 波段 接收电磁波。地物在不同波段的行为不同，这叫 波谱响应 ，是遥感识别地物的物理基础：",
+      "hash": "a1e9a31aceeb0176",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "健康植被 ：强烈吸收红光（光合作用）、强烈反射 近红外（NIR，Near Infrared， ，「尼尔」） （叶肉结构），近红外亮、红光暗是植被的指纹；",
+      "hash": "91fb8d2b76b373ea",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "水体 ：吸收近红外/短波红外，近红外波段几乎全黑；",
+      "hash": "6b358c7e7d500d5c",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "雪/云 ：可见光与近红外都亮，区分靠短波红外：短波红外上雪暗、云亮。",
+      "hash": "7f15240269782c5b",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "植被 ：红光吸收、 近红外强反射 ，NDVI（Normalized Difference Vegetation Index， ，「恩-迪-维-艾」）的物理根源",
+      "hash": "3a3add8568b7fb20",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "水体 ：近红外/短波红外 强吸收 （黑）",
+      "hash": "dc79c5b6764b138e",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "雪 vs 云 ：可见光都亮， 短波红外上雪暗、云亮 ，区分靠 SWIR（Short-Wave Infrared， ，「斯沃尔」）",
+      "hash": "805a1727a4527833",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "2. 四类分辨率",
+      "hash": "9cfae6c5093a2321",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "『这颗卫星好不好』要拆成四个维度：",
+      "hash": "2c0976f1970c04c1",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "空间分辨率高 到 覆盖小、重访慢、数据贵（卫星视场有限）。城市精细分类用亚米级（高分二号/WorldView），全国尺度变化检测用 30 m， 按问题选分辨率，不是越细越好 。",
+      "hash": "d293ab132331c1b0",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "3. 主流数据源：Landsat、Sentinel 与高分",
+      "hash": "2b863dd536afb485",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "EarthExplorer（USGS，Landsat）、Copernicus Data Space（Sentinel）、地理空间数据云（国内镜像 Landsat/Sentinel）。下载来的通常是 分幅 GeoTIFF（ ，「吉-欧-提夫」） ，多波段文件，正是第 07 章 COG（Cloud Optimized GeoTIFF， ，「科格」）的主场。",
+      "hash": "25485fbea2e4ef4a",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "4. NDVI 与假彩色：最常用的两把瑞士刀",
+      "hash": "ccca7895849e3992",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "NDVI（归一化植被指数）把植被的波谱指纹变成一个数：",
+      "hash": "fac1413276451d53",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "NDVI = (NIR − Red) / (NIR + Red)",
+      "hash": "1dabcba3d126b51e",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "健康植被近红外强反射、红光强吸收 到 NDVI 接近 1；水体/裸地两波段接近 到 趋近 0 或负值。它是长势监测、耕地变化的第一指标。",
+      "hash": "7d4205a962e922b5",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "假彩色合成（false color， ，「福尔斯-卡勒」） ：把近红外波段赋给红色通道显示，植被呈现 艳红色 ，城市灰青、水体黑。看一眼就知道绿化哪里多，这是遥感判读的『默认起手式』。",
+      "hash": "1c5a98348a992244",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "公式：(NIR − Red) / (NIR + Red)，值域 −1 1",
+      "hash": "7046e10483f18fe7",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "健康植被趋近 1 ；水体/裸地趋近 0 或负",
+      "hash": "f75e24d29bbdadbe",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "假彩色合成： 近红外 到 红通道 ，植被显 红色",
+      "hash": "85597aa9c171ad1d",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "从 Copernicus Data Space 下载一景 Sentinel-2 L2A（选你熟悉的城市，B02 B04/B08 波段）；",
+      "hash": "31e7ccd78f8864f9",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "QGIS 加载各波段单文件，用「构建多波段虚拟栅格」合成 B04 B02 到 真彩色 ；",
+      "hash": "0fb0b5a0002c3609",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "再合成 B08 B03 到 假彩色 ：预期植被变艳红、水体发黑；",
+      "hash": "c4bac109462026b3",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "「栅格计算器」输入 (B08 - B04) / (B08 + B04) 得 NDVI；样式改单带宽渐变（红到绿）；",
+      "hash": "24869f7056695cc0",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "截图两张：假彩色与 NDVI 对照，预期公园/农田是 NDVI 高值区。",
+      "hash": "44ea651838df37f8",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "5. 遥感分类入门：监督与非监督",
+      "hash": "d850bbe86047701d",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "把每个像元归入『水体 建成区』等类别，就是 图像分类 。两条路线：",
+      "hash": "7576a00924e36738",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "分类完必须做 精度评估 ：随机抽样点对照真值，算 混淆矩阵 与总体精度 ˈkæpə/，「凯-帕」），没有精度报告的分类图不能交付（第 09 章质量六维的落地）。",
+      "hash": "8a729670e32733ed",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "非监督 ：算法聚类、人事后命名； 监督 ：人先给训练样本",
+      "hash": "6dc9ad2dab08282c",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "分类图必须配 混淆矩阵 + 总体精度 ，否则不可信",
+      "hash": "816dbe75e4a353f1",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "6. 时序与变化检测",
+      "hash": "f83bfaf7af9dc159",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "单景影像是快照，多时相影像是电影：两期 NDVI 相减可看 植被退化 ；季度合成可看 物候 ；Sentinel-2 的 5 天重访让『逐月耕地变化』成为可能。变化检测的基本套路：统一传感器与配准 到 同指数计算 到 差值 到 阈值分割 到 变化图斑矢量化。",
+      "hash": "75257ffb7b5425da",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "波谱指纹：植被近红外亮、水体近红外黑、雪云靠 SWIR 分；",
+      "hash": "36e2fc61c8837be3",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "四类分辨率：空间 时间/辐射，按问题取舍；",
+      "hash": "2e141e279598f47c",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "数据源：Landsat 30 m 5 天、高分亚米级；",
+      "hash": "4a2729061f77dfa0",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "NDVI = (NIR−Red)/(NIR+Red) ∈ [−1,1]，假彩色 NIR到红通道植被红；",
+      "hash": "0c411cc690546699",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "分类：监督给样本、非监督自动聚类，交付必须带精度评估。",
+      "hash": "5f45d1b54b13bb91",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "USGS Landsat 教程： usgs.gov/landsat",
+      "hash": "6080b722c5101707",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "Copernicus Data Space： dataspace.copernicus.eu",
+      "hash": "ec94485f2d0347a3",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "中国资源卫星应用中心（高分数据）： creosas.cn",
+      "hash": "24589f6428596c2b",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "下一章预告：遥感卫星自己在天上怎么跑？ 卫星轨道与星下点",
+      "hash": "c7effdb30b056a8e",
+      "audio": "seg59.mp3"
+    }
+  ]
+}

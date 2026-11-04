@@ -4,6 +4,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import ModulePager from "@/components/ModulePager";
 import FloatingToc from "@/components/FloatingToc";
+import SpeechBar from "@/components/lesson/SpeechBar";
 import {
   getLesson,
   getModule,
@@ -89,6 +90,8 @@ export default async function ModulePage({
             答错的题会自动进入复习队列
           </span>
         </div>
+
+        <SpeechBar slug={moduleSlug} />
       </header>
 
       <div className="mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-12 lg:items-start">

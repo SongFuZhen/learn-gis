@@ -1,0 +1,434 @@
+{
+  "slug": "16-satellite-constellations",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T17:31:14.122Z",
+  "segmentCount": 71,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：上一章说单颗低轨卫星过顶只有几分钟，那 Starlink 凭什么让你 24 小时上网？答案：一颗不够就一万颗——这就是星座。",
+      "hash": "a9192d4c6655906c",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：星座设计就是一道「排队接力」题。低轨卫星飞得快，你得在天上撒足够多的星，保证任何时刻、任何地点 头顶至少有一颗 。Starlink 的解法是：550 km 高度、53° 倾角、几十个轨道面、每个面几十颗星，像给地球套上一层层旋转的渔网。",
+      "hash": "5ae2205aeec307f6",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "以为卫星多就能随便全球用。53° 倾角的 Starlink 主壳层在南北纬 53° 以外覆盖骤减，极区要靠别的壳层补。",
+      "hash": "5c8b48cda3e71358",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "以为「几千颗星」是噱头。数量是被重访窗口逼出来的：窗口 5-10 分钟，想不断线就得让下一颗刚好接上。",
+      "hash": "e0fe415a87ae98d6",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "拿星座当「免费数据」。TLE 轨道数据是公开的（CelesTrak），但 Starlink 的链路性能和容量数据并不公开。",
+      "hash": "3858f9bcc7876149",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "连续覆盖 = 任何时刻头顶至少一颗星",
+      "hash": "f585c4232753f08d",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "Starlink：550 km 数千颗；OneWeb：1200 km 六百多颗",
+      "hash": "eb7932ca88f57927",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "TLE 公开可查，NASA 管科研、ITU 管频率协调",
+      "hash": "e50a6f29c806fdeb",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "为什么单颗 LEO 星无法连续覆盖",
+      "hash": "99f93bd664dc7777",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "Walker 星座的「壳层 × 每壳星数」设计",
+      "hash": "9e4c02a9b010209b",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "Starlink、OneWeb、千帆/GW 的架构取舍对比",
+      "hash": "2aef1b97fc73180d",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "NASA CelesTrak 在数据与标准中的角色",
+      "hash": "e5aa121f083a5c51",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "怎么自己查一颗星的过境预报",
+      "hash": "2518dcf2cdc46c49",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "1. 为什么单颗不够：过顶窗口",
+      "hash": "e6ded5b62a316a00",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "低轨卫星绕一圈约 90 分钟，但对地面固定一点来说，它「可见」的时间，术语叫 过顶窗口（pass window） ，只有 5–10 分钟。之后它飞出地平线，下一次再来要等几十分钟甚至几小时。",
+      "hash": "a981c29c6f153ae0",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "打电话、刷视频不能「每 90 分钟通 5 分钟」，所以低轨通信的唯一解是 星座（constellation） ：让卫星排成队，前一颗落下地平线，后一颗正好升起，接力不断线。",
+      "hash": "ba0927ce8353a4f2",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "单颗卫星像一支手电筒在操场上跑步，只能照亮跑过的那一小段；星座像沿操场一圈装满路灯，任何位置永远有灯。要连续，就得够密。",
+      "hash": "8639050bf6990f82",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "2. 星座设计：Walker 星座",
+      "hash": "7ab872093b39f6e0",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "经典设计叫 Walker 星座 ： N 个轨道面（壳层，shell），每个面均匀放 M 颗星，所有轨道面同倾角、沿赤道均匀分布。",
+      "hash": "22f5f92259c05a3e",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "设计参数就三个：",
+      "hash": "8d3619b9245f91a9",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "高度 ：决定单星覆盖和延迟；",
+      "hash": "d2999d78049e7ebf",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "倾角 ：决定覆盖的南北边界（53° 倾角重点覆盖中低纬度人口密集区，极区放弃）；",
+      "hash": "22043114774ac554",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "星数 = 壳层数 × 每壳星数 ：决定重访间隔和容量。",
+      "hash": "864e9606b4c9e78c",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "星数估算的直觉：想让任何地点任何时刻头顶有星，高度越低、需要的星越多（覆盖半径小）；要服务的纬度越高、需要的倾角越大（轨迹要够得着）。",
+      "hash": "e53b5f34e26d2b9e",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "3. Starlink：规模最大的低轨星座",
+      "hash": "f2b1956c29a1a803",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "SpaceX 的 Starlink 是目前规模最大的在轨星座：",
+      "hash": "ae09f3d0ab37aa83",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "轨道 ：主力壳层约 550 km 高度、53° 倾角（另有 70°、97.6° 等壳层补高纬度与极区）；",
+      "hash": "868511427daaa5de",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "数量 ：规划数万颗，截至 2024 年在轨已超 6000 颗，人类在轨卫星的一半以上是 Starlink；",
+      "hash": "f560061a559706e1",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "链路 ：早期星只连地面站，新一代带 星间激光链路（laser inter-satellite link） ，星与星之间在太空里传数据，海洋和荒漠上空也能落地；",
+      "hash": "165ebf90a1838962",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "地面 ：用户端是一个「披萨盒」大小的相控阵天线，自动对准头顶的星。",
+      "hash": "d8fcd8e3c42b5c68",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "和 GIS 的关系 ：Starlink 星历公开（CelesTrak 按组发布 TLE），几千颗星同时画在地图上，是最好的「大规模轨迹可视化」练手数据。",
+      "hash": "686ae2fc41eb78cb",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "4. OneWeb：另一种取舍",
+      "hash": "e49a01a103fa363b",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "OneWeb（已并入 Eutelsat）走了不同的参数组合：",
+      "hash": "04925a9aef18bd79",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "OneWeb 高度更高：单星覆盖大，所以 六百多颗就够 ；代价是延迟略高、单星容量要摊给更大的覆盖区。近极轨让它能服务高纬度，代价是中低纬度的容量密度不如 Starlink。",
+      "hash": "a7c60f7c6ce49189",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "没有「最优星座」，只有「按目标市场选参数」。",
+      "hash": "d438c78eae793fce",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "5. 中国星座：千帆与 GW",
+      "hash": "ef55ceaaa24f9e25",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "千帆星座（G60 星链） ：上海垣信主导，规划约 1.5 万颗，2024 年首批组网星发射；",
+      "hash": "d96ba5f61a11bf54",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "GW（国网星座） ：中国星网主导，规划约 1.3 万颗，国家级低轨互联网工程。",
+      "hash": "94e6c0c9014bdb2e",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "两家都走「低轨 + 大规模星座」路线，目标与 Starlink 类似：全球宽带接入、运营商级服务。频轨资源（频率 + 轨道位置）先到先得，由国际电联（ITU）协调申报。这也是各星座「抢时间」的原因：申报后有部署时限，逾期不部署会被收回。",
+      "hash": "a80ceef5ef57b262",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "6. NASA CelesTrak：数据与标准的角色",
+      "hash": "732c0f0acdf0a012",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "这些机构名字常出现，分工别搞混：",
+      "hash": "284e605641f12503",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "NASA（美国航空航天局） ：科研机构，造卫星做科学任务（陆地卫星 Landsat 系列就是 NASA/USGS 的）、发布数据与标准；不运营商业互联网星座。",
+      "hash": "f499a80ab0f5ddc2",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "ESA（欧洲航天局） ：欧洲同类机构，Sentinel（哨兵）系列卫星的运营方之一。",
+      "hash": "9745ed0b75aecf97",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "NOAA（美国国家海洋和大气管理局） ：气象卫星（GOES 系列）运营方，同时管商业遥感许可。",
+      "hash": "6740c4def7adb2eb",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "CelesTrak / Space-Track ：发布公开 TLE 星历，你画轨迹图的数据源。",
+      "hash": "9d630eb80b36cf2c",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "ITU（国际电信联盟） ：联合国机构，协调全球无线电频率与轨道位置的申报使用。",
+      "hash": "07d0acb741889beb",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "轨道星历（TLE）：CelesTrak / Space-Track（免费注册）",
+      "hash": "96c1bbc105d0dd22",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "遥感影像：NASA Earthdata（Landsat/MODIS）、ESA Copernicus（Sentinel 全免费）",
+      "hash": "c915713c74dbfd6b",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "过境预报：Heavens-Above、N2YO",
+      "hash": "609ea7334b55b6d2",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "7. 观察实战：查一次过境预报",
+      "hash": "3b94b1c8eb0a8353",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "以 ISS 为例的完整链路：",
+      "hash": "9718d38d77a93171",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "从 CelesTrak 下载 ISS 的 TLE；",
+      "hash": "00e92980184be0e1",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "用 SGP4 库（Python sgp4 、JS satellite.js ）算出未来几天的星下点轨迹；",
+      "hash": "2053e03eca96ca7a",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "结合你的位置，筛选「卫星仰角 > 10°」的时间段，这就是可见过境窗口；",
+      "hash": "d1d18505edd04103",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "画到地图上：星下点轨迹 + 你的位置 + 覆盖圆。",
+      "hash": "cf407212afaa3bfe",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "肉眼观看更简单：Heavens-Above 输入你的经纬度，直接列出未来十天的可见过境（时间、方位、亮度）。ISS 亮度高，晴夜肉眼可见，像一颗不慢不快移动的亮星。",
+      "hash": "ef99a403eb25b33a",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "8. 本章回顾",
+      "hash": "f3fbabecb4ac3486",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "低轨单星是「路过式」覆盖，连续服务只能靠星座接力；",
+      "hash": "6900bc1b69bd864f",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "星座设计三参数：高度（延迟 容量）；",
+      "hash": "565a17ea057314b8",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "Starlink 走「低高度小倾角高密度」，OneWeb 走「中高度近极轨少星数」——参数没有对错，只有目标市场。",
+      "hash": "e2f277304b50844b",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "CelesTrak 星历库： celestrak.org",
+      "hash": "af171ff19d05d639",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "Starlink 在轨状态统计： satellitemap.space",
+      "hash": "d816c9cbf5a7e6d1",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "Heavens-Above 过境预报： heavens-above.com",
+      "hash": "21113ba8927686f4",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "上一章： 卫星轨道与星下点",
+      "hash": "58d722c725d60770",
+      "audio": "seg70.mp3"
+    }
+  ]
+}

@@ -11,3 +11,10 @@ next-env.d.ts
 .DS_Store
 lh-*.json
 /nul
+
+# 预生成 TTS 音频 mp3（由 npm run gen:audio 生成，体积大，不入库；由用户自行上传图床）
+# manifest.json 需随代码发布（前端 fetch 用），故只忽略 mp3
+public/audio/**/*.mp3
+
+# CodeBuddy 本地调度器状态（含绝对路径，机器相关）
+/.codebuddy/

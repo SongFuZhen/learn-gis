@@ -1,0 +1,524 @@
+{
+  "slug": "10-spatial-analysis",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T16:37:44.160Z",
+  "segmentCount": 86,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：「学校 500 米内有哪些小区」「这块地同时满足哪些条件」——这类「用位置算决策」的问题，全是空间分析。",
+      "hash": "eb70f0912d666289",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：空间分析就四个基本操作，像 SQL 一样组合拳： 缓冲 （buffer，半径 r 内有什么）、 叠置 （overlay，两层范围求交并差）、 空间连接 （spatial join，按位置当外键）、 近邻 （找最近的 k 个）。再复杂的选址报告，都是这四步搭积木：缓冲 到 求交 到 挂属性 到 统计。",
+      "hash": "bd41b58d1502d137",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "缓冲半径写成「度」 ：在 EPSG:4326 上 buffer 500，得到的是 500 度不是 500 米——先转米制投影坐标系再缓冲。这是空间分析第一坑。",
+      "hash": "f6b957fe36498d3a",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "把直线缓冲当服务范围 ：500 米直线范围内的房子，中间隔着河可能要绕 1.2 公里。真正的可达范围要用路网分析。",
+      "hash": "b12ed79bc4c6bf36",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "心算覆盖范围按半径翻倍估 ：半径翻倍，面积是 ×4 （πr²），选址报告里最常见的量级错误。",
+      "hash": "49dd9244b36ee581",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "四板斧：缓冲、叠置、空间连接、近邻",
+      "hash": "84d3d43f9a97cd54",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "缓冲/量算前先把坐标转成米",
+      "hash": "a10a64d7425c34d7",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "直线缓冲 ≠ 真实可达范围",
+      "hash": "d19ebc0434a4a42c",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "前四章解决了「数据从哪来、长什么样、放哪里」，这一章开始回答 GIS 最核心的问题： 用数据算出决策 。缓冲区、叠置、空间连接、近邻与可达性，是所有空间分析的地基；学完这章，「选址、覆盖、剔除、挂属性」四类问题你都有标准解法。",
+      "hash": "398d367992b76448",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "1. 空间分析全景：四类基本功",
+      "hash": "cedb0556cd13fcca",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "绝大多数空间分析需求，都能拆成四类基本操作的组合：",
+      "hash": "f150133cdead4aab",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "大型需求（选址、可达性、覆盖评估）= 这四步按顺序搭积木。",
+      "hash": "24d37b7b2a89ac51",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "缓冲区 回答「r 范围内」， 叠置 回答「两范围的关系」",
+      "hash": "76f8e01c70b332a8",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "空间连接 把位置当外键， 近邻 找最近的 k 个",
+      "hash": "cef2379def6e19b6",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "复杂选址 = 缓冲 到 求交 到 空间连接 到 统计 的流水线",
+      "hash": "292a55b420b5a9c3",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "2. 缓冲区：距离的等值线",
+      "hash": "54a2889535e07668",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "缓冲区 = 以要素为圆心、按指定半径画出的「影响范围」：学校的 500 m 学区圈、河流两岸 50 m 保护带。",
+      "hash": "540fed8cc2fec17d",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "三个必须想清楚的细节：",
+      "hash": "a78dac64e057b0e0",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "单位 ：缓冲距离的单位 = 当前 CRS（Coordinate Reference System， ，「西-艾-艾斯」）的单位 。4326 上写 500 是「500 度」（见第 13 章），必须先转到米制投影；",
+      "hash": "ee4dff1b4b96db54",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "端头与连接 ：线缓冲的端头有圆头（round， ，「绕恩德」） flæt 尖角之分，影响边缘精度，默认圆头最通用；",
+      "hash": "99356ba5af922373",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "融合（dissolve， ，「迪-佐夫」） ：多要素缓冲彼此重叠时，要不要融合成一片？做「覆盖范围」分析要融合（STUnion），做「逐要素影响圈」则不融合。",
+      "hash": "6175bb7b93854dd3",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "半径 r 的圆形缓冲区面积 = πr²。r = 500 m：3.14 × 0.5² 约等于 0.79 km² ；r = 1 km：约 3.14 km² 。",
+      "hash": "b8229cbf29cadfa0",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "反过来记： 半径翻倍，面积 ×4 。评估「服务半径扩大一倍能多覆盖多少」时，直觉经常按「×2」算，实际是平方级，这就是选址报告里最常见的量级错误。",
+      "hash": "eafbabd4f4cc61ea",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "直线距离缓冲忽略了河流、围墙、单行道。500 m 直线缓冲里的房子，实际步行可能要绕 1.2 km。把「直线缓冲」当「服务范围」是空间分析最常见的过度承诺。精确的可达范围要用网络分析（第 7 节）。",
+      "hash": "dca0e3ad430d6aad",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "半径单位 = CRS 单位 ，先转米制投影再缓冲",
+      "hash": "060a11b6175eec43",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "半径翻倍 到 面积 ×4 （πr²）",
+      "hash": "a85fbfc609521bec",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "多要素覆盖分析先 dissolve（融合） ；直线缓冲 ≠ 真实可达范围",
+      "hash": "708dbea493af955b",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "3. 叠置分析：交、并、差",
+      "hash": "79222c498588728d",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "两套范围图叠在一起，只会发生三种基本关系（集合论的交集、并集、差集）：",
+      "hash": "0dc446fefc7993f9",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "「找便利店候选址：住宅区 300 m 内、主干道 100 m 外、不在学校 200 m 内」：",
+      "hash": "3c2e1ba7fda330e9",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "缓冲：住宅区 +300 m（条件 A）；主干道 +100 m（禁区 B）；学校 +200 m（禁区 C）；",
+      "hash": "adb6ce837bb23ae4",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "求交：A ∩ 全域 = 可服务范围；",
+      "hash": "fff0536528d088e1",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "求差：可服务范围 − B − C = 候选区域 。",
+      "hash": "6bd26bef0bd291b2",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "缓冲 到 交 到 差，三步出答案，组合起来就是生产级的选址流程。",
+      "hash": "6c2cd5076a521801",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "交 ：同时满足 = 选址的「AND」",
+      "hash": "28541e968d126a21",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "并 ：合并覆盖 = 统计总范围",
+      "hash": "4a35745a822419e0",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "差 ：剔除禁区 = 排除法的「减」",
+      "hash": "3f1ca4a456970f11",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "PostGIS 对应函数：STIntersection STDifference（第 13 章）",
+      "hash": "83fff1e4f18195ae",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "4. 空间连接：位置就是外键",
+      "hash": "82adcf37c528deb0",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "关系数据库用外键把两张表连起来；空间数据里，「落在谁的范围内」「与谁相交」「离谁最近」同样是连接依据，而且 不需要任何一方存好对方的 ID 。",
+      "hash": "b3b857d7c094d754",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "门店表没有「城市」字段？不用手工补录：",
+      "hash": "0f1f438097f5482e",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "SELECT s.name, c.name AS city FROM stores s JOIN cities c ON STWithin(s.geom, c.geom);",
+      "hash": "b64eee613999e2a1",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "10 万家门店一次跑完。行政区边界更新后重跑一遍即可， 位置关系永远比人工维护的字段可靠 。",
+      "hash": "717f659be31bf745",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "连接谓词选对方向：STWithin(点, 面) 与 STContains(面, 点) 等价，参数别反",
+      "hash": "a2fe61cd74930678",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "大表连接必须配 GiST（Generalized Search Tree， ，「吉斯特」）索引（见第 13 章），否则全表两两相交算到天荒地老",
+      "hash": "d813a65f48271cd6",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "5. 近邻与邻域：最近的 k 个",
+      "hash": "da22d3b98b651f6c",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "「找最近的」是高频需求：打车派单、应急调度。直觉写法是算全部距离再排序取前 k，数据一大就死；正确姿势是 KNN 索引扫描 ：",
+      "hash": "d0ae89b5566c78bd",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "PostGIS 的 <-> 运算符直接在 GiST 索引上按距离排序，百万级表毫秒级返回（第 13 章有完整原理）。",
+      "hash": "e05458ff8d801e08",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "另一个近邻视角是 邻域统计 ：每个像元/地块看它周围的值，比如「每个网格 1 km 内的平均房价」。栅格里叫 focal statistics（ ，「佛-寇-斯特-提斯-提克斯」），矢量里常配合缓冲区 + 分区统计实现。",
+      "hash": "0eac06000b3dc000",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "KNN 固定写法： ORDER BY geom <-> 目标点 LIMIT n ，走 GiST 索引",
+      "hash": "7cd5b3d9266fefe5",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "邻域统计 = 每个对象看它周围：栅格 focal statistics / 矢量缓冲 + 分区统计",
+      "hash": "9eaa20cfb6613c3f",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "表：hospitals(geom, name)、communities(geom, name)，均为米制 CRS 32650。 写 SQL：给每个社区找出最近的医院名和直线距离（米）。",
+      "hash": "3429e4eb7e991e3e",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "6. 网格与分区统计",
+      "hash": "d6a7377da769fb71",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "把连续空间切成规整单元再统计，是最常用的汇总手段：",
+      "hash": "83fac0a116576b94",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "渔网格网（fishnet ˈfɪʃnet ɡrɪd 线/面要素聚合到格，即「每个 1 km 网格的事故数」热力图的第一步；",
+      "hash": "d46e36ace14d1b37",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "分区统计（zonal statistics， ，「奏-瑙-斯特-提斯-提克斯」） ：用一个面图层（行政区、缓冲区）对栅格求均值 占比（如「各行政区内的平均坡度」）；",
+      "hash": "ce21093797df2f5c",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "六边形网格 （H3 等）：比正方形邻接更均匀，近年来成为大厂标配。",
+      "hash": "54d946ac9fb4ea4b",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "格子多大？太粗丢信息，太细算不动，经验是「要素密度的最小可分辨尺度」；",
+      "hash": "83f8a799ea9e7d2f",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "计数还是比率？点计数网格一定要除以面积变密度，否则大格子虚高（同第 06 章 choropleth（ ，「科-若-普莱思」）的教训）。",
+      "hash": "c6a95c238bbaa232",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "7. 可达性入门：直线距离 vs 网络距离",
+      "hash": "cd19eeb8fc6c0ac2",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "缓冲区的「直线距离」在城市里经常失真：隔一条快速路，直线 200 m、绕行 2 km。衡量「真正能到达的范围」用 网络分析 ：",
+      "hash": "d3f58c5bd5c8759e",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "服务区（service area， ，「瑟-维斯-艾尔-瑞亚」） ：沿路网从设施出发，步行/车行 t 分钟或 m 米能覆盖的范围，即真实的「15 分钟生活圈」；",
+      "hash": "85fdc94193fef72d",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "OD（Origin–Destination， ，「欧-迪」）成本矩阵 ：任意起点到终点的通行成本表（配送排线的输入）；",
+      "hash": "eb3becaf5a9ed2b5",
+      "audio": "seg70.mp3"
+    },
+    {
+      "index": 71,
+      "text": "最短路径 ：两点间沿路网的最优路线，导航的核心。",
+      "hash": "b9ee81aa11657ef5",
+      "audio": "seg71.mp3"
+    },
+    {
+      "index": 72,
+      "text": "工具层面：QGIS 内置网络分析工具箱；PostGIS 生态用 pgRouting 扩展（给路网表加拓扑后即可算最短路径与服务区）。",
+      "hash": "ea1c809b1f39c440",
+      "audio": "seg72.mp3"
+    },
+    {
+      "index": 73,
+      "text": "直线缓冲高估可达性：路网/障碍让实际范围缩水",
+      "hash": "b1de75c83f85ab89",
+      "audio": "seg73.mp3"
+    },
+    {
+      "index": 74,
+      "text": "真实服务范围 = 网络服务区（pgRouting / QGIS 网络分析），「15 分钟生活圈」必须走路网",
+      "hash": "22ca922a419c242d",
+      "audio": "seg74.mp3"
+    },
+    {
+      "index": 75,
+      "text": "需求：把事故点表 accidents（4326）聚到 0.01° 网格，输出每格计数。",
+      "hash": "47d32ae35f00e0f9",
+      "audio": "seg75.mp3"
+    },
+    {
+      "index": 76,
+      "text": "8. 本章回顾",
+      "hash": "f3fbabecb4ac3486",
+      "audio": "seg76.mp3"
+    },
+    {
+      "index": 77,
+      "text": "四类基本功：缓冲（r 内）、叠置（交 差）、空间连接（位置外键）、近邻（KNN）",
+      "hash": "a2f172a07ccec6cd",
+      "audio": "seg77.mp3"
+    },
+    {
+      "index": 78,
+      "text": "缓冲三细节：单位跟 CRS 走、端头样式、覆盖分析先融合；半径翻倍面积 ×4",
+      "hash": "1b54586d5c7463e2",
+      "audio": "seg78.mp3"
+    },
+    {
+      "index": 79,
+      "text": "选址流水线 = 缓冲 到 交（AND）到 差（剔除）到 空间连接挂属性 到 统计",
+      "hash": "b1aa21528df68579",
+      "audio": "seg79.mp3"
+    },
+    {
+      "index": 80,
+      "text": "网格化统计：先格子大小，后密度归一",
+      "hash": "8853ce0e8f9f608f",
+      "audio": "seg80.mp3"
+    },
+    {
+      "index": 81,
+      "text": "真实可达范围 = 网络服务区，直线缓冲只是下限估计",
+      "hash": "bf440f06009c6ab3",
+      "audio": "seg81.mp3"
+    },
+    {
+      "index": 82,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg82.mp3"
+    },
+    {
+      "index": 83,
+      "text": "PostGIS 参考手册（本章全部函数）： postgis.net/docs",
+      "hash": "c0b3d194673a0e74",
+      "audio": "seg83.mp3"
+    },
+    {
+      "index": 84,
+      "text": "pgRouting 文档： pgrouting.org",
+      "hash": "00988a3b4368ec46",
+      "audio": "seg84.mp3"
+    },
+    {
+      "index": 85,
+      "text": "《Spatial Analysis online》： spatialanalysisonline.com",
+      "hash": "d4cc5bdf06688e36",
+      "audio": "seg85.mp3"
+    }
+  ]
+}

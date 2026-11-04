@@ -1,0 +1,500 @@
+{
+  "slug": "05-vector-raster",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T14:44:13.260Z",
+  "segmentCount": 82,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：GIS 数据分两大门派——矢量和栅格。选错门派，后面的分析一路别扭。",
+      "hash": "a607fdbedb2b015f",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：矢量像 SVG，栅格像 PNG。数据是「一个个的东西」（一口井、一条路、一个区）用矢量；数据是「一片连续的值」（气温、高程、卫星影像）用栅格。放大就露馅的那个是栅格。",
+      "hash": "b6728f1f0830e908",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "再记一个超能力 ：空间 join。快递网点表里没有「所属区」字段？不用补——按「点落在哪个区的面里」直接挂上去。这是 GIS 区别于普通表格的核心本事。",
+      "hash": "0f8b7778e04c8589",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "join 后统计翻倍 ：一个区连上 3 条 GDP 记录，区要素被复制 3 份，面积统计直接 ×3。一对多先聚合再连接。",
+      "hash": "5a518b37ad97c0a7",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "键类型不一致连了个寂寞 ：一边文本 \"440100\" 一边数字 440100 ，连接结果悄悄为空，还不报错。",
+      "hash": "c1b8c77afc61b480",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "Shapefile 相邻面出缝隙 ：它把公共边界各存一遍（「意大利面条」存法），两套边界差 5 cm 就裂开了。要严丝合缝用地籍拓扑模型。",
+      "hash": "01062086c3e4067c",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "离散对象用矢量，连续场用栅格",
+      "hash": "92e4a135661668f2",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "空间 join = 按位置挂属性，不用先存",
+      "hash": "a6ad07705772ca5d",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "join 前先查键唯一、类型一致",
+      "hash": "72638ed400d46376",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "一句话",
+      "hash": "a25aca1814333b3a",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "矢量描述「离散对象」，栅格描述「连续场」。模型选对，后面才顺。",
+      "hash": "f0404d8f33eaf3da",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "1. 矢量模型",
+      "hash": "53d68fa01d172b3c",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "基本几何（OGC（ ，「欧-吉-西」）Simple Features）：",
+      "hash": "244efeea5b98f36a",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "每个要素带一张属性表（一行记录）。面可以有洞： 外环 + 若干 内环 （GeoJSON（ ，「吉欧-杰森」）里是 coordinates 的第一组与后续组）。",
+      "hash": "d531163e0207c893",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "拓扑 ：两种存边界的思路，差别见下表：",
+      "hash": "2f7808741127d04a",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "拓扑模型像两户合租人家 共用一面墙 ，墙的位置只记一次，谁动墙两边同时变；意大利面条模型像各画各的户型图，两家人画的「同一面墙」差了 5 cm，图一叠加就裂出一条缝。地籍、管线这类要求严丝合缝的数据，因此常靠拓扑约束来管理。",
+      "hash": "a671a266d0df0a03",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "点 面 = Point Polygon，各有 Multi 版本",
+      "hash": "fd1e82700a2132a1",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "每个要素 = 一份几何 + 一行属性记录",
+      "hash": "fffb9828d18fa90a",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "面可以有洞：GeoJSON coordinates 第 1 组是外环，后续组是内环",
+      "hash": "71f872852a150ef0",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "拓扑模型公共边界只存一次；Shapefile/GeoJSON 是意大利面条模型",
+      "hash": "0daa978bb93dc316",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "2. 属性表与连接（join， ，「佐因」）",
+      "hash": "fab15b7097394e86",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "每个要素图层都带一张 属性表 ：一行 = 一个要素，一列 = 一个字段（字段有类型：整数、实数、文本、日期）。真正的工作流里，业务数据往往在 另一张表 里，把两张表按共同的键拼起来，就是 连接（join） 。",
+      "hash": "bb256061519e8356",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "键不唯一 / 一对多 ：一个区有 3 条 GDP 记录时，join 后区要素会被复制成 3 份，面积统计直接翻倍，先聚合再连接；",
+      "hash": "ecee4b63581b99a7",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "键类型不一致 ：一边是文本 \"440100\" 、一边是数字 440100 ，很多实现不会自动匹配，连接结果悄悄为空。",
+      "hash": "30511ec8dd0e246b",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "属性 join ：按共同键字段拼接表：先查键唯一性，再查类型一致",
+      "hash": "0e83703b50c6a4fe",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "空间 join ：按位置关系（落在谁里面 最近）挂属性，是 GIS 特有的超能力",
+      "hash": "7b20301f0f05d632",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "join 产生一对多时，要素会被复制，统计前必须先聚合",
+      "hash": "c65482500b29760d",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "3. 几何有效性：会算错图的「脏几何」",
+      "hash": "dc5e16720ed916b1",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "OGC Simple Features 对几何有 有效性（validity， ，「沃-利-德-提」） 定义。违反定义的几何叫 无效几何（invalid geometry， ，「因-瓦-利德-吉-奥莫-特里」） ，常见的有：",
+      "hash": "185747cfd0c9d3ef",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "自相交 （蝴蝶结）：线或面的边自己穿过自己；",
+      "hash": "6fc2f2da9b78f6d0",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "环未闭合 ：多边形首尾点不重合；",
+      "hash": "a32aa0a3660de0fa",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "内环在外环之外 、内环互相重叠；",
+      "hash": "1d546e1d0d7575fb",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "重复顶点 / 自重叠 。",
+      "hash": "7b69f17af22ce46e",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "某地块边界数字化时手抖，两个顶点交叉形成蝴蝶结。叠加分析（求交、裁剪）遇到它要么直接报错，要么更糟， 静默给出错误结果 ：面积算错、相邻关系判反。有效性检查（PostGIS（ ，「剖斯特-吉斯」） STIsValid ）与修复（ STMakeValid ，或对缓冲区做零距离 buffer（ ，「巴弗」）技巧）是数据入库前的固定工序。",
+      "hash": "4f9de65eb42cb024",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "自相交、环未闭合、内外环错位 = 无效几何",
+      "hash": "e034a79bc64bdbb3",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "无效几何会让 overlay（ ，「欧-沃-雷」） 报错或静默算错 ，静默算错更危险",
+      "hash": "056acdb4d4f1f23a",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "检查用 STIsValid ，修复用 STMakeValid （第 13 章实操）",
+      "hash": "4d3591151cb3ad3d",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "4. 栅格模型",
+      "hash": "f22df50959ba8a60",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "栅格 = 规则网格，每个像元存一个（或多个）值。",
+      "hash": "b32a24ed55e6027f",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "要点：",
+      "hash": "ef9a4e5bcc7079c9",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "分辨率 ≠ 精度 。10 m 分辨率表示像元边长 10 m，不代表定位误差 10 m。",
+      "hash": "2e5b3aaf7e8445ee",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "分类栅格 （土地利用、掩膜）重采样必须用最近邻（nearest， ，「尼尔-瑞斯特」），双线性会造出「不存在的类别」。",
+      "hash": "15de472340dd5529",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "连续栅格 （高程、温度、影像）可以用双线性/三次卷积。",
+      "hash": "09612fc2da71392e",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "像元是面积采样 ，不是点采样：一个像元的值通常代表该范围的平均/主导属性。",
+      "hash": "9a1e263f67451aa8",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "设某 DEM（ ，「迪-伊-艾姆」）左上角（原点）在 (1000, 5000)，像元 10 m，行、列号从 0 起算。求 第 3 行第 5 列 像元中心的坐标：",
+      "hash": "ba2aed57ce0bbd78",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "x = 1000 + (5 + 0.5) × 10 = 1055",
+      "hash": "6d7c7c8035b61d82",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "y = 5000 − (3 + 0.5) × 10 = 4965 （北向上时 y 步长为负，所以用减）",
+      "hash": "f63f7eca3497783d",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "反算：已知 x = 1060，列号 = ⌊(1060 − 1000) ÷ 10⌋ = 6 。行列号与地图坐标的互转，靠的就是仿射变换（geotransform， ，「吉欧-川斯-弗姆」）。",
+      "hash": "f66f94311336dee1",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "土地利用栅格里 0 = 水体、1 = 林地。重采样时，岸边一个 0 像元和一个 1 像元落进同一个新像元，双线性取平均得 0.5 ，既不是水体也不是林地，图例里根本没有这一类。最近邻只会原样抄 0 或 1，类别永远真实。这就是「分类栅格必须用最近邻」的原因。",
+      "hash": "030d656b8b23d5fc",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "分辨率 10 m = 像元 边长 10 m，不是定位误差 10 m",
+      "hash": "cc487f8e6a62bf03",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "分类栅格（土地利用、掩膜）重采样 到 最近邻 ；双线性会造出「不存在的类别」",
+      "hash": "126d88410a24ceb2",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "连续栅格（高程、温度、影像）到 可用双线性、三次卷积",
+      "hash": "00a76ae8b79a7a93",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "像元是 面积采样 ：一个值代表一个范围的平均/主导属性",
+      "hash": "bf230da941435778",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "5. 怎么选",
+      "hash": "be7b3848e760afa1",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "DTM（ ，「迪-提-艾姆」） ˌdiːˌɛsˈɛm/，「迪-艾斯-艾姆」）都是栅格：DEM 是地表高程模型，DSM 含建筑与植被，DTM 是裸地面。",
+      "hash": "23d0102190636a68",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "「统计道路两侧 500 m 缓冲区内的平均坡度」：坡度来自 DEM（栅格），道路和缓冲区来自矢量图层。惯用做法是矢量缓冲区 到 转成栅格掩膜 到 对坡度做分区统计（zonal statistics， ，「走-诺-斯特-提斯-提克斯」），一步栅格代数出结果。硬走矢量则要把 DEM 拆成一堆高程点、逐点判断在不在缓冲区内，又慢又没必要，这正是上表第三行的场景。",
+      "hash": "e54bd7a47b06708d",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "DEM ：地表高程模型",
+      "hash": "1ce497edeb0f363d",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "DSM ：含建筑与植被的表面",
+      "hash": "3c298823477a0aa8",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "DTM ：裸地面",
+      "hash": "4f61274dfc96b568",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "三者都是 栅格 产品",
+      "hash": "264bff68043085cf",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "6. 空间索引",
+      "hash": "c4424a67a569c639",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "无论矢量还是栅格，数据一大就不能逐条算。常见索引：",
+      "hash": "7bb4c1500caa0afb",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "R-tree（ ，「阿尔-崔」） dʒɪst ˈbiːbɒks/，「比-博克斯」）组织，先用 && 做粗筛，再做精确几何判断。",
+      "hash": "50248465564a0aa1",
+      "audio": "seg70.mp3"
+    },
+    {
+      "index": 71,
+      "text": "四叉树 / 网格 ：把空间切成桶。",
+      "hash": "78218bbf2f1db1ad",
+      "audio": "seg71.mp3"
+    },
+    {
+      "index": 72,
+      "text": "瓦片金字塔 ：栅格/矢量瓦片用多级分辨率加速显示。",
+      "hash": "450ee6973a19b0b9",
+      "audio": "seg72.mp3"
+    },
+    {
+      "index": 73,
+      "text": "索引只加速「空间筛选」，不会让错误的 CRS 变正确。",
+      "hash": "b23533178df497c8",
+      "audio": "seg73.mp3"
+    },
+    {
+      "index": 74,
+      "text": "在 100 万个地块里问「这个点落在哪个地块」：逐个做精确几何判断要算 100 万次。走 R-tree 时，bbox 粗筛（ && ）先把候选从 100 万砍到几十个，精确几何判断只做这几十次，工作量只剩原来的约 0.005% 。PostGIS 空间查询快，靠的就是这两段式。",
+      "hash": "4cbe5178fbe284c8",
+      "audio": "seg74.mp3"
+    },
+    {
+      "index": 75,
+      "text": "R-tree / GiST（PostGIS 默认）按 bbox 组织： && 粗筛 到 精确几何判断",
+      "hash": "cfc746119de3a0cf",
+      "audio": "seg75.mp3"
+    },
+    {
+      "index": 76,
+      "text": "四叉树/网格 = 把空间切成桶；瓦片金字塔 = 多级分辨率加速显示",
+      "hash": "7617bf569bb2400d",
+      "audio": "seg76.mp3"
+    },
+    {
+      "index": 77,
+      "text": "索引只加速空间筛选， 救不了错误的 CRS",
+      "hash": "dbb54598abeb12f6",
+      "audio": "seg77.mp3"
+    },
+    {
+      "index": 78,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg78.mp3"
+    },
+    {
+      "index": 79,
+      "text": "OGC Simple Features： OGC SFA 标准",
+      "hash": "b3f35145be1a2c2c",
+      "audio": "seg79.mp3"
+    },
+    {
+      "index": 80,
+      "text": "GeoJSON 环方向（RFC 7946 §3.1.6）： rfc7946",
+      "hash": "2d931cc6dd838406",
+      "audio": "seg80.mp3"
+    },
+    {
+      "index": 81,
+      "text": "GDAL 栅格数据模型： gdal.org rasterdatamodel",
+      "hash": "ac0a6cd58a4dd318",
+      "audio": "seg81.mp3"
+    }
+  ]
+}

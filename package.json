@@ -15,6 +15,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "content:validate": "tsx scripts/validate-content.ts",
+    "gen:audio": "tsx scripts/gen-audio.ts",
+    "audio:validate": "tsx scripts/validate-audio.ts",
     "smoke:quiz": "node scripts/smoke-quiz.mjs",
     "check:overflow": "node scripts/check-overflow.mjs",
     "db:push": "drizzle-kit push",
@@ -46,6 +48,9 @@
     "zod": "^4.1.12"
   },
   "devDependencies": {
+    "remark-mdx": "^3.1.1",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5",
     "@types/leaflet": "^1.9.22",
     "@types/node": "^22.20.5",
     "@types/pg": "^8.15.5",

@@ -1,0 +1,488 @@
+{
+  "slug": "07-formats-tiles",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T15:20:01.187Z",
+  "segmentCount": 80,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：拿到一份 GIS 数据，用什么格式存、怎么发给别人、地图 App 为什么能秒开——都是这章的事。",
+      "hash": "0262190993628ae2",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：格式就是数据的「快递包装」。GeoJSON 像纯文本 JSON，谁都读得懂但体积大；Shapefile 像老式纸箱，到处都能寄但限制一堆（字段名 10 字符、单文件 2GB、中文乱码）；GeoPackage 像 SQLite 一个文件全装下，是现代首选。而 瓦片 就是视频网站的「分片加载」思路——把大地图预切成无数小方块，你看哪块就加载哪块，所以地图能秒开。",
+      "hash": "c72b171da16ea2b8",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "GeoJSON 坐标写反 ：标准是经度在前 [120.15, 30.25] ，写成纬度在前，点直接飞到错误的地方——这是 Web 地图最高频的低级错误。",
+      "hash": "8157e14e699aca27",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "发 Shapefile 只发了 .shp ：它至少是 .shp+.shx+.dbf 三件套，少一个文件别人就打不开。",
+      "hash": "dddcf48f675a704e",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "GeoJSON 里塞 crs 字段 ：新标准（RFC 7946）已经移除了，GeoJSON 只能是 WGS84。",
+      "hash": "ead80d4ce9d4f50a",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "GeoJSON 经度在前、只能 4326",
+      "hash": "92061057f82e7f6b",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "Shapefile 是三件套，别只发一个文件",
+      "hash": "c7147f3485177acb",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "现代交换用 GeoPackage；地图秒开靠瓦片",
+      "hash": "b9b78c5f203aab0c",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "一句话",
+      "hash": "a25aca1814333b3a",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "格式决定「能不能一次搬走、能不能按需取」；瓦片决定「地图能不能秒开」。",
+      "hash": "5a5044cbd935bd05",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "1. 矢量交换格式",
+      "hash": "89223d8db9399347",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "GeoJSON（RFC 7946）",
+      "hash": "33363b86ac443c39",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "坐标顺序 经度在前 （lon, lat），坐标为 WGS84（ ，「达布优-吉-艾斯-艾提-弗」）（4326）。",
+      "hash": "fd43e20eec025ddb",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "RFC（ ，「阿-艾弗-西」）7946 已 移除 crs 成员：标准 GeoJSON（ ，「吉欧-杰森」）只能是 4326。",
+      "hash": "f915e28ae5505829",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "人类可读、Web 友好；缺点是文本体积大、无索引，大文件解析慢。",
+      "hash": "8aad7e95a5505ce8",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "以西湖为例，正确写法是 \"coordinates\": [120.15, 30.25] （经度在前）。如果不小心写成 [30.25, 120.15] ，纬度就变成了 120.15。纬度的合法范围是 -90 到 90，多数库会直接报错；即使静默接受，点也会落到完全错误的位置。",
+      "hash": "da0532fbbe15eb3b",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "Shapefile",
+      "hash": "1e21d10d21500fbb",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "至少三件套： .shp （几何）、 .shx （索引）、 .dbf （属性），常带 .prj （CRS（ ，「西-阿尔-艾斯」））。",
+      "hash": "ed1d10eabc03cac7",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "老而普遍，但限制明显：",
+      "hash": "70921aad392e3df4",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "单文件 2 GB 上限",
+      "hash": "0cedfe269ac17822",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "字段名最长 10 字符",
+      "hash": "e4a7b12ce97b1783",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "一个图层只能一种几何类型",
+      "hash": "2f80e19c60ebdec8",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "无拓扑",
+      "hash": "aff8eba8d048cb2b",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "编码不统一，中文属性容易乱码",
+      "hash": "dac78183e0547669",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "假如属性表里有个字段叫「土地利用类型」，写进 Shapefile（ ，「谢普-法伊尔」）后字段名最多只剩 10 个字符，设计者只能改成 TDLYLX 之类的拼音缩写。很多老 GIS 数据里字段名像「谜语」，因为 Shapefile 只给了 10 个字符。",
+      "hash": "721c88afb0e714d9",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "GeoPackage（.gpkg）",
+      "hash": "d613cc1a3c262811",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "一个 SQLite 文件 （ ，「艾斯-克尤-艾-莱特」）装下矢量、栅格与瓦片，OGC（ ，「欧-吉-西」）标准，支持空间索引。现代桌面/移动端交换的首选之一。",
+      "hash": "6802530beca63055",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "其他",
+      "hash": "1a26edf94a81a7a4",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "KML（ ，「凯-艾姆-艾勒」） ：Google Earth 生态，带样式。",
+      "hash": "dc133a629865786b",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "GPX（ ，「吉-皮-艾克斯」） ：GPS（ ，「吉-皮-艾斯」）轨迹/航点。",
+      "hash": "bd2e8ff786964318",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "TopoJSON （ ，「托普-欧-杰森」）：把共享边界存成 arcs ，体积能比 GeoJSON 小很多，保留拓扑。",
+      "hash": "737ec4c9dbce16a4",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "GeoJSON： 经度在前 （lon, lat），坐标固定 WGS84（4326）",
+      "hash": "bc3dedb100397285",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "RFC 7946 已 移除 crs 成员，标准 GeoJSON 只能是 4326",
+      "hash": "66005c168a53db4b",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "Shapefile 三件套： .shp （几何）、 .shx （索引）、 .dbf （属性）， .prj 存 CRS",
+      "hash": "e9cfa0d8e766def8",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "Shapefile 硬限制： 2 GB 上限、字段名 10 字符",
+      "hash": "a5b793ba958861a1",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "GeoPackage（ ，「吉欧-派克-伊奇」）= 一个 SQLite 文件 装下矢量、栅格与瓦片",
+      "hash": "120893b86d4d0eb0",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "2. 栅格格式",
+      "hash": "c4bf25f3311cb7bb",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "GeoTIFF （ ，「吉欧-蒂芙」）：TIFF（ ，「蒂芙」）+ 地理参考（CRS、仿射变换），GIS 栅格的事实标准。",
+      "hash": "76fe6865ed353cc4",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "COG（Cloud Optimized GeoTIFF） （ ，「科格」）：分块 + 内置概览（overviews）+ 元数据在文件头部，客户端可用 HTTP Range 只取需要的块，无需下载整个文件。",
+      "hash": "dfeec95b7d92bff9",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "一幅 10 GB 的卫星影像做成 COG 挂在 HTTP 服务器上。前端只想预览某个约 256 KB 的小区域：传统 GeoTIFF 要把 10 GB 全下完才能打开；COG 因为元数据在文件头部，客户端先读头部、算出目标块的位置，再发一个 HTTP Range 请求只取那 256 KB，流量从 GB 级降到 KB 级。类比：去图书馆只复印需要的那一页，而不是把整本书借走。",
+      "hash": "4900a9c612d720f1",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "GeoTIFF = TIFF + 地理参考（CRS、仿射变换），GIS 栅格 事实标准",
+      "hash": "ced7d1ad76125606",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "COG 三要素： 分块 、内置 概览 （overviews）、 元数据在文件头部",
+      "hash": "b120da1667dc783c",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "COG 靠 HTTP Range 按需取块，不必下载整个文件",
+      "hash": "7db0ff240ef20239",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "3. 瓦片：把地图切片",
+      "hash": "ef64bfd4c0363ed4",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "瓦片金字塔： z 缩放级、 x 列、 y 行，每级 2^z × 2^z 张图。",
+      "hash": "1c850bd483049d8a",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "两种编号约定：",
+      "hash": "c26c6a6184ef10be",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "XYZ（ ，「艾克斯-外-泽」）（Google ˌoʊ ɛs ˈɛm/，「欧-艾斯-艾姆」）） ： y 从顶部（北）开始。",
+      "hash": "71c4ea1cde4282a7",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "TMS（ ，「提-艾姆-艾斯」） ： y 从底部（南）开始，换算 ytms = 2^z - 1 - yxyz 。",
+      "hash": "7fd0dd8927534727",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "反了会上下颠倒，是瓦片接入最常见的坑。",
+      "hash": "6d699b31c877c124",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "瓦片数 ：z=10 时，每级瓦片数 = 2^10 × 2^10 = 1024 × 1024 = 1,048,576 张——每升一级数量翻 4 倍，这就是叫「金字塔」的原因。",
+      "hash": "76e084ac91724b55",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "TMS 换算 ：某瓦片 XYZ 编号为 z=10, x=840, y=388，转成 TMS 行号：",
+      "hash": "d1f9f930c7e977b1",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "先算该级总行数：2^10 = 1024；",
+      "hash": "20e92fae9a6ca294",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "套公式：ytms = 2^10 − 1 − 388 = 1023 − 388 = 635 ；",
+      "hash": "265b0514e9b0fb14",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "z=10, x=840, y=388 （XYZ）和 z=10, x=840, y=635 （TMS）是 同一张图 ，只是 y 一个从北往南数、一个从南往北数。",
+      "hash": "733cd04a5e662901",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "瓦片地址 = z （缩放级）、 x （列）、 y （行），每级 2^z × 2^z 张",
+      "hash": "0fe9c371462dc1dd",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "z=0 全世界 1 张 ，z=1 有 4 张",
+      "hash": "1268264eef679acf",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "XYZ ：y 从 北 （顶部）数； TMS ：y 从 南 （底部）数",
+      "hash": "6368d7a6adf2a6a7",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "换算公式： ytms = 2^z − 1 − yxyz ；用反了地图 上下颠倒",
+      "hash": "0e61c3b0c302282e",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "4. 矢量瓦片（MVT）",
+      "hash": "b047b548153a06c5",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "矢量瓦片是 protobuf（ ，「普罗托-巴夫」）编码的几何 + 属性 （Mapbox（ ，「马普-巴克斯」）Vector Tile 规范），不是图片：",
+      "hash": "0b3562b76911532d",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "服务端切片、按 z 级简化；",
+      "hash": "144f05fa9137453d",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "客户端拿到数据后用样式（style JSON， ，「杰森」）渲染；",
+      "hash": "c955b26962001422",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "一份瓦片可以换多套样式、支持交互查询，体积通常远小于同范围 GeoJSON。",
+      "hash": "152eb98052404dfc",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "PMTiles （ ，「皮-艾姆-泰尔斯」）把整层瓦片打包成单个文件，通过 Range 请求按需读取，可直接放在对象存储上，省掉瓦片服务。",
+      "hash": "b96936863c01ffb2",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "同一家公司的全国底图只需要 切一次 矢量瓦片：白天的亮色样式、夜间的暗色样式，只是两份不同的 style JSON，客户端拿到同一份 MVT（ ，「艾姆-威-提」）数据，按各自样式渲染。若用栅格瓦片，这两种外观就得切两次图、存两份瓦片。这就是「渲染放到客户端」最直接的收益。",
+      "hash": "f071702fcc42ab7d",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "MVT = protobuf 编码的「几何 + 属性」 ，不是图片",
+      "hash": "b80b5b4ed73c7009",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "服务端切片简化， 渲染在客户端 （style JSON）",
+      "hash": "b26f004662683f98",
+      "audio": "seg70.mp3"
+    },
+    {
+      "index": 71,
+      "text": "一份瓦片可换 多套样式 、支持交互查询",
+      "hash": "04ac325aff42e7b7",
+      "audio": "seg71.mp3"
+    },
+    {
+      "index": 72,
+      "text": "PMTiles：整层打包成 单文件 ，Range 请求按需读，可直接放 对象存储",
+      "hash": "49aeea3b7d669309",
+      "audio": "seg72.mp3"
+    },
+    {
+      "index": 73,
+      "text": "5. 怎么选",
+      "hash": "be7b3848e760afa1",
+      "audio": "seg73.mp3"
+    },
+    {
+      "index": 74,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg74.mp3"
+    },
+    {
+      "index": 75,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg75.mp3"
+    },
+    {
+      "index": 76,
+      "text": "GeoJSON 规范： RFC 7946",
+      "hash": "8dfe38ab1f5b5289",
+      "audio": "seg76.mp3"
+    },
+    {
+      "index": 77,
+      "text": "矢量瓦片规范： mapbox/vector-tile-spec",
+      "hash": "6d4b74b437988028",
+      "audio": "seg77.mp3"
+    },
+    {
+      "index": 78,
+      "text": "COG 说明： gdal.org raster/cog",
+      "hash": "15ac676c5754d38e",
+      "audio": "seg78.mp3"
+    },
+    {
+      "index": 79,
+      "text": "瓦片编号： OSM Slippy map tilenames",
+      "hash": "4be8b0f70b3111ed",
+      "audio": "seg79.mp3"
+    }
+  ]
+}

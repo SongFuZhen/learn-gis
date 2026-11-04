@@ -1,0 +1,518 @@
+{
+  "slug": "11-terrain",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T17:00:16.053Z",
+  "segmentCount": 85,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：气象站只有几十个，你却想要整个城市的温度分布图——从离散的点推算连续的面，这叫插值；再加上 DEM（高程栅格）衍生出坡度、坡向、山体阴影。",
+      "hash": "4757542fde5c50d2",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：插值的全部假设就一句—— 近的地方更像 （托布勒第一定律）。三个方法速配： IDW （近的权重大）快糙猛，快速出图选它； 样条 画出来的面光滑漂亮，气温水位这类渐变场选它； 克里金 统计最优还附带「这个估计有多可靠」的误差图，专业场合选它。",
+      "hash": "87ba5b187b8a444d",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "IDW 画出「牛眼」 ：某个观测点值异常高，图上就以它为圆心一圈圈同心圆。看到牛眼先怀疑数据，别急着调参数。",
+      "hash": "5401dfca838d4d8f",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "拿 DSM 当裸地用 ：DSM 含建筑和树冠高度，DTM 才是纯地面。做水文分析（水往低处流）用错 DSM，水会「流」进大楼里。",
+      "hash": "ec1a33483c8ae9e6",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "DEM 没问高程基准 ：高程也要问「从哪量起」，椭球高和海拔混着叠会错几十米。",
+      "hash": "2a47fb63b60de791",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "插值永远是估计，离观测点越远越不可信",
+      "hash": "54a6fe5c0630b79a",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "快速出图 IDW、渐变场样条、要误差图克里金",
+      "hash": "b5ef499afbbbd059",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "DSM 含建筑，DTM 才是裸地",
+      "hash": "bba8dc80bb244ec8",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "温度站在地图上只有几十个点，但你想知道 整个区域的温度分布 ；等高线是一圈圈线，但你需要 每个格子的坡度 。从离散观测推算连续表面，是空间分析的另一半江山：插值与地形分析。本章覆盖：三种插值方法怎么选、DEM 从哪来、坡度坡向山体阴影怎么算、以及河流为什么会『流』进 DEM。",
+      "hash": "57c7944ea9d71fde",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "1. 从离散点到连续面：插值要解决什么",
+      "hash": "4a8ef51c52b79d36",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "观测永远是离散的：气象站、钻孔、土壤采样点。但决策需要连续场，『这块地适合种什么』需要每一点的土壤 pH。插值（interpolation， ，「因-特-珀-雷-绍恩」）就是用已知点推算未知点的数学方法。",
+      "hash": "a1137ce3058f43a2",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "插值假设： 空间上相近的值更相似 （Tobler 第一定律的地学落地）",
+      "hash": "50e92c8978f09e1b",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "插值结果永远是 估计 ，离观测点越远越不可信",
+      "hash": "decc60c1ce4d7e69",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "插值前先问：数据有没有空间自相关？完全随机的数据插出来的全是噪声",
+      "hash": "9e50952e94081492",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "2. 三种插值方法：IDW、样条、克里金",
+      "hash": "b99a079de3991005",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "IDW 强制插值面在已知点处回到观测值。若某点值异常高、周围点都低，插值面就以它为圆心一圈圈衰减，图上出现一圈圈同心『牛眼』。看到牛眼，先怀疑数据代表性，再考虑换克里金或样条。",
+      "hash": "a0663c3f06c90b73",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "IDW ：快、糙、必须过已知点，快速出图选它",
+      "hash": "b9a1f54c3d804052",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "样条 ：光滑、可能过冲，渐变场（气温）选它",
+      "hash": "4030f2fffb45637b",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "克里金 ：统计最优 + 给误差图，专业领域选它",
+      "hash": "15c2a84158ef45eb",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "只有克里金能给出 不确定度 ，需要『这个估计有多可靠』时没得选",
+      "hash": "22c58965010b2e13",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "3. DEM：高程从哪来",
+      "hash": "83f43730d90dd63c",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "DEM（Digital Elevation Model， ，「迪-伊-艾姆」，数字高程模型）是规则格网的高程栅格，地形分析的原材料。主流来源：",
+      "hash": "b9b300e174adaa28",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "DEM 的高程值也要问『从哪量起』：SRTM 是椭球高还是海拔？多数公开 DEM 给的是 正高 ˌiː dʒiː ˈem/，「伊-吉-艾姆」）模型换算），但也有椭球高产品。叠加分析前，对齐高程基准（第 02 章）与对齐水平 CRS 同样重要。",
+      "hash": "0261468fe7a31433",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "4. DEM DTM 与 nDSM",
+      "hash": "e8e0dc2eda1b2054",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "第 05 章见过三兄弟，这里补一个关键的减法：",
+      "hash": "c1e48c9980fc651d",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "DTM（Digital Terrain Model， ，「迪-提-艾姆」） ：裸地面（山体本身）；",
+      "hash": "bccf831ce9a4f3a7",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "DSM（Digital Surface Model， ，「迪-艾斯-艾姆」） ：地表含建筑与树冠的表面；",
+      "hash": "a058bced627c8b1c",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "DEM ：泛称，日常语境多指 DTM 或笼统的高程栅格；",
+      "hash": "15a76dd00e16215d",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "nDSM（normalized DSM， ，「恩-迪-艾斯-艾姆」）= DSM − DTM ：离地高度，建筑高度图、树高图就是这一步减法做出来的。",
+      "hash": "c057b02463ce5c27",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "nDSM = DSM − DTM = 离地高度",
+      "hash": "efe1efcc4d0696ca",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "城市建筑高度、森林树高估算都靠这个减法",
+      "hash": "29067ea841aa6b60",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "没有真正 DTM（裸地）时，DSM 减出来的『树高』会把山坡也算进去",
+      "hash": "c6f46afeb15acbb1",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "下列需求分别应该用 DSM、DTM 还是 nDSM？",
+      "hash": "9780ea41b288f90a",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "无人机航线规划要避开高压线塔顶；",
+      "hash": "f2183fc3a0ae95d8",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "计算山体汇水面积；",
+      "hash": "d5790067bb72d7e4",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "统计城市里 30 m 以上的建筑数量；",
+      "hash": "bab530f6d2a918e6",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "徒步路线的高程剖面（只关心地面起伏）。",
+      "hash": "70f91873f556b29e",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "5. 地形派生：坡度、坡向与山体阴影",
+      "hash": "705f5363229b57eb",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "DEM 本身是『每个格子多高』，分析要的是『高怎么变』，对相邻像元求导数：",
+      "hash": "5a7e5bdceb3e760c",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "坡度（slope， ，「斯楼普」） ：高程变化率，可用百分比（rise/run × 100%）或角度（tan⁻¹）表达；",
+      "hash": "ce18d294e19b721e",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "坡向（aspect， ，「艾斯-佩克特」） ：最陡下坡方向，0360°（正北起顺时针）；北半球阳坡（南坡）日照多；",
+      "hash": "ca865bdc542dc32c",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "山体阴影（hillshade， ，「希尔-谢德」） ：模拟光源（默认西北 315°、45° 仰角）照射的地表明暗，只用于 可视化 。",
+      "hash": "7329e3e2206ccb9d",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "水平走 100 m 上升 10 m：坡度 = 10/100 = 10% ；角度 = tan⁻¹(0.1) 约等于 5.7° 。",
+      "hash": "3bd18f13d83466ac",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "对照记忆：45° = 100%；30° 约等于 58%；10° 约等于 17.6%。道路工程『坡度 8%』就是角度约 4.6°，比直觉平缓得多。",
+      "hash": "60079f82e363a81f",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "平地没有坡向。QGIS 0 （软件各异），做统计前要剔除平地像元，否则『平均坡向』被平地污染。",
+      "hash": "2be8987b373b0728",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "坡度两种表达： 百分比 （rise/run×100%）与 角度 （tan⁻¹），45° = 100%",
+      "hash": "035bcc3bbfdd4275",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "坡向 = 最陡下坡方向，北半球阳坡为南坡",
+      "hash": "c695b492574ba48c",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "山体阴影是 可视化 ：默认光源西北 315° / 45° 仰角",
+      "hash": "5587789472b2b889",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "下载一份 SRTM 30 m DEM（QGIS 内置 SRTM 下载器插件或网站），拖入画布；",
+      "hash": "e01545e24b8a7e71",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "菜单「栅格 到 分析 到 坡度（Slope）」，输出选百分比；预期看到：山地呈彩色梯度、平原接近 0；",
+      "hash": "f7877642e3c15c13",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "再跑「山体阴影（Hillshade）」，方位角 315°、仰角 45°；叠加在 DEM 上（透明度 50%），地形立即立体起来；",
+      "hash": "484829cb9d071071",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "把方位角改成 135°（东南光）再跑一次，预期阴影反转，同一座山看起来『凹凸互换』。截图两张对比，写一句：为什么制图惯例用西北光？",
+      "hash": "aa701576ab833dc1",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "6. 等高线：地形的矢量表达",
+      "hash": "95f7864f81453123",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "等高线是 DEM 的矢量孪生： 同一条线上的点高程相同 。读法三条：",
+      "hash": "c46813856707a761",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "线越密 = 坡越陡（水平距离内爬升多）；",
+      "hash": "1f3eb928b5634b4c",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "等高线闭合内低 = 洼地/盆地；闭合内高 = 山头；",
+      "hash": "1b2d595850ba9169",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "等高线稀疏 = 缓坡台地。",
+      "hash": "59b17b7814764320",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "地形图等高距 10 m，图上相邻两条等高线间隔 2 mm，比例尺 1:50 000：",
+      "hash": "18b84803f14f1737",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "实地水平间隔 = 2 mm × 50 000 = 100 m；坡度 = 10/100 = 10% 。",
+      "hash": "7d629dfbf62d7474",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "等高距、图上间距、比例尺，三个数就能估坡度，这是地形图阅读的基本功。",
+      "hash": "fe17ee6137bea26e",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "7. 水文地形：水流去哪里",
+      "hash": "d4f341b1a2c205f5",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "给 DEM 做水文分析，回答『雨落在格子上往哪流』：",
+      "hash": "f9d569180de63918",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "填洼（fill sinks， ，「菲尔-辛克斯」） ：先把局部洼地填平（否则水流『断头』）；",
+      "hash": "c6b093c03b08b911",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "流向（flow direction， ，「弗楼-迪-瑞克-绍恩」） ：常用 D8（ ，「迪-诶特」）法 ，每个像元流向 8 邻居中最陡下降的那个；",
+      "hash": "7f90e150bec93eab",
+      "audio": "seg70.mp3"
+    },
+    {
+      "index": 71,
+      "text": "汇流累积（flow accumulation， ，「弗楼-额-克尤-缪-雷-绍恩」） ：统计流经每个像元的上游像元数，数值大的连线就是 河流网络 ；",
+      "hash": "c78082f3ad6bc44e",
+      "audio": "seg71.mp3"
+    },
+    {
+      "index": 72,
+      "text": "流域划分 ：给定出口点，把所有流入它的像元圈出来 = 流域（watershed， ，「沃-特-谢德」） 。",
+      "hash": "81e0fe89ea38f44e",
+      "audio": "seg72.mp3"
+    },
+    {
+      "index": 73,
+      "text": "填洼 到 流向（D8 最陡下降）到 汇流累积 到 划流域",
+      "hash": "89e504144fc9ff5c",
+      "audio": "seg73.mp3"
+    },
+    {
+      "index": 74,
+      "text": "汇流累积值大的像元连成 河网 ，无需任何水系数据即可从 DEM 推出河流",
+      "hash": "78402a9e39a01b40",
+      "audio": "seg74.mp3"
+    },
+    {
+      "index": 75,
+      "text": "D8 是『8 邻居选最陡』的简化；平地与洼地是它的两大痛点",
+      "hash": "bf7b3268e62277ea",
+      "audio": "seg75.mp3"
+    },
+    {
+      "index": 76,
+      "text": "插值三法：IDW（快、牛眼）、样条（光滑、过冲）、克里金（最优 + 误差图）；",
+      "hash": "646eeed48e683a65",
+      "audio": "seg76.mp3"
+    },
+    {
+      "index": 77,
+      "text": "DEM 来源：SRTM/Copernicus 30 m、LiDAR 亚米级；高程也挂基准；",
+      "hash": "bae982dc99b0e065",
+      "audio": "seg77.mp3"
+    },
+    {
+      "index": 78,
+      "text": "nDSM = DSM − DTM = 离地高度；",
+      "hash": "7396b4a05ca6b856",
+      "audio": "seg78.mp3"
+    },
+    {
+      "index": 79,
+      "text": "坡度百分比 vs 角度（45°=100%）；山体阴影默认西北光，是可视化不是数据；",
+      "hash": "496cf31b41ba1ee2",
+      "audio": "seg79.mp3"
+    },
+    {
+      "index": 80,
+      "text": "水文四步：填洼 到 D8 流向 到 汇流累积 到 划流域。",
+      "hash": "9cc44d48451d599e",
+      "audio": "seg80.mp3"
+    },
+    {
+      "index": 81,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg81.mp3"
+    },
+    {
+      "index": 82,
+      "text": "QGIS 地形分析文档： docs.qgis.org",
+      "hash": "033b808c179a0e22",
+      "audio": "seg82.mp3"
+    },
+    {
+      "index": 83,
+      "text": "GDAL DEM 工具（gdaldem）： gdal.org gdaldem",
+      "hash": "06fe63b438323fed",
+      "audio": "seg83.mp3"
+    },
+    {
+      "index": 84,
+      "text": "Burrough《Principles of Geographical Information Systems》地形分析章节",
+      "hash": "7ab3ce96bbdfc042",
+      "audio": "seg84.mp3"
+    }
+  ]
+}

@@ -1,0 +1,494 @@
+{
+  "slug": "09-data-quality",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T16:11:02.315Z",
+  "segmentCount": 81,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：分析做得再漂亮，数据是烂的结论就是烂的——垃圾进，垃圾出（GIGO）。这章讲数据从哪来、误差从哪来、怎么控制。",
+      "hash": "70f6ca51c1b4a4ff",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：数据质量像食材。厨艺（分析算法）再好，食材烂了菜也好吃不到哪去。所以动手分析前，先问三个问题：这数据哪来的？多准？全不全？",
+      "hash": "54b4a323c825ef77",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "精度怎么选 ：手机 GPS 是米级，够导航；测绘要厘米级就上 RTK。不是越准越好——厘米级设备的价钱和复杂度是米级的几十倍，按需求选。",
+      "hash": "c3762e031e08b768",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "轨迹穿楼以为设备坏了 ：高楼反射信号（多路径效应），城市里漂移几十米很正常，不是硬件问题。",
+      "hash": "da0b2da3aeab03d6",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "把「精度」当「准确度」 ：打靶一梭子子弹挤成一团但全偏左——很精确（密集）但不准确（偏离靶心）。数据也一样：一堆点很密集，整体偏了一百米。",
+      "hash": "7a6ecf549da9e965",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "以为「开源数据」=「能商用」 ：开放数据各有各的许可（ODbL、CC 等），商用前先看许可条款。",
+      "hash": "199ab6467c3104e3",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "垃圾进垃圾出，分析前先查数据质量",
+      "hash": "bdbabb39f1902e0d",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "GNSS 定位至少 4 颗星，手机米级、RTK 厘米级",
+      "hash": "ab333b816809e9dc",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "精度（点散不散）≠ 准确度（偏没偏）",
+      "hash": "fe6d6feafd796952",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "GIS 的结论质量永远被数据质量封顶：『垃圾进，垃圾出』。这一章回答三个问题： 数据从哪来 （GNSS（ ，「吉-恩-艾斯-艾斯」）、遥感、数字化、开放数据）、 误差从哪来 （定位误差、数字化误差、属性错）、 怎么描述和控制质量 （精度 vs 准确度、完备性、元数据与溯源）。",
+      "hash": "3fb9ebecd482bdea",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "1. 数据从哪来：五种采集途径",
+      "hash": "d505a90f91cdd5b0",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "位置精度要求高 到 RTK-GNSS （厘米级）",
+      "hash": "e5b2eb8454ef1960",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "大范围面要素 到 遥感解译",
+      "hash": "6d51f2c74e3d46a7",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "老地图转矢量 到 数字化",
+      "hash": "f8b6697ddbfd1840",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "快速底图 到 开放数据（注意许可）",
+      "hash": "40da5b23cd2769d9",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "2. GNSS：怎么知道『你在哪』",
+      "hash": "d42f8e7688d52374",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "GPS（ ，「吉-皮-艾斯」） GLONASS（ ，「格洛-纳斯」） ˌɡælɪˈleɪoʊ/，「盖-利-雷-欧」）统称 GNSS 。定位原理是 三边测量 ：",
+      "hash": "5c9da726d2807b1f",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "卫星广播自己的位置 + 信号发射时刻；",
+      "hash": "327eb4f8cf6e1fa1",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "接收机用『信号到达时刻 − 发射时刻』算距离（伪距）；",
+      "hash": "80167b0b2d75c25f",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "至少 4 颗卫星 ：3 个球面交点 + 1 个解时钟误差（接收机钟不如卫星钟准）。",
+      "hash": "094ebde4c5178525",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "精度分级：",
+      "hash": "f5cfdf3a8626690d",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "高层建筑反射信号产生 多路径效应 ，加上天空视野被遮挡（可见卫星少、几何构型差 PDOP（ ，「皮-迪-欧-皮」）大），城市街道里定位漂移几十米很常见。轨迹『穿楼』多为这类误差，不是设备坏了。",
+      "hash": "80ea8971059e5e68",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "定位原理 = 三边测量， 至少 4 颗卫星 （3 位置 + 1 钟差）",
+      "hash": "5e1556e1108ec39e",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "手机米级； RTK 载波相位差分厘米级",
+      "hash": "416fb2c4c7eeac1e",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "城市峡谷两大误差源： 多路径效应 + 可见卫星少",
+      "hash": "9f15cc66b3a1019e",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "高程精度通常只有水平的一半——GNSS 高程还得过基准换算（第 02 章）",
+      "hash": "cb93a19696f26f51",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "3. 地图数字化：老图变成新数据",
+      "hash": "089cef4608e8847c",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "把纸质地图 ˈdɪdʒɪtaɪzɪŋ/，「迪吉-泰-津」）：",
+      "hash": "744288857f9daf80",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "手扶跟踪数字化 ：历史上用数字化仪逐点描（几乎淘汰）；",
+      "hash": "36e04bc897f785a4",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "屏幕数字化（on-screen） ：在 QGIS（ ，「克尤-吉斯」）里加载配准好的扫描图作为底图，新建图层逐要素描点画线，今天的主流；",
+      "hash": "50a1e2c16806c240",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "自动矢量化 ：软件从栅格自动追线（等高线批量），仍需人工清理。",
+      "hash": "9bf30edf599bddb9",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "数字化三件配套工作： 配准 （给扫描图贴上地理坐标，选至少 4 个控制点）、 投影设定 、 拓扑检查 （第 05 章的有效性）。",
+      "hash": "3f98937a90a1052e",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "用「栅格 到 配准（Georeferencer）」给一张地形图扫描件配 46 个控制点（选图上十字网线交点），目标 CRS（ ，「西-阿尔-艾斯」）用图注的坐标系；",
+      "hash": "bd2fbbca7040874f",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "新建 LineString 图层，加字段 name；「图层 到 切换编辑状态」，沿底图河流逐段加折点；",
+      "hash": "3b6fbe80fc8d0af6",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "预期体会：顶点间距在弯道要密、直段可疏；描完保存编辑；",
+      "hash": "e0a72662b3247b0d",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "用「检查有效性」跑一遍，数字化最常见的新手错误就是没闭合/自相交。",
+      "hash": "7e79c6b5f48bc94c",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "4. 开放数据与志愿者地理信息（VGI）",
+      "hash": "b0ab29e263e8d75d",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "不用自己采集，也能获得高质量数据：",
+      "hash": "a3966d7c9111f3a4",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "政府开放数据 ：天地图、自然资源部标准地图、USGS（ ，「尤-艾斯-吉-艾斯」） kəˈpɜːrnɪkəs/，「科-珀-尼-卡斯」）；",
+      "hash": "0fa51d40e9ccebe6",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "OSM（ ，「欧-艾斯-艾姆」）（OpenStreetMap） ：全球最大志愿者地理信息（VGI），大城市道路 completeness（ ，「坎普-利特-奈斯」）高、小乡村稀疏；",
+      "hash": "f883d9a4cabcd1b1",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "许可要看清 ：ODbL（ ，「欧-迪-比-艾勒」）（OSM，署名-相同方式共享）、CC0（ ，「西-西-泽罗」）（部分政府数据）、『不可用于导航』等限制条款；",
+      "hash": "faac97bad8fc4631",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "VGI 质量规律 ：人口密集处完备性好、更新快；稀疏区靠遥感补，用之前先查该区域 edit count。",
+      "hash": "27521d5db6b19fcf",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "OSM = 全球最大 VGI ，城市完备性高、乡村不均",
+      "hash": "1e4c7d95aa9be142",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "用前先看 许可 ：ODbL 禁商用 各不相同",
+      "hash": "7ff7e1acbbf185cd",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "质量评估看 完备性 （该有的有没有），不只看精度",
+      "hash": "780e10574bf181b0",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "5. 误差、精度与不确定性",
+      "hash": "9b46947b7361bcb0",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "质量不是单一数字，ISO（ ，「艾-索」）19157 把它拆成几个维度：",
+      "hash": "6f684182d3141fbf",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "准确度（accuracy）是离真值的距离； 精确度 （precision， ，「普里-西任」）是重复测量的离散度。小数点后 8 位的坐标可能只准确到 10 m—— 精度 ≠ 分辨率 ≠ 准确度 ，三者别混。",
+      "hash": "0331e6c5f89c4c5e",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "位置 / 属性准确度、 完备性 、 逻辑一致性 、时效性、分辨率",
+      "hash": "4f27da608dd6c06b",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "accuracy = 离真值多远；precision = 重复测量离散度—— 打靶偏左但很密 = 精确而不准确",
+      "hash": "dcc00fa298b979db",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "坐标小数位多 ≠ 准确",
+      "hash": "2b1d1740f6f1d2e4",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "6. 元数据与数据溯源",
+      "hash": "e7a852317dc8270c",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "半年后没人记得这份数据是谁、什么时候、怎么做的，所以要有 元数据 （metadata， ，「梅塔-黛塔」）：『关于数据的数据』。",
+      "hash": "813b54b2e8f7ce94",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "核心字段：空间参考、范围、采集时间与方法（ lineage 溯源 ， ，「利尼-伊奇」）、字段字典、质量报告、许可。国际标准 ISO 19115 ；GDAL（ ，「古德尔」）/QGIS 可读写元数据。",
+      "hash": "b59b585793b6468d",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "『这份地块边界为什么和 2024 年规划图对不上？』——查 lineage：数据 2019 年从某县国土二调成果数字化、2019 年后规划调整未同步。没有 lineage，这个争论永远扯不清。",
+      "hash": "ab2a40aafcb3197b",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "元数据 = 关于数据的数据；核心是 lineage 溯源 （谁、何时、怎么做的）",
+      "hash": "bab50aaef803156a",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "国际标准 ISO 19115",
+      "hash": "58db1d924bde4dd3",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "数据交付不带元数据 = 半年后必然扯皮",
+      "hash": "f703cf099bb96ad7",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "用 QuickOSM 插件下载你所在城市的道路与建筑；",
+      "hash": "2498c1d6c9dd53af",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "完备性 ：挑 3 条你熟悉的街道，对比 OSM 与卫星底图——缺了哪些段？",
+      "hash": "8a05aa946f71dafc",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "一致性 ：跑「检查有效性」看有无自相交；",
+      "hash": "4db6020c40d79632",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "时效性 ：查 OSM 元数据（osm.org 上看 history）最近编辑时间；",
+      "hash": "3e2b8baed4a83f23",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "输出一段 150 字质量评估：能不能用于配送选址？缺口在哪？",
+      "hash": "b521f2f1f185c9c9",
+      "audio": "seg70.mp3"
+    },
+    {
+      "index": 71,
+      "text": "五种采集途径按精度与成本选：RTK 厘米、遥感大范围、数字化救老图；",
+      "hash": "b74faf7ef9eddbc1",
+      "audio": "seg71.mp3"
+    },
+    {
+      "index": 72,
+      "text": "GNSS：三边测量 + 4 颗卫星；RTK 厘米级；城市峡谷多路径漂移；",
+      "hash": "b90701ff14e100d7",
+      "audio": "seg72.mp3"
+    },
+    {
+      "index": 73,
+      "text": "数字化三配套：配准、投影、拓扑检查；",
+      "hash": "925e957d2b3e6106",
+      "audio": "seg73.mp3"
+    },
+    {
+      "index": 74,
+      "text": "开放数据先看许可（ODbL/CC0），OSM 城市好乡村差；",
+      "hash": "a30769e8944c9b4e",
+      "audio": "seg74.mp3"
+    },
+    {
+      "index": 75,
+      "text": "质量六维：位置/属性、完备性、一致性、时效性、分辨率；accuracy ≠ precision；",
+      "hash": "dda3ff91d33cd23c",
+      "audio": "seg75.mp3"
+    },
+    {
+      "index": 76,
+      "text": "元数据 + lineage 是数据资产的一部分，交付必带。",
+      "hash": "6766668feb073898",
+      "audio": "seg76.mp3"
+    },
+    {
+      "index": 77,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg77.mp3"
+    },
+    {
+      "index": 78,
+      "text": "ISO 19157（数据质量）： iso.org",
+      "hash": "b2a4ad1ab4d0f73d",
+      "audio": "seg78.mp3"
+    },
+    {
+      "index": 79,
+      "text": "OSM 数据质量文档： wiki.openstreetmap.org",
+      "hash": "ebbd95c8f3bfd2d5",
+      "audio": "seg79.mp3"
+    },
+    {
+      "index": 80,
+      "text": "《Elements of Spatial Data Quality》：数据质量经典文集",
+      "hash": "d875bcd62d7c2f92",
+      "audio": "seg80.mp3"
+    }
+  ]
+}

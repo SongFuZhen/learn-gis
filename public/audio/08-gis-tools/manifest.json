@@ -1,0 +1,506 @@
+{
+  "slug": "08-gis-tools",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-04T15:49:12.733Z",
+  "segmentCount": 83,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
+      "hash": "48e4106b6c21b470",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "这章解决什么问题 ：概念都学了，手上得有家伙。这章给你工具箱：QGIS（点鼠标）和 GDAL（敲命令）。",
+      "hash": "808e129bc4a78a62",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "我的经验一句话 ：这套工具链像 Linux 生态—— GDAL/OGR 是引擎，QGIS 只是套了个图形界面 。你在 QGIS 里点的格式转换、重投影，底层全是 GDAL。所以会了命令行，QGIS 大部分功能你都能批量跑。",
+      "hash": "273ba6358d9fbbc3",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "拿到陌生数据的第一件事 ：先看元信息，就像拿到陌生 API 先 curl 一下：",
+      "hash": "2e5ff2907073fcf4",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "坐标系、单位、范围、字段——30 秒全知道，比打开图形界面快。",
+      "hash": "3bc840558c612509",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "我见过的坑（你大概率也会踩） ：",
+      "hash": "a9ac3abff6d2267a",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "不看元信息直接上手，做了半天发现坐标系根本不是自己以为的那个。",
+      "hash": "262b017b22fa6bec",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "以为某个功能是「QGIS 独有」——其实 GDAL 命令行都有，而且能写脚本批量处理一千个文件。",
+      "hash": "e5685f91da14c363",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "栅格直接发原图——转成 COG（云优化 GeoTIFF）后网页端可以按需读取，速度快一个量级。",
+      "hash": "5dba22c876435e94",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "必记 3 条 ：",
+      "hash": "4e91eabe2887e921",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "QGIS = GUI，GDAL/OGR = 引擎，GUI 只是壳",
+      "hash": "f118cb53e9c45186",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "拿到数据先 ogrinfo/gdalinfo 看元信息",
+      "hash": "4333fb793d76c80c",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "栅格发出去前转 COG",
+      "hash": "d6a781565fae439f",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "前面七章都在讲概念，这一章是 练习场 ：把 QGIS（ ，「克尤-吉斯」）和 GDAL（ ，「古德尔」） ˌoʊ dʒiː ˈɑːr/，「欧-吉-阿」）装进你的工具箱。学完你能：用 QGIS 打开并检查数据、用命令行查看数据元信息、做格式转换与重投影、把栅格转成云优化的 COG（ ，「科格」）。每条命令都标注了预期输出。动手跑一遍，比读十页文档有用。",
+      "hash": "e062054332244644",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "1. 工具链地图：谁在底层干活",
+      "hash": "ad8b2167e675c55c",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "桌面与服务器上的 GIS 软件，底层几乎都是同一套开源引擎：",
+      "hash": "b391b24738236b85",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "QGIS = 图形界面； GDAL/OGR = 命令行引擎（GDAL 管栅格、OGR 管矢量）",
+      "hash": "294df0bc0e23dff6",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "PROJ = 坐标变换数学； GEOS = 几何运算",
+      "hash": "e60a8b30a68784e2",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "QGIS 的许多处理算法，底层就是调用 GDAL/OGR——GUI 只是壳",
+      "hash": "54633789b91322b4",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "2. QGIS 速览",
+      "hash": "f002bfed195372ce",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "安装：官网 qgis.org 下载长期支持版（LTR（ ，「艾勒-提-阿」））。打开后认识四个区域：",
+      "hash": "16d0dde46be45e79",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "图层面板 （左）：图层顺序、透明度、勾选显示；",
+      "hash": "0f73d18af16f61ff",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "地图画布 （中）：显示当前图层；",
+      "hash": "1ff46c60f23d0821",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "浏览器面板 （左下 ˌdʌbəljuː ɛm ˈɛs/，「达布优-艾姆-艾斯」）服务，拖进画布即加载；",
+      "hash": "65391ff7daff1c7b",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "属性表 ：右键图层 到 打开属性表，看每行的属性记录。",
+      "hash": "d489dc067580bf41",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "安装 QGIS LTR 并启动，新建一个空项目；",
+      "hash": "0d6bedfc1e94de72",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "浏览器面板找到「GeoJSON（ ，「吉欧-杰森」）」示例或从 Natural Earth（ ，「奈彻若-厄斯」）（ naturalearthdata.com ）下载 1:110m 的国家图层（countries.shp）；",
+      "hash": "6b68fb20f0d282f2",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "双击或拖入画布加载；右键图层 到 「打开属性表」；",
+      "hash": "31b892eb342a6e70",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "预期看到：每个国家一行记录，字段有名称、人口等；点属性表左侧的行，画布上对应国家会高亮。",
+      "hash": "0ed7ef37c35d8d0e",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "3. 查看数据：ogrinfo 与 gdalinfo",
+      "hash": "825a1fc39565be2b",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "拿到一份陌生数据，第一件事永远是 看元信息 。GDAL 3.x 口径下：",
+      "hash": "497b2e0ab06badf7",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "矢量用 ogrinfo （OGR 系列）：",
+      "hash": "2796468af0f4f47b",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "-so = 只输出摘要（summary only）， -al = 所有图层。预期输出（节选）：",
+      "hash": "26ec09612f9f86f8",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "一眼能看到：几何类型、要素数、范围（extent， ，「艾克斯-滕特」）、坐标系、字段类型。 拿到数据先跑它，80% 的「坐标系不对/字段缺失」问题当场现形。",
+      "hash": "1424028ba0e33690",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "栅格用 gdalinfo ：",
+      "hash": "ccb7aa44179977ff",
+      "audio": "seg37.mp3"
+    },
+    {
+      "index": 38,
+      "text": "预期输出（节选）：",
+      "hash": "1eeac62b2d569799",
+      "audio": "seg38.mp3"
+    },
+    {
+      "index": 39,
+      "text": "尺寸（行列数）、原点与像元大小（即仿射变换）、波段类型、NoData 全都在。",
+      "hash": "e8bff3ddf6573232",
+      "audio": "seg39.mp3"
+    },
+    {
+      "index": 40,
+      "text": "找任意一份本地的 GeoJSON ˈʃeɪpfaɪl/，「谢普-法伊尔」）（没有就用 Natural Earth 的）；",
+      "hash": "997294bc48336c9a",
+      "audio": "seg40.mp3"
+    },
+    {
+      "index": 41,
+      "text": "跑 ogrinfo 数据文件 （不带参数），再跑 ogrinfo -so -al 数据文件 ，对比两种输出的详略；",
+      "hash": "14de508f6236006a",
+      "audio": "seg41.mp3"
+    },
+    {
+      "index": 42,
+      "text": "回答三个问题：几何类型是什么？要素有多少？坐标系是 4326 还是投影坐标系？",
+      "hash": "ccc813aea4fcccec",
+      "audio": "seg42.mp3"
+    },
+    {
+      "index": 43,
+      "text": "预期： -so -al 摘要模式一屏看完三问的答案。",
+      "hash": "b3b7f9f2c709d339",
+      "audio": "seg43.mp3"
+    },
+    {
+      "index": 44,
+      "text": "4. 转换与重投影：ogr2ogr",
+      "hash": "3e22dad8e5db8f9b",
+      "audio": "seg44.mp3"
+    },
+    {
+      "index": 45,
+      "text": "格式转换、坐标系变换、字段过滤、图层改名，ogr2ogr 一条命令全包：",
+      "hash": "c62d8df1e8c476fe",
+      "audio": "seg45.mp3"
+    },
+    {
+      "index": 46,
+      "text": "常用参数（均在 GDAL 官方文档核实）： -f 输出格式、 -tsrs 目标坐标系、 -ssrs 强制指定源坐标系（源缺 .prj 时救命）、 -nln 输出图层名、 -lco 格式创建选项、 -append 追加模式。",
+      "hash": "780c811834de3533",
+      "audio": "seg46.mp3"
+    },
+    {
+      "index": 47,
+      "text": "点 面混入 Multi 类型时，写库或转换常报「几何类型不匹配」。加 -nlt PROMOTETOMULTI 一律提升为 Multi 版本，绝大多数场景无害且省心。",
+      "hash": "4b8e7bf90ef2e838",
+      "audio": "seg47.mp3"
+    },
+    {
+      "index": 48,
+      "text": "用 ogr2ogr 把 Natural Earth 的 countries.shp 转成 GeoPackage（ ，「吉欧-派克-伊奇」）； ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTETOMULTI",
+      "hash": "581b3b14777652f6",
+      "audio": "seg48.mp3"
+    },
+    {
+      "index": 49,
+      "text": "再转一次，目标坐标系改为 EPSG:3857，输出 countries3857.gpkg；",
+      "hash": "c08eef0e2f0d2884",
+      "audio": "seg49.mp3"
+    },
+    {
+      "index": 50,
+      "text": "用 ogrinfo -so 分别查看两个 GPKG 的 extent：预期 3857 版的数值变成了两千万米级（对照第 03 章的 正负20 037 508 m）；",
+      "hash": "6bda635e44cac966",
+      "audio": "seg50.mp3"
+    },
+    {
+      "index": 51,
+      "text": "把两次的 extent 数字抄下来，这就是「同一数据、不同 CRS」最直观的证据。",
+      "hash": "8a1af447e3d64745",
+      "audio": "seg51.mp3"
+    },
+    {
+      "index": 52,
+      "text": "5. 栅格三件套：gdaltranslate 与 gdalwarp",
+      "hash": "db8ec8a38fd06144",
+      "audio": "seg52.mp3"
+    },
+    {
+      "index": 53,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg53.mp3"
+    },
+    {
+      "index": 54,
+      "text": "看 矢量 信息 到 ogrinfo；看 栅格 信息 到 gdalinfo",
+      "hash": "e790969295811b39",
+      "audio": "seg54.mp3"
+    },
+    {
+      "index": 55,
+      "text": "矢量 转换 裁剪 到 gdalwarp",
+      "hash": "e4b5dfb66b074f3e",
+      "audio": "seg55.mp3"
+    },
+    {
+      "index": 56,
+      "text": "栅格转 COG 到 gdaltranslate -of COG（GDAL ≥ 3.1）",
+      "hash": "f6526b668b7ebd1f",
+      "audio": "seg56.mp3"
+    },
+    {
+      "index": 57,
+      "text": "ogr 的 o = OGR 管矢量；不带 ogr 的管栅格——命令名先分清矢量栅格",
+      "hash": "4f1ed3b8211c05f4",
+      "audio": "seg57.mp3"
+    },
+    {
+      "index": 58,
+      "text": "下载任意 GeoTIFF（ ，「吉欧-蒂芙」；如 SRTM（ ，「艾斯-阿-提-艾姆」）30m 高程切片）；先 gdalinfo 记下尺寸与坐标系；",
+      "hash": "54fe5864ba0cac89",
+      "audio": "seg58.mp3"
+    },
+    {
+      "index": 59,
+      "text": "gdaltranslate -of COG -co COMPRESS=DEFLATE in.tif outcog.tif ；再 gdalinfo outcog.tif ，预期看到 LAYOUT=COG 字样；",
+      "hash": "6dc335a7e1bbe1b3",
+      "audio": "seg59.mp3"
+    },
+    {
+      "index": 60,
+      "text": "用 ogr2ogr 造一个小范围裁剪框（或用任意行政区边界），然后： gdalwarp -cutline clip.geojson -croptocutline outcog.tif clipped.tif",
+      "hash": "4b7de7feb0255edf",
+      "audio": "seg60.mp3"
+    },
+    {
+      "index": 61,
+      "text": "gdalinfo 对比裁剪前后的 Size 与 Extent——预期都被缩小到裁剪框内。",
+      "hash": "141f02c53e5150e2",
+      "audio": "seg61.mp3"
+    },
+    {
+      "index": 62,
+      "text": "6. QGIS 处理工具箱：GUI 也能跑 GDAL",
+      "hash": "59c796e211dee2f9",
+      "audio": "seg62.mp3"
+    },
+    {
+      "index": 63,
+      "text": "不想敲命令行？QGIS 把 GDAL、GRASS（ ，「格拉斯」）、SAGA（ ，「萨-嘎」）的算法都装进了 处理工具箱 （Processing Toolbox，菜单「处理 到 工具箱」）：",
+      "hash": "f71a32c6e1359f02",
+      "audio": "seg63.mp3"
+    },
+    {
+      "index": 64,
+      "text": "搜索框输入「buffer」「warp」「reproject」直接定位算法；",
+      "hash": "e774d04ee21816f0",
+      "audio": "seg64.mp3"
+    },
+    {
+      "index": 65,
+      "text": "每个算法面板底部有「 作为 Python 命令复制 」和日志页——GUI 配置一次，就能看到它实际调用的命令行；",
+      "hash": "984749974d003708",
+      "audio": "seg65.mp3"
+    },
+    {
+      "index": 66,
+      "text": "「 批处理 」右键任何算法 到 「作为批处理执行」，同一步骤套多个文件。",
+      "hash": "ba81bdc9347286e0",
+      "audio": "seg66.mp3"
+    },
+    {
+      "index": 67,
+      "text": "在 QGIS 里配一遍「重投影」，再打开算法日志看它生成的命令，GUI 与 CLI（ ，「西-艾勒-艾」）就这样互相教会你。排查「GUI 里跑不出结果」时，把日志里的命令行复制出来手动跑，报错信息往往更直白。",
+      "hash": "8c9d27f7b71756e3",
+      "audio": "seg67.mp3"
+    },
+    {
+      "index": 68,
+      "text": "加载一个点图层（如城市 POI（ ，「皮-欧-艾」）），打开处理工具箱，搜「buffer」；",
+      "hash": "f528ae3d9da6aa2a",
+      "audio": "seg68.mp3"
+    },
+    {
+      "index": 69,
+      "text": "选「Buffer（native QGIS）」，距离填 5 000 米，运行；预期画布出现圆圈图层；",
+      "hash": "c9166f9137c5b170",
+      "audio": "seg69.mp3"
+    },
+    {
+      "index": 70,
+      "text": "再搜「Warp（reproject）」这个 GDAL 算法，随便配一个栅格跑一次；",
+      "hash": "ab49b6aa43744330",
+      "audio": "seg70.mp3"
+    },
+    {
+      "index": 71,
+      "text": "打开「查看 到 面板 到 日志信息」，找到它实际调用的 gdalwarp 命令行，抄下来与第 5 节对照；",
+      "hash": "3bb736b1ae1d38fb",
+      "audio": "seg71.mp3"
+    },
+    {
+      "index": 72,
+      "text": "预期收获：你已经在 GUI 里「用」过命令行了。",
+      "hash": "b808ebd38b027228",
+      "audio": "seg72.mp3"
+    },
+    {
+      "index": 73,
+      "text": "7. 本章回顾",
+      "hash": "b76a5314ce23b849",
+      "audio": "seg73.mp3"
+    },
+    {
+      "index": 74,
+      "text": "底层四件套：GDAL/OGR（格式与转换）、PROJ（坐标系）、GEOS（几何运算）、QGIS（GUI 外壳）；",
+      "hash": "1c300bbc9b1eed87",
+      "audio": "seg74.mp3"
+    },
+    {
+      "index": 75,
+      "text": "陌生数据先体检：ogrinfo -so -al（矢量）/ gdalinfo（栅格）；",
+      "hash": "d8611c7b80a14ca1",
+      "audio": "seg75.mp3"
+    },
+    {
+      "index": 76,
+      "text": "矢量转换 ogr2ogr： -f 格式、 -tsrs 重投影、 -nlt PROMOTETOMULTI 保平安；",
+      "hash": "3ec98b15ac6856de",
+      "audio": "seg76.mp3"
+    },
+    {
+      "index": 77,
+      "text": "栅格三件套：gdalinfo gdalwarp（投影、裁剪、重采样）；",
+      "hash": "29501d3213d8c218",
+      "audio": "seg77.mp3"
+    },
+    {
+      "index": 78,
+      "text": "QGIS 处理工具箱 = 图形化的 GDAL，日志里能看到真实命令行。",
+      "hash": "706edfaa705710c2",
+      "audio": "seg78.mp3"
+    },
+    {
+      "index": 79,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg79.mp3"
+    },
+    {
+      "index": 80,
+      "text": "GDAL 全部程序清单： gdal.org/programs",
+      "hash": "b66fbdd74506194f",
+      "audio": "seg80.mp3"
+    },
+    {
+      "index": 81,
+      "text": "QGIS 用户手册（处理工具箱章节）： docs.qgis.org",
+      "hash": "ae16929b13a637c7",
+      "audio": "seg81.mp3"
+    },
+    {
+      "index": 82,
+      "text": "Natural Earth 免练习数据： naturalearthdata.com",
+      "hash": "c4cedb187a3bebd7",
+      "audio": "seg82.mp3"
+    }
+  ]
+}
