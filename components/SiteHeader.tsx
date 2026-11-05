@@ -12,6 +12,7 @@ const STATIC_TITLES: readonly (readonly [prefix: string, title: string])[] = [
   ["/exam/daily", "每日一考"],
   ["/exam/mock", "综合考试"],
   ["/exam", "考试"],
+  ["/audio", "讲义音频"],
   ["/review", "今日复习"],
   ["/progress", "学习进度"],
   ["/settings", "设置"],
