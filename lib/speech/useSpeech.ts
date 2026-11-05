@@ -61,6 +61,11 @@ export function useSpeech(slug: string) {
     a.addEventListener('pause', () =>
       setStatus((s) => (s === 'playing' ? 'paused' : s)),
     );
+    // 音频加载失败（404 / 网络中断）：让 UI 可见，而不是无声卡住
+    a.addEventListener('error', () => {
+      setStatus('error');
+      setError('音频文件加载失败');
+    });
     return () => {
       a.removeEventListener('ended', onEnded);
       a.pause();
