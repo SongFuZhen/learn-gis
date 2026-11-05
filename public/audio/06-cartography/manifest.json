@@ -14,121 +14,141 @@
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893419455_06-cartography-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ：数据分析完了，怎么画成一张别人一眼看懂的图？制图就是 GIS 的「数据可视化设计」——也是别人对你工作的第一印象。",
       "hash": "0f55f7d8fe589345",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893416232_06-cartography-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：选视觉通道就像选图表类型。 数值大小用深浅（明度）和大小（size），类别区分用颜色和形状 ——因为深浅天生有「多/少」的语感，红蓝绿只有「不同」没有「多少」。给类别数据上深浅渐变，就像用饼图画时间序列：读者会被误导。",
       "hash": "520e22373a3f7c01",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893413389_06-cartography-seg03.mp3"
     },
     {
       "index": 4,
       "text": "地图会说谎，而且很难发现 ：分级断点怎么切、用等角还是等积投影、颜色从多浅到多深——每个选择都在悄悄改变结论。同一份数据，断点挪一挪，「贫困县集中区」能变大也能变小。",
       "hash": "31cdc1d1e983c438",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893422745_06-cartography-seg04.mp3"
     },
     {
       "index": 5,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893425440_06-cartography-seg05.mp3"
     },
     {
       "index": 6,
       "text": "给土地利用类型（类别数据）用单色深浅渐变，读者以为「深绿比浅绿多」，其实它们只是不同。",
       "hash": "3aa96a3ac2ad4169",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893422673_06-cartography-seg06.mp3"
     },
     {
       "index": 7,
       "text": "分级永远用默认的「等间隔」，数据偏态时图上一片同色，换自然断点立刻清晰。",
       "hash": "184fda19a10c760d",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893427302_06-cartography-seg07.mp3"
     },
     {
       "index": 8,
       "text": "图只画图不给图例和比例尺，别人根本没法读。",
       "hash": "92d9317eb3035488",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893421956_06-cartography-seg08.mp3"
     },
     {
       "index": 9,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893422656_06-cartography-seg09.mp3"
     },
     {
       "index": 10,
       "text": "数值用深浅/大小，类别用色相/形状",
       "hash": "52a89ef3c6f86b23",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893421353_06-cartography-seg10.mp3"
     },
     {
       "index": 11,
       "text": "配色三型：顺序、发散、类别",
       "hash": "2169aa69223f9bd0",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893424963_06-cartography-seg11.mp3"
     },
     {
       "index": 12,
       "text": "地图会说谎：断点、投影、配色都在影响结论",
       "hash": "cee0098f36615840",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893429610_06-cartography-seg12.mp3"
     },
     {
       "index": 13,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893426815_06-cartography-seg13.mp3"
     },
     {
       "index": 14,
       "text": "数据算出来了、分析完了，怎么把它 画成一张让人一眼看懂的图 ？这就是制图学（Cartography）——GIS 的最后一步，也是别人看到的第一步。本章回答：符号化怎么做、颜色怎么配、连续数据怎么分级、比例尺与综合意味着什么，以及最重要的一点：地图为什么会说谎。",
       "hash": "e3c7a4585d90338e",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893428815_06-cartography-seg14.mp3"
     },
     {
       "index": 15,
       "text": "1. 从数据到图：符号化三步",
       "hash": "0dfca4ef2f6e4fb8",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893434713_06-cartography-seg15.mp3"
     },
     {
       "index": 16,
       "text": "把一个数据集变成一张专题图，固定三步：",
       "hash": "68fe039f26652c00",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893435133_06-cartography-seg16.mp3"
     },
     {
       "index": 17,
       "text": "选要素类型 ：点、线、面各自有惯用符号（点用标记、线用线型、面用填充）；",
       "hash": "8b2a01edca91496f",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893436196_06-cartography-seg17.mp3"
     },
     {
       "index": 18,
       "text": "选视觉通道 ：把哪个属性映射到哪个视觉变量（第 2 节）；",
       "hash": "e7e5afb80b3a2c0d",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893436604_06-cartography-seg18.mp3"
     },
     {
       "index": 19,
       "text": "定符号方案 ：配色、分级、图例、标注（第 3–6 节）。",
       "hash": "01d46e46d17a7f77",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893440984_06-cartography-seg19.mp3"
     },
     {
       "index": 20,
       "text": "数据：全国各省 GDP（面要素 + 一个数值属性）。",
       "hash": "56de3b1f08d5301d",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893436302_06-cartography-seg20.mp3"
     },
     {
       "index": 21,
@@ -158,13 +178,15 @@
       "index": 25,
       "text": "2. 视觉变量：地图的「语法」",
       "hash": "5fe01a8edb666577",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893471648_06-cartography-seg25.mp3"
     },
     {
       "index": 26,
       "text": "Jacques Bertin 提出、后由 Cartography 学界完善的 视觉变量 （visual variables）是符号化的基本词汇。地图上一个符号可以改变的维度有：",
       "hash": "91445e3450b0f4dd",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893469774_06-cartography-seg26.mp3"
     },
     {
       "index": 27,
@@ -176,109 +198,127 @@
       "index": 28,
       "text": "数值（有序）到 大小、明度 ；深浅天生有「多/少」的语感",
       "hash": "85e94388e5710c91",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893478600_06-cartography-seg28.mp3"
     },
     {
       "index": 29,
       "text": "类别（无序）到 色相、形状 ；类别之间没有大小之分，用红蓝绿只是「不同」不是「多少」",
       "hash": "bec92b67b814be60",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893471654_06-cartography-seg29.mp3"
     },
     {
       "index": 30,
       "text": "反过来：给类别数据用深浅渐变、给数值数据用随机色相，都是最常见的错误符号化",
       "hash": "0cd3dbc5066ed6b2",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893478938_06-cartography-seg30.mp3"
     },
     {
       "index": 31,
       "text": "3. 配色：顺序、发散与类别",
       "hash": "96d4618bccfd6f2c",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893479907_06-cartography-seg31.mp3"
     },
     {
       "index": 32,
       "text": "选好了视觉通道，接下来挑具体颜色。数值数据的配色分两大类：",
       "hash": "4a2e9b125f5e45ff",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893479973_06-cartography-seg32.mp3"
     },
     {
       "index": 33,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893479615_06-cartography-seg33.mp3"
     },
     {
       "index": 34,
       "text": "顺序数据用 单色渐变或多色渐变 ，明度单调变化，别让读者猜哪头是高值；",
       "hash": "1bc1a4ba0eddf72b",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893483960_06-cartography-seg34.mp3"
     },
     {
       "index": 35,
       "text": "有中性点（0、平均值、法定分界）的数据优先 发散配色 ，中点用中性色（白/灰）；",
       "hash": "5f10b354d71e021d",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893487269_06-cartography-seg35.mp3"
     },
     {
       "index": 36,
       "text": "类别配色类别一多就失控， 6 类以内 最好；优先选色盲友好的调色板（如 ColorBrewer、viridis）；红绿色盲人群约占男性 8%。",
       "hash": "23a06ea8ec1b9e6f",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893489100_06-cartography-seg36.mp3"
     },
     {
       "index": 37,
       "text": "彩虹色带把「高值」映射到红、「低值」映射到蓝，中间夹着黄绿青，明度忽明忽暗、顺序语感混乱，还极易误导读图者对「边界」的感知（同一段色带里出现了多个人为的「分界」）。科研与工程图正逐步用 viridis 之类 感知均匀 的色带替代。",
       "hash": "7dc812fba4fa0168",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893485744_06-cartography-seg37.mp3"
     },
     {
       "index": 38,
       "text": "4. 数据分级：把连续数值切成几档",
       "hash": "4a38f028513d4ff2",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893484065_06-cartography-seg38.mp3"
     },
     {
       "index": 39,
       "text": "choropleth 图通常不直接用原始数值着色，而是 分级 （classification）：把连续数值切成 47 档，每档一种颜色。切法不同，同一份数据能讲出完全不同的故事，是制图里最「主观」也最容易被滥用的一步。",
       "hash": "9c0efe86af37d9e7",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893496067_06-cartography-seg39.mp3"
     },
     {
       "index": 40,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893493445_06-cartography-seg40.mp3"
     },
     {
       "index": 41,
       "text": "等间距 ：等宽切档，适合分布均匀；",
       "hash": "2e51fb6a0e53b5c2",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893490522_06-cartography-seg41.mp3"
     },
     {
       "index": 42,
       "text": "分位数 ：每档个数相同，适合看排名；",
       "hash": "66e4aa79817137cc",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893492494_06-cartography-seg42.mp3"
     },
     {
       "index": 43,
       "text": "自然断点（Jenks） ：按数据聚集切，专题图默认；",
       "hash": "180c56ad672cd678",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893494745_06-cartography-seg43.mp3"
     },
     {
       "index": 44,
       "text": "标准差 ：围绕均值切，配发散配色。",
       "hash": "b6efeb245fe2951e",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893494224_06-cartography-seg44.mp3"
     },
     {
       "index": 45,
       "text": "分级数 47 档 ：再多肉眼分不出颜色，再少信息损失大。",
       "hash": "3822ea3d1ff40a78",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893503562_06-cartography-seg45.mp3"
     },
     {
       "index": 46,
@@ -320,121 +360,141 @@
       "index": 52,
       "text": "大比例尺 （1:500 1:10 000）：分母小 到 表示范围小、细节多（工程图、地籍图）；",
       "hash": "4e325023c1edb5f0",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893532344_06-cartography-seg52.mp3"
     },
     {
       "index": 53,
       "text": "小比例尺 （1:100 万以下）：范围大、细节少（全国图、世界图）。",
       "hash": "cce9ebe7454168d8",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893536067_06-cartography-seg53.mp3"
     },
     {
       "index": 54,
       "text": "比例尺的大小看 分母 ：分母越大比例尺越小。1:500 是大比例尺（门牌级细节），1:100 万是小比例尺（只能看骨架）。记住「 大比例尺看小地方 」。",
       "hash": "24e5f50e99e3cee8",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893541726_06-cartography-seg54.mp3"
     },
     {
       "index": 55,
       "text": "比例尺变小（从大范围看世界）时，细节必须做减法，这叫 地图综合 （generalization）：",
       "hash": "e93055e495efc30e",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893529140_06-cartography-seg55.mp3"
     },
     {
       "index": 56,
       "text": "化简 ：海岸线去掉小弯、河流去支节；",
       "hash": "c71fababa3c1f7fd",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893538702_06-cartography-seg56.mp3"
     },
     {
       "index": 57,
       "text": "选取/取舍 ：小城市在 1:100 万图上被省略；",
       "hash": "aca6b9591cf8e90f",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893543035_06-cartography-seg57.mp3"
     },
     {
       "index": 58,
       "text": "合并 ：相邻同类型面斑合并；",
       "hash": "ccbfc0f12941ccae",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893547789_06-cartography-seg58.mp3"
     },
     {
       "index": 59,
       "text": "夸大 ：太窄的公路在图上画得比实际宽度宽，不夸大就画不出来。",
       "hash": "47d63469e1a2fa7c",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893540116_06-cartography-seg59.mp3"
     },
     {
       "index": 60,
       "text": "1:25 000 地形图上量得两邮筒相距 8 cm，实地距离是多少米？",
       "hash": "b99755ce2e264a97",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893549493_06-cartography-seg60.mp3"
     },
     {
       "index": 61,
       "text": "一条河道实地长 45 km，画在 1:900 万的中国全图上约多长？",
       "hash": "a1e25aa9c85fc5e1",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893550351_06-cartography-seg61.mp3"
     },
     {
       "index": 62,
       "text": "6. 标注：地图上最费心思的文字",
       "hash": "2087978d06885286",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893549226_06-cartography-seg62.mp3"
     },
     {
       "index": 63,
       "text": "标注（label placement）看着不起眼，做不好直接毁掉一张图。核心规则：",
       "hash": "61a37de17c8a0f95",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893547598_06-cartography-seg63.mp3"
     },
     {
       "index": 64,
       "text": "点 ：标注放符号右上方，压盖时优先保住重要点的标注；",
       "hash": "38e4510772f1df70",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893555105_06-cartography-seg64.mp3"
     },
     {
       "index": 65,
       "text": "线 ：沿河流、道路走向 弯曲排布 ，不倒置；",
       "hash": "2800b9e0d8f6dd86",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893552291_06-cartography-seg65.mp3"
     },
     {
       "index": 66,
       "text": "面 ：多边形内部水平居中；小面把标注引出图外；",
       "hash": "39aeda9b5ba0a3e0",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893552997_06-cartography-seg66.mp3"
     },
     {
       "index": 67,
       "text": "层级 ：首都 > 省会 > 地级市 > 县镇，字号与字重递减；",
       "hash": "3971579855427616",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893559744_06-cartography-seg67.mp3"
     },
     {
       "index": 68,
       "text": "字体色彩要与底图拉开对比， 宁缺毋滥 ，标注一挤，整张图就读不下去了。",
       "hash": "d22e5445c2f3c4fd",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893556211_06-cartography-seg68.mp3"
     },
     {
       "index": 69,
       "text": "标注摆放要在「不压盖、不打架、贴近要素」之间权衡，计算上属于 NP难。QGIS/MapLibre 里标注引擎给出的自动排布通常已经不错，但重要图件仍值得手工调整关键标注。",
       "hash": "8ff121c95c5c99d4",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893560588_06-cartography-seg69.mp3"
     },
     {
       "index": 70,
       "text": "7. 地图会说谎：制图伦理",
       "hash": "488092f03d7f06bd",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893555294_06-cartography-seg70.mp3"
     },
     {
       "index": 71,
       "text": "地图是数据的修辞。同样的数据，符号化选择可以讲出相反的故事：",
       "hash": "105189205f6b9097",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893565257_06-cartography-seg71.mp3"
     },
     {
       "index": 72,
@@ -476,121 +536,142 @@
       "index": 78,
       "text": "没画出来的部分 是什么？（被舍去的城市、被合并的小面、没有数据的区域）",
       "hash": "c75223d50e40031f",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893595130_06-cartography-seg78.mp3"
     },
     {
       "index": 79,
       "text": "符号化三步：选要素类型 到 选视觉通道 到 定配色/分级/图例；",
       "hash": "9e672b6dca945b6f",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893593740_06-cartography-seg79.mp3"
     },
     {
       "index": 80,
       "text": "数值用 大小/明度 ，类别用 色相/形状 ；",
       "hash": "b0a14dba8decd77e",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893605952_06-cartography-seg80.mp3"
     },
     {
       "index": 81,
       "text": "配色三分支：顺序、发散（有中性点）、类别；别用彩虹色带；",
       "hash": "6fcd254972b7a8df",
-      "audio": "seg81.mp3"
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893589389_06-cartography-seg81.mp3"
     },
     {
       "index": 82,
       "text": "分级四法：等间距、分位数、自然断点、标准差，47 档；",
       "hash": "f8b459a8f1d9756b",
-      "audio": "seg82.mp3"
+      "audio": "seg82.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893610151_06-cartography-seg82.mp3"
     },
     {
       "index": 83,
       "text": "大比例尺看小地方；比例尺变小必须做地图综合；",
       "hash": "e509de6115ae430c",
-      "audio": "seg83.mp3"
+      "audio": "seg83.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893607633_06-cartography-seg83.mp3"
     },
     {
       "index": 84,
       "text": "地图必然有取舍：制图者诚实标注，读图者警惕。",
       "hash": "a166b5ed57188d34",
-      "audio": "seg84.mp3"
+      "audio": "seg84.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893610807_06-cartography-seg84.mp3"
     },
     {
       "index": 85,
       "text": "菜单「图层 到 添加图层 到 添加矢量图层」，加载一份省级行政区数据（含人均 GDP 属性）；",
       "hash": "e195013d6158461f",
-      "audio": "seg85.mp3"
+      "audio": "seg85.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893604453_06-cartography-seg85.mp3"
     },
     {
       "index": 86,
       "text": "图层面板双击图层 到 「符号化」选项卡 到 顶部下拉选「 分级（Graduated） 」；",
       "hash": "cd61d75da19216bc",
-      "audio": "seg86.mp3"
+      "audio": "seg86.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893605433_06-cartography-seg86.mp3"
     },
     {
       "index": 87,
       "text": "值选人均 GDP 字段，颜色渐变选一个单色顺序色带（如 YlOrBr），模式选「 自然断点（Jenks） 」，类数 5，点「分类」；",
       "hash": "cc26077b062b97a9",
-      "audio": "seg87.mp3"
+      "audio": "seg87.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893615857_06-cartography-seg87.mp3"
     },
     {
       "index": 88,
       "text": "预期看到：全国呈现「东深西浅」的格局；切换为「等间距」再对比，多数省份会挤进同一档；",
       "hash": "12722f725e593eaf",
-      "audio": "seg88.mp3"
+      "audio": "seg88.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893608018_06-cartography-seg88.mp3"
     },
     {
       "index": 89,
       "text": "再切「分位数」观察差异。三种模式截图留存，写一句：哪个最适合这张图？为什么？",
       "hash": "8034a9cf228b6832",
-      "audio": "seg89.mp3"
+      "audio": "seg89.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893610044_06-cartography-seg89.mp3"
     },
     {
       "index": 90,
       "text": "加载一份主要城市数据（含人口字段），符号化选「 比例符号 」到 按人口字段定圆形大小；",
       "hash": "5c9cb9b9f5894461",
-      "audio": "seg90.mp3"
+      "audio": "seg90.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893618607_06-cartography-seg90.mp3"
     },
     {
       "index": 91,
       "text": "检查图例：确认圆的 面积 （而不是半径）与人口成正比，QGIS 的 Assistant 里把 size 映射到 sqrt(人口)；",
       "hash": "bf46eedafef822ef",
-      "audio": "seg91.mp3"
+      "audio": "seg91.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893619719_06-cartography-seg91.mp3"
     },
     {
       "index": 92,
       "text": "「标注」选项卡开启城市名字段，按人口字段设置「数据定义」字号：人口越大字越大；",
       "hash": "9870f00521ae1bf6",
-      "audio": "seg92.mp3"
+      "audio": "seg92.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893621206_06-cartography-seg92.mp3"
     },
     {
       "index": 93,
       "text": "预期看到：大城市标注醒目、小城市不抢戏；若发生大面积压盖，缩小字号或只标注前 20 个城市。",
       "hash": "3962654fe06f4a23",
-      "audio": "seg93.mp3"
+      "audio": "seg93.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893617973_06-cartography-seg93.mp3"
     },
     {
       "index": 94,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg94.mp3"
+      "audio": "seg94.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893618104_06-cartography-seg94.mp3"
     },
     {
       "index": 95,
       "text": "ColorBrewer 配色方案（Cynthia Brewer）： colorbrewer2.org",
       "hash": "157a9ba4eb16768f",
-      "audio": "seg95.mp3"
+      "audio": "seg95.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893620451_06-cartography-seg95.mp3"
     },
     {
       "index": 96,
       "text": "《How to Lie with Maps》（Mark Monmonier），地图误导的经典科普",
       "hash": "cd2497c8d6f76809",
-      "audio": "seg96.mp3"
+      "audio": "seg96.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893625600_06-cartography-seg96.mp3"
     },
     {
       "index": 97,
       "text": "QGIS 分级符号化文档： docs.qgis.org",
       "hash": "edb3d7bd105c6cf6",
-      "audio": "seg97.mp3"
+      "audio": "seg97.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893624858_06-cartography-seg97.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.566Z"
 }

@@ -20,121 +20,141 @@
       "index": 2,
       "text": "这章解决什么问题 ：概念都学了，手上得有家伙。这章给你工具箱：QGIS（点鼠标）和 GDAL（敲命令）。",
       "hash": "808e129bc4a78a62",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893839813_08-gis-tools-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：这套工具链像 Linux 生态—— GDAL/OGR 是引擎，QGIS 只是套了个图形界面 。你在 QGIS 里点的格式转换、重投影，底层全是 GDAL。所以会了命令行，QGIS 大部分功能你都能批量跑。",
       "hash": "273ba6358d9fbbc3",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893841247_08-gis-tools-seg03.mp3"
     },
     {
       "index": 4,
       "text": "拿到陌生数据的第一件事 ：先看元信息，就像拿到陌生 API 先 curl 一下：",
       "hash": "2e5ff2907073fcf4",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893838346_08-gis-tools-seg04.mp3"
     },
     {
       "index": 5,
       "text": "坐标系、单位、范围、字段——30 秒全知道，比打开图形界面快。",
       "hash": "3bc840558c612509",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893839808_08-gis-tools-seg05.mp3"
     },
     {
       "index": 6,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893853555_08-gis-tools-seg06.mp3"
     },
     {
       "index": 7,
       "text": "不看元信息直接上手，做了半天发现坐标系根本不是自己以为的那个。",
       "hash": "262b017b22fa6bec",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893856080_08-gis-tools-seg07.mp3"
     },
     {
       "index": 8,
       "text": "以为某个功能是「QGIS 独有」——其实 GDAL 命令行都有，而且能写脚本批量处理一千个文件。",
       "hash": "e5685f91da14c363",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893855147_08-gis-tools-seg08.mp3"
     },
     {
       "index": 9,
       "text": "栅格直接发原图——转成 COG（云优化 GeoTIFF）后网页端可以按需读取，速度快一个量级。",
       "hash": "5dba22c876435e94",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893847930_08-gis-tools-seg09.mp3"
     },
     {
       "index": 10,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893853782_08-gis-tools-seg10.mp3"
     },
     {
       "index": 11,
       "text": "QGIS = GUI，GDAL/OGR = 引擎，GUI 只是壳",
       "hash": "f118cb53e9c45186",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893853135_08-gis-tools-seg11.mp3"
     },
     {
       "index": 12,
       "text": "拿到数据先 ogrinfo/gdalinfo 看元信息",
       "hash": "4333fb793d76c80c",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893850082_08-gis-tools-seg12.mp3"
     },
     {
       "index": 13,
       "text": "栅格发出去前转 COG",
       "hash": "d6a781565fae439f",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893851702_08-gis-tools-seg13.mp3"
     },
     {
       "index": 14,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893861055_08-gis-tools-seg14.mp3"
     },
     {
       "index": 15,
       "text": "前面七章都在讲概念，这一章是 练习场 ：把 QGIS和 GDAL（「古德尔」）/OGR装进你的工具箱。学完你能：用 QGIS 打开并检查数据、用命令行查看数据元信息、做格式转换与重投影、把栅格转成云优化的 COG（「科格」）。每条命令都标注了预期输出。动手跑一遍，比读十页文档有用。",
       "hash": "e5e301a305d6d480",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893860885_08-gis-tools-seg15.mp3"
     },
     {
       "index": 16,
       "text": "1. 工具链地图：谁在底层干活",
       "hash": "ad8b2167e675c55c",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893857914_08-gis-tools-seg16.mp3"
     },
     {
       "index": 17,
       "text": "桌面与服务器上的 GIS 软件，底层几乎都是同一套开源引擎：",
       "hash": "b391b24738236b85",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893860390_08-gis-tools-seg17.mp3"
     },
     {
       "index": 18,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893862040_08-gis-tools-seg18.mp3"
     },
     {
       "index": 19,
       "text": "QGIS = 图形界面； GDAL/OGR = 命令行引擎（GDAL 管栅格、OGR 管矢量）",
       "hash": "294df0bc0e23dff6",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893868109_08-gis-tools-seg19.mp3"
     },
     {
       "index": 20,
       "text": "PROJ = 坐标变换数学； GEOS = 几何运算",
       "hash": "e60a8b30a68784e2",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893868947_08-gis-tools-seg20.mp3"
     },
     {
       "index": 21,
       "text": "QGIS 的许多处理算法，底层就是调用 GDAL/OGR——GUI 只是壳",
       "hash": "54633789b91322b4",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893864627_08-gis-tools-seg21.mp3"
     },
     {
       "index": 22,
@@ -164,7 +184,8 @@
       "index": 26,
       "text": "浏览器面板 （左下/侧）：像文件管理器一样浏览本地文件、数据库、WMS服务，拖进画布即加载；",
       "hash": "cc010fc99075d03a",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893902572_08-gis-tools-seg26.mp3"
     },
     {
       "index": 27,
@@ -176,103 +197,120 @@
       "index": 28,
       "text": "安装 QGIS LTR 并启动，新建一个空项目；",
       "hash": "0d6bedfc1e94de72",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893903530_08-gis-tools-seg28.mp3"
     },
     {
       "index": 29,
       "text": "浏览器面板找到「GeoJSON」示例或从 Natural Earth（ naturalearthdata.com ）下载 1:110m 的国家图层（countries.shp）；",
       "hash": "f85b470f47d34140",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893907773_08-gis-tools-seg29.mp3"
     },
     {
       "index": 30,
       "text": "双击或拖入画布加载；右键图层 到 「打开属性表」；",
       "hash": "31b892eb342a6e70",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893914625_08-gis-tools-seg30.mp3"
     },
     {
       "index": 31,
       "text": "预期看到：每个国家一行记录，字段有名称、人口等；点属性表左侧的行，画布上对应国家会高亮。",
       "hash": "0ed7ef37c35d8d0e",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893913073_08-gis-tools-seg31.mp3"
     },
     {
       "index": 32,
       "text": "3. 查看数据：ogrinfo 与 gdalinfo",
       "hash": "825a1fc39565be2b",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893918460_08-gis-tools-seg32.mp3"
     },
     {
       "index": 33,
       "text": "拿到一份陌生数据，第一件事永远是 看元信息 。GDAL 3.x 口径下：",
       "hash": "497b2e0ab06badf7",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893914215_08-gis-tools-seg33.mp3"
     },
     {
       "index": 34,
       "text": "矢量用 ogrinfo （OGR 系列）：",
       "hash": "2796468af0f4f47b",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893915890_08-gis-tools-seg34.mp3"
     },
     {
       "index": 35,
       "text": "-so = 只输出摘要（summary only）， -al = 所有图层。预期输出（节选）：",
       "hash": "26ec09612f9f86f8",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893917280_08-gis-tools-seg35.mp3"
     },
     {
       "index": 36,
       "text": "一眼能看到：几何类型、要素数、范围（extent）、坐标系、字段类型。 拿到数据先跑它，80% 的「坐标系不对/字段缺失」问题当场现形。",
       "hash": "8a89f67804b35b08",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893920526_08-gis-tools-seg36.mp3"
     },
     {
       "index": 37,
       "text": "栅格用 gdalinfo ：",
       "hash": "ccb7aa44179977ff",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893916425_08-gis-tools-seg37.mp3"
     },
     {
       "index": 38,
       "text": "预期输出（节选）：",
       "hash": "1eeac62b2d569799",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893922580_08-gis-tools-seg38.mp3"
     },
     {
       "index": 39,
       "text": "尺寸（行列数）、原点与像元大小（即仿射变换）、波段类型、NoData 全都在。",
       "hash": "e8bff3ddf6573232",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893923745_08-gis-tools-seg39.mp3"
     },
     {
       "index": 40,
       "text": "找任意一份本地的 GeoJSON / Shapefile（没有就用 Natural Earth 的）；",
       "hash": "63ed4fd14db5ec13",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893927529_08-gis-tools-seg40.mp3"
     },
     {
       "index": 41,
       "text": "跑 ogrinfo 数据文件 （不带参数），再跑 ogrinfo -so -al 数据文件 ，对比两种输出的详略；",
       "hash": "14de508f6236006a",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893926998_08-gis-tools-seg41.mp3"
     },
     {
       "index": 42,
       "text": "回答三个问题：几何类型是什么？要素有多少？坐标系是 4326 还是投影坐标系？",
       "hash": "ccc813aea4fcccec",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893925667_08-gis-tools-seg42.mp3"
     },
     {
       "index": 43,
       "text": "预期： -so -al 摘要模式一屏看完三问的答案。",
       "hash": "b3b7f9f2c709d339",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893927062_08-gis-tools-seg43.mp3"
     },
     {
       "index": 44,
       "text": "4. 转换与重投影：ogr2ogr",
       "hash": "3e22dad8e5db8f9b",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893932856_08-gis-tools-seg44.mp3"
     },
     {
       "index": 45,
@@ -284,7 +322,8 @@
       "index": 46,
       "text": "常用参数（均在 GDAL 官方文档核实）： -f 输出格式、 -tsrs 目标坐标系、 -ssrs 强制指定源坐标系（源缺 .prj 时救命）、 -nln 输出图层名、 -lco 格式创建选项、 -append 追加模式。",
       "hash": "780c811834de3533",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893926932_08-gis-tools-seg46.mp3"
     },
     {
       "index": 47,
@@ -296,7 +335,8 @@
       "index": 48,
       "text": "用 ogr2ogr 把 Natural Earth 的 countries.shp 转成 GeoPackage； ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTETOMULTI",
       "hash": "9aed1db1c3eb9bdb",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893931839_08-gis-tools-seg48.mp3"
     },
     {
       "index": 49,
@@ -314,121 +354,141 @@
       "index": 51,
       "text": "把两次的 extent 数字抄下来，这就是「同一数据、不同 CRS」最直观的证据。",
       "hash": "8a1af447e3d64745",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893963114_08-gis-tools-seg51.mp3"
     },
     {
       "index": 52,
       "text": "5. 栅格三件套：gdaltranslate 与 gdalwarp",
       "hash": "db8ec8a38fd06144",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893964658_08-gis-tools-seg52.mp3"
     },
     {
       "index": 53,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893969115_08-gis-tools-seg53.mp3"
     },
     {
       "index": 54,
       "text": "看 矢量 信息 到 ogrinfo；看 栅格 信息 到 gdalinfo",
       "hash": "e790969295811b39",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893964244_08-gis-tools-seg54.mp3"
     },
     {
       "index": 55,
       "text": "矢量 转换/重投影 到 ogr2ogr； 栅格 重投影/裁剪 到 gdalwarp",
       "hash": "0254216e22b22415",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893972802_08-gis-tools-seg55.mp3"
     },
     {
       "index": 56,
       "text": "栅格转 COG 到 gdaltranslate -of COG（GDAL ≥ 3.1）",
       "hash": "f6526b668b7ebd1f",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893968780_08-gis-tools-seg56.mp3"
     },
     {
       "index": 57,
       "text": "ogr 的 o = OGR 管矢量；不带 ogr 的管栅格——命令名先分清矢量栅格",
       "hash": "4f1ed3b8211c05f4",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893971803_08-gis-tools-seg57.mp3"
     },
     {
       "index": 58,
       "text": "下载任意 GeoTIFF（如 SRTM30m 高程切片）；先 gdalinfo 记下尺寸与坐标系；",
       "hash": "4c2481d1a81918d3",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893980954_08-gis-tools-seg58.mp3"
     },
     {
       "index": 59,
       "text": "gdaltranslate -of COG -co COMPRESS=DEFLATE in.tif outcog.tif ；再 gdalinfo outcog.tif ，预期看到 LAYOUT=COG 字样；",
       "hash": "6dc335a7e1bbe1b3",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893973443_08-gis-tools-seg59.mp3"
     },
     {
       "index": 60,
       "text": "用 ogr2ogr 造一个小范围裁剪框（或用任意行政区边界），然后： gdalwarp -cutline clip.geojson -croptocutline outcog.tif clipped.tif",
       "hash": "4b7de7feb0255edf",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893983739_08-gis-tools-seg60.mp3"
     },
     {
       "index": 61,
       "text": "gdalinfo 对比裁剪前后的 Size 与 Extent——预期都被缩小到裁剪框内。",
       "hash": "141f02c53e5150e2",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893980093_08-gis-tools-seg61.mp3"
     },
     {
       "index": 62,
       "text": "6. QGIS 处理工具箱：GUI 也能跑 GDAL",
       "hash": "59c796e211dee2f9",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893980490_08-gis-tools-seg62.mp3"
     },
     {
       "index": 63,
       "text": "不想敲命令行？QGIS 把 GDAL、GRASS（「格拉斯」）、SAGA的算法都装进了 处理工具箱 （Processing Toolbox，菜单「处理 到 工具箱」）：",
       "hash": "f5407504136972c9",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893984327_08-gis-tools-seg63.mp3"
     },
     {
       "index": 64,
       "text": "搜索框输入「buffer」「warp」「reproject」直接定位算法；",
       "hash": "e774d04ee21816f0",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893982972_08-gis-tools-seg64.mp3"
     },
     {
       "index": 65,
       "text": "每个算法面板底部有「 作为 Python 命令复制 」和日志页——GUI 配置一次，就能看到它实际调用的命令行；",
       "hash": "984749974d003708",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893982597_08-gis-tools-seg65.mp3"
     },
     {
       "index": 66,
       "text": "「 批处理 」右键任何算法 到 「作为批处理执行」，同一步骤套多个文件。",
       "hash": "ba81bdc9347286e0",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893984630_08-gis-tools-seg66.mp3"
     },
     {
       "index": 67,
       "text": "在 QGIS 里配一遍「重投影」，再打开算法日志看它生成的命令，GUI 与 CLI就这样互相教会你。排查「GUI 里跑不出结果」时，把日志里的命令行复制出来手动跑，报错信息往往更直白。",
       "hash": "d16542940ce37cc2",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893989292_08-gis-tools-seg67.mp3"
     },
     {
       "index": 68,
       "text": "加载一个点图层（如城市 POI），打开处理工具箱，搜「buffer」；",
       "hash": "db452b002001b9a7",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893988518_08-gis-tools-seg68.mp3"
     },
     {
       "index": 69,
       "text": "选「Buffer（native QGIS）」，距离填 5 000 米，运行；预期画布出现圆圈图层；",
       "hash": "c9166f9137c5b170",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893988664_08-gis-tools-seg69.mp3"
     },
     {
       "index": 70,
       "text": "再搜「Warp（reproject）」这个 GDAL 算法，随便配一个栅格跑一次；",
       "hash": "ab49b6aa43744330",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893993204_08-gis-tools-seg70.mp3"
     },
     {
       "index": 71,
@@ -464,43 +524,51 @@
       "index": 76,
       "text": "矢量转换 ogr2ogr： -f 格式、 -tsrs 重投影、 -nlt PROMOTETOMULTI 保平安；",
       "hash": "3ec98b15ac6856de",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894029865_08-gis-tools-seg76.mp3"
     },
     {
       "index": 77,
       "text": "栅格三件套：gdalinfo / gdaltranslate（COG）/ gdalwarp（投影、裁剪、重采样）；",
       "hash": "75b701843cda51bc",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894027828_08-gis-tools-seg77.mp3"
     },
     {
       "index": 78,
       "text": "QGIS 处理工具箱 = 图形化的 GDAL，日志里能看到真实命令行。",
       "hash": "706edfaa705710c2",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894028750_08-gis-tools-seg78.mp3"
     },
     {
       "index": 79,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894039271_08-gis-tools-seg79.mp3"
     },
     {
       "index": 80,
       "text": "GDAL 全部程序清单： gdal.org/programs",
       "hash": "b66fbdd74506194f",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894029645_08-gis-tools-seg80.mp3"
     },
     {
       "index": 81,
       "text": "QGIS 用户手册（处理工具箱章节）： docs.qgis.org",
       "hash": "ae16929b13a637c7",
-      "audio": "seg81.mp3"
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894030377_08-gis-tools-seg81.mp3"
     },
     {
       "index": 82,
       "text": "Natural Earth 免练习数据： naturalearthdata.com",
       "hash": "c4cedb187a3bebd7",
-      "audio": "seg82.mp3"
+      "audio": "seg82.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894033912_08-gis-tools-seg82.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.568Z"
 }

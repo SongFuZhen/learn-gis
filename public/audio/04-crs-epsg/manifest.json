@@ -8,373 +8,435 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893022355_04-crs-epsg-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893014776_04-crs-epsg-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ： EPSG:4326 、 EPSG:3857 这些数字满天飞，到底是什么？搞懂它，90% 的坐标错乱问题都能自己查出来。",
       "hash": "d71f515987473ff0",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893016154_04-crs-epsg-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：EPSG 编号就是坐标的「类型标注」。 4326 单位是 度 （经纬度）， 3857 单位是 米 （Web 墨卡托平面）。混着用就像把 string 当 number 做加法——不报错，但结果离谱。",
       "hash": "bec0fbafc5f9f296",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893018655_04-crs-epsg-seg03.mp3"
     },
     {
       "index": 4,
       "text": "三个数先背下来 ：",
       "hash": "7ed676d75ce0db6a",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893025984_04-crs-epsg-seg04.mp3"
     },
     {
       "index": 5,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893021112_04-crs-epsg-seg05.mp3"
     },
     {
       "index": 6,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893020364_04-crs-epsg-seg06.mp3"
     },
     {
       "index": 7,
       "text": "轴序写反 ：EPSG:4326 官方是「纬度在前」，GeoJSON 和前端库全是「经度在前」。北京的点写成反的，纬度 116 直接超界。",
       "hash": "40110ec8028bb7f1",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893023368_04-crs-epsg-seg07.mp3"
     },
     {
       "index": 8,
       "text": "在 4326 上算距离 ：算出来单位是「度」不是米，而且 1° 经度在赤道约 111 km、在漠河只剩一半。算距离面积，先转投影坐标系（米）再说。",
       "hash": "6f475547cef3379c",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893054165_04-crs-epsg-seg08.mp3"
     },
     {
       "index": 9,
       "text": "以为「米」都是一回事 ：3857 的米和 32650（UTM）的米不是同一套米，坐标不能直接拼。",
       "hash": "84d971b6d19c4a6f",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893058878_04-crs-epsg-seg09.mp3"
     },
     {
       "index": 10,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893050762_04-crs-epsg-seg10.mp3"
     },
     {
       "index": 11,
       "text": "4326 是度、3857 是米，先分清再动手",
       "hash": "663f136da516d0d4",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893054790_04-crs-epsg-seg11.mp3"
     },
     {
       "index": 12,
       "text": "轴序别靠猜，查库的约定",
       "hash": "8dfc21b3eb4f133a",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893054480_04-crs-epsg-seg12.mp3"
     },
     {
       "index": 13,
       "text": "算距离/面积，先把坐标转成米",
       "hash": "2e18b0eeb1091b1c",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893062461_04-crs-epsg-seg13.mp3"
     },
     {
       "index": 14,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893063228_04-crs-epsg-seg14.mp3"
     },
     {
       "index": 15,
       "text": "前面讲了经纬度（地理坐标）和投影（把球面铺平）。这一章把两者统一进一个概念—— 坐标参考系（CRS） ，并介绍给每种 CRS 编号的 EPSG体系 。搞懂它，你才能看懂 EPSG:4326 / EPSG:3857 到底在说什么，并避开轴序、单位、乱换 EPSG 这三个高频坑。",
       "hash": "3bef4fb263204061",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893059145_04-crs-epsg-seg15.mp3"
     },
     {
       "index": 16,
       "text": "1. 两类坐标",
       "hash": "064f06daa93f0048",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893065475_04-crs-epsg-seg16.mp3"
     },
     {
       "index": 17,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893059374_04-crs-epsg-seg17.mp3"
     },
     {
       "index": 18,
       "text": "投影坐标系 = 地理坐标系（基准面）+ 一个投影方法 + 参数（中央经线、原点、假东/假北）。所以「3857 的米」和「32650 的米」不是同一套米。",
       "hash": "b06b14ee2ba3d37f",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893060818_04-crs-epsg-seg18.mp3"
     },
     {
       "index": 19,
       "text": "北京（约 lon 116.391°，lat 39.907°）在三个 CRS 下的坐标数字完全不同（近似值，感受一下量级就行）：",
       "hash": "d82917b7930fcab3",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893067587_04-crs-epsg-seg19.mp3"
     },
     {
       "index": 20,
       "text": "EPSG:4326（度）： (39.907, 116.391) —— 官方轴序 lat 在前",
       "hash": "a75ef7990bcfa423",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893067183_04-crs-epsg-seg20.mp3"
     },
     {
       "index": 21,
       "text": "EPSG:3857（米）：约 (12957000, 4850500)",
       "hash": "245c7f30575c9428",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893062156_04-crs-epsg-seg21.mp3"
     },
     {
       "index": 22,
       "text": "EPSG:32650（米）：约 (448000, 4420000) —— 东偏从 500,000 起算",
       "hash": "f2a0a9cbab2a1e68",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893070308_04-crs-epsg-seg22.mp3"
     },
     {
       "index": 23,
       "text": "数字对不上不代表算错了，先确认是哪套 CRS，再比较坐标。",
       "hash": "3b571314f91b437e",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893074097_04-crs-epsg-seg23.mp3"
     },
     {
       "index": 24,
       "text": "地理坐标系（GCS）：单位是 度 ，如 EPSG:4326",
       "hash": "823a73909706df66",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893065449_04-crs-epsg-seg24.mp3"
     },
     {
       "index": 25,
       "text": "投影坐标系（PCS）：单位是 米 ，可量长度/面积，如 EPSG:3857、32650",
       "hash": "1c0d063186ed0dde",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893069793_04-crs-epsg-seg25.mp3"
     },
     {
       "index": 26,
       "text": "PCS = GCS（基准面）+ 投影方法 + 参数（中央经线、原点、假东/假北）",
       "hash": "cd53f6f00d443b29",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893075638_04-crs-epsg-seg26.mp3"
     },
     {
       "index": 27,
       "text": "不同 PCS 的「米」不是同一套米，坐标不能直接混用",
       "hash": "6b2ccf412e5f49b3",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893080633_04-crs-epsg-seg27.mp3"
     },
     {
       "index": 28,
       "text": "2. EPSG 是什么",
       "hash": "8663444ed74c47eb",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893071803_04-crs-epsg-seg28.mp3"
     },
     {
       "index": 29,
       "text": "EPSG 是一套公开的坐标参考系参数数据集，每个 CRS 有一个整数代码：",
       "hash": "ab97b238e5c34808",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893081110_04-crs-epsg-seg29.mp3"
     },
     {
       "index": 30,
       "text": "EPSG:4326 — WGS84经纬度（度）",
       "hash": "2a4f9278fcdd735c",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893074281_04-crs-epsg-seg30.mp3"
     },
     {
       "index": 31,
       "text": "EPSG:3857 — Web 墨卡托（Mercator）（米）",
       "hash": "8cff4a320ea7bfe4",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893076442_04-crs-epsg-seg31.mp3"
     },
     {
       "index": 32,
       "text": "EPSG:4490 — CGCS2000经纬度",
       "hash": "149edeb5559be036",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893079677_04-crs-epsg-seg32.mp3"
     },
     {
       "index": 33,
       "text": "EPSG:32650 — WGS84 / UTM50N（米）",
       "hash": "2dd84500e8824519",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893106858_04-crs-epsg-seg33.mp3"
     },
     {
       "index": 34,
       "text": "EPSG:4547 — CGCS2000 / 3° 高斯-克吕格 中央经线 114°E（米）",
       "hash": "1c153f911d65b403",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893109839_04-crs-epsg-seg34.mp3"
     },
     {
       "index": 35,
       "text": "查代码与参数： epsg.io 、 spatialreference.org 。",
       "hash": "bd9d4783a0c4ca36",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893115387_04-crs-epsg-seg35.mp3"
     },
     {
       "index": 36,
       "text": "4326 = WGS84 经纬度（度）",
       "hash": "25d57f894902b430",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893114213_04-crs-epsg-seg36.mp3"
     },
     {
       "index": 37,
       "text": "3857 = Web 墨卡托（米）",
       "hash": "4753f526b62fa941",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893118566_04-crs-epsg-seg37.mp3"
     },
     {
       "index": 38,
       "text": "4490 = CGCS2000 经纬度",
       "hash": "6a5634509b069021",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893115860_04-crs-epsg-seg38.mp3"
     },
     {
       "index": 39,
       "text": "326xx / 327xx = UTM 北 / 南半球，xx = 带号",
       "hash": "2e65cf6501bccc65",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893119189_04-crs-epsg-seg39.mp3"
     },
     {
       "index": 40,
       "text": "4547 = CGCS2000 / 3° 带，中央经线 114°E（米）",
       "hash": "b762a75de43b95ef",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893119651_04-crs-epsg-seg40.mp3"
     },
     {
       "index": 41,
       "text": "3. 三个高频陷阱",
       "hash": "f1245eac96b3d711",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893120795_04-crs-epsg-seg41.mp3"
     },
     {
       "index": 42,
       "text": "陷阱一：轴序",
       "hash": "342678363ddcc0fe",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893121749_04-crs-epsg-seg42.mp3"
     },
     {
       "index": 43,
       "text": "EPSG:4326 的官方轴序是 纬度在前（lat, lon） ，但 GeoJSON/ 大多数前端库用 经度在前（lon, lat） 。OGC为此单独定义了 CRS:84 （lon, lat）。写代码时不要靠猜，明确转换。",
       "hash": "8b3fd426cd82865c",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893123883_04-crs-epsg-seg43.mp3"
     },
     {
       "index": 44,
       "text": "北京的经纬度：lon 116.40，lat 39.91。",
       "hash": "2989e08653032eed",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893115017_04-crs-epsg-seg44.mp3"
     },
     {
       "index": 45,
       "text": "EPSG:4326 官方轴序 到 (39.91, 116.40)",
       "hash": "b3d09b903a563403",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893125241_04-crs-epsg-seg45.mp3"
     },
     {
       "index": 46,
       "text": "GeoJSON / 大多数前端库 到 [116.40, 39.91]",
       "hash": "e2ec7082b7e47528",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893122235_04-crs-epsg-seg46.mp3"
     },
     {
       "index": 47,
       "text": "若把 GeoJSON 的 [116.40, 39.91] 当成 (lat, lon) 解读：纬度 116.4 超出 正负90，轻则报错，重则被\"宽容\"地解析到地球另一端。所以每次接手新库，先查它的轴序约定，再明确转换。",
       "hash": "4dacf2ca7aef3d75",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893125228_04-crs-epsg-seg47.mp3"
     },
     {
       "index": 48,
       "text": "陷阱二：单位",
       "hash": "c1945349e7bdb984",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893125475_04-crs-epsg-seg48.mp3"
     },
     {
       "index": 49,
       "text": "在 4326 上算距离得到的是「度」，不是米。1° 纬度约 111 km，但 1° 经度在赤道约 111 km、在 60°N 只有约 55.8 km。距离/面积必须投影到合适的 PCS，或用球面/椭球计算（PostGIS geography 、Turf（「特弗」）的 geodesic选项）。",
       "hash": "c1ffe38281c81533",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893129022_04-crs-epsg-seg49.mp3"
     },
     {
       "index": 50,
       "text": "问：在北京（约 39.9°N），经度相差 1° 的两点实际相距多远？",
       "hash": "af6e061acc5d9a45",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893128484_04-crs-epsg-seg50.mp3"
     },
     {
       "index": 51,
       "text": "赤道上 1° 经度 约等于 111.3 km",
       "hash": "6b5d7c592729355c",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893133083_04-crs-epsg-seg51.mp3"
     },
     {
       "index": 52,
       "text": "纬度 φ 处，1° 经度 约等于 111.3 × cos(φ) km",
       "hash": "28a8fb17567dc7a2",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893136004_04-crs-epsg-seg52.mp3"
     },
     {
       "index": 53,
       "text": "代入 39.9°：111.3 × cos(39.9°) 约等于 111.3 × 0.767 约等于 85.4 km",
       "hash": "52bedcade542643c",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893134867_04-crs-epsg-seg53.mp3"
     },
     {
       "index": 54,
       "text": "同样的 1°，在赤道是 111.3 km，在北京只剩 85.4 km，到 60°N 就只剩约 55.8 km。所以在 4326 上算出的\"0.767 度\"既不是 0.767 米，也不能当平面距离用，先投影到合适的 PCS，或用 geography / geodesic 计算。",
       "hash": "615355dae6e31b15",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893129040_04-crs-epsg-seg54.mp3"
     },
     {
       "index": 55,
       "text": "陷阱三：随便换 EPSG",
       "hash": "c7621f3a4e62033e",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893134596_04-crs-epsg-seg55.mp3"
     },
     {
       "index": 56,
       "text": "不同基准面之间的坐标不能直接套用。Beijing 1954 到 CGCS2000 需要基准面转换（七参数/格网），只改 SRID会把位置平移几十到上百米。",
       "hash": "774e1447ef8f5ee5",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893134927_04-crs-epsg-seg56.mp3"
     },
     {
       "index": 57,
       "text": "某物流公司把仓库点位数据从 Beijing 1954 迁到 CGCS2000 系统，为了省事直接把坐标系标注改掉，坐标数字一个没动。",
       "hash": "d204654ca26afb4c",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893139872_04-crs-epsg-seg57.mp3"
     },
     {
       "index": 58,
       "text": "结果：所有点位整体平移了几十到上百米，仓库落进了旁边的地块，与规划红线叠加后全部冲突。正确做法是做基准面转换（七参数/格网），让坐标数值真正变化。",
       "hash": "be92d6ac1e275e21",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893138806_04-crs-epsg-seg58.mp3"
     },
     {
       "index": 59,
       "text": "EPSG:4326 官方轴序 (lat, lon) ；GeoJSON / 前端库 (lon, lat) ； CRS:84 = (lon, lat)",
       "hash": "c93796a5d242bc8f",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893145744_04-crs-epsg-seg59.mp3"
     },
     {
       "index": 60,
       "text": "4326 上算距离单位是 度 ：1° 纬度 约等于 111 km，1° 经度随纬度缩小（60°N 约 55.8 km）",
       "hash": "f56feb3ee506eb70",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893140536_04-crs-epsg-seg60.mp3"
     },
     {
       "index": 61,
       "text": "换基准面必须做基准转换（七参数/格网），只改 SRID 平移几十到上百米",
       "hash": "15a1b4a46f71894b",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893138701_04-crs-epsg-seg61.mp3"
     },
     {
       "index": 62,
@@ -398,103 +460,121 @@
       "index": 65,
       "text": "高斯-克吕格 ：中国常用 3° 带（也可 6° 带），带号写在 EPSG 名称里（如 4547 = 中央经线 114°E）。",
       "hash": "2cb8a8d3135063c4",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893164686_04-crs-epsg-seg65.mp3"
     },
     {
       "index": 66,
       "text": "UTM：6° 一带；北半球 326xx ，南半球 327xx ，xx = 带号",
       "hash": "781b97b0a7512274",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893167326_04-crs-epsg-seg66.mp3"
     },
     {
       "index": 67,
       "text": "高斯-克吕格：中国常用 3° 带，带号藏在 EPSG 名称里（4547 = 中央经线 114°E）",
       "hash": "e392b5926b8cb56d",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893169709_04-crs-epsg-seg67.mp3"
     },
     {
       "index": 68,
       "text": "投影离中央经线越远，变形越大",
       "hash": "f8fb71120f9294fe",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893178093_04-crs-epsg-seg68.mp3"
     },
     {
       "index": 69,
       "text": "5. 工程约定",
       "hash": "5f9f0b6f7bf5c4a9",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893177793_04-crs-epsg-seg69.mp3"
     },
     {
       "index": 70,
       "text": "存储用 4326 （GeoJSON 默认、交换格式通用）。",
       "hash": "d36f75170a5640c3",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893175728_04-crs-epsg-seg70.mp3"
     },
     {
       "index": 71,
       "text": "算距离/面积 ：投影到局部 PCS，或直接用 geography / geodesic 计算。",
       "hash": "8e566a42787ee0ac",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893175505_04-crs-epsg-seg71.mp3"
     },
     {
       "index": 72,
       "text": "显示用 3857 （瓦片地图的标准平面）。",
       "hash": "b72e48087ca26653",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893178304_04-crs-epsg-seg72.mp3"
     },
     {
       "index": 73,
       "text": "每次读写都显式带上 CRS，不要依赖「默认是 4326」。",
       "hash": "ec50a7f7ff1aeebd",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893182682_04-crs-epsg-seg73.mp3"
     },
     {
       "index": 74,
       "text": "存储/交换用 4326",
       "hash": "46f04e4ee61c08ab",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893183252_04-crs-epsg-seg74.mp3"
     },
     {
       "index": 75,
       "text": "算距离/面积：局部 PCS 或 geography / geodesic",
       "hash": "bd6e48306b3de868",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893177024_04-crs-epsg-seg75.mp3"
     },
     {
       "index": 76,
       "text": "显示用 3857",
       "hash": "dfe34bbe5ac579f9",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893180690_04-crs-epsg-seg76.mp3"
     },
     {
       "index": 77,
       "text": "读写都显式带 CRS，别依赖默认值",
       "hash": "8daac0a76c5f8a50",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893178195_04-crs-epsg-seg77.mp3"
     },
     {
       "index": 78,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893184980_04-crs-epsg-seg78.mp3"
     },
     {
       "index": 79,
       "text": "EPSG 代码与参数： epsg.io",
       "hash": "d48a0b79091efd19",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893185886_04-crs-epsg-seg79.mp3"
     },
     {
       "index": 80,
       "text": "PROJ 坐标转换文档： proj.org/usage/transformation",
       "hash": "870987c48ef93b35",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893189886_04-crs-epsg-seg80.mp3"
     },
     {
       "index": 81,
       "text": "OGC 关于轴序的说明： OGC Axis Order Policy",
       "hash": "20d20fb5635957f7",
-      "audio": "seg81.mp3"
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893187355_04-crs-epsg-seg81.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.563Z"
 }

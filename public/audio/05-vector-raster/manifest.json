@@ -8,19 +8,22 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893184658_05-vector-raster-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893188339_05-vector-raster-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ：GIS 数据分两大门派——矢量和栅格。选错门派，后面的分析一路别扭。",
       "hash": "a607fdbedb2b015f",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893192558_05-vector-raster-seg02.mp3"
     },
     {
       "index": 3,
@@ -50,13 +53,15 @@
       "index": 7,
       "text": "键类型不一致连了个寂寞 ：一边文本 \"440100\" 一边数字 440100 ，连接结果悄悄为空，还不报错。",
       "hash": "c1b8c77afc61b480",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893229277_05-vector-raster-seg07.mp3"
     },
     {
       "index": 8,
       "text": "Shapefile 相邻面出缝隙 ：它把公共边界各存一遍（「意大利面条」存法），两套边界差 5 cm 就裂开了。要严丝合缝用地籍拓扑模型。",
       "hash": "01062086c3e4067c",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893227388_05-vector-raster-seg08.mp3"
     },
     {
       "index": 9,
@@ -68,103 +73,120 @@
       "index": 10,
       "text": "离散对象用矢量，连续场用栅格",
       "hash": "92e4a135661668f2",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893225275_05-vector-raster-seg10.mp3"
     },
     {
       "index": 11,
       "text": "空间 join = 按位置挂属性，不用先存",
       "hash": "a6ad07705772ca5d",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893231978_05-vector-raster-seg11.mp3"
     },
     {
       "index": 12,
       "text": "join 前先查键唯一、类型一致",
       "hash": "72638ed400d46376",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893239298_05-vector-raster-seg12.mp3"
     },
     {
       "index": 13,
       "text": "一句话",
       "hash": "a25aca1814333b3a",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893235557_05-vector-raster-seg13.mp3"
     },
     {
       "index": 14,
       "text": "矢量描述「离散对象」，栅格描述「连续场」。模型选对，后面才顺。",
       "hash": "f0404d8f33eaf3da",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893241487_05-vector-raster-seg14.mp3"
     },
     {
       "index": 15,
       "text": "1. 矢量模型",
       "hash": "53d68fa01d172b3c",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893236954_05-vector-raster-seg15.mp3"
     },
     {
       "index": 16,
       "text": "基本几何（OGCSimple Features）：",
       "hash": "4ef0eae5000bbc46",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893235862_05-vector-raster-seg16.mp3"
     },
     {
       "index": 17,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893246742_05-vector-raster-seg17.mp3"
     },
     {
       "index": 18,
       "text": "每个要素带一张属性表（一行记录）。面可以有洞： 外环 + 若干 内环 （GeoJSON里是 coordinates 的第一组与后续组）。",
       "hash": "4db0788f7bc9dd49",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893244401_05-vector-raster-seg18.mp3"
     },
     {
       "index": 19,
       "text": "拓扑 ：两种存边界的思路，差别见下表：",
       "hash": "2f7808741127d04a",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893238065_05-vector-raster-seg19.mp3"
     },
     {
       "index": 20,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893242742_05-vector-raster-seg20.mp3"
     },
     {
       "index": 21,
       "text": "拓扑模型像两户合租人家 共用一面墙 ，墙的位置只记一次，谁动墙两边同时变；意大利面条模型像各画各的户型图，两家人画的「同一面墙」差了 5 cm，图一叠加就裂出一条缝。地籍、管线这类要求严丝合缝的数据，因此常靠拓扑约束来管理。",
       "hash": "a671a266d0df0a03",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893242999_05-vector-raster-seg21.mp3"
     },
     {
       "index": 22,
       "text": "点/线/面 = Point / LineString / Polygon，各有 Multi 版本",
       "hash": "454879e94a4e6e9b",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893243451_05-vector-raster-seg22.mp3"
     },
     {
       "index": 23,
       "text": "每个要素 = 一份几何 + 一行属性记录",
       "hash": "fffb9828d18fa90a",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893253655_05-vector-raster-seg23.mp3"
     },
     {
       "index": 24,
       "text": "面可以有洞：GeoJSON coordinates 第 1 组是外环，后续组是内环",
       "hash": "71f872852a150ef0",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893244226_05-vector-raster-seg24.mp3"
     },
     {
       "index": 25,
       "text": "拓扑模型公共边界只存一次；Shapefile/GeoJSON 是意大利面条模型",
       "hash": "0daa978bb93dc316",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893247968_05-vector-raster-seg25.mp3"
     },
     {
       "index": 26,
       "text": "2. 属性表与连接（join，「佐因」）",
       "hash": "7fe4ed2a94ec4c7a",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893247014_05-vector-raster-seg26.mp3"
     },
     {
       "index": 27,
@@ -176,7 +198,8 @@
       "index": 28,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893258956_05-vector-raster-seg28.mp3"
     },
     {
       "index": 29,
@@ -200,7 +223,8 @@
       "index": 32,
       "text": "空间 join ：按位置关系（落在谁里面/相交/最近）挂属性，是 GIS 特有的超能力",
       "hash": "3f9b2724a7dbd6f0",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893297538_05-vector-raster-seg32.mp3"
     },
     {
       "index": 33,
@@ -212,49 +236,57 @@
       "index": 34,
       "text": "3. 几何有效性：会算错图的「脏几何」",
       "hash": "dc5e16720ed916b1",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893292203_05-vector-raster-seg34.mp3"
     },
     {
       "index": 35,
       "text": "OGC Simple Features 对几何有 有效性（validity） 定义。违反定义的几何叫 无效几何（invalid geometry） ，常见的有：",
       "hash": "b272d88382fde6c5",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893286850_05-vector-raster-seg35.mp3"
     },
     {
       "index": 36,
       "text": "自相交 （蝴蝶结）：线或面的边自己穿过自己；",
       "hash": "6fc2f2da9b78f6d0",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893296050_05-vector-raster-seg36.mp3"
     },
     {
       "index": 37,
       "text": "环未闭合 ：多边形首尾点不重合；",
       "hash": "a32aa0a3660de0fa",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893295807_05-vector-raster-seg37.mp3"
     },
     {
       "index": 38,
       "text": "内环在外环之外 、内环互相重叠；",
       "hash": "1d546e1d0d7575fb",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893301373_05-vector-raster-seg38.mp3"
     },
     {
       "index": 39,
       "text": "重复顶点 / 自重叠 。",
       "hash": "7b69f17af22ce46e",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893299341_05-vector-raster-seg39.mp3"
     },
     {
       "index": 40,
       "text": "某地块边界数字化时手抖，两个顶点交叉形成蝴蝶结。叠加分析（求交、裁剪）遇到它要么直接报错，要么更糟， 静默给出错误结果 ：面积算错、相邻关系判反。有效性检查（PostGIS STIsValid ）与修复（ STMakeValid ，或对缓冲区做零距离 buffer（「巴弗」）技巧）是数据入库前的固定工序。",
       "hash": "c33e474be566fed8",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893303712_05-vector-raster-seg40.mp3"
     },
     {
       "index": 41,
       "text": "自相交、环未闭合、内外环错位 = 无效几何",
       "hash": "e034a79bc64bdbb3",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893304636_05-vector-raster-seg41.mp3"
     },
     {
       "index": 42,
@@ -266,37 +298,43 @@
       "index": 43,
       "text": "检查用 STIsValid ，修复用 STMakeValid （第 13 章实操）",
       "hash": "4d3591151cb3ad3d",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893302515_05-vector-raster-seg43.mp3"
     },
     {
       "index": 44,
       "text": "4. 栅格模型",
       "hash": "f22df50959ba8a60",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893317575_05-vector-raster-seg44.mp3"
     },
     {
       "index": 45,
       "text": "栅格 = 规则网格，每个像元存一个（或多个）值。",
       "hash": "b32a24ed55e6027f",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893322144_05-vector-raster-seg45.mp3"
     },
     {
       "index": 46,
       "text": "要点：",
       "hash": "ef9a4e5bcc7079c9",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893308222_05-vector-raster-seg46.mp3"
     },
     {
       "index": 47,
       "text": "分辨率 ≠ 精度 。10 m 分辨率表示像元边长 10 m，不代表定位误差 10 m。",
       "hash": "2e5b3aaf7e8445ee",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893310821_05-vector-raster-seg47.mp3"
     },
     {
       "index": 48,
       "text": "分类栅格 （土地利用、掩膜）重采样必须用最近邻（nearest），双线性会造出「不存在的类别」。",
       "hash": "fd7db98b8697aba3",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893318582_05-vector-raster-seg48.mp3"
     },
     {
       "index": 49,
@@ -308,7 +346,8 @@
       "index": 50,
       "text": "像元是面积采样 ，不是点采样：一个像元的值通常代表该范围的平均/主导属性。",
       "hash": "9a1e263f67451aa8",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893320962_05-vector-raster-seg50.mp3"
     },
     {
       "index": 51,
@@ -326,7 +365,8 @@
       "index": 53,
       "text": "y = 5000 − (3 + 0.5) × 10 = 4965 （北向上时 y 步长为负，所以用减）",
       "hash": "f63f7eca3497783d",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893326905_05-vector-raster-seg53.mp3"
     },
     {
       "index": 54,
@@ -374,7 +414,8 @@
       "index": 61,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893357794_05-vector-raster-seg61.mp3"
     },
     {
       "index": 62,
@@ -386,13 +427,15 @@
       "index": 63,
       "text": "「统计道路两侧 500 m 缓冲区内的平均坡度」：坡度来自 DEM（栅格），道路和缓冲区来自矢量图层。惯用做法是矢量缓冲区 到 转成栅格掩膜 到 对坡度做分区统计（zonal statistics），一步栅格代数出结果。硬走矢量则要把 DEM 拆成一堆高程点、逐点判断在不在缓冲区内，又慢又没必要，这正是上表第三行的场景。",
       "hash": "0e87ef5a6738d016",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893373306_05-vector-raster-seg63.mp3"
     },
     {
       "index": 64,
       "text": "DEM ：地表高程模型",
       "hash": "1ce497edeb0f363d",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893362876_05-vector-raster-seg64.mp3"
     },
     {
       "index": 65,
@@ -404,31 +447,36 @@
       "index": 66,
       "text": "DTM ：裸地面",
       "hash": "4f61274dfc96b568",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893379621_05-vector-raster-seg66.mp3"
     },
     {
       "index": 67,
       "text": "三者都是 栅格 产品",
       "hash": "264bff68043085cf",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893372317_05-vector-raster-seg67.mp3"
     },
     {
       "index": 68,
       "text": "6. 空间索引",
       "hash": "c4424a67a569c639",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893381189_05-vector-raster-seg68.mp3"
     },
     {
       "index": 69,
       "text": "无论矢量还是栅格，数据一大就不能逐条算。常见索引：",
       "hash": "7bb4c1500caa0afb",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893380298_05-vector-raster-seg69.mp3"
     },
     {
       "index": 70,
       "text": "R-tree/ GiST（「吉斯特」） （PostGIS 默认）：按最小外接矩形（bbox）组织，先用 && 做粗筛，再做精确几何判断。",
       "hash": "34764f0fa73bebe2",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893378715_05-vector-raster-seg70.mp3"
     },
     {
       "index": 71,
@@ -440,25 +488,29 @@
       "index": 72,
       "text": "瓦片金字塔 ：栅格/矢量瓦片用多级分辨率加速显示。",
       "hash": "450ee6973a19b0b9",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893384396_05-vector-raster-seg72.mp3"
     },
     {
       "index": 73,
       "text": "索引只加速「空间筛选」，不会让错误的 CRS 变正确。",
       "hash": "b23533178df497c8",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893385273_05-vector-raster-seg73.mp3"
     },
     {
       "index": 74,
       "text": "在 100 万个地块里问「这个点落在哪个地块」：逐个做精确几何判断要算 100 万次。走 R-tree 时，bbox 粗筛（ && ）先把候选从 100 万砍到几十个，精确几何判断只做这几十次，工作量只剩原来的约 0.005% 。PostGIS 空间查询快，靠的就是这两段式。",
       "hash": "4cbe5178fbe284c8",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893382859_05-vector-raster-seg74.mp3"
     },
     {
       "index": 75,
       "text": "R-tree / GiST（PostGIS 默认）按 bbox 组织： && 粗筛 到 精确几何判断",
       "hash": "cfc746119de3a0cf",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893386601_05-vector-raster-seg75.mp3"
     },
     {
       "index": 76,
@@ -470,7 +522,8 @@
       "index": 77,
       "text": "索引只加速空间筛选， 救不了错误的 CRS",
       "hash": "dbb54598abeb12f6",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893392223_05-vector-raster-seg77.mp3"
     },
     {
       "index": 78,
@@ -482,13 +535,15 @@
       "index": 79,
       "text": "OGC Simple Features： OGC SFA 标准",
       "hash": "b3f35145be1a2c2c",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893396610_05-vector-raster-seg79.mp3"
     },
     {
       "index": 80,
       "text": "GeoJSON 环方向（RFC 7946 §3.1.6）： rfc7946",
       "hash": "2d931cc6dd838406",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893397702_05-vector-raster-seg80.mp3"
     },
     {
       "index": 81,
@@ -496,5 +551,6 @@
       "hash": "aeb8f085fef8c653",
       "audio": "seg81.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.565Z"
 }

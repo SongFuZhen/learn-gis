@@ -38,7 +38,8 @@
       "index": 5,
       "text": "GeoJSON 坐标写反 ：标准是经度在前 [120.15, 30.25] ，写成纬度在前，点直接飞到错误的地方——这是 Web 地图最高频的低级错误。",
       "hash": "8157e14e699aca27",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893660208_07-formats-tiles-seg05.mp3"
     },
     {
       "index": 6,
@@ -50,31 +51,36 @@
       "index": 7,
       "text": "GeoJSON 里塞 crs 字段 ：新标准（RFC 7946）已经移除了，GeoJSON 只能是 WGS84。",
       "hash": "ead80d4ce9d4f50a",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893661054_07-formats-tiles-seg07.mp3"
     },
     {
       "index": 8,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893657640_07-formats-tiles-seg08.mp3"
     },
     {
       "index": 9,
       "text": "GeoJSON 经度在前、只能 4326",
       "hash": "92061057f82e7f6b",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893665810_07-formats-tiles-seg09.mp3"
     },
     {
       "index": 10,
       "text": "Shapefile 是三件套，别只发一个文件",
       "hash": "c7147f3485177acb",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893673943_07-formats-tiles-seg10.mp3"
     },
     {
       "index": 11,
       "text": "现代交换用 GeoPackage；地图秒开靠瓦片",
       "hash": "b9b78c5f203aab0c",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893669662_07-formats-tiles-seg11.mp3"
     },
     {
       "index": 12,
@@ -86,55 +92,64 @@
       "index": 13,
       "text": "格式决定「能不能一次搬走、能不能按需取」；瓦片决定「地图能不能秒开」。",
       "hash": "5a5044cbd935bd05",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893677347_07-formats-tiles-seg13.mp3"
     },
     {
       "index": 14,
       "text": "1. 矢量交换格式",
       "hash": "89223d8db9399347",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893674125_07-formats-tiles-seg14.mp3"
     },
     {
       "index": 15,
       "text": "GeoJSON（RFC 7946）",
       "hash": "33363b86ac443c39",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893667213_07-formats-tiles-seg15.mp3"
     },
     {
       "index": 16,
       "text": "坐标顺序 经度在前 （lon, lat），坐标为 WGS84（4326）。",
       "hash": "dca045ddf046e91c",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893688532_07-formats-tiles-seg16.mp3"
     },
     {
       "index": 17,
       "text": "RFC7946 已 移除 crs 成员：标准 GeoJSON只能是 4326。",
       "hash": "f85518fdfd943cd5",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893675825_07-formats-tiles-seg17.mp3"
     },
     {
       "index": 18,
       "text": "人类可读、Web 友好；缺点是文本体积大、无索引，大文件解析慢。",
       "hash": "8aad7e95a5505ce8",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893675640_07-formats-tiles-seg18.mp3"
     },
     {
       "index": 19,
       "text": "以西湖为例，正确写法是 \"coordinates\": [120.15, 30.25] （经度在前）。如果不小心写成 [30.25, 120.15] ，纬度就变成了 120.15。纬度的合法范围是 -90 到 90，多数库会直接报错；即使静默接受，点也会落到完全错误的位置。",
       "hash": "da0532fbbe15eb3b",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893682177_07-formats-tiles-seg19.mp3"
     },
     {
       "index": 20,
       "text": "Shapefile",
       "hash": "1e21d10d21500fbb",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893679115_07-formats-tiles-seg20.mp3"
     },
     {
       "index": 21,
       "text": "至少三件套： .shp （几何）、 .shx （索引）、 .dbf （属性），常带 .prj （CRS）。",
       "hash": "5b9aa7b57a35fe40",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893683746_07-formats-tiles-seg21.mp3"
     },
     {
       "index": 22,
@@ -146,25 +161,29 @@
       "index": 23,
       "text": "单文件 2 GB 上限",
       "hash": "0cedfe269ac17822",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893684527_07-formats-tiles-seg23.mp3"
     },
     {
       "index": 24,
       "text": "字段名最长 10 字符",
       "hash": "e4a7b12ce97b1783",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893689764_07-formats-tiles-seg24.mp3"
     },
     {
       "index": 25,
       "text": "一个图层只能一种几何类型",
       "hash": "2f80e19c60ebdec8",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893689594_07-formats-tiles-seg25.mp3"
     },
     {
       "index": 26,
       "text": "无拓扑",
       "hash": "aff8eba8d048cb2b",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893689202_07-formats-tiles-seg26.mp3"
     },
     {
       "index": 27,
@@ -194,121 +213,141 @@
       "index": 31,
       "text": "其他",
       "hash": "1a26edf94a81a7a4",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893718917_07-formats-tiles-seg31.mp3"
     },
     {
       "index": 32,
       "text": "KML ：Google Earth 生态，带样式。",
       "hash": "19694062fc031219",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893720452_07-formats-tiles-seg32.mp3"
     },
     {
       "index": 33,
       "text": "GPX ：GPS轨迹/航点。",
       "hash": "c62fd29e1e213cbb",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893716973_07-formats-tiles-seg33.mp3"
     },
     {
       "index": 34,
       "text": "TopoJSON ：把共享边界存成 arcs ，体积能比 GeoJSON 小很多，保留拓扑。",
       "hash": "3950fec920de838a",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893727342_07-formats-tiles-seg34.mp3"
     },
     {
       "index": 35,
       "text": "GeoJSON： 经度在前 （lon, lat），坐标固定 WGS84（4326）",
       "hash": "bc3dedb100397285",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893723130_07-formats-tiles-seg35.mp3"
     },
     {
       "index": 36,
       "text": "RFC 7946 已 移除 crs 成员，标准 GeoJSON 只能是 4326",
       "hash": "66005c168a53db4b",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893728104_07-formats-tiles-seg36.mp3"
     },
     {
       "index": 37,
       "text": "Shapefile 三件套： .shp （几何）、 .shx （索引）、 .dbf （属性）， .prj 存 CRS",
       "hash": "e9cfa0d8e766def8",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893724524_07-formats-tiles-seg37.mp3"
     },
     {
       "index": 38,
       "text": "Shapefile 硬限制： 2 GB 上限、字段名 10 字符",
       "hash": "a5b793ba958861a1",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893729517_07-formats-tiles-seg38.mp3"
     },
     {
       "index": 39,
       "text": "GeoPackage= 一个 SQLite 文件 装下矢量、栅格与瓦片",
       "hash": "c4429439063b4dcd",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893734168_07-formats-tiles-seg39.mp3"
     },
     {
       "index": 40,
       "text": "2. 栅格格式",
       "hash": "c4bf25f3311cb7bb",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893735599_07-formats-tiles-seg40.mp3"
     },
     {
       "index": 41,
       "text": "GeoTIFF ：TIFF（「蒂芙」）+ 地理参考（CRS、仿射变换），GIS 栅格的事实标准。",
       "hash": "5321dfd3051ec6d3",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893735548_07-formats-tiles-seg41.mp3"
     },
     {
       "index": 42,
       "text": "COG（Cloud Optimized GeoTIFF） （「科格」）：分块 + 内置概览（overviews）+ 元数据在文件头部，客户端可用 HTTP Range 只取需要的块，无需下载整个文件。",
       "hash": "0803184c49cb4131",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893728626_07-formats-tiles-seg42.mp3"
     },
     {
       "index": 43,
       "text": "一幅 10 GB 的卫星影像做成 COG 挂在 HTTP 服务器上。前端只想预览某个约 256 KB 的小区域：传统 GeoTIFF 要把 10 GB 全下完才能打开；COG 因为元数据在文件头部，客户端先读头部、算出目标块的位置，再发一个 HTTP Range 请求只取那 256 KB，流量从 GB 级降到 KB 级。类比：去图书馆只复印需要的那一页，而不是把整本书借走。",
       "hash": "4900a9c612d720f1",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893738673_07-formats-tiles-seg43.mp3"
     },
     {
       "index": 44,
       "text": "GeoTIFF = TIFF + 地理参考（CRS、仿射变换），GIS 栅格 事实标准",
       "hash": "ced7d1ad76125606",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893733723_07-formats-tiles-seg44.mp3"
     },
     {
       "index": 45,
       "text": "COG 三要素： 分块 、内置 概览 （overviews）、 元数据在文件头部",
       "hash": "b120da1667dc783c",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893740102_07-formats-tiles-seg45.mp3"
     },
     {
       "index": 46,
       "text": "COG 靠 HTTP Range 按需取块，不必下载整个文件",
       "hash": "7db0ff240ef20239",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893741522_07-formats-tiles-seg46.mp3"
     },
     {
       "index": 47,
       "text": "3. 瓦片：把地图切片",
       "hash": "ef64bfd4c0363ed4",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893739753_07-formats-tiles-seg47.mp3"
     },
     {
       "index": 48,
       "text": "瓦片金字塔： z 缩放级、 x 列、 y 行，每级 2^z × 2^z 张图。",
       "hash": "1c850bd483049d8a",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893741897_07-formats-tiles-seg48.mp3"
     },
     {
       "index": 49,
       "text": "两种编号约定：",
       "hash": "c26c6a6184ef10be",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893745648_07-formats-tiles-seg49.mp3"
     },
     {
       "index": 50,
       "text": "XYZ（Google/OSM） ： y 从顶部（北）开始。",
       "hash": "5a8ef985c07b8110",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893741521_07-formats-tiles-seg50.mp3"
     },
     {
       "index": 51,
@@ -356,73 +395,85 @@
       "index": 58,
       "text": "瓦片地址 = z （缩放级）、 x （列）、 y （行），每级 2^z × 2^z 张",
       "hash": "0fe9c371462dc1dd",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893775206_07-formats-tiles-seg58.mp3"
     },
     {
       "index": 59,
       "text": "z=0 全世界 1 张 ，z=1 有 4 张",
       "hash": "1268264eef679acf",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893788308_07-formats-tiles-seg59.mp3"
     },
     {
       "index": 60,
       "text": "XYZ ：y 从 北 （顶部）数； TMS ：y 从 南 （底部）数",
       "hash": "6368d7a6adf2a6a7",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893773267_07-formats-tiles-seg60.mp3"
     },
     {
       "index": 61,
       "text": "换算公式： ytms = 2^z − 1 − yxyz ；用反了地图 上下颠倒",
       "hash": "0e61c3b0c302282e",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893777017_07-formats-tiles-seg61.mp3"
     },
     {
       "index": 62,
       "text": "4. 矢量瓦片（MVT）",
       "hash": "b047b548153a06c5",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893785953_07-formats-tiles-seg62.mp3"
     },
     {
       "index": 63,
       "text": "矢量瓦片是 protobuf编码的几何 + 属性 （MapboxVector Tile 规范），不是图片：",
       "hash": "70c27240924fbda5",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893787058_07-formats-tiles-seg63.mp3"
     },
     {
       "index": 64,
       "text": "服务端切片、按 z 级简化；",
       "hash": "144f05fa9137453d",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893787114_07-formats-tiles-seg64.mp3"
     },
     {
       "index": 65,
       "text": "客户端拿到数据后用样式（style JSON，「杰森」）渲染；",
       "hash": "c0badba84373aa10",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893798216_07-formats-tiles-seg65.mp3"
     },
     {
       "index": 66,
       "text": "一份瓦片可以换多套样式、支持交互查询，体积通常远小于同范围 GeoJSON。",
       "hash": "152eb98052404dfc",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893799949_07-formats-tiles-seg66.mp3"
     },
     {
       "index": 67,
       "text": "PMTiles 把整层瓦片打包成单个文件，通过 Range 请求按需读取，可直接放在对象存储上，省掉瓦片服务。",
       "hash": "50436e606d0b9211",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893790585_07-formats-tiles-seg67.mp3"
     },
     {
       "index": 68,
       "text": "同一家公司的全国底图只需要 切一次 矢量瓦片：白天的亮色样式、夜间的暗色样式，只是两份不同的 style JSON，客户端拿到同一份 MVT数据，按各自样式渲染。若用栅格瓦片，这两种外观就得切两次图、存两份瓦片。这就是「渲染放到客户端」最直接的收益。",
       "hash": "77b1bea87ad84a5c",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893800829_07-formats-tiles-seg68.mp3"
     },
     {
       "index": 69,
       "text": "MVT = protobuf 编码的「几何 + 属性」 ，不是图片",
       "hash": "b80b5b4ed73c7009",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893792727_07-formats-tiles-seg69.mp3"
     },
     {
       "index": 70,
@@ -434,31 +485,36 @@
       "index": 71,
       "text": "一份瓦片可换 多套样式 、支持交互查询",
       "hash": "04ac325aff42e7b7",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893798128_07-formats-tiles-seg71.mp3"
     },
     {
       "index": 72,
       "text": "PMTiles：整层打包成 单文件 ，Range 请求按需读，可直接放 对象存储",
       "hash": "49aeea3b7d669309",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893799712_07-formats-tiles-seg72.mp3"
     },
     {
       "index": 73,
       "text": "5. 怎么选",
       "hash": "be7b3848e760afa1",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893797586_07-formats-tiles-seg73.mp3"
     },
     {
       "index": 74,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893801261_07-formats-tiles-seg74.mp3"
     },
     {
       "index": 75,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893810335_07-formats-tiles-seg75.mp3"
     },
     {
       "index": 76,
@@ -470,7 +526,8 @@
       "index": 77,
       "text": "矢量瓦片规范： mapbox/vector-tile-spec",
       "hash": "6d4b74b437988028",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893808258_07-formats-tiles-seg77.mp3"
     },
     {
       "index": 78,
@@ -484,5 +541,6 @@
       "hash": "4be8b0f70b3111ed",
       "audio": "seg79.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.567Z"
 }

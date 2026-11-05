@@ -8,571 +8,667 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892839306_03-projection-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892836377_03-projection-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ：地球是圆的，屏幕和纸是平的。把球面摊平——这就是投影干的全部事情。",
       "hash": "43c5a970a487c468",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892838122_03-projection-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：投影就是「摊橘子皮」。你把橘子皮完整压平在桌上试试——要么裂开，要么扯变形。球面摊平也一样，数学上证明了必然变形。所以别问「哪个投影最准」，没有这种东西。只能问： 这次我保什么、牺牲什么 。",
       "hash": "0cd18d8092fef819",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892840419_03-projection-seg03.mp3"
     },
     {
       "index": 4,
       "text": "三种保法，记这张表就够 ：",
       "hash": "3d70cc67e5a81709",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892843029_03-projection-seg04.mp3"
     },
     {
       "index": 5,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892842369_03-projection-seg05.mp3"
     },
     {
       "index": 6,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892845870_03-projection-seg06.mp3"
     },
     {
       "index": 7,
       "text": "拿手机地图比格陵兰和非洲谁大——看着差不多，实际非洲是格陵兰的 14 倍 。手机地图全用 Web 墨卡托，保角度不保面积。",
       "hash": "8df4949e174aebdd",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892849506_03-projection-seg07.mp3"
     },
     {
       "index": 8,
       "text": "做人口密度统计图直接上 Web 墨卡托，北极附近的国家看着虚胖一圈。记住： 统计面积用 Albers，导航才用墨卡托 。",
       "hash": "e2b21c6d3f2a92d2",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892847051_03-projection-seg08.mp3"
     },
     {
       "index": 9,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892853177_03-projection-seg09.mp3"
     },
     {
       "index": 10,
       "text": "投影必然变形，没有完美方案",
       "hash": "5b312b72050ff90b",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892861072_03-projection-seg10.mp3"
     },
     {
       "index": 11,
       "text": "先问用途，再选投影",
       "hash": "45a58396bcfa27f7",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892861362_03-projection-seg11.mp3"
     },
     {
       "index": 12,
       "text": "Web 墨卡托保角不保面积，手机地图都是它",
       "hash": "d5773d176e541639",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892863584_03-projection-seg12.mp3"
     },
     {
       "index": 13,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892870628_03-projection-seg13.mp3"
     },
     {
       "index": 14,
       "text": "上一章我们把地球近似成了一个椭球（Ellipsoid），用经纬度标记位置。但手机、纸张、屏幕都是 平的 。怎么把球面上的点画到平面上？这就是 地图投影 。本章回答三个问题：为什么投影必然变形、有哪几类取舍、以及你天天在用的 Web 墨卡托（Mercator）到底做了什么手脚。",
       "hash": "086f2f7356d92a41",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892868585_03-projection-seg14.mp3"
     },
     {
       "index": 15,
       "text": "1. 为什么必须投影",
       "hash": "4d1b5363df2d9c13",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892869009_03-projection-seg15.mp3"
     },
     {
       "index": 16,
       "text": "经纬度是球面上的角度，可量距离、算面积、在屏幕上画地图，都需要平面。把球面\"摊开\"成平面的数学变换，就是投影。",
       "hash": "1749fd46c450ac73",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892871643_03-projection-seg16.mp3"
     },
     {
       "index": 17,
       "text": "问题在于： 球面没法无变形地铺平。",
       "hash": "79fc4a3b8f34757d",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892872590_03-projection-seg17.mp3"
     },
     {
       "index": 18,
       "text": "试着把橘子皮完整地压平在桌上，它一定会裂开或被拉伸。数学上这叫球面具有非零高斯曲率（Gaussian curvature），而平面曲率为零，两者不可能等长对应。所以 任何投影都必然产生变形 ，我们能选的只是\"让哪种变形小一点\"。",
       "hash": "66acdd44f31a9393",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892874017_03-projection-seg18.mp3"
     },
     {
       "index": 19,
       "text": "2. 三类取舍：保什么，牺牲什么",
       "hash": "69b5333fac9bfd62",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892877152_03-projection-seg19.mp3"
     },
     {
       "index": 20,
       "text": "既然必然变形，就只能在三种\"保真\"目标里挑一个（或折衷）：",
       "hash": "08973521ea4fa787",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892884232_03-projection-seg20.mp3"
     },
     {
       "index": 21,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892880856_03-projection-seg21.mp3"
     },
     {
       "index": 22,
       "text": "三者 不可兼得 。选投影时该问的第一句话永远是： \"这张图要用来做什么？\" 用来导航就保角度，用来做面积统计就保面积。拿一张等角投影的世界地图去比各国国土大小，结论就是错的。",
       "hash": "2a7f2a5a390f5fa9",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892878545_03-projection-seg22.mp3"
     },
     {
       "index": 23,
       "text": "球面高斯曲率非零、平面为零 到 任何投影必变形 ，只能选牺牲哪种；",
       "hash": "d2beaa40d61f1234",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892887648_03-projection-seg23.mp3"
     },
     {
       "index": 24,
       "text": "等角 保角度/形状，面积失真 到 航海、导航、Web 地图；",
       "hash": "920b49528d20f63c",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892883352_03-projection-seg24.mp3"
     },
     {
       "index": 25,
       "text": "等积 保面积，形状扭曲 到 人口/土地面积统计图；",
       "hash": "b1f8f4932f6b481f",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892884300_03-projection-seg25.mp3"
     },
     {
       "index": 26,
       "text": "等距/折衷 保某方向距离，都不精确 到 折衷的世界地图；",
       "hash": "933d070f34d2f6e1",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892887048_03-projection-seg26.mp3"
     },
     {
       "index": 27,
       "text": "三者 不可兼得 ：先问\"这张图要用来做什么\"，再选投影。",
       "hash": "1e17c420c97a288e",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892885420_03-projection-seg27.mp3"
     },
     {
       "index": 28,
       "text": "3. 投影家族：按「怎么铺」分类",
       "hash": "4bfce92dc71ee5bb",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892887681_03-projection-seg28.mp3"
     },
     {
       "index": 29,
       "text": "上一节回答了\"保什么\"，这一节回答\"怎么铺\"。所有投影都可以想象成把一个 可展开的面 （圆柱、圆锥、平面）贴在地球上，把点投到面上再展开。按构造面分三大家族：",
       "hash": "bd3a1f75745ed3cc",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892889357_03-projection-seg29.mp3"
     },
     {
       "index": 30,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892886702_03-projection-seg30.mp3"
     },
     {
       "index": 31,
       "text": "再按 投影面的姿态 细分：圆柱可以正放（赤道处最准）也可以横放（某条中央经线最准，UTM/高斯-克吕格就是横轴圆柱）；还可以 相切 （贴一点/一线）或 相割 （切两线，把变形摊得更匀）。",
       "hash": "ca1a7487dbc8d909",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892896747_03-projection-seg31.mp3"
     },
     {
       "index": 32,
       "text": "Albers 等积圆锥 ：两条标准纬线相割、保面积。中国全图、美国全国图常用它画土地利用/人口密度这类\"看面积\"的专题图。",
       "hash": "3c48cb63091ecf38",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892888795_03-projection-seg32.mp3"
     },
     {
       "index": 33,
       "text": "方位等距 （Azimuthal Equidistant）：从中心点向任何方向 距离和方向都保真 ，联合国会徽用的就是以北极为中心的方位等距投影；飞行航线图也爱用它。",
       "hash": "6eed1c6cec3433a5",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892892156_03-projection-seg33.mp3"
     },
     {
       "index": 34,
       "text": "Mollweide / Gall-Peters 等积世界投影 （Mollweide，Gall-Peters）：世界地图要\"比面积\"（人口分布、气候带）时用它，形状被压扁。这正是对墨卡托\"格陵兰骗局\"的纠正。",
       "hash": "d3364d67f7d6ed65",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892901640_03-projection-seg34.mp3"
     },
     {
       "index": 35,
       "text": "圆柱 到 赤道附近、航海与 Web 地图（正轴）； 横轴圆柱 = UTM/高斯-克吕格 （第 04 章）",
       "hash": "a7e25368fe50a4a3",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892899193_03-projection-seg35.mp3"
     },
     {
       "index": 36,
       "text": "圆锥 到 中纬度国家/大洲， Albers 保面积 做专题统计图",
       "hash": "e543ec82d63e5c73",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892901362_03-projection-seg36.mp3"
     },
     {
       "index": 37,
       "text": "方位 到 极地、半球、以某点为中心的航线图， 方位等距保中心向距离",
       "hash": "d371e0eec500f0e5",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892903774_03-projection-seg37.mp3"
     },
     {
       "index": 38,
       "text": "同一家族里再选\"保什么\"：家族管\"哪里变形小\"，等角/等积管\"牺牲什么\"",
       "hash": "6ac5b81d9e5ec3a2",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892900885_03-projection-seg38.mp3"
     },
     {
       "index": 39,
       "text": "只用本节知识，给下面三种用途各挑一个合适的投影家族 + 保真类型，并说一句理由：",
       "hash": "d83994a1c6c563ed",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892912068_03-projection-seg39.mp3"
     },
     {
       "index": 40,
       "text": "一张印度尼西亚（横跨赤道）的人口密度专题图；",
       "hash": "fef352f85d9042cc",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892916852_03-projection-seg40.mp3"
     },
     {
       "index": 41,
       "text": "一张南极科考站的航线示意（以南极点为中心）；",
       "hash": "e96f0ddfa2ee770b",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892927003_03-projection-seg41.mp3"
     },
     {
       "index": 42,
       "text": "一张供水手沿固定罗盘方向航行的海图。",
       "hash": "bfe7d570c432a658",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892928073_03-projection-seg42.mp3"
     },
     {
       "index": 43,
       "text": "提示：经线放大率 = 1/cos φ，面积按两个方向的放大率相乘。cos 45° 约等于 0.7071。",
       "hash": "7bbf5017e897f2ea",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892934564_03-projection-seg43.mp3"
     },
     {
       "index": 44,
       "text": "4. 墨卡托：航海家的选择",
       "hash": "8c212b245d537f86",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892935468_03-projection-seg44.mp3"
     },
     {
       "index": 45,
       "text": "最出名的投影是 墨卡托投影 （1569 年）。它是一种等角圆柱投影：假想把地球装进一个圆柱，把球面上的点\"投\"到圆柱面上，再展开。",
       "hash": "9fcacade6107535e",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892931636_03-projection-seg45.mp3"
     },
     {
       "index": 46,
       "text": "它最大的优点是 恒向线（loxodrome）是直线 ：保持固定罗盘方位角的航线，在墨卡托图上是一条直线。对航海太有用了，所以它统治了航海图几百年。",
       "hash": "dedf6490b3962ab7",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892936934_03-projection-seg46.mp3"
     },
     {
       "index": 47,
       "text": "代价是 高纬度面积被急剧放大 。它的纵坐标公式是：",
       "hash": "c11d2083fa34a78c",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892939027_03-projection-seg47.mp3"
     },
     {
       "index": 48,
       "text": "取 R = 6 371 000 m、φ = 60°，把公式一步步代进去：",
       "hash": "b93486a2191983fe",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892934285_03-projection-seg48.mp3"
     },
     {
       "index": 49,
       "text": "π/4 + φ/2 = 45° + 30° = 75°；",
       "hash": "e7851522db736fec",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892944542_03-projection-seg49.mp3"
     },
     {
       "index": 50,
       "text": "tan 75° 约等于 3.732；",
       "hash": "023ef41ac5d5fa11",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892936444_03-projection-seg50.mp3"
     },
     {
       "index": 51,
       "text": "ln 3.732 约等于 1.317；",
       "hash": "1848ea0367c373ae",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892944154_03-projection-seg51.mp3"
     },
     {
       "index": 52,
       "text": "y = 6 371 000 × 1.317 约等于 8 390 000 m 约等于 8 390 km （赤道处 y = 0，纬度越高 y 涨得越快）；",
       "hash": "5603a44d8972a25f",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892939764_03-projection-seg52.mp3"
     },
     {
       "index": 53,
       "text": "该纬度经线放大率 = 1/cos 60° = 2 倍 ，面积则被放大约 2² = 4 倍 。",
       "hash": "69806d3a2b9bc560",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892939085_03-projection-seg53.mp3"
     },
     {
       "index": 54,
       "text": "在墨卡托世界地图上，格陵兰（约 216 万 km²）看起来和非洲（约 3022 万 km²）差不多大，实际上非洲是它的 14 倍 。因为格陵兰在高纬度，面积被放大了好几倍。北纬 70° 处，面积放大倍数约为 1/cos²70° 约等于 8.5 倍。",
       "hash": "582a57dc20ce8ff9",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892947341_03-projection-seg54.mp3"
     },
     {
       "index": 55,
       "text": "恒向线（保持固定罗盘方位角的航线）是直线 ，这是它统治航海图几百年的原因；",
       "hash": "c528041bea20be0f",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892951978_03-projection-seg55.mp3"
     },
     {
       "index": 56,
       "text": "经线放大率 = 1/cos φ ，纬度越高放大越狠；",
       "hash": "e64a9a2222c2c40e",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892950428_03-projection-seg56.mp3"
     },
     {
       "index": 57,
       "text": "面积放大率 = 1/cos² φ ，北纬 70° 约 8.5 倍 ，高纬陆地看起来\"虚胖\"。",
       "hash": "f0523781f184733c",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892947244_03-projection-seg57.mp3"
     },
     {
       "index": 58,
       "text": "5. Web 墨卡托：互联网地图的\"偷工减料\"",
       "hash": "6ca039adb51e941c",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892949832_03-projection-seg58.mp3"
     },
     {
       "index": 59,
       "text": "你刷的每一个在线地图（高德、百度、Google、OpenStreetMap），用的几乎都是 Web 墨卡托（EPSG:3857） 。它在墨卡托基础上又偷了一步懒：",
       "hash": "b67f2ee18343f23f",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892954043_03-projection-seg59.mp3"
     },
     {
       "index": 60,
       "text": "严格的墨卡托应该用椭球计算。但为了省事，Web 墨卡托直接把地球当成 半径 6 378 137 m 的正球体 再做墨卡托。这样瓦片金字塔的坐标换算可以用简单的整数运算，快。代价是它和严格的椭球墨卡托之间有 几十米级的偏差 ，对显示无所谓，对精密测量不行。",
       "hash": "bb71ec51ded5dedb",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892952990_03-projection-seg60.mp3"
     },
     {
       "index": 61,
       "text": "Web 墨卡托对整个地球做了三件事：",
       "hash": "ce6c4cbd98062392",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892952969_03-projection-seg61.mp3"
     },
     {
       "index": 62,
       "text": "把全球投影成 一个正方形 ，x、y 都在 正负20037508.34 m 之间；",
       "hash": "43490702ca539ffa",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892956022_03-projection-seg62.mp3"
     },
     {
       "index": 63,
       "text": "按\"四叉树\"把正方形切成一层层瓦片，这就是第 07 章要讲的瓦片金字塔；",
       "hash": "b0cb4771d80ca1bb",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892952540_03-projection-seg63.mp3"
     },
     {
       "index": 64,
       "text": "选正方形、选等角，全是为了 前端快速拼图 ，不是为了精确。",
       "hash": "aa0a9ba573541521",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892957092_03-projection-seg64.mp3"
     },
     {
       "index": 65,
       "text": "正方形的半边长不是拍脑袋定的，一步就能推出来：",
       "hash": "8cd6b112c5342f2d",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892958911_03-projection-seg65.mp3"
     },
     {
       "index": 66,
       "text": "正球半径 R = 6 378 137 m；",
       "hash": "b7eb98eb85108371",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892957786_03-projection-seg66.mp3"
     },
     {
       "index": 67,
       "text": "赤道周长 = 2πR 约等于 40 075 017 m；",
       "hash": "ba2ca2eda9326e00",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892955809_03-projection-seg67.mp3"
     },
     {
       "index": 68,
       "text": "赤道在图上被拉成正方形的一条边，所以半边长 = πR = 3.14159 × 6 378 137 约等于 20 037 508 m 。",
       "hash": "7e84380833d00d1b",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892964307_03-projection-seg68.mp3"
     },
     {
       "index": 69,
       "text": "于是经度 正负180° 恰好对应 x = 正负20 037 508.34 m，正方形左右两条边正好\"贴上\"地球一圈。",
       "hash": "c98f6a20d55bcb56",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892967258_03-projection-seg69.mp3"
     },
     {
       "index": 70,
       "text": "编号 EPSG:3857 ，坐标单位是 米 ；",
       "hash": "76ff6fa20ff95f18",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892967712_03-projection-seg70.mp3"
     },
     {
       "index": 71,
       "text": "地球被当成 正球体 ，半径 6 378 137 m ；",
       "hash": "d7c8c69bcfacad07",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892965020_03-projection-seg71.mp3"
     },
     {
       "index": 72,
       "text": "平面范围 x、y ∈ 正负20 037 508.34 m ；",
       "hash": "5ee8b4bd44a26276",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892970810_03-projection-seg72.mp3"
     },
     {
       "index": 73,
       "text": "与严格椭球墨卡托偏差 几十米级 ：显示够用，精密测量不行。",
       "hash": "076bdc29fd14e519",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892969239_03-projection-seg73.mp3"
     },
     {
       "index": 74,
       "text": "6. 一个最常踩的坑",
       "hash": "1e2d7666a5bee9d8",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892974859_03-projection-seg74.mp3"
     },
     {
       "index": 75,
       "text": "把 3857 的米数当经纬度传给地图库 到 要素跑到南极之外；",
       "hash": "e08af914310050b5",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892994576_03-projection-seg75.mp3"
     },
     {
       "index": 76,
       "text": "反过来把经纬度当米数画 到 所有要素挤在原点附近一个像素里；",
       "hash": "cb98aa9a1f7a1b27",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892994561_03-projection-seg76.mp3"
     },
     {
       "index": 77,
       "text": "在 3857 的图上直接量距离/面积 到 高纬度结果严重偏大。",
       "hash": "df88db2dd564656f",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892999459_03-projection-seg77.mp3"
     },
     {
       "index": 78,
       "text": "记住： 4326 单位是度（经纬度），3857 单位是米（平面） 。两者之间的转换就是投影/反投影。",
       "hash": "bcd412240d35ba96",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893004577_03-projection-seg78.mp3"
     },
     {
       "index": 79,
       "text": "北京（东经 116.4°，北纬 39.9°）在两套坐标系下的数值完全不同：",
       "hash": "9e737f0ea48faba0",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893000511_03-projection-seg79.mp3"
     },
     {
       "index": 80,
       "text": "EPSG:4326 ： (116.4, 39.9) ，单位是度；",
       "hash": "1039020152672195",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893001705_03-projection-seg80.mp3"
     },
     {
       "index": 81,
       "text": "EPSG:3857 ： (约 12 957 600, 约 4 851 000) ，单位是米。",
       "hash": "725feda840d572d2",
-      "audio": "seg81.mp3"
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893006028_03-projection-seg81.mp3"
     },
     {
       "index": 82,
       "text": "混用的后果：把 3857 的 (12957600, 4851000) 当经纬度传给地图库，\"东经 1295 万度\"早飞出地球；把 (116.4, 39.9) 当米画，距原点只有一百多米，所有要素挤成原点旁的一个像素。",
       "hash": "263f20eb998d6520",
-      "audio": "seg82.mp3"
+      "audio": "seg82.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893004299_03-projection-seg82.mp3"
     },
     {
       "index": 83,
       "text": "4326 = 度（经纬度） ， 3857 = 米（平面） ，先看单位再喂给地图库；",
       "hash": "eb7322278ac037f4",
-      "audio": "seg83.mp3"
+      "audio": "seg83.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893001554_03-projection-seg83.mp3"
     },
     {
       "index": 84,
       "text": "米当度 到 要素跑到南极之外；度当米 到 全挤在原点一个像素里；",
       "hash": "e7f6c0d44045519c",
-      "audio": "seg84.mp3"
+      "audio": "seg84.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893005118_03-projection-seg84.mp3"
     },
     {
       "index": 85,
       "text": "在 3857 的图上直接量距离/面积 到 高纬度结果 严重偏大 ；",
       "hash": "e51d85e793b6ab31",
-      "audio": "seg85.mp3"
+      "audio": "seg85.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893006811_03-projection-seg85.mp3"
     },
     {
       "index": 86,
       "text": "两者之间的转换 = 投影/反投影 。",
       "hash": "d2303c690c7c0b9a",
-      "audio": "seg86.mp3"
+      "audio": "seg86.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893004757_03-projection-seg86.mp3"
     },
     {
       "index": 87,
       "text": "7. 本章回顾",
       "hash": "b76a5314ce23b849",
-      "audio": "seg87.mp3"
+      "audio": "seg87.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893004239_03-projection-seg87.mp3"
     },
     {
       "index": 88,
       "text": "球面铺平必然变形，投影是\"选哪种变形\"的取舍；",
       "hash": "d266f0fb88a30d6a",
-      "audio": "seg88.mp3"
+      "audio": "seg88.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893004222_03-projection-seg88.mp3"
     },
     {
       "index": 89,
       "text": "等角保形状、等积保面积、等距保某方向距离， 按用途选 ；",
       "hash": "f4d2b64a962758fc",
-      "audio": "seg89.mp3"
+      "audio": "seg89.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893008228_03-projection-seg89.mp3"
     },
     {
       "index": 90,
       "text": "Web 墨卡托（3857）是为快速拼图做的正球近似，显示好用， 别在上面量距离和面积 。",
       "hash": "6485cad8bd4d871e",
-      "audio": "seg90.mp3"
+      "audio": "seg90.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893014280_03-projection-seg90.mp3"
     },
     {
       "index": 91,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg91.mp3"
+      "audio": "seg91.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893017362_03-projection-seg91.mp3"
     },
     {
       "index": 92,
       "text": "各种投影的可视化对比： map-projections.net",
       "hash": "75066201038f5eb0",
-      "audio": "seg92.mp3"
+      "audio": "seg92.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893012351_03-projection-seg92.mp3"
     },
     {
       "index": 93,
       "text": "EPSG:3857 的定义： epsg.io/3857",
       "hash": "daa403241fd4c51a",
-      "audio": "seg93.mp3"
+      "audio": "seg93.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893017330_03-projection-seg93.mp3"
     },
     {
       "index": 94,
       "text": "USGS《Map Projections — A Working Manual》： pubs.usgs.gov/publication/pp1395",
       "hash": "301f06fef71455d3",
-      "audio": "seg94.mp3"
+      "audio": "seg94.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893015401_03-projection-seg94.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.562Z"
 }

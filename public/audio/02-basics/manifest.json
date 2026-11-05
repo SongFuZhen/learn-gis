@@ -8,523 +8,611 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892641284_02-basics-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892649142_02-basics-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ：同一个经纬度，叠到不同地图上能差出几十上百米——导航轨迹「开进旁边的楼」就是这么来的。这章解释为什么。",
       "hash": "9de80e5cc04f9817",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892649135_02-basics-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：经纬度就像工资数字——不说币种没有意义。 39.9, 116.4 这串数，在 WGS84（GPS 用的）、Beijing 1954（老图纸用的）、GCJ-02（国行 App 的火星坐标）下是 三个不同的位置 。「椭球」和「基准面」就是这些「币种」的全套规则：椭球是地球的数学替身（一个微扁的球），基准面规定这个替身怎么摆。",
       "hash": "eabb2cdc83053a4f",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892652826_02-basics-seg03.mp3"
     },
     {
       "index": 4,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892658555_02-basics-seg04.mp3"
     },
     {
       "index": 5,
       "text": "GPS 采的 WGS84 轨迹，直接叠到国行 App 地图上，整条路平移几百米——火星坐标（GCJ-02）是 WGS84 加了一次 人为偏移 ，不对齐就永远对不上。",
       "hash": "3a613f768f1251b1",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892668614_02-basics-seg05.mp3"
     },
     {
       "index": 6,
       "text": "把 GPS 报的高度当「海拔」用——GPS 给的是「大地高」（从椭球面量），海拔是从平均海面量，两者差可达几十米。",
       "hash": "0bae3907e158f26f",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892675510_02-basics-seg06.mp3"
     },
     {
       "index": 7,
       "text": "以为 WGS84 和 CGCS2000「差不多」就随便混用——它们差几厘米到分米级，粗用没事，测绘级项目会出事。",
       "hash": "e43bb109b56dbe57",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892681256_02-basics-seg07.mp3"
     },
     {
       "index": 8,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892683190_02-basics-seg08.mp3"
     },
     {
       "index": 9,
       "text": "经纬度必须绑定基准面，否则不指向唯一位置",
       "hash": "74543eab2ab5a654",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892676400_02-basics-seg09.mp3"
     },
     {
       "index": 10,
       "text": "GCJ-02 = WGS84 + 人为偏移，国内数据先问是不是火星坐标",
       "hash": "73905de585a5c3fd",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892679757_02-basics-seg10.mp3"
     },
     {
       "index": 11,
       "text": "GPS 高程 ≠ 海拔，差一个「高程异常 N」",
       "hash": "b282654bd2ad7468",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892683853_02-basics-seg11.mp3"
     },
     {
       "index": 12,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892681388_02-basics-seg12.mp3"
     },
     {
       "index": 13,
       "text": "真实的地球表面坑坑洼洼，没法直接算坐标。所以要先用一个 规则的数学曲面 去近似它，并规定这个曲面怎么\"摆\"在地球上，这就是 椭球 （Ellipsoid）和 基准面 。搞懂它们，你才能理解\"为什么同一个经纬度，换个坐标系就差上百米\"。",
       "hash": "35459d4d3dc1d6d8",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892690498_02-basics-seg13.mp3"
     },
     {
       "index": 14,
       "text": "1. 真实地球太不规则",
       "hash": "ed3119e178691166",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892680682_02-basics-seg14.mp3"
     },
     {
       "index": 15,
       "text": "地球表面有山、有海沟。如果想精确描述\"海平面\"的形状，可以用 大地水准面 （geoid），它是重力等位面，大致相当于\"假想静止的平均海面延伸到陆地下面\"的形状。",
       "hash": "613598c673653543",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892694293_02-basics-seg15.mp3"
     },
     {
       "index": 16,
       "text": "问题是：大地水准面起伏不定、没有解析表达式，没法在上面做几何计算。我们需要一个 光滑、能用公式描述 的替身。",
       "hash": "fbb2a01239bf248a",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892691525_02-basics-seg16.mp3"
     },
     {
       "index": 17,
       "text": "大地水准面像一颗表面凹凸不平的土豆。为了算它的位置，我们找一颗形状最接近、但表面光滑的 椭球 塞进土豆里，让两者整体贴合得最好。这颗椭球就是计算用的\"数学地球\"。",
       "hash": "c59d8bd861fb427f",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892685864_02-basics-seg17.mp3"
     },
     {
       "index": 18,
       "text": "大地水准面 ：重力等位面，约等于 平均海面延伸到陆地下面，真实但无法计算",
       "hash": "e14c52720d088e19",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892696458_02-basics-seg18.mp3"
     },
     {
       "index": 19,
       "text": "旋转椭球 ：光滑、能用公式描述，拿来做几何计算",
       "hash": "428b183db8c72b78",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892692271_02-basics-seg19.mp3"
     },
     {
       "index": 20,
       "text": "基准面 ：规定椭球怎么\"摆\"（见第 3 节）",
       "hash": "a9fac16401a49255",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892692096_02-basics-seg20.mp3"
     },
     {
       "index": 21,
       "text": "2. 第一步：用椭球近似地球",
       "hash": "0ad3e065d6abab5e",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892694131_02-basics-seg21.mp3"
     },
     {
       "index": 22,
       "text": "地球赤道略鼓、两极略扁，所以用一个 旋转椭球 （长半径 a、短半径 b）来近似就够了。描述它只要两个参数：长半轴 a 和扁率 f = (a−b)/a 。",
       "hash": "38eb757140b692f6",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892697380_02-basics-seg22.mp3"
     },
     {
       "index": 23,
       "text": "最常用的是 WGS84 椭球：",
       "hash": "6daf896eba160d48",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892696227_02-basics-seg23.mp3"
     },
     {
       "index": 24,
       "text": "扁率很小，意思是地球其实非常接近正球，两极半径只比赤道半径短约 21.4 km。所以很多粗略计算干脆把地球当 正球体 （半径 6371 km），后面讲 Web 墨卡托（Mercator）时会再遇到这个简化。",
       "hash": "7e9c39f0fc60c538",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892699503_02-basics-seg24.mp3"
     },
     {
       "index": 25,
       "text": "只用两个参数就能算出来，跟着代入一遍：",
       "hash": "767e6787bf1f65d7",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892691931_02-basics-seg25.mp3"
     },
     {
       "index": 26,
       "text": "短半轴 b = a × (1 − f) = 6 378 137 × (1 − 1/298.257223563) 约等于 6 356 752 m",
       "hash": "3ce38c81a3d2dc7e",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892698718_02-basics-seg26.mp3"
     },
     {
       "index": 27,
       "text": "半径差 a − b 约等于 21 385 m ，约 21.4 km",
       "hash": "361cc464ddd28e6d",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892704118_02-basics-seg27.mp3"
     },
     {
       "index": 28,
       "text": "21.4 km 只占地球半径 6371 km 的约 0.3%，所以\"地球很圆，只是略扁\"，粗算时把它当正球体足够了。",
       "hash": "a907f888b604760b",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892702492_02-basics-seg28.mp3"
     },
     {
       "index": 29,
       "text": "WGS84 长半轴 a = 6 378 137 m （约 6378 km）",
       "hash": "7935b07836fa7ea4",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892706275_02-basics-seg29.mp3"
     },
     {
       "index": 30,
       "text": "扁率 f = (a−b)/a = 1/298.257223563 约等于 1/300",
       "hash": "61af4240391c957f",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892705817_02-basics-seg30.mp3"
     },
     {
       "index": 31,
       "text": "两极半径比赤道短约 21.4 km ；粗算用地球半径 6371 km",
       "hash": "63c76aa427b561f6",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892702992_02-basics-seg31.mp3"
     },
     {
       "index": 32,
       "text": "3. 第二步：规定椭球怎么摆 —— 基准面",
       "hash": "f710bec8eed3a814",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892712881_02-basics-seg32.mp3"
     },
     {
       "index": 33,
       "text": "光有一个椭球还不够。同一个椭球， 中心放在哪、怎么旋转对齐 ，会得到不同的结果。规定椭球与真实地球相对位置关系的这套规则，叫 大地基准面 （datum）。",
       "hash": "ffc78dca8b69a5ff",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892713307_02-basics-seg33.mp3"
     },
     {
       "index": 34,
       "text": "按椭球放的位置，分两类：",
       "hash": "c6e57a8d9900baba",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892739630_02-basics-seg34.mp3"
     },
     {
       "index": 35,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892737207_02-basics-seg35.mp3"
     },
     {
       "index": 36,
       "text": "在没有卫星的年代，一个国家的测绘只求\"在本国范围内贴合得好\"。于是把椭球挪一挪、转一转，让它在 本国区域 和大地水准面尽量重合，这就是局部基准。它对本国很准，放到全球就偏了。GPS普及后，全球统一的地心基准（WGS84）才成为主流。",
       "hash": "474f7205781d6e36",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892744841_02-basics-seg36.mp3"
     },
     {
       "index": 37,
       "text": "地心基准 ：椭球中心对准地球质心，全球通用 到 WGS84、CGCS2000",
       "hash": "5451050fd5dd0c7f",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892740841_02-basics-seg37.mp3"
     },
     {
       "index": 38,
       "text": "局部基准 ：椭球贴合本国/本区域，只在本区域内准 到 Beijing 1954、Xian 1980",
       "hash": "5a6de72589da6ca8",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892746138_02-basics-seg38.mp3"
     },
     {
       "index": 39,
       "text": "同一个椭球，摆放方式不同 = 不同的基准面",
       "hash": "971417a949c7bd56",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892748285_02-basics-seg39.mp3"
     },
     {
       "index": 40,
       "text": "4. 关键后果：同一经纬度，差上百米",
       "hash": "90758c4c19049a80",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892748835_02-basics-seg40.mp3"
     },
     {
       "index": 41,
       "text": "这是本章最要记住的一点：",
       "hash": "8f8ca34b7ab78883",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892748589_02-basics-seg41.mp3"
     },
     {
       "index": 42,
       "text": "一个经纬度数值， 只有在指定基准面下才指向唯一的地面位置 。北京某点在 WGS84 和 Beijing 1954 下的经纬度可以差几十到上百米。把 A 坐标系的经纬度直接当 B 坐标系用，位置就错了。这是 GIS 数据对接时最常见的偏移来源。",
       "hash": "3c21cf9191fe9857",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892755559_02-basics-seg42.mp3"
     },
     {
       "index": 43,
       "text": "手机 GPS 采的轨迹是 WGS84，直接叠到 Beijing 1954 的老地形图上，会整体错位几十到上百米，轨迹看起来\"开进了旁边的楼\"。",
       "hash": "7a6faab8aa82c5a2",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892754516_02-basics-seg43.mp3"
     },
     {
       "index": 44,
       "text": "国内地图 App 常用的\"火星坐标\"（GCJ-02），是在 WGS84 基础上又做了一次人为偏移，所以同一条街，GPS 原始坐标和国行 App 的点对不上。 两次\"翻车\"是同一个根因： 基准面/坐标系没对齐 。",
       "hash": "007c96bda3a2e2e8",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892748814_02-basics-seg44.mp3"
     },
     {
       "index": 45,
       "text": "经纬度数值不绑定基准面 = 没有唯一位置",
       "hash": "838c4add165357d1",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892756861_02-basics-seg45.mp3"
     },
     {
       "index": 46,
       "text": "WGS84 与 Beijing 1954 下，同一点可差 几十到上百米",
       "hash": "c5b0c8b5bc0ab4c6",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892750474_02-basics-seg46.mp3"
     },
     {
       "index": 47,
       "text": "GCJ-02 = WGS84 + 人为偏移，与 GPS 原始坐标天然对不上",
       "hash": "d7acee1cc28b5f4d",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892759890_02-basics-seg47.mp3"
     },
     {
       "index": 48,
       "text": "5. 高程基准：\"海拔\"是怎么定的",
       "hash": "6c3bdf54f2633e81",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892756518_02-basics-seg48.mp3"
     },
     {
       "index": 49,
       "text": "前面讲的基准面都是 水平的 ，经纬度定平面位置。但\"这个地方海拔多少米\"是另一套体系： 垂直基准（高程基准） 。",
       "hash": "e4e51222ef551f2d",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892762812_02-basics-seg49.mp3"
     },
     {
       "index": 50,
       "text": "两个高度不是一回事：",
       "hash": "a14732317455cff5",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892760182_02-basics-seg50.mp3"
     },
     {
       "index": 51,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892761064_02-basics-seg51.mp3"
     },
     {
       "index": 52,
       "text": "两者的差叫 高程异常 （geoid undulation ，记作 N）： 大地高 = 海拔 + N 。N 在全球 −100 m 到 +70 m 之间起伏， 直接把 GPS 高程当地图高程用会差几十米 。",
       "hash": "d93a09cdac8d2d97",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892763735_02-basics-seg52.mp3"
     },
     {
       "index": 53,
       "text": "中国的法定海拔从 1985 国家高程基准 算起：它以青岛验潮站 1952—1979 年的潮位数据推算的平均海面为起点（青岛水准原点），珠峰 8848.86 m 就是从这里量出来的。美国常用的垂直基准则是 NAVD88，全球粗算可用 EGM96/EGM2008（EGM）这类\"重力大地水准面模型\"把椭球高换算成海拔。",
       "hash": "7824fa67eec958fd",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892762106_02-basics-seg53.mp3"
     },
     {
       "index": 54,
       "text": "大地高 ：从椭球面量起，GPS/RTK直接输出",
       "hash": "51202622dde3c1e4",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892761607_02-basics-seg54.mp3"
     },
     {
       "index": 55,
       "text": "海拔 ：从大地水准面量起，地图与工程用",
       "hash": "a9085b808a0c15c5",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892763771_02-basics-seg55.mp3"
     },
     {
       "index": 56,
       "text": "关系： 大地高 = 海拔 + 高程异常 N ，N 可达几十米，GPS 高程不能直接当地图高程",
       "hash": "032d273cc1ca6dce",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892763159_02-basics-seg56.mp3"
     },
     {
       "index": 57,
       "text": "中国法定高程基准： 1985 国家高程基准 （青岛水准原点）",
       "hash": "76b2dfd238bd9703",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892768490_02-basics-seg57.mp3"
     },
     {
       "index": 58,
       "text": "6. 基准转换：两套坐标系怎么对接",
       "hash": "db276d62ddde4e02",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892770139_02-basics-seg58.mp3"
     },
     {
       "index": 59,
       "text": "第 4 节说了换基准面会差上百米，那怎么把 Beijing 1954 的坐标转到 WGS84？用 基准转换 。常用方法按精度从低到高：",
       "hash": "59dc2fedab643a94",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892770794_02-basics-seg59.mp3"
     },
     {
       "index": 60,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892778585_02-basics-seg60.mp3"
     },
     {
       "index": 61,
       "text": "proj4 的定义串里 +towgs84=dx,dy,dz 是三参数； +towgs84=dx,dy,dz,rx,ry,rz,s 是七参数。带网格校正（NTv2）时 proj4 要外挂格网文件，GDAL/QGIS 则内置。查一个国家官方给的转换参数，比随手抄网上的 +towgs84 可靠得多。",
       "hash": "0f08d686921d0fb5",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892780216_02-basics-seg61.mp3"
     },
     {
       "index": 62,
       "text": "基本不用。两者椭球参数几乎相同（扁率分母只差 1e-8 量级）、原点一致，普通应用差异在 厘米分米级 ，直接混用即可。需要较真的场合是高精度形变监测、测绘成果归档。",
       "hash": "2f9b47df83eb5bc0",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892799227_02-basics-seg62.mp3"
     },
     {
       "index": 63,
       "text": "用上面的实验台（或 proj4js）：把上海人民广场（约东经 121.47°、北纬 31.23°）从 EPSG:4326 转到 EPSG:3857，记下 x、y 的数量级；再回答：这个数值的单位是什么？",
       "hash": "eb5536cb8bb6df69",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892804944_02-basics-seg63.mp3"
     },
     {
       "index": 64,
       "text": "7. GCJ-02：火星坐标是怎么回事",
       "hash": "18311ccbeed4b98e",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892802096_02-basics-seg64.mp3"
     },
     {
       "index": 65,
       "text": "在中国大陆的地图 App 里采一个点，经常会和 GPS 原始坐标对不上，偏几百米，根源是 人为坐标偏移 ：",
       "hash": "e8efa09bc214367c",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892801523_02-basics-seg65.mp3"
     },
     {
       "index": 66,
       "text": "GCJ-02 （民间称\"火星坐标\"）是在 WGS84 经纬度上叠加了一层 非线性偏移 的坐标系统，中国大陆的公开地图产品依法必须使用它。偏移随位置变化（从几十米到 700 米不等），且 没有公开的逆算法 ，拿到 GCJ-02 坐标，无法精确还原 WGS84。",
       "hash": "f9af42e721424edc",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892803776_02-basics-seg66.mp3"
     },
     {
       "index": 67,
       "text": "要点：",
       "hash": "ef9a4e5bcc7079c9",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892807899_02-basics-seg67.mp3"
     },
     {
       "index": 68,
       "text": "单向、非线性、不可精确逆 ：网上流传的\"纠偏算法\"都是拟合近似，误差米级；",
       "hash": "0d320ae097e33902",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892806671_02-basics-seg68.mp3"
     },
     {
       "index": 69,
       "text": "BD-09 ：百度在 GCJ-02 上又加了一层自己的偏移，于是中国至少有 WGS84、GCJ-02、BD-09 三套在流转；",
       "hash": "6a592d21e725ef7e",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892805866_02-basics-seg69.mp3"
     },
     {
       "index": 70,
       "text": "法律边界 ：中国《测绘法》规定公开地图必须使用 GCJ-02，境外地图服务在中国大陆展示时同样做偏移；",
       "hash": "598aac74512f6279",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892816730_02-basics-seg70.mp3"
     },
     {
       "index": 71,
       "text": "实践守则 ：GPS 设备/GeoJSON 数据用 WGS84；在高德/百度底图上叠加自己的数据必须先转换坐标系，否则整体错位几百米。本章开头\"开进旁边的楼\"的错位，很多就是忘了这一步。",
       "hash": "55a1e4f76c734fe3",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892814350_02-basics-seg71.mp3"
     },
     {
       "index": 72,
       "text": "WGS84 ：GPS 原始、国际数据交换（GeoJSON 默认）",
       "hash": "3b19d2c8a8c10319",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892813873_02-basics-seg72.mp3"
     },
     {
       "index": 73,
       "text": "GCJ-02 ：WGS84 + 非线性偏移，中国大陆公开地图法定使用， 不可精确逆",
       "hash": "5495ce08c622da75",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892811963_02-basics-seg73.mp3"
     },
     {
       "index": 74,
       "text": "BD-09 ：GCJ-02 + 百度自有偏移",
       "hash": "eb3ab93aa33c77ff",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892816344_02-basics-seg74.mp3"
     },
     {
       "index": 75,
       "text": "叠图前先问三句：底图是什么坐标系？数据是什么坐标系？转换做了吗？",
       "hash": "215b698b9eb3f72f",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892816100_02-basics-seg75.mp3"
     },
     {
       "index": 76,
       "text": "8. 常见基准面速查",
       "hash": "7f400cf284c80bfe",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892819884_02-basics-seg76.mp3"
     },
     {
       "index": 77,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892820489_02-basics-seg77.mp3"
     },
     {
       "index": 78,
       "text": "真实地球（大地水准面）不规则，先用 旋转椭球 近似；",
       "hash": "86ff049b4ec8ed53",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892826017_02-basics-seg78.mp3"
     },
     {
       "index": 79,
       "text": "基准面 规定椭球如何摆放，分地心（全球）和局部（区域）两类；",
       "hash": "5a348561ab586ca0",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892824448_02-basics-seg79.mp3"
     },
     {
       "index": 80,
       "text": "经纬度必须绑定基准面 ，换基准面可能偏移上百米；",
       "hash": "6550305608c9a3bb",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892822905_02-basics-seg80.mp3"
     },
     {
       "index": 81,
       "text": "高程另有 垂直基准 ：GPS 给大地高，地图用海拔，差一个高程异常 N；",
       "hash": "c5ec3941ae25ca3d",
-      "audio": "seg81.mp3"
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892821688_02-basics-seg81.mp3"
     },
     {
       "index": 82,
       "text": "基准转换按精度选： 网格校正 > 七参数 > 三参数 ；WGS84 与 CGCS2000 可直接混用；",
       "hash": "4497cf80dbcd7830",
-      "audio": "seg82.mp3"
+      "audio": "seg82.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892832232_02-basics-seg82.mp3"
     },
     {
       "index": 83,
       "text": "国内叠图先过 GCJ-02 这一关：底图、数据、转换，三问再动手。",
       "hash": "de2788d36f9a0831",
-      "audio": "seg83.mp3"
+      "audio": "seg83.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892830028_02-basics-seg83.mp3"
     },
     {
       "index": 84,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg84.mp3"
+      "audio": "seg84.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892825564_02-basics-seg84.mp3"
     },
     {
       "index": 85,
       "text": "EPSG 代码与基准面查询： epsg.io",
       "hash": "6e70c7e7d09386ec",
-      "audio": "seg85.mp3"
+      "audio": "seg85.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892832318_02-basics-seg85.mp3"
     },
     {
       "index": 86,
       "text": "美国地质调查局《Map Projections — A Working Manual》： pubs.usgs.gov/publication/pp1395",
       "hash": "ad976dd3654bd273",
-      "audio": "seg86.mp3"
+      "audio": "seg86.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892833056_02-basics-seg86.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.561Z"
 }

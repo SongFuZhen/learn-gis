@@ -8,613 +8,716 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892475281_00-geo-math-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892477056_00-geo-math-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ：地图上的每个点都是一串数字。这串数字什么意思，取决于「它在哪个坐标系、用什么单位」——不说清楚就是鸡同鸭讲。",
       "hash": "26d38d8c5dd07835",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892474216_00-geo-math-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：坐标数字就像金额。看到「5000」你第一反应是问「人民币还是美元？」——看到坐标也一样，先问「哪个系的、什么单位」。同一个天安门，经纬度是 (116.4, 39.9) ，Web 墨卡托是 (12958173, 4852441) ，瓦片坐标是 (53973, 24816) 。三串数字，同一个点。",
       "hash": "3e1d0e5a5fe94a5f",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892474801_00-geo-math-seg03.mp3"
     },
     {
       "index": 4,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892469540_00-geo-math-seg04.mp3"
     },
     {
       "index": 5,
       "text": "把 4350000, 38500000 这种七八位数当经纬度——那是投影平面坐标（米）。经纬度永远不超 正负90/正负180，单位是度。",
       "hash": "2f547f859bde587b",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892477222_00-geo-math-seg05.mp3"
     },
     {
       "index": 6,
       "text": "Math.sin(30) 结果离谱——代码里的三角函数只吃 弧度 ，30° 得先乘 π/180 。",
       "hash": "7e68e0b9f7f7da31",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892479628_00-geo-math-seg06.mp3"
     },
     {
       "index": 7,
       "text": "拿屏幕坐标（y 轴向下）的习惯去推 GIS 坐标——数学坐标 y 向上、中国测量 x 指北，三套约定都不一样。",
       "hash": "79d1872099434796",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892476979_00-geo-math-seg07.mp3"
     },
     {
       "index": 8,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892472644_00-geo-math-seg08.mp3"
     },
     {
       "index": 9,
       "text": "报坐标必须先报坐标系和单位",
       "hash": "00a0167aec8f4d6d",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892478149_00-geo-math-seg09.mp3"
     },
     {
       "index": 10,
       "text": "经纬度是角度，正负90/正负180 封顶",
       "hash": "c926a67bdfcf85bf",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892482548_00-geo-math-seg10.mp3"
     },
     {
       "index": 11,
       "text": "代码里三角函数只认弧度",
       "hash": "2dd7de4077217df8",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892479793_00-geo-math-seg11.mp3"
     },
     {
       "index": 12,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892485206_00-geo-math-seg12.mp3"
     },
     {
       "index": 13,
       "text": "地图上的每一个点，说到底都是一组数字。这一章解决最基础的问题： 这组数字是什么意思、在什么坐标系里、用什么单位 。搞懂它，后面的投影、EPSG、缓冲分析才不是空中楼阁。",
       "hash": "12ea53aca1ec9fda",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892486652_00-geo-math-seg13.mp3"
     },
     {
       "index": 14,
       "text": "不需要任何 GIS基础，只需要一点初中数学。",
       "hash": "ebae151fed9915b8",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892491849_00-geo-math-seg14.mp3"
     },
     {
       "index": 15,
       "text": "1. 先建立一个直觉：点 = 数字",
       "hash": "882988f4ced21d65",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892492891_00-geo-math-seg15.mp3"
     },
     {
       "index": 16,
       "text": "打开手机地图，你的位置其实是一个 经纬度 ，比如 (116.4074, 39.9042) 是北京天安门。在测绘图纸上，你可能看到 (4350000, 38500000) 这样的大数。在网页瓦片上，又是 (x=843, y=388, z=10) 这样的整数。",
       "hash": "cb0e357037f3c144",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892488383_00-geo-math-seg16.mp3"
     },
     {
       "index": 17,
       "text": "天安门广场中心点：",
       "hash": "d85c2088006f6415",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892496797_00-geo-math-seg17.mp3"
     },
     {
       "index": 18,
       "text": "经纬度： 116.4074°E, 39.9042°N （角度）",
       "hash": "78fd42f58f9c65e7",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892493633_00-geo-math-seg18.mp3"
     },
     {
       "index": 19,
       "text": "Web 墨卡托（Mercator）平面：约 (12958173, 4852441) （米）",
       "hash": "247a352bc7420143",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892492989_00-geo-math-seg19.mp3"
     },
     {
       "index": 20,
       "text": "某级瓦片坐标： z=16, x=53973, y=24816 （整数格）",
       "hash": "4fef1a8ed758963c",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892493857_00-geo-math-seg20.mp3"
     },
     {
       "index": 21,
       "text": "它们指向同一个位置，只是用了不同的 坐标系 和 单位 。",
       "hash": "bb983126042687c8",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892494327_00-geo-math-seg21.mp3"
     },
     {
       "index": 22,
       "text": "所以学 GIS 的第一个思维习惯是： 看到一组坐标数字，先问它在什么坐标系、什么单位里。 这一章先把\"坐标系\"和\"单位\"这两件事讲清楚。",
       "hash": "085a72f14bd2ec72",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892496830_00-geo-math-seg22.mp3"
     },
     {
       "index": 23,
       "text": "2. 平面直角坐标：最熟悉的\"平地\"",
       "hash": "fbbd7caf3895fd2a",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892505129_00-geo-math-seg23.mp3"
     },
     {
       "index": 24,
       "text": "你在数学课上画过函数图像：一个原点、一条横轴（x）、一条纵轴（y），平面上任何一点写成 (x, y) 。这叫 笛卡尔平面直角坐标 （Cartesian），由三件事确定：",
       "hash": "615519a06bbdd95f",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892500588_00-geo-math-seg24.mp3"
     },
     {
       "index": 25,
       "text": "一个 原点 O ；",
       "hash": "48258d8df687325b",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892505618_00-geo-math-seg25.mp3"
     },
     {
       "index": 26,
       "text": "两条 互相垂直的数轴 ；",
       "hash": "9c2d6c884e5afff8",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892501927_00-geo-math-seg26.mp3"
     },
     {
       "index": 27,
       "text": "每条轴的 单位 和 正方向 。",
       "hash": "0cf869a8249d0034",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892512428_00-geo-math-seg27.mp3"
     },
     {
       "index": 28,
       "text": "\"第 3 排第 5 座\"就是一个平面坐标： 原点 是第 1 排第 1 座，两条 数轴 是\"排\"（向前）和\"座\"（向右）， 单位 是一个座位。换一间教室（换原点或方向约定），同样的 (3, 5) 指的就是不同的座位，所以报坐标必须先说清\"在哪个系里\"。",
       "hash": "d070d015dd4c397f",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892509913_00-geo-math-seg28.mp3"
     },
     {
       "index": 29,
       "text": "GIS 里的\"投影坐标\"（UTM、高斯-克吕格、Web 墨卡托的那些大数字）就是把地球上的点投到这样一张平面上，单位通常是 米 。",
       "hash": "ceea39b6aabf1fe6",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892517367_00-geo-math-seg29.mp3"
     },
     {
       "index": 30,
       "text": "三种容易混淆的\"平面\"",
       "hash": "68996de7b5aa7922",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892510002_00-geo-math-seg30.mp3"
     },
     {
       "index": 31,
       "text": "同样是 (x, y) ，不同领域对 x、y 方向的约定完全不同，这是初学者最容易栽的地方：",
       "hash": "4b7e54817dd4bffb",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892507565_00-geo-math-seg31.mp3"
     },
     {
       "index": 32,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892511195_00-geo-math-seg32.mp3"
     },
     {
       "index": 33,
       "text": "看到 x=4350000, y=38500000 这种 78 位数， 不要 当成经纬度。那是高斯-克吕格平面坐标，单位是米：x 是北坐标、y 是东坐标（前两位 38 是带号）。经纬度永远在 正负90 / 正负180 之间，单位是度。",
       "hash": "112c1b8c45ad722c",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892514232_00-geo-math-seg33.mp3"
     },
     {
       "index": 34,
       "text": "3. 角度：度、分、秒",
       "hash": "e24c6c708549193b",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892514296_00-geo-math-seg34.mp3"
     },
     {
       "index": 35,
       "text": "描述地球上的位置用的是 角度 ，不是米。一个圆周 360°，每 1° 分成 60′（分），每 1′ 分成 60″（秒）。传统大地测量成果常用度分秒（DMS）书写，但程序里一律先换成 十进制度 再算：",
       "hash": "b65ede0fa00f72f2",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892525789_00-geo-math-seg35.mp3"
     },
     {
       "index": 36,
       "text": "反方向换算： 0.446111° × 60 = 26.7667′ ，取整得 26′ ，余下 0.7667′ × 60 约等于 46″ 。",
       "hash": "7af54fa04dab0fbe",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892518203_00-geo-math-seg36.mp3"
     },
     {
       "index": 37,
       "text": "度分秒和十进制度是 同一个单位的两种写法 ，就像 1.5 小时和 1 小时 30 分。真正需要区分的\"两种单位\"是 角度与弧度 （下一节）。",
       "hash": "4f116e944e757c50",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892521049_00-geo-math-seg37.mp3"
     },
     {
       "index": 38,
       "text": "4. 弧度：三角函数的语言",
       "hash": "e542521d88515b2f",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892521891_00-geo-math-seg38.mp3"
     },
     {
       "index": 39,
       "text": "程序里的三角函数不吃\"度\"，吃 弧度 （radian）。弧度用弧长定义：圆心角 θ（theta，「西塔」）所对的弧长 s 与半径 r 之比 θ = s / r 。整个圆的弧长是 2πr ，所以：",
       "hash": "051b78a724d92886",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892524082_00-geo-math-seg39.mp3"
     },
     {
       "index": 40,
       "text": "为什么 GIS 里到处是弧度？因为 sin、cos、tan、atan2 的参数和返回值都是弧度，投影公式也一样。比如 Web 墨卡托的纵坐标公式：",
       "hash": "4efdfceb05e3d08b",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892521995_00-geo-math-seg40.mp3"
     },
     {
       "index": 41,
       "text": "里面的 φ （phi，「法伊」，纬度）必须是弧度。如果你把 30 （度）直接代进去，等于用 30 rad（约 1719°）去算，结果毫无意义。",
       "hash": "19ec904d0a405ef7",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892532469_00-geo-math-seg41.mp3"
     },
     {
       "index": 42,
       "text": "JavaScript 里的正确写法是 先把度乘 π/180 转成弧度 ：",
       "hash": "9da1a73525cb21ad",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892534933_00-geo-math-seg42.mp3"
     },
     {
       "index": 43,
       "text": "求北纬 30° 的 Web 墨卡托纵坐标（R = 6378137 m）：",
       "hash": "83a38cc6e7765c9d",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892526567_00-geo-math-seg43.mp3"
     },
     {
       "index": 44,
       "text": "度转弧度： φ = 30 × π/180 约等于 0.523599 rad",
       "hash": "dc3680847fd50245",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892533462_00-geo-math-seg44.mp3"
     },
     {
       "index": 45,
       "text": "代入公式： tan(π/4 + φ/2) = tan(45° + 15°) = tan 60° 约等于 1.73205",
       "hash": "8ed41dc8106e5102",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892531974_00-geo-math-seg45.mp3"
     },
     {
       "index": 46,
       "text": "取自然对数： ln(1.73205) 约等于 0.549306",
       "hash": "5511fd06db7a150e",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892538956_00-geo-math-seg46.mp3"
     },
     {
       "index": 47,
       "text": "乘半径： y = 6378137 × 0.549306 约等于 3503550 m",
       "hash": "81311c1e5398f686",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892536907_00-geo-math-seg47.mp3"
     },
     {
       "index": 48,
       "text": "Math.sin(45) 不是 0.707 ，那是把 45 当成弧度算的结果（约等于 0.851）。算 45° 的正弦要写 Math.sin(Math.PI / 4) 。这类错误 不会报错 ，只会让结果悄悄错掉。",
       "hash": "c181d9c3f0056ce7",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892554721_00-geo-math-seg48.mp3"
     },
     {
       "index": 49,
       "text": "1° = 60′ = 3600″；度分秒换十进制度：度 + 分/60 + 秒/3600",
       "hash": "e21cbc8366d13db2",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892556587_00-geo-math-seg49.mp3"
     },
     {
       "index": 50,
       "text": "1 rad = 180/π 约等于 57.2958°；1° = π/180 约等于 0.0174533 rad",
       "hash": "8d6b41742e040543",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892552514_00-geo-math-seg50.mp3"
     },
     {
       "index": 51,
       "text": "进三角函数前，先把度 × π/180 转成弧度",
       "hash": "2f34281b700b33c3",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892560018_00-geo-math-seg51.mp3"
     },
     {
       "index": 52,
       "text": "度/弧度混用 不报错 ，只会悄悄算错",
       "hash": "8cc5f56652081562",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892560767_00-geo-math-seg52.mp3"
     },
     {
       "index": 53,
       "text": "5. 经纬度：用角度标出的球面坐标",
       "hash": "4cb313499ded5178",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892563595_00-geo-math-seg53.mp3"
     },
     {
       "index": 54,
       "text": "现在把角度搬到球面上，就得到经纬度：",
       "hash": "9ead1c205a4b7ead",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892561186_00-geo-math-seg54.mp3"
     },
     {
       "index": 55,
       "text": "纬度 φ ：某点与赤道面的夹角，从 -90° （南极）到 +90° （北极）。赤道是 0°。",
       "hash": "20a21a7f22308d12",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892565490_00-geo-math-seg55.mp3"
     },
     {
       "index": 56,
       "text": "经度 λ （lambda，「兰姆达」）：某点所在子午面与本初子午面（过英国格林尼治）的夹角， -180° 到 +180° 。东经为正、西经为负。",
       "hash": "2f47fd7d3ad07bfb",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892564970_00-geo-math-seg56.mp3"
     },
     {
       "index": 57,
       "text": "经纬度是 球面上的角度 ，不是米。不能直接对它做勾股定理、算面积、画圆形缓冲，那样算出来的单位是\"平方度\"，没有任何物理意义。这是第二章（投影）要解决的问题。",
       "hash": "249c92226591140d",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892567300_00-geo-math-seg57.mp3"
     },
     {
       "index": 58,
       "text": "纬度 φ：-90° +90°，南负北正，赤道 0°",
       "hash": "6b6a67c5f0c3000e",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892570054_00-geo-math-seg58.mp3"
     },
     {
       "index": 59,
       "text": "经度 λ：-180° +180°，西负东正，本初子午线（格林尼治）0°",
       "hash": "028aeeea4dd46486",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892564695_00-geo-math-seg59.mp3"
     },
     {
       "index": 60,
       "text": "经纬度单位是 度 ，不是米；不能直接算距离/面积",
       "hash": "2d14b012bc2b7f2d",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892574440_00-geo-math-seg60.mp3"
     },
     {
       "index": 61,
       "text": "6. 一度究竟有多长",
       "hash": "59ed9814ee537038",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892572060_00-geo-math-seg61.mp3"
     },
     {
       "index": 62,
       "text": "这是个关键直觉： 同样 1°，在不同方向、不同纬度，对应的地面长度不一样。",
       "hash": "ffa874a1500f647d",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892568020_00-geo-math-seg62.mp3"
     },
     {
       "index": 63,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892573738_00-geo-math-seg63.mp3"
     },
     {
       "index": 64,
       "text": "纬线是一个个平行的圆，赤道那个圆最大（周长约 4 万 km），越往高纬圆圈越小，到极点缩成一个点。360 条经线都要挤进这些越来越小的圈里，所以 1° 经度的东西距离要乘一个 cos φ ：",
       "hash": "427d8fdf32a67f20",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892573388_00-geo-math-seg64.mp3"
     },
     {
       "index": 65,
       "text": "赤道（φ=0°）：1° 经度 约等于 111.3 km",
       "hash": "a306267472efbebe",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892577953_00-geo-math-seg65.mp3"
     },
     {
       "index": 66,
       "text": "北京（φ约等于40°）：1° 经度 约等于 111.3 × cos40° 约等于 85 km",
       "hash": "c18066b1ebe46eb8",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892578321_00-geo-math-seg66.mp3"
     },
     {
       "index": 67,
       "text": "北纬 60°：1° 经度 约等于 55.7 km，只剩一半",
       "hash": "5a5faf1acdbf52d5",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892580468_00-geo-math-seg67.mp3"
     },
     {
       "index": 68,
       "text": "所以\"北京到上海差 10 个经度\"这种说法，必须带上纬度才有长度意义。",
       "hash": "abe312bf347332f6",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892576314_00-geo-math-seg68.mp3"
     },
     {
       "index": 69,
       "text": "纬度方向：1° 约等于 111 km，全球基本恒定",
       "hash": "7f57b3e7d1e2ca18",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892580310_00-geo-math-seg69.mp3"
     },
     {
       "index": 70,
       "text": "经度方向：1° 约等于 111.32 × cos φ km，随纬度升高缩短",
       "hash": "eefa12e3f2d86e4f",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892576602_00-geo-math-seg70.mp3"
     },
     {
       "index": 71,
       "text": "北京（φ约等于40°）1° 经度 约等于 85 km；北纬 60° 约等于 55.7 km",
       "hash": "df1921febb32e58f",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892583637_00-geo-math-seg71.mp3"
     },
     {
       "index": 72,
       "text": "说\"差几度\"必须带上纬度，才有长度意义",
       "hash": "e283462b737d201e",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892581659_00-geo-math-seg72.mp3"
     },
     {
       "index": 73,
       "text": "7. 距离与方位：什么时候能用勾股定理",
       "hash": "ad680e60c21f9fe0",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892612416_00-geo-math-seg73.mp3"
     },
     {
       "index": 74,
       "text": "算两点间距离，方法取决于 范围大小 和 你手上是什么坐标 ：",
       "hash": "fa4289883f4977a0",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892617517_00-geo-math-seg74.mp3"
     },
     {
       "index": 75,
       "text": "小范围、且已投影成平面 （比如某城市的 UTM / 高斯坐标）：直接勾股 √(Δx² + Δy²) 就够，误差来自投影变形。",
       "hash": "44ebb598d29b5ea4",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892618244_00-geo-math-seg75.mp3"
     },
     {
       "index": 76,
       "text": "大范围、或手上只有经纬度 ：用球面大圆距离（haversine 公式）：",
       "hash": "fea4f0d29b1a1315",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892613774_00-geo-math-seg76.mp3"
     },
     {
       "index": 77,
       "text": "Web 墨卡托（EPSG:3857）在高纬度把距离和面积都放大了，放大倍数是 1/cos φ 。在北纬 60° 处，图上量出的距离是实际的 2 倍，面积是 4 倍。量距离请回到球面或等距投影上算。",
       "hash": "4b5253135ee7529d",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892615804_00-geo-math-seg77.mp3"
     },
     {
       "index": 78,
       "text": "方位角（bearing）从 正北 起算、顺时针 0°360°；而数学里的 atan2(Δy, Δx) 从正东（x 轴）起算、逆时针。两者差 90°，换算：",
       "hash": "e1c08f9de61dc65c",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892617968_00-geo-math-seg78.mp3"
     },
     {
       "index": 79,
       "text": "A、B 两点为某城市的高斯平面坐标（米），A (500000, 3400000) ，B (500400, 3400300) 。B 在 A 的北方向 400 m、东方向 300 m 处：",
       "hash": "272f388b6287d0e0",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892616901_00-geo-math-seg79.mp3"
     },
     {
       "index": 80,
       "text": "距离： √(300² + 400²) = 500 m （小范围投影坐标直接勾股即可）",
       "hash": "140e727a57bd3f5f",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892627294_00-geo-math-seg80.mp3"
     },
     {
       "index": 81,
       "text": "数学角： atan2(400, 300) 约等于 53.13° （从东轴逆时针）",
       "hash": "422a612fe83547e3",
-      "audio": "seg81.mp3"
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892622911_00-geo-math-seg81.mp3"
     },
     {
       "index": 82,
       "text": "方位角： bearing = 90 − 53.13 = 36.87° （从正北顺时针）",
       "hash": "7e32739beec81030",
-      "audio": "seg82.mp3"
+      "audio": "seg82.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892627761_00-geo-math-seg82.mp3"
     },
     {
       "index": 83,
       "text": "结论：B 在 A 北偏东约 36.9°、距离 500 m 处。",
       "hash": "9942ee2a7e4ebdba",
-      "audio": "seg83.mp3"
+      "audio": "seg83.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892622193_00-geo-math-seg83.mp3"
     },
     {
       "index": 84,
       "text": "8. 常踩的坑：一个速查清单",
       "hash": "2b44d432c9d109a9",
-      "audio": "seg84.mp3"
+      "audio": "seg84.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892622173_00-geo-math-seg84.mp3"
     },
     {
       "index": 85,
       "text": "度 / 弧度混用 ：进三角函数前先 × π/180 。",
       "hash": "d1d3e78c7aa81656",
-      "audio": "seg85.mp3"
+      "audio": "seg85.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892632461_00-geo-math-seg85.mp3"
     },
     {
       "index": 86,
       "text": "经纬度顺序 ： [lat, lon] 和 [lon, lat] 混用。 EPSG:4326 的轴序、GeoJSON的坐标顺序、Leaflet 的 latLng 恰好互不统一。",
       "hash": "e230c256c92f84a8",
-      "audio": "seg86.mp3"
+      "audio": "seg86.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892628608_00-geo-math-seg86.mp3"
     },
     {
       "index": 87,
       "text": "把经纬度当平面坐标 ：在地理坐标系上直接算面积/缓冲，单位是\"平方度\"。",
       "hash": "06882d850b7f6e32",
-      "audio": "seg87.mp3"
+      "audio": "seg87.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892624336_00-geo-math-seg87.mp3"
     },
     {
       "index": 88,
       "text": "在 Web 墨卡托上量距离/面积 ：高纬度严重失真。",
       "hash": "79e61895946e97e1",
-      "audio": "seg88.mp3"
+      "audio": "seg88.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892630780_00-geo-math-seg88.mp3"
     },
     {
       "index": 89,
       "text": "测量坐标：x 向北、y 向东（数学里 x 向右、y 向上）",
       "hash": "2972677ff24f4944",
-      "audio": "seg89.mp3"
+      "audio": "seg89.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892630305_00-geo-math-seg89.mp3"
     },
     {
       "index": 90,
       "text": "经纬度是 角度 （度），投影坐标是 长度 （米）",
       "hash": "7cd5b3d1d8b36d81",
-      "audio": "seg90.mp3"
+      "audio": "seg90.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892635424_00-geo-math-seg90.mp3"
     },
     {
       "index": 91,
       "text": "Web 墨卡托量距/量面积放大 1/cos φ（北纬 60° 处距离 ×2、面积 ×4）",
       "hash": "5151e4d44acddbd7",
-      "audio": "seg91.mp3"
+      "audio": "seg91.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892631616_00-geo-math-seg91.mp3"
     },
     {
       "index": 92,
       "text": "bearing 从正北顺时针起算；atan2 从正东逆时针起算，相差 90°",
       "hash": "b7caa9e3f017b0a5",
-      "audio": "seg92.mp3"
+      "audio": "seg92.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892631246_00-geo-math-seg92.mp3"
     },
     {
       "index": 93,
       "text": "坐标 = 一组数字，必须知道它在 什么坐标系、什么单位 里；",
       "hash": "f765783cbc6290bb",
-      "audio": "seg93.mp3"
+      "audio": "seg93.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892632705_00-geo-math-seg93.mp3"
     },
     {
       "index": 94,
       "text": "平面直角坐标（米）适合做小范围测量，经纬度（角度）用来标球面位置；",
       "hash": "2c6c6694b4a81e97",
-      "audio": "seg94.mp3"
+      "audio": "seg94.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892633169_00-geo-math-seg94.mp3"
     },
     {
       "index": 95,
       "text": "程序里角度一律转弧度再进三角函数；",
       "hash": "ed25fa2c2456c558",
-      "audio": "seg95.mp3"
+      "audio": "seg95.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892640449_00-geo-math-seg95.mp3"
     },
     {
       "index": 96,
       "text": "经纬度 1° 的长度：南北恒定约 111 km，东西乘 cos φ 。",
       "hash": "584e93a2c4923bbe",
-      "audio": "seg96.mp3"
+      "audio": "seg96.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892635184_00-geo-math-seg96.mp3"
     },
     {
       "index": 97,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg97.mp3"
+      "audio": "seg97.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892638385_00-geo-math-seg97.mp3"
     },
     {
       "index": 98,
       "text": "大圆距离与方位角（含可运行的实现）： movable-type.co.uk/scripts/latlong.html",
       "hash": "d800488eca8fd783",
-      "audio": "seg98.mp3"
+      "audio": "seg98.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892641115_00-geo-math-seg98.mp3"
     },
     {
       "index": 99,
       "text": "GeoJSON 坐标顺序（RFC 7946）： rfc-editor.org/rfc/rfc7946.html",
       "hash": "ab748ac8b6a9cb1b",
-      "audio": "seg99.mp3"
+      "audio": "seg99.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892639260_00-geo-math-seg99.mp3"
     },
     {
       "index": 100,
       "text": "EPSG:4326 的定义与轴序： epsg.io/4326",
       "hash": "e0aeb7fa52c90f78",
-      "audio": "seg100.mp3"
+      "audio": "seg100.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892639359_00-geo-math-seg100.mp3"
     },
     {
       "index": 101,
       "text": "投影公式与参数（PROJ 文档）： proj.org/en/stable/usage/projections.html",
       "hash": "9d804ad3748ddc1a",
-      "audio": "seg101.mp3"
+      "audio": "seg101.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892649131_00-geo-math-seg101.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-05T16:52:00.553Z"
 }
