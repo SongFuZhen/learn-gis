@@ -1,7 +1,7 @@
 {
   "slug": "05-vector-raster",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T14:44:13.260Z",
+  "generatedAt": "2026-11-05T02:03:42.908Z",
   "segmentCount": 82,
   "segments": [
     {
@@ -102,8 +102,8 @@
     },
     {
       "index": 16,
-      "text": "基本几何（OGC（ ，「欧-吉-西」）Simple Features）：",
-      "hash": "244efeea5b98f36a",
+      "text": "基本几何（OGCSimple Features）：",
+      "hash": "4ef0eae5000bbc46",
       "audio": "seg16.mp3"
     },
     {
@@ -114,8 +114,8 @@
     },
     {
       "index": 18,
-      "text": "每个要素带一张属性表（一行记录）。面可以有洞： 外环 + 若干 内环 （GeoJSON（ ，「吉欧-杰森」）里是 coordinates 的第一组与后续组）。",
-      "hash": "d531163e0207c893",
+      "text": "每个要素带一张属性表（一行记录）。面可以有洞： 外环 + 若干 内环 （GeoJSON里是 coordinates 的第一组与后续组）。",
+      "hash": "4db0788f7bc9dd49",
       "audio": "seg18.mp3"
     },
     {
@@ -138,8 +138,8 @@
     },
     {
       "index": 22,
-      "text": "点 面 = Point Polygon，各有 Multi 版本",
-      "hash": "fd1e82700a2132a1",
+      "text": "点/线/面 = Point / LineString / Polygon，各有 Multi 版本",
+      "hash": "454879e94a4e6e9b",
       "audio": "seg22.mp3"
     },
     {
@@ -162,8 +162,8 @@
     },
     {
       "index": 26,
-      "text": "2. 属性表与连接（join， ，「佐因」）",
-      "hash": "fab15b7097394e86",
+      "text": "2. 属性表与连接（join，「佐因」）",
+      "hash": "7fe4ed2a94ec4c7a",
       "audio": "seg26.mp3"
     },
     {
@@ -198,8 +198,8 @@
     },
     {
       "index": 32,
-      "text": "空间 join ：按位置关系（落在谁里面 最近）挂属性，是 GIS 特有的超能力",
-      "hash": "7b20301f0f05d632",
+      "text": "空间 join ：按位置关系（落在谁里面/相交/最近）挂属性，是 GIS 特有的超能力",
+      "hash": "3f9b2724a7dbd6f0",
       "audio": "seg32.mp3"
     },
     {
@@ -216,8 +216,8 @@
     },
     {
       "index": 35,
-      "text": "OGC Simple Features 对几何有 有效性（validity， ，「沃-利-德-提」） 定义。违反定义的几何叫 无效几何（invalid geometry， ，「因-瓦-利德-吉-奥莫-特里」） ，常见的有：",
-      "hash": "185747cfd0c9d3ef",
+      "text": "OGC Simple Features 对几何有 有效性（validity） 定义。违反定义的几何叫 无效几何（invalid geometry） ，常见的有：",
+      "hash": "b272d88382fde6c5",
       "audio": "seg35.mp3"
     },
     {
@@ -246,8 +246,8 @@
     },
     {
       "index": 40,
-      "text": "某地块边界数字化时手抖，两个顶点交叉形成蝴蝶结。叠加分析（求交、裁剪）遇到它要么直接报错，要么更糟， 静默给出错误结果 ：面积算错、相邻关系判反。有效性检查（PostGIS（ ，「剖斯特-吉斯」） STIsValid ）与修复（ STMakeValid ，或对缓冲区做零距离 buffer（ ，「巴弗」）技巧）是数据入库前的固定工序。",
-      "hash": "4f9de65eb42cb024",
+      "text": "某地块边界数字化时手抖，两个顶点交叉形成蝴蝶结。叠加分析（求交、裁剪）遇到它要么直接报错，要么更糟， 静默给出错误结果 ：面积算错、相邻关系判反。有效性检查（PostGIS STIsValid ）与修复（ STMakeValid ，或对缓冲区做零距离 buffer（「巴弗」）技巧）是数据入库前的固定工序。",
+      "hash": "c33e474be566fed8",
       "audio": "seg40.mp3"
     },
     {
@@ -258,8 +258,8 @@
     },
     {
       "index": 42,
-      "text": "无效几何会让 overlay（ ，「欧-沃-雷」） 报错或静默算错 ，静默算错更危险",
-      "hash": "056acdb4d4f1f23a",
+      "text": "无效几何会让 overlay 报错或静默算错 ，静默算错更危险",
+      "hash": "3e63f77af93844cd",
       "audio": "seg42.mp3"
     },
     {
@@ -294,8 +294,8 @@
     },
     {
       "index": 48,
-      "text": "分类栅格 （土地利用、掩膜）重采样必须用最近邻（nearest， ，「尼尔-瑞斯特」），双线性会造出「不存在的类别」。",
-      "hash": "15de472340dd5529",
+      "text": "分类栅格 （土地利用、掩膜）重采样必须用最近邻（nearest），双线性会造出「不存在的类别」。",
+      "hash": "fd7db98b8697aba3",
       "audio": "seg48.mp3"
     },
     {
@@ -312,8 +312,8 @@
     },
     {
       "index": 51,
-      "text": "设某 DEM（ ，「迪-伊-艾姆」）左上角（原点）在 (1000, 5000)，像元 10 m，行、列号从 0 起算。求 第 3 行第 5 列 像元中心的坐标：",
-      "hash": "ba2aed57ce0bbd78",
+      "text": "设某 DEM左上角（原点）在 (1000, 5000)，像元 10 m，行、列号从 0 起算。求 第 3 行第 5 列 像元中心的坐标：",
+      "hash": "54d7f885d7af99d2",
       "audio": "seg51.mp3"
     },
     {
@@ -330,8 +330,8 @@
     },
     {
       "index": 54,
-      "text": "反算：已知 x = 1060，列号 = ⌊(1060 − 1000) ÷ 10⌋ = 6 。行列号与地图坐标的互转，靠的就是仿射变换（geotransform， ，「吉欧-川斯-弗姆」）。",
-      "hash": "f66f94311336dee1",
+      "text": "反算：已知 x = 1060，列号 = ⌊(1060 − 1000) ÷ 10⌋ = 6 。行列号与地图坐标的互转，靠的就是仿射变换（geotransform）。",
+      "hash": "835b90fb11e6a68f",
       "audio": "seg54.mp3"
     },
     {
@@ -378,14 +378,14 @@
     },
     {
       "index": 62,
-      "text": "DTM（ ，「迪-提-艾姆」） ˌdiːˌɛsˈɛm/，「迪-艾斯-艾姆」）都是栅格：DEM 是地表高程模型，DSM 含建筑与植被，DTM 是裸地面。",
-      "hash": "23d0102190636a68",
+      "text": "DTM/DSM都是栅格：DEM 是地表高程模型，DSM 含建筑与植被，DTM 是裸地面。",
+      "hash": "5d9b1797927c1413",
       "audio": "seg62.mp3"
     },
     {
       "index": 63,
-      "text": "「统计道路两侧 500 m 缓冲区内的平均坡度」：坡度来自 DEM（栅格），道路和缓冲区来自矢量图层。惯用做法是矢量缓冲区 到 转成栅格掩膜 到 对坡度做分区统计（zonal statistics， ，「走-诺-斯特-提斯-提克斯」），一步栅格代数出结果。硬走矢量则要把 DEM 拆成一堆高程点、逐点判断在不在缓冲区内，又慢又没必要，这正是上表第三行的场景。",
-      "hash": "e54bd7a47b06708d",
+      "text": "「统计道路两侧 500 m 缓冲区内的平均坡度」：坡度来自 DEM（栅格），道路和缓冲区来自矢量图层。惯用做法是矢量缓冲区 到 转成栅格掩膜 到 对坡度做分区统计（zonal statistics），一步栅格代数出结果。硬走矢量则要把 DEM 拆成一堆高程点、逐点判断在不在缓冲区内，又慢又没必要，这正是上表第三行的场景。",
+      "hash": "0e87ef5a6738d016",
       "audio": "seg63.mp3"
     },
     {
@@ -426,8 +426,8 @@
     },
     {
       "index": 70,
-      "text": "R-tree（ ，「阿尔-崔」） dʒɪst ˈbiːbɒks/，「比-博克斯」）组织，先用 && 做粗筛，再做精确几何判断。",
-      "hash": "50248465564a0aa1",
+      "text": "R-tree/ GiST（「吉斯特」） （PostGIS 默认）：按最小外接矩形（bbox）组织，先用 && 做粗筛，再做精确几何判断。",
+      "hash": "34764f0fa73bebe2",
       "audio": "seg70.mp3"
     },
     {
@@ -492,8 +492,8 @@
     },
     {
       "index": 81,
-      "text": "GDAL 栅格数据模型： gdal.org rasterdatamodel",
-      "hash": "ac0a6cd58a4dd318",
+      "text": "GDAL 栅格数据模型： gdal.org/user/rasterdatamodel",
+      "hash": "aeb8f085fef8c653",
       "audio": "seg81.mp3"
     }
   ]

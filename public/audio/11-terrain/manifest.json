@@ -1,7 +1,7 @@
 {
   "slug": "11-terrain",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T17:00:16.053Z",
+  "generatedAt": "2026-11-05T03:32:22.985Z",
   "segmentCount": 85,
   "segments": [
     {
@@ -96,8 +96,8 @@
     },
     {
       "index": 15,
-      "text": "观测永远是离散的：气象站、钻孔、土壤采样点。但决策需要连续场，『这块地适合种什么』需要每一点的土壤 pH。插值（interpolation， ，「因-特-珀-雷-绍恩」）就是用已知点推算未知点的数学方法。",
-      "hash": "a1137ce3058f43a2",
+      "text": "观测永远是离散的：气象站、钻孔、土壤采样点。但决策需要连续场，『这块地适合种什么』需要每一点的土壤 pH。插值（interpolation）就是用已知点推算未知点的数学方法。",
+      "hash": "c13425e510ef84cd",
       "audio": "seg15.mp3"
     },
     {
@@ -168,8 +168,8 @@
     },
     {
       "index": 27,
-      "text": "DEM（Digital Elevation Model， ，「迪-伊-艾姆」，数字高程模型）是规则格网的高程栅格，地形分析的原材料。主流来源：",
-      "hash": "b9b300e174adaa28",
+      "text": "DEM（Digital Elevation Model，数字高程模型）是规则格网的高程栅格，地形分析的原材料。主流来源：",
+      "hash": "9efba2351de59dca",
       "audio": "seg27.mp3"
     },
     {
@@ -180,14 +180,14 @@
     },
     {
       "index": 29,
-      "text": "DEM 的高程值也要问『从哪量起』：SRTM 是椭球高还是海拔？多数公开 DEM 给的是 正高 ˌiː dʒiː ˈem/，「伊-吉-艾姆」）模型换算），但也有椭球高产品。叠加分析前，对齐高程基准（第 02 章）与对齐水平 CRS 同样重要。",
-      "hash": "0261468fe7a31433",
+      "text": "DEM 的高程值也要问『从哪量起』：SRTM 是椭球高还是海拔？多数公开 DEM 给的是 正高/海平面基准 （EGM模型换算），但也有椭球高产品。叠加分析前，对齐高程基准（第 02 章）与对齐水平 CRS 同样重要。",
+      "hash": "cbe9cafad8682d54",
       "audio": "seg29.mp3"
     },
     {
       "index": 30,
-      "text": "4. DEM DTM 与 nDSM",
-      "hash": "e8e0dc2eda1b2054",
+      "text": "4. DEM / DSM / DTM 与 nDSM",
+      "hash": "2153c631de419ac1",
       "audio": "seg30.mp3"
     },
     {
@@ -198,14 +198,14 @@
     },
     {
       "index": 32,
-      "text": "DTM（Digital Terrain Model， ，「迪-提-艾姆」） ：裸地面（山体本身）；",
-      "hash": "bccf831ce9a4f3a7",
+      "text": "DTM（Digital Terrain Model） ：裸地面（山体本身）；",
+      "hash": "2559a4d145df2cf4",
       "audio": "seg32.mp3"
     },
     {
       "index": 33,
-      "text": "DSM（Digital Surface Model， ，「迪-艾斯-艾姆」） ：地表含建筑与树冠的表面；",
-      "hash": "a058bced627c8b1c",
+      "text": "DSM（Digital Surface Model） ：地表含建筑与树冠的表面；",
+      "hash": "d653a4c44f02ae27",
       "audio": "seg33.mp3"
     },
     {
@@ -216,8 +216,8 @@
     },
     {
       "index": 35,
-      "text": "nDSM（normalized DSM， ，「恩-迪-艾斯-艾姆」）= DSM − DTM ：离地高度，建筑高度图、树高图就是这一步减法做出来的。",
-      "hash": "c057b02463ce5c27",
+      "text": "nDSM（normalized DSM）= DSM − DTM ：离地高度，建筑高度图、树高图就是这一步减法做出来的。",
+      "hash": "872ab896ae139f15",
       "audio": "seg35.mp3"
     },
     {
@@ -282,20 +282,20 @@
     },
     {
       "index": 46,
-      "text": "坡度（slope， ，「斯楼普」） ：高程变化率，可用百分比（rise/run × 100%）或角度（tan⁻¹）表达；",
-      "hash": "ce18d294e19b721e",
+      "text": "坡度（slope，「斯楼普」） ：高程变化率，可用百分比（rise/run × 100%）或角度（tan⁻¹）表达；",
+      "hash": "3bdbed2a2418bd6f",
       "audio": "seg46.mp3"
     },
     {
       "index": 47,
-      "text": "坡向（aspect， ，「艾斯-佩克特」） ：最陡下坡方向，0360°（正北起顺时针）；北半球阳坡（南坡）日照多；",
-      "hash": "ca865bdc542dc32c",
+      "text": "坡向（aspect） ：最陡下坡方向，0360°（正北起顺时针）；北半球阳坡（南坡）日照多；",
+      "hash": "d27f16e0ac434346",
       "audio": "seg47.mp3"
     },
     {
       "index": 48,
-      "text": "山体阴影（hillshade， ，「希尔-谢德」） ：模拟光源（默认西北 315°、45° 仰角）照射的地表明暗，只用于 可视化 。",
-      "hash": "7329e3e2206ccb9d",
+      "text": "山体阴影（hillshade） ：模拟光源（默认西北 315°、45° 仰角）照射的地表明暗，只用于 可视化 。",
+      "hash": "d932f56a30b0942b",
       "audio": "seg48.mp3"
     },
     {
@@ -312,8 +312,8 @@
     },
     {
       "index": 51,
-      "text": "平地没有坡向。QGIS 0 （软件各异），做统计前要剔除平地像元，否则『平均坡向』被平地污染。",
-      "hash": "2be8987b373b0728",
+      "text": "平地没有坡向。QGIS/GDAL 约定平地坡向记 -9999 或 180/0 （软件各异），做统计前要剔除平地像元，否则『平均坡向』被平地污染。",
+      "hash": "edd21b30398f95d4",
       "audio": "seg51.mp3"
     },
     {
@@ -420,26 +420,26 @@
     },
     {
       "index": 69,
-      "text": "填洼（fill sinks， ，「菲尔-辛克斯」） ：先把局部洼地填平（否则水流『断头』）；",
-      "hash": "c6b093c03b08b911",
+      "text": "填洼（fill sinks） ：先把局部洼地填平（否则水流『断头』）；",
+      "hash": "b5f06a42d1722354",
       "audio": "seg69.mp3"
     },
     {
       "index": 70,
-      "text": "流向（flow direction， ，「弗楼-迪-瑞克-绍恩」） ：常用 D8（ ，「迪-诶特」）法 ，每个像元流向 8 邻居中最陡下降的那个；",
-      "hash": "7f90e150bec93eab",
+      "text": "流向（flow direction） ：常用 D8法 ，每个像元流向 8 邻居中最陡下降的那个；",
+      "hash": "ec299b204b26cc87",
       "audio": "seg70.mp3"
     },
     {
       "index": 71,
-      "text": "汇流累积（flow accumulation， ，「弗楼-额-克尤-缪-雷-绍恩」） ：统计流经每个像元的上游像元数，数值大的连线就是 河流网络 ；",
-      "hash": "c78082f3ad6bc44e",
+      "text": "汇流累积（flow accumulation） ：统计流经每个像元的上游像元数，数值大的连线就是 河流网络 ；",
+      "hash": "b8aec2d3bd9affcc",
       "audio": "seg71.mp3"
     },
     {
       "index": 72,
-      "text": "流域划分 ：给定出口点，把所有流入它的像元圈出来 = 流域（watershed， ，「沃-特-谢德」） 。",
-      "hash": "81e0fe89ea38f44e",
+      "text": "流域划分 ：给定出口点，把所有流入它的像元圈出来 = 流域（watershed） 。",
+      "hash": "bf0f05e650fc0db3",
       "audio": "seg72.mp3"
     },
     {
@@ -504,8 +504,8 @@
     },
     {
       "index": 83,
-      "text": "GDAL DEM 工具（gdaldem）： gdal.org gdaldem",
-      "hash": "06fe63b438323fed",
+      "text": "GDAL DEM 工具（gdaldem）： gdal.org/programs/gdaldem",
+      "hash": "7ad7203f31aee683",
       "audio": "seg83.mp3"
     },
     {

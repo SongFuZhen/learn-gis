@@ -1,7 +1,7 @@
 {
   "slug": "04-crs-epsg",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T14:22:27.533Z",
+  "generatedAt": "2026-11-05T01:48:58.871Z",
   "segmentCount": 82,
   "segments": [
     {
@@ -96,8 +96,8 @@
     },
     {
       "index": 15,
-      "text": "前面讲了经纬度（地理坐标）和投影（把球面铺平）。这一章把两者统一进一个概念—— 坐标参考系（CRS， ，「西-阿尔-艾斯」） ，并介绍给每种 CRS 编号的 EPSG（ ，「伊-皮-艾斯-吉」）体系 。搞懂它，你才能看懂 EPSG:4326 / EPSG:3857 到底在说什么，并避开轴序、单位、乱换 EPSG 这三个高频坑。",
-      "hash": "cbc16a97d70d99c0",
+      "text": "前面讲了经纬度（地理坐标）和投影（把球面铺平）。这一章把两者统一进一个概念—— 坐标参考系（CRS） ，并介绍给每种 CRS 编号的 EPSG体系 。搞懂它，你才能看懂 EPSG:4326 / EPSG:3857 到底在说什么，并避开轴序、单位、乱换 EPSG 这三个高频坑。",
+      "hash": "3bef4fb263204061",
       "audio": "seg15.mp3"
     },
     {
@@ -186,26 +186,26 @@
     },
     {
       "index": 30,
-      "text": "EPSG:4326 — WGS84（ ，「达布优-吉-艾斯-艾提-弗」）经纬度（度）",
-      "hash": "46cac2b6d28ffdc6",
+      "text": "EPSG:4326 — WGS84经纬度（度）",
+      "hash": "2a4f9278fcdd735c",
       "audio": "seg30.mp3"
     },
     {
       "index": 31,
-      "text": "EPSG:3857 — Web 墨卡托（Mercator， ，「默-凯-特」）（米）",
-      "hash": "bbf965c624cc03eb",
+      "text": "EPSG:3857 — Web 墨卡托（Mercator）（米）",
+      "hash": "8cff4a320ea7bfe4",
       "audio": "seg31.mp3"
     },
     {
       "index": 32,
-      "text": "EPSG:4490 — CGCS2000（ ，「西-吉-西-艾斯-图-扫怎德」）经纬度",
-      "hash": "6fdade552ff5cb56",
+      "text": "EPSG:4490 — CGCS2000经纬度",
+      "hash": "149edeb5559be036",
       "audio": "seg32.mp3"
     },
     {
       "index": 33,
-      "text": "EPSG:32650 — WGS84 ˌjuːˌtiːˈɛm/，「优-提-艾姆」）50N（米）",
-      "hash": "4333f9c09d0bad64",
+      "text": "EPSG:32650 — WGS84 / UTM50N（米）",
+      "hash": "2dd84500e8824519",
       "audio": "seg33.mp3"
     },
     {
@@ -240,8 +240,8 @@
     },
     {
       "index": 39,
-      "text": "326xx 南半球，xx = 带号",
-      "hash": "ae864a885cf1b464",
+      "text": "326xx / 327xx = UTM 北 / 南半球，xx = 带号",
+      "hash": "2e65cf6501bccc65",
       "audio": "seg39.mp3"
     },
     {
@@ -264,8 +264,8 @@
     },
     {
       "index": 43,
-      "text": "EPSG:4326 的官方轴序是 纬度在前（lat, lon） ，但 GeoJSON（ ，「吉欧-杰森」） ˌoʊˌdʒiːˈsiː/，「欧-吉-西」）为此单独定义了 CRS:84 （lon, lat）。写代码时不要靠猜，明确转换。",
-      "hash": "aff47ee52077b7be",
+      "text": "EPSG:4326 的官方轴序是 纬度在前（lat, lon） ，但 GeoJSON/ 大多数前端库用 经度在前（lon, lat） 。OGC为此单独定义了 CRS:84 （lon, lat）。写代码时不要靠猜，明确转换。",
+      "hash": "8b3fd426cd82865c",
       "audio": "seg43.mp3"
     },
     {
@@ -300,8 +300,8 @@
     },
     {
       "index": 49,
-      "text": "在 4326 上算距离得到的是「度」，不是米。1° 纬度约 111 km，但 1° 经度在赤道约 111 km、在 60°N 只有约 55.8 km。距离 椭球计算（PostGIS（ ，「剖斯特-吉斯」） geography 、Turf（ ，「特弗」）的 geodesic（ ，「吉欧-戴-斯克」）选项）。",
-      "hash": "b7e0ebbca18f2732",
+      "text": "在 4326 上算距离得到的是「度」，不是米。1° 纬度约 111 km，但 1° 经度在赤道约 111 km、在 60°N 只有约 55.8 km。距离/面积必须投影到合适的 PCS，或用球面/椭球计算（PostGIS geography 、Turf（「特弗」）的 geodesic选项）。",
+      "hash": "c1ffe38281c81533",
       "audio": "seg49.mp3"
     },
     {
@@ -342,8 +342,8 @@
     },
     {
       "index": 56,
-      "text": "不同基准面之间的坐标不能直接套用。Beijing 1954 到 CGCS2000 需要基准面转换（七参数 ˌɛsˌɑːrˈaɪˈdiː/，「艾斯-阿尔-艾-迪」）会把位置平移几十到上百米。",
-      "hash": "bc08c1d35d6924ce",
+      "text": "不同基准面之间的坐标不能直接套用。Beijing 1954 到 CGCS2000 需要基准面转换（七参数/格网），只改 SRID会把位置平移几十到上百米。",
+      "hash": "774e1447ef8f5ee5",
       "audio": "seg56.mp3"
     },
     {
@@ -432,8 +432,8 @@
     },
     {
       "index": 71,
-      "text": "算距离 geodesic 计算。",
-      "hash": "f4be9430ba35f07d",
+      "text": "算距离/面积 ：投影到局部 PCS，或直接用 geography / geodesic 计算。",
+      "hash": "8e566a42787ee0ac",
       "audio": "seg71.mp3"
     },
     {
@@ -456,8 +456,8 @@
     },
     {
       "index": 75,
-      "text": "算距离 geodesic",
-      "hash": "b3953986a2df3189",
+      "text": "算距离/面积：局部 PCS 或 geography / geodesic",
+      "hash": "bd6e48306b3de868",
       "audio": "seg75.mp3"
     },
     {
@@ -486,8 +486,8 @@
     },
     {
       "index": 80,
-      "text": "PROJ 坐标转换文档： proj.org transformation",
-      "hash": "2324f904826e76da",
+      "text": "PROJ 坐标转换文档： proj.org/usage/transformation",
+      "hash": "870987c48ef93b35",
       "audio": "seg80.mp3"
     },
     {

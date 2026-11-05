@@ -1,7 +1,7 @@
 {
   "slug": "08-gis-tools",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T15:49:12.733Z",
+  "generatedAt": "2026-11-05T02:48:36.787Z",
   "segmentCount": 83,
   "segments": [
     {
@@ -96,8 +96,8 @@
     },
     {
       "index": 15,
-      "text": "前面七章都在讲概念，这一章是 练习场 ：把 QGIS（ ，「克尤-吉斯」）和 GDAL（ ，「古德尔」） ˌoʊ dʒiː ˈɑːr/，「欧-吉-阿」）装进你的工具箱。学完你能：用 QGIS 打开并检查数据、用命令行查看数据元信息、做格式转换与重投影、把栅格转成云优化的 COG（ ，「科格」）。每条命令都标注了预期输出。动手跑一遍，比读十页文档有用。",
-      "hash": "e062054332244644",
+      "text": "前面七章都在讲概念，这一章是 练习场 ：把 QGIS和 GDAL（「古德尔」）/OGR装进你的工具箱。学完你能：用 QGIS 打开并检查数据、用命令行查看数据元信息、做格式转换与重投影、把栅格转成云优化的 COG（「科格」）。每条命令都标注了预期输出。动手跑一遍，比读十页文档有用。",
+      "hash": "e5e301a305d6d480",
       "audio": "seg15.mp3"
     },
     {
@@ -144,8 +144,8 @@
     },
     {
       "index": 23,
-      "text": "安装：官网 qgis.org 下载长期支持版（LTR（ ，「艾勒-提-阿」））。打开后认识四个区域：",
-      "hash": "16d0dde46be45e79",
+      "text": "安装：官网 qgis.org 下载长期支持版（LTR）。打开后认识四个区域：",
+      "hash": "5a0f2d43d87c9a81",
       "audio": "seg23.mp3"
     },
     {
@@ -162,8 +162,8 @@
     },
     {
       "index": 26,
-      "text": "浏览器面板 （左下 ˌdʌbəljuː ɛm ˈɛs/，「达布优-艾姆-艾斯」）服务，拖进画布即加载；",
-      "hash": "65391ff7daff1c7b",
+      "text": "浏览器面板 （左下/侧）：像文件管理器一样浏览本地文件、数据库、WMS服务，拖进画布即加载；",
+      "hash": "cc010fc99075d03a",
       "audio": "seg26.mp3"
     },
     {
@@ -180,8 +180,8 @@
     },
     {
       "index": 29,
-      "text": "浏览器面板找到「GeoJSON（ ，「吉欧-杰森」）」示例或从 Natural Earth（ ，「奈彻若-厄斯」）（ naturalearthdata.com ）下载 1:110m 的国家图层（countries.shp）；",
-      "hash": "6b68fb20f0d282f2",
+      "text": "浏览器面板找到「GeoJSON」示例或从 Natural Earth（ naturalearthdata.com ）下载 1:110m 的国家图层（countries.shp）；",
+      "hash": "f85b470f47d34140",
       "audio": "seg29.mp3"
     },
     {
@@ -222,8 +222,8 @@
     },
     {
       "index": 36,
-      "text": "一眼能看到：几何类型、要素数、范围（extent， ，「艾克斯-滕特」）、坐标系、字段类型。 拿到数据先跑它，80% 的「坐标系不对/字段缺失」问题当场现形。",
-      "hash": "1424028ba0e33690",
+      "text": "一眼能看到：几何类型、要素数、范围（extent）、坐标系、字段类型。 拿到数据先跑它，80% 的「坐标系不对/字段缺失」问题当场现形。",
+      "hash": "8a89f67804b35b08",
       "audio": "seg36.mp3"
     },
     {
@@ -246,8 +246,8 @@
     },
     {
       "index": 40,
-      "text": "找任意一份本地的 GeoJSON ˈʃeɪpfaɪl/，「谢普-法伊尔」）（没有就用 Natural Earth 的）；",
-      "hash": "997294bc48336c9a",
+      "text": "找任意一份本地的 GeoJSON / Shapefile（没有就用 Natural Earth 的）；",
+      "hash": "63ed4fd14db5ec13",
       "audio": "seg40.mp3"
     },
     {
@@ -288,14 +288,14 @@
     },
     {
       "index": 47,
-      "text": "点 面混入 Multi 类型时，写库或转换常报「几何类型不匹配」。加 -nlt PROMOTETOMULTI 一律提升为 Multi 版本，绝大多数场景无害且省心。",
-      "hash": "4b8e7bf90ef2e838",
+      "text": "点/线/面混入 Multi 类型时，写库或转换常报「几何类型不匹配」。加 -nlt PROMOTETOMULTI 一律提升为 Multi 版本，绝大多数场景无害且省心。",
+      "hash": "1703c90795d8befd",
       "audio": "seg47.mp3"
     },
     {
       "index": 48,
-      "text": "用 ogr2ogr 把 Natural Earth 的 countries.shp 转成 GeoPackage（ ，「吉欧-派克-伊奇」）； ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTETOMULTI",
-      "hash": "581b3b14777652f6",
+      "text": "用 ogr2ogr 把 Natural Earth 的 countries.shp 转成 GeoPackage； ogr2ogr -f GPKG countries.gpkg countries.shp -nlt PROMOTETOMULTI",
+      "hash": "9aed1db1c3eb9bdb",
       "audio": "seg48.mp3"
     },
     {
@@ -336,8 +336,8 @@
     },
     {
       "index": 55,
-      "text": "矢量 转换 裁剪 到 gdalwarp",
-      "hash": "e4b5dfb66b074f3e",
+      "text": "矢量 转换/重投影 到 ogr2ogr； 栅格 重投影/裁剪 到 gdalwarp",
+      "hash": "0254216e22b22415",
       "audio": "seg55.mp3"
     },
     {
@@ -354,8 +354,8 @@
     },
     {
       "index": 58,
-      "text": "下载任意 GeoTIFF（ ，「吉欧-蒂芙」；如 SRTM（ ，「艾斯-阿-提-艾姆」）30m 高程切片）；先 gdalinfo 记下尺寸与坐标系；",
-      "hash": "54fe5864ba0cac89",
+      "text": "下载任意 GeoTIFF（如 SRTM30m 高程切片）；先 gdalinfo 记下尺寸与坐标系；",
+      "hash": "4c2481d1a81918d3",
       "audio": "seg58.mp3"
     },
     {
@@ -384,8 +384,8 @@
     },
     {
       "index": 63,
-      "text": "不想敲命令行？QGIS 把 GDAL、GRASS（ ，「格拉斯」）、SAGA（ ，「萨-嘎」）的算法都装进了 处理工具箱 （Processing Toolbox，菜单「处理 到 工具箱」）：",
-      "hash": "f71a32c6e1359f02",
+      "text": "不想敲命令行？QGIS 把 GDAL、GRASS（「格拉斯」）、SAGA的算法都装进了 处理工具箱 （Processing Toolbox，菜单「处理 到 工具箱」）：",
+      "hash": "f5407504136972c9",
       "audio": "seg63.mp3"
     },
     {
@@ -408,14 +408,14 @@
     },
     {
       "index": 67,
-      "text": "在 QGIS 里配一遍「重投影」，再打开算法日志看它生成的命令，GUI 与 CLI（ ，「西-艾勒-艾」）就这样互相教会你。排查「GUI 里跑不出结果」时，把日志里的命令行复制出来手动跑，报错信息往往更直白。",
-      "hash": "8c9d27f7b71756e3",
+      "text": "在 QGIS 里配一遍「重投影」，再打开算法日志看它生成的命令，GUI 与 CLI就这样互相教会你。排查「GUI 里跑不出结果」时，把日志里的命令行复制出来手动跑，报错信息往往更直白。",
+      "hash": "d16542940ce37cc2",
       "audio": "seg67.mp3"
     },
     {
       "index": 68,
-      "text": "加载一个点图层（如城市 POI（ ，「皮-欧-艾」）），打开处理工具箱，搜「buffer」；",
-      "hash": "f528ae3d9da6aa2a",
+      "text": "加载一个点图层（如城市 POI），打开处理工具箱，搜「buffer」；",
+      "hash": "db452b002001b9a7",
       "audio": "seg68.mp3"
     },
     {
@@ -468,8 +468,8 @@
     },
     {
       "index": 77,
-      "text": "栅格三件套：gdalinfo gdalwarp（投影、裁剪、重采样）；",
-      "hash": "29501d3213d8c218",
+      "text": "栅格三件套：gdalinfo / gdaltranslate（COG）/ gdalwarp（投影、裁剪、重采样）；",
+      "hash": "75b701843cda51bc",
       "audio": "seg77.mp3"
     },
     {

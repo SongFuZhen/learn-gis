@@ -1,7 +1,7 @@
 {
   "slug": "13-spatial-db",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T17:31:14.032Z",
+  "generatedAt": "2026-11-05T03:57:36.893Z",
   "segmentCount": 80,
   "segments": [
     {
@@ -96,8 +96,8 @@
     },
     {
       "index": 15,
-      "text": "空间运算本身不难，难的是「单位、SRID（ ，「艾斯-阿-艾-迪」）、索引」三件事；搞错任何一件，结果就会静默地出错。",
-      "hash": "df46c92b5e2472e1",
+      "text": "空间运算本身不难，难的是「单位、SRID、索引」三件事；搞错任何一件，结果就会静默地出错。",
+      "hash": "e4d96758ee0b7a51",
       "audio": "seg15.mp3"
     },
     {
@@ -126,8 +126,8 @@
     },
     {
       "index": 20,
-      "text": "Turf（ ，「特尔夫」）在经纬度上做球面近似，适合交互与轻量分析；大数据、精确椭球计算交给后端。",
-      "hash": "77579fe9ab572920",
+      "text": "Turf（「特尔夫」）在经纬度上做球面近似，适合交互与轻量分析；大数据、精确椭球计算交给后端。",
+      "hash": "636b37e52dda863a",
       "audio": "seg20.mp3"
     },
     {
@@ -228,8 +228,8 @@
     },
     {
       "index": 37,
-      "text": "STBuffer STLength 的单位 = 当前 CRS（ ，「西-阿-艾斯」）的单位 ，4326 上就是「度」",
-      "hash": "68aa6e98fae8cc77",
+      "text": "STBuffer / STArea / STLength 的单位 = 当前 CRS的单位 ，4326 上就是「度」",
+      "hash": "0605149d02eb8d75",
       "audio": "seg37.mp3"
     },
     {
@@ -240,8 +240,8 @@
     },
     {
       "index": 39,
-      "text": "第 10 章讲叠置分析的「语义」（交 差解决什么问题），这里补上 PostGIS（ ，「剖斯特-吉斯」）的「语法」：",
-      "hash": "68d6319c7e346fef",
+      "text": "第 10 章讲叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS的「语法」：",
+      "hash": "818c6e242a9f52c5",
       "audio": "seg39.mp3"
     },
     {
@@ -252,8 +252,8 @@
     },
     {
       "index": 41,
-      "text": "大几何与大表 ：一个几万个顶点的行政边界，每次相交判断都很贵。 STSubdivide(geom) 把大几何切成小碎块，配合 GiST（ ，「吉斯特」）的 && 粗筛，能让大表叠加快一个数量级：",
-      "hash": "3533ee9e7e913648",
+      "text": "大几何与大表 ：一个几万个顶点的行政边界，每次相交判断都很贵。 STSubdivide(geom) 把大几何切成小碎块，配合 GiST（「吉斯特」）的 && 粗筛，能让大表叠加快一个数量级：",
+      "hash": "06f3d2d34e516488",
       "audio": "seg41.mp3"
     },
     {
@@ -288,8 +288,8 @@
     },
     {
       "index": 47,
-      "text": "表： poi(id, geom) （点）、 districts(id, name, geom) （面），都是 EPSG:4326。 写 SQL：给每个 POI（ ，「皮-欧-艾」）挂上所在区的 name ；没有落在任何区里的 POI 也要保留（提示：LEFT JOIN）。",
-      "hash": "ddb81bfc0966257d",
+      "text": "表： poi(id, geom) （点）、 districts(id, name, geom) （面），都是 EPSG:4326。 写 SQL：给每个 POI挂上所在区的 name ；没有落在任何区里的 POI 也要保留（提示：LEFT JOIN）。",
+      "hash": "5ab981ba85810ccd",
       "audio": "seg47.mp3"
     },
     {
@@ -348,8 +348,8 @@
     },
     {
       "index": 57,
-      "text": "<-> 是 KNN（ ，「凯-恩-恩」）运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 STDistance ，再排序取前 5 条，结果一样，慢几百倍。",
-      "hash": "ee185f0bfe7e23f3",
+      "text": "<-> 是 KNN运算符，直接在 GiST 索引上按距离排序，毫秒级出结果。等价的「笨写法」是先给 500 万行每行算一遍 STDistance ，再排序取前 5 条，结果一样，慢几百倍。",
+      "hash": "728336cf3077397f",
       "audio": "seg57.mp3"
     },
     {
@@ -408,8 +408,8 @@
     },
     {
       "index": 67,
-      "text": "Web Mercator（ ，「韦布-默-凯-特」）的线性放大倍数 = 1 / cos(40°) 约等于 1.31",
-      "hash": "c7484f2c88bfda76",
+      "text": "Web Mercator的线性放大倍数 = 1 / cos(40°) 约等于 1.31",
+      "hash": "7c6c6bfd9240cfe1",
       "audio": "seg67.mp3"
     },
     {
@@ -450,8 +450,8 @@
     },
     {
       "index": 74,
-      "text": "前端只传参数，后端返回 GeoJSON（ ，「吉欧-杰森」）： STAsGeoJSON(STTransform(...)) 。",
-      "hash": "664de8d96656a5c3",
+      "text": "前端只传参数，后端返回 GeoJSON： STAsGeoJSON(STTransform(...)) 。",
+      "hash": "e71ca981ab8f862e",
       "audio": "seg74.mp3"
     },
     {
@@ -468,20 +468,20 @@
     },
     {
       "index": 77,
-      "text": "STDWithin： postgis.net STDWithin",
-      "hash": "ecb7039c884e92c7",
+      "text": "STDWithin： postgis.net/docs/STDWithin",
+      "hash": "0664c7de8f8b247f",
       "audio": "seg77.mp3"
     },
     {
       "index": 78,
-      "text": "STDistance： postgis.net STDistance",
-      "hash": "a9a42a597b4834e6",
+      "text": "STDistance： postgis.net/docs/STDistance",
+      "hash": "4e5f82df2d72f812",
       "audio": "seg78.mp3"
     },
     {
       "index": 79,
-      "text": "Turf.js buffer： turfjs.org api/buffer",
-      "hash": "e4a81fab5dfdbfcc",
+      "text": "Turf.js buffer： turfjs.org/docs/api/buffer",
+      "hash": "7677c8f91d140934",
       "audio": "seg79.mp3"
     }
   ]

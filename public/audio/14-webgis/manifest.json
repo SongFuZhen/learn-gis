@@ -1,7 +1,7 @@
 {
   "slug": "14-webgis",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T17:31:14.072Z",
+  "generatedAt": "2026-11-05T04:18:53.397Z",
   "segmentCount": 93,
   "segments": [
     {
@@ -24,8 +24,8 @@
     },
     {
       "index": 3,
-      "text": "我的经验一句话 ：选服务像点外卖—— WMS WCS 是「食材配送」 （给你原始矢量/栅格数据，可以自己再加工）。只要看图选 WMS，要秒开选 WMTS（预切瓦片），用户要点选改样式选 WFS，要拿高程值算坡度选 WCS。",
-      "hash": "24c2d85f4ffd9184",
+      "text": "我的经验一句话 ：选服务像点外卖—— WMS/WMTS 是「做好的菜」 （服务端渲染好的图片，你只能看）， WFS/WCS 是「食材配送」 （给你原始矢量/栅格数据，可以自己再加工）。只要看图选 WMS，要秒开选 WMTS（预切瓦片），用户要点选改样式选 WFS，要拿高程值算坡度选 WCS。",
+      "hash": "497fe769001b906f",
       "audio": "seg03.mp3"
     },
     {
@@ -60,8 +60,8 @@
     },
     {
       "index": 9,
-      "text": "WMS WCS 给数据",
-      "hash": "c2aa7320c51c6e6f",
+      "text": "WMS/WMTS 给图，WFS/WCS 给数据",
+      "hash": "8987e5da416b1b27",
       "audio": "seg09.mp3"
     },
     {
@@ -84,8 +84,8 @@
     },
     {
       "index": 13,
-      "text": "OGC（ ，「欧-吉-西」）服务解决「数据怎么发布」，前端库解决「地图怎么画」；两者通过标准参数和坐标约定对接。",
-      "hash": "d4b01ea236314a60",
+      "text": "OGC服务解决「数据怎么发布」，前端库解决「地图怎么画」；两者通过标准参数和坐标约定对接。",
+      "hash": "4b23da2908e6fabe",
       "audio": "seg13.mp3"
     },
     {
@@ -114,8 +114,8 @@
     },
     {
       "index": 18,
-      "text": "WMS WCS 是「数据」，可以再算",
-      "hash": "1096bd912484b18d",
+      "text": "WMS/WMTS 是「画好的图」，只能看；WFS/WCS 是「数据」，可以再算",
+      "hash": "d22a61bad418ffa8",
       "audio": "seg18.mp3"
     },
     {
@@ -144,8 +144,8 @@
     },
     {
       "index": 23,
-      "text": "要拿 DEM（ ，「戴姆」）高程算坡度 到 WCS （要原始值，图片截图没法算）",
-      "hash": "442c9d1cce8dfdaf",
+      "text": "要拿 DEM（「戴姆」）高程算坡度 到 WCS （要原始值，图片截图没法算）",
+      "hash": "78ba6eafeaf30855",
       "audio": "seg23.mp3"
     },
     {
@@ -156,8 +156,8 @@
     },
     {
       "index": 25,
-      "text": "axis order（ ，「艾克西斯-奥德」）陷阱 ：WMS 1.3.0 里 CRS=EPSG:4326 的 BBOX 顺序是 miny,minx,maxy,maxx （纬度在前）；想用「经度在前」就写 CRS=CRS:84 。WMS 1.1.1 用的是 SRS 且经纬度顺序固定。",
-      "hash": "e787577635652f77",
+      "text": "axis order陷阱 ：WMS 1.3.0 里 CRS=EPSG:4326 的 BBOX 顺序是 miny,minx,maxy,maxx （纬度在前）；想用「经度在前」就写 CRS=CRS:84 。WMS 1.1.1 用的是 SRS 且经纬度顺序固定。",
+      "hash": "5075a2876929fd37",
       "audio": "seg25.mp3"
     },
     {
@@ -222,14 +222,14 @@
     },
     {
       "index": 36,
-      "text": "WMTS 提供 TileMatrixSet （每一级的矩阵宽高、分辨率、原点），按 TileMatrix TileCol 取瓦片。它只做「预生成/可缓存」的图片瓦片，所以快，但样式改不了。",
-      "hash": "5dc418f5865c39fb",
+      "text": "WMTS 提供 TileMatrixSet （每一级的矩阵宽高、分辨率、原点），按 TileMatrix、TileRow、TileCol 取瓦片。它只做「预生成/可缓存」的图片瓦片，所以快，但样式改不了。",
+      "hash": "85d13c2e3bc31724",
       "audio": "seg36.mp3"
     },
     {
       "index": 37,
-      "text": "定位一块瓦片靠 TileMatrix （层级） TileCol （列）",
-      "hash": "67760281fc22dbb2",
+      "text": "定位一块瓦片靠 TileMatrix （层级）/ TileRow （行）/ TileCol （列）",
+      "hash": "6769f63db1547a0c",
       "audio": "seg37.mp3"
     },
     {
@@ -246,8 +246,8 @@
     },
     {
       "index": 40,
-      "text": "以最常见的 Web Mercator（ ，「韦布-默-凯-特」）瓦片方案（EPSG:3857）为例，z=10 时全图共 2^10 × 2^10 = 1024×1024 块瓦片。",
-      "hash": "29ad6f34f2a4033e",
+      "text": "以最常见的 Web Mercator瓦片方案（EPSG:3857）为例，z=10 时全图共 2^10 × 2^10 = 1024×1024 块瓦片。",
+      "hash": "d2921fade4e6ec58",
       "audio": "seg40.mp3"
     },
     {
@@ -258,8 +258,8 @@
     },
     {
       "index": 42,
-      "text": "行号：先算墨卡托纵向比例 (1 − ln(tan(39.9°) + 1 π) / 2 约等于 0.3790 ，再 × 1024 约等于 388",
-      "hash": "32cf2bc8523047e6",
+      "text": "行号：先算墨卡托纵向比例 (1 − ln(tan(39.9°) + 1/cos(39.9°)) / π) / 2 约等于 0.3790 ，再 × 1024 约等于 388",
+      "hash": "fd190822f9000d85",
       "audio": "seg42.mp3"
     },
     {
@@ -282,8 +282,8 @@
     },
     {
       "index": 46,
-      "text": "OGC API - Features Maps 用 REST（ ，「瑞斯特」）+ JSON + OpenAPI 取代老服务：",
-      "hash": "aa1770edbefe9560",
+      "text": "OGC API - Features / Tiles / Maps 用 REST（「瑞斯特」）+ JSON + OpenAPI 取代老服务：",
+      "hash": "df46ee59f07e0ab2",
       "audio": "seg46.mp3"
     },
     {
@@ -318,8 +318,8 @@
     },
     {
       "index": 52,
-      "text": "OGC API 像点外卖 App： GET roads/items?bbox=...&limit=100 ，路径即资源，返回 JSON，还自带说明书",
-      "hash": "12954dcdb4ee3029",
+      "text": "OGC API 像点外卖 App： GET /collections/roads/items?bbox=...&limit=100 ，路径即资源，返回 JSON，还自带说明书",
+      "hash": "f63df577353b4be6",
       "audio": "seg52.mp3"
     },
     {
@@ -390,8 +390,8 @@
     },
     {
       "index": 64,
-      "text": "看懂服务只是前半段，前端工程师要的是 能跑的代码 。下面这段完整 HTML，复制存成 map.html 用浏览器打开，一张带标注和 GeoJSON 点的地图就活了（Leaflet CDN（ ，「西-迪-艾恩」）+ 高德瓦片）。",
-      "hash": "3960962359e5e1d9",
+      "text": "看懂服务只是前半段，前端工程师要的是 能跑的代码 。下面这段完整 HTML，复制存成 map.html 用浏览器打开，一张带标注和 GeoJSON 点的地图就活了（Leaflet CDN+ 高德瓦片）。",
+      "hash": "96b0b1cfa3451a38",
       "audio": "seg64.mp3"
     },
     {
@@ -408,8 +408,8 @@
     },
     {
       "index": 67,
-      "text": "瓦片模板里的 {z} {y} 占位符由 Leaflet 按当前视野自动填充（第 07 章瓦片矩阵的落地）；",
-      "hash": "3fb4f67b6a2b0ea0",
+      "text": "瓦片模板里的 {z}/{x}/{y} 占位符由 Leaflet 按当前视野自动填充（第 07 章瓦片矩阵的落地）；",
+      "hash": "0288b83d1a88b767",
       "audio": "seg67.mp3"
     },
     {
@@ -462,14 +462,14 @@
     },
     {
       "index": 76,
-      "text": "CORS （ ，「扣尔斯」）：WMS/WFS 跨域需要服务端 Access-Control-Allow-Origin ，否则 fetch 失败（图片瓦片能在 <img> 显示但污染 canvas）。",
-      "hash": "559a51ca1798846d",
+      "text": "CORS （「扣尔斯」）：WMS/WFS 跨域需要服务端 Access-Control-Allow-Origin ，否则 fetch 失败（图片瓦片能在 <img> 显示但污染 canvas）。",
+      "hash": "dd5325c69e9743d8",
       "audio": "seg76.mp3"
     },
     {
       "index": 77,
-      "text": "缓存 ：瓦片设长 Cache-Control ，别把 {z} {y} 当成动态接口。",
-      "hash": "27145ce315f0899c",
+      "text": "缓存 ：瓦片设长 Cache-Control ，别把 /tiles/{z}/{x}/{y} 当成动态接口。",
+      "hash": "9323543985485f2e",
       "audio": "seg77.mp3"
     },
     {
@@ -486,26 +486,26 @@
     },
     {
       "index": 80,
-      "text": "时空数据（spatio-temporal， ，「斯佩-修-坦-普洛」） ：轨迹（GPS 轨迹、船舶 AIS（ ，「艾-艾-艾斯」））、移动对象数据库、时序栅格堆栈。PostGIS（ ，「剖斯特-吉斯」）的 STMakeLine 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放，『共享单车潮汐』就是时空数据的经典教学案例；",
-      "hash": "a10a4dfdf192b921",
+      "text": "时空数据（spatio-temporal） ：轨迹（GPS 轨迹、船舶 AIS）、移动对象数据库、时序栅格堆栈。PostGIS的 STMakeLine 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放，『共享单车潮汐』就是时空数据的经典教学案例；",
+      "hash": "e24e07e14b298ea2",
       "audio": "seg80.mp3"
     },
     {
       "index": 81,
-      "text": "地理编码（geocoding， ，「吉欧-扣丁」） ：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；",
-      "hash": "68f2ce25d22b73aa",
+      "text": "地理编码（geocoding） ：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；",
+      "hash": "971e9f04194d2115",
       "audio": "seg81.mp3"
     },
     {
       "index": 82,
-      "text": "三维 GIS ：3D Tiles（OGC 标准）把倾斜摄影 bɪm ˈsiːziəm ˌdʒeɪ ˈɛs MapLibre GL 负责渲染，是数字孪生的数据底座；",
-      "hash": "1ed6117c2ef32645",
+      "text": "三维 GIS ：3D Tiles（OGC 标准）把倾斜摄影/BIM（「比姆」）切成流式瓦片，CesiumJS/ MapLibre GL 负责渲染，是数字孪生的数据底座；",
+      "hash": "8d1e40ba3978fa78",
       "audio": "seg82.mp3"
     },
     {
       "index": 83,
-      "text": "数字孪生 ：实时 IoT（ ，「艾-欧-提」）数据 + 三维底图 + 时空分析，本章到第 13 章的全部知识都在它身上汇合。",
-      "hash": "f7cd04580d88ad1b",
+      "text": "数字孪生 ：实时 IoT数据 + 三维底图 + 时空分析，本章到第 13 章的全部知识都在它身上汇合。",
+      "hash": "c0f9bae7e72dad2f",
       "audio": "seg83.mp3"
     },
     {
@@ -546,8 +546,8 @@
     },
     {
       "index": 90,
-      "text": "OGC API - Features： ogc.org ogcapi-features",
-      "hash": "27fb2f3aed023809",
+      "text": "OGC API - Features： ogc.org/standards/ogcapi-features",
+      "hash": "738164d9cd98d4c2",
       "audio": "seg90.mp3"
     },
     {

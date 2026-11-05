@@ -1,7 +1,7 @@
 {
   "slug": "12-remote-sensing",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T17:13:13.916Z",
+  "generatedAt": "2026-11-05T03:43:38.351Z",
   "segmentCount": 60,
   "segments": [
     {
@@ -66,8 +66,8 @@
     },
     {
       "index": 10,
-      "text": "四个分辨率（空间 时间/辐射）按问题选",
-      "hash": "30d82dd298e5612d",
+      "text": "四个分辨率（空间/光谱/时间/辐射）按问题选",
+      "hash": "f4bc94d9f6a35a66",
       "audio": "seg10.mp3"
     },
     {
@@ -84,8 +84,8 @@
     },
     {
       "index": 13,
-      "text": "卫星每天从 700 km 高空扫过你的头顶，把地表拍成一张张数字影像。遥感（Remote Sensing， ，「瑞-莫特-森-辛」）是『不接触就测量』的科学，本章覆盖：电磁波谱与地物波谱响应、四类分辨率、主流卫星数据源、NDVI 与假彩色，以及遥感分类的入门套路。",
-      "hash": "82498b703611c2eb",
+      "text": "卫星每天从 700 km 高空扫过你的头顶，把地表拍成一张张数字影像。遥感（Remote Sensing）是『不接触就测量』的科学，本章覆盖：电磁波谱与地物波谱响应、四类分辨率、主流卫星数据源、NDVI 与假彩色，以及遥感分类的入门套路。",
+      "hash": "f4d49ac0b665d4d9",
       "audio": "seg13.mp3"
     },
     {
@@ -102,8 +102,8 @@
     },
     {
       "index": 16,
-      "text": "健康植被 ：强烈吸收红光（光合作用）、强烈反射 近红外（NIR，Near Infrared， ，「尼尔」） （叶肉结构），近红外亮、红光暗是植被的指纹；",
-      "hash": "91fb8d2b76b373ea",
+      "text": "健康植被 ：强烈吸收红光（光合作用）、强烈反射 近红外（NIR，Near Infrared，「尼尔」） （叶肉结构），近红外亮、红光暗是植被的指纹；",
+      "hash": "9c85cec7806dda59",
       "audio": "seg16.mp3"
     },
     {
@@ -120,8 +120,8 @@
     },
     {
       "index": 19,
-      "text": "植被 ：红光吸收、 近红外强反射 ，NDVI（Normalized Difference Vegetation Index， ，「恩-迪-维-艾」）的物理根源",
-      "hash": "3a3add8568b7fb20",
+      "text": "植被 ：红光吸收、 近红外强反射 ，NDVI（Normalized Difference Vegetation Index）的物理根源",
+      "hash": "132184fbcacdb460",
       "audio": "seg19.mp3"
     },
     {
@@ -132,8 +132,8 @@
     },
     {
       "index": 21,
-      "text": "雪 vs 云 ：可见光都亮， 短波红外上雪暗、云亮 ，区分靠 SWIR（Short-Wave Infrared， ，「斯沃尔」）",
-      "hash": "805a1727a4527833",
+      "text": "雪 vs 云 ：可见光都亮， 短波红外上雪暗、云亮 ，区分靠 SWIR（Short-Wave Infrared，「斯沃尔」）",
+      "hash": "bbe81f7173eb3fd0",
       "audio": "seg21.mp3"
     },
     {
@@ -174,8 +174,8 @@
     },
     {
       "index": 28,
-      "text": "EarthExplorer（USGS，Landsat）、Copernicus Data Space（Sentinel）、地理空间数据云（国内镜像 Landsat/Sentinel）。下载来的通常是 分幅 GeoTIFF（ ，「吉-欧-提夫」） ，多波段文件，正是第 07 章 COG（Cloud Optimized GeoTIFF， ，「科格」）的主场。",
-      "hash": "25485fbea2e4ef4a",
+      "text": "EarthExplorer（USGS，Landsat）、Copernicus Data Space（Sentinel）、地理空间数据云（国内镜像 Landsat/Sentinel）。下载来的通常是 分幅 GeoTIFF ，多波段文件，正是第 07 章 COG（Cloud Optimized GeoTIFF，「科格」）的主场。",
+      "hash": "97b5bb5d3723f40b",
       "audio": "seg28.mp3"
     },
     {
@@ -204,8 +204,8 @@
     },
     {
       "index": 33,
-      "text": "假彩色合成（false color， ，「福尔斯-卡勒」） ：把近红外波段赋给红色通道显示，植被呈现 艳红色 ，城市灰青、水体黑。看一眼就知道绿化哪里多，这是遥感判读的『默认起手式』。",
-      "hash": "1c5a98348a992244",
+      "text": "假彩色合成（false color） ：把近红外波段赋给红色通道显示，植被呈现 艳红色 ，城市灰青、水体黑。看一眼就知道绿化哪里多，这是遥感判读的『默认起手式』。",
+      "hash": "c9604320f563488b",
       "audio": "seg33.mp3"
     },
     {
@@ -228,20 +228,20 @@
     },
     {
       "index": 37,
-      "text": "从 Copernicus Data Space 下载一景 Sentinel-2 L2A（选你熟悉的城市，B02 B04/B08 波段）；",
-      "hash": "31e7ccd78f8864f9",
+      "text": "从 Copernicus Data Space 下载一景 Sentinel-2 L2A（选你熟悉的城市，B02/B03/B04/B08 波段）；",
+      "hash": "2ac8fc151f976458",
       "audio": "seg37.mp3"
     },
     {
       "index": 38,
-      "text": "QGIS 加载各波段单文件，用「构建多波段虚拟栅格」合成 B04 B02 到 真彩色 ；",
-      "hash": "0fb0b5a0002c3609",
+      "text": "QGIS 加载各波段单文件，用「构建多波段虚拟栅格」合成 B04/B03/B02 到 真彩色 ；",
+      "hash": "2990aa1373a780f1",
       "audio": "seg38.mp3"
     },
     {
       "index": 39,
-      "text": "再合成 B08 B03 到 假彩色 ：预期植被变艳红、水体发黑；",
-      "hash": "c4bac109462026b3",
+      "text": "再合成 B08/B04/B03 到 假彩色 ：预期植被变艳红、水体发黑；",
+      "hash": "c228fabe34eabae4",
       "audio": "seg39.mp3"
     },
     {
@@ -264,8 +264,8 @@
     },
     {
       "index": 43,
-      "text": "把每个像元归入『水体 建成区』等类别，就是 图像分类 。两条路线：",
-      "hash": "7576a00924e36738",
+      "text": "把每个像元归入『水体/耕地/建成区』等类别，就是 图像分类 。两条路线：",
+      "hash": "9753c8221159ce26",
       "audio": "seg43.mp3"
     },
     {
@@ -276,8 +276,8 @@
     },
     {
       "index": 45,
-      "text": "分类完必须做 精度评估 ：随机抽样点对照真值，算 混淆矩阵 与总体精度 ˈkæpə/，「凯-帕」），没有精度报告的分类图不能交付（第 09 章质量六维的落地）。",
-      "hash": "8a729670e32733ed",
+      "text": "分类完必须做 精度评估 ：随机抽样点对照真值，算 混淆矩阵 与总体精度/Kappa，没有精度报告的分类图不能交付（第 09 章质量六维的落地）。",
+      "hash": "7d7b4c8dad716708",
       "audio": "seg45.mp3"
     },
     {
@@ -312,14 +312,14 @@
     },
     {
       "index": 51,
-      "text": "四类分辨率：空间 时间/辐射，按问题取舍；",
-      "hash": "2e141e279598f47c",
+      "text": "四类分辨率：空间/光谱/时间/辐射，按问题取舍；",
+      "hash": "5f9cdc8f5f08dd07",
       "audio": "seg51.mp3"
     },
     {
       "index": 52,
-      "text": "数据源：Landsat 30 m 5 天、高分亚米级；",
-      "hash": "4a2729061f77dfa0",
+      "text": "数据源：Landsat 30 m/16 天、Sentinel-2 10 m/5 天、高分亚米级；",
+      "hash": "38714cc1a1d029bd",
       "audio": "seg52.mp3"
     },
     {

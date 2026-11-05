@@ -1,7 +1,7 @@
 {
   "slug": "10-spatial-analysis",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T16:37:44.160Z",
+  "generatedAt": "2026-11-05T03:17:35.101Z",
   "segmentCount": 86,
   "segments": [
     {
@@ -150,20 +150,20 @@
     },
     {
       "index": 24,
-      "text": "单位 ：缓冲距离的单位 = 当前 CRS（Coordinate Reference System， ，「西-艾-艾斯」）的单位 。4326 上写 500 是「500 度」（见第 13 章），必须先转到米制投影；",
-      "hash": "ee4dff1b4b96db54",
+      "text": "单位 ：缓冲距离的单位 = 当前 CRS（Coordinate Reference System）的单位 。4326 上写 500 是「500 度」（见第 13 章），必须先转到米制投影；",
+      "hash": "701d3feae4d7d8dc",
       "audio": "seg24.mp3"
     },
     {
       "index": 25,
-      "text": "端头与连接 ：线缓冲的端头有圆头（round， ，「绕恩德」） flæt 尖角之分，影响边缘精度，默认圆头最通用；",
-      "hash": "99356ba5af922373",
+      "text": "端头与连接 ：线缓冲的端头有圆头（round，「绕恩德」）/平头（flat，/flæt/，「弗莱特」）之分，转角有圆角/尖角之分，影响边缘精度，默认圆头最通用；",
+      "hash": "21e99f7b5a1ecdc0",
       "audio": "seg25.mp3"
     },
     {
       "index": 26,
-      "text": "融合（dissolve， ，「迪-佐夫」） ：多要素缓冲彼此重叠时，要不要融合成一片？做「覆盖范围」分析要融合（STUnion），做「逐要素影响圈」则不融合。",
-      "hash": "6175bb7b93854dd3",
+      "text": "融合（dissolve） ：多要素缓冲彼此重叠时，要不要融合成一片？做「覆盖范围」分析要融合（STUnion），做「逐要素影响圈」则不融合。",
+      "hash": "3937b69b25324315",
       "audio": "seg26.mp3"
     },
     {
@@ -270,8 +270,8 @@
     },
     {
       "index": 44,
-      "text": "PostGIS 对应函数：STIntersection STDifference（第 13 章）",
-      "hash": "83fff1e4f18195ae",
+      "text": "PostGIS 对应函数：STIntersection / STUnion / STDifference（第 13 章）",
+      "hash": "64e93d78acee18af",
       "audio": "seg44.mp3"
     },
     {
@@ -318,8 +318,8 @@
     },
     {
       "index": 52,
-      "text": "大表连接必须配 GiST（Generalized Search Tree， ，「吉斯特」）索引（见第 13 章），否则全表两两相交算到天荒地老",
-      "hash": "d813a65f48271cd6",
+      "text": "大表连接必须配 GiST（Generalized Search Tree，「吉斯特」）索引（见第 13 章），否则全表两两相交算到天荒地老",
+      "hash": "97de498ceea57070",
       "audio": "seg52.mp3"
     },
     {
@@ -342,8 +342,8 @@
     },
     {
       "index": 56,
-      "text": "另一个近邻视角是 邻域统计 ：每个像元/地块看它周围的值，比如「每个网格 1 km 内的平均房价」。栅格里叫 focal statistics（ ，「佛-寇-斯特-提斯-提克斯」），矢量里常配合缓冲区 + 分区统计实现。",
-      "hash": "0eac06000b3dc000",
+      "text": "另一个近邻视角是 邻域统计 ：每个像元/地块看它周围的值，比如「每个网格 1 km 内的平均房价」。栅格里叫 focal statistics，矢量里常配合缓冲区 + 分区统计实现。",
+      "hash": "e70dec7f1eaf5903",
       "audio": "seg56.mp3"
     },
     {
@@ -378,14 +378,14 @@
     },
     {
       "index": 62,
-      "text": "渔网格网（fishnet ˈfɪʃnet ɡrɪd 线/面要素聚合到格，即「每个 1 km 网格的事故数」热力图的第一步；",
-      "hash": "d46e36ace14d1b37",
+      "text": "渔网格网（fishnet/grid） ：把研究区切成等大网格，把点/线/面要素聚合到格，即「每个 1 km 网格的事故数」热力图的第一步；",
+      "hash": "e082def8780bd3bb",
       "audio": "seg62.mp3"
     },
     {
       "index": 63,
-      "text": "分区统计（zonal statistics， ，「奏-瑙-斯特-提斯-提克斯」） ：用一个面图层（行政区、缓冲区）对栅格求均值 占比（如「各行政区内的平均坡度」）；",
-      "hash": "ce21093797df2f5c",
+      "text": "分区统计（zonal statistics） ：用一个面图层（行政区、缓冲区）对栅格求均值/最大值/占比（如「各行政区内的平均坡度」）；",
+      "hash": "ff83a09a0067ae9d",
       "audio": "seg63.mp3"
     },
     {
@@ -402,8 +402,8 @@
     },
     {
       "index": 66,
-      "text": "计数还是比率？点计数网格一定要除以面积变密度，否则大格子虚高（同第 06 章 choropleth（ ，「科-若-普莱思」）的教训）。",
-      "hash": "c6a95c238bbaa232",
+      "text": "计数还是比率？点计数网格一定要除以面积变密度，否则大格子虚高（同第 06 章 choropleth的教训）。",
+      "hash": "6caf90f97598ea28",
       "audio": "seg66.mp3"
     },
     {
@@ -420,14 +420,14 @@
     },
     {
       "index": 69,
-      "text": "服务区（service area， ，「瑟-维斯-艾尔-瑞亚」） ：沿路网从设施出发，步行/车行 t 分钟或 m 米能覆盖的范围，即真实的「15 分钟生活圈」；",
-      "hash": "85fdc94193fef72d",
+      "text": "服务区（service area） ：沿路网从设施出发，步行/车行 t 分钟或 m 米能覆盖的范围，即真实的「15 分钟生活圈」；",
+      "hash": "ca7859ae0b1cfa47",
       "audio": "seg69.mp3"
     },
     {
       "index": 70,
-      "text": "OD（Origin–Destination， ，「欧-迪」）成本矩阵 ：任意起点到终点的通行成本表（配送排线的输入）；",
-      "hash": "eb3becaf5a9ed2b5",
+      "text": "OD（Origin–Destination）成本矩阵 ：任意起点到终点的通行成本表（配送排线的输入）；",
+      "hash": "a132421a53c700d3",
       "audio": "seg70.mp3"
     },
     {
@@ -468,8 +468,8 @@
     },
     {
       "index": 77,
-      "text": "四类基本功：缓冲（r 内）、叠置（交 差）、空间连接（位置外键）、近邻（KNN）",
-      "hash": "a2f172a07ccec6cd",
+      "text": "四类基本功：缓冲（r 内）、叠置（交/并/差）、空间连接（位置外键）、近邻（KNN）",
+      "hash": "b9e6164f27e6d7d1",
       "audio": "seg77.mp3"
     },
     {

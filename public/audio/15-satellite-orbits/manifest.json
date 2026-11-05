@@ -1,7 +1,7 @@
 {
   "slug": "15-satellite-orbits",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T17:31:14.094Z",
+  "generatedAt": "2026-11-05T04:32:15.422Z",
   "segmentCount": 69,
   "segments": [
     {
@@ -90,8 +90,8 @@
     },
     {
       "index": 14,
-      "text": "LEO GEO 三档轨道的高度、周期、延迟与用途",
-      "hash": "3cb44247a84d9f3d",
+      "text": "LEO / MEO / GEO 三档轨道的高度、周期、延迟与用途",
+      "hash": "bfbfeb8b6f00d79f",
       "audio": "seg14.mp3"
     },
     {
@@ -120,8 +120,8 @@
     },
     {
       "index": 19,
-      "text": "1. 高度决定一切：LEO GEO",
-      "hash": "6dfaf49d9cb4020a",
+      "text": "1. 高度决定一切：LEO / MEO / GEO",
+      "hash": "2e2d649b83a1a748",
       "audio": "seg19.mp3"
     },
     {
@@ -414,8 +414,8 @@
     },
     {
       "index": 68,
-      "text": "下一章预告：一颗星不够就一万颗—— 卫星星座与互联网（Starlink 千帆）",
-      "hash": "e1dec8f7650be8c4",
+      "text": "下一章预告：一颗星不够就一万颗—— 卫星星座与互联网（Starlink/OneWeb/千帆）",
+      "hash": "04e5b2e96af7ebf7",
       "audio": "seg68.mp3"
     }
   ]

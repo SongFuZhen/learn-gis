@@ -1,7 +1,7 @@
 {
   "slug": "16-satellite-constellations",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-04T17:31:14.122Z",
+  "generatedAt": "2026-11-05T04:44:14.145Z",
   "segmentCount": 71,
   "segments": [
     {
@@ -66,8 +66,8 @@
     },
     {
       "index": 10,
-      "text": "Starlink：550 km 数千颗；OneWeb：1200 km 六百多颗",
-      "hash": "eb7932ca88f57927",
+      "text": "Starlink：550 km / 53° / 数千颗；OneWeb：1200 km / 近极轨 / 六百多颗",
+      "hash": "3234bc6f79e73415",
       "audio": "seg10.mp3"
     },
     {
@@ -102,8 +102,8 @@
     },
     {
       "index": 16,
-      "text": "NASA CelesTrak 在数据与标准中的角色",
-      "hash": "e5aa121f083a5c51",
+      "text": "NASA / ESA / CelesTrak 在数据与标准中的角色",
+      "hash": "99f463ecce1a4fe1",
       "audio": "seg16.mp3"
     },
     {
@@ -276,8 +276,8 @@
     },
     {
       "index": 45,
-      "text": "6. NASA CelesTrak：数据与标准的角色",
-      "hash": "732c0f0acdf0a012",
+      "text": "6. NASA / ESA / CelesTrak：数据与标准的角色",
+      "hash": "7c2be38faaf5f8b2",
       "audio": "seg45.mp3"
     },
     {
@@ -390,8 +390,8 @@
     },
     {
       "index": 64,
-      "text": "星座设计三参数：高度（延迟 容量）；",
-      "hash": "565a17ea057314b8",
+      "text": "星座设计三参数：高度（延迟/覆盖）、倾角（南北边界）、星数（重访/容量）；",
+      "hash": "193dfb253942c364",
       "audio": "seg64.mp3"
     },
     {
