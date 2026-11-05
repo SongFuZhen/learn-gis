@@ -5,6 +5,7 @@ export interface SpeechSegmentManifest {
   text: string; // 送入 TTS 的净化文本
   hash: string; // text 的短哈希，用于增量判定
   audio: string; // 音频文件名，如 seg00.mp3（相对章节目录）
+  publicUrl?: string; // 上传图床后的绝对地址（audio:upload 回写；缺省回退本地 audio）
 }
 
 export interface ChapterManifest {

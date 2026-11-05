@@ -17,6 +17,7 @@
     "content:validate": "tsx scripts/validate-content.ts",
     "gen:audio": "tsx scripts/gen-audio.ts",
     "audio:validate": "tsx scripts/validate-audio.ts",
+    "audio:upload": "node scripts/upload-audio-imgbed.mjs",
     "smoke:quiz": "node scripts/smoke-quiz.mjs",
     "check:overflow": "node scripts/check-overflow.mjs",
     "db:push": "drizzle-kit push",

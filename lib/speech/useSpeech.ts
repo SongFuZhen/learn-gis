@@ -90,7 +90,8 @@ export function useSpeech(slug: string) {
         const m: ChapterManifest = await r.json();
         const segs = m.segments.map((x) => ({
           text: x.text,
-          url: '/audio/' + slug + '/' + x.audio,
+          // 优先图床绝对地址（publicUrl），回退本地预生成文件
+          url: x.publicUrl ?? '/audio/' + slug + '/' + x.audio,
         }));
         if (cancelled) return;
         segmentsRef.current = segs;
