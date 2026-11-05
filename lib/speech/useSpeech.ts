@@ -67,11 +67,17 @@ export function useSpeech(slug: string) {
     };
   }, [playIndex]);
 
-  useEffect(() => {
-    let cancelled = false;
+  // slug 变化时在渲染期重置状态（React 官方模式）：避免在 effect 里同步 setState 触发级联渲染
+  const [prevSlug, setPrevSlug] = useState(slug);
+  if (prevSlug !== slug) {
+    setPrevSlug(slug);
     setStatus('loading');
     setSegments([]);
     setCurrent(-1);
+  }
+
+  useEffect(() => {
+    let cancelled = false;
     currentRef.current = -1;
     (async () => {
       try {

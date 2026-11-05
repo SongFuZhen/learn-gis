@@ -30,8 +30,6 @@ const SKIP_JSX = new Set([
   "Playground",
 ]);
 
-const READ_JSX = new Set(["Callout", "Exercise", "Note", "Tip", "Warning"]);
-
 // 装饰性 emoji / 符号（朗读无意义）
 const EMOJI_RE =
   /[\u{1F300}-\u{1FAFF}\u{2700}-\u{27BF}\u{FE00}-\u{FE0F}\u{2600}-\u{26FF}]/gu;
@@ -129,9 +127,24 @@ function cleanText(raw: string): string {
   return s;
 }
 
-function gatherPhrasing(nodes: any[]): string {
+// 最小结构节点：mdast + MDX 扩展节点（mdxJsx*）的公共形状，避免 any
+interface MdNode {
+  type?: string;
+  value?: string;
+  name?: string;
+  depth?: number;
+  children?: unknown;
+}
+
+/** 把 children（unknown）收敛为 MdNode[]，类型不匹配的节点按空处理 */
+function kids(n: MdNode | undefined): MdNode[] {
+  const c = n?.children;
+  return Array.isArray(c) ? (c as MdNode[]) : [];
+}
+
+function gatherPhrasing(nodes: MdNode[]): string {
   const parts: string[] = [];
-  for (const n of nodes ?? []) {
+  for (const n of nodes) {
     const r = phrase(n);
     if (r) parts.push(r);
   }
@@ -141,72 +154,71 @@ function gatherPhrasing(nodes: any[]): string {
   return cleanText(joined);
 }
 
-function phrase(n: any): string {
+function phrase(n: MdNode | undefined): string {
   if (!n) return "";
   switch (n.type) {
     case "text":
-      return cleanTextNode(n.value);
+      return cleanTextNode(n.value ?? "");
     case "inlineCode":
-      return cleanInlineCode(n.value); // 保留公式/术语，不删斜杠
+      return cleanInlineCode(n.value ?? ""); // 保留公式/术语，不删斜杠
     case "strong":
     case "emphasis":
     case "delete":
-      return gatherPhrasing(n.children);
+      return gatherPhrasing(kids(n));
     case "link":
     case "linkReference":
-      return gatherPhrasing(n.children);
+      return gatherPhrasing(kids(n));
     case "break":
       return " ";
     case "mdxJsxTextElement":
     case "html":
       return "";
     default:
-      if (Array.isArray(n.children)) return gatherPhrasing(n.children);
-      return "";
+      return gatherPhrasing(kids(n));
   }
 }
 
-function blockText(n: any): string {
+function blockText(n: MdNode | undefined): string {
   if (!n) return "";
   switch (n.type) {
     case "paragraph":
     case "heading":
-      return gatherPhrasing(n.children);
+      return gatherPhrasing(kids(n));
     case "list":
     case "blockquote":
     case "listItem":
-      return (n.children ?? []).map(blockText).join(" ");
+      return kids(n).map(blockText).join(" ");
     case "code":
     case "table":
       return "";
     case "mdxJsxFlowElement": {
-      if (SKIP_JSX.has(n.name)) return "";
-      return (n.children ?? []).map(blockText).join(" ");
+      if (SKIP_JSX.has(n.name ?? "")) return "";
+      return kids(n).map(blockText).join(" ");
     }
     default:
-      if (Array.isArray(n.children)) return n.children.map(blockText).join(" ");
-      return "";
+      return kids(n).map(blockText).join(" ");
   }
 }
 
-function walkBlocks(nodes: any[], out: SpeechSegment[]): void {
-  for (const n of nodes ?? []) {
+function walkBlocks(nodes: unknown, out: SpeechSegment[]): void {
+  const list: MdNode[] = Array.isArray(nodes) ? (nodes as MdNode[]) : [];
+  for (const n of list) {
     switch (n.type) {
       case "heading": {
-        const text = gatherPhrasing(n.children);
+        const text = gatherPhrasing(kids(n));
         if (text) out.push({ text, kind: "heading", headingLevel: n.depth });
         break;
       }
       case "paragraph": {
-        const text = gatherPhrasing(n.children);
+        const text = gatherPhrasing(kids(n));
         if (text) out.push({ text, kind: "paragraph" });
         break;
       }
       case "blockquote":
-        walkBlocks(n.children, out);
+        walkBlocks(kids(n), out);
         break;
       case "list":
-        for (const li of n.children ?? []) {
+        for (const li of kids(n)) {
           const text = blockText(li);
           if (text) out.push({ text, kind: "list-item" });
         }
@@ -219,12 +231,12 @@ function walkBlocks(nodes: any[], out: SpeechSegment[]): void {
       case "thematicBreak":
         break;
       case "mdxJsxFlowElement": {
-        if (SKIP_JSX.has(n.name)) break;
-        walkBlocks(n.children ?? [], out);
+        if (SKIP_JSX.has(n.name ?? "")) break;
+        walkBlocks(kids(n), out);
         break;
       }
       default:
-        if (Array.isArray(n.children)) walkBlocks(n.children, out);
+        walkBlocks(kids(n), out);
     }
   }
 }
