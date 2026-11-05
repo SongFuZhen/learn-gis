@@ -3,7 +3,14 @@ import { useSpeech } from '@/lib/speech/useSpeech';
 
 const RATES = [0.75, 1, 1.25, 1.5];
 
-export default function SpeechBar({ slug }: { slug: string }) {
+export default function SpeechBar({
+  slug,
+  compact = false,
+}: {
+  slug: string;
+  /** 紧凑模式（音频汇总页用）：只显示控制条，不显示段落列表 */
+  compact?: boolean;
+}) {
   const { status, segments, current, rate, error, toggle, next, prev, jump, setRate } =
     useSpeech(slug);
 
@@ -78,26 +85,28 @@ export default function SpeechBar({ slug }: { slug: string }) {
         </div>
       </div>
 
-      <ol className='mt-3 max-h-56 space-y-1 overflow-y-auto pr-1'>
-        {segments.map((seg, i) => (
-          <li key={i}>
-            <button
-              onClick={() => jump(i)}
-              className={
-                'block w-full truncate rounded-sm px-2 py-1 text-left text-[13px] ' +
-                (i === current
-                  ? 'bg-brand-soft text-brand-ink'
-                  : 'text-foreground-secondary hover:bg-background-subtle')
-              }
-            >
-              <span className='mr-2 tabular text-foreground-tertiary'>
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              {seg.text}
-            </button>
-          </li>
-        ))}
-      </ol>
+      {!compact && (
+        <ol className='mt-3 max-h-56 space-y-1 overflow-y-auto pr-1'>
+          {segments.map((seg, i) => (
+            <li key={i}>
+              <button
+                onClick={() => jump(i)}
+                className={
+                  'block w-full truncate rounded-sm px-2 py-1 text-left text-[13px] ' +
+                  (i === current
+                    ? 'bg-brand-soft text-brand-ink'
+                    : 'text-foreground-secondary hover:bg-background-subtle')
+                }
+              >
+                <span className='mr-2 tabular text-foreground-tertiary'>
+                  {String(i + 1).padStart(2, '0')}
+                </span>
+                {seg.text}
+              </button>
+            </li>
+          ))}
+        </ol>
+      )}
     </div>
   );
 }

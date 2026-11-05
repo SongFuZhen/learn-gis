@@ -91,7 +91,8 @@ export default async function ModulePage({
           </span>
         </div>
 
-        <SpeechBar slug={moduleSlug} />
+        {/* 音频 manifest 以章节文件名（file）为目录，而非 URL slug */}
+        <SpeechBar slug={moduleMeta.file} />
       </header>
 
       <div className="mt-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:gap-12 lg:items-start">
