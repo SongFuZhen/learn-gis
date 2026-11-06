@@ -442,19 +442,22 @@
       "index": 62,
       "text": "4. 分带与 UTM / 高斯-克吕格",
       "hash": "4546816041bf1b66",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945120431_04-crs-epsg-seg62.mp3"
     },
     {
       "index": 63,
       "text": "投影离中央经线越远，变形越大。工程上把地球按经度切带：",
       "hash": "398101bd0412e779",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945118483_04-crs-epsg-seg63.mp3"
     },
     {
       "index": 64,
       "text": "UTM ：6° 一带，北半球 EPSG:326xx （xx = 带号），南半球 327xx 。",
       "hash": "bbf92ff7bbb99060",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945123160_04-crs-epsg-seg64.mp3"
     },
     {
       "index": 65,
@@ -576,5 +579,5 @@
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893187355_04-crs-epsg-seg81.mp3"
     }
   ],
-  "publishedAt": "2026-11-05T16:52:00.563Z"
+  "publishedAt": "2026-11-06T06:39:38.622Z"
 }

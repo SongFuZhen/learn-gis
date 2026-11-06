@@ -8,13 +8,15 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945294960_08-gis-tools-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945290478_08-gis-tools-seg01.mp3"
     },
     {
       "index": 2,
@@ -160,25 +162,29 @@
       "index": 22,
       "text": "2. QGIS 速览",
       "hash": "f002bfed195372ce",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945297193_08-gis-tools-seg22.mp3"
     },
     {
       "index": 23,
       "text": "安装：官网 qgis.org 下载长期支持版（LTR）。打开后认识四个区域：",
       "hash": "5a0f2d43d87c9a81",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945297946_08-gis-tools-seg23.mp3"
     },
     {
       "index": 24,
       "text": "图层面板 （左）：图层顺序、透明度、勾选显示；",
       "hash": "0f73d18af16f61ff",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945298904_08-gis-tools-seg24.mp3"
     },
     {
       "index": 25,
       "text": "地图画布 （中）：显示当前图层；",
       "hash": "1ff46c60f23d0821",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945298372_08-gis-tools-seg25.mp3"
     },
     {
       "index": 26,
@@ -191,7 +197,8 @@
       "index": 27,
       "text": "属性表 ：右键图层 到 打开属性表，看每行的属性记录。",
       "hash": "d489dc067580bf41",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945295708_08-gis-tools-seg27.mp3"
     },
     {
       "index": 28,
@@ -316,7 +323,8 @@
       "index": 45,
       "text": "格式转换、坐标系变换、字段过滤、图层改名，ogr2ogr 一条命令全包：",
       "hash": "c62d8df1e8c476fe",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945295948_08-gis-tools-seg45.mp3"
     },
     {
       "index": 46,
@@ -329,7 +337,8 @@
       "index": 47,
       "text": "点/线/面混入 Multi 类型时，写库或转换常报「几何类型不匹配」。加 -nlt PROMOTETOMULTI 一律提升为 Multi 版本，绝大多数场景无害且省心。",
       "hash": "1703c90795d8befd",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945304947_08-gis-tools-seg47.mp3"
     },
     {
       "index": 48,
@@ -342,13 +351,15 @@
       "index": 49,
       "text": "再转一次，目标坐标系改为 EPSG:3857，输出 countries3857.gpkg；",
       "hash": "c08eef0e2f0d2884",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945300212_08-gis-tools-seg49.mp3"
     },
     {
       "index": 50,
       "text": "用 ogrinfo -so 分别查看两个 GPKG 的 extent：预期 3857 版的数值变成了两千万米级（对照第 03 章的 正负20 037 508 m）；",
       "hash": "6bda635e44cac966",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945301066_08-gis-tools-seg50.mp3"
     },
     {
       "index": 51,
@@ -494,31 +505,36 @@
       "index": 71,
       "text": "打开「查看 到 面板 到 日志信息」，找到它实际调用的 gdalwarp 命令行，抄下来与第 5 节对照；",
       "hash": "3bb736b1ae1d38fb",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945298877_08-gis-tools-seg71.mp3"
     },
     {
       "index": 72,
       "text": "预期收获：你已经在 GUI 里「用」过命令行了。",
       "hash": "b808ebd38b027228",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945303191_08-gis-tools-seg72.mp3"
     },
     {
       "index": 73,
       "text": "7. 本章回顾",
       "hash": "b76a5314ce23b849",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945303811_08-gis-tools-seg73.mp3"
     },
     {
       "index": 74,
       "text": "底层四件套：GDAL/OGR（格式与转换）、PROJ（坐标系）、GEOS（几何运算）、QGIS（GUI 外壳）；",
       "hash": "1c300bbc9b1eed87",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945306345_08-gis-tools-seg74.mp3"
     },
     {
       "index": 75,
       "text": "陌生数据先体检：ogrinfo -so -al（矢量）/ gdalinfo（栅格）；",
       "hash": "d8611c7b80a14ca1",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945311733_08-gis-tools-seg75.mp3"
     },
     {
       "index": 76,
@@ -570,5 +586,5 @@
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793894033912_08-gis-tools-seg82.mp3"
     }
   ],
-  "publishedAt": "2026-11-05T16:52:00.568Z"
+  "publishedAt": "2026-11-06T06:39:38.632Z"
 }

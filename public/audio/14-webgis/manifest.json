@@ -8,97 +8,113 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946261225_14-webgis-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946268030_14-webgis-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ：数据和分析都有了，怎么发布成服务、怎么在网页上画出来？这就是 WebGIS。",
       "hash": "4d35372d0b77a37f",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946267124_14-webgis-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：选服务像点外卖—— WMS/WMTS 是「做好的菜」 （服务端渲染好的图片，你只能看）， WFS/WCS 是「食材配送」 （给你原始矢量/栅格数据，可以自己再加工）。只要看图选 WMS，要秒开选 WMTS（预切瓦片），用户要点选改样式选 WFS，要拿高程值算坡度选 WCS。",
       "hash": "497fe769001b906f",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946269608_14-webgis-seg03.mp3"
     },
     {
       "index": 4,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946262257_14-webgis-seg04.mp3"
     },
     {
       "index": 5,
       "text": "WMS 1.3.0 的 BBOX 轴序 ： CRS=EPSG:4326 时纬度在前（ miny,minx,maxy,maxx ），按经度在前写会 图能出来但内容错位 ，这是最难排查的一种错。想经度在前就写 CRS=CRS:84 。",
       "hash": "39d175da572336ae",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946270016_14-webgis-seg05.mp3"
     },
     {
       "index": 6,
       "text": "要素多还硬用 WFS 前端渲染 ：几千个面全推给浏览器画，卡成 PPT。出图场景用 WMS/WMTS，让服务端干渲染的活。",
       "hash": "e6ccbb872cadd6e4",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946271766_14-webgis-seg06.mp3"
     },
     {
       "index": 7,
       "text": "前端库乱选 ：Leaflet 轻量适合快速出活，OpenLayers 功能全适合复杂项目，MapLibre GL 用矢量瓦片最流畅。没有银弹，看需求。",
       "hash": "6621a24ee9a279a8",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946272867_14-webgis-seg07.mp3"
     },
     {
       "index": 8,
       "text": "必记 3 条 ：",
       "hash": "4e91eabe2887e921",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946266503_14-webgis-seg08.mp3"
     },
     {
       "index": 9,
       "text": "WMS/WMTS 给图，WFS/WCS 给数据",
       "hash": "8987e5da416b1b27",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946273262_14-webgis-seg09.mp3"
     },
     {
       "index": 10,
       "text": "WMS 1.3.0 + EPSG:4326 的 BBOX 纬度在前",
       "hash": "df9f5e031fd2f8b8",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946278192_14-webgis-seg10.mp3"
     },
     {
       "index": 11,
       "text": "大数据量渲染交给服务端（WMS/WMTS），别硬塞浏览器",
       "hash": "b22da160d784886f",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946274724_14-webgis-seg11.mp3"
     },
     {
       "index": 12,
       "text": "一句话",
       "hash": "a25aca1814333b3a",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946273119_14-webgis-seg12.mp3"
     },
     {
       "index": 13,
       "text": "OGC服务解决「数据怎么发布」，前端库解决「地图怎么画」；两者通过标准参数和坐标约定对接。",
       "hash": "4b23da2908e6fabe",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946278505_14-webgis-seg13.mp3"
     },
     {
       "index": 14,
       "text": "1. 四个经典 OGC 服务",
       "hash": "6b31fb87f1cbaf20",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946277708_14-webgis-seg14.mp3"
     },
     {
       "index": 15,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946282937_14-webgis-seg15.mp3"
     },
     {
       "index": 16,
@@ -128,7 +144,8 @@
       "index": 20,
       "text": "只想给用户看一张省界专题图，不要求交互 到 WMS",
       "hash": "22c6a252768f70b5",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946312686_14-webgis-seg20.mp3"
     },
     {
       "index": 21,
@@ -140,115 +157,134 @@
       "index": 22,
       "text": "用户要点省界弹出属性、前端改配色 到 WFS （拿到矢量自己画）",
       "hash": "980efa26d7c59318",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946315063_14-webgis-seg22.mp3"
     },
     {
       "index": 23,
       "text": "要拿 DEM（「戴姆」）高程算坡度 到 WCS （要原始值，图片截图没法算）",
       "hash": "78ba6eafeaf30855",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946319226_14-webgis-seg23.mp3"
     },
     {
       "index": 24,
       "text": "2. WMS 的必填参数",
       "hash": "cccb13f4f81979f5",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946326149_14-webgis-seg24.mp3"
     },
     {
       "index": 25,
       "text": "axis order陷阱 ：WMS 1.3.0 里 CRS=EPSG:4326 的 BBOX 顺序是 miny,minx,maxy,maxx （纬度在前）；想用「经度在前」就写 CRS=CRS:84 。WMS 1.1.1 用的是 SRS 且经纬度顺序固定。",
       "hash": "5075a2876929fd37",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946332464_14-webgis-seg25.mp3"
     },
     {
       "index": 26,
       "text": "WMS 1.3.0 + EPSG:4326 ：BBOX 顺序 miny,minx,maxy,maxx （纬度在前）",
       "hash": "aa46fd61b3f4ecc5",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946323922_14-webgis-seg26.mp3"
     },
     {
       "index": 27,
       "text": "想经度在前：写 CRS=CRS:84",
       "hash": "570d7bb149238aa8",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946327707_14-webgis-seg27.mp3"
     },
     {
       "index": 28,
       "text": "WMS 1.1.1：参数名是 SRS ，经纬度顺序固定",
       "hash": "ca0635756c84706b",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946327185_14-webgis-seg28.mp3"
     },
     {
       "index": 29,
       "text": "GetMap 必填参数一个不能少： SERVICE 、 VERSION 、 REQUEST 、 LAYERS 、 STYLES （可留空但不能缺）、 CRS 、 BBOX 、 WIDTH 、 HEIGHT 、 FORMAT",
       "hash": "ef349f59f425ec63",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946335623_14-webgis-seg29.mp3"
     },
     {
       "index": 30,
       "text": "目标范围：东经 116°–117°、北纬 39°–40°。",
       "hash": "af464c3fff6b7ffc",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946335007_14-webgis-seg30.mp3"
     },
     {
       "index": 31,
       "text": "用 WMS 1.3.0 + CRS=EPSG:4326 ：纬度在前 到 BBOX=39,116,40,117",
       "hash": "70ac71a3e84ba000",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946338274_14-webgis-seg31.mp3"
     },
     {
       "index": 32,
       "text": "想按习惯经度在前：改写 CRS=CRS:84 到 BBOX=116,39,117,40",
       "hash": "6c496a1ed56b2f2a",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946334458_14-webgis-seg32.mp3"
     },
     {
       "index": 33,
       "text": "两种写法取到同一块区域",
       "hash": "af869e032f03ef60",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946338462_14-webgis-seg33.mp3"
     },
     {
       "index": 34,
       "text": "若顺序写错（ BBOX=116,39,117,40 却配 EPSG:4326 ），服务会把 116 当纬度、39 当经度，返回错位的图或直接报错，而且往往是「图能出来但内容不对」，很难排查",
       "hash": "c2cdbd6549e49767",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946337956_14-webgis-seg34.mp3"
     },
     {
       "index": 35,
       "text": "3. WMTS 与瓦片矩阵",
       "hash": "5281e739a1bbfd31",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946342785_14-webgis-seg35.mp3"
     },
     {
       "index": 36,
       "text": "WMTS 提供 TileMatrixSet （每一级的矩阵宽高、分辨率、原点），按 TileMatrix、TileRow、TileCol 取瓦片。它只做「预生成/可缓存」的图片瓦片，所以快，但样式改不了。",
       "hash": "85d13c2e3bc31724",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946341275_14-webgis-seg36.mp3"
     },
     {
       "index": 37,
       "text": "定位一块瓦片靠 TileMatrix （层级）/ TileRow （行）/ TileCol （列）",
       "hash": "6769f63db1547a0c",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946342113_14-webgis-seg37.mp3"
     },
     {
       "index": 38,
       "text": "TileMatrixSet 描述每一级的矩阵宽高、分辨率、原点",
       "hash": "2de2c83008d45c6d",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946344776_14-webgis-seg38.mp3"
     },
     {
       "index": 39,
       "text": "WMTS = 预生成、可缓存、快；代价是样式改不了",
       "hash": "3c3712bc50387157",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946349393_14-webgis-seg39.mp3"
     },
     {
       "index": 40,
       "text": "以最常见的 Web Mercator瓦片方案（EPSG:3857）为例，z=10 时全图共 2^10 × 2^10 = 1024×1024 块瓦片。",
       "hash": "d2921fade4e6ec58",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946342453_14-webgis-seg40.mp3"
     },
     {
       "index": 41,
@@ -278,13 +314,15 @@
       "index": 45,
       "text": "4. 新标准：OGC API",
       "hash": "927179ad2f87161f",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946375154_14-webgis-seg45.mp3"
     },
     {
       "index": 46,
       "text": "OGC API - Features / Tiles / Maps 用 REST（「瑞斯特」）+ JSON + OpenAPI 取代老服务：",
       "hash": "df46ee59f07e0ab2",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946384214_14-webgis-seg46.mp3"
     },
     {
       "index": 47,
@@ -296,109 +334,127 @@
       "index": 48,
       "text": "分页 ： limit / next ，不用一次性拉全量",
       "hash": "f499a41bfdf56702",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946381906_14-webgis-seg48.mp3"
     },
     {
       "index": 49,
       "text": "内容协商 ：默认返回 GeoJSON",
       "hash": "2f15c7a4482bf62e",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946385069_14-webgis-seg49.mp3"
     },
     {
       "index": 50,
       "text": "自描述 API 文档 ：访问根路径就能拿到 OpenAPI 定义",
       "hash": "55685d20d5cc2585",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946384375_14-webgis-seg50.mp3"
     },
     {
       "index": 51,
       "text": "老服务像填纸质表单：所有参数塞进一个固定格式（ REQUEST=GetMap&BBOX=... ），填错一个顺序就出错",
       "hash": "52c9ae27d73db129",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946382779_14-webgis-seg51.mp3"
     },
     {
       "index": 52,
       "text": "OGC API 像点外卖 App： GET /collections/roads/items?bbox=...&limit=100 ，路径即资源，返回 JSON，还自带说明书",
       "hash": "f63df577353b4be6",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946395063_14-webgis-seg52.mp3"
     },
     {
       "index": 53,
       "text": "5. 前端地图库怎么选",
       "hash": "4770a63e7d176cfc",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946387636_14-webgis-seg53.mp3"
     },
     {
       "index": 54,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946392638_14-webgis-seg54.mp3"
     },
     {
       "index": 55,
       "text": "约定：Leaflet 的 L.geoJSON() 期望 4326 经纬度 ；把 3857 的米直接丢进去，要素会跑到南极附近。",
       "hash": "9813471412a295ad",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946391435_14-webgis-seg55.mp3"
     },
     {
       "index": 56,
       "text": "L.geoJSON() 期望 EPSG:4326 经纬度 ，GeoJSON 位置顺序是 [经度, 纬度]",
       "hash": "9afd65523d139bec",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946392484_14-webgis-seg56.mp3"
     },
     {
       "index": 57,
       "text": "3857 的米直接丢进去 到 要素跑到错误位置",
       "hash": "6595ba480f053932",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946398071_14-webgis-seg57.mp3"
     },
     {
       "index": 58,
       "text": "Leaflet 默认只支持 3857 等少数 CRS；矢量瓦片要插件",
       "hash": "ea2c00d5b14084d2",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946395338_14-webgis-seg58.mp3"
     },
     {
       "index": 59,
       "text": "天安门：(116.4°E, 39.9°N)。",
       "hash": "d0e6c47bf7050fe5",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946400999_14-webgis-seg59.mp3"
     },
     {
       "index": 60,
       "text": "正确写法：GeoJSON 写 \"coordinates\": [116.4, 39.9] （经度在前，单位是度）",
       "hash": "d2a194243376a42f",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946400876_14-webgis-seg60.mp3"
     },
     {
       "index": 61,
       "text": "错 1：顺序反了写 [39.9, 116.4] 到 纬度 116.4 超过 90°，要素无效或飞出地图",
       "hash": "5197594074339290",
-      "audio": "seg61.mp3"
+      "audio": "seg61.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946396906_14-webgis-seg61.mp3"
     },
     {
       "index": 62,
       "text": "错 2：把 3857 米制坐标当度：116.4° 换算成米约 116.4 × 111319.49 约等于 12957589 米，把它当经度丢给 L.geoJSON() ，远超 正负180，要素跑到完全错误的位置",
       "hash": "e7dc6728421df1e0",
-      "audio": "seg62.mp3"
+      "audio": "seg62.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946402918_14-webgis-seg62.mp3"
     },
     {
       "index": 63,
       "text": "6. 实战：亲手把地图跑起来",
       "hash": "103c0c85848c0854",
-      "audio": "seg63.mp3"
+      "audio": "seg63.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946404869_14-webgis-seg63.mp3"
     },
     {
       "index": 64,
       "text": "看懂服务只是前半段，前端工程师要的是 能跑的代码 。下面这段完整 HTML，复制存成 map.html 用浏览器打开，一张带标注和 GeoJSON 点的地图就活了（Leaflet CDN+ 高德瓦片）。",
       "hash": "96b0b1cfa3451a38",
-      "audio": "seg64.mp3"
+      "audio": "seg64.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946407440_14-webgis-seg64.mp3"
     },
     {
       "index": 65,
       "text": "三个必看细节：",
       "hash": "8d37d15dc80623ab",
-      "audio": "seg65.mp3"
+      "audio": "seg65.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946410228_14-webgis-seg65.mp3"
     },
     {
       "index": 66,
@@ -440,7 +496,8 @@
       "index": 72,
       "text": "预期看到一条横跨两城的线，体会坐标顺序：polyline 与 setView 一样是 lat, lng。",
       "hash": "49cf9d285c7d72e9",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946442613_14-webgis-seg72.mp3"
     },
     {
       "index": 73,
@@ -452,115 +509,135 @@
       "index": 74,
       "text": "按需加载 ：地图库与瓦片层动态 import() ，不要进首屏 bundle。",
       "hash": "dcc5192252bcc2c4",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946443192_14-webgis-seg74.mp3"
     },
     {
       "index": 75,
       "text": "别把大地图塞进首屏 ：底图瓦片懒加载，矢量数据用瓦片。",
       "hash": "84da2061637b5631",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946448696_14-webgis-seg75.mp3"
     },
     {
       "index": 76,
       "text": "CORS （「扣尔斯」）：WMS/WFS 跨域需要服务端 Access-Control-Allow-Origin ，否则 fetch 失败（图片瓦片能在 <img> 显示但污染 canvas）。",
       "hash": "dd5325c69e9743d8",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946447830_14-webgis-seg76.mp3"
     },
     {
       "index": 77,
       "text": "缓存 ：瓦片设长 Cache-Control ，别把 /tiles/{z}/{x}/{y} 当成动态接口。",
       "hash": "9323543985485f2e",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946447825_14-webgis-seg77.mp3"
     },
     {
       "index": 78,
       "text": "8. 延伸：时空数据与三维 GIS",
       "hash": "07be4ef6ddb02d8a",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946450144_14-webgis-seg78.mp3"
     },
     {
       "index": 79,
       "text": "课程收尾，把几块「下一站」的地图留在路标上：",
       "hash": "81c6f2064fb695ab",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946453329_14-webgis-seg79.mp3"
     },
     {
       "index": 80,
       "text": "时空数据（spatio-temporal） ：轨迹（GPS 轨迹、船舶 AIS）、移动对象数据库、时序栅格堆栈。PostGIS的 STMakeLine 把点序串成轨迹，deck.gl 的 TripsLayer 能把十万条轨迹动画回放，『共享单车潮汐』就是时空数据的经典教学案例；",
       "hash": "e24e07e14b298ea2",
-      "audio": "seg80.mp3"
+      "audio": "seg80.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946452108_14-webgis-seg80.mp3"
     },
     {
       "index": 81,
       "text": "地理编码（geocoding） ：地址字符串 ↔ 经纬度的双向查询，是业务数据接入 GIS 的第一道桥；",
       "hash": "971e9f04194d2115",
-      "audio": "seg81.mp3"
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946458509_14-webgis-seg81.mp3"
     },
     {
       "index": 82,
       "text": "三维 GIS ：3D Tiles（OGC 标准）把倾斜摄影/BIM（「比姆」）切成流式瓦片，CesiumJS/ MapLibre GL 负责渲染，是数字孪生的数据底座；",
       "hash": "8d1e40ba3978fa78",
-      "audio": "seg82.mp3"
+      "audio": "seg82.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946450571_14-webgis-seg82.mp3"
     },
     {
       "index": 83,
       "text": "数字孪生 ：实时 IoT数据 + 三维底图 + 时空分析，本章到第 13 章的全部知识都在它身上汇合。",
       "hash": "c0f9bae7e72dad2f",
-      "audio": "seg83.mp3"
+      "audio": "seg83.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946458108_14-webgis-seg83.mp3"
     },
     {
       "index": 84,
       "text": "时空数据 = 空间 + 时间两个维度：轨迹是点的时序，影像堆栈是面的时序",
       "hash": "b44b11641e6f58b8",
-      "audio": "seg84.mp3"
+      "audio": "seg84.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946453376_14-webgis-seg84.mp3"
     },
     {
       "index": 85,
       "text": "3D Tiles 是三维瓦片的 OGC 标准，CesiumJS 是最主流渲染端",
       "hash": "d32a5e43fb76533c",
-      "audio": "seg85.mp3"
+      "audio": "seg85.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946457786_14-webgis-seg85.mp3"
     },
     {
       "index": 86,
       "text": "数字孪生 = 三维底图 + 实时数据 + 空间分析，本课程的终点也是新起点",
       "hash": "fe09996c4e0647ec",
-      "audio": "seg86.mp3"
+      "audio": "seg86.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946462706_14-webgis-seg86.mp3"
     },
     {
       "index": 87,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg87.mp3"
+      "audio": "seg87.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946464664_14-webgis-seg87.mp3"
     },
     {
       "index": 88,
       "text": "OGC 标准总览： ogc.org/standards",
       "hash": "9fb4ca4ba5484cb6",
-      "audio": "seg88.mp3"
+      "audio": "seg88.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946463928_14-webgis-seg88.mp3"
     },
     {
       "index": 89,
       "text": "WMS 1.3.0 规范： OGC WMS",
       "hash": "a88d47b2e229e39d",
-      "audio": "seg89.mp3"
+      "audio": "seg89.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946461507_14-webgis-seg89.mp3"
     },
     {
       "index": 90,
       "text": "OGC API - Features： ogc.org/standards/ogcapi-features",
       "hash": "738164d9cd98d4c2",
-      "audio": "seg90.mp3"
+      "audio": "seg90.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946501864_14-webgis-seg90.mp3"
     },
     {
       "index": 91,
       "text": "Leaflet 文档： leafletjs.com",
       "hash": "7d326a105c291a48",
-      "audio": "seg91.mp3"
+      "audio": "seg91.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946471077_14-webgis-seg91.mp3"
     },
     {
       "index": 92,
       "text": "MapLibre Style Spec： maplibre.org/maplibre-style-spec",
       "hash": "9ff1f4b820dc64bc",
-      "audio": "seg92.mp3"
+      "audio": "seg92.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946467081_14-webgis-seg92.mp3"
     }
-  ]
+  ],
+  "publishedAt": "2026-11-06T06:39:38.638Z"
 }

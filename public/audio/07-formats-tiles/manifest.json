@@ -8,31 +8,36 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945238026_07-formats-tiles-seg00.mp3"
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。",
       "hash": "48e4106b6c21b470",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945239530_07-formats-tiles-seg01.mp3"
     },
     {
       "index": 2,
       "text": "这章解决什么问题 ：拿到一份 GIS 数据，用什么格式存、怎么发给别人、地图 App 为什么能秒开——都是这章的事。",
       "hash": "0262190993628ae2",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945234154_07-formats-tiles-seg02.mp3"
     },
     {
       "index": 3,
       "text": "我的经验一句话 ：格式就是数据的「快递包装」。GeoJSON 像纯文本 JSON，谁都读得懂但体积大；Shapefile 像老式纸箱，到处都能寄但限制一堆（字段名 10 字符、单文件 2GB、中文乱码）；GeoPackage 像 SQLite 一个文件全装下，是现代首选。而 瓦片 就是视频网站的「分片加载」思路——把大地图预切成无数小方块，你看哪块就加载哪块，所以地图能秒开。",
       "hash": "c72b171da16ea2b8",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945238804_07-formats-tiles-seg03.mp3"
     },
     {
       "index": 4,
       "text": "我见过的坑（你大概率也会踩） ：",
       "hash": "a9ac3abff6d2267a",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945240413_07-formats-tiles-seg04.mp3"
     },
     {
       "index": 5,
@@ -45,7 +50,8 @@
       "index": 6,
       "text": "发 Shapefile 只发了 .shp ：它至少是 .shp+.shx+.dbf 三件套，少一个文件别人就打不开。",
       "hash": "dddcf48f675a704e",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945237603_07-formats-tiles-seg06.mp3"
     },
     {
       "index": 7,
@@ -86,7 +92,8 @@
       "index": 12,
       "text": "一句话",
       "hash": "a25aca1814333b3a",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945239674_07-formats-tiles-seg12.mp3"
     },
     {
       "index": 13,
@@ -155,7 +162,8 @@
       "index": 22,
       "text": "老而普遍，但限制明显：",
       "hash": "70921aad392e3df4",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945239190_07-formats-tiles-seg22.mp3"
     },
     {
       "index": 23,
@@ -189,25 +197,29 @@
       "index": 27,
       "text": "编码不统一，中文属性容易乱码",
       "hash": "dac78183e0547669",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945268471_07-formats-tiles-seg27.mp3"
     },
     {
       "index": 28,
       "text": "假如属性表里有个字段叫「土地利用类型」，写进 Shapefile后字段名最多只剩 10 个字符，设计者只能改成 TDLYLX 之类的拼音缩写。很多老 GIS 数据里字段名像「谜语」，因为 Shapefile 只给了 10 个字符。",
       "hash": "e3282d06295c1f8d",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945276772_07-formats-tiles-seg28.mp3"
     },
     {
       "index": 29,
       "text": "GeoPackage（.gpkg）",
       "hash": "d613cc1a3c262811",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945274300_07-formats-tiles-seg29.mp3"
     },
     {
       "index": 30,
       "text": "一个 SQLite 文件 装下矢量、栅格与瓦片，OGC标准，支持空间索引。现代桌面/移动端交换的首选之一。",
       "hash": "a30c40736778a55c",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945273847_07-formats-tiles-seg30.mp3"
     },
     {
       "index": 31,
@@ -353,43 +365,50 @@
       "index": 51,
       "text": "TMS ： y 从底部（南）开始，换算 ytms = 2^z - 1 - yxyz 。",
       "hash": "dcb2903a30dc2d80",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945277383_07-formats-tiles-seg51.mp3"
     },
     {
       "index": 52,
       "text": "反了会上下颠倒，是瓦片接入最常见的坑。",
       "hash": "6d699b31c877c124",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945279275_07-formats-tiles-seg52.mp3"
     },
     {
       "index": 53,
       "text": "瓦片数 ：z=10 时，每级瓦片数 = 2^10 × 2^10 = 1024 × 1024 = 1,048,576 张——每升一级数量翻 4 倍，这就是叫「金字塔」的原因。",
       "hash": "76e084ac91724b55",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945281166_07-formats-tiles-seg53.mp3"
     },
     {
       "index": 54,
       "text": "TMS 换算 ：某瓦片 XYZ 编号为 z=10, x=840, y=388，转成 TMS 行号：",
       "hash": "d1f9f930c7e977b1",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945279276_07-formats-tiles-seg54.mp3"
     },
     {
       "index": 55,
       "text": "先算该级总行数：2^10 = 1024；",
       "hash": "20e92fae9a6ca294",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945287958_07-formats-tiles-seg55.mp3"
     },
     {
       "index": 56,
       "text": "套公式：ytms = 2^10 − 1 − 388 = 1023 − 388 = 635 ；",
       "hash": "265b0514e9b0fb14",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945285642_07-formats-tiles-seg56.mp3"
     },
     {
       "index": 57,
       "text": "z=10, x=840, y=388 （XYZ）和 z=10, x=840, y=635 （TMS）是 同一张图 ，只是 y 一个从北往南数、一个从南往北数。",
       "hash": "733cd04a5e662901",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945292657_07-formats-tiles-seg57.mp3"
     },
     {
       "index": 58,
@@ -479,7 +498,8 @@
       "index": 70,
       "text": "服务端切片简化， 渲染在客户端 （style JSON）",
       "hash": "b26f004662683f98",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945290027_07-formats-tiles-seg70.mp3"
     },
     {
       "index": 71,
@@ -520,7 +540,8 @@
       "index": 76,
       "text": "GeoJSON 规范： RFC 7946",
       "hash": "8dfe38ab1f5b5289",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945289967_07-formats-tiles-seg76.mp3"
     },
     {
       "index": 77,
@@ -533,14 +554,16 @@
       "index": 78,
       "text": "COG 说明： gdal.org/drivers/raster/cog",
       "hash": "d3d716dfcc28aadc",
-      "audio": "seg78.mp3"
+      "audio": "seg78.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945291583_07-formats-tiles-seg78.mp3"
     },
     {
       "index": 79,
       "text": "瓦片编号： OSM Slippy map tilenames",
       "hash": "4be8b0f70b3111ed",
-      "audio": "seg79.mp3"
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945298899_07-formats-tiles-seg79.mp3"
     }
   ],
-  "publishedAt": "2026-11-05T16:52:00.567Z"
+  "publishedAt": "2026-11-06T06:39:38.631Z"
 }

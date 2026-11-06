@@ -8,7 +8,8 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945177174_06-cartography-seg00.mp3"
     },
     {
       "index": 1,
@@ -154,25 +155,29 @@
       "index": 21,
       "text": "要素类型：面 到 等值区域图（choropleth）；",
       "hash": "54e119a4fc8a1c25",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945185606_06-cartography-seg21.mp3"
     },
     {
       "index": 22,
       "text": "视觉通道：GDP 总量是顺序数值 到 映射到 明度 （颜色深浅）；",
       "hash": "4b4afc166e05d8a3",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945208990_06-cartography-seg22.mp3"
     },
     {
       "index": 23,
       "text": "符号方案：顺序配色（单色渐变）+ 自然断点分级 + 图例标明各级范围。",
       "hash": "35d948fd01b84569",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945209031_06-cartography-seg23.mp3"
     },
     {
       "index": 24,
       "text": "如果属性换成「省会 / 地级市 / 县」这种类别，视觉通道就要换成品类色相，而不能用深浅。这正是下面两节的内容。",
       "hash": "6f5ce6e43b4ddeb2",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945211514_06-cartography-seg24.mp3"
     },
     {
       "index": 25,
@@ -192,7 +197,8 @@
       "index": 27,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945214922_06-cartography-seg27.mp3"
     },
     {
       "index": 28,
@@ -324,37 +330,43 @@
       "index": 46,
       "text": "某省 20 个县的人均 GDP（万元）最小值 2.0、最大值 22.0，要分 5 档：",
       "hash": "81fcefbad58bda5c",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945217484_06-cartography-seg46.mp3"
     },
     {
       "index": 47,
       "text": "等间距法：每档宽度是多少？写出 5 个档的边界；",
       "hash": "82f7871c09c6e6b3",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945222841_06-cartography-seg47.mp3"
     },
     {
       "index": 48,
       "text": "分位数法：每档几个县？",
       "hash": "287628d95827796f",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945218548_06-cartography-seg48.mp3"
     },
     {
       "index": 49,
       "text": "如果第 1、2 档各挤了 13 个县、剩下 7 个县都在 18 以上——等间距还合适吗？该换什么？",
       "hash": "de5a57bef143df4b",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945221504_06-cartography-seg49.mp3"
     },
     {
       "index": 50,
       "text": "5. 比例尺与地图综合",
       "hash": "0064900b50f70413",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945225872_06-cartography-seg50.mp3"
     },
     {
       "index": 51,
       "text": "比例尺 = 图上距离 / 实地距离。1:50 000 表示图上 1 cm 对应实地 500 m。习惯上：",
       "hash": "c852080ff89cc103",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945223260_06-cartography-seg51.mp3"
     },
     {
       "index": 52,
@@ -500,37 +512,43 @@
       "index": 72,
       "text": "分级掩盖差异 ：等间距分级把 90% 的县挤进同一档，图上「全省一样穷/富」；",
       "hash": "ee2913cbd866bb3e",
-      "audio": "seg72.mp3"
+      "audio": "seg72.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945229409_06-cartography-seg72.mp3"
     },
     {
       "index": 73,
       "text": "符号越界 ：比例符号圆的 面积 应与数值成正比，有人把半径设成正比，大值被放大平方倍；",
       "hash": "9c1a1ab1ab66b26a",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945225926_06-cartography-seg73.mp3"
     },
     {
       "index": 74,
       "text": "投影偏见 ：拿 Web 墨卡托（Mercator）比国土大小（第 03 章的格陵兰骗局），高纬国家被视觉放大；",
       "hash": "4bef052bb90c912f",
-      "audio": "seg74.mp3"
+      "audio": "seg74.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945224269_06-cartography-seg74.mp3"
     },
     {
       "index": 75,
       "text": "色相误导 ：顺序数据用彩虹色带，人为制造出数据里并不存在的「分界」。",
       "hash": "fd661e1bb319aef4",
-      "audio": "seg75.mp3"
+      "audio": "seg75.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945232775_06-cartography-seg75.mp3"
     },
     {
       "index": 76,
       "text": "这张图 分级/符号方案 是谁定的？换个分级结论还成立吗？",
       "hash": "525acbefab2eefdf",
-      "audio": "seg76.mp3"
+      "audio": "seg76.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945234293_06-cartography-seg76.mp3"
     },
     {
       "index": 77,
       "text": "图上比的是 面积、长度还是颜色深浅 ？对应的投影和符号保真吗？",
       "hash": "f99c0f4fd50c4ff1",
-      "audio": "seg77.mp3"
+      "audio": "seg77.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945233437_06-cartography-seg77.mp3"
     },
     {
       "index": 78,
@@ -673,5 +691,5 @@
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893624858_06-cartography-seg97.mp3"
     }
   ],
-  "publishedAt": "2026-11-05T16:52:00.566Z"
+  "publishedAt": "2026-11-06T06:39:38.630Z"
 }
