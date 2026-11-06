@@ -1,9 +1,11 @@
 import { notFound } from "next/navigation";
 import QuizRunner from "@/components/quiz/QuizRunner";
-import { getModule, getModules, getQuestions } from "@/lib/content";
+import { SKILLS, getModule, getModules, getQuestions } from "@/lib/content";
 
 export function generateStaticParams() {
-  return getModules("gis").map((m) => ({ skill: "gis", module: m.slug }));
+  return SKILLS.flatMap((s) =>
+    getModules(s.id).map((m) => ({ skill: s.id, module: m.slug })),
+  );
 }
 
 export async function generateMetadata({

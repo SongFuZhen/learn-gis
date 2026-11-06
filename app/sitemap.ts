@@ -1,33 +1,37 @@
 import type { MetadataRoute } from "next";
-import { GIS_MODULES } from "@/content/gis/modules";
+import { SKILL_REGISTRY } from "@/content/registry";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
-  const modules: MetadataRoute.Sitemap = GIS_MODULES.flatMap((m) => [
-    {
-      url: `${SITE_URL}/s/gis/${m.slug}`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    },
-    {
-      url: `${SITE_URL}/s/gis/${m.slug}/quiz`,
-      lastModified: now,
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    },
-  ]);
+  const skillIndexes: MetadataRoute.Sitemap = SKILL_REGISTRY.map((reg) => ({
+    url: `${SITE_URL}/s/${reg.id}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.9,
+  }));
+
+  const modules: MetadataRoute.Sitemap = SKILL_REGISTRY.flatMap((reg) =>
+    reg.modules.flatMap((m) => [
+      {
+        url: `${SITE_URL}/s/${reg.id}/${m.slug}`,
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.8,
+      },
+      {
+        url: `${SITE_URL}/s/${reg.id}/${m.slug}/quiz`,
+        lastModified: now,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+      },
+    ]),
+  );
 
   return [
     { url: SITE_URL, lastModified: now, changeFrequency: "weekly", priority: 1 },
-    {
-      url: `${SITE_URL}/s/gis`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
+    ...skillIndexes,
     ...modules,
     {
       url: `${SITE_URL}/exam`,

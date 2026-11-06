@@ -53,6 +53,7 @@ async function getOrCreateUserId(): Promise<string> {
 /** 累计一次答题（存在则 +1，否则创建） */
 async function bumpModuleProgress(
   userId: string,
+  skill: string,
   moduleSlug: string,
   correct: boolean,
 ) {
@@ -62,6 +63,7 @@ async function bumpModuleProgress(
     .where(
       and(
         eq(moduleProgress.userId, userId),
+        eq(moduleProgress.skill, skill),
         eq(moduleProgress.moduleSlug, moduleSlug),
       ),
     );
@@ -69,6 +71,7 @@ async function bumpModuleProgress(
   if (!current) {
     await db.insert(moduleProgress).values({
       userId,
+      skill,
       moduleSlug,
       totalAttempts: 1,
       wrongCount: correct ? 0 : 1,
@@ -123,6 +126,7 @@ export async function GET() {
 /** 请求体校验：所有字段都要过 zod，避免 NaN / 伪造 */
 const submitAnswerSchema = z.object({
   type: z.literal("submit-answer"),
+  skill: z.string().min(1).default("gis"),
   moduleSlug: z.string().min(1),
   questionId: z.string().min(1),
   isCorrect: z.boolean(),
@@ -154,6 +158,7 @@ const examCompleteSchema = z
 const moduleQuizCompleteSchema = z
   .object({
     type: z.literal("module-quiz-complete"),
+    skill: z.string().min(1).default("gis"),
     moduleSlug: z.string().min(1),
     correct: z.number().int().min(0),
     total: z.number().int().min(1),
@@ -196,7 +201,7 @@ export async function POST(request: Request) {
   const userId = await getOrCreateUserId();
 
   if (body.type === "submit-answer") {
-    const { moduleSlug, questionId, isCorrect } = body;
+    const { skill, moduleSlug, questionId, isCorrect } = body;
 
     // 同一题做错多次只保留一条未消除记录：冲突时刷新时间并重新计入复习队列
     if (!isCorrect) {
@@ -208,7 +213,7 @@ export async function POST(request: Request) {
           set: { wrongAt: new Date(), clearedAt: null },
         });
     }
-    await bumpModuleProgress(userId, moduleSlug, isCorrect);
+    await bumpModuleProgress(userId, skill, moduleSlug, isCorrect);
     return NextResponse.json({ ok: true });
   }
 
@@ -282,7 +287,7 @@ export async function POST(request: Request) {
   }
 
   // module-quiz-complete
-  const { moduleSlug, correct, total } = body;
+  const { skill, moduleSlug, correct, total } = body;
   const mastery = (correct / total) * 100;
 
   // 章节掌握度滚动平均：mastery 按章节测验次数平均
@@ -292,6 +297,7 @@ export async function POST(request: Request) {
     .where(
       and(
         eq(moduleProgress.userId, userId),
+        eq(moduleProgress.skill, skill),
         eq(moduleProgress.moduleSlug, moduleSlug),
       ),
     );
@@ -309,6 +315,7 @@ export async function POST(request: Request) {
   } else {
     await db.insert(moduleProgress).values({
       userId,
+      skill,
       moduleSlug,
       mastery,
       quizCount: 1,

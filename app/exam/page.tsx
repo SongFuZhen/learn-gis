@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { CalendarCheck, ChevronRight, Layers } from "lucide-react";
-import { GIS_MODULES } from "@/content/gis/modules";
-import { getQuestionFile } from "@/lib/content";
+import { SKILLS, getModules, getQuestionFile } from "@/lib/content";
 import { EXAM_PLAN } from "@/lib/quiz/exam";
 
 export const metadata = {
@@ -10,8 +9,13 @@ export const metadata = {
 };
 
 export default function ExamPage() {
-  const total = GIS_MODULES.reduce(
-    (sum, m) => sum + getQuestionFile("gis", m.slug).questions.length,
+  const total = SKILLS.reduce(
+    (sum, s) =>
+      sum +
+      getModules(s.id).reduce(
+        (acc, m) => acc + getQuestionFile(s.id, m.slug).questions.length,
+        0,
+      ),
     0,
   );
 
@@ -30,14 +34,14 @@ export default function ExamPage() {
       label: EXAM_PLAN.mock.label,
       size: EXAM_PLAN.mock.size,
       blurb: EXAM_PLAN.mock.blurb,
-      meta: `覆盖全部 ${GIS_MODULES.length} 章 · 每次新卷`,
+      meta: `覆盖全部 ${SKILLS.reduce((n, s) => n + getModules(s.id).length, 0)} 章 · 每次新卷`,
     },
   ];
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
-        Exam · GIS
+        Exam
       </p>
       <h1 className="mt-2 text-[26px] font-semibold tracking-[-0.02em] sm:text-[32px] lg:text-[36px]">
         考试

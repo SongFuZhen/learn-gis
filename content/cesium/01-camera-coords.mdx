@@ -1,0 +1,164 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：GIS 课第 02 章讲过，地球用旋转椭球近似，一个点 = 经度 + 纬度（+ 高程）。但 Cesium 的世界里没有"经纬度点"，只有**笛卡尔空间坐标**——本章讲清这两套坐标怎么互转，以及怎么指挥相机去看你想看的地方。**我的经验一句话**：在 Cesium 里，经纬度只是"给人看的入口"，进场景后一切都是 `Cartesian3`——记住这句话，一半的坐标系疑惑就没了。**我见过的坑（你大概率也会踩）**：
+- `Cartesian3.fromDegrees(lat, lon)`——顺序反了，人飞到了别的半球。Cesium 全家都是 **经度在前**。
+- `Cartographic` 的经纬度是**弧度**，直接拿去显示会看到 0.02 这样的"怪数"——那是 116.4° 的弧度值。
+- `camera.flyTo` 飞过去就不动了——多半是 `orientation.pitch` 忘了给负角度，相机在"抬头看天"。**必记 3 条**：
+1. `Cartesian3.fromDegrees(lon, lat, height)`——经度永远在前
+2. `Cartographic` 里是弧度；要度数用 `Cesium.Math.toDegrees()` 换
+3. pitch = 0 是水平看，-90° 是垂直俯瞰；"俯视某个点"给 pitch 一个负角
+
+## 本章你会学到
+
+两套坐标（地理坐标 ↔ 笛卡尔坐标）的互转与各自适用场景；相机的 setView / flyTo / lookAt 三大操作；heading / pitch / roll 三个姿态角到底怎么转。这是后面所有章节的地基——实体、拾取、量算，全都建在"放得准、看得准"之上。
+
+## 1. 两套坐标系：地理坐标与笛卡尔坐标
+
+GIS 课讲过：经纬度是**角度坐标**——椭球面上的位置用度数表示。但 WebGL 渲染的世界是**直线空间**：相机、模型、光照计算全在直角坐标系里进行。所以 Cesium 内部用 **ECEF 笛卡尔坐标**（Earth-Centered, Earth-Fixed，地心固连系）：原点在地球质心，x 指向本初子午线与赤道交点，z 指向北极。
+
+两套坐标的互转就三把刷子：
+
+```js
+// 地理坐标 → 笛卡尔（最常用；注意经度在前，height 单位是米）
+const p = Cesium.Cartesian3.fromDegrees(116.397, 39.909, 0);
+
+// 笛卡尔 → 地理坐标（得到弧度）
+const carto = Cesium.Cartographic.fromCartesian(p);
+const lonDeg = Cesium.Math.toDegrees(carto.longitude); // 116.397
+const latDeg = Cesium.Math.toDegrees(carto.latitude);  // 39.909
+const hMeters = carto.height;                           // 米
+
+// 也可以直接从度数构造 Cartographic
+const c2 = Cesium.Cartographic.fromDegrees(116.397, 39.909, 0);
+```
+
+什么时候用哪个：**对接外部数据（GeoJSON、数据库里的经纬度）**用地理坐标，进 Cesium 的那一刻转成 `Cartesian3`；**算距离、做空间运算**大多直接在笛卡尔系做（第 08 章）；**展示坐标读数**记得从 `Cartographic` 转回度数。
+
+<Callout type="info" title="为什么 GIS 课的 (lat, lng) 到这里变成 (lon, lat)？">
+这不是 Cesium 搞特殊：地心坐标系里"经度绕 z 轴、纬度绕赤道面"的数学定义天然以经度为第一角。GeoJSON 规范也规定 `[lng, lat]` 顺序——倒是很多前端地图库（Leaflet）反着来。跨库搬数据时，先查目标库的参数顺序，再查单位（度/弧度/米），能避免九成"点飞了"的事故。
+</Callout>
+
+## 2. 相机三大操作：setView、flyTo、lookAt
+
+相机就是一个"放在三维空间里、带朝向的点"。三种操作对应三种意图：
+
+```js
+// ① setView：瞬移，无动画——初始化画面用
+viewer.camera.setView({
+  destination: Cesium.Cartesian3.fromDegrees(116.397, 39.909, 15000),
+});
+
+// ② flyTo：带动画飞行——交互跳转、叙事镜头用
+viewer.camera.flyTo({
+  destination: Cesium.Cartesian3.fromDegrees(116.397, 39.909, 8000),
+  orientation: {
+    heading: Cesium.Math.toRadians(0),   // 朝向：0 = 正北
+    pitch: Cesium.Math.toRadians(-45),   // 俯仰：-45° = 低头 45° 看地面
+    roll: 0,                             // 翻滚：保持水平即可，一般不动
+  },
+  duration: 3, // 秒
+});
+
+// ③ lookAt：锁定一个目标点环绕看——"盯着某个地标转一圈"用
+viewer.camera.lookAt(
+  Cesium.Cartesian3.fromDegrees(116.397, 39.909, 0),
+  new Cesium.HeadingPitchRange(
+    Cesium.Math.toRadians(45),   // 从东北方向看
+    Cesium.Math.toRadians(-30),  // 俯角 30°
+    5000                         // 相机离目标 5 公里
+  )
+);
+```
+
+三个姿态角用飞机理解最直观：**heading**（机头朝向，北为 0 顺时针）、**pitch**（机头抬/低头，0 水平、负值低头）、**roll**（机身左右翻滚，普通展示场景恒为 0）。
+
+<Callout type="must" title="必背 · 相机三操作的选择">
+初始化/复位 → `setView`（瞬间到位）；用户点击跳转 → `flyTo`（有过渡不迷路）；绕目标观察 → `lookAt`（锁定目标、锁定距离）。`flyTo` 的 `orientation.pitch` 记得给负角，水平俯瞰是负方向。
+</Callout>
+
+## 3. 实用技巧：飞到矩形/包围球
+
+实际业务里，"飞到某个点"不如"飞到某片数据"常见——比如加载完一个 GeoJSON 图层后自动飞到数据范围（第 04 章会用到）：
+
+```js
+// 飞到一个矩形范围（经纬度数组 [west, south, east, north]）
+viewer.camera.flyTo({
+  destination: Cesium.Rectangle.fromDegrees(115.0, 39.0, 117.5, 41.0),
+});
+
+// 飞到一个包围球（已知中心点和半径）
+viewer.camera.flyToBoundingSphere(
+  new Cesium.BoundingSphere(
+    Cesium.Cartesian3.fromDegrees(116.397, 39.909, 0),
+    2000
+  )
+);
+```
+
+`flyToBoundingSphere` 在"数据自适应缩放"场景最省心：不用算高度，给半径它自动选一个能看全的距离。
+
+## 4. 相机事件：让 UI 跟着视角走
+
+常见需求：随相机移动实时显示当前经纬度/高度（坐标读数条）。Cesium 提供每帧/每次移动的回调：
+
+```js
+function showCoords() {
+  const carto = viewer.camera.positionCartographic;
+  console.log(
+    Cesium.Math.toDegrees(carto.longitude).toFixed(4),
+    Cesium.Math.toDegrees(carto.latitude).toFixed(4),
+    carto.height.toFixed(0) + " m"
+  );
+}
+viewer.camera.changed.addEventListener(showCoords);  // 相机变化时触发
+viewer.camera.percentageChanged = 0.01;              // 灵敏度：变化 1% 就触发
+```
+
+`camera.changed` 配合 `percentageChanged` 是做"坐标读数条"的标准搭配——比每帧监听省性能，比手动监听 mousemove 准确（键盘、惯性滑动也能触发）。
+
+<Exercise tool="cesium" title="动手 · 绕故宫转一圈">
+组合本章 API 做一个小练习：程序启动时相机在北京上空 15 km 俯瞰（setView），2 秒后自动飞到故宫上空 800 m、以 45° 俯角斜看（flyTo），最后用 lookAt 锁定故宫，让用户只能环绕观察。
+
+<ExerciseSolution>
+```js
+const FORBIDDEN = Cesium.Cartesian3.fromDegrees(116.397, 39.917, 0);
+
+viewer.camera.setView({
+  destination: Cesium.Cartesian3.fromDegrees(116.39, 39.9, 15000),
+});
+
+setTimeout(() => {
+  viewer.camera.flyTo({
+    destination: Cesium.Cartesian3.fromDegrees(116.397, 39.909, 800),
+    orientation: {
+      heading: Cesium.Math.toRadians(20),
+      pitch: Cesium.Math.toRadians(-45),
+      roll: 0,
+    },
+    duration: 2,
+    complete: () => {
+      // 飞完锁定目标环绕；解除锁定用 camera.lookAtTransform(Cesium.Matrix4.IDENTITY)
+      viewer.camera.lookAt(
+        FORBIDDEN,
+        new Cesium.HeadingPitchRange(
+          Cesium.Math.toRadians(45),
+          Cesium.Math.toRadians(-30),
+          1200
+        )
+      );
+    },
+  });
+}, 1000);
+```
+两个加分观察：① `lookAt` 之后相机会被约束在环绕轨道上，用户滚动缩放也只改距离——要恢复自由相机调用 `camera.lookAtTransform(Cesium.Matrix4.IDENTITY)`；② `flyTo` 的 `complete` 回调是串联镜头的标准手法，也可以用 `Promise`（新版提供 `camera.flyTo` 的 promise 形式）。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- 经纬度（角度）↔ `Cartesian3`（地心直角）的互转是每章都要用到的基本功。
+- `fromDegrees(lon, lat, height)`：**经度在前**；`Cartographic` 里是弧度。
+- 相机三操作按意图选：setView（瞬移）、flyTo（飞行）、lookAt（环绕锁定）。
+- heading/pitch/roll 用飞机姿态理解；pitch 负值才是低头看地。
+
+下一章：往这个球上"贴图"——影像图层的家族与玩法。

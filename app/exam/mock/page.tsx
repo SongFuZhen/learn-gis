@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import QuizRunner from "@/components/quiz/QuizRunner";
-import { ALL_QUESTIONS } from "@/content/gis/all-questions";
+import { ALL_QUESTIONS } from "@/content/all-questions";
 import {
   EXAM_PLAN,
   PASS_LINE,
@@ -12,7 +12,7 @@ import {
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "综合考试 · GIS",
+  title: "综合考试",
   description: "跨全部章节随机抽 25 题，每次开考都是新卷。",
 };
 

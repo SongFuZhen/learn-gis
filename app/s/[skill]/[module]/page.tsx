@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import ModulePager from "@/components/ModulePager";
 import FloatingToc from "@/components/FloatingToc";
 import SpeechBar from "@/components/lesson/SpeechBar";
-import {
+import { SKILLS,
   getLesson,
   getModule,
   getModules,
@@ -16,7 +16,9 @@ import { PASS_LINE } from "@/lib/quiz/exam";
 import { extractToc } from "@/lib/toc";
 
 export function generateStaticParams() {
-  return getModules("gis").map((m) => ({ skill: "gis", module: m.slug }));
+  return SKILLS.flatMap((s) =>
+    getModules(s.id).map((m) => ({ skill: s.id, module: m.slug })),
+  );
 }
 
 export async function generateMetadata({
@@ -46,7 +48,7 @@ export default async function ModulePage({
   // 从 MDX 源码提取 h2 目录（id 生成规则与 mdx-components 的 h2 一致）
   const toc = extractToc(
     readFileSync(
-      path.join(process.cwd(), "content", "gis", `${moduleMeta.file}.mdx`),
+      path.join(process.cwd(), "content", skillId, `${moduleMeta.file}.mdx`),
       "utf8",
     ),
   );

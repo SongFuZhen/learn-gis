@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { RotateCcw } from "lucide-react";
-import { ALL_QUESTIONS } from "@/content/gis/all-questions";
+import { ALL_QUESTIONS } from "@/content/all-questions";
 import type { Question } from "@/lib/quiz/types";
 import QuizRunner from "./quiz/QuizRunner";
 

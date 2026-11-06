@@ -25,6 +25,8 @@ export const moduleProgress = gis.table("module_progress", {
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   moduleSlug: text("module_slug").notNull(),
+  /** 所属技能：gis / cesium / …（同 slug 跨技能互不干扰） */
+  skill: text("skill").notNull().default("gis"),
   /** 掌握度（0~100）：章节测验成绩滚动平均 */
   mastery: real("mastery").notNull().default(0),
   /** 已完成章节测验次数（mastery 平均的权重） */

@@ -1,0 +1,395 @@
+{
+  "skill": "cesium",
+  "module": "03",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-03-001",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "在没有配置任何地形 Provider 的 Cesium 场景里，喜马拉雅山脉看起来是什么样？",
+      "explanation": "默认地形 Provider 是 EllipsoidTerrainProvider——「贴在数学椭球面上、没有起伏」。影像只是贴皮，立体感来自地形层；不给地形，珠峰和广场一样平。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "有真实的立体起伏"
+        },
+        {
+          "key": "B",
+          "text": "与平原一样平——所有点都贴在椭球面上",
+          "hint": "默认地形是「无地形」"
+        },
+        {
+          "key": "C",
+          "text": "自动加载 OSM 的地形数据"
+        },
+        {
+          "key": "D",
+          "text": "显示为灰色占位块"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-002",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "更换地形 Provider 会影响影像图层的内容。",
+      "explanation": "地形与影像是两层独立数据：地形管起伏、影像管纹理。换地形 Provider 不改变影像内容；同样换底图也不影响地形。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-03-003",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "new Cesium.EllipsoidTerrainProvider() 的语义是？",
+      "explanation": "EllipsoidTerrainProvider 表示地形层退化为理想椭球面（无起伏）。它是默认值，显式写出来只是为了理解「地形层永远存在一个 Provider」这一模型。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "接入 Cesium ion 的默认地形服务"
+        },
+        {
+          "key": "B",
+          "text": "声明「没有地形起伏」，所有点贴在 WGS84 椭球面",
+          "hint": "它不是服务，是「选择平地」"
+        },
+        {
+          "key": "C",
+          "text": "接入 OSM 的地形瓦片"
+        },
+        {
+          "key": "D",
+          "text": "启用本地 DEM 文件"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-004",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "主流在线地形服务使用的主要格式是？",
+      "explanation": "quantized-mesh 把地形切块，块内顶点高度相对基准值量化为整数偏移，实现高压缩比的三维地形瓦片。这也是 ion World Terrain 使用的格式。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoJSON"
+        },
+        {
+          "key": "B",
+          "text": "quantized-mesh（量化网格）",
+          "hint": "地形瓦片主流格式，顶点高度量化压缩"
+        },
+        {
+          "key": "C",
+          "text": "GeoPackage"
+        },
+        {
+          "key": "D",
+          "text": "PNG 图片栈"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-005",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "Cesium ion 的 World Terrain（资产 id 1）可以在不注册 ion 的情况下直接使用。",
+      "explanation": "World Terrain 是 ion 托管资产，需要注册 ion 并配置 Cesium.Ion.defaultAccessToken。本课程示例全部绕行（用 EllipsoidTerrainProvider），只在概念层面介绍。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-03-006",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于 Cesium.sampleTerrain(terrainProvider, level, cartographics)，下列说法正确的有？",
+      "explanation": "sampleTerrain 异步返回指定层级下各点的高程（椭球高）；平地形恒为 0。点数不影响精度；要更高精度可用更高层级或 sampleTerrainMostDetailed（后者通常依赖 ion 地形）。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "查询请求需要指定地形层级",
+          "hint": "地形也是金字塔，不同层级精度不同"
+        },
+        {
+          "key": "B",
+          "text": "在 EllipsoidTerrainProvider 下查询结果恒为 0",
+          "hint": "无地形 = 椭球面即地面，高程 0"
+        },
+        {
+          "key": "C",
+          "text": "返回的是椭球高（相对椭球面），不是海拔正高",
+          "hint": "椭球高与正高差着高程异常"
+        },
+        {
+          "key": "D",
+          "text": "它是同步 API，调用后立刻拿到结果",
+          "hint": "sampleTerrain 是异步（Promise）API"
+        },
+        {
+          "key": "E",
+          "text": "查询点数量越多，结果的精度越高",
+          "hint": "精度由层级决定，与点数无关"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-007",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "GIS 课第 02 章讲过 GPS 大地高与海拔的差异。在 Cesium 里用 carto.height 得到的高度属于？",
+      "explanation": "Cesium 内部的高度都是椭球高（从 WGS84 椭球面量起）。它和海拔（正高）之间差着「高程异常 N」，量级可达几十米。需要海拔时须引入大地水准面模型换算。",
+      "refs": [
+        {
+          "title": "GIS 课 · 地球、椭球与基准面",
+          "url": "https://gis.ason.top/s/gis/02"
+        },
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "海拔高（正高）"
+        },
+        {
+          "key": "B",
+          "text": "椭球高（大地高）",
+          "hint": "Cartographic.height 从椭球面量起"
+        },
+        {
+          "key": "C",
+          "text": "离地高（AGL）"
+        },
+        {
+          "key": "D",
+          "text": "正高与大地高的平均值"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-008",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "下列哪些做法或说法与「地形层」相关且正确？",
+      "explanation": "立体感来自地形层 + 倾斜相机；地形也有自己的金字塔；quantized-mesh 是高度量化压缩格式。影像与地形两层互不干扰。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "倾斜视角（pitch 为负角）下地形立体感才明显，垂直俯瞰时影像和地形视觉差异最小",
+          "hint": "贴地视角才看得出起伏"
+        },
+        {
+          "key": "B",
+          "text": "地形瓦片也遵循金字塔 LOD，不同层级精度不同"
+        },
+        {
+          "key": "C",
+          "text": "quantized-mesh 通过量化压缩让一颗小瓦片能描述一座山"
+        },
+        {
+          "key": "D",
+          "text": "影像瓦片 maximumLevel 越高，地形起伏越明显",
+          "hint": "影像与地形独立，影像层级不影响起伏"
+        },
+        {
+          "key": "E",
+          "text": "换地形 Provider 时影像图层会被清空",
+          "hint": "两层独立，互不影响"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-009",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "Cesium 中表示「没有任何地形起伏、全部贴在椭球面」的地形 Provider 类名是？（写类名）",
+      "explanation": "EllipsoidTerrainProvider 是默认地形 Provider，语义是「地形层 = 理想椭球面」。它是理解「地形层永远存在一个 Provider」这一模型的关键类。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "EllipsoidTerrainProvider",
+        "Cesium.EllipsoidTerrainProvider",
+        "ellipsoidterrainprovider"
+      ],
+      "placeholder": "例如：EllipsoidTerrainProvider"
+    },
+    {
+      "id": "cesium-03-010",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "地形探针需求：相机移动后在屏幕上显示「屏幕中心点的地面高程」。在默认配置（EllipsoidTerrainProvider）下运行，输出恒为 0.0 m。对这个现象的正确解读是？",
+      "explanation": "sampleTerrain 的返回值取决于地形 Provider 的数据。EllipsoidTerrainProvider 的「地面」就是椭球面，高程恒 0。这正是探针验证「地形层数据源是否生效」的原理。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "sampleTerrain 存在 bug，应换 sampleTerrainMostDetailed"
+        },
+        {
+          "key": "B",
+          "text": "「无地形」时椭球面即地面，地面高程恒为椭球高 0；有真实地形数据时才会返回非零高程",
+          "hint": "探针结果直接反映地形层数据源"
+        },
+        {
+          "key": "C",
+          "text": "应该改用 camera.positionCartographic.height 代替",
+          "hint": "那是相机高度，不是地面高程"
+        },
+        {
+          "key": "D",
+          "text": "应把层级参数调到最大"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-011",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "某项目要在内网离线环境展示真实地形。以下路径中，工程上可行且不依赖 ion 的是？",
+      "explanation": "地形本质是数据瓦片，自托管 quantized-mesh（由 DEM 转换）+ CesiumTerrainProvider.fromUrl 是离线地形的标准做法，全程不依赖 ion。换影像只改纹理，永远造不出起伏。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "申请 ion token 并缓存瓦片"
+        },
+        {
+          "key": "B",
+          "text": "将公开 DEM 数据用工具链（如 ctb-tile）转为 quantized-mesh 瓦片，自托管后用 CesiumTerrainProvider.fromUrl 加载",
+          "hint": "自托管地形瓦片是离线场景的正解"
+        },
+        {
+          "key": "C",
+          "text": "把卫星影像换成更清晰的源"
+        },
+        {
+          "key": "D",
+          "text": "用 EllipsoidTerrainProvider 加上更大 maximumLevel"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-012",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "「影像管长什么样，地形管多高多矮」——这句口诀意味着：把卫星影像换成街景渲染图，山的高度也不会变。",
+      "explanation": "两层独立：地形决定几何起伏，影像决定表面纹理。纹理怎么换都不改变几何形态。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    }
+  ]
+}

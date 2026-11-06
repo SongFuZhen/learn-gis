@@ -96,15 +96,17 @@ export function pickExamQuestions(
   });
   if (unique.length <= count) return shuffled(unique, rand);
 
-  const byModule = new Map<string, Question[]>();
+  // 分桶键带技能：cesium 的 "00" 与 gis 的 "00" 是不同章节
+  const byBucket = new Map<string, Question[]>();
   for (const question of unique) {
-    const bucket = byModule.get(question.module);
+    const key = `${question.skill}:${question.module}`;
+    const bucket = byBucket.get(key);
     if (bucket) bucket.push(question);
-    else byModule.set(question.module, [question]);
+    else byBucket.set(key, [question]);
   }
 
   const buckets = shuffled(
-    [...byModule.values()].map((bucket) => shuffled(bucket, rand)),
+    [...byBucket.values()].map((bucket) => shuffled(bucket, rand)),
     rand,
   );
 

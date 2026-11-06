@@ -1,0 +1,141 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：第 00 章你给 Viewer 指定了一张底图，但真实业务几乎永远是"多张图叠着用"——底图管地理轮廓，卫星影像管真实外观，天气/行政区划/热力图管业务信息。本章讲 Cesium 的**影像图层栈**怎么玩。**我的经验一句话**：Cesium 的影像图层和 Photoshop 图层是一个概念——能叠、能调透明度、能调上下顺序；理解了这一点，剩下就是记 Provider 名字。**我见过的坑（你大概率也会踩）**：
+- 瓦片服务 URL 写对了却出不来图——忘了瓦片模板里 `{z}/{x}/{y}` 的原点约定：OSM 系原点在**西北角**，TMS 系原点在**西南角**（GIS 课第 07 章讲过 XYZ 与 TMS 的 y 翻转）。
+- 图层叠上去盖住了底图——`imageryLayers` 的**后加入的在上面**，不是在下层。
+- 大瓦片加载慢就把 `maximumLevel` 调到 19——服务器根本没有那个层级的瓦片，只会 404 刷屏。**必记 3 条**：
+1. `viewer.imageryLayers` 是图层栈：后加入在上，`raise/lower` 调序，`alpha` 调透明
+2. `UrlTemplateImageryProvider` 接任意 XYZ 瓦片，模板 `{z}/{x}/{y}` 默认西北原点
+3. `maximumLevel` 只能到数据真实存在的层级，配 `credit` 标数据来源
+
+## 本章你会学到
+
+ImageryProvider 家族里最常用的几个成员；瓦片金字塔在这一层的意义（衔接 GIS 课第 07 章的瓦片知识）；多图层叠加、透明度、调序；以及拿 `UrlTemplateImageryProvider` 接任何一家 XYZ 瓦片服务的通用姿势。
+
+## 1. ImageryProvider：影像数据源的抽象
+
+**ImageryProvider**（/ˈɪmɪdʒri ˈproʊvaɪdər/，「伊-米-日里 普-罗-瓦伊-德」，影像数据提供者）是"一组瓦片从哪来"的抽象。家族常用成员：
+
+| Provider | 适用数据源 | 典型场景 |
+| --- | --- | --- |
+| `OpenStreetMapImageryProvider` | OSM 标准瓦片 | 免费底图（本课程默认） |
+| `ArcGisMapServerImageryProvider` | ArcGIS REST 影像服务 | 免费卫星影像 |
+| `UrlTemplateImageryProvider` | 任意 XYZ/TMS 模板 | 自建瓦片服务、天地图、高德 |
+| `TileMapServiceImageryProvider` | 本地 TMS 目录 | 离线底图（NaturalEarthII 样例） |
+| `SingleTileImageryProvider` | 单张图片 | 固定封面图、极小范围覆盖层 |
+
+所有 Provider 现在推荐用 `fromUrl` 异步工厂创建，再交给 `ImageryLayer.fromProviderAsync`——这就是第 00 章 `baseLayer` 参数的来历。
+
+## 2. 图层栈：叠、透明、调序
+
+```js
+// 底图（第 00 章已配）：OSM
+const viewer = new Cesium.Viewer("cesiumContainer", { /* … */ });
+
+// 再叠一层：ArcGIS 卫星影像，半透明
+const imageryLayers = viewer.imageryLayers;
+const satLayer = imageryLayers.addImageryProvider(
+  await Cesium.ArcGisMapServerImageryProvider.fromUrl(
+    "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+  )
+);
+satLayer.alpha = 0.5; // 0 全透明 ~ 1 不透明
+
+// 调整顺序：让卫星影像沉到底图之下（很少这么做，但 API 在这）
+satLayer.raise();   // 上移一层
+satLayer.lower();   // 下移一层
+satLayer.raiseToTop();
+
+// 显示/隐藏与移除
+satLayer.show = false;
+imageryLayers.remove(satLayer);
+imageryLayers.removeAll();
+```
+
+和 Photoshop 一样：**数组顺序即视觉顺序，越靠上越后渲染**。业务覆盖层（标注、热力）永远放最上面，影像对比层放中间，底图垫底。
+
+<Callout type="must" title="必背 · 图层栈三条">
+后加入的在最上；`alpha` 控透明度、`show` 接开关；`removeAll()` 一键清空（底图也会被清掉，慎用）。
+</Callout>
+
+## 3. UrlTemplateImageryProvider：万能模板
+
+任何 URL 里带 `{z}/{x}/{y}` 的瓦片服务都能接：
+
+```js
+const layer = imageryLayers.addImageryProvider(
+  new Cesium.UrlTemplateImageryProvider({
+    // 模板变量：{z} 层级 {x} 列 {y} 行；有的服务还有 {s} 子域
+    url: "https://tile.example.com/roads/{z}/{x}/{y}.png",
+    maximumLevel: 18,                     // 数据真实存在的最大层级
+    credit: "示例瓦片服务",                // 左下角数据来源署名（尊重服务条款）
+  })
+);
+```
+
+三个参数里最容易出事的是瓦片原点：XYZ 规范的 `{y}` 从**北（顶）往南数**，TMS 从**南往北数**。接 TMS 服务时用 `tilingScheme: new Cesium.GeographicTilingScheme()` 换投影方案，或直接换 `TileMapServiceImageryProvider`——它按 TMS 约定请求。判断方法很粗暴：加载后世界地图上下颠倒/只有赤道附近出图，八成是原点约定反了。
+
+<Callout type="info" title="和 GIS 课第 07 章的呼应">
+瓦片金字塔 = 不同 zoom 层级的预切图，请求哪层由当前相机高度决定。Cesium 与 Leaflet 遵循同一金字塔逻辑，区别只在：Leaflet 的 zoom 是整数层级直选，Cesium 的瓦片选择由 SSE（屏幕空间误差）算法按视角动态算——你可以理解为"连续 zoom"。第 06 章 3D Tiles 的 LOD 是同一思想的立方体版本。
+</Callout>
+
+## 4. 实战：底图 + 行政区划标注层
+
+一个典型组合：OSM 垫底，上面叠一层半透明专题图（示例用天地图矢量注记思路演示 URL 模板写法），再给专题层加个开关：
+
+```js
+const baseLayer = imageryLayers.addImageryProvider(
+  await Cesium.OpenStreetMapImageryProvider.fromUrl(
+    "https://tile.openstreetmap.org/"
+  )
+);
+
+const annoLayer = imageryLayers.addImageryProvider(
+  new Cesium.UrlTemplateImageryProvider({
+    url: "https://your-server/labels/{z}/{x}/{y}.png",
+    maximumLevel: 12,
+    credit: "示例标注层",
+  })
+);
+annoLayer.alpha = 0.8;
+
+// 两秒后把标注层关掉（模拟图层开关面板）
+setTimeout(() => { annoLayer.show = false; }, 2000);
+```
+
+<Exercise tool="cesium" title="动手 · 三图层影像对比开关">
+用 OSM 底图 + ArcGIS 影像做一个"影像对比开关"：点一个按钮切换卫星影像层的 `show`，并把它固定在图层栈最顶层、透明度 0.7。
+
+<ExerciseSolution>
+```js
+const viewer = new Cesium.Viewer("cesiumContainer", {
+  baseLayer: Cesium.ImageryLayer.fromProviderAsync(
+    Cesium.OpenStreetMapImageryProvider.fromUrl("https://tile.openstreetmap.org/")
+  ),
+  baseLayerPicker: false,
+});
+
+const satLayer = viewer.imageryLayers.addImageryProvider(
+  await Cesium.ArcGisMapServerImageryProvider.fromUrl(
+    "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+  )
+);
+satLayer.alpha = 0.7;
+satLayer.raiseToTop();
+
+let visible = true;
+setInterval(() => {
+  visible = !visible;
+  satLayer.show = visible;
+}, 1500);
+```
+加分项：把 `setInterval` 换成页面上的真实按钮（`document.querySelector`），并在切换时同时调 `viewer.scene.requestRender()`（第 09 章会讲 requestRenderMode 时这个调用的意义）。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- `imageryLayers` 是图层栈：后入在上、`alpha`/`show`/`raise`/`lower` 是全套操作。
+- `UrlTemplateImageryProvider` 是接 XYZ 服务的万能钥匙；分清 XYZ（北原点）与 TMS（南原点）。
+- `maximumLevel` 如实声明，`credit` 如实署名。
+- 影像只是"贴在球上的皮"——它没有高度。地面起伏是下一章的事。

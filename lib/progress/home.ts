@@ -2,10 +2,11 @@ import { cookies } from "next/headers";
 import { and, desc, eq, isNull, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { examSessions, moduleProgress, wrongAnswers } from "@/db/schema";
-import { GIS_MODULES } from "@/content/gis/modules";
+import { SKILL_REGISTRY } from "@/content/registry";
 import { dateKey } from "@/lib/quiz/exam";
 
 export type ChapterProgress = {
+  skill: string;
   slug: string;
   title: string;
   /** 0~100，未测验为 0 */
@@ -41,6 +42,8 @@ export type HomeData = {
   reviewDue: number;
   /** 最近学习的章节 slug（用于「继续学习」）；从未学过为 null */
   continueSlug: string | null;
+  /** 最近学习章节所属技能（与 continueSlug 配对） */
+  continueSkill: string | null;
   chapters: ChapterProgress[];
 };
 
@@ -117,16 +120,22 @@ export async function getHomeData(): Promise<HomeData | null> {
           .where(eq(examSessions.userId, userId)),
       ]);
 
-    const bySlug = new Map(progressRows.map((r) => [r.moduleSlug, r]));
-    const chapters: ChapterProgress[] = GIS_MODULES.map((m) => {
-      const row = bySlug.get(m.slug);
-      return {
-        slug: m.slug,
-        title: m.title,
-        mastery: row?.mastery ?? 0,
-        quizCount: row?.quizCount ?? 0,
-      };
-    });
+    // skill:slug 复合键：cesium 的 "00" 与 gis 的 "00" 是不同章节
+    const bySlug = new Map(
+      progressRows.map((r) => [`${r.skill ?? "gis"}:${r.moduleSlug}`, r]),
+    );
+    const chapters: ChapterProgress[] = SKILL_REGISTRY.flatMap((reg) =>
+      reg.modules.map((m) => {
+        const row = bySlug.get(`${reg.id}:${m.slug}`);
+        return {
+          skill: reg.id,
+          slug: m.slug,
+          title: m.title,
+          mastery: row?.mastery ?? 0,
+          quizCount: row?.quizCount ?? 0,
+        };
+      }),
+    );
 
     const answeredTotal = progressRows.reduce(
       (sum, r) => sum + r.totalAttempts,
@@ -160,6 +169,7 @@ export async function getHomeData(): Promise<HomeData | null> {
       dailyDoneToday: dailyRows.length > 0,
       reviewDue: reviewAgg[0]?.count ?? 0,
       continueSlug: latest?.moduleSlug ?? null,
+      continueSkill: latest?.skill ?? (latest ? "gis" : null),
       chapters,
     };
   } catch {

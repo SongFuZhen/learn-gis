@@ -5,8 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ICONS, NAV_ITEMS, isActive } from "@/components/nav";
 import ThemeToggle from "@/components/ThemeToggle";
-import { GIS_MODULES } from "@/content/gis/modules";
-import { ALL_QUESTIONS } from "@/content/gis/all-questions";
+import { SKILLS, getModules } from "@/lib/content";
+import { ALL_QUESTIONS } from "@/content/all-questions";
 import { cn } from "@/lib/utils";
 import logoMark from "@/public/brand/logo.png";
 
@@ -50,7 +50,8 @@ export default function Sidebar() {
       <div className="mt-auto flex flex-col gap-3">
         <div className="rounded-md bg-brand-soft p-3">
           <p className="text-[12px] font-medium text-foreground">
-            GIS · {GIS_MODULES.length} 章
+            {SKILLS.map((s) => s.title.split(" ")[0]).join(" + ")} ·{" "}
+            {SKILLS.reduce((n, s) => n + getModules(s.id).length, 0)} 章
           </p>
           <p className="mt-1 text-[12px] leading-relaxed text-foreground-muted">
             讲义 → 做题 → 复习，题库共 {ALL_QUESTIONS.length} 题。

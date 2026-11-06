@@ -6,6 +6,7 @@ import { chapterNo } from "@/lib/content";
 import { PASS_LINE } from "@/lib/quiz/exam";
 
 type Row = {
+  skill?: string;
   moduleSlug: string;
   mastery: number;
   quizCount: number;
@@ -39,7 +40,10 @@ export default function ProgressPanel() {
     <>
       <ul className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {GIS_MODULES.map((m) => {
-          const row = rows.find((r) => r.moduleSlug === m.slug);
+          // 只匹配本技能的行（skill 缺省视为 gis，兼容迁移前的存量行）
+          const row = rows.find(
+            (r) => r.moduleSlug === m.slug && (r.skill ?? "gis") === "gis",
+          );
           const mastery = Math.round(row ? row.mastery : 0);
           return (
             <li

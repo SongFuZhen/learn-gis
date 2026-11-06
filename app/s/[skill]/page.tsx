@@ -7,6 +7,7 @@ import {
   getSkill,
   SKILLS,
 } from "@/lib/content";
+import { SKILL_REGISTRY } from "@/content/registry";
 
 export function generateStaticParams() {
   return SKILLS.map((skill) => ({ skill: skill.id }));
@@ -33,6 +34,8 @@ export default async function SkillPage({
   if (!skill) notFound();
 
   const modules = getModules(skillId);
+  const registration = SKILL_REGISTRY.find((r) => r.id === skillId);
+  const plannedModules = registration?.plannedModules ?? [];
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
@@ -73,6 +76,18 @@ export default async function SkillPage({
             </li>
           );
         })}
+        {plannedModules.map((m) => (
+          <li
+            key={m.slug}
+            className="flex items-center gap-3 rounded-md border border-dashed border-border px-4 py-3 text-[13px] text-foreground-tertiary"
+          >
+            <span className="font-mono text-[11px] text-foreground-muted">
+              {chapterNo(m.slug)}
+            </span>
+            {m.title}
+            <span className="ml-auto text-[11px]">即将上线</span>
+          </li>
+        ))}
       </ol>
     </div>
   );

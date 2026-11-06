@@ -1,0 +1,388 @@
+{
+  "skill": "cesium",
+  "module": "02",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-02-001",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "viewer.imageryLayers.addImageryProvider(p) 连续调用两次后，两个图层的视觉叠放关系是？",
+      "explanation": "imageryLayers 是数组语义的图层栈：后加入者渲染在最上。调整顺序用 layer.raise()/lower()/raiseToTop()。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "先加入的在上面"
+        },
+        {
+          "key": "B",
+          "text": "后加入的在上面",
+          "hint": "图层栈数组顺序即视觉顺序，后加入者更靠上"
+        },
+        {
+          "key": "C",
+          "text": "随机顺序"
+        },
+        {
+          "key": "D",
+          "text": "按瓦片服务响应速度决定"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-02-002",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "把某个影像图层的 layer.alpha 设为 0.5，可以让它半透明地与下层图层混合显示。",
+      "explanation": "alpha 取值 0~1：0 全透明、1 不透明。半透明叠加是「影像对比」「专题层压底图」的标准手法。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-02-003",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "要接入一个自建的 XYZ 瓦片服务（URL 形如 https://host/roads/{z}/{x}/{y}.png），最合适的 Provider 是？",
+      "explanation": "UrlTemplateImageryProvider 用 {z}/{x}/{y}（可选 {s} 子域）模板匹配任意 XYZ 瓦片服务，是接自建/第三方瓦片的万能钥匙。配 maximumLevel 声明真实最大层级、credit 做署名。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "OpenStreetMapImageryProvider"
+        },
+        {
+          "key": "B",
+          "text": "UrlTemplateImageryProvider",
+          "hint": "模板化 URL 通吃任意 XYZ 服务"
+        },
+        {
+          "key": "C",
+          "text": "SingleTileImageryProvider"
+        },
+        {
+          "key": "D",
+          "text": "EllipsoidTerrainProvider"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-02-004",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "用 UrlTemplateImageryProvider 接某个 TMS 瓦片服务（y 从南往北数），加载后地图上下颠倒。下列哪个做法是正确的修复方向？",
+      "explanation": "XYZ 规范 y 从北（顶）往南数，TMS 从南往北数。模板原点约定与服务不一致时，画面会上下颠倒或只渲染局部。修复 = 让 Provider 的瓦片方案与服务一致。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 {y} 改成 {z}"
+        },
+        {
+          "key": "B",
+          "text": "换用遵循 TMS 约定的 TileMapServiceImageryProvider，或调整 tilingScheme 使 y 方向匹配",
+          "hint": "原点约定不匹配是根因"
+        },
+        {
+          "key": "C",
+          "text": "把 alpha 调成 1"
+        },
+        {
+          "key": "D",
+          "text": "给瓦片 URL 加随机数防缓存"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-02-005",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 maximumLevel 与瓦片金字塔，下列说法正确的有哪些？",
+      "explanation": "瓦片金字塔按视角动态选层（由屏幕空间误差驱动）；maximumLevel 是对数据真实层级的如实声明，虚报只会制造 404；它不是缩放 UI 限制。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "maximumLevel 应声明为数据真实存在的最大层级"
+        },
+        {
+          "key": "B",
+          "text": "虚报一个超出真实数据的 maximumLevel 会导致高层级 404 刷屏",
+          "hint": "服务器没有该层级瓦片，请求必然失败"
+        },
+        {
+          "key": "C",
+          "text": "相机拉远时 Cesium 会自动请求更低的层级",
+          "hint": "金字塔按视角动态选层"
+        },
+        {
+          "key": "D",
+          "text": "maximumLevel 是 Cesium 强制限制用户缩放的 UI 参数",
+          "hint": "它是数据声明，不是 UI 限制"
+        },
+        {
+          "key": "E",
+          "text": "瓦片金字塔的选层逻辑由 SSE（屏幕空间误差）按相机视角动态计算",
+          "hint": "Cesium 用连续的误差指标选层，而非离散 zoom 档位"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-02-006",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "调用 imageryLayers.removeAll() 后，第 00 章配置的底图也会被移除。",
+      "explanation": "removeAll() 清空整个图层栈，包括作为 baseLayer 的底图。只想移除某一层用 remove(layer)。清空后想恢复底图需要重新添加。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-02-007",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "影像图层堆栈的正确心智模型是？",
+      "explanation": "影像图层栈与 Photoshop 图层语义一致：叠放（数组顺序）、透明（alpha）、顺序（raise/lower）、开关（show）。这是理解多图层业务的最佳模型。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "类似 Git 分支，图层之间会自动合并"
+        },
+        {
+          "key": "B",
+          "text": "类似 Photoshop 图层：能叠、能调透明度、能调上下顺序、能开关",
+          "hint": "imageryLayers 就是图层栈语义"
+        },
+        {
+          "key": "C",
+          "text": "类似目录树，图层有父子继承"
+        },
+        {
+          "key": "D",
+          "text": "类似 Promise 链，按加入顺序依次异步执行"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-02-008",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "业务场景：OSM 底图之上叠一层「行政区划标注 PNG 瓦片」，要求标注层始终在最上且半透明。下列操作组合正确的是？",
+      "explanation": "底图先加（垫底），标注层后加（在上）。若之后又加了别的图层需要保证标注最顶，可随时调 annoLayer.raiseToTop()。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "先加标注层再加 OSM 底图，alpha=0.8",
+          "hint": "顺序反了：后加入在上，底图会把标注盖住"
+        },
+        {
+          "key": "B",
+          "text": "先加 OSM 底图，再加标注层并 alpha=0.8",
+          "hint": "后加入在上，标注层自然在顶"
+        },
+        {
+          "key": "C",
+          "text": "先加 OSM 底图，再加标注层，alpha=0.8，随后调用标注层 lower()"
+        },
+        {
+          "key": "D",
+          "text": "两层 alpha 都设 0.5"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-02-009",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Cesium 选择瓦片层级的方式与 Leaflet 完全相同：都是把相机 zoom 取整后请求对应整数层级。",
+      "explanation": "Leaflet 的 zoom 是离散整数档位；Cesium 由屏幕空间误差（SSE）按相机视角/距离连续计算该加载哪一层，可理解为「连续 zoom」。两者金字塔数据结构相同，选层策略不同。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-02-010",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "XYZ 瓦片规范中，zoom 为 0 时整个世界由几片瓦片组成？（填数字）",
+      "explanation": "XYZ 金字塔第 0 层是 1 张瓦片覆盖全球（墨卡托平面），每升一层行列数翻倍（第 z 层为 2^z × 2^z）。这也是任何 XYZ 服务可用性测试的最小请求。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "1",
+        "1片",
+        "1 片",
+        "一片"
+      ],
+      "placeholder": "例如：4"
+    },
+    {
+      "id": "cesium-02-011",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "关于瓦片服务的 credit 参数（如 UrlTemplateImageryProvider 的 credit），下列理解正确的是？",
+      "explanation": "credit 渲染在画面左下角的致谢栏，用于声明数据来源。OSM、ArcGIS 等服务的使用政策都包含署名要求；正确设置 credit 是合规的一部分，不能免除政策约束。",
+      "refs": [
+        {
+          "title": "OSM 瓦片使用政策",
+          "url": "https://operations.osmfoundation.org/policies/tiles/"
+        },
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "仅用于展示服务品牌，可以随便填"
+        },
+        {
+          "key": "B",
+          "text": "用于在画面左下角署名数据来源，是尊重服务条款的一部分",
+          "hint": "OSM 等服务条款都要求署名"
+        },
+        {
+          "key": "C",
+          "text": "是缓存 key 的一部分，影响瓦片加载性能"
+        },
+        {
+          "key": "D",
+          "text": "设置后可豁免瓦片服务的使用政策限制"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-02-012",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "一个「影像对比」需求：底图 OSM，上层叠半透明卫星影像，且产品要求「影像层永远盖在所有业务标注层之上」。下列实现组合最稳的是？",
+      "explanation": "图层栈顺序只由数组位置决定；「永远在最上」这种跨动态增删的约束，用 raiseToTop() 在每次图层变化后显式维护最可靠。靠添加顺序是脆弱的时序依赖。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "保证影像层第一个 add"
+        },
+        {
+          "key": "B",
+          "text": "影像层最后 add，且在业务层动态增删后每次调用影像层 raiseToTop()",
+          "hint": "显式维护「最顶」语义，不受后续图层增删影响"
+        },
+        {
+          "key": "C",
+          "text": "把影像层 alpha 调成 1，靠加入顺序"
+        },
+        {
+          "key": "D",
+          "text": "给影像层设置 show=true 即可"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    }
+  ]
+}

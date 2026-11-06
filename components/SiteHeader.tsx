@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
-import { GIS_MODULES } from "@/content/gis/modules";
+import { SKILLS, getModule } from "@/lib/content";
 import logoMark from "@/public/brand/logo.png";
 
 /** 静态路由标题：前缀长的放前面，避免 /exam 抢走 /exam/daily */
@@ -25,15 +25,18 @@ function pageTitle(pathname: string): string {
       return title;
     }
   }
-  // 讲义 / 章节测验：/s/gis/{两位章节号}
-  const chapter = pathname.match(/^\/s\/gis\/(\d{2})/);
+  // 讲义 / 章节测验：/s/{skill}/{两位章节号}
+  const chapter = pathname.match(/^\/s\/([a-z]+)\/(\d{2})/);
   if (chapter) {
-    const mod = GIS_MODULES.find((x) => x.slug === chapter[1]);
+    const mod = getModule(chapter[1] ?? "", chapter[2] ?? "");
     if (mod) {
       return pathname.endsWith("/quiz") ? `测验 · ${mod.title}` : mod.title;
     }
   }
-  if (pathname.startsWith("/s/")) return "GIS 基础";
+  if (pathname.startsWith("/s/")) {
+    const skill = SKILLS.find((s) => pathname.startsWith(`/s/${s.id}/`));
+    return skill?.title ?? "课程";
+  }
   return "首页";
 }
 

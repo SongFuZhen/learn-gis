@@ -6,8 +6,8 @@ import {
   Play,
   RotateCcw,
 } from "lucide-react";
-import { GIS_MODULES } from "@/content/gis/modules";
-import { chapterNo, getQuestionFile } from "@/lib/content";
+import { SKILL_REGISTRY } from "@/content/registry";
+import { SKILLS, chapterNo, getModules, getQuestionFile } from "@/lib/content";
 import { PASS_LINE } from "@/lib/quiz/exam";
 import { getHomeData } from "@/lib/progress/home";
 import MasteryDonut from "@/components/home/MasteryDonut";
@@ -21,9 +21,17 @@ export default async function HomePage() {
 
 /** 新访客版：介绍 + 题库统计 + 快捷入口 */
 function Intro() {
-  const chapterCount = GIS_MODULES.length;
-  const questionCount = GIS_MODULES.reduce(
-    (sum, m) => sum + getQuestionFile("gis", m.slug).questions.length,
+  const chapterCount = SKILLS.reduce(
+    (sum, s) => sum + getModules(s.id).length,
+    0,
+  );
+  const questionCount = SKILLS.reduce(
+    (sum, s) =>
+      sum +
+      getModules(s.id).reduce(
+        (acc, m) => acc + getQuestionFile(s.id, m.slug).questions.length,
+        0,
+      ),
     0,
   );
 
@@ -105,13 +113,16 @@ function Intro() {
 
 /** 回访用户版：今日任务 + 继续学习 + 各章掌握度 */
 function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHomeData>>> }) {
-  const continueModule = data.continueSlug
-    ? GIS_MODULES.find((m) => m.slug === data.continueSlug)
-    : null;
-  // 下一步：有最近章节就继续它，否则从头开始
+  const continueModule =
+    data.continueSlug && data.continueSkill
+      ? SKILL_REGISTRY.find((r) => r.id === data.continueSkill)?.modules.find(
+          (m) => m.slug === data.continueSlug,
+        ) ?? null
+      : null;
+  // 下一步：有最近章节就继续它（跨技能），否则从头开始 GIS
   const nextHref = continueModule
-    ? `/s/gis/${continueModule.slug}`
-    : `/s/gis/${GIS_MODULES[0]?.slug ?? ""}`;
+    ? `/s/${data.continueSkill}/${continueModule.slug}`
+    : `/s/gis/${SKILL_REGISTRY[0]?.modules[0]?.slug ?? ""}`;
   const nextLabel = continueModule
     ? `继续《${continueModule.title}》`
     : "开始学习";
@@ -126,13 +137,15 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
     { value: data.examCount, unit: "次", label: "参加考试" },
   ];
 
-  const passedChapters = data.chapters.filter(
+  // Phase 1：仪表板章节区仍只展示 GIS（cesium 章节随 Phase 3 加入展示）
+  const gisChapters = data.chapters.filter((c) => c.skill === "gis");
+  const passedChapters = gisChapters.filter(
     (c) => c.quizCount > 0 && c.mastery >= PASS_LINE,
   ).length;
-  const learningChapters = data.chapters.filter(
+  const learningChapters = gisChapters.filter(
     (c) => c.quizCount > 0 && c.mastery < PASS_LINE,
   ).length;
-  const notStartedChapters = data.chapters.length - passedChapters - learningChapters;
+  const notStartedChapters = gisChapters.length - passedChapters - learningChapters;
 
   return (
     <div className="w-full px-4 pb-8 pt-5 sm:px-6 lg:px-8 lg:pt-10">
@@ -294,7 +307,7 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
           </Link>
         </div>
         <ul className="mt-3 space-y-2.5">
-          {data.chapters.map((c) => (
+          {gisChapters.map((c) => (
             <li key={c.slug}>
               <Link
                 href={`/s/gis/${c.slug}`}

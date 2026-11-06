@@ -1,0 +1,141 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：你已经会用 Leaflet 打开一张平面地图（GIS 课第 14 章），但地球是三维的——山有高度、楼有楼层、卫星在天上飞。**CesiumJS**（/ˈsiːziəm/，「西-兹-亚姆」，开源三维地球引擎）就是干这个的：它给你一个能转、能飞、能加载三维城市的"数字地球"。**我的经验一句话**：Leaflet 是"看地图"，Cesium 是"进入地图"——思维方式要从"图层叠瓦片"升级为"场景里放对象"。**我见过的坑（你大概率也会踩）**：
+- `new Cesium.Viewer(...)` 什么都不配就跑——默认会去请求 Cesium ion 的付费影像服务，没有 token 直接 401 报错。本章第一个要记住的事就是：**底图必须显式指定**。
+- 把 CesiumJS 和 ion 搞混——前者是开源引擎（Apache 2.0），后者是官方的数据托管服务（有免费额度但需要注册账号）。不注册 ion 也完全可以学完本课程，我们全程用 OpenStreetMap 等免费数据源。
+- 在 React/Vue 里直接 `import` 后页面白屏——Cesium 操作真实 DOM，必须等容器渲染完成再初始化，且要关闭服务端渲染。**必记 3 条**：
+1. 创建 Viewer 必须显式给 `baseLayer`，否则默认请求 ion 影像并报 401
+2. Cesium 的经纬度是「经度在前、纬度在后」（lon, lat），和 GIS 课的 (lat, lng) 习惯相反
+3. 学 Cesium 最好的草稿本是官方 Sandcastle，改一行看一次效果
+
+## 本章你会学到
+
+这一章不写任何业务，只把"环境 + 第一个球"跑通：Cesium 和二维地图库的本质区别是什么、本地环境怎么搭、一个最小可用的 Viewer 长什么样、以及官方 Sandcastle 怎么当草稿本用。学完这章，你有一个能转的三维地球，并且知道它为什么不会 401。
+
+## 1. Cesium 和 Leaflet 的本质区别
+
+GIS 课第 14 章讲过：Leaflet / MapLibre / OpenLayers 是**二维瓦片地图库**——世界被投影成平面方格（Web 墨卡托），库把方格拼起来给你看。Cesium 走的是另一条路：
+
+| 维度 | Leaflet 等 | CesiumJS |
+| --- | --- | --- |
+| 地球形态 | 平面投影（墨卡托方格） | 真实椭球体（WGS84，衔接 GIS 课第 02 章） |
+| 视角 | 俯视固定 | 自由飞行：贴地、倾斜、绕飞 |
+| 高度 | 无 | 一等公民：地形、楼、卫星轨道都是"有高度"的 |
+| 时间 | 无 | 内置 Clock，可做轨迹回放、动态模拟 |
+| 数据单位 | 瓦片层级 zoom | 相机 + 场景图（scene graph） |
+
+一句话：**只要需求里出现"三维""倾斜""地形""时间回放"中的任何一个，就该上 Cesium**；只是标个点画条线，Leaflet 依然是最优解。
+
+<Callout type="info" title="Cesium 的名字来历">
+Cesium 是元素「铯」——铯原子钟定义了时间标准，对应 Cesium 对"时间维度"的一等支持。中文里引擎名不翻译，读「西-兹-亚姆」。
+</Callout>
+
+## 2. 环境准备：Vite + npm
+
+本课程所有示例都假设你用 Vite 起了一个纯前端项目（不需要框架，Vanilla JS 最直观）：
+
+```bash
+npm create vite@latest my-cesium -- --template vanilla
+cd my-cesium
+npm install cesium
+npm run dev
+```
+
+装好后还要做一步**资源拷贝**：Cesium 自带 Workers、Assets、Widgets、ThirdParty 四个静态目录，打包工具不会自动搬它们。Vite 下用 `vite-plugin-static-copy` 或手动把 `node_modules/cesium/Build/Cesium/` 下的这四个目录拷到输出目录，并声明全局路径：
+
+```js
+// vite.config.js
+import { defineConfig } from "vite";
+import { viteStaticCopy } from "vite-plugin-static-copy";
+
+const cesiumSource = "node_modules/cesium/Build/Cesium";
+const cesiumBaseUrl = "cesium";
+
+export default defineConfig({
+  define: {
+    // 告诉 Cesium 它的静态资源在哪个 URL 下
+    CESIUM_BASE_URL: JSON.stringify(`/${cesiumBaseUrl}`),
+  },
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        { src: `${cesiumSource}/ThirdParty`, dest: cesiumBaseUrl },
+        { src: `${cesiumSource}/Workers`, dest: cesiumBaseUrl },
+        { src: `${cesiumSource}/Assets`, dest: cesiumBaseUrl },
+        { src: `${cesiumSource}/Widgets`, dest: cesiumBaseUrl },
+      ],
+    }),
+  ],
+});
+```
+
+不想折腾本地环境？直接开 [Sandcastle](https://sandcastle.cesium.com/)——官方在线示例场，左边改代码右边看球，本章所有代码都能粘进去跑。
+
+## 3. 第一个 Viewer：显式指定免费底图
+
+下面是本课程**最模板化的十行代码**——每个示例的第一步都是它：
+
+```js
+import * as Cesium from "cesium";
+import "cesium/Build/Cesium/Widgets/widgets.css";
+
+const viewer = new Cesium.Viewer("cesiumContainer", {
+  // 显式指定 OpenStreetMap 作为底图——绝不请求 ion
+  baseLayer: Cesium.ImageryLayer.fromProviderAsync(
+    Cesium.OpenStreetMapImageryProvider.fromUrl("https://tile.openstreetmap.org/")
+  ),
+  // 关掉用不到的控件，画面干净
+  baseLayerPicker: false,
+  geocoder: false,
+  homeButton: false,
+});
+```
+
+<Callout type="warn" title="必踩坑 · 不配 baseLayer 就是 401">
+不带 `baseLayer` 参数的 Viewer 会用默认的 ion 托管影像（Bing 影像）。没有 token 时控制台直接甩一个 `401 Unauthorized`，画面变空球。这不是 bug，是"数据源需要授权"。本课程所有代码都显式指定免费底图；如果你在别处看到别人的 demo 一行配置都没写还能出图，那是因为人家注册过 ion 并设了 `Cesium.Ion.defaultAccessToken`。
+</Callout>
+
+跑起来后你会看到一个可以拖转的地球。右下角自带几个控件：罗盘（转向）、比例尺、动画时钟。用鼠标试三件事：**左键拖 = 转球**、**中键/右键缩放 = 推近拉远**、**按住右键或 Ctrl+左键拖 = 倾斜视角**——最后一个就是二维地图库永远给不了你的"贴地看城市"。
+
+## 4. Sandcastle：官方草稿本
+
+[Sandcastle](https://sandcastle.cesium.com/) 是官方的在线示例场：每个官方 API 都有可运行的示例，左边代码右边球，改完即见。三个用法建议：
+
+1. **查 API 用法**：想不起 `flyTo` 参数怎么写，去 Sandcastle 搜 "camera flyTo"，抄现成的。
+2. **验证猜想**：不确定某个 Provider 在你的网络环境能不能出图，先在 Sandcastle 试，再搬回本地。
+3. **读官方示例源码**：Sandcastle 每个示例下方有源码 tab，是免费的最佳实践库。
+
+<Callout type="must" title="必背 · 本章三条">
+1. `new Cesium.Viewer(el, { baseLayer: 显式指定 })`——不给 baseLayer 就是 401
+2. Cesium 的地理坐标是 `(经度, 纬度)` 顺序（lon, lat），与前端常见的 (lat, lng) 相反
+3. 本地环境必须处理 `CESIUM_BASE_URL` 与四个静态资源目录；图省事直接用 Sandcastle
+</Callout>
+
+<Exercise tool="cesium" title="动手 · 换一个免费底图">
+把示例里的 OpenStreetMap 换成另一个免费瓦片源试试，比如 ArcGIS World Imagery（免费瓦片服务，无需 token）：
+
+```js
+const viewer = new Cesium.Viewer("cesiumContainer", {
+  baseLayer: Cesium.ImageryLayer.fromProviderAsync(
+    Cesium.ArcGisMapServerImageryProvider.fromUrl(
+      "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer"
+    )
+  ),
+  baseLayerPicker: false,
+});
+```
+
+观察两件事：卫星影像和 OSM 街道图在"拉近到城市"时视觉信息量的差异；以及影像模式下再倾斜视角（Ctrl+左键拖），地形起伏感是否更强——这为第 03 章讲"影像之外的第二层（地形）"埋下伏笔。
+<ExerciseSolution>
+关键观察点：① OSM 在低层级有路名标注、影像没有；② 影像拉近后能看到建筑屋顶纹理，但依然是"平贴在球面上"的——因为它只是影像图层，没有高度数据。要让屋顶"立起来"需要 3D Tiles（第 06 章），要让地面起伏需要地形服务（第 03 章）。影像、地形、三维模型是三层独立的数据，这一章你只碰了第一层。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- Cesium = 三维 + 时间维度的地球引擎；Leaflet = 二维瓦片库。需求决定选型。
+- 环境两件事：装 `cesium` 包 + 处理静态资源（`CESIUM_BASE_URL`）。
+- **第一个 Viewer 必须显式指定免费底图**，这是本课程的"第 0 号惯例"。
+- Sandcastle 是草稿本，官方示例源码是免费的最佳实践库。
+
+下一章：让相机飞起来——把 GIS 课的经纬度真正"放"到这个球上。

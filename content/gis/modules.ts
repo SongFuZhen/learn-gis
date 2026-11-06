@@ -1,13 +1,8 @@
 /** GIS 课程大纲与模块元数据 */
 
-export type ModuleMeta = {
-  /** 两位数模块号，用作 URL 片段 */
-  slug: string;
-  /** 文件名前缀，如 01-basics */
-  file: string;
-  title: string;
-  summary: string;
-};
+import type { ModuleMeta } from "../types";
+
+export type { ModuleMeta };
 
 /**
  * 已上线章节（15 章布局）：

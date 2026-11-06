@@ -40,13 +40,18 @@ async function submitExamProgress(mode: "daily" | "mock", result: QuizResult) {
 }
 
 /** 章节测验完成：只更新该章掌握度，不记入考试记录 */
-async function submitModuleQuizProgress(moduleSlug: string, result: QuizResult) {
+async function submitModuleQuizProgress(
+  moduleSlug: string,
+  skill: string,
+  result: QuizResult,
+) {
   try {
     await fetch("/api/progress", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         type: "module-quiz-complete",
+        skill,
         moduleSlug,
         correct: result.correct,
         total: result.total,
@@ -100,7 +105,7 @@ export default function QuizRunner({
     if (examMode) {
       void submitExamProgress(examMode, payload);
     } else if (moduleSlug) {
-      void submitModuleQuizProgress(moduleSlug, payload);
+      void submitModuleQuizProgress(moduleSlug, skill, payload);
     }
   }, [finished, reviewMode, examMode, result.correct, result.answered, skill, moduleSlug]);
 

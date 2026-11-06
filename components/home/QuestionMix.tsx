@@ -1,4 +1,4 @@
-import { GIS_MODULES } from "@/content/gis/modules";
+import { SKILL_REGISTRY } from "@/content/registry";
 import { getQuestionFile } from "@/lib/content";
 import MasteryDonut from "@/components/home/MasteryDonut";
 
@@ -19,8 +19,8 @@ const DIFF_META = [
 
 /** 题库构成：题型环图 + 难度数字块（新访客首页用，服务端直算） */
 export default function QuestionMix() {
-  const all = GIS_MODULES.flatMap(
-    (m) => getQuestionFile("gis", m.slug).questions,
+  const all = SKILL_REGISTRY.flatMap((reg) =>
+    reg.modules.flatMap((m) => getQuestionFile(reg.id, m.slug).questions),
   );
   const total = all.length;
 

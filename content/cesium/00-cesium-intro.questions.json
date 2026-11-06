@@ -1,0 +1,306 @@
+{
+  "skill": "cesium",
+  "module": "00",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-00-001",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "下列哪个需求最适合选用 CesiumJS 而不是 Leaflet？",
+      "explanation": "CesiumJS 的核心优势是三维视角、地形、三维模型与时间维度；只要需求涉及 3D/倾斜/高度/时间回放，就该选 Cesium。纯二维标点场景 Leaflet 更轻量。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "给静态博客加一张标注了公司地址的平面地图"
+        },
+        {
+          "key": "B",
+          "text": "展示一座城市的三维建筑并支持倾斜旋转观察",
+          "hint": "三维 + 倾斜 + 建筑，正是 Cesium 的主场"
+        },
+        {
+          "key": "C",
+          "text": "做一个只有点标注的导航页",
+          "hint": "纯二维点标注 Leaflet 更轻"
+        },
+        {
+          "key": "D",
+          "text": "渲染一张单幅静态 GeoTIFF 截图",
+          "hint": "单张图 img 标签都够"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-002",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "CesiumJS 是开源引擎，使用它本身必须注册 Cesium ion 账号并购买付费服务。",
+      "explanation": "CesiumJS 引擎开源（Apache 2.0），配合 OSM 等免费数据源可以完全不用 ion。只有使用 ion 托管的数据服务（如 World Terrain、OSM Buildings、Bing 影像）才需要注册 ion 并配置 token。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-00-003",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "不带 baseLayer 参数直接 new Cesium.Viewer(el)，最可能发生什么？",
+      "explanation": "默认 Viewer 的 baseLayer 指向 ion 托管的影像服务。没有设置 Cesium.Ion.defaultAccessToken 时会收到 401，地球只剩纯色球面。所以本课程第一条惯例就是显式指定免费底图。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "正常显示 OSM 底图"
+        },
+        {
+          "key": "B",
+          "text": "黑屏，控制台报 ion 服务 401 未授权",
+          "hint": "默认 Viewer 会请求 ion 托管的影像，无 token 即 401"
+        },
+        {
+          "key": "C",
+          "text": "自动降级为纯色球体并给出警告"
+        },
+        {
+          "key": "D",
+          "text": "浏览器直接崩溃"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-004",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "CesiumJS 地理坐标 API（如 Cartesian3.fromDegrees）的参数顺序是？",
+      "explanation": "Cartesian3.fromDegrees(lon, lat, height) 经度在前、纬度在后。这与 Leaflet 等前端库常见的 (lat, lng) 顺序相反，是跨库搬数据时的高频事故点。GeoJSON 规范同样是 [lng, lat]。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "（纬度, 经度）",
+          "hint": "顺序反了，会跑到错误的半球"
+        },
+        {
+          "key": "B",
+          "text": "（经度, 纬度）",
+          "hint": "Cesium 全家都是经度在前"
+        },
+        {
+          "key": "C",
+          "text": "（纬度, 经度, 时间）"
+        },
+        {
+          "key": "D",
+          "text": "（x, y）与经纬度无关"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-005",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Sandcastle 是 Cesium 官方的在线示例场，适合当草稿本快速验证 API 用法。",
+      "explanation": "Sandcastle 提供可在线编辑运行的官方示例，覆盖绝大多数 API，右侧实时渲染三维地球，是学习 Cesium 最高效的草稿本。",
+      "refs": [
+        {
+          "title": "Cesium Sandcastle 官方示例场",
+          "url": "https://sandcastle.cesium.com/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-00-006",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "CesiumJS 的开源许可证是哪一种？（写出许可证名称）",
+      "explanation": "CesiumJS 采用 Apache License 2.0 开源，可免费商用，这也是它在政企项目中被广泛采用的原因之一。",
+      "refs": [
+        {
+          "title": "CesiumJS GitHub 仓库（LICENSE）",
+          "url": "https://github.com/CesiumGS/cesium"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Apache 2.0",
+        "Apache License 2.0",
+        "Apache",
+        "Apache-2.0",
+        "apache2.0",
+        "Apache2.0"
+      ],
+      "placeholder": "例如：MIT"
+    },
+    {
+      "id": "cesium-00-007",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "OpenStreetMap 瓦片服务可以无限制地高频批量下载，因为它是开源数据。",
+      "explanation": "OSM 数据开源，但瓦片服务有使用政策：禁止批量下载与重度自动化使用，要求正确设置 User-Agent，高频使用需自建瓦片服务器。应用里正常浏览级别的请求没问题。",
+      "refs": [
+        {
+          "title": "OSM 瓦片使用政策",
+          "url": "https://operations.osmfoundation.org/policies/tiles/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-00-008",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "你负责的项目要求完全离线、且不依赖任何外部瓦片服务。下列哪组 Cesium 配置是可行的起点？",
+      "explanation": "TileMapServiceImageryProvider 可加载随 Cesium 包分发的 NaturalEarthII 本地影像，EllipsoidTerrainProvider 表示无地形。两者都不需要网络与 token，是完全离线的最小组合。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "默认 Viewer 配置 + ion token"
+        },
+        {
+          "key": "B",
+          "text": "baseLayer 用 TileMapServiceImageryProvider 指向本地打包的 NaturalEarthII 影像 + EllipsoidTerrainProvider",
+          "hint": "本地 TMS 影像 + 无地形 = 完全离线可用"
+        },
+        {
+          "key": "C",
+          "text": "UrlTemplateImageryProvider 指向在线 OSM + 空地形",
+          "hint": "仍依赖外部网络"
+        },
+        {
+          "key": "D",
+          "text": "不设 baseLayer，交给 Viewer 默认逻辑",
+          "hint": "会请求 ion，401"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-009",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于 Cesium.ImageryLayer.fromProviderAsync(Provider.fromUrl(url)) 这种写法，下列理解正确的是？",
+      "explanation": "Cesium 1.107 之后推荐异步工厂：Provider.fromUrl(url) 返回 Promise（期间请求瓦片网格元数据），ImageryLayer.fromProviderAsync 把这个 Promise 包装成 ImageryLayer，Viewer 可以同步接收、数据就绪后自动上屏。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "fromUrl 是同步返回 Provider 实例的旧式构造器"
+        },
+        {
+          "key": "B",
+          "text": "瓦片元数据需要异步请求，fromUrl 返回 Promise，fromProviderAsync 把它包装成可立即传入 Viewer 的图层",
+          "hint": "新式 API 都是异步工厂：先异步拿元数据，再包一层供 Viewer 同步挂载"
+        },
+        {
+          "key": "C",
+          "text": "它表示影像图层每帧异步刷新"
+        },
+        {
+          "key": "D",
+          "text": "它是 ion 专属 API，第三方瓦片不能用"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-010",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "为什么说「Leaflet 是看地图，Cesium 是进入地图」？下列解释最贴切的是？",
+      "explanation": "Leaflet 的世界模型是投影后的 2D 瓦片平面；Cesium 的世界模型是带椭球体、场景图、相机系统的 3D 场景。选型的本质是判断业务要不要三维世界模型。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium 支持的地图层级更深"
+        },
+        {
+          "key": "B",
+          "text": "Cesium 把地图从投影平面升级为真实椭球场景，相机可在三维空间中移动，地形/建筑/时间成为一等公民",
+          "hint": "核心是场景模型的变化：从 2D 瓦片平面到 3D 场景图"
+        },
+        {
+          "key": "C",
+          "text": "Cesium 瓦片加载速度更快"
+        },
+        {
+          "key": "D",
+          "text": "Leaflet 已停止维护"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    }
+  ]
+}

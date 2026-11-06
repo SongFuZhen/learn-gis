@@ -1,0 +1,112 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：上一章的影像再清晰，喜马拉雅看起来也只是"一张有褶皱的贴图"。因为它只是贴在**理想椭球面**上的皮。**地形**（/təˈreɪn/，「特-雷恩」）是影像之外独立的一层数据——它给球面真正的起伏。**我的经验一句话**：影像管"长什么样"，地形管"多高多矮"——两层各自独立加载、独立服务，谁也不包含谁。**我见过的坑（你大概率也会踩）**：
+- 以给了影像就有山——没有地形数据时，珠峰和广场一样平，都在椭球面上。
+- 以为 `EllipsoidTerrainProvider` 是"默认地形服务"——它其实是"**没有地形**"的意思：贴在数学椭球上，永远平。
+- 拿 `carto.height` 当"海拔"用（GIS 课第 02 章讲过 GPS 高程 ≠ 海拔的坑）——椭球高与正高差着"高程异常 N"，几米到几十米。**必记 3 条**：
+1. 默认地形 = `EllipsoidTerrainProvider` = 完美平滑椭球，不是"服务"
+2. 地形与影像两层独立：换地形不影响影像，反之亦然
+3. 地形数据格式以 quantized-mesh 为主流；真实地形服务大多要账号/ion（本课只讲概念）
+
+## 本章你会学到
+
+"影像层 + 地形层"的双层模型；`EllipsoidTerrainProvider` 与地形 Provider 的关系；quantized-mesh 格式的原理级认识；`sampleTerrain` 查询地面高度的正确姿势；以及为什么本课程的真实地形示例用"概念 + 对比实验"来讲。
+
+## 1. 双层模型：影像与地形
+
+Cesium 的地球由两层独立数据构成：
+
+```text
+┌─────────────────────────────┐
+│  影像层（ImageryLayer）      │  第 02 章：瓦片图片，管颜色/纹理
+├─────────────────────────────┤
+│  地形层（TerrainProvider）   │  本章：高度网格，管起伏
+├─────────────────────────────┤
+│  椭球面（WGS84 椭球）        │  数学基准面（GIS 课第 02 章）
+└─────────────────────────────┘
+```
+
+渲染时，地形层把椭球面"顶起"变成凹凸的真实表面，影像层再把瓦片"贴"上去。两层各自有金字塔 LOD、各自的瓦片服务、各自的 Provider 体系——你换底图不影响地形，换地形不影响底图。
+
+```js
+// 默认状态：平的。显式写出来更容易理解它是个 Provider
+viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider();
+```
+
+`EllipsoidTerrainProvider` 不是什么"服务"，它就是声明"我不要任何地形起伏，所有点贴在椭球面上"。默认行为即如此，显式写出来只是为了说明：**地形层永远存在一个 Provider**，只是可以"选择没有起伏"。
+
+## 2. 真实地形：quantized-mesh 与高度网格
+
+主流地形服务（Cesium ion World Terrain、Mapzen Terrarium 等）的格式是 **quantized-mesh**（/ˈkwɒntaɪzd meʃ/，「匡-泰兹德 梅什」，量化网格）：把地形切块，每块内的顶点高度做**量化压缩**（相对基准值存 0~32767 的整数偏移），一颗小瓦片就能描述一座山。
+
+接一个地形 Provider 的标准写法（以 ion 为例——**需要 token，本课程只展示不使用**）：
+
+```js
+// ⚠️ 需要注册 ion 并设置 token，本课程不使用，仅认识代码形状
+Cesium.Ion.defaultAccessToken = "你的token";
+viewer.terrainProvider = await Cesium.CesiumTerrainProvider.fromIonAssetId(1);
+```
+
+token-free 的替代路径有三条：① 用 `EllipsoidTerrainProvider`（平的）把课程学完——本课程的选择；② 自托管 DEM 转 quantized-mesh 工具链（如 `py3dtiles`/`ctb-tile`，超出课程范围）；③ 个别公开免 token 的地形服务（可用性不稳定，不建议依赖生产）。
+
+<Callout type="warn" title="ion 生态小结（本课程边界）">
+World Terrain（资产 id 1）、OSM Buildings（资产 id 96188）、Google 影像等都在 ion 托管体系里。本课程正文所有可运行示例 token-free；遇到 ion 专属能力时，用 Callout 明确标注"需要 token"，只讲概念不动手。你随时可以注册 ion 免费账号解锁这些章节的完整体验。
+</Callout>
+
+## 3. 查询地面高度：sampleTerrain
+
+有地形数据后，"某经纬度的地面高"就不再永远是 0：
+
+```js
+// 查询给定位置的地面高度（需要地形 Provider 有真实数据才返回非 0）
+const cartographics = [
+  Cesium.Cartographic.fromDegrees(86.925, 27.988), // 珠峰附近
+];
+const updated = await Cesium.sampleTerrain(viewer.terrainProvider, 11, cartographics);
+console.log(updated[0].height); // 有真实地形时返回该层级的高程（米）
+```
+
+三个要点：① 请求要带**层级**（地形也是金字塔，层级越高越精细）；② 返回的是**椭球高**（ELLIPSoidal height，从椭球面量起），GIS 课讲过它与正高的差异；③ 没有真实地形时（`EllipsoidTerrainProvider`）永远返回 0——这是验证"地形层有没有生效"的快速手段。
+
+## 4. 地形与视角：为什么贴地很重要
+
+地形数据的价值在"倾斜视角"下才爆发：垂直俯瞰时，珠峰和一张卫星照片没有区别；把相机压到 30° 以下（第 01 章的 pitch），山谷的立体感立刻出来。这就是为什么每个三维 GIS 演示都爱用"飞进峡谷"当开场——**地形 + 倾斜相机 = 沉浸感**。
+
+对照实验（无 token 也能做的概念验证）：
+
+1. `EllipsoidTerrainProvider` 下把相机放到 45° 俯角看阿尔卑斯——地平线是完美圆弧，地面无起伏。
+2. （有 ion token 时）切 `CesiumTerrainProvider.fromIonAssetId(1)` 看同一视角——山脊、峡谷全部立体。
+3. 结论记心里：**立体感的来源是地形层，不是影像层**。
+
+<Exercise tool="cesium" title="动手 · 写一个地形探针">
+用 `camera.changed`（第 01 章）+ `sampleTerrain` 做一个"地形探针"：每当相机移动，取屏幕中心点的经纬度，查询其地面高度并打印——观察在 `EllipsoidTerrainProvider` 下结果恒为 0，理解"高度查询依赖地形数据源"。
+
+<ExerciseSolution>
+```js
+async function probeCenter() {
+  const carto = viewer.camera.positionCartographic;
+  const center = Cesium.Cartographic.fromDegrees(
+    Cesium.Math.toDegrees(carto.longitude),
+    Cesium.Math.toDegrees(carto.latitude)
+  );
+  const [updated] = await Cesium.sampleTerrain(viewer.terrainProvider, 11, [center]);
+  console.log(
+    "中心点地面高:",
+    updated.height.toFixed(1), "m（椭球高）"
+  );
+}
+viewer.camera.changed.addEventListener(() => void probeCenter());
+viewer.camera.percentageChanged = 0.05;
+```
+预期结果：默认 `EllipsoidTerrainProvider` 下永远 0.0 m——因为"无地形"意味着椭球面就是地面。接上真实地形 Provider 后，同一探针在山区会返回真实高程。注意 `sampleTerrain` 是异步的，高频触发时记得做请求去重（比如记录上次查询位置，变化小于阈值就跳过）。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- 地球 = 椭球面 + 地形层 + 影像层，三层独立。
+- `EllipsoidTerrainProvider` = "选择没有地形"；主流真实地形是 quantized-mesh 格式。
+- `sampleTerrain` 查高要带层级、返回椭球高、平地形恒为 0。
+- ion 托管了最好的地形服务但需要 token——本课程概念讲透，示例绕行。
+
+下一章进入 Cesium 的核心生产力：Entity 实体体系，把 GIS 课的点线面数据真正"立"在球上。
