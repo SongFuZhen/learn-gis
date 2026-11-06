@@ -3,7 +3,7 @@
 import type { ModuleMeta } from "../types";
 
 /**
- * 已上线章节（Phase 1：00-03）。
+ * 已上线章节（全部 10 章）。
  * 从零到一学会 CesiumJS：环境 → 相机坐标系 → 影像 → 地形 → 实体 → 时间动态 →
  * 3D Tiles → 拾取交互 → 空间量算 → 性能与实战收官。
  */
@@ -36,14 +36,49 @@ export const CESIUM_MODULES: ModuleMeta[] = [
     summary:
       "影像和地形为什么是两层东西，EllipsoidTerrainProvider 的默认平地行为，quantized-mesh 概念与真实地形数据的来路。",
   },
+  {
+    slug: "04",
+    file: "04-entity-geojson",
+    title: "Entity 可视化与 GeoJSON",
+    summary:
+      "Entity 体系与三件套标注（点/文字/图标）、线面的贴地与拉伸、GeoJSON 整包加载与逐要素染色、CallbackProperty 最简动画——把 GIS 课的矢量数据立起来。",
+  },
+  {
+    slug: "05",
+    file: "05-czml-time",
+    title: "CZML 与时间动态",
+    summary:
+      "CZML 文档结构、Clock 时间遥控器、SampledPositionProperty 轨迹插值与 VelocityOrientation 自动转向——卫星过境与车辆回放的声明式解法。",
+  },
+  {
+    slug: "06",
+    file: "06-3dtiles",
+    title: "3D Tiles：三维瓦片与城市",
+    summary:
+      "3D Tiles 开放标准的瓦片树与 LOD、Cesium3DTileset 挂载、Cesium3DTileStyle 按属性染色；OSM Buildings 需 token 的边界与自托管 token-free 路径。",
+  },
+  {
+    slug: "07",
+    file: "07-picking-events",
+    title: "拾取与交互事件",
+    summary:
+      "ScreenSpaceEventHandler 两段式事件模型、pick 与 drillPick 的分工、Entity 与 3D Tiles 要素两类拾取结果、悬停高亮与点击面板的经典闭环。",
+  },
+  {
+    slug: "08",
+    file: "08-measure",
+    title: "空间量算：距离、面积与贴地线",
+    summary:
+      "弦长/大圆/贴地三种距离的适用边界、切平面投影法算面积、点击取点 + CallbackProperty 预览的完整量算交互闭环。",
+  },
+  {
+    slug: "09",
+    file: "09-performance-finale",
+    title: "性能优化与实战收官",
+    summary:
+      "requestRenderMode 按需渲染、SSE 精度总闸、Entity/Collection/Primitive 选型递进；收官实战：把全课程拼成 GIS 数据三维看板。",
+  },
 ];
 
 /** 已规划但尚未交付的章节（04-09 随 Phase 2 转正） */
-export const PLANNED_MODULES: { slug: string; title: string }[] = [
-  { slug: "04", title: "Entity 可视化与 GeoJSON" },
-  { slug: "05", title: "CZML 与时间动态" },
-  { slug: "06", title: "3D Tiles：三维瓦片与城市" },
-  { slug: "07", title: "拾取与交互事件" },
-  { slug: "08", title: "空间量算：距离、面积与贴地线" },
-  { slug: "09", title: "性能优化与实战收官" },
-];
+export const PLANNED_MODULES: { slug: string; title: string }[] = [];

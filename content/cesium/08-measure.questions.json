@@ -1,0 +1,310 @@
+{
+  "skill": "cesium",
+  "module": "08",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-08-001",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "展示「北京到上海的航线距离（沿地表）」，应该用哪个 API/算法？",
+      "explanation": "沿地表的最短路径是椭球面测地线（大圆），用 EllipsoidGeodesic.surfaceDistance（米）。Cartesian3.distance 是三维直线（弦长），跨城市会明显偏短。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.Cartesian3.distance(a, b)",
+          "hint": "那是穿球的弦长"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.EllipsoidGeodesic 的 surfaceDistance",
+          "hint": "椭球面测地线（大圆）距离"
+        },
+        {
+          "key": "C",
+          "text": "两点的纬度差乘 111 km"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.Cartesian3.magnitude"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-002",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Cartesian3.distance 算的是两个笛卡尔坐标点之间的三维直线（弦长）距离。",
+      "explanation": "它是欧氏距离：穿过地球内部的直线。短距离（数百米内）与地表距离近似，跨城市必须换 EllipsoidGeodesic。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-08-003",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "计算椭球面上一个多边形的面积，工程上通行的近似做法是？",
+      "explanation": "椭球面面积无初等公式。通行近似：以多边形为中心建切平面，顶点投影为平面米制坐标，鞋带公式求面积。数百平方公里级误差可接受，省级以上用专门椭球算法。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把经纬度直接套鞋带公式",
+          "hint": "度不是米，结果无意义"
+        },
+        {
+          "key": "B",
+          "text": "把顶点投影到切平面（EllipsoidTangentPlane）后用平面公式",
+          "hint": "切平面米制坐标 + 鞋带公式"
+        },
+        {
+          "key": "C",
+          "text": "数多边形包含多少个像元"
+        },
+        {
+          "key": "D",
+          "text": "取周长平方除以 16"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-004",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于量算取点，下列说法正确的有哪些？",
+      "explanation": "pickEllipsoid = 投到数学椭球面（快、恒成功、高 0）；pickPosition = 打真实渲染面（贵、需 scene.pickPositionSupported）。量地 vs 量楼面/地形，按对象选。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "camera.pickEllipsoid 把屏幕点投到椭球面，永远成功、高度恒 0"
+        },
+        {
+          "key": "B",
+          "text": "scene.pickPosition 打的是真实渲染面（地形/3D Tiles 表面），更贵且需能力支持"
+        },
+        {
+          "key": "C",
+          "text": "量地面距离应该用 pickEllipsoid（无地形时）"
+        },
+        {
+          "key": "D",
+          "text": "pickEllipsoid 需要开 pickPositionSupported 才能用",
+          "hint": "那是 pickPosition 的开关"
+        },
+        {
+          "key": "E",
+          "text": "量楼面/地形表面应该用 pickEllipsoid",
+          "hint": "应该用 pickPosition"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-08-005",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "交互画线（橡皮筋预览）的推荐实现是：polyline 的 positions 挂 CallbackProperty，每帧返回当前点集。",
+      "explanation": "CallbackProperty 每帧求值，闭包里维护「已确认顶点 + 当前 hover 点」，取点/移动时只更新数据——渲染由引擎完成。这是动态预览的标准模式。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-08-006",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "用鞋带公式算切平面上多边形面积，叉积累加和为 100000（单位：平方米），按公式「面积 = |累加和| / 2」结果是多少？（填数值）",
+      "explanation": "鞋带公式：对相邻顶点做叉积累加（p1.x·p2.y − p2.x·p1.y），结果带符号（与顶点绕向有关），取绝对值后除以 2 即面积。100000 / 2 = 50000 平方米。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 50000,
+      "tolerance": 1,
+      "unit": "m²",
+      "placeholder": "例如：25000"
+    },
+    {
+      "id": "cesium-08-007",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "「徒步路线沿地形表面的长度」与「两地大圆距离」的差别在于？",
+      "explanation": "贴地距离 = 沿地形表面分段累加（需要真实地形数据），徒步/埋管场景的值会明显大于光滑的椭球测地线——山越高差越多。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "没差别，同一个数"
+        },
+        {
+          "key": "B",
+          "text": "前者沿地形起伏逐段累加（上坡也计入），后者是椭球面光滑曲线，山地差距明显",
+          "hint": "地形起伏让实际路程更长"
+        },
+        {
+          "key": "C",
+          "text": "前者永远更短"
+        },
+        {
+          "key": "D",
+          "text": "后者需要 3D Tiles 支持"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-008",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "量算工具的「橡皮筋预览」里，把 hover 点加进 polyline 最合适的位置是？",
+      "explanation": "CallbackProperty 每帧回调，返回「只读拼装」的结果即可：已确认顶点稳定不变，hover 点临时参与。避免污染数据、避免反复增删实体。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每帧 push 进一个全局数组，永不清理"
+        },
+        {
+          "key": "B",
+          "text": "CallbackProperty 回调里即时拼装「已确认点 + 当前 hover 点」，不动已确认数组",
+          "hint": "数据只读拼装，已确认点不变"
+        },
+        {
+          "key": "C",
+          "text": "每次 mousemove 都重新 viewer.entities.add 一个新实体"
+        },
+        {
+          "key": "D",
+          "text": "直接改 EllipsoidGeodesic 的端点"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-009",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "切平面投影法算面积，对省级以上（几十万平方公里）的巨大多边形依然足够精确。",
+      "explanation": "切平面法的假设是「局部区域近似平坦」，数百平方公里内误差可接受。巨大多边形跨越大经纬度范围，切平面失真大，应换专门的椭球面积算法或交给 PostGIS geography 等专业实现。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        },
+        {
+          "title": "GIS 课 · 空间运算与空间数据库",
+          "url": "https://gis.ason.top/s/gis/13"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-08-010",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "组装量算工具时，下列「屏幕点 → 地面点」的选择，哪一组搭配是对的？",
+      "explanation": "pickEllipsoid 投到椭球面（高 0），无地形量算够用；有地形/3D Tiles 时要「贴真实表面」必须 pickPosition（打渲染面），并检查 pickPositionSupported。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "无地形场景用 pickEllipsoid；有地形且要贴真实表面用 pickPosition",
+          "hint": "按渲染对象选取点 API"
+        },
+        {
+          "key": "B",
+          "text": "无地形也必须用 pickPosition"
+        },
+        {
+          "key": "C",
+          "text": "有地形时 pickEllipsoid 会自动贴到山上",
+          "hint": "pickEllipsoid 永远投到椭球面，高 0"
+        },
+        {
+          "key": "D",
+          "text": "两者完全等价，随便用"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,347 @@
+{
+  "skill": "cesium",
+  "module": "05",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-05-001",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "CZML 文档是一个 JSON 数组，且第 0 个元素必须是 id 为 document 的元数据块。",
+      "explanation": "document 头声明这份 CZML 的名称、版本与 clock（时间轴范围/当前时刻/倍速）。缺少它整个文件无法正常渲染。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-05-002",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "CZML 里 cartographicDegrees 序列的元素结构是？",
+      "explanation": "cartographicDegrees 平铺为 [秒, lon, lat, h, 秒, lon, lat, h, ...]，秒数相对 position.epoch 的偏移。这是 CZML 表达「时间 → 位置」采样的标准写法。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "【纬度, 经度, 高度】三值一组"
+        },
+        {
+          "key": "B",
+          "text": "【秒偏移, 经度, 纬度, 高度】四值一组，秒相对 epoch",
+          "hint": "采样 = 时刻 + 位置；引擎在采样点之间自动插值"
+        },
+        {
+          "key": "C",
+          "text": "【x, y, z】笛卡尔坐标三值一组"
+        },
+        {
+          "key": "D",
+          "text": "【年, 月, 日, 时, 分】时间戳一组"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-05-003",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "Clock 默认处于播放状态，加载完 CZML 物体就会自动动起来。",
+      "explanation": "clock.shouldAnimate 默认为 false（暂停）。要开始播放必须显式设置 viewer.clock.shouldAnimate = true；倍速用 multiplier。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-05-004",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "想让一个实体「沿轨迹自动转向（机头始终朝前）」，应该给它挂哪个属性？",
+      "explanation": "VelocityOrientationProperty(positionProperty) 根据位置 Property 的前后采样自动算速度方向并转成姿态，配合 billboard 模型即可实现「机头朝前」的轨迹动画。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.VelocityOrientationProperty，传入位置 Property",
+          "hint": "按速度方向自动计算朝向"
+        },
+        {
+          "key": "B",
+          "text": "手写每帧的 heading 回调"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Color 属性"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.Cartesian3 常量"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-05-005",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "两个采样点相距很远，轨迹中段出现明显「折角」。下列哪个改进方向最治本？",
+      "explanation": "插值算法决定两点间怎么走（线性/拉格朗日/埃尔米特），采样分布决定轨迹形状是否贴合真实运动。急转弯处加密采样是治本，插值算法是润色。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 multiplier 调大"
+        },
+        {
+          "key": "B",
+          "text": "换插值算法（如拉格朗日）并合理加密拐点处的采样",
+          "hint": "插值管平滑度，采样分布管形状"
+        },
+        {
+          "key": "C",
+          "text": "给 path 加 trailTime"
+        },
+        {
+          "key": "D",
+          "text": "把 point 换成 billboard"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-05-006",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 Clock 的使用，下列说法正确的有哪些？",
+      "explanation": "Clock 三件套：shouldAnimate（播放）、multiplier（倍速，可为小数）、onTick（每帧回调）。CZML document 头的 clock 会在加载时配置 Viewer 的 Clock，两者是同一体系。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "multiplier = 60 表示真实 1 秒播放 60 秒场景时间"
+        },
+        {
+          "key": "B",
+          "text": "clock.currentTime 可以直接赋值 JulianDate 跳转时刻"
+        },
+        {
+          "key": "C",
+          "text": "clock.onTick 每帧触发，可用来同步自己的 UI"
+        },
+        {
+          "key": "D",
+          "text": "clock.interval 与 CZML document 头里的 clock 是完全无关的两个东西",
+          "hint": "CZML 头的 clock 会在载入时配置 Viewer 的 Clock"
+        },
+        {
+          "key": "E",
+          "text": "multiplier 只能取整数"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-007",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "后端把航班位置实时推给你（内存中的 JSON 数组，每秒更新）。下列方案最合适的是？",
+      "explanation": "数据在内存中动态产生时，SampledPositionProperty.addSample + 插值是最直接的通道；CZML 更适合「成型的数据文件」场景。两者本质是同一套 Property 机制，可混用。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每次更新都生成一个新 CZML 文件重新 load"
+        },
+        {
+          "key": "B",
+          "text": "用 SampledPositionProperty，实时 addSample 并插值",
+          "hint": "内存现算数据用代码式 Property 最顺"
+        },
+        {
+          "key": "C",
+          "text": "用 CallbackProperty 手写线性插值"
+        },
+        {
+          "key": "D",
+          "text": "把数据写成 GeoJSON 再加载"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-05-008",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "CZML 里的颜色用 rgbaf 数组表示（如 [1, 0.6, 0, 1] 表示半透明橙），因为 CZML 是纯 JSON，写不了 Cesium.Color.RED。",
+      "explanation": "CZML 是 JSON，颜色用 rgbaf（各分量 0~1）。需要从 CSS 色值转换时可用 Cesium.Color.fromCssColorString 再取分量。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-05-009",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "clock.multiplier 设为 30 时，真实世界过了 1 分钟，场景时间前进多少分钟？（填数值）",
+      "explanation": "multiplier = 30 表示场景时间流速是真实时间的 30 倍：真实 1 分钟 = 场景 30 分钟。回放类业务（航迹/轨道）几乎都要倍速。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 30,
+      "tolerance": 0.5,
+      "unit": "分钟",
+      "placeholder": "例如：15"
+    },
+    {
+      "id": "cesium-05-010",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "关于 CZML 与 SampledPositionProperty 的选型，下列说法最准确的是？",
+      "explanation": "两者是同一机制的两种入口：CZML 是序列化格式（文件/接口下发），SampledPositionProperty 是内存 API（现算数据）。CZML 加载后的实体其 position 本身就是 Property，照样可改。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        },
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "CZML 性能更好，SampledPositionProperty 性能差"
+        },
+        {
+          "key": "B",
+          "text": "成型数据文件/后端下发用 CZML，内存现算数据用 SampledPositionProperty；两者同源可混用",
+          "hint": "同一套 Property 机制的两种入口"
+        },
+        {
+          "key": "C",
+          "text": "SampledPositionProperty 不支持插值"
+        },
+        {
+          "key": "D",
+          "text": "CZML 只能表达点，表达不了线面"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-05-011",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "要做 Starlink 卫星星下点动画：从 TLE 根数算出未来一圈的采样点序列。下列数据管线最合理的是？",
+      "explanation": "轨道采样点是计算产物（时间 → 位置函数），应程序化生成：satellite.js 传播 TLE → 采样 [时刻, 星下点经纬度, 高度] → 塞进 SampledPositionProperty（或生成 CZML）。GIS 课 16/17 章的轨道知识在这里落地。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        },
+        {
+          "title": "GIS 课 · 卫星星座与互联网",
+          "url": "https://gis.ason.top/s/gis/16"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "手写 CZML，把每个采样点敲进 JSON"
+        },
+        {
+          "key": "B",
+          "text": "用 satellite.js 等库由 TLE 计算采样序列，程序化生成 SampledPositionProperty 或 CZML",
+          "hint": "数据是算出来的，就该程序化生成"
+        },
+        {
+          "key": "C",
+          "text": "用 GeoJsonDataSource 加载"
+        },
+        {
+          "key": "D",
+          "text": "用 UrlTemplateImageryProvider"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    }
+  ]
+}

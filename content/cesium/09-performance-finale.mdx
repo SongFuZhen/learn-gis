@@ -1,0 +1,154 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：前八章的功能拼起来已经是个"能用的三维 GIS"，但一上真实数据就掉帧？本章讲 Cesium 性能的三板斧——**渲染调度、精度阈值、数据形态选择**——然后用一场实战收官：把 GIS 课的数据做成「加载 → 样式 → 拾取 → 量算」完整看板。**我的经验一句话**：三维性能问题的本质是"每帧画多少东西"——requestRenderMode 管"画不画"，SSE 管"画多细"，Entity vs Primitive 管"怎么画"。**我见过的坑（你大概率也会踩）**：
+- 场景明明静止，Cesium 却一直 60 帧空转渲染——默认渲染循环是"永远全速"，电扇起飞是常态。
+- 把 `maximumScreenSpaceError` 调到 1 追求极致清晰——瓦片请求量爆炸，内存与带宽双杀。
+- 几万个点用几万个 billboard Entity——每帧排序与状态切换直接拖垮；点海要用 `PointPrimitiveCollection`。**必记 3 条**：
+1. 静止场景开 `requestRenderMode`：只在有变化时渲染，GPU 与电池都省
+2. `maximumScreenSpaceError` 是精度/流量的总闸，默认 16，按场景调
+3. 海量同类图形用 Collection（PointPrimitive/BillboardCollection）或 Primitive，别堆 Entity
+
+## 本章你会学到
+
+requestRenderMode 渲染调度的原理与用法；SSE（屏幕空间误差）如何同时驱动影像与 3D Tiles 的 LOD；Entity/Collection/Primitive 三档数据形态的选型；Cesium Inspector 调试工具。最后用一场综合实战收官整个课程。
+
+## 1. requestRenderMode：按需渲染
+
+Cesium 默认的渲染循环是"每帧都画"——哪怕场景纹丝不动。对"静止为主、偶尔交互"的业务看板，开按需渲染：
+
+```js
+viewer.scene.requestRenderMode = true;          // 有变化才渲染
+viewer.scene.maximumRenderTimeChange = Infinity; // 信任数据变化通知，不做定时兜底刷新
+
+// 关键配套：任何"引擎察觉不到"的改动，都要手动请求一帧
+viewer.scene.requestRender();
+```
+
+两个必配细节：① 你的 `CallbackProperty`（第 04 章）在 requestRenderMode 下**不会自己触发渲染**——数据变了必须手动 `requestRender()`；② `maximumRenderTimeChange = Infinity` 表示"完全信任显式请求"，默认值会定时强制刷新（保守但费电）。经验法则：**重交互场景（相机常动）不开它；数据看板（静止为主）必开**。
+
+<Callout type="info" title="怎么知道性能瓶颈在哪？">
+两件工具：① `viewer.scene.debugShowFramesPerSecond = true`，左上角实时帧率；② 浏览器 Performance 面板录一段交互，看是 JS 主线程忙（你的 Callback/数据代码）还是 GPU 忙（画的东西太多）。先定位再优化——盲调参数是性能工作的第一大坑。
+</Callout>
+
+## 2. SSE：精度与流量的总闸
+
+**SSE**（Screen Space Error，屏幕空间误差）回答一个问题："这个瓦片/模型的误差在屏幕上超过多少像素，才值得换更精细的版本？"
+
+```js
+viewer.scene.globe.maximumScreenSpaceError = 2;   // 影像/地形（默认 2）
+tileset.maximumScreenSpaceError = 16;             // 3D Tiles（默认 16）
+```
+
+- **调小**（数字更严）：更早换高精度瓦片 → 请求量↑、内存↑、更清晰。
+- **调大**：多容忍屏幕误差 → 瓦片更少、更省，但细节模糊。
+
+它同时是影像金字塔（第 02 章）与 3D Tiles（第 06 章）的选层依据——同一个思想贯穿两种数据。业务调参口诀：**室内大屏/汇报场景调小求清晰；移动端/弱网调大求流畅**。
+
+## 3. Entity vs Collection vs Primitive：数据形态选型
+
+| 形态 | 适用规模 | 特点 |
+| --- | --- | --- |
+| Entity（第 04 章） | ≤ 数千 | 声明式、最省心；每个实体独立对象，有开销 |
+| PointPrimitiveCollection / BillboardCollection | 数万 ~ 数十万 | 同类图形的"批处理池"，增删改走集合 |
+| Primitive（底层） | 海量 / 需要极致控制 | 直接面向渲染，要自己管几何与外观 |
+
+```js
+// 十万个点：走集合，而不是十万个 Entity
+const points = viewer.scene.primitives.add(
+  new Cesium.PointPrimitiveCollection()
+);
+for (const poi of poiList) {
+  points.add({
+    position: Cesium.Cartesian3.fromDegrees(poi.lon, poi.lat),
+    pixelSize: 6,
+    color: Cesium.Color.CYAN.withAlpha(0.8),
+  });
+}
+```
+
+选型递进：**先用 Entity 把功能做对**，量测出瓶颈再降级到 Collection/Primitive。反过来"上来就 Primitive"是新手陷阱——代码复杂度翻倍，99% 的业务根本到不了那个量级。
+
+<Callout type="must" title="必背 · 性能三条">
+1. 静止看板开 `requestRenderMode`，数据变化后手动 `requestRender()`
+2. SSE 是精度/流量的总闸：大屏调小、弱网调大
+3. Entity → Collection → Primitive 按规模递进，先做对再做强
+</Callout>
+
+## 4. 收官实战：GIS 数据三维看板
+
+把全课程拼成一个看板，需求清单：① OSM 底图 + 无地形（token-free）；② 加载 GeoJSON 政区面（第 04 章，贴地、按属性染色）；③ 十万级 POI 点用 PointPrimitiveCollection（本章）；④ 悬停高亮 + 点击面板（第 07 章）；⑤ 测距工具（第 08 章）；⑥ requestRenderMode + 调参面板（本章）。
+
+```js
+// ── ① 基座 ──
+const viewer = new Cesium.Viewer("cesiumContainer", {
+  baseLayer: Cesium.ImageryLayer.fromProviderAsync(
+    Cesium.OpenStreetMapImageryProvider.fromUrl("https://tile.openstreetmap.org/")
+  ),
+  baseLayerPicker: false, geocoder: false,
+  animation: false, timeline: false,
+});
+viewer.scene.requestRenderMode = true;
+viewer.scene.maximumRenderTimeChange = Infinity;
+
+// ── ② 政区面（Entity，按属性染色） ──
+const ds = await Cesium.GeoJsonDataSource.load("/data/districts.geojson", {
+  clampToGround: true, fill: Cesium.Color.CYAN.withAlpha(0.15),
+});
+await viewer.dataSources.add(ds);
+for (const e of ds.entities.values) {
+  const pop = e.properties?.population?.getValue() ?? 0;
+  e.polygon.material = pop > 3_000_000
+    ? Cesium.Color.RED.withAlpha(0.35)
+    : Cesium.Color.CYAN.withAlpha(0.2);
+}
+
+// ── ③ POI 点海（Collection） ──
+const points = viewer.scene.primitives.add(new Cesium.PointPrimitiveCollection());
+for (const poi of poiList) {
+  points.add({ position: Cesium.Cartesian3.fromDegrees(poi.lon, poi.lat),
+               pixelSize: 5, color: Cesium.Color.WHITE.withAlpha(0.85) });
+}
+
+// ── ④⑤ 拾取 + 量算：第 07/08 章的 handler 组合 ──
+// （代码同前两章，这里省略）
+```
+
+这个看板的所有代码你都写过——收官的意义是确认这一点：**你不是"学过 Cesium 的 API"，你是"能独立交付一个三维 GIS 应用"**。
+
+<Exercise tool="cesium" title="动手 · 给看板加一个「精度模式切换」">
+在看板上加两个按钮：「高清模式」把 globe 与（若有）tileset 的 maximumScreenSpaceError 都调小，「省流模式」调大；切换后手动 `requestRender()`。
+
+<ExerciseSolution>
+```js
+function setQuality(mode) {
+  const presets = { hd: 2, eco: 24 };          // 影像用；tileset 可另配一档
+  viewer.scene.globe.maximumScreenSpaceError = presets[mode];
+  if (typeof tileset !== "undefined" && tileset) {
+    tileset.maximumScreenSpaceError = mode === "hd" ? 8 : 32;
+  }
+  viewer.scene.requestRender();                 // requestRenderMode 下的必备动作
+}
+
+document.getElementById("btn-hd").onclick = () => setQuality("hd");
+document.getElementById("btn-eco").onclick = () => setQuality("eco");
+```
+验证方法：打开 Network 面板切到"省流"，瓦片请求立刻变稀疏；切回"高清"，高精度瓦片成批进来。注意 CallbackProperty 驱动的实体（呼吸点等）在 requestRenderMode 下需要数据更新时手动 requestRender——这是本模式最常见的"忘了动"。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结 & 课程收官
+
+- `requestRenderMode`：静止看板必备，数据变化手动 `requestRender()`。
+- SSE 是影像与 3D Tiles 共用的精度/流量总闸。
+- Entity → Collection → Primitive 按数据规模递进；先做对，再做强。
+- 收官看板 = 底图 + GeoJSON 染色 + 点海 Collection + 拾取面板 + 量算工具——全课程八件套的合体。
+
+从这里出发：接 ion 解锁 World Terrain 与 OSM Buildings（第 03/06 章的概念代码立刻可用）；接实时数据源把 CZML（第 05 章）喂起来；或者回到 GIS 课，把第 10 章以后的空间分析放进你的三维看板。三维只是新起点。
+
+## 延伸阅读
+
+- 性能优化官方主题：[CesiumJS Optimization 教程](https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/)
+- requestRenderMode 说明：[Cesium.Scene.requestRenderMode](https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#requestRenderMode)
+- Cesium3DTileset 的 SSE：[maximumScreenSpaceError](https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError)
+- PointPrimitiveCollection API 参考：[Cesium.PointPrimitiveCollection](https://cesium.com/reference/cesiumjs/latest/Cesium.PointPrimitiveCollection.html)
+- 全课程的地面知识：[GIS 课课程入口](/s/gis)

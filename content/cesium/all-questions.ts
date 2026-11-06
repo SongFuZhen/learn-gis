@@ -4,12 +4,18 @@ import cesiumIntro from "./00-cesium-intro.questions.json";
 import cameraCoords from "./01-camera-coords.questions.json";
 import imageryLayers from "./02-imagery-layers.questions.json";
 import terrain from "./03-terrain.questions.json";
+import entityGeojson from "./04-entity-geojson.questions.json";
+import czmlTime from "./05-czml-time.questions.json";
+import threeDTiles from "./06-3dtiles.questions.json";
+import pickingEvents from "./07-picking-events.questions.json";
+import measure from "./08-measure.questions.json";
+import performanceFinale from "./09-performance-finale.questions.json";
 
 /**
  * Cesium 全量题库（客户端聚合，只 import JSON，不碰 lib/content）。
  * 每道题跑 questionSchema 校验，坏数据在模块加载时抛错。
  */
-const RAW_FILES = [cesiumIntro, cameraCoords, imageryLayers, terrain];
+const RAW_FILES = [cesiumIntro, cameraCoords, imageryLayers, terrain, entityGeojson, czmlTime, threeDTiles, pickingEvents, measure, performanceFinale];
 
 function collectValidated(): Question[] {
   const out: Question[] = [];

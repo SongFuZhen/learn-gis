@@ -1,0 +1,185 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：GIS 的"G"是 Geographical，量算是灵魂技能——两点多远、一片地多大、坡上两点高差多少。本章把三维球面上的量算做成"鼠标画线/画面"的完整交互闭环。**我的经验一句话**：三维量算 = 第 07 章的拾取（拿点）+ 本章的几何公式（算值）+ CallbackProperty（画辅助线）——三块拼图你已经全有了，本章只是组装。**我见过的坑（你大概率也会踩）**：
+- 用 `Cartesian3.distance` 量两个经纬度相距很远的点——那是**空间直线**（弦长），球面上应该是沿椭球面的大圆距离，差得不少。
+- 面积直接把经纬度当平面坐标套鞋带公式——度不是米，算出来的"面积"毫无意义。
+- 忘了画辅助线时清掉上一个点——线越连越长，橡皮筋一样。**必记 3 条**：
+1. 空间直线距离 `Cartesian3.distance`；球面（大圆）距离用 `EllipsoidGeodesic.surfaceDistance`
+2. 面积要把面投影到**切平面**（EllipsoidTangentPlane）再套平面公式
+3. 交互画线 = 拾取点 + 动态 `CallbackProperty` 更新 polyline
+
+## 本章你会学到
+
+三种距离（空间直线 / 大圆 / 贴地）的适用场景与算法；椭球面面积的切平面投影法；把"点击取点 → 动态预览 → 双击结束"做成可复用的量算工具。这章的产出可以直接塞进第 09 章的实战看板。
+
+## 1. 三种"距离"，别混着用
+
+| 类型 | API/算法 | 含义 | 适用 |
+| --- | --- | --- | --- |
+| 空间直线 | `Cartesian3.distance(a, b)` | 三维空间弦长 | 高度差主导的场景（电梯/索道）、短距离 |
+| 大圆距离 | `EllipsoidGeodesic.surfaceDistance` | 沿椭球面的最短路径 | 两地距离、航线 |
+| 贴地距离 | 分段沿地形采样累加 | 沿地形表面走 | 徒步/管线埋地（需真实地形） |
+
+```js
+// 空间直线：笛卡尔坐标的欧氏距离
+const a = Cesium.Cartesian3.fromDegrees(116.39, 39.90, 0);
+const b = Cesium.Cartesian3.fromDegrees(121.47, 31.23, 0);
+const straight = Cesium.Cartesian3.distance(a, b);   // 弦长，穿球的那种
+
+// 大圆距离：椭球面上的测地线
+const geodesic = new Cesium.EllipsoidGeodesic(
+  Cesium.Cartographic.fromDegrees(116.39, 39.90),
+  Cesium.Cartographic.fromDegrees(121.47, 31.23)
+);
+const onSurface = geodesic.surfaceDistance;           // 沿椭球面，米
+```
+
+京沪两地直线弦长与椭球面距离差约十几公里——**1 km 以内的短距离可以近似，跨城市必须用测地线**。这正是 GIS 课第 13 章讲" turf.area 是球面计算"的同一件事：量算 API 的"球面 vs 平面"之分在三维引擎里同样存在。
+
+<Callout type="must" title="必背 · 量算三条">
+1. 展示"两地多远" → `EllipsoidGeodesic.surfaceDistance`（大圆/测地线）
+2. `Cartesian3.distance` 是穿球的弦长，只适合近距离
+3. 面积不许用经纬度直接算——先投到切平面
+</Callout>
+
+## 2. 面积：切平面投影法
+
+椭球面上的多边形面积没有初等公式，工程上通行的近似是：把多边形顶点**投影到一个切平面**（EllipsoidTangentPlane，/ˈtændʒənt/，「坦-金特」，与椭球相切于某一点的平面），在平面上用鞋带公式算，再把单位换回平方米：
+
+```js
+function computeArea(positions /* Cartesian3[] */) {
+  // ① 以多边形中心为切点建切平面
+  const center = Cesium.BoundingSphere.fromPoints(positions).center;
+  const plane = Cesium.EllipsoidTangentPlane.fromPoints(positions);
+  // ② 顶点投到切平面 → 平面米制坐标
+  const points2D = plane.projectPointsToNearestOnPlane(positions);
+  // ③ 鞋带公式（注意绕向取绝对值）
+  let area = 0;
+  for (let i = 0; i < points2D.length; i++) {
+    const p1 = points2D[i], p2 = points2D[(i + 1) % points2D.length];
+    area += p1.x * p2.y - p2.x * p1.y;
+  }
+  return Math.abs(area / 2);   // 平方米
+}
+```
+
+精度边界：**数百平方公里以内**的普通地块，切平面法误差可接受；省级以上的巨大多边形要用专门的椭球面积算法（或直接交给 PostGIS 的 geography 类型，GIS 课第 14 章的路数）——知道工具的适用边界，比背公式更重要。
+
+## 3. 交互闭环：点击取点 → 动态预览 → 结束出结果
+
+把第 07 章的拾取和本章的公式组装成量算工具。核心结构：
+
+```js
+const points = [];                        // 已确认的顶点
+let polyline;                             // 动态预览线
+const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+
+handler.setInputAction((movement) => {
+  // 左键：加一个顶点（把屏幕点投到椭球面）
+  const carto = viewer.camera.pickEllipsoid(movement.position);
+  if (!carto) return;
+  points.push(Cesium.Cartesian3.fromRadians(carto.longitude, carto.latitude));
+  refreshPreview();
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+handler.setInputAction((movement) => {
+  // 鼠标移动：橡皮筋预览（最后一个点跟随鼠标）
+  const carto = viewer.camera.pickEllipsoid(movement.endPosition);
+  if (!carto || points.length === 0) return;
+  const hover = Cesium.Cartesian3.fromRadians(carto.longitude, carto.latitude);
+  refreshPreview(hover);
+}, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+function refreshPreview(hover) {
+  const line = [...points, ...(hover ? [hover] : [])];
+  if (!polyline) {
+    polyline = viewer.entities.add({
+      polyline: {
+        positions: new Cesium.CallbackProperty(() =>
+          previewPositions(), false),
+        width: 3,
+        material: Cesium.Color.YELLOW,
+        clampToGround: true,
+      },
+    });
+  }
+  function previewPositions() {
+    return line;   // 实际实现里把 line 提到闭包外维护
+  }
+}
+```
+
+骨架要点：① `camera.pickEllipsoid` 把屏幕点投到椭球面（无地形时的取点法；有地形用 `scene.pickPosition`）；② polyline 的 positions 挂 `CallbackProperty`，**每次取点/移动都更新闭包里的数组**；③ 双击（`DOUBLE_CLICK`）结束并调用本章公式出结果。
+
+<Callout type="warn" title="pickEllipsoid vs pickPosition">
+`camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 打的是"真实渲染面"（有地形就是山、有 3D Tiles 就是楼面），需要开 `scene.pickPositionSupported` 且更贵。量地用前者，量楼面/地形表面用后者——选错会让你的量算"贴不到地上"。
+</Callout>
+
+<Exercise tool="cesium" title="动手 · 完整测距工具">
+实现一个"测距"工具：左键连续取点、鼠标移动橡皮筋预览、实时在控制台打印"当前累计大圆距离"、双击结束。提示：距离 = 相邻顶点逐一 `EllipsoidGeodesic.surfaceDistance` 求和。
+
+<ExerciseSolution>
+```js
+const points = [];   // Cartographic[]
+let preview = null;
+let hoverCarto = null;
+const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+
+function totalDistance() {
+  let sum = 0;
+  const all = hoverCarto ? [...points, hoverCarto] : points;
+  for (let i = 1; i < all.length; i++) {
+    sum += new Cesium.EllipsoidGeodesic(all[i - 1], all[i]).surfaceDistance;
+  }
+  return sum;
+}
+
+handler.setInputAction((movement) => {
+  const carto = viewer.camera.pickEllipsoid(movement.position);
+  if (!carto) return;
+  points.push(new Cesium.Cartographic(carto.longitude, carto.latitude));
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+handler.setInputAction((movement) => {
+  const carto = viewer.camera.pickEllipsoid(movement.endPosition);
+  hoverCarto = carto ? new Cesium.Cartographic(carto.longitude, carto.latitude) : null;
+  console.log("当前距离:", (totalDistance() / 1000).toFixed(2), "km");
+}, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+handler.setInputAction(() => {
+  console.log("最终距离:", (totalDistance() / 1000).toFixed(2), "km");
+  points.length = 0; hoverCarto = null;   // 或保留供下次
+}, Cesium.ScreenSpaceEventType.DOUBLE_CLICK);
+
+// 预览线：CallbackProperty 每帧返回当前点集（含 hover 点）
+viewer.entities.add({
+  polyline: {
+    positions: new Cesium.CallbackProperty(() => {
+      const all = hoverCarto ? [...points, hoverCarto] : points;
+      return all.map((c) => Cesium.Cartesian3.fromRadians(c.longitude, c.latitude));
+    }, false),
+    width: 3,
+    material: Cesium.Color.YELLOW,
+    clampToGround: true,
+  },
+});
+```
+加分项：① 把距离文本挂到一个 div 而不是 console（onTick 或每次取点时更新）；② 大圆距离 vs `Cartesian3.distance` 的差值在短距离下很小——试两个相距 100 m 的点，对比差值，理解"什么时候可以偷懒"。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- 距离三兄弟：`Cartesian3.distance`（弦长）、`EllipsoidGeodesic.surfaceDistance`（大圆）、沿地形分段累加（贴地）。
+- 面积 = 切平面投影 + 鞋带公式；巨大多边形换专业椭球算法。
+- 量算交互 = `pickEllipsoid`/`pickPosition` 取点 + `CallbackProperty` 预览 + 双击结束。
+- 工具边界感：切平面法只到百平方公里级；更大面积交给地理数据库。
+
+下一章收官：性能优化 + 把前八章拼成一个大看板。
+
+## 延伸阅读
+
+- 空间量算相关 API：[Cesium.EllipsoidGeodesic](https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html)、[Cesium.EllipsoidTangentPlane](https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html)
+- 交互拾取（本章前置）：[CesiumJS 课 · 拾取与交互事件](/s/cesium/07)
+- 球面距离与面积的专业解法：[GIS 课 · 空间运算与空间数据库](/s/gis/13)
+- 测地线数学背景：[GIS 课 · 地图投影](/s/gis/03)

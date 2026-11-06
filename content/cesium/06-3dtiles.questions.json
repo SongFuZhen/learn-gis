@@ -1,0 +1,360 @@
+{
+  "skill": "cesium",
+  "module": "06",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-06-001",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "3D Tiles 是 OGC 开放标准，其思想与影像瓦片金字塔同构：把巨大模型切成带 LOD 的瓦片树。",
+      "explanation": "3D Tiles 于 2019 年成为 OGC 社区标准。tileset.json 描述瓦片树与几何误差，相机视角驱动按需加载，与影像金字塔的「按需取层」同构，只是从 2D 方格变成 3D 包围盒树。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 开放标准",
+          "url": "https://www.ogc.org/standard/3dtiles/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-06-002",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "3D Tiles 数据集的入口文件是？",
+      "explanation": "tileset.json 是 3D Tiles 的入口：声明根瓦片、每层包围盒与几何误差。加载任何数据集的第一步都是请求它；它 404 则整个数据集不可用。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "index.html"
+        },
+        {
+          "key": "B",
+          "text": "tileset.json",
+          "hint": "根文件描述瓦片树/包围盒/几何误差"
+        },
+        {
+          "key": "C",
+          "text": "manifest.json"
+        },
+        {
+          "key": "D",
+          "text": "layers.json"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-06-003",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "把 tileset 挂进 Cesium 场景的正确 API 是？",
+      "explanation": "Cesium 三套容器各管一摊：影像 imageryLayers、实体 entities/dataSources、渲染原语 scene.primitives。3D Tiles 是渲染原语。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.imageryLayers.add(tileset)"
+        },
+        {
+          "key": "B",
+          "text": "viewer.entities.add(tileset)"
+        },
+        {
+          "key": "C",
+          "text": "viewer.scene.primitives.add(tileset)",
+          "hint": "3D Tiles 属于渲染原语层"
+        },
+        {
+          "key": "D",
+          "text": "viewer.dataSources.add(tileset)"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-06-004",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "最常见的「建筑批量模型」3D Tiles 瓦片内容格式是？",
+      "explanation": "b3dm（batched 3D model）把成百上千栋建筑打包进一个瓦片并带批表属性，是城市白模/倾斜摄影最常见的内容格式。pnts 装点云，i3dm 装实例化模型（树/路灯），glb 用于单体精模。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 开放标准",
+          "url": "https://www.ogc.org/standard/3dtiles/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "b3dm（批量三维模型）"
+        },
+        {
+          "key": "B",
+          "text": "pnts（点云）"
+        },
+        {
+          "key": "C",
+          "text": "i3dm（实例化模型）"
+        },
+        {
+          "key": "D",
+          "text": "glTF 单文件整包"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-06-005",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "下列哪些数据集/服务的使用需要 Cesium ion token？",
+      "explanation": "需要 token 的判断标准只有一条：数据是不是从 ion 托管服务拉取。自托管/本地 serve 的 tileset 与 token 无关；OSM 建筑数据本身开源，但 ion 的托管分发是商业服务。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium ion 上的 OSM Buildings（资产 96188）"
+        },
+        {
+          "key": "B",
+          "text": "Google Photorealistic 3D Tiles（ion 托管）"
+        },
+        {
+          "key": "C",
+          "text": "自己用工具链切片并自托管的 tileset.json",
+          "hint": "数据在你手里，与 ion 无关"
+        },
+        {
+          "key": "D",
+          "text": "CesiumJS 仓库 SampleData 里的样例 tileset 本地 serve"
+        },
+        {
+          "key": "E",
+          "text": "ion World Terrain（资产 1）",
+          "hint": "地形也是 ion 托管资产"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-06-006",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "OSM 建筑数据本身开源，但 Cesium ion 托管的 OSM Buildings 3D Tiles 服务需要注册 ion 并配置 token 才能调用。",
+      "explanation": "数据开源与托管服务收费是两回事：ion 提供的免运维分发服务需要 token（有免费额度）。想完全免 token 可以自建管线从 OSM 数据生成 tileset。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-06-007",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "Cesium3DTileStyle 里 `\"${height} > 100 ? color('red') : color('skyblue')\"` 的作用是？",
+      "explanation": "Cesium3DTileStyle 类似 CSS：${...} 引用瓦片批表（batch table）属性，支持条件表达式。这是「三维版专题地图」——同一份白模不重做数据即可表达人口/噪声/日照等主题。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把高度超过 100 米的楼染红，其余染天蓝——按批表属性条件染色"
+        },
+        {
+          "key": "B",
+          "text": "设置瓦片加载的最大高度"
+        },
+        {
+          "key": "C",
+          "text": "定义相机的飞行高度"
+        },
+        {
+          "key": "D",
+          "text": "过滤掉高度 100 米以上的瓦片不加载"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-06-008",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "加载自托管 tileset 后画面毫无变化，最先应该检查什么？",
+      "explanation": "两大常见原因：① 只调了 fromUrl 没 primitives.add（创建未挂载）；② tileset.json 请求 404（URL/服务不对）。先开 Network 看 tileset.json 的状态码，再确认挂载代码。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "有没有给相机加 orientation"
+        },
+        {
+          "key": "B",
+          "text": "tileset 是否已用 viewer.scene.primitives.add 挂进场景，且 URL 能拿到 tileset.json",
+          "hint": "两步挂载 + 入口文件可达是两大先决条件"
+        },
+        {
+          "key": "C",
+          "text": "影像图层的 alpha 是否为 1"
+        },
+        {
+          "key": "D",
+          "text": "时钟有没有 shouldAnimate"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-06-009",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "3D Tiles 的瓦片加载范围由相机视角驱动：看到哪、细节要求多高，就加载哪块。",
+      "explanation": "每层瓦片带几何误差与包围盒，引擎按「当前视角下的屏幕空间误差（SSE）」决定加载/卸载——这正是瓦片树 + LOD 的意义，也是城市级数据能流式浏览的原因。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-06-010",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "「把一块政区多边形面按楼高分色展示」和「把整城白模按楼高分色展示」，两者分别该用什么机制？",
+      "explanation": "数据量与形态决定机制：一个政区面是单个 Entity（polygon.material 直接上色）；整城白模是海量带批表属性的瓦片，必须用 3D Tiles Style 的条件表达式。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "都用 Cesium3DTileStyle"
+        },
+        {
+          "key": "B",
+          "text": "都用 polygon.material"
+        },
+        {
+          "key": "C",
+          "text": "前者用 Entity polygon 材质，后者用 Cesium3DTileStyle 按批表属性染色",
+          "hint": "Entity 管少量声明式对象，3D Tiles Style 管海量带属性模型"
+        },
+        {
+          "key": "D",
+          "text": "前者用 3D Tiles，后者用 Entity"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-06-011",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "倾斜摄影航拍建成的整片街区模型（数十 GB），要在网页端流畅浏览，核心依赖的机制是？",
+      "explanation": "数十 GB 模型不可能一次下发。3D Tiles 把模型按空间与精度切成树，相机看到哪、SSE 达到阈值，才加载哪块；看远处的粗瓦片、走近自动换精瓦片。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        },
+        {
+          "title": "OGC 3D Tiles 开放标准",
+          "url": "https://www.ogc.org/standard/3dtiles/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把模型转成一张超大全景图"
+        },
+        {
+          "key": "B",
+          "text": "3D Tiles 的瓦片树 + LOD：按相机视角流式加载对应精度的瓦片",
+          "hint": "SSE 驱动的按需加载"
+        },
+        {
+          "key": "C",
+          "text": "WebGL 的多重采样抗锯齿"
+        },
+        {
+          "key": "D",
+          "text": "把模型精度降到最低一档"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    }
+  ]
+}

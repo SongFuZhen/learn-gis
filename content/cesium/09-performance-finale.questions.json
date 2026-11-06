@@ -1,0 +1,360 @@
+{
+  "skill": "cesium",
+  "module": "09",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-09-001",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "开启 requestRenderMode 后，场景静止时 Cesium 也会一直以 60 帧渲染。",
+      "explanation": "requestRenderMode 的意义正是「有变化才渲染」。静止时 GPU 空转消失；代价是引擎察觉不到的数据变化需要手动 requestRender()。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-09-002",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "开启 requestRenderMode 后，你用 CallbackProperty 做的呼吸点不动了。最可能的原因是？",
+      "explanation": "requestRenderMode 下引擎不再每帧自转，回调产出的新值不会自动上屏——数据变化后必须手动 requestRender()。这是该模式最常见的「忘了动」。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "CallbackProperty 与 requestRenderMode 不兼容"
+        },
+        {
+          "key": "B",
+          "text": "数据变化后没有调用 viewer.scene.requestRender() 请求新帧",
+          "hint": "按需渲染要显式请求"
+        },
+        {
+          "key": "C",
+          "text": "pixelSize 太小"
+        },
+        {
+          "key": "D",
+          "text": "忘了设 shouldAnimate"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-09-003",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "maximumScreenSpaceError 调小（数字更严）会带来什么？",
+      "explanation": "SSE 是「屏幕上误差超过多少像素才升级精度」的阈值：调小 = 更严格 = 更清晰更贵；调大 = 多容忍 = 更省更糊。大屏调小、弱网调大。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "瓦片请求更少、更省流量"
+        },
+        {
+          "key": "B",
+          "text": "更早换用高精度瓦片：更清晰，但请求量与内存上升",
+          "hint": "SSE 是精度/流量总闸"
+        },
+        {
+          "key": "C",
+          "text": "渲染帧率必然提升"
+        },
+        {
+          "key": "D",
+          "text": "地形消失"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-09-004",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "关于 Entity / Collection / Primitive 的选型，正确的有哪些？",
+      "explanation": "选型按规模递进：Entity（≤数千，声明式）→ Collection（数万~数十万同构图形）→ Primitive（海量/极致控制）。先做对再做强，上来就 Primitive 是新手陷阱。",
+      "refs": [
+        {
+          "title": "Cesium.PointPrimitiveCollection API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PointPrimitiveCollection.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "几千个以内的异构对象，Entity 最省心"
+        },
+        {
+          "key": "B",
+          "text": "十万级同构点，用 PointPrimitiveCollection 批处理"
+        },
+        {
+          "key": "C",
+          "text": "Primitive 面向渲染底层，海量/极致控制场景才用"
+        },
+        {
+          "key": "D",
+          "text": "Entity 永远比 Primitive 慢，应该全部用 Primitive"
+        },
+        {
+          "key": "E",
+          "text": "Collection 只能装 point，装不了 billboard",
+          "hint": "也有 BillboardCollection"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-09-005",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "debugShowFramesPerSecond = true 可以在画面左上角显示实时帧率，用于性能定位。",
+      "explanation": "它是 Cesium 内置的轻量性能开关。更系统的定位用浏览器 Performance 面板：先分清是 JS 主线程忙（回调/数据代码）还是 GPU 忙（画的量大），再对症下药。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-09-006",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "「城市白模 3D Tiles 在移动端弱网下加载吃力」，按本章思路最合理的调参是？",
+      "explanation": "移动端/弱网：调大 SSE（容忍误差）减少瓦片请求，优先保证流畅；大屏/汇报场景反过来调小求清晰。这是 SSE 总闸的标准用法。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "tileset.maximumScreenSpaceError 调大，容忍更多屏幕误差换流畅",
+          "hint": "弱网先保流畅"
+        },
+        {
+          "key": "B",
+          "text": "tileset.maximumScreenSpaceError 调小求清晰"
+        },
+        {
+          "key": "C",
+          "text": "把 requestRenderMode 关掉"
+        },
+        {
+          "key": "D",
+          "text": "把影像层数量加倍"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-09-007",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "性能问题的正确排查起点是？",
+      "explanation": "性能工作第一步永远是定位：JS 主线程忙（回调/数据逻辑）还是 GPU 忙（画量太大）。两种瓶颈的药方完全不同，盲调参数是第一大坑。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把所有 Entity 换成 Primitive"
+        },
+        {
+          "key": "B",
+          "text": "先用 debugShowFramesPerSecond + 浏览器 Performance 面板定位瓶颈类型",
+          "hint": "先定位再优化"
+        },
+        {
+          "key": "C",
+          "text": "把 maximumScreenSpaceError 全部调到 1"
+        },
+        {
+          "key": "D",
+          "text": "减少影像图层到 0 层"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-09-008",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "requestRenderMode 下，CallbackProperty 的回调不会自己触发渲染，数据更新后需要手动 requestRender()。",
+      "explanation": "这就是「信任显式请求」模式的工作方式：maximumRenderTimeChange = Infinity 时完全靠显式请求；保留默认值则定时兜底刷新（省电效果打折扣）。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-09-009",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "收官看板里「十万级 POI 点 + 点击查看属性」，下列实现组合最合理的是？",
+      "explanation": "点海用 Collection（batch 渲染）；Collection 里的图元没有 Entity 式 properties，拾取命中后按自定义字段（如 id 映射）回查业务数据。这是「可视化形态」与「业务数据」分离的标准架构。",
+      "refs": [
+        {
+          "title": "Cesium.PointPrimitiveCollection API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PointPrimitiveCollection.html"
+        },
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "十万级点全用 Entity billboard；拾取用 scene.pick"
+        },
+        {
+          "key": "B",
+          "text": "点用 PointPrimitiveCollection；拾取用 pick 命中 primitive 后按集合索引/自定义字段回查数据",
+          "hint": "点海走 Collection，拾取结果回查自己的数据"
+        },
+        {
+          "key": "C",
+          "text": "点用 GeoJsonDataSource 加载十万 Entity"
+        },
+        {
+          "key": "D",
+          "text": "点渲染成 3D Tiles"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-09-010",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "综合实战看板要新增「按人口给政区面分级染色」，下列说法正确的是？",
+      "explanation": "GeoJSON 的 feature properties 挂在 entity.properties 上，遍历实体按值赋 polygon.material 即可实现分级染色——与第 06 章 3D Tiles 的 Style 染色是「同一件事在两种数据形态下的两种入口」。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "必须在数据端重做 GeoJSON"
+        },
+        {
+          "key": "B",
+          "text": "遍历 GeoJsonDataSource 实体，按 entity.properties 读人口值、动态赋 polygon.material 颜色",
+          "hint": "第 04 章的逐要素定制 + 第 07 章的属性读取"
+        },
+        {
+          "key": "C",
+          "text": "只能用 Cesium3DTileStyle"
+        },
+        {
+          "key": "D",
+          "text": "人口是属性，Cesium 读不到，要画在影像上"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-09-011",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "课程收官后想继续进阶，下列路径与课程内容对应关系错误的是？",
+      "explanation": "Cesium 是三维引擎的完整答案；Leaflet 是二维库，不是三维的替代。进阶三条线：ion 数据、实时数据、GIS 空间分析叠加。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 空间量算",
+          "url": "https://gis.ason.top/s/cesium/08"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "注册 ion → 解锁 World Terrain 与 OSM Buildings（第 03/06 章的概念立刻可用）"
+        },
+        {
+          "key": "B",
+          "text": "接实时数据源 → CZML/PositionProperty 做动态目标（第 05 章）"
+        },
+        {
+          "key": "C",
+          "text": "把 GIS 课空间分析结果叠进三维看板（第 04/08 章）"
+        },
+        {
+          "key": "D",
+          "text": "学完本课后应转向学习 Leaflet 来替代 Cesium 做三维"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    }
+  ]
+}

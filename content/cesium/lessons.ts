@@ -9,6 +9,12 @@ const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "01-camera-coords": () => import("./01-camera-coords.mdx"),
   "02-imagery-layers": () => import("./02-imagery-layers.mdx"),
   "03-terrain": () => import("./03-terrain.mdx"),
+  "04-entity-geojson": () => import("./04-entity-geojson.mdx"),
+  "05-czml-time": () => import("./05-czml-time.mdx"),
+  "06-3dtiles": () => import("./06-3dtiles.mdx"),
+  "07-picking-events": () => import("./07-picking-events.mdx"),
+  "08-measure": () => import("./08-measure.mdx"),
+  "09-performance-finale": () => import("./09-performance-finale.mdx"),
 };
 
 export const LESSON_FILES = Object.keys(LESSONS);

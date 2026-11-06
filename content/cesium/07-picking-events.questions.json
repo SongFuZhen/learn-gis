@@ -1,0 +1,373 @@
+{
+  "skill": "cesium",
+  "module": "07",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-07-001",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "ScreenSpaceEventHandler 的事件回调直接返回三维世界坐标，不需要再做屏幕到球面的换算。",
+      "explanation": "回调返回的是屏幕像素坐标（如 movement.position = {x, y}）。像素 → 三维对象/坐标的换算由 scene.pick / camera.pickEllipsoid 等完成，是第二段。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-07-002",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "「屏幕像素坐标 → 打中的三维对象」这一步的标准 API 是？",
+      "explanation": "ScreenSpaceEventHandler 给屏幕坐标，scene.pick 把它换算成命中的三维对象（实体/3D Tiles 要素/地形）。defined 判空是第一行。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.camera.flyTo"
+        },
+        {
+          "key": "B",
+          "text": "viewer.scene.pick(screenPosition)",
+          "hint": "两段式模型的第二段：pick 负责命中"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Cartesian3.fromDegrees"
+        },
+        {
+          "key": "D",
+          "text": "viewer.dataSources.add"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-003",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "pick 命中一个 Entity 时，实体对象挂在返回值的哪个字段上？",
+      "explanation": "pick 的返回是命中信息包装：Entity 拾取时 picked.id 指向实体本身；没有 id 的命中（3D Tiles 要素、地形等）要走 picked.primitive 分支。先分型再取值。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "picked.position"
+        },
+        {
+          "key": "B",
+          "text": "picked.id",
+          "hint": "picked.id 才是 Entity 实例"
+        },
+        {
+          "key": "C",
+          "text": "picked.primitiveId"
+        },
+        {
+          "key": "D",
+          "text": "picked.name 直接就是实体"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-004",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "一个半透明多边形下面压着点实体，一次点击想拿到「从上到下全部被点中的对象」，该用？",
+      "explanation": "pick 只返回最上层一个；drillPick 返回该像素从上到下的全部命中。成本更高，适合点击类低频交互，不要放进 MOUSE_MOVE。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.drillPick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#drillPick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "scene.pick"
+        },
+        {
+          "key": "B",
+          "text": "scene.drillPick(position)",
+          "hint": "drillPick 打穿整列"
+        },
+        {
+          "key": "C",
+          "text": "scene.pickPosition"
+        },
+        {
+          "key": "D",
+          "text": "camera.pickEllipsoid"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-005",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 ScreenSpaceEventHandler 的使用，下列说法正确的有哪些？",
+      "explanation": "一个 handler 可注册多种事件；LEFT_CLICK 有拖动判定，旋转后松开不算点击（拖动归 LEFT_DOWN/LEFT_UP）。destroy() 释放监听。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "事件挂在 viewer.scene.canvas 上"
+        },
+        {
+          "key": "B",
+          "text": "MOUSE_MOVE 回调参数含 endPosition（当前像素）"
+        },
+        {
+          "key": "C",
+          "text": "handler.destroy() 可解绑全部事件，防内存泄漏"
+        },
+        {
+          "key": "D",
+          "text": "一个 handler 只能注册一种事件类型",
+          "hint": "setInputAction 可多次调用注册不同事件"
+        },
+        {
+          "key": "E",
+          "text": "LEFT_CLICK 在拖动旋转地球后松开左键也会触发"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-07-006",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "悬停高亮交互的三步骨架是：恢复上一个的旧状态 → 判定当前命中 → 改光标/样式。",
+      "explanation": "「恢复旧状态 → 判定新状态 → 改光标」是所有 hover 交互的通用骨架。关键细节：改色前先存原色，否则高亮后回不去。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-07-007",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "GeoJSON 点要素经 GeoJsonDataSource 加载后默认渲染为 billboard（大头针）。要让点选时它变大，应该改？",
+      "explanation": "billboard 类图形的缩放是 scale 属性；pixelSize 是 point 类图形的属性。GeoJSON 点要素默认渲染为 billboard，两者别混。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        },
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "entity.point.pixelSize",
+          "hint": "它没有 point，改了没用"
+        },
+        {
+          "key": "B",
+          "text": "entity.billboard.scale",
+          "hint": "billboard 用 scale 缩放"
+        },
+        {
+          "key": "C",
+          "text": "entity.label.font"
+        },
+        {
+          "key": "D",
+          "text": "viewer.scene.maximumScreenSpaceError"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-008",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "「属性穿透」需求：透明专题面叠着 POI 点，点击要列出这一像素上所有命中对象。正确做法与理由是？",
+      "explanation": "drillPick 返回该像素从上到下全部命中对象，专治叠层穿透。它的射线求交成本高于 pick，只用于低频的点击场景。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.drillPick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#drillPick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "scene.pick 循环调用几次"
+        },
+        {
+          "key": "B",
+          "text": "scene.drillPick 一次拿整列命中——它就是为穿透设计",
+          "hint": "pick 只给最上层"
+        },
+        {
+          "key": "C",
+          "text": "把透明面删掉再点"
+        },
+        {
+          "key": "D",
+          "text": "监听 MOUSE_MOVE 逐帧 pick"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-009",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "pick 返回的命中对象在没有打中任何东西时为 undefined，所以取属性前必须用 Cesium.defined 判空。",
+      "explanation": "大多数像素点打中的是「空地」。Cesium.defined(picked) 是拾取代码的第一行——判空后才能区分 picked.id（Entity）与 primitive 分支。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-07-010",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "3D Tiles 建筑被点击后想读出「这栋楼的楼龄」属性。下列路径正确的是？",
+      "explanation": "Entity 与 3D Tiles 要素是两类拾取结果。3D Tiles 要素无 picked.id，命中信息挂在 primitive/content 上，属性接口随版本演进（getProperty/getContent），以锁定版本的文档为准。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "picked.id.properties.getValue()——和 Entity 完全一样"
+        },
+        {
+          "key": "B",
+          "text": "判断无 picked.id 后走 primitive 分支，按所用 Cesium 版本用要素的属性接口（getProperty 等）读批表属性",
+          "hint": "3D Tiles 要素没有 .id，走 primitive 分支"
+        },
+        {
+          "key": "C",
+          "text": "从 camera.positionCartographic 里取"
+        },
+        {
+          "key": "D",
+          "text": "3D Tiles 模型没有属性，读不了"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-011",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "设计「点击要素弹出属性面板」功能，下列工程实践正确的有哪些？",
+      "explanation": "属性面板 = 拾取结果传 UI + 空白复位 + 卸载清理 + 高亮先存原色。drillPick 别放进 MOUSE_MOVE（成本高），穿透需求放在点击里。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        },
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 picked.id.properties 传给自己的 UI 组件渲染"
+        },
+        {
+          "key": "B",
+          "text": "用 handler.destroy() 在组件卸载时清理事件"
+        },
+        {
+          "key": "C",
+          "text": "在 MOUSE_MOVE 里对每个像素做 drillPick 提升灵敏度",
+          "hint": "drillPick 成本高，MOUSE_MOVE 滥用会拖垮帧率"
+        },
+        {
+          "key": "D",
+          "text": "点击空白处（defined 为 false）时隐藏面板"
+        },
+        {
+          "key": "E",
+          "text": "改高亮色之前先保存原色"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ]
+    }
+  ]
+}

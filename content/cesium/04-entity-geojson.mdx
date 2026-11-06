@@ -1,0 +1,247 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：前四章你有了球、相机、影像、地形——但场景里还没有任何"业务对象"。本章把 **Entity**（/ˈentəti/，「恩-提-提」，实体）体系讲透：点、标注、图标、线、面怎么放上去、怎么改样式，以及怎么把 GIS 课第 06 章的 GeoJSON 一次性灌进场景。**我的经验一句话**：Entity 是 Cesium 给你的"高层数据绑定"——你描述"这是一个红色的点"，剩下的渲染它管；不要一上来就去碰底层 Primitive（那是第 09 章的性能话题）。**我见过的坑（你大概率也会踩）**：
+- `polygon.hierarchy` 传经纬度数组报错——它要的是 `Cartesian3` 数组，用 `fromDegreesArray`（不带高度）或 `fromDegreesArrayHeights`（带高度）转换。
+- 加载 GeoJSON 后图上什么都没有——数据是三维坐标（带 z）或高程点时，默认"浮在空中"或"埋进地下"，记得配 `clampToGround`。
+- 点太多页面卡成幻灯片——几万个点还用 billboard，是自找的；上万级要用点的集合或 Primitive（第 09 章）。**必记 3 条**：
+1. Entity = 声明式对象：`viewer.entities.add({...})`，一个 entity 可同时挂 point + label + billboard
+2. GeoJSON 整包加载用 `GeoJsonDataSource.load`，样式用 `clampToGround` 贴地
+3. 动态属性用 `CallbackProperty`——每帧回调一次，函数返回什么就画什么
+
+## 本章你会学到
+
+Entity 体系的组织方式（DataSource 与实体集合）；五种最常用实体的写法与样式细节；GeoJSON 一次性加载与逐要素样式定制；以及用 `CallbackProperty` 给静态场景注入最简单的"活"效果。学完这章，你就能把 GIS 课的矢量数据真正"立"在三维地球上。
+
+## 1. Entity 体系：声明式的高层封装
+
+Cesium 的可视化 API 分两层：**Entity**（高层、声明式、面向数据）和 **Primitive**（底层、面向渲染性能，第 09 章）。日常业务 90% 用 Entity 就够了：
+
+```js
+// 一个最小实体：北京上空一个红点
+const entity = viewer.entities.add({
+  id: "beijing-point",      // 业务 id：供拾取/查找用（省略则自动生成）
+  name: "北京",
+  position: Cesium.Cartesian3.fromDegrees(116.397, 39.909, 0),
+  point: {
+    pixelSize: 12,
+    color: Cesium.Color.RED,
+    outlineColor: Cesium.Color.WHITE,
+    outlineWidth: 2,
+  },
+});
+```
+
+要点：**一个 Entity 是一个"数据对象"，可以同时挂多种图形**——同一个位置，`point` 管点本身、`label` 管文字、`billboard` 管图标，三件套一起上就是一个完整标注：
+
+```js
+viewer.entities.add({
+  position: Cesium.Cartesian3.fromDegrees(116.397, 39.909, 0),
+  point: { pixelSize: 10, color: Cesium.Color.CYAN },
+  label: {
+    text: "北京 · 天安门",
+    font: "14px sans-serif",
+    fillColor: Cesium.Color.WHITE,
+    style: Cesium.LabelStyle.FILL_AND_OUTLINE,
+    outlineWidth: 2,
+    outlineColor: Cesium.Color.BLACK,
+    // 文字浮在点上方 20px，锚点用文字底部对齐
+    pixelOffset: new Cesium.Cartesian2(0, -20),
+    verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+    disableDepthTestDistance: Number.POSITIVE_INFINITY, // 永远不被地形遮挡
+  },
+});
+
+// 增删查
+viewer.entities.remove(entity);       // 删单个
+viewer.entities.removeAll();          // 删全部
+const found = viewer.entities.getById("beijing-point");
+```
+
+<Callout type="must" title="必背 · Entity 三条">
+1. `id` 自己起、供业务查找与拾取反查；不填 Cesium 会生成随机 id
+2. 一个 Entity 可同时挂 point/label/billboard/polyline/polygon 等多种图形，各自有独立的样式块
+3. `disableDepthTestDistance: Number.POSITIVE_INFINITY` 让标注永远浮在最上层——做城市标注必备
+</Callout>
+
+## 2. 线与面：贴地与拉伸
+
+线（`polyline`）和面（`polygon`）的坐标都是 `Cartesian3` 数组，转换函数看"要不要高度"：
+
+```js
+// 线：positions 用 fromDegreesArray（[lon, lat, lon, lat, ...]，无高度）
+viewer.entities.add({
+  polyline: {
+    positions: Cesium.Cartesian3.fromDegreesArray([
+      116.39, 39.90, 116.40, 39.91, 116.42, 39.905,
+    ]),
+    width: 4,
+    material: Cesium.Color.ORANGE,
+    clampToGround: true,   // 贴地：沿线自动贴在地形/椭球面上
+  },
+});
+
+// 面：hierarchy 同样用 fromDegreesArray
+viewer.entities.add({
+  polygon: {
+    hierarchy: Cesium.Cartesian3.fromDegreesArray([
+      116.38, 39.90, 116.42, 39.90, 116.42, 39.92, 116.38, 39.92,
+    ]),
+    material: Cesium.Color.GREEN.withAlpha(0.4),  // 半透明填充
+    outline: true,
+    outlineColor: Cesium.Color.GREEN,
+    clampToGround: true,
+  },
+});
+```
+
+面的进阶玩法是**拉伸成体**：给 `extrudedHeight`（拉伸目标高度），底面在 `height`——两行代码把一块多边形变成一栋楼：
+
+```js
+viewer.entities.add({
+  polygon: {
+    hierarchy: Cesium.Cartesian3.fromDegreesArray([ /* ... */ ]),
+    material: Cesium.Color.SANDYBROWN.withAlpha(0.9),
+    extrudedHeight: 120,  // 拉到 120 米高
+    height: 0,            // 底面高度
+  },
+});
+```
+
+<Callout type="info" title="clampToGround 的适用边界">
+贴地（`clampToGround: true`）在有地形时尤其重要——不贴地的线会"穿山而过"或"悬在谷上"。但贴地渲染有额外开销：海量线面（数万条）全贴地会明显掉帧，批量场景要么不贴地，要么改用 Primitive 方案（第 09 章）。
+</Callout>
+
+## 3. GeoJSON 一次性灌入：GeoJsonDataSource
+
+GIS 课第 08 章的 GeoJSON 在 Cesium 里有专门的整包加载通道——**GeoJsonDataSource**：
+
+```js
+// 直接加载 URL（也可以传 JS 对象：本地已解析的 GeoJSON）
+const ds = await Cesium.GeoJsonDataSource.load("/data/beijing-districts.geojson", {
+  stroke: Cesium.Color.CYAN,              // 线颜色（含面的轮廓）
+  fill: Cesium.Color.CYAN.withAlpha(0.2), // 面填充
+  strokeWidth: 2,
+  clampToGround: true,                    // 整包贴地
+});
+await viewer.dataSources.add(ds);
+await viewer.flyTo(ds);                   // 数据自适应缩放（第 01 章）
+
+// 逐要素定制：遍历实体，按属性上样式
+for (const entity of ds.entities.values) {
+  const pop = entity.properties?.population?.getValue();
+  if (pop > 3_000_000) {
+    entity.polygon.material = Cesium.Color.RED.withAlpha(0.5);
+  }
+  // GeoJSON 的 feature properties 会挂在 entity.properties 上，
+  // 拾取时直接能读——弹窗、过滤都靠它
+}
+```
+
+三个关键认知：① `GeoJsonDataSource.load` 返回 **Promise\<DataSource\>**，加载完成前场景是空的；② 每个 GeoJSON feature 变成一个 Entity，其 `properties` 字段原样挂在 `entity.properties` 上，`getValue()` 取值；③ Point 要素默认渲染成"大头针"图标，`markerColor`/`markerSymbol` 参数可以换颜色与图标。
+
+<Callout type="warn" title="GeoJSON 高度陷阱">
+GeoJSON 坐标是 `[lng, lat, z?]`——第三个位是高度。带 z 的数据默认按"椭球高"悬浮在对应高度上，看起来"飘在空中"；地面数据请务必 `clampToGround: true`。反过来，如果做的是"地下管线/飞行航迹"，z 才是主角，不要贴地。
+</Callout>
+
+## 4. CallbackProperty：最简动画
+
+Entity 的任何样式字段都能换成 **CallbackProperty**——每帧调用一次回调，返回值就是当帧的值。最常用的两种：
+
+```js
+// ① 呼吸点：point.pixelSize 随时间正弦变化
+let start = performance.now();
+viewer.entities.add({
+  position: Cesium.Cartesian3.fromDegrees(116.397, 39.909),
+  point: {
+    pixelSize: new Cesium.CallbackProperty(() => {
+      const t = (performance.now() - start) / 1000;
+      return 10 + 4 * Math.sin(t * 3);   // 10~14 px 之间呼吸
+    }, false),                            // false = 非常量，每帧求值
+    color: Cesium.Color.CYAN,
+  },
+});
+
+// ② 生长线：polyline.positions 每帧多一段（模拟"画线"过程）
+const fullLine = Cesium.Cartesian3.fromDegreesArray([ /* 完整轨迹 */ ]);
+let ratio = 0;
+const growingLine = viewer.entities.add({
+  polyline: {
+    positions: new Cesium.CallbackProperty(() => {
+      ratio = Math.min(1, ratio + 0.002);
+      const n = Math.max(2, Math.floor(fullLine.length * ratio));
+      return fullLine.slice(0, n);
+    }, false),
+    width: 3,
+    material: Cesium.Color.YELLOW,
+  },
+});
+```
+
+原则：**能静态就静态**。CallbackProperty 每帧执行你的函数，几十个动态实体没问题，成百上千个会拖垮帧率——系统性的"时间维度"解法（CZML + Clock）是下一章的主角。
+
+<Exercise tool="cesium" title="动手 · 把 GeoJSON 做成可点选的三维标注集">
+综合练习：加载一份含 Point 要素的 GeoJSON（自造一份即可，两三个点足够），要求：① 整包贴地加载；② 遍历实体，把默认大头针换成"青色呼吸点 + 文字标注"；③ 点击任一点，在控制台打印它的 name 与 properties。
+
+<ExerciseSolution>
+```js
+// 自造数据：{ type: "FeatureCollection", features: [{ type: "Feature",
+//   properties: { name: "天安门" }, geometry: { type: "Point",
+//   coordinates: [116.397, 39.909] } }, ...] }
+const ds = await Cesium.GeoJsonDataSource.load("/data/pois.geojson", {
+  clampToGround: true,
+});
+await viewer.dataSources.add(ds);
+
+let start = performance.now();
+for (const entity of ds.entities.values) {
+  entity.billboard = undefined;  // 清掉默认大头针
+  entity.point = {
+    pixelSize: new Cesium.CallbackProperty(() => {
+      const t = (performance.now() - start) / 1000;
+      return 9 + 3 * Math.sin(t * 3);
+    }, false),
+    color: Cesium.Color.CYAN,
+    outlineColor: Cesium.Color.WHITE,
+    outlineWidth: 1,
+  };
+  entity.label = {
+    text: entity.name ?? "未命名",
+    font: "13px sans-serif",
+    pixelOffset: new Cesium.Cartesian2(0, -18),
+    verticalOrigin: Cesium.VerticalOrigin.BOTTOM,
+    fillColor: Cesium.Color.WHITE,
+    disableDepthTestDistance: Number.POSITIVE_INFINITY,
+  };
+}
+
+const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+handler.setInputAction((movement) => {
+  const picked = viewer.scene.pick(movement.position);
+  if (Cesium.defined(picked) && picked.id) {
+    const e = picked.id;
+    console.log(e.name, e.properties?.getValue());
+  }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+```
+说明：① 拾取（pick）这里只用了最简形态——第 07 章会系统讲事件与拾取体系；② `entity.properties?.getValue()` 返回整个 properties 对象，空数据返回 undefined；③ 只改 `point` 不会自动隐藏默认 billboard，要显式 `billboard = undefined`。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- Entity = 声明式可视化：一个实体挂多种图形，`id` 服务于业务查找与拾取。
+- 点/标注用 point+label+billboard 三件套；`disableDepthTestDistance` 让标注永不遮挡。
+- 线面贴地 `clampToGround`，面拉伸用 `extrudedHeight`；贴地有性能代价。
+- GeoJSON 用 `GeoJsonDataSource.load` 整包进场景，feature properties 挂在 `entity.properties`。
+- 动态样式用 `CallbackProperty`（每帧回调），能用静态就用静态。
+
+下一章：让时间成为维度——CZML 与 Clock，把"轨迹动画"做成声明式数据。
+
+## 延伸阅读
+
+- Entity 官方教程（可视化系列）：[CesiumJS Visualizing Spatial Data](https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/)
+- Entity API 参考：[Cesium.Entity](https://cesium.com/reference/cesiumjs/latest/Cesium.Entity.html)
+- GeoJsonDataSource API 参考：[Cesium.GeoJsonDataSource](https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html)
+- CallbackProperty API 参考：[Cesium.CallbackProperty](https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html)
+- 矢量数据模型基础（本课前置）：[GIS 课 · 矢量与栅格](/s/gis/05)
+- GeoJSON 格式规范：[GIS 课 · 数据格式与瓦片](/s/gis/07)

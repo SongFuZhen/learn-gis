@@ -1,0 +1,185 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：上一章的 CallbackProperty 是"用代码驱动动画"——每帧跑你的函数。但如果动画本身就是**数据**（一架飞机 10:00 在 A 点、10:01 在 B 点……），更好的做法是把时间轨迹写成数据文件，让引擎去播。这就是 **CZML**（/ˈdɪzl/，「迪兹尔」，官方读法，Cesium Language 的缩写）——Cesium 的"JSON 版 KML"，专为时间动态设计。**我的经验一句话**：CZML 是"给时间轴喂数据"——你描述"什么时间在哪里"，播放、暂停、倍速全是 Clock 的事，一行动画代码都不用写。**我见过的坑（你大概率也会踩）**：
+- CZML 文档第一个元素必须是 `id: "document"` 的元数据块，忘了它整个文件不渲染。
+- 时间区间（`interval`）之间出现"瞬移"——相邻两个包的时间没接上，或没配插值算法。
+- 播放器不动——`clock.shouldAnimate` 没设为 `true`，Clock 默认是暂停的。**必记 3 条**：
+1. CZML = 数组，第 0 个元素是 document 头（声明 Clock 的起止时间）
+2. 位置随时间变化用 `cartographicDegrees: [t, lon, lat, h, ...]` 序列
+3. `viewer.clock.shouldAnimate = true` 才会开始播
+
+## 本章你会学到
+
+CZML 文档结构；Clock 与 TimeInterval 的时间体系；用 `SampledPositionProperty` 思想声明轨迹（CZML 内部就是它）；`VelocityOrientationProperty` 让物体沿轨迹自动转向。学完这章，卫星过境、车辆轨迹、无人机航拍这类"时间 + 位置"业务，你都能纯数据驱动地做出来。
+
+## 1. CZML 文档结构：document 头 + 实体包
+
+CZML 是一个 JSON 数组。第 0 个元素永远是 document 头——声明这份文件的时间范围：
+
+```json
+[
+  {
+    "id": "document",
+    "name": "飞机航迹",
+    "version": "1.0",
+    "clock": {
+      "interval": "2026-01-01T10:00:00Z/2026-01-01T10:10:00Z",
+      "currentTime": "2026-01-01T10:00:00Z",
+      "multiplier": 10,
+      "shouldAnimate": true
+    }
+  },
+  {
+    "id": "plane-1",
+    "name": "CA1831",
+    "availability": "2026-01-01T10:00:00Z/2026-01-01T10:10:00Z",
+    "position": {
+      "epoch": "2026-01-01T10:00:00Z",
+      "cartographicDegrees": [
+        0,   116.39, 39.90, 10000,
+        120, 116.55, 39.95, 10500,
+        300, 116.90, 40.10, 11000,
+        600, 117.30, 40.30, 11500
+      ]
+    },
+    "point": {
+      "pixelSize": 10,
+      "color": { "rgbaf": [1, 0.6, 0, 1] }
+    },
+    "path": {
+      "material": { "solidColor": { "color": { "rgbaf": [1, 0.6, 0, 0.6] } } },
+      "width": 2,
+      "leadTime": 0,
+      "trailTime": 600
+    }
+  }
+]
+```
+
+读法：`clock.interval` 声明"这份文件的时间轴范围"；`epoch` 声明"`cartographicDegrees` 里的数字是相对 epoch 的**秒偏移**"；`cartographicDegrees` 是四元组平铺——`[秒, 经度, 纬度, 高度]`，引擎在这些采样点之间**自动插值**，Clock 走到哪、物体就在哪。`path` 实体自动画出"走过的轨迹"，`trailTime` 控制拖尾长度。
+
+<Callout type="info" title="颜色为什么是 rgbaf？">
+CZML 是纯 JSON，没有 `Cesium.Color.RED`，颜色用数值数组表达：`rgbaf: [r, g, b, a]`，每个分量 0~1。红色 = `[1, 0, 0, 1]`。从 CSS 色值转换：`Cesium.Color.fromCssColorString("#ff6600")` 再读它的 red/green/blue/alpha。
+</Callout>
+
+## 2. Clock：场景的"时间遥控器"
+
+第 00 章说过，时间是 Cesium 的一等公民——具体承载者就是 **Clock**：
+
+```js
+viewer.clock.shouldAnimate = true;   // 开始播放（默认暂停！）
+viewer.clock.multiplier = 30;        // 30 倍速：真实 1 秒 = 场景 30 秒
+viewer.clock.currentTime;            // 当前时刻（JulianDate）
+viewer.clock.currentTime = Cesium.JulianDate.fromIso8601("2026-01-01T10:05:00Z");
+viewer.clock.onTick.addEventListener(() => { /* 每帧回调，可做 UI 同步 */ });
+```
+
+界面底部的动画控件（时间轴 + 播放按钮）直接操作的就是这个 Clock；`viewer.animation`/`viewer.timeline` 参数可以关掉它们（第 00 章的最小 Viewer 就关了）。业务里最常用的三件事：`shouldAnimate` 控制播放、`multiplier` 控速、`onTick` 把当前时刻同步到你自己的 UI。
+
+## 3. 纯代码版：SampledPositionProperty
+
+不想写 CZML 文件、想用代码构造同样的轨迹？`SampledPositionProperty` 就是 CZML `position` 背后的机制：
+
+```js
+// 采样点 → 时间位置属性
+const positionProperty = new Cesium.SampledPositionProperty();
+positionProperty.addSample(
+  Cesium.JulianDate.fromIso8601("2026-01-01T10:00:00Z"),
+  Cesium.Cartesian3.fromDegrees(116.39, 39.90, 10000)
+);
+positionProperty.addSample(
+  Cesium.JulianDate.fromIso8601("2026-01-01T10:10:00Z"),
+  Cesium.Cartesian3.fromDegrees(117.30, 40.30, 11500)
+);
+positionProperty.setInterpolationOptions({
+  interpolationDegree: 2,
+  interpolationAlgorithm: Cesium.LagrangePolynomialApproximation,
+});
+
+viewer.entities.add({
+  // position 直接挂"随时间变化的属性"——这就是 CZML 的本质
+  position: positionProperty,
+  point: { pixelSize: 10, color: Cesium.Color.ORANGE },
+  path: { trailTime: 600, width: 2, material: Cesium.Color.ORANGE.withAlpha(0.6) },
+  // 朝向沿速度方向自动计算——机头永远朝前
+  orientation: new Cesium.VelocityOrientationProperty(positionProperty),
+});
+
+viewer.clock.startTime = Cesium.JulianDate.fromIso8601("2026-01-01T10:00:00Z");
+viewer.clock.stopTime  = Cesium.JulianDate.fromIso8601("2026-01-01T10:10:00Z");
+viewer.clock.multiplier = 30;
+viewer.clock.shouldAnimate = true;
+```
+
+两种写法怎么选：**数据由后端下发/需要序列化** → CZML（存成 `.json` 直接 `CzmlDataSource.load(url)`）；**数据在内存里现算**（如实时接口轮询）→ `SampledPositionProperty`。两者可混用：CZML 加载后 `ds.entities.values` 里的实体，其 position 本来就是 Property，照样能改。
+
+<Callout type="warn" title="插值：轨迹顺不顺滑全看它">
+两个采样点之间物体怎么走，由插值算法决定。默认线性插值在采样点稀疏时"折线感"明显；换 `LagrangePolynomialApproximation`（拉格朗日）或 `HermitePolynomialApproximation` 并给 `interpolationDegree: 2~3`，轨迹立刻顺滑。但注意：插值是算出来的，**采样点本身要分布合理**——急转弯处多给几个点，比调算法更有用。
+</Callout>
+
+## 4. 与卫星轨道的呼应
+
+GIS 课第 16、17 章讲过卫星轨道与星下点：轨道本质就是"时间 → 位置"的函数。用本章的知识可以做一个漂亮的综合练习：从 TLE 两行根数算出一段星下点采样（现成库如 satellite.js），塞进 `SampledPositionProperty`，一颗"会动的卫星"就挂上了地球——配合 `path` 的拖尾，Starlink 的"珍珠项链"效果自己就能画出来。这也是为什么说"时间 + 位置"是三维 GIS 的一半业务。
+
+<Exercise tool="cesium" title="动手 · 三分钟航班动画">
+用纯代码方式（SampledPositionProperty）做一段航班动画：3 个采样点、拉格朗日插值、橙色点 + 60 秒拖尾，`multiplier = 60`，自动播放。
+
+<ExerciseSolution>
+```js
+const start = Cesium.JulianDate.fromIso8601("2026-01-01T10:00:00Z");
+const property = new Cesium.SampledPositionProperty();
+
+const samples = [
+  [   0, 116.39, 39.90, 10000],
+  [ 180, 116.90, 40.10, 11000],
+  [ 360, 117.30, 40.30, 11500],
+];
+for (const [sec, lon, lat, h] of samples) {
+  property.addSample(
+    Cesium.JulianDate.addSeconds(start, sec, new Cesium.JulianDate()),
+    Cesium.Cartesian3.fromDegrees(lon, lat, h)
+  );
+}
+property.setInterpolationOptions({
+  interpolationDegree: 2,
+  interpolationAlgorithm: Cesium.LagrangePolynomialApproximation,
+});
+
+viewer.entities.add({
+  position: property,
+  point: { pixelSize: 12, color: Cesium.Color.ORANGE },
+  path: {
+    trailTime: 60,
+    width: 2,
+    material: Cesium.Color.ORANGE.withAlpha(0.6),
+  },
+  orientation: new Cesium.VelocityOrientationProperty(property),
+});
+
+viewer.clock.startTime = start;
+viewer.clock.stopTime = Cesium.JulianDate.addSeconds(start, 360, new Cesium.JulianDate());
+viewer.clock.currentTime = start;
+viewer.clock.multiplier = 60;
+viewer.clock.shouldAnimate = true;
+```
+观察点：① 把 `interpolationDegree` 降到 1（线性），中段轨迹会明显变"直"；② 把 multiplier 改回 1，体会"真实时间"有多慢——回放类业务几乎都要倍速；③ 给实体加 `billboard`（飞机图标），配合 `VelocityOrientationProperty` 时机头会始终朝前。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- CZML = 声明式时间动态数据：document 头（Clock）+ 实体包（position 采样序列）。
+- `cartographicDegrees: [秒偏移, lon, lat, h, ...]`，引擎自动插值；`path` 自动画拖尾。
+- Clock 三件事：`shouldAnimate` 播放、`multiplier` 倍速、`onTick` 同步 UI。
+- 纯代码等价物 = `SampledPositionProperty` + `VelocityOrientationProperty`。
+- 插值算法决定顺滑度，但采样点分布才是根本。
+
+下一章：从"画的"到"真实世界的"——3D Tiles 与城市级三维数据。
+
+## 延伸阅读
+
+- CZML 官方指南（结构与属性全集）：[CZML Guide](https://github.com/czml-systems/czml-writer/wiki/CZML-Guide)（英文）
+- CZML 载入 API 参考：[Cesium.CzmlDataSource](https://cesium.com/reference/cesiumjs/latest/Cesium.CzmlDataSource.html)
+- SampledPositionProperty API 参考：[Cesium.SampledPositionProperty](https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html)
+- Clock API 参考：[Cesium.Clock](https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html)
+- 卫星轨道与星下点（数据来源）：[GIS 课 · 卫星轨道与星下点](/s/gis/15)

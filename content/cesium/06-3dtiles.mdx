@@ -1,0 +1,137 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：影像是"贴皮"，地形是"起伏"，但城市里的楼、桥梁、倾斜摄影的整片街区——这些**真实三维模型**是第三种数据：**3D Tiles**（/θriː diː taɪlz/，「斯瑞-迪-泰尔斯」，三维瓦片）。它是 OGC 的三维瓦片开放标准，也是 Cesium 的看家本领。**我的经验一句话**：3D Tiles 之于三维模型，就像瓦片金字塔之于影像——把巨大的模型切成带 LOD 的瓦片树，看哪块加载哪块。**我见过的坑（你大概率也会踩）**：
+- 听说"OSM Buildings 免费开源"就直接 `fromIonAssetId(96188)`——OSM 建筑数据本身开源，但 **ion 托管的这套 3D Tiles 服务需要 token**，401 见。
+- `Cesium3DTileset.fromUrl` 后地球没变化——忘了 `viewer.scene.primitives.add(tileset)`（或用返回值直接 add），tileset 只是创建出来没挂进场景。
+- 加载几 GB 的城市级 tileset 卡死——没理解 SSE 与瓦片裁剪，第 09 章专治这个。**必记 3 条**：
+1. 3D Tiles = 三维世界的瓦片金字塔：tileset.json 描述层级树，b3dm/glb 装模型
+2. ion 上的现成数据集（OSM Buildings/Google 影像）需要 token；自托管 tileset 完全免 token
+3. 挂载两步走：`await Cesium3DTileset.fromUrl(url)` → `viewer.scene.primitives.add(...)`
+
+## 本章你会学到
+
+3D Tiles 的格式概念（tileset.json、瓦片树、LOD/SSE）；`Cesium3DTileset.fromUrl` 的标准挂载流程；用 `Cesium3DTileStyle` 按属性给模型上色；以及 token-free 的实操路径——用 CesiumJS 自带样例 tileset 本地跑通全流程。
+
+## 1. 格式概念：三维版的瓦片金字塔
+
+GIS 课第 08 章的影像金字塔把"一张全球地图"切成小方格；3D Tiles 把"一个巨大的三维模型/海量模型"切成带空间索引的瓦片树：
+
+```text
+tileset.json ──── 根：描述整棵树的空间范围与子节点
+ ├─ tile (b3dm/glb/i3dm/pnts)   一个瓦片 = 一批三角面 + 元数据
+ ├─ tile ...                     每个瓦片记录自己的包围盒与子瓦片
+ └─ ...                          相机看到哪、哪个瓦片细节够，就加载哪块
+```
+
+- **tileset.json**：入口文件，描述瓦片树的层级、包围盒、几何误差（geometric error）。
+- **瓦片内容**：b3dm（批量三维模型，最常见的建筑块）、glb（glTF 模型）、i3dm（实例化模型，如成千上万的树）、pnts（点云）。
+- **LOD 驱动**：每层瓦片带"几何误差"——相机越近要求精度越高，引擎据此决定加载/卸载哪层。思想与影像金字塔完全同构，只是从 2D 方格变成了 3D 包围盒树。
+
+常见的 3D Tiles 来源：倾斜摄影（无人机航拍建模）、BIM/CIM 导出、城市白模批量生成、点云切片。
+
+## 2. 挂载：两步走
+
+```js
+// ① 创建 tileset（异步：要请求 tileset.json）
+const tileset = await Cesium.Cesium3DTileset.fromUrl(
+  "http://localhost:8000/tileset.json",
+  { maximumScreenSpaceError: 16 }   // 精度开关，默认 16（第 09 章细讲）
+);
+
+// ② 挂进场景
+viewer.scene.primitives.add(tileset);
+
+// 定位到模型
+await viewer.zoomTo(tileset);
+```
+
+注意挂载点不同：影像进 `imageryLayers`，实体进 `entities`，**3D Tiles 进 `scene.primitives`**——它是渲染原语层的东西，这是三套数据三种容器的又一次体现（第 02 章的双层模型 + 本章 = Cesium 数据全家桶）。
+
+<Callout type="warn" title="ion 数据集需要 token（本课只认不点）">
+你见过最多的 3D Tiles 演示——OSM Buildings（`Cesium3DTileset.fromIonAssetId(96188)`）、Google Photorealistic 3D Tiles——都是 **ion 托管服务，需要 token**。OSM 建筑数据本身开源（© OpenStreetMap 贡献者），但 ion 的托管分发是商业服务。本课程的实操全部走「自托管 tileset」路径：数据在你手里，token 与你无关。
+</Callout>
+
+## 3. token-free 实操：本地跑通 Cesium 官方样例
+
+CesiumJS 仓库自带样例 tileset（`Apps/SampleData/Cesium3DTiles/`），不用 ion 也能全流程体验：
+
+```bash
+# 1. 下载 CesiumJS 仓库（或只取 SampleData 目录）
+git clone --depth 1 https://github.com/CesiumGS/cesium.git
+
+# 2. 起一个静态文件服务器
+npx serve cesium/Apps/SampleData/Cesium3DTiles/Tilesets/Tileset
+
+# 3. 记下地址（如 http://localhost:3000/tileset.json），挂进你的场景
+```
+
+```js
+const tileset = await Cesium.Cesium3DTileset.fromUrl(
+  "http://localhost:3000/tileset.json"
+);
+viewer.scene.primitives.add(tileset);
+await viewer.zoomTo(tileset);
+```
+
+这就是生产环境的完整缩影：**任何自托管（或 CDN 托管）的 tileset.json 都是这么接的**——换 URL 而已。公司里接的倾斜摄影、BIM 导出件，走的都是这条路。
+
+## 4. Cesium3DTileStyle：按属性给模型上色
+
+3D Tiles 的每个瓦片可以带**批表（batch table）属性**——比如每栋楼的高度、楼龄、用途。用 `Cesium3DTileStyle` 可以像 CSS 一样按条件染色：
+
+```js
+tileset.style = new Cesium.Cesium3DTileStyle({
+  // 按 batch table 属性 ${height} 分级染色
+  color: "${height} > 100 ? color('red') : color('skyblue')",
+});
+```
+
+风格表达式里 `${...}` 引用属性，支持条件、函数、透明度——相当于 GIS 课第 07 章制图分级的"三维版"。这让同一份城市白模不重做数据就能表达主题地图（人口密度、噪声、日照……）。
+
+<Callout type="must" title="必背 · 3D Tiles 三条">
+1. tileset.json 是入口：瓦片树 + 几何误差 + 包围盒；b3dm/glb/i3dm/pnts 是瓦片内容
+2. 挂载两步：`Cesium3DTileset.fromUrl(url)` → `viewer.scene.primitives.add(tileset)`
+3. ion 托管数据集要 token；自托管 tileset 是 token-free 的正路
+</Callout>
+
+<Exercise tool="cesium" title="动手 · 本地 tileset 全流程">
+跑通"下载样例 → 本地 serve → 挂载 → zoomTo → 改 style"的完整闭环。如果暂时不想下载仓库，先把 `fromUrl` 的 URL 指向一个不存在的地址，观察 Network 面板里 tileset.json 的 404 与地球无变化的关系——理解"入口文件是第一步"。
+
+<ExerciseSolution>
+```bash
+git clone --depth 1 https://github.com/CesiumGS/cesium.git
+npx serve cesium/Apps/SampleData/Cesium3DTiles/Tilesets/Tileset -l 3000
+```
+```js
+const tileset = await Cesium.Cesium3DTileset.fromUrl(
+  "http://localhost:3000/tileset.json",
+  { maximumScreenSpaceError: 16 }
+);
+viewer.scene.primitives.add(tileset);
+await viewer.zoomTo(tileset);
+
+// 上色实验：整体调成半透明蓝色
+tileset.style = new Cesium.Cesium3DTileStyle({
+  color: "color('dodgerblue', 0.8)",
+});
+```
+观察点：① Network 面板能看到"先 tileset.json、再按视角零散拉瓦片"的两段式加载——这正是 LOD 树在工作；② 把 `maximumScreenSpaceError` 调到 4（更严），瓦片请求量明显上升、画面更精细——精度与流量的天平，第 09 章展开。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- 3D Tiles = 三维模型的瓦片金字塔标准：tileset.json 入口 + b3dm/glb/i3dm/pnts 内容 + LOD 树。
+- 挂载走 `scene.primitives`（与影像/实体不同容器）。
+- `Cesium3DTileStyle` 按批表属性条件染色——三维版专题地图。
+- OSM Buildings/Google 影像在 ion 上需要 token；自托管 tileset 免 token 且流程完全一致。
+
+下一章：让场景"活"起来——鼠标拾取与交互事件体系。
+
+## 延伸阅读
+
+- 3D Tiles 官方教程：[CesiumJS 3D Tiles 教程](https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/)
+- 3D Tiles 开放标准（OGC）：[OGC 3D Tiles](https://www.ogc.org/standard/3dtiles/)
+- Cesium3DTileset API 参考：[Cesium.Cesium3DTileset](https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html)
+- Cesium3DTileStyle API 参考：[Cesium.Cesium3DTileStyle](https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileStyle.html)
+- OSM Buildings 数据（数据本身开源）：[osmbuildings.org](https://osmbuildings.org/)

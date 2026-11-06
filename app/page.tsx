@@ -137,15 +137,14 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
     { value: data.examCount, unit: "次", label: "参加考试" },
   ];
 
-  // Phase 1：仪表板章节区仍只展示 GIS（cesium 章节随 Phase 3 加入展示）
-  const gisChapters = data.chapters.filter((c) => c.skill === "gis");
-  const passedChapters = gisChapters.filter(
+  const passedChapters = data.chapters.filter(
     (c) => c.quizCount > 0 && c.mastery >= PASS_LINE,
   ).length;
-  const learningChapters = gisChapters.filter(
+  const learningChapters = data.chapters.filter(
     (c) => c.quizCount > 0 && c.mastery < PASS_LINE,
   ).length;
-  const notStartedChapters = gisChapters.length - passedChapters - learningChapters;
+  const notStartedChapters =
+    data.chapters.length - passedChapters - learningChapters;
 
   return (
     <div className="w-full px-4 pb-8 pt-5 sm:px-6 lg:px-8 lg:pt-10">
@@ -307,10 +306,10 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
           </Link>
         </div>
         <ul className="mt-3 space-y-2.5">
-          {gisChapters.map((c) => (
-            <li key={c.slug}>
+          {data.chapters.map((c) => (
+            <li key={`${c.skill}:${c.slug}`}>
               <Link
-                href={`/s/gis/${c.slug}`}
+                href={`/s/${c.skill}/${c.slug}`}
                 className="group flex items-center gap-3"
               >
                 <span className="w-7 shrink-0 font-mono text-[11px] text-foreground-muted">

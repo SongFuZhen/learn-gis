@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { GIS_MODULES, PLANNED_MODULES } from "@/content/gis/modules";
+import { SKILL_REGISTRY } from "@/content/registry";
 import { chapterNo } from "@/lib/content";
 import { PASS_LINE } from "@/lib/quiz/exam";
 
@@ -39,15 +39,17 @@ export default function ProgressPanel() {
   return (
     <>
       <ul className="mt-6 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {GIS_MODULES.map((m) => {
-          // 只匹配本技能的行（skill 缺省视为 gis，兼容迁移前的存量行）
+        {SKILL_REGISTRY.flatMap((reg) =>
+          reg.modules.map((m) => {
+          // 按技能匹配行（skill 缺省视为 gis，兼容迁移前的存量行）
           const row = rows.find(
-            (r) => r.moduleSlug === m.slug && (r.skill ?? "gis") === "gis",
+            (r) =>
+              r.moduleSlug === m.slug && (r.skill ?? "gis") === reg.id,
           );
           const mastery = Math.round(row ? row.mastery : 0);
           return (
             <li
-              key={m.slug}
+              key={`${reg.id}:${m.slug}`}
               className="rounded-md border border-border bg-card p-5 shadow-card"
             >
               <div className="flex items-center justify-between gap-3">
@@ -74,10 +76,12 @@ export default function ProgressPanel() {
               )}
             </li>
           );
-        })}
-        {PLANNED_MODULES.map((m) => (
+          }),
+        )}
+        {SKILL_REGISTRY.flatMap((reg) =>
+          reg.plannedModules.map((m) => (
           <li
-            key={m.slug}
+            key={`${reg.id}:${m.slug}`}
             className="flex items-center gap-3 rounded-md border border-dashed border-border px-4 py-3 text-[13px] text-foreground-tertiary"
           >
             <span className="font-mono text-[11px] text-foreground-muted">
@@ -86,7 +90,8 @@ export default function ProgressPanel() {
             {m.title}
             <span className="ml-auto text-[11px]">即将上线</span>
           </li>
-        ))}
+          )),
+        )}
       </ul>
       <p className="mt-4 text-[11px] leading-relaxed text-foreground-tertiary">
         掌握度取各章测验成绩的平均分；低于 {PASS_LINE}% 建议重读讲义后重练。

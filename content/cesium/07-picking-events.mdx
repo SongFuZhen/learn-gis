@@ -1,0 +1,168 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：场景里的东西能看还不够——点一个楼要知道"这是哪栋楼"，划一条线要能算距离，悬停要素要能高亮。这些都靠**拾取**（pick，/pɪk/，「皮克」）与事件体系。**我的经验一句话**：浏览器事件告诉你"鼠标在屏幕哪里"，Cesium 的 pick 告诉你"那个屏幕点在三维世界里打中了什么"——两段式思维，别混。**我见过的坑（你大概率也会踩）**：
+- 用 `canvas.addEventListener("click")` 自己算三维坐标——屏幕坐标到球面的换算 Cesium 全帮你写好了，直接用 `ScreenSpaceEventHandler`。
+- `pick` 返回的对象直接当 entity 用——它可能是瓦片要素/3D Tiles 要素，要先用 `Cesium.defined` 判空再分辨类型。
+- 高亮后颜色回不去——改 `originalColor` 时没先存原色。**必记 3 条**：
+1. 所有交互事件用 `ScreenSpaceEventHandler` 挂在 `viewer.scene.canvas` 上
+2. `scene.pick(screenPosition)` 是"屏幕坐标 → 三维对象"的唯一正门
+3. `picked.id` 才是 Entity；3D Tiles 要素是 `picked primitive`，两者取属性的方式不同
+
+## 本章你会学到
+
+ScreenSpaceEventHandler 的事件类型全集；`pick` 与 `drillPick` 的分工；Entity 与 3D Tiles 要素两类拾取结果的处理；以及"悬停高亮 + 点击弹窗"这个最经典交互的完整实现。
+
+## 1. ScreenSpaceEventHandler：两段式事件模型
+
+浏览器的 mouse/click 事件只给你**屏幕像素坐标**；三维场景里同一个像素对应一条射线，打中的可能是球面、楼、实体或"什么都没有"。Cesium 的事件封装负责第一段，**pick** 负责第二段：
+
+```js
+const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+
+handler.setInputAction((movement) => {
+  // movement.position：屏幕像素坐标 { x, y }
+  const picked = viewer.scene.pick(movement.position);
+  if (Cesium.defined(picked) && picked.id) {
+    // 打中了 Entity：picked.id 就是那个实体
+    console.log("点中了实体：", picked.id.name);
+  } else {
+    console.log("点中了空地");
+  }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+// 离开页面时解绑，防止内存泄漏
+// handler.destroy();
+```
+
+常用事件类型（`ScreenSpaceEventType`）：`LEFT_CLICK` / `DOUBLE_CLICK` / `RIGHT_CLICK` / `MOUSE_MOVE` / `LEFT_DOWN` / `LEFT_UP` / `WHEEL`。`MOUSE_MOVE` 的回调参数是 `{ endPosition, startPosition }`（移动轨迹的起止像素）。
+
+<Callout type="must" title="必背 · 拾取三条">
+1. 事件挂在 `viewer.scene.canvas` 上，回调拿屏幕坐标
+2. `Cesium.defined(picked)` 判空是第一步——大多数像素点打不中任何东西
+3. `picked.id` 是 Entity；没有 `.id` 的（3D Tiles 要素/地形）走 `picked.primitive` 分支
+</Callout>
+
+## 2. pick 与 drillPick：打中一层还是打穿多层
+
+`scene.pick` 返回**最上层**的一个对象；`scene.drillPick(position)` 返回该像素上**从上到下的整列**对象：
+
+```js
+// 透明多边形叠着点实体——一次 click 两个都想要
+const hits = viewer.scene.drillPick(movement.position);
+for (const hit of hits) {
+  if (hit.id) console.log("实体：", hit.id.id);
+}
+```
+
+经验：交互选择器（点选一个目标）用 `pick`；"这一片都有什么"（属性穿透、叠层分析）用 `drillPick`。后者每个像素做多次射线求交，成本更高，不要放进 MOUSE_MOVE。
+
+## 3. Entity 拾取与 3D Tiles 要素拾取
+
+两类拾取结果的取值路径不同，先分型再取值：
+
+```js
+handler.setInputAction((movement) => {
+  const picked = viewer.scene.pick(movement.position);
+  if (!Cesium.defined(picked)) return;
+
+  if (picked.id) {
+    // ── Entity 路径（第 04 章） ──
+    const e = picked.id;
+    console.log(e.name, e.properties?.getValue?.());
+  } else if (picked.primitive instanceof Cesium.Cesium3DTileset) {
+    // ── 3D Tiles 要素路径（第 06 章） ──
+    // 批表属性挂在要素上（新版 API：picked.getContent? 视版本而定）
+    console.log("3D Tiles 要素", picked);
+  }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+```
+
+3D Tiles 要素的属性读取随版本演进（`picked.getPropertyIds/getProperty` 或 content 接口），用到时以你锁定的 Cesium 版本文档为准——这也是课程一直强调"API 以版本为准"的原因。
+
+## 4. 经典交互：悬停高亮 + 点击弹窗
+
+把本章组件拼成一个完整交互——悬停变亮、点击打日志：
+
+```js
+let lastPicked = null;
+let lastColor = null;
+
+handler.setInputAction((movement) => {
+  const picked = viewer.scene.pick(movement.endPosition);
+  // ① 先把上一个恢复原色
+  if (Cesium.defined(lastPicked)) {
+    lastPicked.point.color = lastColor;
+    lastPicked = null;
+  }
+  // ② 打中新实体则高亮
+  if (Cesium.defined(picked) && picked.id?.point) {
+    lastPicked = picked.id;
+    lastColor = lastPicked.point.color.getValue();
+    lastPicked.point.color = Cesium.Color.YELLOW;
+    viewer.container.style.cursor = "pointer";
+  } else {
+    viewer.container.style.cursor = "default";
+  }
+}, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+```
+
+模式总结：**恢复旧状态 → 判定新状态 → 改光标**。所有 hover 类交互都是这个三步骨架，弹窗只是把 `console.log` 换成你自己的 UI 组件（把 `picked.id.properties` 传给它即可）。
+
+<Exercise tool="cesium" title="动手 · 可点选的城市 POI 标注集">
+组合第 04 章的 GeoJSON 数据与本章事件：加载点要素 GeoJSON，点击要素时把该点放大 2 倍并把它 `name` 显示到页面固定位置（一个 div 即可），再次点击空白处复位。
+
+<ExerciseSolution>
+```html
+<div id="cesiumContainer"></div>
+<div id="poi-info"
+     style="position:absolute; top:10px; left:10px;
+            background:rgba(0,0,0,0.6); color:#fff;
+            padding:6px 10px; border-radius:4px; display:none"></div>
+```
+```js
+const ds = await Cesium.GeoJsonDataSource.load("/data/pois.geojson", {
+  clampToGround: true, markerColor: Cesium.Color.CYAN,
+});
+await viewer.dataSources.add(ds);
+
+const info = document.getElementById("poi-info");
+let selected = null;
+let originalSize = null;
+
+const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
+handler.setInputAction((movement) => {
+  const picked = viewer.scene.pick(movement.position);
+  // 复位上一个
+  if (selected) {
+    selected.point.pixelSize = originalSize;
+    selected = null;
+    info.style.display = "none";
+  }
+  if (Cesium.defined(picked) && picked.id?.billboard) {
+    selected = picked.id;
+    originalSize = selected.billboard.width?.getValue?.() ?? 24;
+    selected.billboard.scale = 1.6;   // 大头针用 scale 放大
+    info.textContent = selected.name ?? "未命名";
+    info.style.display = "block";
+  }
+}, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+```
+要点：① GeoJSON 点要素默认是 billboard（大头针），放大用 `scale` 而不是 pixelSize；② "复位 + 选中"两段逻辑写在同一个 handler 里，天然覆盖"点空白 = 复位"；③ 若要素改成了 point 实体（第 04 章练习），则走 pixelSize 分支。
+</ExerciseSolution>
+</Exercise>
+
+## 5. 本章小结
+
+- 两段式：浏览器事件给屏幕坐标，`scene.pick` 给三维对象——分工清晰。
+- `defined` 判空是第一行；Entity 看 `picked.id`，3D Tiles 要素走 primitive 分支。
+- `pick` 取最上层，`drillPick` 打穿整列——按交互语义选，别在 MOUSE_MOVE 里滥用。
+- 悬停高亮三步骨架：恢复旧状态 → 判定新状态 → 改光标。
+
+下一章：三维世界的"量尺"——距离、面积与贴地线的空间量算。
+
+## 延伸阅读
+
+- 拾取与交互官方示例（Sandcastle 搜 Picking）：[Sandcastle](https://sandcastle.cesium.com/)
+- ScreenSpaceEventHandler API 参考：[Cesium.ScreenSpaceEventHandler](https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html)
+- scene.pick API 参考：[Cesium.Scene.pick](https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick)
+- 矢量要素与属性（拾取结果的前置知识）：[CesiumJS 课 · Entity 可视化与 GeoJSON](/s/cesium/04)

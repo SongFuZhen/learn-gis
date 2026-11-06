@@ -1,0 +1,405 @@
+{
+  "skill": "cesium",
+  "module": "04",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-04-001",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "Cesium 的 Entity 体系属于哪一层封装？",
+      "explanation": "Entity 是声明式的高层封装：你描述对象与样式，引擎负责渲染。底层 Primitive 面向性能与极致控制（第 09 章），日常业务 90% 用 Entity 即可。",
+      "refs": [
+        {
+          "title": "CesiumJS Visualizing Spatial Data 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "面向渲染性能的底层 API"
+        },
+        {
+          "key": "B",
+          "text": "高层声明式 API：描述「这是什么」，渲染细节交给引擎",
+          "hint": "业务首选，Primitive 才是底层"
+        },
+        {
+          "key": "C",
+          "text": "纯数据序列化格式"
+        },
+        {
+          "key": "D",
+          "text": "与三维渲染无关的 UI 组件"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-002",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "polygon.hierarchy 参数需要的数据类型是？",
+      "explanation": "hierarchy 要 Cartesian3 数组：不带高度用 fromDegreesArray（[lon, lat, ...] 平铺），带高度用 fromDegreesArrayHeights（[lon, lat, h, ...]）。直接传数字数组会报错。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "经纬度数字数组",
+          "hint": "要的是 Cartesian3，需转换"
+        },
+        {
+          "key": "B",
+          "text": "Cartesian3 数组，可用 fromDegreesArray / fromDegreesArrayHeights 转换",
+          "hint": "是否带高度决定用哪个转换函数"
+        },
+        {
+          "key": "C",
+          "text": "GeoJSON 对象"
+        },
+        {
+          "key": "D",
+          "text": "字符串 WKT"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-003",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "城市标注需求：文字永远浮在建筑与地形之上、不被遮挡。label 的关键配置是？",
+      "explanation": "disableDepthTestDistance = ∞ 表示该标注不参与深度测试遮挡，永远渲染在最上层。做城市 POI 标注的必备技巧；pixelOffset 只管偏移不管遮挡。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "pixelOffset 设很大"
+        },
+        {
+          "key": "B",
+          "text": "disableDepthTestDistance 设为 Number.POSITIVE_INFINITY",
+          "hint": "关闭深度测试遮挡，标注永在最上"
+        },
+        {
+          "key": "C",
+          "text": "font 字号调大"
+        },
+        {
+          "key": "D",
+          "text": "fillColor 设为透明"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-004",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "CallbackProperty 的第二个参数 isConstant 传 false 表示？",
+      "explanation": "CallbackProperty(getter, isConstant)：isConstant = true 表示值恒定（只求值一次）；false 表示每帧调用 getter。呼吸点/生长线都靠它。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "回调只执行一次"
+        },
+        {
+          "key": "B",
+          "text": "属性非常量：每帧都调用回调求值",
+          "hint": "动态属性的标准用法"
+        },
+        {
+          "key": "C",
+          "text": "属性是全局常量"
+        },
+        {
+          "key": "D",
+          "text": "关闭该实体渲染"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-005",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "一个 Entity 可以同时挂载哪些图形？",
+      "explanation": "一个 Entity 是数据对象，可同时挂 point/label/billboard/polyline/polygon 等多个图形块。影像图层是 imageryLayers 体系（第 02 章），与 Entity 无关。",
+      "refs": [
+        {
+          "title": "CesiumJS Visualizing Spatial Data 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "point（点）"
+        },
+        {
+          "key": "B",
+          "text": "label（文字标注）"
+        },
+        {
+          "key": "C",
+          "text": "billboard（图标）"
+        },
+        {
+          "key": "D",
+          "text": "polyline / polygon（线/面）"
+        },
+        {
+          "key": "E",
+          "text": "imageryLayer（影像图层）",
+          "hint": "影像是 imageryLayers 的图层，不属于 Entity"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-006",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "GeoJSON 的 feature properties 在加载后挂在 entity.properties 上，用 getValue() 取值。",
+      "explanation": "GeoJsonDataSource 把每个 feature 变成一个 Entity，properties 字段原样挂载；entity.properties?.xxx?.getValue() 取值，拾取弹窗与样式过滤都靠它。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-04-007",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "GeoJSON 数据的坐标带了 z 值，加载后点「飘在空中」。最合适的修复是？",
+      "explanation": "带 z 的坐标默认按椭球高渲染（z 即离椭球面高度）。地面数据配 clampToGround 贴地；反过来做航迹/管线时 z 才有意义，不要贴地。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "给每个坐标减 100"
+        },
+        {
+          "key": "B",
+          "text": "加载时配 clampToGround: true 让要素贴地",
+          "hint": "带 z 默认按椭球高悬浮"
+        },
+        {
+          "key": "C",
+          "text": "把 GeoJSON 转成 CSV"
+        },
+        {
+          "key": "D",
+          "text": "调大 maximumScreenSpaceError"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-008",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "entity.properties?.population?.getValue() 中使用可选链是必要的：不是所有要素都带该属性。",
+      "explanation": "GeoJSON 的 properties 各要素可以不一致。可选链 + getValue 是读取要素属性的安全姿势，缺属性返回 undefined 而不是抛错。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-04-009",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "Entity 的 id 字段的作用是？",
+      "explanation": "id 是你在业务里定位实体的钥匙（viewer.entities.getById、拾取后按 id 回查业务数据）。不填 Cesium 生成随机 id，无法反查。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "渲染优先级"
+        },
+        {
+          "key": "B",
+          "text": "业务标识：供 getById 查找与拾取反查；省略则自动生成",
+          "hint": "自定义 id 是业务对接的正解"
+        },
+        {
+          "key": "C",
+          "text": "瓦片层级"
+        },
+        {
+          "key": "D",
+          "text": "控制颜色"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-010",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "GeoJSON 点要素默认渲染为大头针（billboard）。想换成「呼吸点 + 文字标注」，正确的操作组合是？",
+      "explanation": "修改 point 不会自动隐藏已存在的 billboard——要显式 billboard = undefined。然后挂 point（CallbackProperty 动态 pixelSize）与 label 三件套。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        },
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "只改 entity.point，billboard 会自动消失",
+          "hint": "billboard 不会自动隐藏"
+        },
+        {
+          "key": "B",
+          "text": "entity.billboard = undefined 清掉大头针，再挂 point（CallbackProperty 呼吸）与 label",
+          "hint": "显式清除 + 新图形块"
+        },
+        {
+          "key": "C",
+          "text": "只能重写整个 GeoJSON 数据"
+        },
+        {
+          "key": "D",
+          "text": "调 label.font 即可"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-011",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "「按人口给政区面分级染色」用 GeoJsonDataSource 加载后的实现路径是？",
+      "explanation": "遍历 ds.entities.values，读 entity.properties 里的属性值，动态赋 polygon.material——这就是「三维版专题地图」在 Entity 体系下的实现。3D Tiles 的对应物是 Cesium3DTileStyle（第 06 章）。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        },
+        {
+          "title": "GIS 课 · 矢量与栅格",
+          "url": "https://gis.ason.top/s/gis/05"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "遍历 ds.entities.values，按 properties 的人口值给 entity.polygon.material 赋不同颜色",
+          "hint": "逐要素定制 = 遍历 + 按属性赋样式"
+        },
+        {
+          "key": "B",
+          "text": "加载时无法定制，只能默认样式"
+        },
+        {
+          "key": "C",
+          "text": "必须转成 3D Tiles 才能染色"
+        },
+        {
+          "key": "D",
+          "text": "用 maximumScreenSpaceError 控制"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-04-012",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "CallbackProperty 每帧执行回调函数，所以成百上千个动态实体可能拖垮帧率——能用静态就静态。",
+      "explanation": "CallbackProperty 的代价是每帧执行你的函数。少量动态实体没问题；海量动态应考虑 CZML 时间系统（第 05 章）或降频更新。先做对再做强。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    }
+  ]
+}
