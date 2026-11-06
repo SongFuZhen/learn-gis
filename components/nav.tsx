@@ -17,7 +17,8 @@ export type NavItem = {
 
 export const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "首页", key: "home", exact: true },
-  { href: "/s/gis", label: "学习", key: "learn", exact: false },
+  // 学习入口指向课程中转页；/s/<skill> 下的章节页也算在学习内（见 isActive）
+  { href: "/learn", label: "学习", key: "learn", exact: false },
   { href: "/audio", label: "音频", key: "audio", exact: true },
   // 考试入口：每日一考 / 综合考试（章节测验在讲义末尾，不在这里列）
   { href: "/exam", label: "考试", key: "exam", exact: false },
@@ -35,7 +36,11 @@ export const NAV_ICONS: Record<NavItem["key"], LucideIcon> = {
 };
 
 export function isActive(pathname: string, item: NavItem): boolean {
-  return item.exact ? pathname === item.href : pathname.startsWith(item.href);
+  if (!item.exact) {
+    if (item.key === "learn" && pathname.startsWith("/s/")) return true;
+    return pathname.startsWith(item.href);
+  }
+  return pathname === item.href;
 }
 
 /** 答题 / 考试进行中是专注模式：隐藏底部 tab，把底部留给「提交/下一题」操作条 */

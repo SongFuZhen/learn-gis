@@ -9,6 +9,7 @@ import logoMark from "@/public/brand/logo.png";
 
 /** 静态路由标题：前缀长的放前面，避免 /exam 抢走 /exam/daily */
 const STATIC_TITLES: readonly (readonly [prefix: string, title: string])[] = [
+  ["/learn", "学习"],
   ["/exam/daily", "每日一考"],
   ["/exam/mock", "综合考试"],
   ["/exam", "考试"],
