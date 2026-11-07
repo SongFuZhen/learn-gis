@@ -342,6 +342,47 @@
       "answer": [
         "B"
       ]
+    },
+    {
+      "id": "cesium-05-012",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "航班轨迹动画：Clock 时间走到最后一个采样点之后，飞机从场景里直接消失了。最可能的原因与正解是？",
+      "explanation": "SampledPositionProperty 的 forwardExtrapolationType/backwardExtrapolationType 默认为 ExtrapolationType.NONE——采样区间外 getValue 返回 undefined，实体（及其 VelocityOrientationProperty）从场景消失。要「停在首尾点」设两端为 HOLD；EXTRAPOLATE 会按插值算法外推，远离采样区后数值不可信。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        },
+        {
+          "title": "Cesium.ExtrapolationType API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ExtrapolationType.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "采样点太少，应该多加采样点"
+        },
+        {
+          "key": "B",
+          "text": "外推类型默认 NONE，区间外位置为 undefined；把 forward/backwardExtrapolationType 设为 HOLD 让物体停在首尾点",
+          "hint": "外推语义：NONE/HOLD/EXTRAPOLATE 三种"
+        },
+        {
+          "key": "C",
+          "text": "clock.multiplier 太大导致跳帧消失"
+        },
+        {
+          "key": "D",
+          "text": "忘了设 clock.shouldAnimate = true"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
     }
   ]
 }

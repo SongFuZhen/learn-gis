@@ -117,6 +117,10 @@ viewer.clock.shouldAnimate = true;
 两个采样点之间物体怎么走，由插值算法决定。默认线性插值在采样点稀疏时"折线感"明显；换 `LagrangePolynomialApproximation`（拉格朗日）或 `HermitePolynomialApproximation` 并给 `interpolationDegree: 2~3`，轨迹立刻顺滑。但注意：插值是算出来的，**采样点本身要分布合理**——急转弯处多给几个点，比调算法更有用。
 </Callout>
 
+<Callout type="warn" title="采样区间之外，物体会消失（外推默认 NONE）">
+`SampledPositionProperty` 的 `forwardExtrapolationType` / `backwardExtrapolationType` 默认 **NONE**：Clock 走到首个采样之前或末个采样之后，`getValue` 返回 undefined——**实体会从场景里直接消失**（`VelocityOrientationProperty` 同帧失效）。想让物体"停在首尾点"，两端设 `Cesium.ExtrapolationType.HOLD`；`EXTRAPOLATE` 则按插值算法外推（远离采样区后数值不可信）。本章示例把 `clock.startTime/stopTime` 恰好压在采样区间上所以看不到这个现象——做"全天候在线"的回放业务必踩，先记住。
+</Callout>
+
 ## 4. 与卫星轨道的呼应
 
 [GIS 课第 16 章](/s/gis/15)、[第 17 章](/s/gis/16) 讲过卫星轨道与星下点：轨道本质就是"时间 → 位置"的函数。用本章的知识可以做一个漂亮的综合练习：从 TLE 两行根数算出一段星下点采样（现成库如 satellite.js），塞进 `SampledPositionProperty`，一颗"会动的卫星"就挂上了地球——配合 `path` 的拖尾，Starlink 的"珍珠项链"效果自己就能画出来。这也是为什么说"时间 + 位置"是三维 GIS 的一半业务。
