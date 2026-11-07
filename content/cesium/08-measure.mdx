@@ -112,7 +112,7 @@ function refreshPreview(hover) {
 骨架要点：① `camera.pickEllipsoid` 把屏幕点投到椭球面（无地形时的取点法；有地形用 `scene.pickPosition`）；② polyline 的 positions 挂 `CallbackProperty`，**每次取点/移动都更新闭包里的数组**；③ 双击（`DOUBLE_CLICK`）结束并调用本章公式出结果。
 
 <Callout type="warn" title="pickEllipsoid vs pickPosition">
-`camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 打的是"真实渲染面"（有地形就是山、有 3D Tiles 就是楼面），需要开 `scene.pickPositionSupported` 且更贵。量地用前者，量楼面/地形表面用后者——选错会让你的量算"贴不到地上"。
+`camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 则从**深度缓冲**重构位置——打中的是当前渲染出来的任何表面（地形就是山、3D Tiles 就是楼面、模型就是表皮）。三条使用规则：① 先探测 `scene.pickPositionSupported`——它是**只读能力探测**（检查设备是否支持深度纹理），不是开关；不支持时调用会直接抛 `DeveloperError`。② 半透明表面默认会被"穿透"（官方原文：essentially picks through translucent primitives）——要拾取半透明面（比如本章看板里的半透明政区面），设 `scene.pickTranslucentDepth = true`（默认 false，有额外绘制开销）。③ 对地球面的拾取在 `depthTestAgainstTerrain = false`（默认）下曾有结果不正确的 bug，1.118 修复——课程基线 1.107+ 中、1.118 之前的版本量地表要注意。量地用前者，量楼面/地形表面用后者。
 </Callout>
 
 <Exercise tool="cesium" title="动手 · 完整测距工具">
