@@ -17,7 +17,7 @@
 | 类型 | API/算法 | 含义 | 适用 |
 | --- | --- | --- | --- |
 | 空间直线 | `Cartesian3.distance(a, b)` | 三维空间弦长 | 高度差主导的场景（电梯/索道）、短距离 |
-| 大圆距离 | `EllipsoidGeodesic.surfaceDistance` | 沿椭球面的最短路径 | 两地距离、航线 |
+| 大圆距离 | `EllipsoidGeodesic.surfaceDistance` | 沿椭球面的最短路径（Vincenty 算法，**忽略高度**、按 0 高程计算） | 两地距离、航线 |
 | 贴地距离 | 分段沿地形采样累加 | 沿地形表面走 | 徒步/管线埋地（需真实地形） |
 
 ```js
@@ -65,6 +65,8 @@ function computeArea(positions /* Cartesian3[] */) {
 
 精度边界：**数百平方公里以内**的普通地块，切平面法误差可接受；省级以上的巨大多边形要用专门的椭球面积算法（或直接交给 PostGIS 的 geography 类型，[GIS 课第 14 章](/s/gis/13) 的路数）——知道工具的适用边界，比背公式更重要。
 
+两个投影 API 别选错：`projectPointsToNearestOnPlane`（沿平面法线取最近点，**结果与输入等长**）和 `projectPointsOntoPlane`（从地心径向投影，**投不出的点会被丢弃**、结果可能比输入短）——量面积必须用前者，丢一个顶点多边形就变形了。
+
 ## 3. 交互闭环：点击取点 → 动态预览 → 结束出结果
 
 把第 07 章的拾取和本章的公式组装成量算工具。核心结构：
@@ -75,41 +77,46 @@ let polyline;                             // 动态预览线
 const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
 
 handler.setInputAction((movement) => {
-  // 左键：加一个顶点（把屏幕点投到椭球面）
-  const carto = viewer.camera.pickEllipsoid(movement.position);
-  if (!carto) return;
-  points.push(Cesium.Cartesian3.fromRadians(carto.longitude, carto.latitude));
+  // 左键：加一个顶点（pickEllipsoid 返回 Cartesian3，转成 Cartographic）
+  const cartesian = viewer.camera.pickEllipsoid(movement.position);
+  if (!cartesian) return;
+  points.push(Cesium.Cartographic.fromCartesian(cartesian));
   refreshPreview();
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
 handler.setInputAction((movement) => {
   // 鼠标移动：橡皮筋预览（最后一个点跟随鼠标）
-  const carto = viewer.camera.pickEllipsoid(movement.endPosition);
-  if (!carto || points.length === 0) return;
-  const hover = Cesium.Cartesian3.fromRadians(carto.longitude, carto.latitude);
-  refreshPreview(hover);
+  const cartesian = viewer.camera.pickEllipsoid(movement.endPosition);
+  if (!cartesian || points.length === 0) return;
+  hoverCarto = Cesium.Cartographic.fromCartesian(cartesian);
+  refreshPreview();
 }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
-function refreshPreview(hover) {
-  const line = [...points, ...(hover ? [hover] : [])];
-  if (!polyline) {
-    polyline = viewer.entities.add({
-      polyline: {
-        positions: new Cesium.CallbackProperty(() =>
-          previewPositions(), false),
-        width: 3,
-        material: Cesium.Color.YELLOW,
-        clampToGround: true,
-      },
-    });
-  }
-  function previewPositions() {
-    return line;   // 实际实现里把 line 提到闭包外维护
-  }
+let hoverCarto = null;   // 当前鼠标悬停点（Cartographic）
+
+function refreshPreview() {
+  // 预览线实体只创建一次；positions 挂 CallbackProperty，每帧从数据即时拼装——
+  // 注意别在创建实体的闭包里缓存点集（首帧快照会让预览线"卡死"不动）
+  if (polyline) return;
+  polyline = viewer.entities.add({
+    polyline: {
+      positions: new Cesium.CallbackProperty(() => {
+        const all = hoverCarto ? [...points, hoverCarto] : points;
+        return all.map((c) => Cesium.Cartesian3.fromRadians(c.longitude, c.latitude));
+      }, false),
+      width: 3,
+      material: Cesium.Color.YELLOW,
+      clampToGround: true,
+    },
+  });
 }
 ```
 
-骨架要点：① `camera.pickEllipsoid` 把屏幕点投到椭球面（无地形时的取点法；有地形用 `scene.pickPosition`）；② polyline 的 positions 挂 `CallbackProperty`，**每次取点/移动都更新闭包里的数组**；③ 双击（`DOUBLE_CLICK`）结束并调用本章公式出结果。
+骨架要点：① `camera.pickEllipsoid` 把屏幕点投到椭球面——返回 **Cartesian3**，要转 `Cartographic` 再存（别直接读 .longitude）；② polyline 的 positions 挂 `CallbackProperty`，回调每帧**从数据即时拼装**（数据变、图形自动变）；③ 双击（`DOUBLE_CLICK`）结束并调用本章公式出结果。
+
+<Callout type="info" title="pickPosition 之外的量高方式：sampleHeight">
+只要「某点的场景高度」而不关心打中的是楼还是山？`scene.sampleHeight(position)`（传 `Cartographic`，返回该位置的**场景几何高度**，米）比 pickPosition 更直接——它只采样**当前视野内已渲染**的地形与 3D Tiles（其他图元无视可见性都会被采样）。三个前提：仅 3D 模式（2D/CV 会抛异常）、需要深度纹理（`sampleHeightSupported` 探测，同 pickPosition）、量大用 `sampleHeightMostDetailed`（异步批量、按最高精度采样）。与 `sampleTerrain` 的分工：有地形 Provider 用后者（可离线、不依赖渲染），接了真实场景用前者（所见即所量）。
+</Callout>
 
 <Callout type="warn" title="pickEllipsoid vs pickPosition">
 `camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 则从**深度缓冲**重构位置——打中的是当前渲染出来的任何表面（地形就是山、3D Tiles 就是楼面、模型就是表皮）。三条使用规则：① 先探测 `scene.pickPositionSupported`——它是**只读能力探测**（检查设备是否支持深度纹理），不是开关；不支持时调用会直接抛 `DeveloperError`。② 半透明表面默认会被"穿透"（官方原文：essentially picks through translucent primitives）——要拾取半透明面（比如本章看板里的半透明政区面），设 `scene.pickTranslucentDepth = true`（默认 false，有额外绘制开销）。③ 对地球面的拾取在 `depthTestAgainstTerrain = false`（默认）下曾有结果不正确的 bug，1.118 修复——课程基线 1.107+ 中、1.118 之前的版本量地表要注意。量地用前者，量楼面/地形表面用后者。
@@ -135,14 +142,14 @@ function totalDistance() {
 }
 
 handler.setInputAction((movement) => {
-  const carto = viewer.camera.pickEllipsoid(movement.position);
-  if (!carto) return;
-  points.push(new Cesium.Cartographic(carto.longitude, carto.latitude));
+  const cartesian = viewer.camera.pickEllipsoid(movement.position);
+  if (!cartesian) return;
+  points.push(Cesium.Cartographic.fromCartesian(cartesian));
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 
 handler.setInputAction((movement) => {
-  const carto = viewer.camera.pickEllipsoid(movement.endPosition);
-  hoverCarto = carto ? new Cesium.Cartographic(carto.longitude, carto.latitude) : null;
+  const cartesian = viewer.camera.pickEllipsoid(movement.endPosition);
+  hoverCarto = cartesian ? Cesium.Cartographic.fromCartesian(cartesian) : null;
   console.log("当前距离:", (totalDistance() / 1000).toFixed(2), "km");
 }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
 
