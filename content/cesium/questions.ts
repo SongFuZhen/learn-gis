@@ -9,6 +9,7 @@ import pickingEvents from "./07-picking-events.questions.json";
 import measure from "./08-measure.questions.json";
 import performanceFinale from "./09-performance-finale.questions.json";
 import particles from "./10-particles.questions.json";
+import postprocess from "./11-postprocess.questions.json";
 
 /**
  * 题库注册表：显式 import 让内容进入 bundle 且被 TS 检查，
@@ -26,6 +27,7 @@ const RAW_BY_MODULE: Record<string, unknown> = {
   "08": measure,
   "09": performanceFinale,
   "10": particles,
+  "11": postprocess,
 };
 
 export function rawQuestionsFor(moduleSlug: string): unknown {

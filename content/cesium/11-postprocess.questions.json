@@ -1,0 +1,360 @@
+{
+  "skill": "cesium",
+  "module": "11",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-11-001",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "自定义 PostProcessStage 的 fragment shader 中，输入的「上一阶段渲染结果」纹理 uniform 名是？",
+      "explanation": "后处理 shader 的固定约定：输入纹理叫 colorTexture（场景或上一阶段的输出），配合 v_textureCoordinates 采样；depthTexture 是可选的深度输入。输出写 out_FragColor。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "sceneTexture"
+        },
+        {
+          "key": "B",
+          "text": "colorTexture",
+          "hint": "官方模板固定命名"
+        },
+        {
+          "key": "C",
+          "text": "inputTexture"
+        },
+        {
+          "key": "D",
+          "text": "depthTexture"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-11-002",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "后处理滤镜链上每个 stage 都会对整屏执行一次 pass，所以 stage 数量是主要的性能预算项。",
+      "explanation": "每个 stage = 每帧一次全屏纹理读写（1080p 约 200 万像素）。60fps 下 4 个 stage = 每秒 240 次全屏 pass。能合并进一个 shader 的效果就不拆成多个 stage。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-11-003",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "想让夜景城市出现「亮区溢出光晕」的氛围效果，最快的做法是？",
+      "explanation": "bloom 是 collection 上常驻的内置 stage，enabled 即开；uniforms.brightness/glowOnly 可调。环境光遮蔽管缝隙阴影，与泛光是两种效果。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStageLibrary API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStageLibrary.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "给每栋楼加一个光晕 Entity"
+        },
+        {
+          "key": "B",
+          "text": "scene.postProcessStages.bloom.enabled = true",
+          "hint": "内置泛光一行开启"
+        },
+        {
+          "key": "C",
+          "text": "把影像图层透明度调低"
+        },
+        {
+          "key": "D",
+          "text": "开启 ambientOcclusion"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-11-004",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "自定义 stage 的 uniforms 里传了 { brightness: () => 0.8 + 0.2 * Math.sin(t) }，这个函数的求值时机是？",
+      "explanation": "uniforms 的值可以是常量或函数：函数形式每帧执行前调用一次，返回值作为当帧 uniform——呼吸亮度/呼吸滤镜的标准做法。事后也可直接改 stage.uniforms.xxx。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "只在 stage 创建时求值一次"
+        },
+        {
+          "key": "B",
+          "text": "每帧执行 stage 前求值一次",
+          "hint": "uniforms 值可以是函数，每帧重算"
+        },
+        {
+          "key": "C",
+          "text": "每秒一次"
+        },
+        {
+          "key": "D",
+          "text": "只在 scene.requestRender() 时求值"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-11-005",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "关于 PostProcessStageLibrary 提供的现成效果，下列哪些是真实存在的工厂函数？",
+      "explanation": "效果库提供黑白/夜视/景深/轮廓/边缘检测/模糊/镜头光斑/亮度等工厂；天气类效果（雨雪）属于粒子系统（上一章），不是后处理。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStageLibrary API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStageLibrary.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "createBlackAndWhiteStage"
+        },
+        {
+          "key": "B",
+          "text": "createNightVisionStage"
+        },
+        {
+          "key": "C",
+          "text": "createDepthOfFieldStage"
+        },
+        {
+          "key": "D",
+          "text": "createSilhouetteStage"
+        },
+        {
+          "key": "E",
+          "text": "createRainStage（降雨）",
+          "hint": "降雨是粒子系统的活，后处理库里没有"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-11-006",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "自定义 shader 里声明 uniform sampler2D depthTexture 时，若设备不支持深度纹理，stage.isSupported 会是 false。",
+      "explanation": "深度纹理是硬件能力：源码在声明 depthTexture 时会把 _isSupported 与 context.depthTexture 绑定。用 isSupported 先探测再降级，避免运行期 DeveloperError（与第 9 章 pickPositionSupported 同理）。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-11-007",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "「只给用户点选的 3D Tiles 要素描边高亮」，官方支持的实现路径是？",
+      "explanation": "createSilhouetteStage()（或自定义 stage）+ selected 属性：赋入要素数组后，shader 里 czm_selected(v_textureCoordinates) 判定当前像素是否属于选中要素。与第 7 章拾取结果直接衔接。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        },
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "给该要素加一个放大 2 倍的半透明外壳 Entity"
+        },
+        {
+          "key": "B",
+          "text": "轮廓 stage 的 selected 属性赋值要素数组，shader 用 czm_selected() 判定",
+          "hint": "selected + czm_selected 是官方机制"
+        },
+        {
+          "key": "C",
+          "text": "把整个滤镜链关掉"
+        },
+        {
+          "key": "D",
+          "text": "改 tileset 的 maximumScreenSpaceError"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-11-008",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "后处理滤镜链的执行顺序与 add 的先后一致：先加入的 stage 先加工。",
+      "explanation": "postProcessStages 是数组语义：按加入顺序链式执行，前一个的输出是后一个的 colorTexture。先抗锯齿再泛光与反过来，结果不同。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-11-009",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "渲染循环 60fps、滤镜链上有 3 个 stage，每秒执行的全屏 pass 总次数是多少？（填数值）",
+      "explanation": "每个 stage 每帧一次全屏 pass：60 帧 × 3 stage = 180 次/秒。这是后处理性能预算的直觉算法——也是「效果合并进一个 shader」的理由。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 180,
+      "tolerance": 1,
+      "unit": "次/秒",
+      "placeholder": "例如：120"
+    },
+    {
+      "id": "cesium-11-010",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "内置 FXAA 与 1.121 默认开启的 MSAA 的关系，理解正确的是？",
+      "explanation": "MSAA 在渲染管线内做几何边缘多重采样（1.121 起默认 4x）；FXAA 是渲染末端的后处理近似抗锯齿。两者机制不同可叠加，通常只留其一以省 pass。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "FXAA 就是 MSAA 的别名"
+        },
+        {
+          "key": "B",
+          "text": "MSAA 是几何管线的多重采样抗锯齿，FXAA 是后处理阶段的近似抗锯齿——二者可并存或按需取舍",
+          "hint": "一个在管线内、一个在管线末端"
+        },
+        {
+          "key": "C",
+          "text": "开了 MSAA 后 FXAA 会自动关闭"
+        },
+        {
+          "key": "D",
+          "text": "FXAA 只对 3D Tiles 生效"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-11-011",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "看板里有半透明政区面 + 泛光 + 自定义暗角。想让「暗角 + 亮度」合并成一个 pass，正确的思路是？",
+      "explanation": "同一效果链上「逐像素串行」的处理可以写进同一个 shader：一次纹理采样，依次应用亮度、sepia、暗角再输出——pass 数从 2 变 1。Composite 用于多 pass 依赖（如模糊+合成的多阶段流水线），不是合并像素逻辑的工具。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "两个效果必须各自独立 stage"
+        },
+        {
+          "key": "B",
+          "text": "把两段像素逻辑写进同一个 fragmentShader（先调亮度再乘暗角系数，一次采样一次输出）",
+          "hint": "单 pass 合并多个像素级效果"
+        },
+        {
+          "key": "C",
+          "text": "用 PostProcessStageComposite 把两个 stage 绑定"
+        },
+        {
+          "key": "D",
+          "text": "关掉 bloom 就快了"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-11-012",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "后处理作用于整屏像素，与场景里对象的类型无关——所以对 3D Tiles 要素、Entity、粒子的画面都能统一加工。",
+      "explanation": "后处理只看到「一张颜色纹理」，不区分来源。这也是它能与第 7 章拾取互补的原因：拾取按对象、后处理按像素；selected 机制再把两者连起来。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    }
+  ]
+}

@@ -1,0 +1,234 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：前十一章画出来的画面是"素颜"的——渲出来什么样就什么样。**后处理**（PostProcess，/poʊst ˈprɒses/，「剖斯特 普-罗-塞斯」）是在渲染管线的最末端加一道"滤镜"：把整屏画面当成一张图片，用一段小 shader 重新加工——泛光、夜视、景深、暗角，甚至只给选中的要素描边。**我的经验一句话**：后处理 = 对"渲染结果这张图"做全屏像素加工——一个 stage 就是一层滤镜，链起来就是滤镜栈。**我见过的坑（你大概率也会踩）**：
+- 自定义 shader 里写了 `gl_FragColor` 跑不起来（新版本 GLSL3 上下文）——输出变量叫 `out_FragColor`，输入纹理叫 `colorTexture`，以官方文档模板为准。
+- 堆了五六个 stage 帧率腰斩——**每个 stage 都是一次全屏 pass**，1080p 下一帧就是五六百万像素读写，数量要克制。
+- 想拾取深度却报 `DeveloperError`——`depthTexture` 依赖设备深度纹理能力，用 `stage.isSupported` 先探测（和第 9 章 `pickPositionSupported` 同一个道理）。**必记 3 条**：
+1. 滤镜链挂在 `viewer.scene.postProcessStages` 上：`add` / `remove` 管理
+2. 自定义 stage 的 shader 输入是 `colorTexture` + `v_textureCoordinates`，输出写 `out_FragColor`
+3. 每个 stage = 一次全屏 pass——效果宁可合并进一个 shader，不要堆 stage 数量
+
+## 本章你会学到
+
+后处理滤镜链的组织方式（collection 与内置三件套）；内置效果库的全家福；自定义 `PostProcessStage` 的 shader 模板与 uniforms 动态调参；用 `selected` 让滤镜只作用于选中要素；以及后处理的性能账本。学完这章，你的看板拥有了"画面风格"这个自由度——监控大屏的暗色调、汇报演示的泛光、对比模式的黑白，都只是一层滤镜的事。
+
+## 1. 心智模型：渲染末端的全屏滤镜链
+
+场景正常渲染的终点是"一张画好的图"。后处理把这张图当作输入纹理，跑一个只处理**屏幕像素**的小 shader，再把结果画回屏幕——所以它不关心场景里有几个对象、什么类型，**一切皆像素**：
+
+```text
+场景渲染（球/实体/瓦片/粒子……）
+        ↓ 输出 colorTexture（整屏一张图）
+postProcessStages 滤镜链（数组，按序执行）
+   stage 1：FXAA 抗锯齿 → stage 2：泛光 → stage 3：你的自定义滤镜
+        ↓ 最终上屏
+```
+
+滤镜链是 `viewer.scene.postProcessStages`（PostProcessStageCollection）：`add()` 入链、`remove()` 出链、`length` 看层数。**顺序就是加工顺序**——先抗锯齿再泛光和先泛光再抗锯齿，结果不同。
+
+## 2. 内置三件套与效果库
+
+Collection 上常驻三个开箱即用的 stage，一个布尔值开关：
+
+```js
+const stages = viewer.scene.postProcessStages;
+
+// ① FXAA：后处理抗锯齿（几何抗锯齿另有 MSAA，见第 2 章版本基线的 1.121 注记）
+stages.fxaa.enabled = true;
+
+// ② Bloom：泛光——亮区溢出光晕，夜景城市/汇报演示的经典氛围
+stages.bloom.enabled = true;
+stages.bloom.uniforms.brightness = -0.3;   // 默认值，可调
+stages.bloom.uniforms.glowOnly = false;    // true = 只看泛光层（调参用）
+
+// ③ 环境光遮蔽（HBAO）：缝隙与角落加阴影，立体感提升
+stages.ambientOcclusion.enabled = true;
+```
+
+更多现成效果在 **PostProcessStageLibrary** 里，用工厂函数创建后 add 进链：
+
+```js
+const library = Cesium.PostProcessStageLibrary;
+
+const bw = library.createBlackAndWhiteStage();   // 黑白（uniforms.gradations 灰阶数）
+const night = library.createNightVisionStage();  // 夜视仪（荧光绿）
+const dof = library.createDepthOfFieldStage();   // 景深（对焦清晰、失焦模糊）
+const flare = library.createLensFlareStage();    // 镜头光斑
+
+stages.add(bw);
+// 用完移除：stages.remove(bw);
+```
+
+<Callout type="must" title="必背 · 后处理三条">
+1. `scene.postProcessStages` 是滤镜链；`fxaa` / `bloom` / `ambientOcclusion` 三个内置直接 `.enabled` 开关
+2. 更多效果从 `PostProcessStageLibrary.create*Stage()` 工厂拿，`add`/`remove` 管理
+3. 每个 stage 都是一次全屏 pass——链越短越省
+</Callout>
+
+## 3. 自定义 stage：滤镜的"配方"是自己写的 shader
+
+内置效果不够用？**PostProcessStage** 让你直接提交一段 fragment shader——它对整屏每个像素执行一次：
+
+```js
+// 反色滤镜：整屏颜色取反
+const invertStage = viewer.scene.postProcessStages.add(
+  new Cesium.PostProcessStage({
+    fragmentShader: `
+      uniform sampler2D colorTexture;
+      in vec2 v_textureCoordinates;
+      void main() {
+        vec4 color = texture(colorTexture, v_textureCoordinates);
+        out_FragColor = vec4(1.0 - color.rgb, color.a);
+      }
+    `,
+  })
+);
+```
+
+shader 模板的固定约定（源码文档原文级别）：输入纹理 uniform 叫 **`colorTexture`**（上一阶段或场景的渲染结果），配合 **`v_textureCoordinates`** 二维变坐标采样；需要深度时声明 `uniform sampler2D depthTexture`（能力不足时 `stage.isSupported` 为 false）；**输出写 `out_FragColor`**。
+
+`uniforms` 选项把参数从 shader 里"拎出来"，JS 侧随时可改——**值还可以是函数，每帧求值一次**：
+
+```js
+// 呼吸亮度：uniforms 是函数，每帧重算
+const stage = viewer.scene.postProcessStages.add(
+  new Cesium.PostProcessStage({
+    fragmentShader: `
+      uniform sampler2D colorTexture;
+      uniform float brightness;          // 与 uniforms 键名一致，无前缀
+      in vec2 v_textureCoordinates;
+      void main() {
+        vec4 color = texture(colorTexture, v_textureCoordinates);
+        out_FragColor = vec4(color.rgb * brightness, color.a);
+      }
+    `,
+    uniforms: {
+      brightness: () => 0.8 + 0.2 * Math.sin(performance.now() / 500),
+    },
+  })
+);
+
+// 也可以事后改：stage.uniforms.brightness = 1.2;
+```
+
+<Callout type="warn" title="性能账本 · stage 数量是预算">
+每个 stage = 每帧一次全屏 pass：1920×1080 下单次约 200 万像素的纹理读写。账这么算：**60fps × 链上 stage 数 = 每秒全屏 pass 次数**——链上 4 个 stage 就是每秒 240 次全屏读写。优化方向：① 效果合并（反色+亮度写进同一个 shader，一个 pass 干两件事）；② 采样模式默认 `NEAREST`，需要平滑插值再设 `sampleMode: PostProcessStageSampleMode.LINEAR`；③ 静态看板配合第 10 章 `requestRenderMode`，滤镜没变就不跑。
+</Callout>
+
+## 4. selected：滤镜只作用于选中的要素
+
+后处理默认作用于**整屏**。想"只给选中的楼描边/高亮"？`selected` 属性 + shader 里的 `czm_selected()` 帮手：
+
+```js
+const silhouette = viewer.scene.postProcessStages.add(
+  Cesium.PostProcessStageLibrary.createSilhouetteStage()
+);
+// 传进要素数组（3D Tiles 要素/Entity 都行，来自第 7 章的拾取结果）
+silhouette.selected = [pickedFeature];
+
+// 自定义 shader 里配套写法：
+// if (czm_selected(v_textureCoordinates)) { 加特效 } else { 原样输出 }
+```
+
+这把第 7 章的拾取与本章的滤镜接上了：点击 → `scene.pick` 拿到要素 → 赋给高亮 stage 的 `selected`——**选中高亮的另一种实现**（比第 7 章改 `point.color` 更通用，对 3D Tiles 要素同样生效）。
+
+## 5. 实战：给收官看板加"监控大屏"滤镜
+
+把本章能力组合进第 10 章的看板：FXAA 保边缘平滑、轻微 bloom 提氛围、自定义暗角（vignette）压住四周视线聚焦中心——三段一个大滤镜链：
+
+```js
+const stages = viewer.scene.postProcessStages;
+
+// ① 抗锯齿 + 泛光（内置）
+stages.fxaa.enabled = true;
+stages.bloom.enabled = true;
+stages.bloom.uniforms.brightness = -0.25;
+
+// ② 暗角：离屏幕中心越远越暗（自定义 stage）
+const vignette = stages.add(
+  new Cesium.PostProcessStage({
+    fragmentShader: `
+      uniform sampler2D colorTexture;
+      uniform float strength;
+      in vec2 v_textureCoordinates;
+      void main() {
+        vec4 color = texture(colorTexture, v_textureCoordinates);
+        vec2 delta = v_textureCoordinates - vec2(0.5);
+        float dist = length(delta) * 1.414;          // 0(中心)~2(角)
+        float dim = 1.0 - strength * smoothstep(0.6, 1.4, dist);
+        out_FragColor = vec4(color.rgb * dim, color.a);
+      }
+    `,
+    uniforms: { strength: 0.55 },
+  })
+);
+
+// ③ 一键"监控模式"：黑白 + 去泛光
+function setMonitorMode(on) {
+  stages.bloom.enabled = !on;
+  monitorStage.enabled = on;   // createBlackAndWhiteStage() 建好后暂存
+}
+```
+
+<Exercise tool="cesium" title="动手 · 复古棕褐滤镜（sepia + 暗角）">
+写一个自定义 stage：把画面转成棕褐色调（sepia 用固定混合矩阵即可），并叠加中心亮、四周暗的暗角；再给它加一个 `strength` uniform，JS 侧用 `setInterval` 让滤镜强度 0.3↔0.8 往复（模拟老电影呼吸感），10 秒后 `remove` 出链。
+
+<ExerciseSolution>
+```js
+const sepia = viewer.scene.postProcessStages.add(
+  new Cesium.PostProcessStage({
+    fragmentShader: `
+      uniform sampler2D colorTexture;
+      uniform float strength;
+      in vec2 v_textureCoordinates;
+      void main() {
+        vec4 color = texture(colorTexture, v_textureCoordinates);
+        // sepia 混合矩阵（经典系数）
+        vec3 sepiaRgb = vec3(
+          dot(color.rgb, vec3(0.393, 0.769, 0.189)),
+          dot(color.rgb, vec3(0.349, 0.686, 0.168)),
+          dot(color.rgb, vec3(0.272, 0.534, 0.131))
+        );
+        vec3 mixed = mix(color.rgb, sepiaRgb, strength);
+        // 暗角：中心 1.0，四角衰减
+        vec2 delta = v_textureCoordinates - vec2(0.5);
+        float dim = 1.0 - 0.4 * smoothstep(0.5, 1.4, length(delta) * 1.414);
+        out_FragColor = vec4(mixed * dim, color.a);
+      }
+    `,
+    uniforms: { strength: 0.5 },
+  })
+);
+
+let t = 0;
+const timer = setInterval(() => {
+  t += 0.05;
+  sepia.uniforms.strength = 0.55 + 0.25 * Math.sin(t);
+}, 100);
+
+setTimeout(() => {
+  clearInterval(timer);
+  viewer.scene.postProcessStages.remove(sepia);
+}, 10000);
+```
+观察点：① 把 `mix` 的第三参数钉在 1.0，看纯 sepia 满血效果；② `requestRenderMode` 开着的话，uniforms 每帧函数求值也会驱动画面持续刷新——粒子（第 11 章）与后处理（本章）都是"自带变化"的数据源；③ 若 `stage.isSupported === false`（设备无深度纹理时部分 stage 会如此），先降级再提示，别硬抛。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- 后处理 = 渲染末端的全屏滤镜链：`postProcessStages` 按序加工"整屏一张图"。
+- 内置三件套 `fxaa`/`bloom`/`ambientOcclusion` 一行开；`PostProcessStageLibrary.create*Stage()` 提供黑白/夜视/景深/轮廓/光斑等现成效果。
+- 自定义 stage 三约定：`colorTexture` 输入、`v_textureCoordinates` 采样、`out_FragColor` 输出；`uniforms` 支持函数（每帧求值）。
+- `selected` + `czm_selected()` 让滤镜只作用于选中要素——与第 7 章拾取联动的高亮方案。
+- 性能预算：stage 数 × 帧率 = 每秒全屏 pass 数；效果能合并就不拆。
+
+至此课程 12 章：从"把球转起来"到"让画面有风格"。下一步是你自己的项目——把 GIS 课的数据底座与这套三维表现力接起来。
+
+## 延伸阅读
+
+- 后处理官方教程：[CesiumJS Post Processing](https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/)
+- PostProcessStage API 参考（shader 模板原文）：[Cesium.PostProcessStage](https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html)
+- 效果库 API 参考：[Cesium.PostProcessStageLibrary](https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStageLibrary.html)
+- 官方示例：Sandcastle 搜索 Post Processing（泛光/环境光遮蔽/轮廓）
+- 渲染调度与性能（本章前置）：[CesiumJS 课 · 性能优化与实战收官](/s/cesium/09)

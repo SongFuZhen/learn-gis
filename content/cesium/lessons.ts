@@ -16,6 +16,7 @@ const LESSONS: Record<string, () => Promise<{ default: ComponentType }>> = {
   "08-measure": () => import("./08-measure.mdx"),
   "09-performance-finale": () => import("./09-performance-finale.mdx"),
   "10-particles": () => import("./10-particles.mdx"),
+  "11-postprocess": () => import("./11-postprocess.mdx"),
 };
 
 export const LESSON_FILES = Object.keys(LESSONS);

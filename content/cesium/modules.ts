@@ -85,6 +85,13 @@ export const CESIUM_MODULES: ModuleMeta[] = [
     summary:
       "Emitter/生命周期/updateCallback 三件套、modelMatrix 落地定位、bursts 爆发脉冲与四种发射器；用 updateCallback 写雨雪物理，并算清粒子性能账。",
   },
+  {
+    slug: "11",
+    file: "11-postprocess",
+    title: "后处理与视觉特效：给渲染结果加滤镜",
+    summary:
+      "postProcessStages 滤镜链、内置 fxaa/bloom/环境光遮蔽、自定义 shader 三约定（colorTexture/v_textureCoordinates/out_FragColor）、selected 选中高亮与全屏 pass 性能账。",
+  },
 ];
 
 /** 已规划但尚未交付的章节（04-09 随 Phase 2 转正） */
