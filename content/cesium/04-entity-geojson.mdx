@@ -137,7 +137,7 @@ for (const entity of ds.entities.values) {
 }
 ```
 
-三个关键认知：① `GeoJsonDataSource.load` 返回 **Promise\<DataSource\>**，加载完成前场景是空的；② 每个 GeoJSON feature 变成一个 Entity，其 `properties` 字段原样挂在 `entity.properties` 上，`getValue()` 取值（`time` 参数可省，默认按当前时刻求值）；③ Point 要素默认渲染成"大头针"图标，`markerColor`/`markerSymbol` 参数可以换颜色与图标。
+三个关键认知：① `GeoJsonDataSource.load` 返回 **Promise\<DataSource\>**，加载完成前场景是空的；② 每个 GeoJSON feature 变成一个 Entity，其 `properties` 字段原样挂在 `entity.properties` 上，`getValue()` 取值（`time` 参数可省，默认按当前时刻求值）；③ Point 要素默认渲染成大头针图标（`PinBuilder` 生成）：`markerColor` 默认宝蓝（ROYALBLUE）、`markerSize` 默认 48px（small 24 / large 64）、`markerSymbol` 传单字符会印在针上、传 Maki 图标 id 则用官方图标库。实体名也是自动的：`entity.name` 按 properties 里的 `title` → `name` → 含 title/name 的键（大小写不敏感）依次取值。
 
 <Callout type="warn" title="GeoJSON 高度陷阱 · clampToGround 的真实边界">
 GeoJSON 坐标是 `[lng, lat, z?]`——第三个位是高度。源码级行为：`clampToGround` **只对不带 z 的要素生效**——点要素在坐标长度为 2 时才挂 `HeightReference.CLAMP_TO_GROUND`；带 z 的面会改走 `perPositionHeight`，即使配了贴地也按 z 悬浮。所以「带 z 又想贴地」的数据要先去掉 z（或逐实体设 `heightReference`）；反过来，"地下管线/飞行航迹"里 z 才是主角，别开贴地。
