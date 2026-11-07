@@ -1,0 +1,224 @@
+{
+  "slug": "02-imagery-layers",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-07T20:28:57.232Z",
+  "segmentCount": 36,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：第 00 章你给 Viewer 指定了一张底图，但真实业务几乎永远是\"多张图叠着用\"——底图管地理轮廓，卫星影像管真实外观，天气/行政区划/热力图管业务信息。本章讲 Cesium 的 影像图层栈 怎么玩。 我的经验一句话 ：Cesium 的影像图层和 Photoshop 图层是一个概念——能叠、能调透明度、能调上下顺序；理解了这一点，剩下就是记 Provider 名字。 我见过的坑（你大概率也会踩） ：",
+      "hash": "bb9ac205125b4b8f",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "瓦片服务 URL 写对了却出不来图——忘了瓦片模板里 {z}/{x}/{y} 的原点约定：OSM 系原点在 西北角 ，TMS 系原点在 西南角 （ GIS 课第 08 章 讲过 XYZ 与 TMS 的 y 翻转）。",
+      "hash": "d39b690a30bbda68",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "图层叠上去盖住了底图—— imageryLayers 的 后加入的在上面 ，不是在下层。",
+      "hash": "09c868cce97051e7",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "大瓦片加载慢就把 maximumLevel 调到 19——服务器根本没有那个层级的瓦片，只会 404 刷屏。 必记 3 条 ：",
+      "hash": "51c0a5fd29ca03d6",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "viewer.imageryLayers 是图层栈：后加入在上， raise、lower 调序， alpha 调透明",
+      "hash": "76db577bfae9bb5a",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "UrlTemplateImageryProvider 接任意 XYZ 瓦片，模板 {z}/{x}/{y} 默认西北原点",
+      "hash": "d556582b45492a16",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "maximumLevel 只能到数据真实存在的层级，配 credit 标数据来源",
+      "hash": "4c7749d6a3076bd7",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "ImageryProvider 家族里最常用的几个成员；瓦片金字塔在这一层的意义（衔接 GIS 课第 8 章 的瓦片知识）；多图层叠加、透明度、调序；以及拿 UrlTemplateImageryProvider 接任何一家 XYZ 瓦片服务的通用姿势。",
+      "hash": "9f82ebd2d62efdfa",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "1. ImageryProvider：影像数据源的抽象",
+      "hash": "efc953c4312a2513",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "ImageryProvider （影像数据提供者）是\"一组瓦片从哪来\"的抽象。家族常用成员：",
+      "hash": "49f0451dbae805a3",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "所有 Provider 现在推荐用 fromUrl 异步工厂创建，再交给 ImageryLayer.fromProviderAsync ——这就是第 00 章 baseLayer 参数的来历。",
+      "hash": "a4c7511aaffef65d",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "网上老教程常见 new OpenStreetMapImageryProvider({ url }) 与 Viewer 的 imageryProvider 参数——分别是 1.104 / 1.107 之前的写法，现已废弃或移除。完整的新旧对照表见 第 1 章 乘 版本基线 。",
+      "hash": "7fc6eb17107e7816",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "2. 图层栈：叠、透明、调序",
+      "hash": "ba675fb88ce4071d",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "和 Photoshop 一样： 数组顺序即视觉顺序，越靠上越后渲染 。业务覆盖层（标注、热力）永远放最上面，影像对比层放中间，底图垫底。",
+      "hash": "cc8595eff5091f4f",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "后加入的在最上； alpha 控透明度、 show 接开关； removeAll() 一键清空（底图也会被清掉，慎用）。",
+      "hash": "6fa8ade988f6935f",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "3. UrlTemplateImageryProvider：万能模板",
+      "hash": "cbb5d010933fa8e7",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "任何 URL 里带 {z}/{x}/{y} 的瓦片服务都能接：",
+      "hash": "f74b2e2782574ca6",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "三个参数里最容易出事的是瓦片原点：XYZ 规范的 {y} 从 北（顶）往南数 ，TMS 从 南往北数 。接 TMS 服务时用 tilingScheme: new Cesium.GeographicTilingScheme() 换投影方案，或直接换 TileMapServiceImageryProvider ——它按 TMS 约定请求。判断方法很粗暴：加载后世界地图上下颠倒/只有赤道附近出图，八成是原点约定反了。",
+      "hash": "194284cf16498fdd",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "瓦片金字塔 = 不同 zoom 层级的预切图，请求哪层由当前相机高度决定。Cesium 与 Leaflet 遵循同一金字塔逻辑，区别只在：Leaflet 的 zoom 是整数层级直选，Cesium 的瓦片选择由 SSE （Screen Space Error，屏幕空间误差）算法按视角动态算——你可以理解为\"连续 zoom\"。第 06 章 3D Tiles 的 LOD 是同一思想的立方体版本。",
+      "hash": "e66c4e1bc026b4ba",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "4. 实战：底图 + 行政区划标注层",
+      "hash": "a23e6e739df594b4",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "一个典型组合：OSM 垫底，上面叠一层半透明专题图（示例用天地图矢量注记思路演示 URL 模板写法），再给专题层加个开关：",
+      "hash": "02893ffb900d0d44",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "用 OSM 底图 + ArcGIS 影像做一个\"影像对比开关\"：点一个按钮切换卫星影像层的 show ，并把它固定在图层栈最顶层、透明度 0.7。",
+      "hash": "899946c29a3b88a7",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "5. 本章小结",
+      "hash": "4410f90db4f8b16d",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "imageryLayers 是图层栈：后入在上、 alpha / show / raise / lower 是全套操作。",
+      "hash": "94f3de72e3b57a86",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "UrlTemplateImageryProvider 是接 XYZ 服务的万能钥匙；分清 XYZ（北原点）与 TMS（南原点）。",
+      "hash": "df20bab84b3dc4ca",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "maximumLevel 如实声明， credit 如实署名。",
+      "hash": "6c0f91cd25d12a59",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "影像只是\"贴在球上的皮\"——它没有高度。地面起伏是下一章的事。",
+      "hash": "cc0b0e0d6100ed57",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "影像图层官方教程： CesiumJS Imagery 教程",
+      "hash": "e0500ff6d93f0b8d",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "ImageryLayer / UrlTemplateImageryProvider API 参考： Cesium.UrlTemplateImageryProvider",
+      "hash": "7270f069a014f9ef",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "XYZ 瓦片编号规则： OSM Slippy map tilenames",
+      "hash": "cee71a0b26b5a40a",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "瓦片金字塔原理（GIS 课对应章）： GIS 课 乘 数据格式与瓦片",
+      "hash": "ec62ec4bc223033e",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "OSM 瓦片使用政策： osmfoundation.org/policies/tiles",
+      "hash": "9bcea52b3819add9",
+      "audio": "seg35.mp3"
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "slug": "05-czml-time",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-07T20:39:20.317Z",
+  "segmentCount": 38,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3"
+    },
+    {
+      "index": 1,
+      "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：上一章的 CallbackProperty 是\"用代码驱动动画\"——每帧跑你的函数。但如果动画本身就是 数据 （一架飞机 10:00 在 A 点、10:01 在 B 点……），更好的做法是把时间轨迹写成数据文件，让引擎去播。这就是 CZML （「迪兹尔」，官方读法，Cesium Language 的缩写）——Cesium 的\"JSON 版 KML\"，专为时间动态设计。 我的经验一句话 ：CZML 是\"给时间轴喂数据\"——你描述\"什么时间在哪里\"，播放、暂停、倍速全是 Clock 的事，一行动画代码都不用写。 我见过的坑（你大概率也会踩） ：",
+      "hash": "0eb9465a30ed480d",
+      "audio": "seg01.mp3"
+    },
+    {
+      "index": 2,
+      "text": "CZML 文档第一个元素必须是 id: \"document\" 的元数据块，忘了它整个文件不渲染。",
+      "hash": "839b36791c768057",
+      "audio": "seg02.mp3"
+    },
+    {
+      "index": 3,
+      "text": "时间区间（ interval ）之间出现\"瞬移\"——相邻两个包的时间没接上，或没配插值算法。",
+      "hash": "508208e0ceab1073",
+      "audio": "seg03.mp3"
+    },
+    {
+      "index": 4,
+      "text": "播放器不动—— clock.shouldAnimate 没设为 true ，Clock 默认是暂停的。 必记 3 条 ：",
+      "hash": "3faf1ed1e03689ff",
+      "audio": "seg04.mp3"
+    },
+    {
+      "index": 5,
+      "text": "CZML = 数组，第 0 个元素是 document 头（声明 Clock 的起止时间）",
+      "hash": "467ec9282cd73907",
+      "audio": "seg05.mp3"
+    },
+    {
+      "index": 6,
+      "text": "位置随时间变化用 cartographicDegrees: [t, lon, lat, h, ...] 序列",
+      "hash": "faf231530d3ea0f9",
+      "audio": "seg06.mp3"
+    },
+    {
+      "index": 7,
+      "text": "viewer.clock.shouldAnimate = true 才会开始播",
+      "hash": "681031d350befee2",
+      "audio": "seg07.mp3"
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3"
+    },
+    {
+      "index": 9,
+      "text": "CZML 文档结构；Clock 与 TimeInterval 的时间体系；用 SampledPositionProperty 思想声明轨迹（CZML 内部就是它）； VelocityOrientationProperty 让物体沿轨迹自动转向。学完这章，卫星过境、车辆轨迹、无人机航拍这类\"时间 + 位置\"业务，你都能纯数据驱动地做出来。",
+      "hash": "0d085d71399b5750",
+      "audio": "seg09.mp3"
+    },
+    {
+      "index": 10,
+      "text": "1. CZML 文档结构：document 头 + 实体包",
+      "hash": "a6766c8414a1e5d5",
+      "audio": "seg10.mp3"
+    },
+    {
+      "index": 11,
+      "text": "CZML 是一个 JSON 数组。第 0 个元素永远是 document 头——声明这份文件的时间范围：",
+      "hash": "4617e6f7cabcf77e",
+      "audio": "seg11.mp3"
+    },
+    {
+      "index": 12,
+      "text": "读法： clock.interval 声明\"这份文件的时间轴范围\"； epoch 声明\" cartographicDegrees 里的数字是相对 epoch 的 秒偏移 \"； cartographicDegrees 是四元组平铺—— [秒, 经度, 纬度, 高度] ，引擎在这些采样点之间 自动插值 ，Clock 走到哪、物体就在哪。 path 实体自动画出\"走过的轨迹\"， trailTime 控制拖尾长度。",
+      "hash": "0ccd464209902a33",
+      "audio": "seg12.mp3"
+    },
+    {
+      "index": 13,
+      "text": "CZML 是纯 JSON，没有 Cesium.Color.RED ，颜色用数值数组表达： rgbaf: [r, g, b, a] ，每个分量 01。红色 = [1, 0, 0, 1] 。从 CSS 色值转换： Cesium.Color.fromCssColorString(\"#ff6600\") 再读它的 red/green/blue/alpha。",
+      "hash": "92d1a0f129dc1103",
+      "audio": "seg13.mp3"
+    },
+    {
+      "index": 14,
+      "text": "2. Clock：场景的\"时间遥控器\"",
+      "hash": "cd24ea48c0b6e23d",
+      "audio": "seg14.mp3"
+    },
+    {
+      "index": 15,
+      "text": "第 00 章说过，时间是 Cesium 的一等公民——具体承载者就是 Clock ：",
+      "hash": "469574bc68cbba60",
+      "audio": "seg15.mp3"
+    },
+    {
+      "index": 16,
+      "text": "界面底部的动画控件（时间轴 + 播放按钮）直接操作的就是这个 Clock； viewer.animation / viewer.timeline 参数可以关掉它们（第 00 章的最小 Viewer 就关了）。业务里最常用的三件事： shouldAnimate 控制播放、 multiplier 控速、 onTick 把当前时刻同步到你自己的 UI。",
+      "hash": "370a883c2a5b4947",
+      "audio": "seg16.mp3"
+    },
+    {
+      "index": 17,
+      "text": "3. 纯代码版：SampledPositionProperty",
+      "hash": "53fe5774dd84e794",
+      "audio": "seg17.mp3"
+    },
+    {
+      "index": 18,
+      "text": "不想写 CZML 文件、想用代码构造同样的轨迹？ SampledPositionProperty 就是 CZML position 背后的机制：",
+      "hash": "4f0e68b2402f1fbe",
+      "audio": "seg18.mp3"
+    },
+    {
+      "index": 19,
+      "text": "两种写法怎么选： 数据由后端下发/需要序列化 到 CZML（存成 .json 直接 CzmlDataSource.load(url) ）； 数据在内存里现算 （如实时接口轮询）到 SampledPositionProperty 。两者可混用：CZML 加载后 ds.entities.values 里的实体，其 position 本来就是 Property，照样能改。",
+      "hash": "587e4e136ff80795",
+      "audio": "seg19.mp3"
+    },
+    {
+      "index": 20,
+      "text": "两个采样点之间物体怎么走，由插值算法决定。默认线性插值在采样点稀疏时\"折线感\"明显；换 LagrangePolynomialApproximation （拉格朗日）或 HermitePolynomialApproximation 并给 interpolationDegree: 23 ，轨迹立刻顺滑。但注意：插值是算出来的， 采样点本身要分布合理 ——急转弯处多给几个点，比调算法更有用。",
+      "hash": "cb181bed39b31d51",
+      "audio": "seg20.mp3"
+    },
+    {
+      "index": 21,
+      "text": "SampledPositionProperty 的 forwardExtrapolationType / backwardExtrapolationType 默认 NONE ：Clock 走到首个采样之前或末个采样之后， getValue 返回 undefined—— 实体会从场景里直接消失 （ VelocityOrientationProperty 同帧失效）。想让物体\"停在首尾点\"，两端设 Cesium.ExtrapolationType.HOLD ； EXTRAPOLATE 则按插值算法外推（远离采样区后数值不可信）。本章示例把 clock.startTime/stopTime 恰好压在采样区间上所以看不到这个现象——做\"全天候在线\"的回放业务必踩，先记住。",
+      "hash": "840810f1da07caca",
+      "audio": "seg21.mp3"
+    },
+    {
+      "index": 22,
+      "text": "4. 与卫星轨道的呼应",
+      "hash": "733c8451f0e5880d",
+      "audio": "seg22.mp3"
+    },
+    {
+      "index": 23,
+      "text": "GIS 课第 16 章 、 第 17 章 讲过卫星轨道与星下点：轨道本质就是\"时间 到 位置\"的函数。用本章的知识可以做一个漂亮的综合练习：从 TLE 两行根数算出一段星下点采样（现成库如 satellite.js），塞进 SampledPositionProperty ，一颗\"会动的卫星\"就挂上了地球——配合 path 的拖尾，Starlink 的\"珍珠项链\"效果自己就能画出来。这也是为什么说\"时间 + 位置\"是三维 GIS 的一半业务。",
+      "hash": "d1f72a6808ed7bb6",
+      "audio": "seg23.mp3"
+    },
+    {
+      "index": 24,
+      "text": "用纯代码方式（SampledPositionProperty）做一段航班动画：3 个采样点、拉格朗日插值、橙色点 + 60 秒拖尾， multiplier = 60 ，自动播放。",
+      "hash": "082bd80e345e9979",
+      "audio": "seg24.mp3"
+    },
+    {
+      "index": 25,
+      "text": "5. 本章小结",
+      "hash": "4410f90db4f8b16d",
+      "audio": "seg25.mp3"
+    },
+    {
+      "index": 26,
+      "text": "CZML = 声明式时间动态数据：document 头（Clock）+ 实体包（position 采样序列）。",
+      "hash": "ec4b207c06b50a2b",
+      "audio": "seg26.mp3"
+    },
+    {
+      "index": 27,
+      "text": "cartographicDegrees: [秒偏移, lon, lat, h, ...] ，引擎自动插值； path 自动画拖尾。",
+      "hash": "e3113e777553df29",
+      "audio": "seg27.mp3"
+    },
+    {
+      "index": 28,
+      "text": "Clock 三件事： shouldAnimate 播放、 multiplier 倍速、 onTick 同步 UI。",
+      "hash": "42853ad27e71281d",
+      "audio": "seg28.mp3"
+    },
+    {
+      "index": 29,
+      "text": "纯代码等价物 = SampledPositionProperty + VelocityOrientationProperty 。",
+      "hash": "2816f7a456d08b50",
+      "audio": "seg29.mp3"
+    },
+    {
+      "index": 30,
+      "text": "插值算法决定顺滑度，但采样点分布才是根本。",
+      "hash": "8a4b6f42104d219b",
+      "audio": "seg30.mp3"
+    },
+    {
+      "index": 31,
+      "text": "下一章：从\"画的\"到\"真实世界的\"——3D Tiles 与城市级三维数据。",
+      "hash": "a402440f36798c41",
+      "audio": "seg31.mp3"
+    },
+    {
+      "index": 32,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg32.mp3"
+    },
+    {
+      "index": 33,
+      "text": "CZML 官方指南（结构与属性全集）： CZML Guide （英文）",
+      "hash": "a7a5e9f17470c90e",
+      "audio": "seg33.mp3"
+    },
+    {
+      "index": 34,
+      "text": "CZML 载入 API 参考： Cesium.CzmlDataSource",
+      "hash": "23145a80e0487a8a",
+      "audio": "seg34.mp3"
+    },
+    {
+      "index": 35,
+      "text": "SampledPositionProperty API 参考： Cesium.SampledPositionProperty",
+      "hash": "9de685940c626c77",
+      "audio": "seg35.mp3"
+    },
+    {
+      "index": 36,
+      "text": "Clock API 参考： Cesium.Clock",
+      "hash": "cb8fce498c59a0e1",
+      "audio": "seg36.mp3"
+    },
+    {
+      "index": 37,
+      "text": "卫星轨道与星下点（数据来源）： GIS 课 乘 卫星轨道与星下点",
+      "hash": "8f437059998c9068",
+      "audio": "seg37.mp3"
+    }
+  ]
+}
