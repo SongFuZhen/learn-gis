@@ -32,7 +32,7 @@ const hMeters = carto.height;                           // 米
 const c2 = Cesium.Cartographic.fromDegrees(116.397, 39.909, 0);
 ```
 
-什么时候用哪个：**对接外部数据（GeoJSON、数据库里的经纬度）**用地理坐标，进 Cesium 的那一刻转成 `Cartesian3`；**算距离、做空间运算**大多直接在笛卡尔系做（第 08 章）；**展示坐标读数**记得从 `Cartographic` 转回度数。
+什么时候用哪个：**对接外部数据**——GeoJSON（/ˈdʒiːoʊ dʒeɪsən/，「吉欧-杰森」）、数据库里的经纬度——**用地理坐标，进 Cesium 的那一刻转成 `Cartesian3`；**算距离、做空间运算**大多直接在笛卡尔系做（第 08 章）；**展示坐标读数**记得从 `Cartographic` 转回度数。
 
 > 版本注记：1.119 新增 `Cesium.Ellipsoid.default`——一处设置即可把全 API 的默认椭球换成月球/火星等其他基准面，无需逐个传参。
 

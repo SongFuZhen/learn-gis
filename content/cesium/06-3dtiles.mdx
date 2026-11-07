@@ -3,7 +3,7 @@
 > 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：影像是"贴皮"，地形是"起伏"，但城市里的楼、桥梁、倾斜摄影的整片街区——这些**真实三维模型**是第三种数据：**3D Tiles**（/θriː diː taɪlz/，「斯瑞-迪-泰尔斯」，三维瓦片）。它是 OGC 的三维瓦片开放标准，也是 Cesium 的看家本领。**我的经验一句话**：3D Tiles 之于三维模型，就像瓦片金字塔之于影像——把巨大的模型切成带 LOD 的瓦片树，看哪块加载哪块。**我见过的坑（你大概率也会踩）**：
 - 听说"OSM Buildings 免费开源"就直接 `fromIonAssetId(96188)`——OSM 建筑数据本身开源，但 **ion 托管的这套 3D Tiles 服务需要 token**，401 见。
 - `Cesium3DTileset.fromUrl` 后地球没变化——忘了 `viewer.scene.primitives.add(tileset)`（或用返回值直接 add），tileset 只是创建出来没挂进场景。
-- 加载几 GB 的城市级 tileset 卡死——没理解 SSE 与瓦片裁剪，第 09 章专治这个。**必记 3 条**：
+- 加载几 GB 的城市级 tileset 卡死——没理解 SSE（/ˌes es ˈiː/，「艾斯-艾斯-伊」，屏幕空间误差）与瓦片裁剪，第 09 章专治这个。**必记 3 条**：
 1. 3D Tiles = 三维世界的瓦片金字塔：tileset.json 描述层级树，b3dm/glb 装模型
 2. ion 上的现成数据集（OSM Buildings/Google 影像）需要 token；自托管 tileset 完全免 token
 3. 挂载两步走：`await Cesium3DTileset.fromUrl(url)` → `viewer.scene.primitives.add(...)`

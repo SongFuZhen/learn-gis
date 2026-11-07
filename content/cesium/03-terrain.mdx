@@ -6,7 +6,7 @@
 - 拿 `carto.height` 当"海拔"用（[GIS 课第 03 章](/s/gis/02)讲过 GPS 高程 ≠ 海拔的坑）——椭球高与正高差着"高程异常 N"，几米到几十米。**必记 3 条**：
 1. 默认地形 = `EllipsoidTerrainProvider` = 完美平滑椭球，不是"服务"
 2. 地形与影像两层独立：换地形不影响影像，反之亦然
-3. 地形数据格式以 quantized-mesh 为主流；真实地形服务大多要账号/ion（本课只讲概念）
+3. 地形数据格式以 quantized-mesh（/ˈkwɒntaɪzd meʃ/，「匡-泰兹德-梅什」，量化网格）为主流；真实地形服务大多要账号/ion（本课只讲概念）
 
 ## 本章你会学到
 
@@ -37,7 +37,7 @@ viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider();
 
 ## 2. 真实地形：quantized-mesh 与高度网格
 
-主流地形服务（Cesium ion World Terrain、Mapzen Terrarium 等）的格式是 **quantized-mesh**（/ˈkwɒntaɪzd meʃ/，「匡-泰兹德 梅什」，量化网格）：把地形切块，每块内的顶点高度做**量化压缩**（相对基准值存 0~32767 的整数偏移），一颗小瓦片就能描述一座山。
+主流地形服务（Cesium ion World Terrain、Mapzen Terrarium 等）的格式是 **quantized-mesh**：把地形切块，每块内的顶点高度做**量化压缩**（相对基准值存 0~32767 的整数偏移），一颗小瓦片就能描述一座山。
 
 接一个地形 Provider 的标准写法（以 ion 为例——**需要 token，本课程只展示不使用**）：
 

@@ -5,7 +5,9 @@ import { extractSpeechSegments } from '../lib/speech/extract';
 import type { ChapterManifest, SpeechSegmentManifest } from '../lib/speech/manifest';
 
 const ROOT = process.cwd();
-const CONTENT_DIR = join(ROOT, 'content', 'gis');
+// 技能选择：SKILL=cesium 时生成 cesium 课程音频（目录 content/<skill>，输出仍按章节文件名分目录，无跨课冲突）
+const SKILL = process.env.SKILL || 'gis';
+const CONTENT_DIR = join(ROOT, 'content', SKILL);
 const OUT_DIR = join(ROOT, 'public', 'audio');
 const TTS_URL = process.env.TTS_URL || 'http://127.0.0.1:18080/v1/tts';
 const FORMAT = 'mp3';
@@ -110,7 +112,7 @@ async function main(): Promise<void> {
   const only = process.argv[2];
   const files = readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.mdx'));
   const slugs = (only ? [only] : files.map((f) => f.replace(/\.mdx$/, ''))).sort();
-  console.log('TTS endpoint: ' + TTS_URL + ' (concurrency=' + CONCURRENCY + ')');
+  console.log('TTS endpoint: ' + TTS_URL + ' (skill=' + SKILL + ', concurrency=' + CONCURRENCY + ')');
   for (const slug of slugs) {
     try {
       await genChapter(slug);

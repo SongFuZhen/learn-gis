@@ -6,7 +6,9 @@ import { extractSpeechSegments } from '../lib/speech/extract';
 import type { ChapterManifest } from '../lib/speech/manifest';
 
 const ROOT = process.cwd();
-const CONTENT_DIR = join(ROOT, 'content', 'gis');
+// 技能选择：SKILL=cesium 校验 cesium 的音频（与 gen-audio.ts 的 SKILL 约定一致）
+const SKILL = process.env.SKILL || 'gis';
+const CONTENT_DIR = join(ROOT, 'content', SKILL);
 const OUT_DIR = join(ROOT, 'public', 'audio');
 const HASH_RE = /^[0-9a-f]{16}$/;
 const MIN_MP3_BYTES = 1024;
