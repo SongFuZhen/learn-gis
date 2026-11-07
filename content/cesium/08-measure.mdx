@@ -34,7 +34,7 @@ const geodesic = new Cesium.EllipsoidGeodesic(
 const onSurface = geodesic.surfaceDistance;           // 沿椭球面，米
 ```
 
-京沪两地直线弦长与椭球面距离差约十几公里——**1 km 以内的短距离可以近似，跨城市必须用测地线**。这正是 GIS 课第 13 章讲" turf.area 是球面计算"的同一件事：量算 API 的"球面 vs 平面"之分在三维引擎里同样存在。
+京沪两地直线弦长与椭球面距离差约十几公里——**1 km 以内的短距离可以近似，跨城市必须用测地线**。这正是 [GIS 课第 14 章](/s/gis/13) 讲" turf.area 是球面计算"的同一件事：量算 API 的"球面 vs 平面"之分在三维引擎里同样存在。
 
 <Callout type="must" title="必背 · 量算三条">
 1. 展示"两地多远" → `EllipsoidGeodesic.surfaceDistance`（大圆/测地线）
@@ -63,7 +63,7 @@ function computeArea(positions /* Cartesian3[] */) {
 }
 ```
 
-精度边界：**数百平方公里以内**的普通地块，切平面法误差可接受；省级以上的巨大多边形要用专门的椭球面积算法（或直接交给 PostGIS 的 geography 类型，GIS 课第 14 章的路数）——知道工具的适用边界，比背公式更重要。
+精度边界：**数百平方公里以内**的普通地块，切平面法误差可接受；省级以上的巨大多边形要用专门的椭球面积算法（或直接交给 PostGIS 的 geography 类型，[GIS 课第 14 章](/s/gis/13) 的路数）——知道工具的适用边界，比背公式更重要。
 
 ## 3. 交互闭环：点击取点 → 动态预览 → 结束出结果
 

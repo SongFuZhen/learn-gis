@@ -10,7 +10,7 @@
 
 ## 本章你会学到
 
-ImageryProvider 家族里最常用的几个成员；瓦片金字塔在这一层的意义（衔接 GIS 课第 07 章的瓦片知识）；多图层叠加、透明度、调序；以及拿 `UrlTemplateImageryProvider` 接任何一家 XYZ 瓦片服务的通用姿势。
+ImageryProvider 家族里最常用的几个成员；瓦片金字塔在这一层的意义（衔接 [GIS 课第 8 章](/s/gis/07) 的瓦片知识）；多图层叠加、透明度、调序；以及拿 `UrlTemplateImageryProvider` 接任何一家 XYZ 瓦片服务的通用姿势。
 
 ## 1. ImageryProvider：影像数据源的抽象
 
@@ -75,7 +75,7 @@ const layer = imageryLayers.addImageryProvider(
 
 三个参数里最容易出事的是瓦片原点：XYZ 规范的 `{y}` 从**北（顶）往南数**，TMS 从**南往北数**。接 TMS 服务时用 `tilingScheme: new Cesium.GeographicTilingScheme()` 换投影方案，或直接换 `TileMapServiceImageryProvider`——它按 TMS 约定请求。判断方法很粗暴：加载后世界地图上下颠倒/只有赤道附近出图，八成是原点约定反了。
 
-<Callout type="info" title="和 GIS 课第 07 章的呼应">
+<Callout type="info" title="和 GIS 课《数据格式与瓦片》的呼应">
 瓦片金字塔 = 不同 zoom 层级的预切图，请求哪层由当前相机高度决定。Cesium 与 Leaflet 遵循同一金字塔逻辑，区别只在：Leaflet 的 zoom 是整数层级直选，Cesium 的瓦片选择由 SSE（屏幕空间误差）算法按视角动态算——你可以理解为"连续 zoom"。第 06 章 3D Tiles 的 LOD 是同一思想的立方体版本。
 </Callout>
 
