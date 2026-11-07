@@ -120,25 +120,29 @@
       "index": 16,
       "text": "关键区别：前者给图只能看，后者给数据可以再算。",
       "hash": "ec284aa408224dd6",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049308566_14-webgis-seg16.mp3"
     },
     {
       "index": 17,
       "text": "WMS 到 图片；WMTS 到 预生成图片瓦片；WFS 到 矢量要素；WCS 到 栅格原始值",
       "hash": "cb801c7779faaaa0",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049308819_14-webgis-seg17.mp3"
     },
     {
       "index": 18,
       "text": "WMS/WMTS 是「画好的图」，只能看；WFS/WCS 是「数据」，可以再算",
       "hash": "d22a61bad418ffa8",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049312866_14-webgis-seg18.mp3"
     },
     {
       "index": 19,
       "text": "要素编辑、前端改样式 到 WFS；高程/影像分析 到 WCS",
       "hash": "8d0b1e2671c4381a",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049308245_14-webgis-seg19.mp3"
     },
     {
       "index": 20,
@@ -151,7 +155,8 @@
       "index": 21,
       "text": "大量用户看同一张底图，要求秒开 到 WMTS （预缓存）",
       "hash": "62b681bb9a061ee8",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049309890_14-webgis-seg21.mp3"
     },
     {
       "index": 22,
@@ -290,25 +295,29 @@
       "index": 41,
       "text": "列号： TileCol = (116.4 + 180) / 360 × 1024 约等于 0.8233 × 1024 约等于 843",
       "hash": "946cdf6b936e0a1b",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049319305_14-webgis-seg41.mp3"
     },
     {
       "index": 42,
       "text": "行号：先算墨卡托纵向比例 (1 − ln(tan(39.9°) + 1/cos(39.9°)) / π) / 2 约等于 0.3790 ，再 × 1024 约等于 388",
       "hash": "fd190822f9000d85",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049320862_14-webgis-seg42.mp3"
     },
     {
       "index": 43,
       "text": "所以请求的是 TileMatrix=10&TileRow=388&TileCol=843",
       "hash": "d164794121852d6a",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049318451_14-webgis-seg43.mp3"
     },
     {
       "index": 44,
       "text": "层级每加 1，瓦片数翻 4 倍（z=10 是 1024² 块，z=11 就是 2048² 块），这就是「瓦片矩阵」的含义",
       "hash": "5cf622779a7fe672",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049317908_14-webgis-seg44.mp3"
     },
     {
       "index": 45,
@@ -328,7 +337,8 @@
       "index": 47,
       "text": "前端更容易直接消费，靠的是三点：",
       "hash": "b874ee1e1267644f",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049318124_14-webgis-seg47.mp3"
     },
     {
       "index": 48,
@@ -460,37 +470,43 @@
       "index": 66,
       "text": "setView 的参数是 [纬度, 经度] ，GeoJSON 的 coordinates 是 [经度, 纬度] ，同一个点两种顺序，初学者第一大坑；",
       "hash": "3321d6044fc33bde",
-      "audio": "seg66.mp3"
+      "audio": "seg66.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049320425_14-webgis-seg66.mp3"
     },
     {
       "index": 67,
       "text": "瓦片模板里的 {z}/{x}/{y} 占位符由 Leaflet 按当前视野自动填充（第 07 章瓦片矩阵的落地）；",
       "hash": "0288b83d1a88b767",
-      "audio": "seg67.mp3"
+      "audio": "seg67.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049322480_14-webgis-seg67.mp3"
     },
     {
       "index": 68,
       "text": "真实项目里地图库要 按需加载 （动态 import() ），别让 40 KB 的 Leaflet 挤进首屏 bundle。",
       "hash": "f2ea22c03a286dfa",
-      "audio": "seg68.mp3"
+      "audio": "seg68.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049320163_14-webgis-seg68.mp3"
     },
     {
       "index": 69,
       "text": "在上面的完整 HTML 基础上：",
       "hash": "b7cceca1200033bf",
-      "audio": "seg69.mp3"
+      "audio": "seg69.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049319192_14-webgis-seg69.mp3"
     },
     {
       "index": 70,
       "text": "把地图视野改为中国全域（ setView([35, 105], 4) ）；",
       "hash": "b3717b4a8088e7e6",
-      "audio": "seg70.mp3"
+      "audio": "seg70.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049324800_14-webgis-seg70.mp3"
     },
     {
       "index": 71,
       "text": "添加北京—上海的 Polyline： L.polyline([[39.9, 116.4], [31.2, 121.5]]).addTo(map) ；",
       "hash": "33baa6f2dea64398",
-      "audio": "seg71.mp3"
+      "audio": "seg71.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049330180_14-webgis-seg71.mp3"
     },
     {
       "index": 72,
@@ -503,7 +519,8 @@
       "index": 73,
       "text": "7. 性能与踩坑",
       "hash": "ad4c53631b29e14c",
-      "audio": "seg73.mp3"
+      "audio": "seg73.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049330127_14-webgis-seg73.mp3"
     },
     {
       "index": 74,
@@ -639,5 +656,5 @@
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946467081_14-webgis-seg92.mp3"
     }
   ],
-  "publishedAt": "2026-11-06T06:39:38.638Z"
+  "publishedAt": "2026-11-07T11:04:00.879Z"
 }

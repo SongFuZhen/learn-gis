@@ -57,7 +57,8 @@
       "index": 7,
       "text": "不做大气校正就跨日期对比 ：雾霾天和大晴天的同一地块亮度差很多，直接比会得出假结论。",
       "hash": "14f42e3fcc961246",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049309451_12-remote-sensing-seg07.mp3"
     },
     {
       "index": 8,
@@ -77,7 +78,8 @@
       "index": 10,
       "text": "四个分辨率（空间/光谱/时间/辐射）按问题选",
       "hash": "f4bc94d9f6a35a66",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049307789_12-remote-sensing-seg10.mp3"
     },
     {
       "index": 11,
@@ -118,13 +120,15 @@
       "index": 16,
       "text": "健康植被 ：强烈吸收红光（光合作用）、强烈反射 近红外（NIR，Near Infrared，「尼尔」） （叶肉结构），近红外亮、红光暗是植被的指纹；",
       "hash": "9c85cec7806dda59",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049308876_12-remote-sensing-seg16.mp3"
     },
     {
       "index": 17,
       "text": "水体 ：吸收近红外/短波红外，近红外波段几乎全黑；",
       "hash": "6b358c7e7d500d5c",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794049308516_12-remote-sensing-seg17.mp3"
     },
     {
       "index": 18,
@@ -421,5 +425,5 @@
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946081610_12-remote-sensing-seg59.mp3"
     }
   ],
-  "publishedAt": "2026-11-06T06:39:38.636Z"
+  "publishedAt": "2026-11-07T11:04:00.872Z"
 }
