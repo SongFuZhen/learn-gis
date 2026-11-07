@@ -93,6 +93,10 @@ tileset.style = new Cesium.Cesium3DTileStyle({
 
 风格表达式里 `${...}` 引用属性，支持条件、函数、透明度——相当于 [GIS 课第 7 章](/s/gis/06) 制图分级的"三维版"。这让同一份城市白模不重做数据就能表达主题地图（人口密度、噪声、日照……）。
 
+<Callout type="info" title="表达式速查（源码级）">
+样式表达式是一门独立小语言：三元式 `? :`（官方文档同款示例：`"(${Temperature} > 90) ? color('red') : color('white')"`）、算术 `+ - * / %`、比较 `> >= < <= === !==`（**严格相等**，没有 `==`）、逻辑 `&& || !`（短路求值）、正则匹配 `=~` / `!~`；`color('名字', alpha)` 第二参数是透明度，颜色串支持 CSS 色名与 `#hex`（另有 `rgb()/rgba()/hsl()` 内建）。最易踩的一点：`${height}` 的属性名**大小写敏感**——批表里叫 `Height`，表达式就必须写 `${Height}`。
+</Callout>
+
 <Callout type="must" title="必背 · 3D Tiles 三条">
 1. tileset.json 是入口：瓦片树 + 几何误差 + 包围盒；b3dm/glb/i3dm/pnts 是瓦片内容
 2. 挂载两步：`Cesium3DTileset.fromUrl(url)` → `viewer.scene.primitives.add(tileset)`
