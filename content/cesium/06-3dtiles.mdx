@@ -49,7 +49,7 @@ await viewer.zoomTo(tileset);
 注意挂载点不同：影像进 `imageryLayers`，实体进 `entities`，**3D Tiles 进 `scene.primitives`**——它是渲染原语层的东西，这是三套数据三种容器的又一次体现（第 02 章的双层模型 + 本章 = Cesium 数据全家桶）。
 
 <Callout type="warn" title="版本注记 · 1.115 起碰撞与贴地默认关闭">
-1.115 起 tileset 默认**不参与**相机碰撞、Entity 也不再自动贴到其表面（需要「实体贴楼顶」时，创建时设 `enableCollision: true`）。老的 `disableCollision` 字段在 1.116 已移除——旧代码里的它是反着的，迁移时注意语义。
+1.115 起 `Cesium3DTileset.enableCollision`（boolean，默认 **false**）控制三件事：**相机碰撞**（防钻入模型内部）、**CPU 拾取**（对瓦片表面的 `pickPosition`，呼应第 8 章的量楼）、**Entity 贴地**（`HeightReference.CLAMP_TO_GROUND` 对 3D Tiles 是否生效）——默认全关。需要「实体贴楼顶」「量楼面」时，创建时设 `enableCollision: true`（构造参数与实例属性同名）。注意两点：① 相机防钻地还要求 `ScreenSpaceCameraController#enableCollisionDetection`（另一个总开关，默认 true）同时开启；② 高顶点量的 tileset 开碰撞有性能代价。老的 `disableCollision` 字段在 1.116 已移除——旧代码里它是反着的，迁移时注意语义。
 </Callout>
 
 <Callout type="warn" title="ion 数据集需要 token（本课只认不点）">
