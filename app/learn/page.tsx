@@ -18,8 +18,8 @@ const SKILL_ICONS: Record<string, LucideIcon> = {
 /** 课程中转页：列出所有技能，作为「学习」导航的入口 */
 export default function LearnPage() {
   return (
-    <div className="w-full px-4 pb-8 pt-5 sm:px-6 lg:px-8 lg:pt-10">
-      <div className="mx-auto max-w-4xl">
+    <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
+      <div>
         <h1 className="text-[22px] font-semibold tracking-[-0.02em] sm:text-[26px]">
           选择课程
         </h1>

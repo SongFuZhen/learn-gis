@@ -274,10 +274,13 @@ LIMIT 5;
 - 需要索引、事务、大数据、精确统计：PostGIS。
 - 前端只传参数，后端返回 GeoJSON（/ˈdʒiːoʊˌdʒeɪsən/，「吉欧-杰森」）：`ST_AsGeoJSON(ST_Transform(...))`。
 
+<Callout type="info" title="三维延伸 · CesiumJS 三维地球">
+大圆距离与切平面面积在三维引擎里的落地实现——见 [CesiumJS 课第 9 章 · 空间量算](/s/cesium/08)。
+</Callout>
+
 ## 延伸阅读
 
 - PostGIS 函数索引：[postgis.net/docs](https://postgis.net/docs/)
 - ST_DWithin：[postgis.net/docs/ST_DWithin](https://postgis.net/docs/ST_DWithin.html)
 - ST_Distance：[postgis.net/docs/ST_Distance](https://postgis.net/docs/ST_Distance.html)
 - Turf.js buffer：[turfjs.org/docs/api/buffer](https://turfjs.org/docs/api/buffer)
-- 球面量算在三维引擎里的实现（大圆距离/切平面面积）：见 [CesiumJS 课第 9 章 · 空间量算](/s/cesium/08)

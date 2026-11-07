@@ -36,9 +36,9 @@ export default function AudioPage() {
   const totalSegments = countSegments();
 
   return (
-    <div className="w-full px-4 pb-8 pt-5 sm:px-6 lg:px-8 lg:pt-10">
+    <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       {/* 页头：标题 + 统计 */}
-      <div className="mx-auto max-w-5xl">
+      <div>
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <h1 className="text-[22px] font-semibold tracking-[-0.02em] sm:text-[26px]">
@@ -55,7 +55,7 @@ export default function AudioPage() {
         </div>
 
         {/* 章节卡片网格：窄屏单列，md 起双列 */}
-        <ol className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <ol className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
           {GIS_MODULES.map((m, i) => (
             <li
               key={m.slug}
