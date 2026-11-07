@@ -283,8 +283,8 @@
       "skill": "cesium",
       "module": "10",
       "difficulty": 2,
-      "stem": "不透明粒子（火花、碎屑）想提升渲染性能，应该设置？",
-      "explanation": "混合方式默认 OPAQUE_AND_TRANSLUCENT（需排序混合）；纯不透明粒子用 OPAQUE 可跳过透明排序与混合，批量渲染更快。贴图小、数量账合理是另外两个主要手段。",
+      "stem": "「播一次就完」的爆炸特效：希望粒子系统放完一轮后停止发射并触发回调。正确配置是？",
+      "explanation": "源码行为：loop=true（默认）时 lifetime 到点把当前时间取模归零、重置 bursts 并继续发射，complete 永不触发；loop=false 时超过 lifetime 触发一次 complete（且仅当 lifetime 非 Number.MAX_VALUE）。emissionRate=0 只是停止发射，已出生粒子仍会播完。",
       "refs": [
         {
           "title": "Cesium.ParticleSystem API 参考",
@@ -295,24 +295,24 @@
       "options": [
         {
           "key": "A",
-          "text": "blendOption: Cesium.ParticleBlendOption.OPAQUE",
-          "hint": "跳过透明混合，渲染更快"
+          "text": "把 emissionRate 设为 0"
         },
         {
           "key": "B",
-          "text": "把贴图换成 1024×1024"
+          "text": "loop: false + 有限 lifetime——到点触发一次 complete 事件",
+          "hint": "源码：loop=true 时 lifetime 到点取模归零、bursts 重置并继续"
         },
         {
           "key": "C",
-          "text": "emissionRate 减半"
+          "text": "bursts: []（清空爆发数组）"
         },
         {
           "key": "D",
-          "text": "sizeInMeters: true"
+          "text": "把 modelMatrix 设为全零矩阵"
         }
       ],
       "answer": [
-        "A"
+        "B"
       ]
     },
     {

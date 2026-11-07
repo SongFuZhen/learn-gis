@@ -42,8 +42,9 @@ const particleSystem = scene.primitives.add(
     emitter: new Cesium.ConeEmitter(Cesium.Math.toRadians(15)), // 15° 锥形向上喷
 
     emissionRate: 60,                  // 每秒 60 颗 → 寿命 1s 时约 60 颗常驻
-    lifetime: 16,                      // 系统整体寿命（秒），16.0 表示循环
-    particleLife: [0.6, 1.4],          // 每颗粒子活 0.6~1.4 秒（区间随机）
+    lifetime: 16,                      // 一轮时长（秒）；loop 默认 true，到点归零重来
+    minimumParticleLife: 0.6,          // 每颗粒子寿命 0.6~1.4 秒（区间随机取值）
+    maximumParticleLife: 1.4,
     minimumSpeed: 2,                   // 初速度区间（米/秒）
     maximumSpeed: 5,
     startColor: Cesium.Color.YELLOW.withAlpha(0.9),
@@ -73,7 +74,7 @@ const particleSystem = scene.primitives.add(
 | `CircleEmitter(radius)` | 圆盘内随机 | 营火、烟囱口、雨雪区域 |
 | `ConeEmitter(angle)` | 锥体内随机、沿锥轴喷 | 火焰、喷泉、火箭尾焰 |
 | `SphereEmitter(radius)` | 球体内随机、向外喷 | 爆炸、冲击波 |
-| `BoxEmitter(dimension)` | 长方体内随机 | 大范围降雨/降雪区域 |
+| `BoxEmitter(new Cartesian3(w, h, d))` | 长方体内随机 | 大范围降雨/降雪区域 |
 
 **bursts**：在指定时刻一次性"喷一批"——烟花的爆炸、开局的一阵烟：
 
@@ -84,7 +85,7 @@ bursts: [
 ],
 ```
 
-`bursts` 与 `emissionRate` **可以叠加**：continuous 出烟 + 定点爆发出火星，一个系统两种节奏。系统寿命 `lifetime` 到了会触发 `complete` 事件（配合 `loop: false` 做"播一次就完"的一次性特效）。
+`bursts` 与 `emissionRate` **可以叠加**：continuous 出烟 + 定点爆发出火星，一个系统两种节奏。系统寿命 `lifetime` 到了会触发 `complete` 事件（配合 `loop: false` 做"播一次就完"的一次性特效）——注意 `loop` 默认 true 时 `lifetime` 到点会自动归零重来、`complete` **永不触发**；`lifetime` 为默认 `Number.MAX_VALUE` 时该机制整体关闭。
 
 ## 4. updateCallback：给粒子装上物理
 
@@ -133,13 +134,8 @@ const snowUpdate = (particle, dt) => {
 ```js
 // ① 数量账：emissionRate × 平均寿命 = 常驻粒子数
 //    60/s × 1s = 60 颗；雨要密集就提速率、压寿命
-// ② 混合方式：不透明粒子（火花、碎屑）用 OPAQUE，渲染更快
-new Cesium.ParticleSystem({
-  /* ... */
-  blendOption: Cesium.ParticleBlendOption.OPAQUE, // 默认 OPAQUE_AND_TRANSLUCENT
-});
-// ③ 贴图越小越好：32×32 的火焰贴图和 1024×1024 的效果差距肉眼难辨，开销天差地别
-// ④ 不需要时移除：scene.primitives.remove(particleSystem)
+// ② 贴图越小越好：32×32 的火焰贴图和 1024×1024 的效果差距肉眼难辨，开销天差地别
+// ③ 不需要时移除：scene.primitives.remove(particleSystem)
 ```
 
 什么时候**不用**粒子：标注（用 Entity 三件套，第 5 章）、少量可交互对象（拾取粒子很绕，业务上应放隐形 Entity 代理）、海量静态点（用 `PointPrimitiveCollection`，第 10 章）。粒子的领域是"**大量 + 短命 + 有运动规律**"的视觉效果。
@@ -153,18 +149,16 @@ const snowSystem = scene.primitives.add(
   new Cesium.ParticleSystem({
     image: "/cesium/snow.png",          // 白色小圆点贴图
     emitter: new Cesium.CircleEmitter(300.0), // 半径 300 m 圆盘
-    modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(
-      viewer.camera.positionCartographic
-        // 简化：以相机位置为雪源；更好的做法是每帧更新 modelMatrix 跟随相机
-    ),
+    modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(viewer.camera.position),
+    // 简化：以相机位置为雪源；更好的做法是每帧更新 modelMatrix 跟随相机
     emissionRate: 100,                   // 寿命约 5s → 常驻 500 颗
-    particleLife: [4, 6],
+    minimumParticleLife: 4, maximumParticleLife: 6,
     minimumSpeed: 1, maximumSpeed: 2,    // 慢速下落
     startScale: 0.5, endScale: 1.5,
     startColor: Cesium.Color.WHITE.withAlpha(0.9),
     endColor: Cesium.Color.WHITE.withAlpha(0.4),
     sizeInMeters: true,
-    lifetime: 1e8,                       // 天气效果：循环不终止
+    lifetime: 1e8,                       // 近似永不结束（loop 默认 true）
     updateCallback: (particle, dt) => {
       // 重力 + 正弦横摆（回调纪律：tmp 向量复用）
       Cesium.Cartesian3.add(
@@ -180,7 +174,7 @@ const snowSystem = scene.primitives.add(
 // 跟随相机：相机移动后更新 modelMatrix（配合第 10 章的 requestRender 手动请求）
 viewer.camera.changed.addEventListener(() => {
   snowSystem.modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
-    viewer.camera.positionCartographic
+    viewer.camera.position
   );
   viewer.scene.requestRender();
 });
