@@ -78,6 +78,13 @@ export const CESIUM_MODULES: ModuleMeta[] = [
     summary:
       "requestRenderMode 按需渲染、SSE 精度总闸、Entity/Collection/Primitive 选型递进；收官实战：把全课程拼成 GIS 数据三维看板。",
   },
+  {
+    slug: "10",
+    file: "10-particles",
+    title: "粒子系统：火焰、雨雪与天气特效",
+    summary:
+      "Emitter/生命周期/updateCallback 三件套、modelMatrix 落地定位、bursts 爆发脉冲与四种发射器；用 updateCallback 写雨雪物理，并算清粒子性能账。",
+  },
 ];
 
 /** 已规划但尚未交付的章节（04-09 随 Phase 2 转正） */

@@ -1,0 +1,207 @@
+## 🍼 白话版（先看这个）
+
+> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：火焰、雨雪、烟雾、喷气尾迹、爆炸——这些效果的共同点是"**成百上千个小东西，各自出生、运动、死亡**"。用 Entity 一个个 add 是灾难，3D Tiles 更不搭边。Cesium 的 **ParticleSystem**（粒子系统，/ˈpɑːrtɪkl/，「帕-提-抠」）专治这类"群体小元素"：你定义**发射规则**，它负责成批生成、运动、消亡。**我的经验一句话**：粒子系统 = 发射器（从哪出）+ 生命周期（活多久）+ 每帧更新（怎么动）——三件套配好，剩下的全是调参。**我见过的坑（你大概率也会踩）**：
+- 稳态粒子数 ≈ `emissionRate × 平均粒子寿命`——emissionRate 500、寿命 4 秒就是 2000 个粒子常驻，设的时候心里要有账，不然直接卡死。
+- 粒子怎么拉近都不变大——默认 `sizeInMeters: false`（以**像素**为单位），要真实世界的米制尺寸必须显式开。
+- `updateCallback` 里写了重计算（比如每次都 new 对象、查数组）——它是**每帧对每个粒子**执行的，里面一行烂代码乘以 2000 粒子 × 60 帧 = 灾难。**必记 3 条**：
+1. 粒子系统挂载在 `viewer.scene.primitives.add`（和 3D Tiles 同一个容器）
+2. 位置与朝向靠 `modelMatrix`（配合 `Transforms.eastNorthUpToFixedFrame` 落地）
+3. 稳态粒子数 = emissionRate × 平均寿命——先算账再调参
+
+## 本章你会学到
+
+粒子系统的三件套心智模型；一个完整的火焰示例（定位、颜色渐变、缩放）；四种发射器与 `bursts` 爆发脉冲；用 `updateCallback` 写自定义物理（重力/风——雨和雪）；以及粒子的性能账本。学完这章，你的三维看板就有了"天气与特效"这一层。
+
+## 1. 心智模型：发射器、生命周期、更新回调
+
+粒子系统不是"一个对象"，而是一条**流水线**：
+
+```text
+Emitter（发射器）         生命周期               updateCallback
+  从哪里、以什么速率  →  每颗粒子出生 → 成长 →  每帧给粒子施加
+  吐出粒子               衰老 → 死亡             力（重力/风/引力）
+                                                    ↓
+                         modelMatrix 定位整个系统（地球上的哪一点、朝向如何）
+```
+
+- **Emitter**：决定粒子的**出生位置与初速度分布**（点/圆盘/锥形/球形四种）。
+- **生命周期**：`minimumParticleLife`~`maximumParticleLife`（秒）随机取值；颜色与大小按 `startColor→endColor`、`startScale→endScale` 随寿命插值。
+- **updateCallback**：每帧对**每颗活着的粒子**调用一次 `(particle, dt)`，你可以在里面施加自定义力。
+
+整条流水线在场景里的"落脚点"由 **modelMatrix** 决定——把它设成某个地面点的东北天坐标系，粒子就在那里喷发。
+
+## 2. 最小示例：营火
+
+```js
+const firePosition = Cesium.Cartesian3.fromDegrees(116.397, 39.909, 0);
+
+const scene = viewer.scene;
+const particleSystem = scene.primitives.add(
+  new Cesium.ParticleSystem({
+    image: "/cesium/fire.png",        // 粒子贴图（小图即可，32×32 足够）
+    emitter: new Cesium.ConeEmitter(Cesium.Math.toRadians(15)), // 15° 锥形向上喷
+
+    emissionRate: 60,                  // 每秒 60 颗 → 寿命 1s 时约 60 颗常驻
+    lifetime: 16,                      // 系统整体寿命（秒），16.0 表示循环
+    particleLife: [0.6, 1.4],          // 每颗粒子活 0.6~1.4 秒（区间随机）
+    minimumSpeed: 2,                   // 初速度区间（米/秒）
+    maximumSpeed: 5,
+    startColor: Cesium.Color.YELLOW.withAlpha(0.9),
+    endColor: Cesium.Color.RED.withAlpha(0.2),   // 随寿命变红变透明
+    startScale: 2,
+    endScale: 6,                       // 越烧越大
+    sizeInMeters: true,                // 米制尺寸（贴图基准尺寸 × scale）
+
+    // 定位：把整个系统"放"在地面的火堆上
+    modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(firePosition),
+  })
+);
+```
+
+跑起来就是一团从地面往上蹿的火焰：粒子从锥口出生、随机初速上升、颜色由黄转红渐隐、尺寸逐渐放大。**调参顺序建议**：先定 `emissionRate` 与 `particleLife`（数量账），再调颜色与缩放（观感），最后动 `updateCallback`（物理）。
+
+<Callout type="must" title="必背 · 粒子三条">
+1. `viewer.scene.primitives.add(particleSystem)`——粒子是渲染原语
+2. `modelMatrix` + `Transforms.eastNorthUpToFixedFrame(position)` 是"把特效放地上"的标准姿势
+3. 稳态粒子数 ≈ emissionRate × 平均 particleLife——先算账，再调参
+</Callout>
+
+## 3. 四种发射器与 bursts：控制"出生方式"
+
+| 发射器 | 出生位置分布 | 典型场景 |
+| --- | --- | --- |
+| `CircleEmitter(radius)` | 圆盘内随机 | 营火、烟囱口、雨雪区域 |
+| `ConeEmitter(angle)` | 锥体内随机、沿锥轴喷 | 火焰、喷泉、火箭尾焰 |
+| `SphereEmitter(radius)` | 球体内随机、向外喷 | 爆炸、冲击波 |
+| `BoxEmitter(dimension)` | 长方体内随机 | 大范围降雨/降雪区域 |
+
+**bursts**：在指定时刻一次性"喷一批"——烟花的爆炸、开局的一阵烟：
+
+```js
+bursts: [
+  new Cesium.ParticleBurst({ time: 0.0, minimum: 200, maximum: 300, peak: 1.0 }),
+  new Cesium.ParticleBurst({ time: 2.0, minimum: 100, maximum: 150, peak: 0.6 }),
+],
+```
+
+`bursts` 与 `emissionRate` **可以叠加**：continuous 出烟 + 定点爆发出火星，一个系统两种节奏。系统寿命 `lifetime` 到了会触发 `complete` 事件（配合 `loop: false` 做"播一次就完"的一次性特效）。
+
+## 4. updateCallback：给粒子装上物理
+
+`(particle, dt)` 回调是粒子系统的"物理引擎接口"——`particle` 有 `position`/`velocity`/`mass` 等字段，`dt` 是帧间隔（秒）。雨和雪的区别就写在回调里：
+
+```js
+// 雨：快速直落，带一点风
+const rainUpdate = (particle, dt) => {
+  // 重力：向下加速
+  Cesium.Cartesian3.add(
+    particle.velocity,
+    Cesium.Cartesian3.multiplyByScalar(Cesium.Cartesian3.UNIT_Z, -9.8 * dt, tmp1),
+    particle.velocity
+  );
+  // 风：水平恒定推力
+  Cesium.Cartesian3.add(
+    particle.velocity,
+    Cesium.Cartesian3.multiplyByScalar(windDirection, 2.0 * dt, tmp2),
+    particle.velocity
+  );
+};
+
+// 雪：慢速下落 + 正弦摆动（横向飘）
+const snowUpdate = (particle, dt) => {
+  const t = (performance.now() - start) / 1000;
+  Cesium.Cartesian3.add(
+    particle.velocity,
+    Cesium.Cartesian3.multiplyByScalar(Cesium.Cartesian3.UNIT_Z, -1.5 * dt, tmp1),
+    particle.velocity
+  );
+  // 摆动：x 方向随时间正弦漂移
+  particle.velocity.x += Math.sin(t * 2 + particle.position.z) * 0.3 * dt;
+};
+```
+
+把回调与发射器组合成**天气系统**：雨用大范围 `BoxEmitter` 罩住相机上方区域 + 高速下落 + 细长贴图；雪用 `CircleEmitter` + 慢速 + 白色圆点贴图 + 摆动回调。官方 Sandcastle 的 Rain / Snow 示例就是这套组合，可直接对照。
+
+<Callout type="warn" title="updateCallback 性能纪律">
+回调 = 每帧 × 每颗活粒子。纪律三条：① 预分配临时向量复用（示例里的 tmp1/tmp2），**绝不 new 对象**；② 常量计算（如风向向量）提到回调外；③ 粒子数上千后先看帧率，再决定要不要降 emissionRate。
+</Callout>
+
+## 5. 性能账本与选型
+
+粒子的开销 = 常驻数量 × 单粒绘制成本。控制手段：
+
+```js
+// ① 数量账：emissionRate × 平均寿命 = 常驻粒子数
+//    60/s × 1s = 60 颗；雨要密集就提速率、压寿命
+// ② 混合方式：不透明粒子（火花、碎屑）用 OPAQUE，渲染更快
+new Cesium.ParticleSystem({
+  /* ... */
+  blendOption: Cesium.ParticleBlendOption.OPAQUE, // 默认 OPAQUE_AND_TRANSLUCENT
+});
+// ③ 贴图越小越好：32×32 的火焰贴图和 1024×1024 的效果差距肉眼难辨，开销天差地别
+// ④ 不需要时移除：scene.primitives.remove(particleSystem)
+```
+
+什么时候**不用**粒子：标注（用 Entity 三件套，第 5 章）、少量可交互对象（拾取粒子很绕，业务上应放隐形 Entity 代理）、海量静态点（用 `PointPrimitiveCollection`，第 10 章）。粒子的领域是"**大量 + 短命 + 有运动规律**"的视觉效果。
+
+<Exercise tool="cesium" title="动手 · 给看板加一场雪">
+综合练习：在第 10 章的收官看板上加一场雪——以相机所在位置为中心的大范围降雪（跟随相机移动），雪花缓慢下落并横向摆动，白色圆点贴图，密度控制在 500 颗常驻以内。
+
+<ExerciseSolution>
+```js
+const snowSystem = scene.primitives.add(
+  new Cesium.ParticleSystem({
+    image: "/cesium/snow.png",          // 白色小圆点贴图
+    emitter: new Cesium.CircleEmitter(300.0), // 半径 300 m 圆盘
+    modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(
+      viewer.camera.positionCartographic
+        // 简化：以相机位置为雪源；更好的做法是每帧更新 modelMatrix 跟随相机
+    ),
+    emissionRate: 100,                   // 寿命约 5s → 常驻 500 颗
+    particleLife: [4, 6],
+    minimumSpeed: 1, maximumSpeed: 2,    // 慢速下落
+    startScale: 0.5, endScale: 1.5,
+    startColor: Cesium.Color.WHITE.withAlpha(0.9),
+    endColor: Cesium.Color.WHITE.withAlpha(0.4),
+    sizeInMeters: true,
+    lifetime: 1e8,                       // 天气效果：循环不终止
+    updateCallback: (particle, dt) => {
+      // 重力 + 正弦横摆（回调纪律：tmp 向量复用）
+      Cesium.Cartesian3.add(
+        particle.velocity,
+        Cesium.Cartesian3.multiplyByScalar(Cesium.Cartesian3.UNIT_Z, -1.5 * dt, tmp1),
+        particle.velocity
+      );
+      particle.velocity.x += Math.sin(performance.now() / 500) * 0.3 * dt;
+    },
+  })
+);
+
+// 跟随相机：相机移动后更新 modelMatrix（配合第 10 章的 requestRender 手动请求）
+viewer.camera.changed.addEventListener(() => {
+  snowSystem.modelMatrix = Cesium.Transforms.eastNorthUpToFixedFrame(
+    viewer.camera.positionCartographic
+  );
+  viewer.scene.requestRender();
+});
+```
+观察点：① 把 `emissionRate` 提到 300，雪变密的同时注意帧率变化——这就是数量账的直观感受；② 雪源没跟随时相机会"走出雪区"——跟随逻辑是天气系统的关键细节；③ 与第 10 章的 `requestRenderMode` 组合时，粒子系统自身的变化会自动请求渲染，但 modelMatrix 手动更新后记得调 `requestRender()`。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- 粒子三件套：Emitter（出生）+ 生命周期（插值衰减）+ updateCallback（每帧施力）。
+- 落地姿势：`primitives.add` + `modelMatrix`（eastNorthUpToFixedFrame）。
+- 数量账：emissionRate × 平均寿命 = 常驻粒子数；贴图小、不透明粒子更省。
+- 适用边界：大量、短命、有运动规律的视觉元素；可交互对象与静态点海另有正主。
+
+至此，你的三维看板有了完整的表现力层次：底图、地形、实体、模型、时间动态、天气特效。三维 GIS 的"展示"侧到本章收官——下一步是把第 09 章的量算与本章特效结合，或接真实数据源做行业场景。
+
+## 延伸阅读
+
+- 粒子系统官方教程：[CesiumJS Particle System 教程](https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/)（含火焰/天气完整示例）
+- ParticleSystem API 参考：[Cesium.ParticleSystem](https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleSystem.html)
+- 发射器家族：[Cesium.ParticleEmitter](https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleEmitter.html)
+- 官方天气示例：Sandcastle 搜索 Rain / Snow / Weather
+- 前置章节：[CesiumJS 课 · 性能优化与实战收官](/s/cesium/09)

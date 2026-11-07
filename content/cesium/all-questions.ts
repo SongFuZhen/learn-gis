@@ -10,12 +10,13 @@ import threeDTiles from "./06-3dtiles.questions.json";
 import pickingEvents from "./07-picking-events.questions.json";
 import measure from "./08-measure.questions.json";
 import performanceFinale from "./09-performance-finale.questions.json";
+import particles from "./10-particles.questions.json";
 
 /**
  * Cesium 全量题库（客户端聚合，只 import JSON，不碰 lib/content）。
  * 每道题跑 questionSchema 校验，坏数据在模块加载时抛错。
  */
-const RAW_FILES = [cesiumIntro, cameraCoords, imageryLayers, terrain, entityGeojson, czmlTime, threeDTiles, pickingEvents, measure, performanceFinale];
+const RAW_FILES = [cesiumIntro, cameraCoords, imageryLayers, terrain, entityGeojson, czmlTime, threeDTiles, pickingEvents, measure, performanceFinale, particles];
 
 function collectValidated(): Question[] {
   const out: Question[] = [];

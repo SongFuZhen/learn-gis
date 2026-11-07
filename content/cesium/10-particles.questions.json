@@ -1,0 +1,372 @@
+{
+  "skill": "cesium",
+  "module": "10",
+  "version": 1,
+  "questions": [
+    {
+      "id": "cesium-10-001",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "粒子系统（ParticleSystem）挂载到场景的正确 API 是？",
+      "explanation": "粒子系统属于渲染原语层（第 7 章 3D Tiles 同款容器）：viewer.scene.primitives.add。Entity/dataSources/imageryLayers 都不是它的家。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleSystem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.entities.add(particleSystem)"
+        },
+        {
+          "key": "B",
+          "text": "viewer.imageryLayers.add(particleSystem)"
+        },
+        {
+          "key": "C",
+          "text": "viewer.scene.primitives.add(particleSystem)",
+          "hint": "粒子是渲染原语，与 3D Tiles 同容器"
+        },
+        {
+          "key": "D",
+          "text": "viewer.dataSources.add(particleSystem)"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-002",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "「把粒子特效放到地球上某个地面点」的标准做法是？",
+      "explanation": "ParticleSystem 的位置/朝向由 modelMatrix 统一决定；Transforms.eastNorthUpToFixedFrame(position) 生成的东北天矩阵是「特效落地」的标准姿势。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "给每个粒子单独设经纬度"
+        },
+        {
+          "key": "B",
+          "text": "设 modelMatrix 为该点的 eastNorthUpToFixedFrame 变换矩阵",
+          "hint": "整个系统的定位与朝向由 modelMatrix 决定"
+        },
+        {
+          "key": "C",
+          "text": "修改 CESIUM_BASE_URL"
+        },
+        {
+          "key": "D",
+          "text": "把 emitter 半径设为 0"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-10-003",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "稳态常驻粒子数约等于 emissionRate 乘以平均粒子寿命。",
+      "explanation": "发射速率 × 寿命 = 稳态数量的水量平衡。例：emissionRate=60、平均寿命 1s → 约 60 颗常驻。调参前先算这笔账，避免无意间造出上万粒子。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-10-004",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "emissionRate = 200、粒子寿命区间 [2, 6] 秒（均匀分布），稳态常驻粒子数约为多少？（填数值）",
+      "explanation": "平均寿命 = (2+6)/2 = 4 秒；稳态数量 = 200 × 4 = 800 颗。数量账是粒子调参的第一步。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 800,
+      "tolerance": 20,
+      "unit": "颗",
+      "placeholder": "例如：600"
+    },
+    {
+      "id": "cesium-10-005",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "火焰粒子要从地面锥形区域向上喷，最合适的发射器是？",
+      "explanation": "ConeEmitter(angle) 让粒子在锥体内出生、沿锥轴喷出——火焰、喷泉、火箭尾焰的标准选择。CircleEmitter 用于盘面（火堆口/雪区），SphereEmitter 用于球形爆开，BoxEmitter 用于大范围天气。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleEmitter API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleEmitter.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "CircleEmitter"
+        },
+        {
+          "key": "B",
+          "text": "ConeEmitter",
+          "hint": "锥形发射器，沿锥轴方向喷出"
+        },
+        {
+          "key": "C",
+          "text": "SphereEmitter"
+        },
+        {
+          "key": "D",
+          "text": "BoxEmitter"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-10-006",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "关于 ParticleBurst，下列说法正确的有哪些？",
+      "explanation": "ParticleBurst(time, minimum, maximum, peak) 在 time 时刻脉冲式喷发一批；与 emissionRate 叠加使用可做出「持续冒烟 + 定时爆火星」的复合节奏。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleSystem.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "bursts 在指定时刻一次性喷出一批粒子"
+        },
+        {
+          "key": "B",
+          "text": "bursts 与 emissionRate 可以同时生效（连续出烟 + 定点爆发）"
+        },
+        {
+          "key": "C",
+          "text": "bursts 的 time 是相对系统 lifetime 起点的秒数"
+        },
+        {
+          "key": "D",
+          "text": "bursts 可以替代 emissionRate 实现持续稳定发射",
+          "hint": "bursts 是脉冲式的，持续发射靠 emissionRate"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-007",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "想让粒子像真实世界的火焰一样「拉近镜头会变大」，应该配置？",
+      "explanation": "粒子默认以像素为单位（sizeInMeters: false），无论相机多近大小不变；sizeInMeters: true 后按真实米制尺寸渲染，随距离产生近大远小。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleSystem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "pixelSize 调大"
+        },
+        {
+          "key": "B",
+          "text": "sizeInMeters: true",
+          "hint": "默认按像素渲染，开此项后按米制尺寸渲染"
+        },
+        {
+          "key": "C",
+          "text": "emissionRate 加倍"
+        },
+        {
+          "key": "D",
+          "text": "startScale 调小"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-10-008",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "updateCallback 回调会对每颗活着的粒子、每一帧各执行一次，所以回调里的代码要极轻（预分配临时向量、不要 new 对象）。",
+      "explanation": "回调频率 = 每帧 × 粒子数（2000 粒 × 60 帧 = 每秒 12 万次调用）。回调里 new 对象或查数组会立刻放大成性能灾难；临时向量应在回调外预分配复用。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-10-009",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "雨和雪在 updateCallback 里的核心区别是？",
+      "explanation": "两者都是「重力 + 水平扰动」的参数化：雨速度大、扰动小（直线感）；雪速度慢、加正弦横摆（飘落感）。贴图与大小配合强化观感。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "雨用红色粒子"
+        },
+        {
+          "key": "B",
+          "text": "雨：快速直落 + 恒定风；雪：慢速下落 + 正弦横向摆动",
+          "hint": "两者都是重力 + 水平扰动的参数化"
+        },
+        {
+          "key": "C",
+          "text": "雪不需要 updateCallback"
+        },
+        {
+          "key": "D",
+          "text": "雨要 sizeInMeters: false，雪要 true"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-10-010",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "不透明粒子（火花、碎屑）想提升渲染性能，应该设置？",
+      "explanation": "混合方式默认 OPAQUE_AND_TRANSLUCENT（需排序混合）；纯不透明粒子用 OPAQUE 可跳过透明排序与混合，批量渲染更快。贴图小、数量账合理是另外两个主要手段。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleSystem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "blendOption: Cesium.ParticleBlendOption.OPAQUE",
+          "hint": "跳过透明混合，渲染更快"
+        },
+        {
+          "key": "B",
+          "text": "把贴图换成 1024×1024"
+        },
+        {
+          "key": "C",
+          "text": "emissionRate 减半"
+        },
+        {
+          "key": "D",
+          "text": "sizeInMeters: true"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-10-011",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "「给场景里的每一栋楼加一个烟火特效」适合用粒子系统实现。",
+      "explanation": "粒子适合「大量、短命、有运动规律」的视觉效果。每栋楼常驻特效是「大量、长命、静态位置」的需求——用 Entity/模型表达更合适；且拾取交互应放在隐形 Entity 代理上，粒子拾取很绕。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-10-012",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "天气粒子（循环降雪）要跟随相机移动，正确的实现要点是？",
+      "explanation": "ParticleSystem 的位置由 modelMatrix 决定，跟随 = 在相机变化事件里重设 modelMatrix；requestRenderMode 下还需手动 requestRender() 触发新帧（第 10 章的渲染调度）。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每帧重建 ParticleSystem"
+        },
+        {
+          "key": "B",
+          "text": "相机移动后更新 modelMatrix，并在 requestRenderMode 下手动 requestRender()",
+          "hint": "矩阵更新 + 按需渲染请求是组合拳"
+        },
+        {
+          "key": "C",
+          "text": "把 emissionRate 设为 0"
+        },
+        {
+          "key": "D",
+          "text": "粒子系统不需要跟随，它会自动跟随相机"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    }
+  ]
+}
