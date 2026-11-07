@@ -40,6 +40,7 @@ const tileset = await Cesium.Cesium3DTileset.fromUrl(
 
 // ② 挂进场景
 viewer.scene.primitives.add(tileset);
+// 老写法（1.104 前）：new Cesium.Cesium3DTileset({ url: "..." })，已废弃
 
 // 定位到模型
 await viewer.zoomTo(tileset);

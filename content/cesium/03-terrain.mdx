@@ -45,6 +45,7 @@ viewer.terrainProvider = new Cesium.EllipsoidTerrainProvider();
 // ⚠️ 需要注册 ion 并设置 token，本课程不使用，仅认识代码形状
 Cesium.Ion.defaultAccessToken = "你的token";
 viewer.terrainProvider = await Cesium.CesiumTerrainProvider.fromIonAssetId(1);
+// 老写法（1.104 前）：Cesium.createWorldTerrain()，已废弃
 ```
 
 token-free 的替代路径有三条：① 用 `EllipsoidTerrainProvider`（平的）把课程学完——本课程的选择；② 自托管 DEM 转 quantized-mesh 工具链（如 `py3dtiles`/`ctb-tile`，超出课程范围）；③ 个别公开免 token 的地形服务（可用性不稳定，不建议依赖生产）。

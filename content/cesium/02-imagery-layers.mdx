@@ -26,6 +26,10 @@ ImageryProvider 家族里最常用的几个成员；瓦片金字塔在这一层�
 
 所有 Provider 现在推荐用 `fromUrl` 异步工厂创建，再交给 `ImageryLayer.fromProviderAsync`——这就是第 00 章 `baseLayer` 参数的来历。
 
+<Callout type="info" title="版本注记 · 老教程的写法为什么报错">
+网上老教程常见 `new OpenStreetMapImageryProvider({ url })` 与 Viewer 的 `imageryProvider` 参数——分别是 1.104 / 1.107 之前的写法，现已废弃或移除。完整的新旧对照表见[第 1 章 · 版本基线](/s/cesium/00)。
+</Callout>
+
 ## 2. 图层栈：叠、透明、调序
 
 ```js
