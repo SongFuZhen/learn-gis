@@ -143,6 +143,12 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 | 1.104 | 2023-05 | Provider / Tileset 引入 `fromUrl` **异步工厂** | 底图、地形、3D Tiles 的创建写法全面更新 |
 | 1.107 | 2023-07 | Viewer 选项 `imageryProvider` → **`baseLayer`**；同步构造器标记废弃 | 第 1/3 章的底图写法 |
 | 1.109+ | 2023-09 起 | 旧同步构造器陆续移除 | 网上旧教程代码会直接报错，按下方对照表迁移 |
+| 1.115 | 2024-03 | **3D Tiles 默认不再参与相机碰撞/实体贴地**，需 `enableCollision: true` | 第 7 章：要把实体贴到楼顶必须开此项 |
+| 1.116 | 2024-04 | `Globe.terrainExaggeration` 移除 → `Scene.verticalExaggeration` | 地形夸张 API 换了位置 |
+| 1.119 | 2024-07 | 新增 `Ellipsoid.default`：全局默认椭球可切换 | 与 GIS 课「基准面」概念直接对应 |
+| 1.121 | 2024-09 | **MSAA 默认开启（4x）**；默认色调映射 ACES → Khronos PBR Neutral | 升级后画面更平滑、模型观感变亮——不是你的代码坏了 |
+| 1.122 | 2024-10 | 新增 `CallbackPositionProperty`：实体位置的懒求值 | 高频动态位置（第 6 章）的性能新选项 |
+| 1.123 | 2024-11 | 新增 `ScreenSpaceCameraController.maximumTiltAngle`（俯仰上限）；Viewer 功能逐步向 `CesiumWidget` 迁移 | 相机俯仰限制；无控件场景可用 CesiumWidget |
 
 **新旧写法对照表**（旧教程 → 本课程写法）：
 
@@ -153,6 +159,15 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 | `new Cesium.Cesium3DTileset({ url })` | `Cesium3DTileset.fromUrl(url)` | 第 7 章 |
 | `Cesium.createWorldTerrain()` | `CesiumTerrainProvider.fromIonAssetId(1)` | 第 4 章 |
 | `Cesium.createOsmBuildings()` | `Cesium3DTileset.fromIonAssetId(96188)` | 第 7 章 |
+
+**1.115–1.124 近期重大变更（2024 年，按与课程的关联排序）**：
+
+- **3D Tiles 碰撞语义变更（1.115/1.116）**：默认关闭与相机的碰撞、Entity 也不再自动贴到 3D Tiles 表面；需要「实体贴楼顶」时设 `Cesium3DTileset.enableCollision: true`。老的 `disableCollision` 字段已移除。
+- **观感默认值变化（1.121）**：MSAA 默认 4 倍 + 色调映射换为 Khronos PBR Neutral——升级后同一份代码「画面变亮、边缘更平滑」，属于官方视觉质量调整，不是代码回归；不满意可通过 `PostProcessStageCollection` 的 tonemapper/exposure 自定义。
+- **动态位置性能新选项（1.122）**：`CallbackPositionProperty` 支持懒求值——比每帧全量求值的 `CallbackProperty` 更省，高频移动目标（第 6 章轨迹）的新推荐。
+- **全局椭球可换（1.119）**：`Ellipsoid.default` 一处设置全 API 生效——做月球/火星场景或非 WGS84 基准面对比时不再逐个传参（GIS 课基准面概念的引擎级落地）。
+- **地形夸张换家（1.116）**：`Globe.terrainExaggeration` 已移除，统一到 `Scene.verticalExaggeration` / `verticalExaggerationRelativeHeight`。
+- **相机俯仰上限（1.123）**：`ScreenSpaceCameraController.maximumTiltAngle` 可限制用户最大倾斜角——防钻地/防穿模的交互约束。
 
 **稳定区**（课程用到、多年无破坏性改动，旧资料可放心引用）：Entity 体系、GeoJsonDataSource、CallbackProperty、CZML 文档结构、ScreenSpaceEventHandler 与 pick、EllipsoidGeodesic / EllipsoidTangentPlane、Clock。
 

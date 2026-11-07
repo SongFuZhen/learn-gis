@@ -34,6 +34,8 @@ const c2 = Cesium.Cartographic.fromDegrees(116.397, 39.909, 0);
 
 什么时候用哪个：**对接外部数据（GeoJSON、数据库里的经纬度）**用地理坐标，进 Cesium 的那一刻转成 `Cartesian3`；**算距离、做空间运算**大多直接在笛卡尔系做（第 08 章）；**展示坐标读数**记得从 `Cartographic` 转回度数。
 
+> 版本注记：1.119 新增 `Cesium.Ellipsoid.default`——一处设置即可把全 API 的默认椭球换成月球/火星等其他基准面，无需逐个传参。
+
 <Callout type="info" title="为什么 GIS 课的 (lat, lng) 到这里变成 (lon, lat)？">
 这不是 Cesium 搞特殊：地心坐标系里"经度绕 z 轴、纬度绕赤道面"的数学定义天然以经度为第一角。GeoJSON 规范也规定 `[lng, lat]` 顺序——倒是很多前端地图库（Leaflet）反着来。跨库搬数据时，先查目标库的参数顺序，再查单位（度/弧度/米），能避免九成"点飞了"的事故。
 </Callout>

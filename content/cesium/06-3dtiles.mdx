@@ -48,6 +48,10 @@ await viewer.zoomTo(tileset);
 
 注意挂载点不同：影像进 `imageryLayers`，实体进 `entities`，**3D Tiles 进 `scene.primitives`**——它是渲染原语层的东西，这是三套数据三种容器的又一次体现（第 02 章的双层模型 + 本章 = Cesium 数据全家桶）。
 
+<Callout type="warn" title="版本注记 · 1.115 起碰撞与贴地默认关闭">
+1.115 起 tileset 默认**不参与**相机碰撞、Entity 也不再自动贴到其表面（需要「实体贴楼顶」时，创建时设 `enableCollision: true`）。老的 `disableCollision` 字段在 1.116 已移除——旧代码里的它是反着的，迁移时注意语义。
+</Callout>
+
 <Callout type="warn" title="ion 数据集需要 token（本课只认不点）">
 你见过最多的 3D Tiles 演示——OSM Buildings（`Cesium3DTileset.fromIonAssetId(96188)`）、Google Photorealistic 3D Tiles——都是 **ion 托管服务，需要 token**。OSM 建筑数据本身开源（© OpenStreetMap 贡献者），但 ion 的托管分发是商业服务。本课程的实操全部走「自托管 tileset」路径：数据在你手里，token 与你无关。
 </Callout>

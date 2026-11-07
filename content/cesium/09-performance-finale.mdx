@@ -68,6 +68,8 @@ for (const poi of poiList) {
 
 选型递进：**先用 Entity 把功能做对**，量测出瓶颈再降级到 Collection/Primitive。反过来"上来就 Primitive"是新手陷阱——代码复杂度翻倍，99% 的业务根本到不了那个量级。
 
+> 版本注记：1.122 新增 `CallbackPositionProperty`——实体位置的**懒求值**版本。高频移动目标（轨迹动画、实时目标）先试它，比每帧全量求值的 `CallbackProperty` 更省；1.121 起 MSAA 默认开启、色调映射换为 PBR Neutral，升级后画面变亮变平滑属于官方默认值调整，不是代码回归。
+
 <Callout type="must" title="必背 · 性能三条">
 1. 静止看板开 `requestRenderMode`，数据变化后手动 `requestRender()`
 2. SSE 是精度/流量的总闸：大屏调小、弱网调大
