@@ -34,7 +34,7 @@ handler.setInputAction((movement) => {
 // handler.destroy();
 ```
 
-常用事件类型（`ScreenSpaceEventType`）：`LEFT_CLICK` / `DOUBLE_CLICK` / `RIGHT_CLICK` / `MOUSE_MOVE` / `LEFT_DOWN` / `LEFT_UP` / `WHEEL`。`MOUSE_MOVE` 的回调参数是 `{ endPosition, startPosition }`（移动轨迹的起止像素）。
+常用事件类型（`ScreenSpaceEventType`）：`LEFT_CLICK` / `DOUBLE_CLICK` / `RIGHT_CLICK` / `MOUSE_MOVE` / `LEFT_DOWN` / `LEFT_UP` / `WHEEL`。`MOUSE_MOVE` 的回调参数是 `{ endPosition, startPosition }`（移动轨迹的起止像素）；而 `LEFT_CLICK` 自带 **5 像素**位移容差（源码 `_clickPixelTolerance = 5`）——按下与抬起之间移动超过 5px 就不算点击。这正是"拖转地球不会误触点击"的原因，做「点击 vs 拖拽」区分时可以直接依赖这个行为。
 
 <Callout type="must" title="必背 · 拾取三条">
 1. 事件挂在 `viewer.scene.canvas` 上，回调拿屏幕坐标

@@ -137,10 +137,10 @@ for (const entity of ds.entities.values) {
 }
 ```
 
-三个关键认知：① `GeoJsonDataSource.load` 返回 **Promise\<DataSource\>**，加载完成前场景是空的；② 每个 GeoJSON feature 变成一个 Entity，其 `properties` 字段原样挂在 `entity.properties` 上，`getValue()` 取值；③ Point 要素默认渲染成"大头针"图标，`markerColor`/`markerSymbol` 参数可以换颜色与图标。
+三个关键认知：① `GeoJsonDataSource.load` 返回 **Promise\<DataSource\>**，加载完成前场景是空的；② 每个 GeoJSON feature 变成一个 Entity，其 `properties` 字段原样挂在 `entity.properties` 上，`getValue()` 取值（`time` 参数可省，默认按当前时刻求值）；③ Point 要素默认渲染成"大头针"图标，`markerColor`/`markerSymbol` 参数可以换颜色与图标。
 
-<Callout type="warn" title="GeoJSON 高度陷阱">
-GeoJSON 坐标是 `[lng, lat, z?]`——第三个位是高度。带 z 的数据默认按"椭球高"悬浮在对应高度上，看起来"飘在空中"；地面数据请务必 `clampToGround: true`。反过来，如果做的是"地下管线/飞行航迹"，z 才是主角，不要贴地。
+<Callout type="warn" title="GeoJSON 高度陷阱 · clampToGround 的真实边界">
+GeoJSON 坐标是 `[lng, lat, z?]`——第三个位是高度。源码级行为：`clampToGround` **只对不带 z 的要素生效**——点要素在坐标长度为 2 时才挂 `HeightReference.CLAMP_TO_GROUND`；带 z 的面会改走 `perPositionHeight`，即使配了贴地也按 z 悬浮。所以「带 z 又想贴地」的数据要先去掉 z（或逐实体设 `heightReference`）；反过来，"地下管线/飞行航迹"里 z 才是主角，别开贴地。
 </Callout>
 
 ## 4. CallbackProperty：最简动画
