@@ -94,15 +94,17 @@ async function genChapter(slug: string): Promise<void> {
         if (!existsSync(audioPath)) writeFileSync(audioPath, bytes);
         return { index: i, text: seg.text, hash, audio: audioName };
       }
+      // 段级重试：TTS 服务偶发瞬时不可达（持续数分钟），8 次指数退避扛过抖动窗口
       let buf: Buffer | undefined;
-      for (let attempt = 1; attempt <= 3; attempt++) {
+      for (let attempt = 1; attempt <= 8; attempt++) {
         try {
           buf = await tts(seg.text);
           break;
         } catch (e) {
-          if (attempt === 3) throw e;
-          console.warn('  retry ' + audioName + ' (attempt ' + attempt + '): ' + (e as Error).message.slice(0, 80));
-          await new Promise((r) => setTimeout(r, 5000));
+          if (attempt === 8) throw e;
+          const delay = Math.min(10000 * 2 ** (attempt - 1), 120000);
+          console.warn('  retry ' + audioName + ' (attempt ' + attempt + ', wait ' + delay / 1000 + 's): ' + (e as Error).message.slice(0, 80));
+          await new Promise((r) => setTimeout(r, delay));
         }
       }
       writeFileSync(audioPath, buf!);
