@@ -195,7 +195,20 @@ CloudFlare ImgBed /file/{id}（不进 git）
 | D. 其他对象存储 / CDN | S3 / 火山 TOS / Vercel Blob | 改动点同 §7.3，只换上传脚本与前缀；国内可达、CORS 可控，最稳 |
 | E. git-lfs | `git lfs track 'public/audio/**/*.mp3'` | 配额/带宽成本、clone 变重、二进制 diff 无意义；不推荐 |
 
-### 7.6 发布前检查
+### 7.6 备用方案 F：小批量直入 git（已启用，2026-11-07）
+
+**触发条件**：ImgBed 服务端不可用（KV 配额耗尽 / R2 未配置）且等待不可接受时，对**小批量**音频启用。
+
+**现状**：全量 1391 段中 1231 段已上传 ImgBed（manifest 带 `publicUrl`）；剩余 160 段（第 13/15/16/17 章，合计 **10.56 MB**）已通过 `git add -f`（强制越过 `.gitignore` 的 `public/audio/**/*.mp3` 规则）直接入库。
+
+**原理**：前端 `segmentUrl()` 的回退顺序是 `publicUrl → 本地 /audio/ 路径`。这 160 段 manifest 无 `publicUrl`，自动回退本地路径；mp3 已在 git 里，Vercel 部署即自带静态资源——**无需上传任何外部服务**。
+
+**运维约定**：
+- 这 160 段一旦入库即被 git 跟踪，后续 `gen:audio` 重生成（hash 变化）会正常出现在 `git status`，照常提交即可
+- 若 ImgBed 恢复后想统一外置：正常跑 `audio:upload`（幂等），回写 `publicUrl` 后本地文件保留作兜底，不冲突
+- **扩大入库范围前先算体积**：全量 1391 段约 90 MB，超过 ~50 MB 的批次仍应优先走图床
+
+### 7.7 发布前检查
 
 - `npm run audio:validate` → `OK=17 / ERROR=0`
 - `git ls-files public/audio` 应只有 17 个 `manifest.json`，无 mp3
