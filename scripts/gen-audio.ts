@@ -83,15 +83,30 @@ async function genChapter(slug: string): Promise<void> {
       const hash = sha1(seg.text);
       const audioName = 'seg' + String(i).padStart(2, '0') + '.mp3';
       const audioPath = join(chapterDir, audioName);
-      const existing = FORCE_REGEN ? undefined : prevByHash.get(hash);
+      // 断点续传：manifest 之外，已存在的同名段文件也可复用（抽取顺序确定 → 位置即身份；
+      // 服务中途崩溃没写 manifest 时避免整章重生成）。FORCE_REGEN 或后续 manifest 重建后自然失效
+      const positional = join(chapterDir, audioName);
+      const existing = FORCE_REGEN
+        ? undefined
+        : (prevByHash.get(hash) ?? (existsSync(positional) ? positional : undefined));
       if (existing && existsSync(existing)) {
         const bytes = readFileSync(existing);
         if (!existsSync(audioPath)) writeFileSync(audioPath, bytes);
         return { index: i, text: seg.text, hash, audio: audioName };
       }
-      const buf = await tts(seg.text);
-      writeFileSync(audioPath, buf);
-      console.log('  + ' + audioName + ' (' + (buf.length / 1024).toFixed(1) + ' KB)');
+      let buf: Buffer | undefined;
+      for (let attempt = 1; attempt <= 3; attempt++) {
+        try {
+          buf = await tts(seg.text);
+          break;
+        } catch (e) {
+          if (attempt === 3) throw e;
+          console.warn('  retry ' + audioName + ' (attempt ' + attempt + '): ' + (e as Error).message.slice(0, 80));
+          await new Promise((r) => setTimeout(r, 5000));
+        }
+      }
+      writeFileSync(audioPath, buf!);
+      console.log('  + ' + audioName + ' (' + (buf!.length / 1024).toFixed(1) + ' KB)');
       return { index: i, text: seg.text, hash, audio: audioName };
     },
   );
