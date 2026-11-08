@@ -18,3 +18,6 @@ public/audio/**/*.mp3
 
 # CodeBuddy 本地调度器状态（含绝对路径，机器相关）
 /.codebuddy/
+
+# python 编译产物
+__pycache__/
