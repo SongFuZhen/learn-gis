@@ -8,259 +8,350 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.011
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：影像是\"贴皮\"，地形是\"起伏\"，但城市里的楼、桥梁、倾斜摄影的整片街区——这些 真实三维模型 是第三种数据： 3D Tiles （三维瓦片）。它是 OGC 的三维瓦片开放标准，也是 Cesium 的看家本领。 我的经验一句话 ：3D Tiles 之于三维模型，就像瓦片金字塔之于影像——把巨大的模型切成带 LOD 的瓦片树，看哪块加载哪块。 我见过的坑（你大概率也会踩） ：",
       "hash": "7828730588dfe924",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.011,
+      "duration": 45.949
     },
     {
       "index": 2,
       "text": "听说\"OSM Buildings 免费开源\"就直接 fromIonAssetId(96188) ——OSM 建筑数据本身开源，但 ion 托管的这套 3D Tiles 服务需要 token ，401 见。",
       "hash": "28df407a5e473fdf",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 47.961,
+      "duration": 14.263
     },
     {
       "index": 3,
       "text": "Cesium3DTileset.fromUrl 后地球没变化——忘了 viewer.scene.primitives.add(tileset) （或用返回值直接 add），tileset 只是创建出来没挂进场景。",
       "hash": "c35fd975b230b4c6",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 62.224,
+      "duration": 14.89
     },
     {
       "index": 4,
       "text": "加载几 GB 的城市级 tileset 卡死——没理解 SSE（屏幕空间误差）与瓦片裁剪，第 09 章专治这个。 必记 3 条 ：",
       "hash": "485b1564e8fe4273",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 77.113,
+      "duration": 9.9
     },
     {
       "index": 5,
       "text": "3D Tiles = 三维世界的瓦片金字塔：tileset.json 描述层级树，b3dm/glb 装模型",
       "hash": "1e5c1757afda27a1",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 87.014,
+      "duration": 10.057
     },
     {
       "index": 6,
       "text": "ion 上的现成数据集（OSM Buildings/Google 影像）需要 token；自托管 tileset 完全免 token",
       "hash": "da8064411294944c",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 97.071,
+      "duration": 9.639
     },
     {
       "index": 7,
       "text": "挂载两步走： await Cesium3DTileset.fromUrl(url) 到 viewer.scene.primitives.add(...)",
       "hash": "1895f9eb3f8fc961",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 106.71,
+      "duration": 10.318
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 117.029,
+      "duration": 1.698
     },
     {
       "index": 9,
       "text": "3D Tiles 的格式概念（tileset.json、瓦片树、LOD/SSE）； Cesium3DTileset.fromUrl 的标准挂载流程；用 Cesium3DTileStyle 按属性给模型上色；以及 token-free 的实操路径——用 CesiumJS 自带样例 tileset 本地跑通全流程。",
       "hash": "5610091802233421",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 118.727,
+      "duration": 24.268
     },
     {
       "index": 10,
       "text": "1. 格式概念：三维版的瓦片金字塔",
       "hash": "bd0a14b084b458f6",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 142.994,
+      "duration": 3.814
     },
     {
       "index": 11,
       "text": "GIS 课第 8 章 的影像金字塔把\"一张全球地图\"切成小方格；3D Tiles 把\"一个巨大的三维模型/海量模型\"切成带空间索引的瓦片树：",
       "hash": "21af190ffde60c24",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 146.808,
+      "duration": 12.382
     },
     {
       "index": 12,
       "text": "tileset.json ：入口文件，描述瓦片树的层级、包围盒、几何误差（geometric error）。",
       "hash": "5ac7d2ac75f7357f",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 159.19,
+      "duration": 7.915
     },
     {
       "index": 13,
       "text": "瓦片内容 ：b3dm（批量三维模型，最常见的建筑块）、glb（glTF 模型）、i3dm（实例化模型，如成千上万的树）、pnts（点云）。",
       "hash": "47795814fc0f7d78",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 167.105,
+      "duration": 12.147
     },
     {
       "index": 14,
       "text": "LOD 驱动 ：每层瓦片带\"几何误差\"——相机越近要求精度越高，引擎据此决定加载/卸载哪层。思想与影像金字塔完全同构，只是从 2D 方格变成了 3D 包围盒树。",
       "hash": "614cea3a5215b71a",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 179.252,
+      "duration": 15.151
     },
     {
       "index": 15,
       "text": "常见的 3D Tiles 来源：倾斜摄影（无人机航拍建模）、BIM/CIM 导出、城市白模批量生成、点云切片。",
       "hash": "168dae511fd2bb2a",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 194.403,
+      "duration": 9.718
     },
     {
       "index": 16,
       "text": "2. 挂载：两步走",
       "hash": "b711f583f7b388d0",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 204.121,
+      "duration": 2.351
     },
     {
       "index": 17,
       "text": "注意挂载点不同：影像进 imageryLayers ，实体进 entities ， 3D Tiles 进 scene.primitives ——它是渲染原语层的东西，这是三套数据三种容器的又一次体现（第 02 章的双层模型 + 本章 = Cesium 数据全家桶）。",
       "hash": "0edba1e6a1d79882",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 206.472,
+      "duration": 18.678
     },
     {
       "index": 18,
       "text": "1.115 起 Cesium3DTileset.enableCollision （boolean，默认 false ）控制三件事： 相机碰撞 （防钻入模型内部）、 CPU 拾取 （对瓦片表面的 pickPosition ，呼应第 9 章的量楼）、 Entity 贴地 （ HeightReference.CLAMPTOGROUND 对 3D Tiles 是否生效）——默认全关。需要「实体贴楼顶」「量楼面」时，创建时设 enableCollision: true （构造参数与实例属性同名）。注意两点：① 相机防钻地还要求 ScreenSpaceCameraController#enableCollisionDetection （另一个总开关，默认 true）同时开启；② 高顶点量的 tileset 开碰撞有性能代价。老的 disableCollision 字段在 1.116 已移除——旧代码里它是反着的，迁移时注意语义。",
       "hash": "6f5e3f6e1d1773d2",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 225.149,
+      "duration": 57.051
     },
     {
       "index": 19,
       "text": "你见过最多的 3D Tiles 演示——OSM Buildings（ Cesium3DTileset.fromIonAssetId(96188) ）、Google Photorealistic 3D Tiles——都是 ion 托管服务，需要 token 。OSM 建筑数据本身开源（© OpenStreetMap 贡献者），但 ion 的托管分发是商业服务。本课程的实操全部走「自托管 tileset」路径：数据在你手里，token 与你无关。",
       "hash": "6e4ef1a33a243506",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 282.201,
+      "duration": 30.485
     },
     {
       "index": 20,
       "text": "3. token-free 实操：本地跑通 Cesium 官方样例",
       "hash": "6a7fcdf7db60b922",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 312.686,
+      "duration": 4.859
     },
     {
       "index": 21,
       "text": "CesiumJS 仓库自带样例 tileset（ Apps/SampleData/Cesium3DTiles/ ），不用 ion 也能全流程体验：",
       "hash": "241718616d0d4f2f",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 317.544,
+      "duration": 8.751
     },
     {
       "index": 22,
       "text": "这就是生产环境的完整缩影： 任何自托管（或 CDN 托管）的 tileset.json 都是这么接的 ——换 URL 而已。公司里接的倾斜摄影、BIM 导出件，走的都是这条路。",
       "hash": "624480a89e7e1730",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 326.296,
+      "duration": 16.222
     },
     {
       "index": 23,
       "text": "4. Cesium3DTileStyle：按属性给模型上色",
       "hash": "c6ec28f97003aa81",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 342.518,
+      "duration": 4.885
     },
     {
       "index": 24,
       "text": "3D Tiles 的每个瓦片可以带 批表（batch table）属性 ——比如每栋楼的高度、楼龄、用途。用 Cesium3DTileStyle 可以像 CSS 一样按条件染色：",
       "hash": "d83b86b28620487f",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 347.402,
+      "duration": 12.33
     },
     {
       "index": 25,
       "text": "风格表达式里 ${...} 引用属性，支持条件、函数、透明度——相当于 GIS 课第 7 章 制图分级的\"三维版\"。这让同一份城市白模不重做数据就能表达主题地图（人口密度、噪声、日照……）。",
       "hash": "8e5c526674f5c686",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 359.732,
+      "duration": 16.64
     },
     {
       "index": 26,
       "text": "样式表达式是一门独立小语言：三元式 ? : （官方文档同款示例： \"(${Temperature} > 90) ? color('red') : color('white')\" ）、算术 + - / % 、比较 > >= < <= === !== （ 严格相等 ，没有 == ）、逻辑 && || ! （短路求值）、正则匹配 = / ! ； color('名字', alpha) 第二参数是透明度，颜色串支持 CSS 色名与 #hex （另有 rgb()/rgba()/hsl() 内建）。最易踩的一点： ${height} 的属性名 大小写敏感 ——批表里叫 Height ，表达式就必须写 ${Height} 。",
       "hash": "4a0abd57e18d9f93",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 376.372,
+      "duration": 49.476
     },
     {
       "index": 27,
       "text": "tileset.json 是入口：瓦片树 + 几何误差 + 包围盒；b3dm/glb/i3dm/pnts 是瓦片内容",
       "hash": "29f269da30fb80e0",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 425.848,
+      "duration": 12.931
     },
     {
       "index": 28,
       "text": "挂载两步： Cesium3DTileset.fromUrl(url) 到 viewer.scene.primitives.add(tileset)",
       "hash": "1f2e6c416a2a1779",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 438.779,
+      "duration": 9.953
     },
     {
       "index": 29,
       "text": "ion 托管数据集要 token；自托管 tileset 是 token-free 的正路",
       "hash": "927bd17a7583734d",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 448.731,
+      "duration": 5.486
     },
     {
       "index": 30,
       "text": "跑通\"下载样例 到 本地 serve 到 挂载 到 zoomTo 到 改 style\"的完整闭环。如果暂时不想下载仓库，先把 fromUrl 的 URL 指向一个不存在的地址，观察 Network 面板里 tileset.json 的 404 与地球无变化的关系——理解\"入口文件是第一步\"。",
       "hash": "cab7487241ce5ad9",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 454.217,
+      "duration": 22.413
     },
     {
       "index": 31,
       "text": "5. 本章小结",
       "hash": "4410f90db4f8b16d",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 476.63,
+      "duration": 2.064
     },
     {
       "index": 32,
       "text": "3D Tiles = 三维模型的瓦片金字塔标准：tileset.json 入口 + b3dm/glb/i3dm/pnts 内容 + LOD 树。",
       "hash": "986e50d109fd0b77",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 478.694,
+      "duration": 11.964
     },
     {
       "index": 33,
       "text": "挂载走 scene.primitives （与影像/实体不同容器）。",
       "hash": "81df951fb39c7684",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 490.658,
+      "duration": 4.232
     },
     {
       "index": 34,
       "text": "Cesium3DTileStyle 按批表属性条件染色——三维版专题地图。",
       "hash": "f77792cca21edee1",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 494.89,
+      "duration": 6.557
     },
     {
       "index": 35,
       "text": "OSM Buildings/Google 影像在 ion 上需要 token；自托管 tileset 免 token 且流程完全一致。",
       "hash": "20420b3bb8936312",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 501.447,
+      "duration": 10.553
     },
     {
       "index": 36,
       "text": "下一章：让场景\"活\"起来——鼠标拾取与交互事件体系。",
       "hash": "d2ff7d937401c2fd",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 512,
+      "duration": 5.224
     },
     {
       "index": 37,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 517.224,
+      "duration": 1.28
     },
     {
       "index": 38,
       "text": "3D Tiles 官方教程： CesiumJS 3D Tiles 教程",
       "hash": "f0667b8ac22cb3c6",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "start": 518.504,
+      "duration": 5.068
     },
     {
       "index": 39,
       "text": "3D Tiles 开放标准（OGC）： OGC 3D Tiles",
       "hash": "4f738780ab0284bf",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "start": 523.572,
+      "duration": 4.937
     },
     {
       "index": 40,
       "text": "Cesium3DTileset API 参考： Cesium.Cesium3DTileset",
       "hash": "83660d4ed4bd99ff",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "start": 528.509,
+      "duration": 6.949
     },
     {
       "index": 41,
       "text": "Cesium3DTileStyle API 参考： Cesium.Cesium3DTileStyle",
       "hash": "0c38928f0a9a2300",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "start": 535.458,
+      "duration": 7.811
     },
     {
       "index": 42,
       "text": "OSM Buildings 数据（数据本身开源）： osmbuildings.org",
       "hash": "38b7e2cb12df4e4c",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "start": 543.269,
+      "duration": 6.792
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133709994_06-3dtiles-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.784Z"
 }

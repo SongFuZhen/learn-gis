@@ -8,265 +8,358 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.299
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：前八章的功能拼起来已经是个\"能用的三维 GIS\"，但一上真实数据就掉帧？本章讲 Cesium 性能的三板斧—— 渲染调度、精度阈值、数据形态选择 ——然后用一场实战收官：把 GIS 课的数据做成「加载 到 样式 到 拾取 到 量算」完整看板。 我的经验一句话 ：三维性能问题的本质是\"每帧画多少东西\"——requestRenderMode 管\"画不画\"，SSE（屏幕空间误差）管\"画多细\"，Entity vs Primitive 管\"怎么画\"。 我见过的坑（你大概率也会踩） ：",
       "hash": "fe70c4f5a1e367cb",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.299,
+      "duration": 47.151
     },
     {
       "index": 2,
       "text": "场景明明静止，Cesium 却一直 60 帧空转渲染——默认渲染循环是\"永远全速\"，电扇起飞是常态。",
       "hash": "02992a8351894069",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 49.45,
+      "duration": 9.221
     },
     {
       "index": 3,
       "text": "把 maximumScreenSpaceError 调到 1 追求极致清晰——瓦片请求量爆炸，内存与带宽双杀。",
       "hash": "60b93f1d1817f9c0",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 58.671,
+      "duration": 7.367
     },
     {
       "index": 4,
       "text": "几万个点用几万个 billboard Entity——每帧排序与状态切换直接拖垮；点海要用 PointPrimitiveCollection 。",
       "hash": "c3c8f1fb4b83d8b7",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 66.038,
+      "duration": 9.169
     },
     {
       "index": 5,
       "text": "camera.pickEllipsoid 返回的是 Cartesian3 （x/y/z 笛卡尔坐标），不是带经纬度的对象——直接读 .longitude 得到 undefined ，坐标静默失效且不报错。转换用 Cesium.Cartographic.fromCartesian ；类似的「返回类型想当然」还有 pickPosition （深度缓冲重构，同样返回 Cartesian3）。第 9 章量算工具写作时真实踩中此坑。 必记 4 条 ：",
       "hash": "27c22ea5eb68786d",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 75.207,
+      "duration": 33.776
     },
     {
       "index": 6,
       "text": "静止场景开 requestRenderMode ：只在有变化时渲染，GPU 与电池都省",
       "hash": "53f540d16808a109",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 108.983,
+      "duration": 6.557
     },
     {
       "index": 7,
       "text": "maximumScreenSpaceError 是精度/流量的总闸，默认 16，按场景调",
       "hash": "275a179fa31466b1",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 115.54,
+      "duration": 7.68
     },
     {
       "index": 8,
       "text": "pickEllipsoid / pickPosition 返回的都是 Cartesian3 ——要经纬度先过 Cartographic.fromCartesian",
       "hash": "355255fae5e8e1b7",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 123.22,
+      "duration": 8.385
     },
     {
       "index": 9,
       "text": "海量同类图形用 Collection（PointPrimitive/BillboardCollection）或 Primitive，别堆 Entity",
       "hash": "d4742d91d6f2958b",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 131.605,
+      "duration": 7.158
     },
     {
       "index": 10,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 138.762,
+      "duration": 1.358
     },
     {
       "index": 11,
       "text": "requestRenderMode 渲染调度的原理与用法；SSE（屏幕空间误差）如何同时驱动影像与 3D Tiles 的 LOD；Entity/Collection/Primitive 三档数据形态的选型；Cesium Inspector 调试工具。最后用一场综合实战收官整个课程。",
       "hash": "4f3d899a1efdaebe",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 140.121,
+      "duration": 20.532
     },
     {
       "index": 12,
       "text": "1. requestRenderMode：按需渲染",
       "hash": "1902a31e18978b42",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 160.653,
+      "duration": 3.265
     },
     {
       "index": 13,
       "text": "Cesium 默认的渲染循环是\"每帧都画\"——哪怕场景纹丝不动。对\"静止为主、偶尔交互\"的业务看板，开按需渲染：",
       "hash": "96ab0d2864095540",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 163.918,
+      "duration": 9.456
     },
     {
       "index": 14,
       "text": "两个必配细节：① 你的 CallbackProperty （第 04 章）在 requestRenderMode 下 不会自己触发渲染 ——数据变了必须手动 requestRender() ；② maximumRenderTimeChange = Infinity 表示\"完全信任显式请求\"，默认值会定时强制刷新（保守但费电）。经验法则： 重交互场景（相机常动）不开它；数据看板（静止为主）必开 。",
       "hash": "bbd621b4de9c1b99",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 173.375,
+      "duration": 29.962
     },
     {
       "index": 15,
       "text": "两件工具：① viewer.scene.debugShowFramesPerSecond = true ，左上角实时帧率；② 浏览器 Performance 面板录一段交互，看是 JS 主线程忙（你的 Callback/数据代码）还是 GPU 忙（画的东西太多）。先定位再优化——盲调参数是性能工作的第一大坑。",
       "hash": "bba53bab18b8f875",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 203.337,
+      "duration": 22.857
     },
     {
       "index": 16,
       "text": "2. SSE：精度与流量的总闸",
       "hash": "27f3b5e443aa1eb2",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 226.194,
+      "duration": 3.448
     },
     {
       "index": 17,
       "text": "SSE （Screen Space Error，屏幕空间误差）回答一个问题：\"这个瓦片/模型的误差在屏幕上超过多少像素，才值得换更精细的版本？\"",
       "hash": "4bdc2d626f2261a1",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 229.642,
+      "duration": 10.841
     },
     {
       "index": 18,
       "text": "调小 （数字更严）：更早换高精度瓦片 到 请求量↑、内存↑、更清晰。",
       "hash": "7cfe9ef25c97dfcb",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 240.483,
+      "duration": 7.131
     },
     {
       "index": 19,
       "text": "调大 ：多容忍屏幕误差 到 瓦片更少、更省，但细节模糊。",
       "hash": "bbfbc92b87e6ebd2",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 247.615,
+      "duration": 5.486
     },
     {
       "index": 20,
       "text": "它同时是影像金字塔（第 02 章）与 3D Tiles（第 06 章）的选层依据——同一个思想贯穿两种数据。业务调参口诀： 室内大屏/汇报场景调小求清晰；移动端/弱网调大求流畅 。",
       "hash": "b3f4388f078371ca",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 253.1,
+      "duration": 15.491
     },
     {
       "index": 21,
       "text": "3. Entity vs Collection vs Primitive：数据形态选型",
       "hash": "ab4dd2cdad323623",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 268.591,
+      "duration": 5.825
     },
     {
       "index": 22,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 274.416,
+      "duration": 2.978
     },
     {
       "index": 23,
       "text": "选型递进： 先用 Entity 把功能做对 ，量测出瓶颈再降级到 Collection/Primitive。反过来\"上来就 Primitive\"是新手陷阱——代码复杂度翻倍，99% 的业务根本到不了那个量级。",
       "hash": "69b9a693dce976fd",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 277.394,
+      "duration": 15.856
     },
     {
       "index": 24,
       "text": "版本注记：1.122 新增 CallbackPositionProperty ——实体位置的 懒求值 版本。高频移动目标（轨迹动画、实时目标）先试它，比每帧全量求值的 CallbackProperty 更省；1.121 起 MSAA 默认开启、色调映射换为 PBR Neutral，升级后画面变亮变平滑属于官方默认值调整，不是代码回归。",
       "hash": "76cb18c4ba9cdd5d",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 293.251,
+      "duration": 27.037
     },
     {
       "index": 25,
       "text": "静止看板开 requestRenderMode ，数据变化后手动 requestRender()",
       "hash": "a9ac9aa3988f21fd",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 320.287,
+      "duration": 5.773
     },
     {
       "index": 26,
       "text": "SSE 是精度/流量的总闸：大屏调小、弱网调大",
       "hash": "f4743821928e73f2",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 326.06,
+      "duration": 5.825
     },
     {
       "index": 27,
       "text": "Entity 到 Collection 到 Primitive 按规模递进，先做对再做强",
       "hash": "e36d325a726560f5",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 331.886,
+      "duration": 5.878
     },
     {
       "index": 28,
       "text": "4. 收官实战：GIS 数据三维看板",
       "hash": "0d9a566c3b09089a",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 337.763,
+      "duration": 5.042
     },
     {
       "index": 29,
       "text": "把全课程拼成一个看板，需求清单：① OSM 底图 + 无地形（token-free）；② 加载 GeoJSON 政区面（第 04 章，贴地、按属性染色）；③ 十万级 POI 点用 PointPrimitiveCollection（本章）；④ 悬停高亮 + 点击面板（第 07 章）；⑤ 测距工具（第 08 章）；⑥ requestRenderMode + 调参面板（本章）。",
       "hash": "be3d10e477ebd23c",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 342.805,
+      "duration": 30.616
     },
     {
       "index": 30,
       "text": "这个看板的所有代码你都写过——收官的意义是确认这一点： 你不是\"学过 Cesium 的 API\"，你是\"能独立交付一个三维 GIS 应用\" 。",
       "hash": "ad18909711476981",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 373.42,
+      "duration": 10.893
     },
     {
       "index": 31,
       "text": "在看板上加两个按钮：「高清模式」把 globe 与（若有）tileset 的 maximumScreenSpaceError 都调小，「省流模式」调大；切换后手动 requestRender() 。",
       "hash": "8410ee9ef0f04093",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 384.313,
+      "duration": 12.225
     },
     {
       "index": 32,
       "text": "6. 本章小结 & 课程收官",
       "hash": "7b7b8444b56ea0dd",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 396.539,
+      "duration": 3.631
     },
     {
       "index": 33,
       "text": "requestRenderMode ：静止看板必备，数据变化手动 requestRender() 。",
       "hash": "5bbc732ca06c42b2",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 400.17,
+      "duration": 5.59
     },
     {
       "index": 34,
       "text": "SSE 是影像与 3D Tiles 共用的精度/流量总闸。",
       "hash": "fc277b9581730d0b",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 405.76,
+      "duration": 5.721
     },
     {
       "index": 35,
       "text": "Entity 到 Collection 到 Primitive 按数据规模递进；先做对，再做强。",
       "hash": "0e848234ed335301",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 411.481,
+      "duration": 7.863
     },
     {
       "index": 36,
       "text": "收官看板 = 底图 + GeoJSON 染色 + 点海 Collection + 拾取面板 + 量算工具——全课程八件套的合体。",
       "hash": "8d10af8344e26da7",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 419.344,
+      "duration": 8.934
     },
     {
       "index": 37,
       "text": "从这里出发：接 ion 解锁 World Terrain 与 OSM Buildings（第 03/06 章的概念代码立刻可用）；接实时数据源把 CZML（第 05 章）喂起来；或者回到 GIS 课 ，把 空间分析 、 空间数据库 放进你的三维看板。三维只是新起点。",
       "hash": "afe572989d545dbd",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 428.278,
+      "duration": 21.76
     },
     {
       "index": 38,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "start": 450.038,
+      "duration": 1.28
     },
     {
       "index": 39,
       "text": "性能优化官方主题： CesiumJS Optimization 教程",
       "hash": "fe298cf2782e8038",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "start": 451.318,
+      "duration": 5.46
     },
     {
       "index": 40,
       "text": "requestRenderMode 说明： Cesium.Scene.requestRenderMode",
       "hash": "41c15c6baeafe02a",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "start": 456.777,
+      "duration": 4.153
     },
     {
       "index": 41,
       "text": "Cesium3DTileset 的 SSE： maximumScreenSpaceError",
       "hash": "d6daa71256f67441",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "start": 460.931,
+      "duration": 4.859
     },
     {
       "index": 42,
       "text": "PointPrimitiveCollection API 参考： Cesium.PointPrimitiveCollection",
       "hash": "11f4517645b5f511",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "start": 465.789,
+      "duration": 5.486
     },
     {
       "index": 43,
       "text": "全课程的地面知识： GIS 课课程入口",
       "hash": "b2c07fe0de159a06",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "start": 471.275,
+      "duration": 4.336
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133713142_09-performance-finale-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.790Z"
 }

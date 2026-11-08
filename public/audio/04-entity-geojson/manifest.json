@@ -8,253 +8,342 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.011
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：前四章你有了球、相机、影像、地形——但场景里还没有任何\"业务对象\"。本章把 Entity （实体）体系讲透：点、标注、图标、线、面怎么放上去、怎么改样式，以及怎么把 GIS 课第 8 章 的 GeoJSON一次性灌进场景。 我的经验一句话 ：Entity 是 Cesium 给你的\"高层数据绑定\"——你描述\"这是一个红色的点\"，剩下的渲染它管；不要一上来就去碰底层 Primitive（那是第 09 章的性能话题）。 我见过的坑（你大概率也会踩） ：",
       "hash": "2a5a273f3b8f523b",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.011,
+      "duration": 42.971
     },
     {
       "index": 2,
       "text": "polygon.hierarchy 传经纬度数组报错——它要的是 Cartesian3 数组，用 fromDegreesArray （不带高度）或 fromDegreesArrayHeights （带高度）转换。",
       "hash": "4a667cc7521e1b30",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 44.983,
+      "duration": 11.624
     },
     {
       "index": 3,
       "text": "加载 GeoJSON 后图上什么都没有——数据是三维坐标（带 z）或高程点时，默认\"浮在空中\"或\"埋进地下\"，记得配 clampToGround 。",
       "hash": "e4bdd68be0f86353",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 56.607,
+      "duration": 12.643
     },
     {
       "index": 4,
       "text": "点太多页面卡成幻灯片——几万个点还用 billboard，是自找的；上万级要用点的集合或 Primitive（第 09 章）。 必记 3 条 ：",
       "hash": "620161570313f076",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 69.251,
+      "duration": 11.024
     },
     {
       "index": 5,
       "text": "Entity = 声明式对象： viewer.entities.add({...}) ，一个 entity 可同时挂 point + label + billboard",
       "hash": "d9922b7cd62a1a51",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 80.274,
+      "duration": 9.117
     },
     {
       "index": 6,
       "text": "GeoJSON 整包加载用 GeoJsonDataSource.load ，样式用 clampToGround 贴地",
       "hash": "41aac853b3c33f74",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 89.391,
+      "duration": 7.811
     },
     {
       "index": 7,
       "text": "动态属性用 CallbackProperty ——每帧回调一次，函数返回什么就画什么",
       "hash": "4128a31bf0d372a8",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 97.202,
+      "duration": 6.113
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 103.314,
+      "duration": 1.515
     },
     {
       "index": 9,
       "text": "Entity 体系的组织方式（DataSource 与实体集合）；五种最常用实体的写法与样式细节；GeoJSON 一次性加载与逐要素样式定制；以及用 CallbackProperty 给静态场景注入最简单的\"活\"效果。学完这章，你就能把 GIS 课的矢量数据真正\"立\"在三维地球上。",
       "hash": "92d0c739723b78a6",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 104.829,
+      "duration": 22.204
     },
     {
       "index": 10,
       "text": "1. Entity 体系：声明式的高层封装",
       "hash": "d98633e74715f802",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 127.033,
+      "duration": 3.683
     },
     {
       "index": 11,
       "text": "Cesium 的可视化 API 分两层： Entity （高层、声明式、面向数据）和 Primitive （底层、面向渲染性能，第 09 章）。日常业务 90% 用 Entity 就够了：",
       "hash": "5380b3b25d7be69f",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 130.717,
+      "duration": 14.472
     },
     {
       "index": 12,
       "text": "要点： 一个 Entity 是一个\"数据对象\"，可以同时挂多种图形 ——同一个位置， point 管点本身、 label 管文字、 billboard 管图标，三件套一起上就是一个完整标注：",
       "hash": "a6a81dbbabb6bfec",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 145.189,
+      "duration": 14.681
     },
     {
       "index": 13,
       "text": "id 自己起、供业务查找与拾取反查；不填 Cesium 会生成随机 id",
       "hash": "99589c3cd04fdc50",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 159.869,
+      "duration": 6.844
     },
     {
       "index": 14,
       "text": "一个 Entity 可同时挂 point/label/billboard/polyline/polygon 等多种图形，各自有独立的样式块",
       "hash": "c748023664e510f7",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 166.713,
+      "duration": 8.803
     },
     {
       "index": 15,
       "text": "disableDepthTestDistance: Number.POSITIVEINFINITY 让标注永远浮在最上层——做城市标注必备",
       "hash": "65c21b758906936a",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 175.517,
+      "duration": 9.117
     },
     {
       "index": 16,
       "text": "2. 线与面：贴地与拉伸",
       "hash": "48436b9396108233",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 184.633,
+      "duration": 2.952
     },
     {
       "index": 17,
       "text": "线（ polyline ）和面（ polygon ）的坐标都是 Cartesian3 数组，转换函数看\"要不要高度\"：",
       "hash": "93cf229a7dadd6e0",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 187.585,
+      "duration": 7.079
     },
     {
       "index": 18,
       "text": "面的进阶玩法是 拉伸成体 ：给 extrudedHeight （拉伸目标高度），底面在 height ——两行代码把一块多边形变成一栋楼：",
       "hash": "e227c351f024bf38",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 194.664,
+      "duration": 10.318
     },
     {
       "index": 19,
       "text": "贴地（ clampToGround: true ）在有地形时尤其重要——不贴地的线会\"穿山而过\"或\"悬在谷上\"。但贴地渲染有额外开销：海量线面（数万条）全贴地会明显掉帧，批量场景要么不贴地，要么改用 Primitive 方案（第 09 章）。",
       "hash": "bf9bc73b5a326d58",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 204.983,
+      "duration": 18.913
     },
     {
       "index": 20,
       "text": "3. GeoJSON 一次性灌入：GeoJsonDataSource",
       "hash": "1ba7e192d5a024f7",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 223.896,
+      "duration": 4.467
     },
     {
       "index": 21,
       "text": "GIS 课第 8 章 的 GeoJSON 在 Cesium 里有专门的整包加载通道—— GeoJsonDataSource ：",
       "hash": "a14c732e504f7383",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 228.362,
+      "duration": 8.516
     },
     {
       "index": 22,
       "text": "三个关键认知：① GeoJsonDataSource.load 返回 Promise<DataSource> ，加载完成前场景是空的；② 每个 GeoJSON feature 变成一个 Entity，其 properties 字段原样挂在 entity.properties 上， getValue() 取值（ time 参数可省，默认按当前时刻求值）；③ Point 要素默认渲染成大头针图标（ PinBuilder 生成）： markerColor 默认宝蓝（ROYALBLUE）、 markerSize 默认 48px（small 24 / large 64）、 markerSymbol 传单字符会印在针上、传 Maki 图标 id 则用官方图标库。实体名也是自动的： entity.name 按 properties 里的 title 到 name 到 含 title/name 的键（大小写不敏感）依次取值。",
       "hash": "458f4649f03258f4",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 236.878,
+      "duration": 57.469
     },
     {
       "index": 23,
       "text": "GeoJSON 坐标是 [lng, lat, z?] ——第三个位是高度。源码级行为： clampToGround 只对不带 z 的要素生效 ——点要素在坐标长度为 2 时才挂 HeightReference.CLAMPTOGROUND ；带 z 的面会改走 perPositionHeight ，即使配了贴地也按 z 悬浮。所以「带 z 又想贴地」的数据要先去掉 z（或逐实体设 heightReference ）；反过来，\"地下管线/飞行航迹\"里 z 才是主角，别开贴地。",
       "hash": "7c5ac8388396d75e",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 294.348,
+      "duration": 37.956
     },
     {
       "index": 24,
       "text": "4. CallbackProperty：最简动画",
       "hash": "bf17327bcf9e025e",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 332.304,
+      "duration": 3.135
     },
     {
       "index": 25,
       "text": "Entity 的任何样式字段都能换成 CallbackProperty ——每帧调用一次回调，返回值就是当帧的值。最常用的两种：",
       "hash": "70bdc8d2ea5b7d22",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 335.438,
+      "duration": 9.117
     },
     {
       "index": 26,
       "text": "原则： 能静态就静态 。CallbackProperty 每帧执行你的函数，几十个动态实体没问题，成百上千个会拖垮帧率——系统性的\"时间维度\"解法（CZML + Clock）是下一章的主角。",
       "hash": "88622ccdd5d73932",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 344.555,
+      "duration": 14.838
     },
     {
       "index": 27,
       "text": "综合练习：加载一份含 Point 要素的 GeoJSON（自造一份即可，两三个点足够），要求：① 整包贴地加载；② 遍历实体，把默认大头针换成\"青色呼吸点 + 文字标注\"；③ 点击任一点，在控制台打印它的 name 与 properties。",
       "hash": "bbb74952efcb0e94",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 359.393,
+      "duration": 21.368
     },
     {
       "index": 28,
       "text": "5. 本章小结",
       "hash": "4410f90db4f8b16d",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 380.761,
+      "duration": 1.724
     },
     {
       "index": 29,
       "text": "Entity = 声明式可视化：一个实体挂多种图形， id 服务于业务查找与拾取。",
       "hash": "37dae4b5014889c7",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 382.485,
+      "duration": 7.628
     },
     {
       "index": 30,
       "text": "点/标注用 point+label+billboard 三件套； disableDepthTestDistance 让标注永不遮挡。",
       "hash": "a00c1a91612483df",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 390.113,
+      "duration": 9.038
     },
     {
       "index": 31,
       "text": "线面贴地 clampToGround ，面拉伸用 extrudedHeight ；贴地有性能代价。",
       "hash": "08964331cd3a2d23",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 399.151,
+      "duration": 6.139
     },
     {
       "index": 32,
       "text": "GeoJSON 用 GeoJsonDataSource.load 整包进场景，feature properties 挂在 entity.properties 。",
       "hash": "91e80c70ee24770a",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 405.29,
+      "duration": 7.811
     },
     {
       "index": 33,
       "text": "动态样式用 CallbackProperty （每帧回调），能用静态就用静态。",
       "hash": "4b350612d5858ec2",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 413.1,
+      "duration": 5.878
     },
     {
       "index": 34,
       "text": "下一章：让时间成为维度——CZML 与 Clock，把\"轨迹动画\"做成声明式数据。",
       "hash": "0891aa973def9322",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 418.978,
+      "duration": 6.792
     },
     {
       "index": 35,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 425.77,
+      "duration": 1.28
     },
     {
       "index": 36,
       "text": "Entity 官方教程（可视化系列）： CesiumJS Visualizing Spatial Data",
       "hash": "2d06c0b61126d4f7",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 427.05,
+      "duration": 6.06
     },
     {
       "index": 37,
       "text": "Entity API 参考： Cesium.Entity",
       "hash": "32bcdd6322e6300d",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 433.11,
+      "duration": 4.049
     },
     {
       "index": 38,
       "text": "GeoJsonDataSource API 参考： Cesium.GeoJsonDataSource",
       "hash": "b7ec2bebca1a2a3e",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "start": 437.159,
+      "duration": 6.426
     },
     {
       "index": 39,
       "text": "CallbackProperty API 参考： Cesium.CallbackProperty",
       "hash": "80c8843f8789131e",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "start": 443.585,
+      "duration": 5.355
     },
     {
       "index": 40,
       "text": "矢量数据模型基础（本课前置）： GIS 课 乘 矢量与栅格",
       "hash": "72417fb6363a10d8",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "start": 448.94,
+      "duration": 5.642
     },
     {
       "index": 41,
       "text": "GeoJSON 格式规范： GIS 课 乘 数据格式与瓦片",
       "hash": "608f7b74185b061c",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "start": 454.583,
+      "duration": 5.904
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133714643_04-entity-geojson-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.779Z"
 }

@@ -8,223 +8,302 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.116
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：场景里的东西能看还不够——点一个楼要知道\"这是哪栋楼\"，划一条线要能算距离，悬停要素要能高亮。这些都靠 拾取 （pick，「皮克」）与事件体系。 我的经验一句话 ：浏览器事件告诉你\"鼠标在屏幕哪里\"，Cesium 的 pick 告诉你\"那个屏幕点在三维世界里打中了什么\"——两段式思维，别混。 我见过的坑（你大概率也会踩） ：",
       "hash": "94750bc5a87224c7",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.116,
+      "duration": 35.135
     },
     {
       "index": 2,
       "text": "用 canvas.addEventListener(\"click\") 自己算三维坐标——屏幕坐标到球面的换算 Cesium 全帮你写好了，直接用 ScreenSpaceEventHandler 。",
       "hash": "db7b6866cb78ea43",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 37.251,
+      "duration": 12.278
     },
     {
       "index": 3,
       "text": "pick 返回的对象直接当 entity 用——它可能是瓦片要素/3D Tiles 要素，要先用 Cesium.defined 判空再分辨类型。",
       "hash": "afe86930fa606db7",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 49.528,
+      "duration": 10.371
     },
     {
       "index": 4,
       "text": "高亮后颜色回不去——改 originalColor 时没先存原色。 必记 3 条 ：",
       "hash": "ff5c1a53dc7ba3ad",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 59.899,
+      "duration": 6.896
     },
     {
       "index": 5,
       "text": "所有交互事件用 ScreenSpaceEventHandler 挂在 viewer.scene.canvas 上",
       "hash": "3ccc8a4b78adfaa5",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 66.795,
+      "duration": 6.243
     },
     {
       "index": 6,
       "text": "scene.pick(screenPosition) 是\"屏幕坐标 到 三维对象\"的唯一正门",
       "hash": "5be55c43fbd8d1ac",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 73.038,
+      "duration": 6.792
     },
     {
       "index": 7,
       "text": "picked.id 才是 Entity；3D Tiles 要素是 picked primitive ，两者取属性的方式不同",
       "hash": "d13bec3ef5e54f1e",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 79.83,
+      "duration": 7.784
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 87.615,
+      "duration": 1.541
     },
     {
       "index": 9,
       "text": "ScreenSpaceEventHandler 的事件类型全集； pick 与 drillPick 的分工；Entity 与 3D Tiles 要素两类拾取结果的处理；以及\"悬停高亮 + 点击弹窗\"这个最经典交互的完整实现。",
       "hash": "13c4d011b3e59f42",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 89.156,
+      "duration": 16.039
     },
     {
       "index": 10,
       "text": "1. ScreenSpaceEventHandler：两段式事件模型",
       "hash": "b706f5462756fcb1",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 105.195,
+      "duration": 4.571
     },
     {
       "index": 11,
       "text": "浏览器的 mouse/click 事件只给你 屏幕像素坐标 ；三维场景里同一个像素对应一条射线，打中的可能是球面、楼、实体或\"什么都没有\"。Cesium 的事件封装负责第一段， pick 负责第二段：",
       "hash": "eca37c031823fe6a",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 109.767,
+      "duration": 15.621
     },
     {
       "index": 12,
       "text": "常用事件类型（ ScreenSpaceEventType ）： LEFTCLICK / DOUBLECLICK / RIGHTCLICK / MOUSEMOVE / LEFTDOWN / LEFTUP / WHEEL 。 MOUSEMOVE 的回调参数是 { endPosition, startPosition } （移动轨迹的起止像素）；而 LEFTCLICK 自带 5 像素 位移容差（源码 clickPixelTolerance = 5 ）——按下与抬起之间移动超过 5px 就不算点击。这正是\"拖转地球不会误触点击\"的原因，做「点击 vs 拖拽」区分时可以直接依赖这个行为。",
       "hash": "8d7b1e4e6edaa41e",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 125.388,
+      "duration": 44.513
     },
     {
       "index": 13,
       "text": "事件挂在 viewer.scene.canvas 上，回调拿屏幕坐标",
       "hash": "3d25a02db1c0e30e",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 169.9,
+      "duration": 5.12
     },
     {
       "index": 14,
       "text": "Cesium.defined(picked) 判空是第一步——大多数像素点打不中任何东西",
       "hash": "e68297f3ab159a3e",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 175.02,
+      "duration": 6.478
     },
     {
       "index": 15,
       "text": "picked.id 是 Entity；没有 .id 的（3D Tiles 要素/地形）走 picked.primitive 分支",
       "hash": "94d4a0dd8e441941",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 181.499,
+      "duration": 9.535
     },
     {
       "index": 16,
       "text": "2. pick 与 drillPick：打中一层还是打穿多层",
       "hash": "26849cd5024f4b13",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 191.033,
+      "duration": 4.807
     },
     {
       "index": 17,
       "text": "scene.pick 返回 最上层 的一个对象； scene.drillPick(position) 返回该像素上 从上到下的整列 对象：",
       "hash": "d455cf180c3bca47",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 195.84,
+      "duration": 9.639
     },
     {
       "index": 18,
       "text": "经验：交互选择器（点选一个目标）用 pick ；\"这一片都有什么\"（属性穿透、叠层分析）用 drillPick 。后者每个像素做多次射线求交，成本更高，不要放进 MOUSEMOVE。",
       "hash": "ae04eea8295a56ba",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 205.479,
+      "duration": 15.02
     },
     {
       "index": 19,
       "text": "3. Entity 拾取与 3D Tiles 要素拾取",
       "hash": "3f9d7752e3158473",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 220.5,
+      "duration": 4.807
     },
     {
       "index": 20,
       "text": "两类拾取结果的取值路径不同，先分型再取值：",
       "hash": "1f638d1dac417ab0",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 225.306,
+      "duration": 4.519
     },
     {
       "index": 21,
       "text": "3D Tiles 要素的属性读取随版本演进（ picked.getPropertyIds/getProperty 或 content 接口），用到时以你锁定的 Cesium 版本文档为准——这也是课程一直强调\"API 以版本为准\"的原因。",
       "hash": "16ad4cd03d0f8339",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 229.825,
+      "duration": 16.744
     },
     {
       "index": 22,
       "text": "4. 经典交互：悬停高亮 + 点击弹窗",
       "hash": "c3cd3478d70044f0",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 246.57,
+      "duration": 4.389
     },
     {
       "index": 23,
       "text": "把本章组件拼成一个完整交互——悬停变亮、点击打日志：",
       "hash": "344214f2e4fd1811",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 250.958,
+      "duration": 5.407
     },
     {
       "index": 24,
       "text": "模式总结： 恢复旧状态 到 判定新状态 到 改光标 。所有 hover 类交互都是这个三步骨架，弹窗只是把 console.log 换成你自己的 UI 组件（把 picked.id.properties 传给它即可）。",
       "hash": "a765a06327e08560",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 256.366,
+      "duration": 16.17
     },
     {
       "index": 25,
       "text": "组合第 04 章的 GeoJSON 数据与本章事件：加载点要素 GeoJSON，点击要素时把该点放大 2 倍并把它 name 显示到页面固定位置（一个 div 即可），再次点击空白处复位。",
       "hash": "2f03d012135de825",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 272.536,
+      "duration": 16.144
     },
     {
       "index": 26,
       "text": "5. 本章小结",
       "hash": "4410f90db4f8b16d",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 288.679,
+      "duration": 2.011
     },
     {
       "index": 27,
       "text": "两段式：浏览器事件给屏幕坐标， scene.pick 给三维对象——分工清晰。",
       "hash": "a15326194dc37e41",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 290.691,
+      "duration": 7.314
     },
     {
       "index": 28,
       "text": "defined 判空是第一行；Entity 看 picked.id ，3D Tiles 要素走 primitive 分支。",
       "hash": "1583b97f52bc37e4",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 298.005,
+      "duration": 7.314
     },
     {
       "index": 29,
       "text": "pick 取最上层， drillPick 打穿整列——按交互语义选，别在 MOUSEMOVE 里滥用。",
       "hash": "e56184a664c0b168",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 305.319,
+      "duration": 8.046
     },
     {
       "index": 30,
       "text": "悬停高亮三步骨架：恢复旧状态 到 判定新状态 到 改光标。",
       "hash": "a370b34f63a745b5",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 313.365,
+      "duration": 6.191
     },
     {
       "index": 31,
       "text": "下一章：三维世界的\"量尺\"——距离、面积与贴地线的空间量算。",
       "hash": "20c16b51039d141d",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 319.556,
+      "duration": 5.642
     },
     {
       "index": 32,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 325.198,
+      "duration": 1.306
     },
     {
       "index": 33,
       "text": "拾取与交互官方示例（Sandcastle 搜 Picking）： Sandcastle",
       "hash": "8790b1a9fe18939c",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 326.504,
+      "duration": 5.721
     },
     {
       "index": 34,
       "text": "ScreenSpaceEventHandler API 参考： Cesium.ScreenSpaceEventHandler",
       "hash": "d8df85efe878b6b7",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 332.225,
+      "duration": 6.374
     },
     {
       "index": 35,
       "text": "scene.pick API 参考： Cesium.Scene.pick",
       "hash": "49084061581ba55b",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 338.599,
+      "duration": 6.531
     },
     {
       "index": 36,
       "text": "矢量要素与属性（拾取结果的前置知识）： CesiumJS 课 乘 Entity 可视化与 GeoJSON",
       "hash": "19b6f45c4cee2bcc",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 345.13,
+      "duration": 8.829
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133711586_07-picking-events-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.786Z"
 }

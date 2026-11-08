@@ -8,247 +8,334 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.429
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：上一章的影像再清晰，喜马拉雅看起来也只是\"一张有褶皱的贴图\"。因为它只是贴在 理想椭球面 上的皮。 地形 是影像之外独立的一层数据——它给球面真正的起伏。 我的经验一句话 ：影像管\"长什么样\"，地形管\"多高多矮\"——两层各自独立加载、独立服务，谁也不包含谁。 我见过的坑（你大概率也会踩） ：",
       "hash": "3374dc6b1e025fea",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.429,
+      "duration": 35.866
     },
     {
       "index": 2,
       "text": "以给了影像就有山——没有地形数据时，珠峰和广场一样平，都在椭球面上。",
       "hash": "c0687a06425f625b",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 38.296,
+      "duration": 6.296
     },
     {
       "index": 3,
       "text": "以为 EllipsoidTerrainProvider 是\"默认地形服务\"——它其实是\" 没有地形 \"的意思：贴在数学椭球上，永远平。",
       "hash": "c8f8b6e7942ef601",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 44.591,
+      "duration": 10.371
     },
     {
       "index": 4,
       "text": "拿 carto.height 当\"海拔\"用（ GIS 课第 03 章 讲过 GPS 高程 ≠ 海拔的坑）——椭球高与正高差着\"高程异常 N\"，几米到几十米。 必记 3 条 ：",
       "hash": "d5274f6568eee866",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 54.962,
+      "duration": 14.733
     },
     {
       "index": 5,
       "text": "默认地形 = EllipsoidTerrainProvider = 完美平滑椭球，不是\"服务\"",
       "hash": "b70d076089caa2ca",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 69.695,
+      "duration": 5.721
     },
     {
       "index": 6,
       "text": "地形与影像两层独立：换地形不影响影像，反之亦然",
       "hash": "cc6efa7b826c274e",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 75.416,
+      "duration": 5.721
     },
     {
       "index": 7,
       "text": "地形数据格式以 quantized-mesh（量化网格）为主流；真实地形服务大多要账号/ion（本课只讲概念）",
       "hash": "25e6a63fd8fdcac2",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 81.136,
+      "duration": 8.568
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 89.704,
+      "duration": 1.593
     },
     {
       "index": 9,
       "text": "\"影像层 + 地形层\"的双层模型； EllipsoidTerrainProvider 与地形 Provider 的关系；quantized-mesh 格式的原理级认识； sampleTerrain 查询地面高度的正确姿势；以及为什么本课程的真实地形示例用\"概念 + 对比实验\"来讲。",
       "hash": "4a2eb79d3e4b91fb",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 91.298,
+      "duration": 18.782
     },
     {
       "index": 10,
       "text": "1. 双层模型：影像与地形",
       "hash": "5eb1c587c5c136a1",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 110.08,
+      "duration": 3.318
     },
     {
       "index": 11,
       "text": "Cesium 的地球由两层独立数据构成：",
       "hash": "b8bde6d2fbdb033f",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 113.398,
+      "duration": 3.448
     },
     {
       "index": 12,
       "text": "渲染时，地形层把椭球面\"顶起\"变成凹凸的真实表面，影像层再把瓦片\"贴\"上去。两层各自有金字塔 LOD、各自的瓦片服务、各自的 Provider 体系——你换底图不影响地形，换地形不影响底图。",
       "hash": "ee49130a55f411bc",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 116.846,
+      "duration": 17.58
     },
     {
       "index": 13,
       "text": "EllipsoidTerrainProvider 不是什么\"服务\"，它就是声明\"我不要任何地形起伏，所有点贴在椭球面上\"。默认行为即如此，显式写出来只是为了说明： 地形层永远存在一个 Provider ，只是可以\"选择没有起伏\"。",
       "hash": "e7cb64895978fffc",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 134.426,
+      "duration": 17.528
     },
     {
       "index": 14,
       "text": "2. 真实地形：quantized-mesh 与高度网格",
       "hash": "ecb130eda85ba04a",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 151.954,
+      "duration": 5.277
     },
     {
       "index": 15,
       "text": "主流地形服务（Cesium ion World Terrain、Mapzen Terrarium 等）的格式是 quantized-mesh ：把地形切块，每块内的顶点高度做 量化压缩 （相对基准值存 032767 的整数偏移），一颗小瓦片就能描述一座山。",
       "hash": "4bd556494c90dce7",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 157.231,
+      "duration": 19.487
     },
     {
       "index": 16,
       "text": "接一个地形 Provider 的标准写法（以 ion 为例—— 需要 token，本课程只展示不使用 ）：",
       "hash": "e9c05910053dc447",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 176.718,
+      "duration": 7.863
     },
     {
       "index": 17,
       "text": "token-free 的替代路径有三条：① 用 EllipsoidTerrainProvider （平的）把课程学完——本课程的选择；② 自托管 DEM 转 quantized-mesh 工具链（如 py3dtiles / ctb-tile ，超出课程范围）；③ 个别公开免 token 的地形服务（可用性不稳定，不建议依赖生产）。",
       "hash": "d892b884a70dd52a",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 184.581,
+      "duration": 24.529
     },
     {
       "index": 18,
       "text": "World Terrain（资产 id 1）、OSM Buildings（资产 id 96188）、Google 影像等都在 ion 托管体系里。本课程正文所有可运行示例 token-free；遇到 ion 专属能力时，用 Callout 明确标注\"需要 token\"，只讲概念不动手。你随时可以注册 ion 免费账号解锁这些章节的完整体验。",
       "hash": "f70a2485f9438dbc",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 209.11,
+      "duration": 24.346
     },
     {
       "index": 19,
       "text": "3. 查询地面高度：sampleTerrain",
       "hash": "943ea9a20a2d921b",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 233.456,
+      "duration": 4.023
     },
     {
       "index": 20,
       "text": "有地形数据后，\"某经纬度的地面高\"就不再永远是 0：",
       "hash": "22ccf33f1b1f61ab",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 237.479,
+      "duration": 5.407
     },
     {
       "index": 21,
       "text": "三个要点：① 请求要带 层级 （地形也是金字塔，层级越高越精细）；② 返回的是 椭球高 （ELLIPSoidal height，从椭球面量起），GIS 课讲过它与正高的差异；③ 没有真实地形时（ EllipsoidTerrainProvider ）永远返回 0——这是验证\"地形层有没有生效\"的快速手段。",
       "hash": "3a8833cf5fea671a",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 242.887,
+      "duration": 26.723
     },
     {
       "index": 22,
       "text": "版本注记：地形夸张 API 在 1.116 从 Globe.terrainExaggeration 迁移到 Scene.verticalExaggeration ——老教程的夸张写法请按新 API 对照。",
       "hash": "c02e0133ad078b35",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 269.61,
+      "duration": 13.479
     },
     {
       "index": 23,
       "text": "4. 地形与视角：为什么贴地很重要",
       "hash": "a23a66faacef3527",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 283.089,
+      "duration": 4.153
     },
     {
       "index": 24,
       "text": "地形数据的价值在\"倾斜视角\"下才爆发：垂直俯瞰时，珠峰和一张卫星照片没有区别；把相机压到 30° 以下（第 01 章的 pitch），山谷的立体感立刻出来。这就是为什么每个三维 GIS 演示都爱用\"飞进峡谷\"当开场—— 地形 + 倾斜相机 = 沉浸感 。",
       "hash": "d094120814eb6938",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 287.242,
+      "duration": 20.767
     },
     {
       "index": 25,
       "text": "对照实验（无 token 也能做的概念验证）：",
       "hash": "f3e878cd07189f36",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 308.01,
+      "duration": 3.788
     },
     {
       "index": 26,
       "text": "EllipsoidTerrainProvider 下把相机放到 45° 俯角看阿尔卑斯——地平线是完美圆弧，地面无起伏。",
       "hash": "ead2b03e1f2b5b26",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 311.798,
+      "duration": 9.874
     },
     {
       "index": 27,
       "text": "（有 ion token 时）切 CesiumTerrainProvider.fromIonAssetId(1) 看同一视角——山脊、峡谷全部立体。",
       "hash": "96e71ab533c1fb3f",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 321.672,
+      "duration": 11.259
     },
     {
       "index": 28,
       "text": "结论记心里： 立体感的来源是地形层，不是影像层 。",
       "hash": "b1dc5b4ac8dbc011",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 332.931,
+      "duration": 4.519
     },
     {
       "index": 29,
       "text": "用 camera.changed （第 01 章）+ sampleTerrain 做一个\"地形探针\"：每当相机移动，取屏幕中心点的经纬度，查询其地面高度并打印——观察在 EllipsoidTerrainProvider 下结果恒为 0，理解\"高度查询依赖地形数据源\"。",
       "hash": "0915cf54aa084119",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 337.45,
+      "duration": 18.651
     },
     {
       "index": 30,
       "text": "5. 本章小结",
       "hash": "4410f90db4f8b16d",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 356.101,
+      "duration": 2.064
     },
     {
       "index": 31,
       "text": "地球 = 椭球面 + 地形层 + 影像层，三层独立。",
       "hash": "0263f42d4e169aa3",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 358.165,
+      "duration": 5.407
     },
     {
       "index": 32,
       "text": "EllipsoidTerrainProvider = \"选择没有地形\"；主流真实地形是 quantized-mesh 格式。",
       "hash": "9359adfac6ffe48c",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 363.572,
+      "duration": 7.079
     },
     {
       "index": 33,
       "text": "sampleTerrain 查高要带层级、返回椭球高、平地形恒为 0。",
       "hash": "bf736d387791179a",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 370.651,
+      "duration": 6.478
     },
     {
       "index": 34,
       "text": "ion 托管了最好的地形服务但需要 token——本课程概念讲透，示例绕行。",
       "hash": "ceecc177773633f9",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 377.13,
+      "duration": 7.027
     },
     {
       "index": 35,
       "text": "下一章进入 Cesium 的核心生产力：Entity 实体体系，把 GIS 课的点线面数据真正\"立\"在球上。",
       "hash": "2766097bb5fe2d47",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 384.157,
+      "duration": 8.281
     },
     {
       "index": 36,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 392.438,
+      "duration": 1.28
     },
     {
       "index": 37,
       "text": "地形官方教程（含 ion World Terrain 的完整用法）： CesiumJS Terrain 教程",
       "hash": "0100fc52333c76c8",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 393.718,
+      "duration": 6.975
     },
     {
       "index": 38,
       "text": "quantized-mesh 格式规范： CesiumGS/quantized-mesh（GitHub）",
       "hash": "a71a5520988c272e",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "start": 400.692,
+      "duration": 5.355
     },
     {
       "index": 39,
       "text": "TerrainProvider API 参考： Cesium.CesiumTerrainProvider",
       "hash": "2d75377cd0f47f96",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "start": 406.047,
+      "duration": 5.355
     },
     {
       "index": 40,
       "text": "高程系统差异（椭球高 vs 正高）： GIS 课 乘 地球、椭球与基准面",
       "hash": "827b20226037dbbc",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "start": 411.402,
+      "duration": 7.314
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133703650_03-terrain-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.774Z"
 }

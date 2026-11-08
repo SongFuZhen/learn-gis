@@ -8,229 +8,310 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.959
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ： GIS 课第 03 章 讲过，地球用旋转椭球近似，一个点 = 经度 + 纬度（+ 高程）。但 Cesium 的世界里没有\"经纬度点\"，只有 笛卡尔空间坐标 ——本章讲清这两套坐标怎么互转，以及怎么指挥相机去看你想看的地方。 我的经验一句话 ：在 Cesium 里，经纬度只是\"给人看的入口\"，进场景后一切都是 Cartesian3 ——记住这句话，一半的坐标系疑惑就没了。 我见过的坑（你大概率也会踩） ：",
       "hash": "0049a80184ad917d",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 1.959,
+      "duration": 42.188
     },
     {
       "index": 2,
       "text": "Cartesian3.fromDegrees(lat, lon) ——顺序反了，人飞到了别的半球。Cesium 全家都是 经度在前 。",
       "hash": "6c46374ec929f262",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 44.147,
+      "duration": 8.229
     },
     {
       "index": 3,
       "text": "Cartographic 的经纬度是 弧度 ，直接拿去显示会看到 0.02 这样的\"怪数\"——那是 116.4° 的弧度值。",
       "hash": "03f177cceb8ab364",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 52.376,
+      "duration": 9.535
     },
     {
       "index": 4,
       "text": "camera.flyTo 飞过去就不动了——多半是 orientation.pitch 忘了给负角度，相机在\"抬头看天\"。 必记 3 条 ：",
       "hash": "067480bb84f35c56",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 61.91,
+      "duration": 10.24
     },
     {
       "index": 5,
       "text": "Cartesian3.fromDegrees(lon, lat, height) ——经度永远在前",
       "hash": "363e36acdebe7d35",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 72.15,
+      "duration": 6.191
     },
     {
       "index": 6,
       "text": "Cartographic 里是弧度；要度数用 Cesium.Math.toDegrees() 换",
       "hash": "0f1f04f2e1816428",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 78.341,
+      "duration": 6.113
     },
     {
       "index": 7,
       "text": "pitch = 0 是水平看，-90° 是垂直俯瞰；\"俯视某个点\"给 pitch 一个负角",
       "hash": "8f7a1157fc97e941",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 84.454,
+      "duration": 7.628
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 92.082,
+      "duration": 1.358
     },
     {
       "index": 9,
       "text": "两套坐标（地理坐标 ↔ 笛卡尔坐标）的互转与各自适用场景；相机的 setView / flyTo / lookAt 三大操作；heading / pitch / roll 三个姿态角到底怎么转。这是后面所有章节的地基——实体、拾取、量算，全都建在\"放得准、看得准\"之上。",
       "hash": "f63e8b03a0dee7c8",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 93.44,
+      "duration": 20.114
     },
     {
       "index": 10,
       "text": "1. 两套坐标系：地理坐标与笛卡尔坐标",
       "hash": "9d69e58de1ee86f4",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 113.554,
+      "duration": 4.153
     },
     {
       "index": 11,
       "text": "GIS 课讲过：经纬度是 角度坐标 ——椭球面上的位置用度数表示。但 WebGL 渲染的世界是 直线空间 ：相机、模型、光照计算全在直角坐标系里进行。所以 Cesium 内部用 ECEF 笛卡尔坐标 （Earth-Centered, Earth-Fixed，地心固连系）：原点在地球质心，x 指向本初子午线与赤道交点，z 指向北极。",
       "hash": "120eb66ad114e267",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 117.708,
+      "duration": 27.742
     },
     {
       "index": 12,
       "text": "两套坐标的互转就三把刷子：",
       "hash": "e306e75a855407ae",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 145.45,
+      "duration": 2.664
     },
     {
       "index": 13,
       "text": "什么时候用哪个： 对接外部数据 ——GeoJSON、数据库里的经纬度——用地理坐标，进 Cesium 的那一刻转成 Cartesian3 ； 算距离、做空间运算 大多直接在笛卡尔系做（第 08 章）； 展示坐标读数 记得从 Cartographic 转回度数。",
       "hash": "851e6426f4564c4d",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 148.114,
+      "duration": 20.036
     },
     {
       "index": 14,
       "text": "版本注记：1.119 新增 Cesium.Ellipsoid.default ——一处设置即可把全 API 的默认椭球换成月球/火星等其他基准面，无需逐个传参。",
       "hash": "fc6493c89b9159f5",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 168.15,
+      "duration": 13.819
     },
     {
       "index": 15,
       "text": "这不是 Cesium 搞特殊：地心坐标系里\"经度绕 z 轴、纬度绕赤道面\"的数学定义天然以经度为第一角。GeoJSON 规范也规定 [lng, lat] 顺序——倒是很多前端地图库（Leaflet）反着来。跨库搬数据时，先查目标库的参数顺序，再查单位（度/弧度/米），能避免九成\"点飞了\"的事故。",
       "hash": "2c4099706e8abadf",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 181.969,
+      "duration": 26.671
     },
     {
       "index": 16,
       "text": "2. 相机三大操作：setView、flyTo、lookAt",
       "hash": "8c02a05e7b8f96a4",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 208.64,
+      "duration": 5.407
     },
     {
       "index": 17,
       "text": "相机就是一个\"放在三维空间里、带朝向的点\"。三种操作对应三种意图：",
       "hash": "15ca6cabb2e3fcec",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 214.047,
+      "duration": 6.478
     },
     {
       "index": 18,
       "text": "三个姿态角用飞机理解最直观： heading （机头朝向，北为 0 顺时针）、 pitch （机头抬/低头，0 水平、负值低头）、 roll （机身左右翻滚，普通展示场景恒为 0）。",
       "hash": "4fb32cc16e4b72a6",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 220.526,
+      "duration": 16.039
     },
     {
       "index": 19,
       "text": "初始化/复位 到 setView （瞬间到位）；用户点击跳转 到 flyTo （有过渡不迷路）；绕目标观察 到 lookAt （锁定目标、锁定距离）。 flyTo 的 orientation.pitch 记得给负角，水平俯瞰是负方向。",
       "hash": "d2db433246be6c98",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 236.565,
+      "duration": 19.696
     },
     {
       "index": 20,
       "text": "3. 实用技巧：飞到矩形/包围球",
       "hash": "80ed86b698aabf73",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 256.261,
+      "duration": 4.049
     },
     {
       "index": 21,
       "text": "实际业务里，\"飞到某个点\"不如\"飞到某片数据\"常见——比如加载完一个 GeoJSON 图层后自动飞到数据范围（第 04 章会用到）：",
       "hash": "8740c621c09f69ed",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 260.31,
+      "duration": 10.893
     },
     {
       "index": 22,
       "text": "flyToBoundingSphere 在\"数据自适应缩放\"场景最省心：不用算高度，给半径它自动选一个能看全的距离。",
       "hash": "8c59fe800042a65f",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 271.203,
+      "duration": 9.117
     },
     {
       "index": 23,
       "text": "4. 相机事件：让 UI 跟着视角走",
       "hash": "7ec89f24e5d7aa64",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 280.32,
+      "duration": 3.631
     },
     {
       "index": 24,
       "text": "常见需求：随相机移动实时显示当前经纬度/高度（坐标读数条）。Cesium 提供每帧/每次移动的回调：",
       "hash": "5d80cbccf155da85",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 283.951,
+      "duration": 9.665
     },
     {
       "index": 25,
       "text": "camera.changed 配合 percentageChanged 是做\"坐标读数条\"的标准搭配——比每帧监听省性能，比手动监听 mousemove 准确（键盘、惯性滑动也能触发）。",
       "hash": "df2f7a56d426e6ee",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 293.616,
+      "duration": 12.46
     },
     {
       "index": 26,
       "text": "组合本章 API 做一个小练习：程序启动时相机在北京上空 15 km 俯瞰（setView），2 秒后自动飞到故宫上空 800 m、以 45° 俯角斜看（flyTo），最后用 lookAt 锁定故宫，让用户只能环绕观察。",
       "hash": "92a3efbb0467e3c7",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 306.077,
+      "duration": 19.278
     },
     {
       "index": 27,
       "text": "5. 本章小结",
       "hash": "4410f90db4f8b16d",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 325.355,
+      "duration": 2.194
     },
     {
       "index": 28,
       "text": "经纬度（角度）↔ Cartesian3 （地心直角）的互转是每章都要用到的基本功。",
       "hash": "eb9b6251e014bc2d",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 327.549,
+      "duration": 6.609
     },
     {
       "index": 29,
       "text": "fromDegrees(lon, lat, height) ： 经度在前 ； Cartographic 里是弧度。",
       "hash": "7ab1d5055376139f",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 334.158,
+      "duration": 6.531
     },
     {
       "index": 30,
       "text": "相机三操作按意图选：setView（瞬移）、flyTo（飞行）、lookAt（环绕锁定）。",
       "hash": "0624ef48929aa469",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 340.689,
+      "duration": 6.896
     },
     {
       "index": 31,
       "text": "heading/pitch/roll 用飞机姿态理解；pitch 负值才是低头看地。",
       "hash": "294d5a83fa2e7669",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 347.585,
+      "duration": 6.139
     },
     {
       "index": 32,
       "text": "下一章：往这个球上\"贴图\"——影像图层的家族与玩法。",
       "hash": "47be0d0a09bb236f",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 353.724,
+      "duration": 5.12
     },
     {
       "index": 33,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 358.844,
+      "duration": 1.28
     },
     {
       "index": 34,
       "text": "相机专章教程（setView/flyTo/lookAt 全覆盖）： CesiumJS Camera 教程",
       "hash": "f3e013a3e2c72857",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 360.124,
+      "duration": 7.732
     },
     {
       "index": 35,
       "text": "Camera API 参考： Cesium.Camera",
       "hash": "beba1fd8556d3795",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 367.856,
+      "duration": 4.336
     },
     {
       "index": 36,
       "text": "Cartesian3 / Cartographic API 参考： Cesium.Cartesian3",
       "hash": "713ab7b1151edb8a",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 372.193,
+      "duration": 6.792
     },
     {
       "index": 37,
       "text": "坐标变换数学背景（GIS 课第 03 章投影理论的 3D 版）： GIS 课 乘 地图投影",
       "hash": "662d06a8c0233e81",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 378.984,
+      "duration": 8.046
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133699569_01-camera-coords-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.768Z"
 }

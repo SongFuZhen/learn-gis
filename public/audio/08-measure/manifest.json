@@ -8,223 +8,302 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.116
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：GIS 的\"G\"是 Geographical，量算是灵魂技能——两点多远、一片地多大、坡上两点高差多少。本章把三维球面上的量算做成\"鼠标画线/画面\"的完整交互闭环。 我的经验一句话 ：三维量算 = 第 07 章的拾取（拿点）+ 本章的几何公式（算值）+ CallbackProperty（画辅助线）——三块拼图你已经全有了，本章只是组装。 我见过的坑（你大概率也会踩） ：",
       "hash": "4237397e0e04e480",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.116,
+      "duration": 39.393
     },
     {
       "index": 2,
       "text": "用 Cartesian3.distance 量两个经纬度相距很远的点——那是 空间直线 （弦长），球面上应该是沿椭球面的大圆距离，差得不少。",
       "hash": "de19d9a596d40f5e",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 41.509,
+      "duration": 10.188
     },
     {
       "index": 3,
       "text": "面积直接把经纬度当平面坐标套鞋带公式——度不是米，算出来的\"面积\"毫无意义。",
       "hash": "617c88fc55cb70d7",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 51.696,
+      "duration": 6.609
     },
     {
       "index": 4,
       "text": "忘了画辅助线时清掉上一个点——线越连越长，橡皮筋一样。 必记 3 条 ：",
       "hash": "3bf7ee1e839ddb02",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 58.305,
+      "duration": 6.531
     },
     {
       "index": 5,
       "text": "空间直线距离 Cartesian3.distance ；球面（大圆）距离用 EllipsoidGeodesic.surfaceDistance",
       "hash": "777d0436cf2e21dc",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 64.836,
+      "duration": 8.516
     },
     {
       "index": 6,
       "text": "面积要把面投影到 切平面 （EllipsoidTangentPlane）再套平面公式",
       "hash": "47b2cb9b0cabcebe",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 73.352,
+      "duration": 6.531
     },
     {
       "index": 7,
       "text": "交互画线 = 拾取点 + 动态 CallbackProperty 更新 polyline",
       "hash": "aaaff0cef51e3b26",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 79.882,
+      "duration": 5.721
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 85.603,
+      "duration": 1.593
     },
     {
       "index": 9,
       "text": "三种距离（空间直线 / 大圆 / 贴地）的适用场景与算法；椭球面面积的切平面投影法；把\"点击取点 到 动态预览 到 双击结束\"做成可复用的量算工具。这章的产出可以直接塞进第 09 章的实战看板。",
       "hash": "27d12923339851e6",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 87.197,
+      "duration": 18.129
     },
     {
       "index": 10,
       "text": "1. 三种\"距离\"，别混着用",
       "hash": "69bfc4ffa9b57dee",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 105.326,
+      "duration": 2.847
     },
     {
       "index": 11,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 108.173,
+      "duration": 2.717
     },
     {
       "index": 12,
       "text": "京沪两地直线弦长与椭球面距离差约十几公里—— 1 km 以内的短距离可以近似，跨城市必须用测地线 。这正是 GIS 课第 14 章 讲\" turf.area 是球面计算\"的同一件事：量算 API 的\"球面 vs 平面\"之分在三维引擎里同样存在。",
       "hash": "abe6c4223f2eb638",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 110.89,
+      "duration": 20.584
     },
     {
       "index": 13,
       "text": "展示\"两地多远\" 到 EllipsoidGeodesic.surfaceDistance （大圆/测地线）",
       "hash": "97bf2c7e88f7198e",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 131.474,
+      "duration": 7.079
     },
     {
       "index": 14,
       "text": "Cartesian3.distance 是穿球的弦长，只适合近距离",
       "hash": "88c4f7fb95a90b48",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 138.553,
+      "duration": 5.042
     },
     {
       "index": 15,
       "text": "面积不许用经纬度直接算——先投到切平面",
       "hash": "d2472677ecb4d197",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 143.595,
+      "duration": 4.206
     },
     {
       "index": 16,
       "text": "2. 面积：切平面投影法",
       "hash": "3f0e7efe0f511e56",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 147.801,
+      "duration": 2.9
     },
     {
       "index": 17,
       "text": "椭球面上的多边形面积没有初等公式，工程上通行的近似是：把多边形顶点 投影到一个切平面 （EllipsoidTangentPlane，与椭球相切于某一点的平面），在平面上用鞋带公式算，再把单位换回平方米：",
       "hash": "9fa77880d0c7c715",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 150.7,
+      "duration": 16.509
     },
     {
       "index": 18,
       "text": "精度边界： 数百平方公里以内 的普通地块，切平面法误差可接受；省级以上的巨大多边形要用专门的椭球面积算法（或直接交给 PostGIS 的 geography 类型， GIS 课第 14 章 的路数）——知道工具的适用边界，比背公式更重要。",
       "hash": "6298b85e2e755286",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 167.21,
+      "duration": 19.931
     },
     {
       "index": 19,
       "text": "两个投影 API 别选错： projectPointsToNearestOnPlane （沿平面法线取最近点， 结果与输入等长 ）和 projectPointsOntoPlane （从地心径向投影， 投不出的点会被丢弃 、结果可能比输入短）——量面积必须用前者，丢一个顶点多边形就变形了。",
       "hash": "f321c790c5c2cc8c",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 187.141,
+      "duration": 21.368
     },
     {
       "index": 20,
       "text": "3. 交互闭环：点击取点 到 动态预览 到 结束出结果",
       "hash": "201543e33801fa77",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 208.509,
+      "duration": 5.825
     },
     {
       "index": 21,
       "text": "把第 07 章的拾取和本章的公式组装成量算工具。核心结构：",
       "hash": "ff5ccddeb0f590ca",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 214.335,
+      "duration": 5.303
     },
     {
       "index": 22,
       "text": "骨架要点：① camera.pickEllipsoid 把屏幕点投到椭球面——返回 Cartesian3 ，要转 Cartographic 再存（别直接读 .longitude）；② polyline 的 positions 挂 CallbackProperty ，回调每帧 从数据即时拼装 （数据变、图形自动变）；③ 双击（ DOUBLECLICK ）结束并调用本章公式出结果。",
       "hash": "a25bfdf4dd147fa3",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 219.638,
+      "duration": 30.537
     },
     {
       "index": 23,
       "text": "只要「某点的场景高度」而不关心打中的是楼还是山？ scene.sampleHeight(position) （传 Cartographic ，返回该位置的 场景几何高度 ，米）比 pickPosition 更直接——它只采样 当前视野内已渲染 的地形与 3D Tiles（其他图元无视可见性都会被采样）。三个前提：仅 3D 模式（2D/CV 会抛异常）、需要深度纹理（ sampleHeightSupported 探测，同 pickPosition）、量大用 sampleHeightMostDetailed （异步批量、按最高精度采样）。与 sampleTerrain 的分工：有地形 Provider 用后者（可离线、不依赖渲染），接了真实场景用前者（所见即所量）。",
       "hash": "7777e2f001a6d6c4",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 250.175,
+      "duration": 50.782
     },
     {
       "index": 24,
       "text": "camera.pickEllipsoid 把像素投到 椭球面 上（永远成功、高度恒 0）； scene.pickPosition 则从 深度缓冲 重构位置——打中的是当前渲染出来的任何表面（地形就是山、3D Tiles 就是楼面、模型就是表皮）。三条使用规则：① 先探测 scene.pickPositionSupported ——它是 只读能力探测 （检查设备是否支持深度纹理），不是开关；不支持时调用会直接抛 DeveloperError 。② 半透明表面默认会被\"穿透\"（官方原文：essentially picks through translucent primitives）——要拾取半透明面（比如本章看板里的半透明政区面），设 scene.pickTranslucentDepth = true （默认 false，有额外绘制开销）。③ 对地球面的拾取在 depthTestAgainstTerrain = false （默认）下曾有结果不正确的 bug，1.118 修复——课程基线 1.107+ 中、1.118 之前的版本量地表要注意。量地用前者，量楼面/地形表面用后者。",
       "hash": "05cacf2f5e29fad7",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 300.957,
+      "duration": 72.568
     },
     {
       "index": 25,
       "text": "实现一个\"测距\"工具：左键连续取点、鼠标移动橡皮筋预览、实时在控制台打印\"当前累计大圆距离\"、双击结束。提示：距离 = 相邻顶点逐一 EllipsoidGeodesic.surfaceDistance 求和。",
       "hash": "9bd1afa25d8e4bb3",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 373.525,
+      "duration": 16.17
     },
     {
       "index": 26,
       "text": "5. 本章小结",
       "hash": "4410f90db4f8b16d",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 389.695,
+      "duration": 1.776
     },
     {
       "index": 27,
       "text": "距离三兄弟： Cartesian3.distance （弦长）、 EllipsoidGeodesic.surfaceDistance （大圆）、沿地形分段累加（贴地）。",
       "hash": "4aaf82a7fdc88505",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 391.471,
+      "duration": 10.292
     },
     {
       "index": 28,
       "text": "面积 = 切平面投影 + 鞋带公式；巨大多边形换专业椭球算法。",
       "hash": "e8e2cd584c3e94fe",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 401.763,
+      "duration": 6.531
     },
     {
       "index": 29,
       "text": "量算交互 = pickEllipsoid / pickPosition 取点 + CallbackProperty 预览 + 双击结束。",
       "hash": "3c645569982b62b3",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 408.294,
+      "duration": 7.915
     },
     {
       "index": 30,
       "text": "工具边界感：切平面法只到百平方公里级；更大面积交给地理数据库。",
       "hash": "f4fdd86d1b2a58ee",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 416.209,
+      "duration": 6.792
     },
     {
       "index": 31,
       "text": "下一章收官：性能优化 + 把前八章拼成一个大看板。",
       "hash": "428c6104c4caeabc",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 423.001,
+      "duration": 5.277
     },
     {
       "index": 32,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 428.278,
+      "duration": 1.228
     },
     {
       "index": 33,
       "text": "空间量算相关 API： Cesium.EllipsoidGeodesic 、 Cesium.EllipsoidTangentPlane",
       "hash": "b4d2161d82c2fc58",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 429.505,
+      "duration": 7.497
     },
     {
       "index": 34,
       "text": "交互拾取（本章前置）： CesiumJS 课 乘 拾取与交互事件",
       "hash": "cfd3516ee048e2d7",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 437.002,
+      "duration": 6.191
     },
     {
       "index": 35,
       "text": "球面距离与面积的专业解法： GIS 课 乘 空间运算与空间数据库",
       "hash": "cc2f1f3662dd1d42",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 443.193,
+      "duration": 6.557
     },
     {
       "index": 36,
       "text": "测地线数学背景： GIS 课 乘 地图投影",
       "hash": "346f05c80190af88",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 449.75,
+      "duration": 3.866
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133713219_08-measure-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.788Z"
 }

@@ -8,259 +8,350 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.351
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：前十一章画出来的画面是\"素颜\"的——渲出来什么样就什么样。 后处理 （PostProcess）是在渲染管线的最末端加一道\"滤镜\"：把整屏画面当成一张图片，用一段小 shader 重新加工——泛光、夜视、景深、暗角，甚至只给选中的要素描边。 我的经验一句话 ：后处理 = 对\"渲染结果这张图\"做全屏像素加工——一个 stage 就是一层滤镜，链起来就是滤镜栈。 我见过的坑（你大概率也会踩） ：",
       "hash": "29c6a5ef9418018e",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.351,
+      "duration": 41.665
     },
     {
       "index": 2,
       "text": "自定义 shader 里写了 glFragColor 跑不起来（新版本 GLSL3 上下文）——输出变量叫 outFragColor ，输入纹理叫 colorTexture ，以官方文档模板为准。",
       "hash": "24ca4d5520e49fb2",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 44.016,
+      "duration": 13.009
     },
     {
       "index": 3,
       "text": "堆了五六个 stage 帧率腰斩—— 每个 stage 都是一次全屏 pass ，1080p 下一帧就是五六百万像素读写，数量要克制。",
       "hash": "ffcdf57ed2917618",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 57.025,
+      "duration": 11.389
     },
     {
       "index": 4,
       "text": "想拾取深度却报 DeveloperError —— depthTexture 依赖设备深度纹理能力，用 stage.isSupported 先探测（和第 9 章 pickPositionSupported 同一个道理）。 必记 3 条 ：",
       "hash": "41366827f2a45723",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 68.415,
+      "duration": 14.498
     },
     {
       "index": 5,
       "text": "滤镜链挂在 viewer.scene.postProcessStages 上： add / remove 管理",
       "hash": "fe1892c2a9e4af7f",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 82.913,
+      "duration": 5.407
     },
     {
       "index": 6,
       "text": "自定义 stage 的 shader 输入是 colorTexture + vtextureCoordinates ，输出写 outFragColor",
       "hash": "5bac43c78fc01ce3",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 88.32,
+      "duration": 6.792
     },
     {
       "index": 7,
       "text": "每个 stage = 一次全屏 pass——效果宁可合并进一个 shader，不要堆 stage 数量",
       "hash": "1beb56854a428524",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 95.112,
+      "duration": 6.661
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 101.773,
+      "duration": 1.541
     },
     {
       "index": 9,
       "text": "后处理滤镜链的组织方式（collection 与内置三件套）；内置效果库的全家福；自定义 PostProcessStage 的 shader 模板与 uniforms 动态调参；用 selected 让滤镜只作用于选中要素；以及后处理的性能账本。学完这章，你的看板拥有了\"画面风格\"这个自由度——监控大屏的暗色调、汇报演示的泛光、对比模式的黑白，都只是一层滤镜的事。",
       "hash": "e7b2658ada0d661f",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 103.314,
+      "duration": 30.433
     },
     {
       "index": 10,
       "text": "1. 心智模型：渲染末端的全屏滤镜链",
       "hash": "ff4f730bd705df03",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 133.747,
+      "duration": 3.971
     },
     {
       "index": 11,
       "text": "场景正常渲染的终点是\"一张画好的图\"。后处理把这张图当作输入纹理，跑一个只处理 屏幕像素 的小 shader，再把结果画回屏幕——所以它不关心场景里有几个对象、什么类型， 一切皆像素 ：",
       "hash": "f271af74a0e75b39",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 137.718,
+      "duration": 15.987
     },
     {
       "index": 12,
       "text": "滤镜链是 viewer.scene.postProcessStages （PostProcessStageCollection）： add() 入链、 remove() 出链、 length 看层数。 顺序就是加工顺序 ——先抗锯齿再泛光和先泛光再抗锯齿，结果不同。",
       "hash": "72705fe743bba91f",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 153.704,
+      "duration": 17.711
     },
     {
       "index": 13,
       "text": "2. 内置三件套与效果库",
       "hash": "3f2d3ff004fa1b25",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 171.416,
+      "duration": 3.213
     },
     {
       "index": 14,
       "text": "Collection 上常驻三个开箱即用的 stage，一个布尔值开关：",
       "hash": "168e03080c97fd8d",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 174.629,
+      "duration": 5.303
     },
     {
       "index": 15,
       "text": "更多现成效果在 PostProcessStageLibrary 里，用工厂函数创建后 add 进链：",
       "hash": "ce1177b212eed569",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 179.931,
+      "duration": 7.158
     },
     {
       "index": 16,
       "text": "scene.postProcessStages 是滤镜链； fxaa / bloom / ambientOcclusion 三个内置直接 .enabled 开关",
       "hash": "e6d1408849037bb4",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 187.089,
+      "duration": 12.643
     },
     {
       "index": 17,
       "text": "更多效果从 PostProcessStageLibrary.createStage() 工厂拿， add / remove 管理",
       "hash": "b3f4f732e799622c",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 199.732,
+      "duration": 7.732
     },
     {
       "index": 18,
       "text": "每个 stage 都是一次全屏 pass——链越短越省",
       "hash": "20e7e2a25c72a7b4",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 207.464,
+      "duration": 4.232
     },
     {
       "index": 19,
       "text": "3. 自定义 stage：滤镜的\"配方\"是自己写的 shader",
       "hash": "db7952a9fdcbbc5c",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 211.696,
+      "duration": 4.65
     },
     {
       "index": 20,
       "text": "内置效果不够用？ PostProcessStage 让你直接提交一段 fragment shader——它对整屏每个像素执行一次：",
       "hash": "5c3cd204aa6cc92c",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 216.346,
+      "duration": 8.333
     },
     {
       "index": 21,
       "text": "shader 模板的固定约定（源码文档原文级别）：输入纹理 uniform 叫 colorTexture （上一阶段或场景的渲染结果），配合 vtextureCoordinates 二维变坐标采样；需要深度时声明 uniform sampler2D depthTexture （能力不足时 stage.isSupported 为 false）； 输出写 outFragColor 。",
       "hash": "bccbcd37a6e46791",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 224.679,
+      "duration": 23.876
     },
     {
       "index": 22,
       "text": "uniforms 选项把参数从 shader 里\"拎出来\"，JS 侧随时可改—— 值还可以是函数，每帧求值一次 ：",
       "hash": "eb2e5dc2be74ee1c",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 248.555,
+      "duration": 9.665
     },
     {
       "index": 23,
       "text": "每个 stage = 每帧一次全屏 pass：1920×1080 下单次约 200 万像素的纹理读写。账这么算： 60fps × 链上 stage 数 = 每秒全屏 pass 次数 ——链上 4 个 stage 就是每秒 240 次全屏读写。优化方向：① 效果合并（反色+亮度写进同一个 shader，一个 pass 干两件事）；② 采样模式默认 NEAREST ，需要平滑插值再设 sampleMode: PostProcessStageSampleMode.LINEAR ；③ 静态看板配合第 10 章 requestRenderMode ，滤镜没变就不跑。",
       "hash": "d8b842948eb611dd",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 258.22,
+      "duration": 46.864
     },
     {
       "index": 24,
       "text": "4. selected：滤镜只作用于选中的要素",
       "hash": "96d5e5798ff588ca",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 305.084,
+      "duration": 4.153
     },
     {
       "index": 25,
       "text": "后处理默认作用于 整屏 。想\"只给选中的楼描边/高亮\"？ selected 属性 + shader 里的 czmselected() 帮手：",
       "hash": "3b103d08f1b7c0a9",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 309.238,
+      "duration": 11.389
     },
     {
       "index": 26,
       "text": "这把第 7 章的拾取与本章的滤镜接上了：点击 到 scene.pick 拿到要素 到 赋给高亮 stage 的 selected —— 选中高亮的另一种实现 （比第 7 章改 point.color 更通用，对 3D Tiles 要素同样生效）。",
       "hash": "41a595d4ea169b67",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 320.627,
+      "duration": 18.129
     },
     {
       "index": 27,
       "text": "5. 实战：给收官看板加\"监控大屏\"滤镜",
       "hash": "556ee37494aa9e0f",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 338.756,
+      "duration": 4.284
     },
     {
       "index": 28,
       "text": "把本章能力组合进第 10 章的看板：FXAA 保边缘平滑、轻微 bloom 提氛围、自定义暗角（vignette）压住四周视线聚焦中心——三段一个大滤镜链：",
       "hash": "2b37b5bcd313a836",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 343.04,
+      "duration": 13.949
     },
     {
       "index": 29,
       "text": "写一个自定义 stage：把画面转成棕褐色调（sepia 用固定混合矩阵即可），并叠加中心亮、四周暗的暗角；再给它加一个 strength uniform，JS 侧用 setInterval 让滤镜强度 0.3↔0.8 往复（模拟老电影呼吸感），10 秒后 remove 出链。",
       "hash": "921a8757f974b733",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 356.989,
+      "duration": 20.82
     },
     {
       "index": 30,
       "text": "6. 本章小结",
       "hash": "952a4cb932518efd",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 377.809,
+      "duration": 2.064
     },
     {
       "index": 31,
       "text": "后处理 = 渲染末端的全屏滤镜链： postProcessStages 按序加工\"整屏一张图\"。",
       "hash": "48d63fd1beea4bf0",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 379.873,
+      "duration": 7.863
     },
     {
       "index": 32,
       "text": "内置三件套 fxaa / bloom / ambientOcclusion 一行开； PostProcessStageLibrary.createStage() 提供黑白/夜视/景深/轮廓/光斑等现成效果。",
       "hash": "3877a0edb8f5995b",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 387.736,
+      "duration": 16.744
     },
     {
       "index": 33,
       "text": "自定义 stage 三约定： colorTexture 输入、 vtextureCoordinates 采样、 outFragColor 输出； uniforms 支持函数（每帧求值）。",
       "hash": "71c72f9ed57a17a2",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 404.48,
+      "duration": 12.878
     },
     {
       "index": 34,
       "text": "selected + czmselected() 让滤镜只作用于选中要素——与第 7 章拾取联动的高亮方案。",
       "hash": "13d5f9a7ddba4e75",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 417.358,
+      "duration": 8.647
     },
     {
       "index": 35,
       "text": "性能预算：stage 数 × 帧率 = 每秒全屏 pass 数；效果能合并就不拆。",
       "hash": "513baaec42c151b3",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 426.005,
+      "duration": 6.949
     },
     {
       "index": 36,
       "text": "至此课程 12 章：从\"把球转起来\"到\"让画面有风格\"。下一步是你自己的项目——把 GIS 课的数据底座与这套三维表现力接起来。",
       "hash": "0f8ef035240967a5",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 432.953,
+      "duration": 11.337
     },
     {
       "index": 37,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 444.291,
+      "duration": 1.306
     },
     {
       "index": 38,
       "text": "后处理官方教程： CesiumJS Post Processing",
       "hash": "ced6370ac5859fd8",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "start": 445.597,
+      "duration": 5.042
     },
     {
       "index": 39,
       "text": "PostProcessStage API 参考（shader 模板原文）： Cesium.PostProcessStage",
       "hash": "2a1cc347d6da8b18",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "start": 450.638,
+      "duration": 7.576
     },
     {
       "index": 40,
       "text": "效果库 API 参考： Cesium.PostProcessStageLibrary",
       "hash": "bc3f5d2db1b88515",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "start": 458.214,
+      "duration": 6.609
     },
     {
       "index": 41,
       "text": "官方示例：Sandcastle 搜索 Post Processing（泛光/环境光遮蔽/轮廓）",
       "hash": "b1b29fb2a58a4bfb",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "start": 464.823,
+      "duration": 7.915
     },
     {
       "index": 42,
       "text": "渲染调度与性能（本章前置）： CesiumJS 课 乘 性能优化与实战收官",
       "hash": "a0519dffe820abe1",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "start": 472.738,
+      "duration": 8.229
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133714005_11-postprocess-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.794Z"
 }

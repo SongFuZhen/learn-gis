@@ -8,271 +8,366 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.142
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：火焰、雨雪、烟雾、喷气尾迹、爆炸——这些效果的共同点是\" 成百上千个小东西，各自出生、运动、死亡 \"。用 Entity 一个个 add 是灾难，3D Tiles 更不搭边。Cesium 的 ParticleSystem （粒子系统）专治这类\"群体小元素\"：你定义 发射规则 ，它负责成批生成、运动、消亡。 我的经验一句话 ：粒子系统 = 发射器（从哪出）+ 生命周期（活多久）+ 每帧更新（怎么动）——三件套配好，剩下的全是调参。 我见过的坑（你大概率也会踩） ：",
       "hash": "228daec4c798e0dd",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.142,
+      "duration": 49.162
     },
     {
       "index": 2,
       "text": "稳态粒子数 约等于 emissionRate × 平均粒子寿命 ——emissionRate 500、寿命 4 秒就是 2000 个粒子常驻，设的时候心里要有账，不然直接卡死。",
       "hash": "6f0bed2a863de324",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 51.304,
+      "duration": 13.819
     },
     {
       "index": 3,
       "text": "粒子怎么拉近都不变大——默认 sizeInMeters: false （以 像素 为单位），要真实世界的米制尺寸必须显式开。",
       "hash": "bed3a8012e7a642d",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 65.123,
+      "duration": 9.221
     },
     {
       "index": 4,
       "text": "updateCallback 里写了重计算（比如每次都 new 对象、查数组）——它是 每帧对每个粒子 执行的，里面一行烂代码乘以 2000 粒子 × 60 帧 = 灾难。 必记 3 条 ：",
       "hash": "e061d9f09d210316",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 74.344,
+      "duration": 14.263
     },
     {
       "index": 5,
       "text": "粒子系统挂载在 viewer.scene.primitives.add （和 3D Tiles 同一个容器）",
       "hash": "539fda9f9bb8eb00",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 88.607,
+      "duration": 6.74
     },
     {
       "index": 6,
       "text": "位置与朝向靠 modelMatrix （配合 Transforms.eastNorthUpToFixedFrame 落地）",
       "hash": "9ecea294c8632f38",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 95.347,
+      "duration": 6.557
     },
     {
       "index": 7,
       "text": "稳态粒子数 = emissionRate × 平均寿命——先算账再调参",
       "hash": "6fd1f7b8472c87e5",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 101.904,
+      "duration": 5.721
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 107.624,
+      "duration": 1.593
     },
     {
       "index": 9,
       "text": "粒子系统的三件套心智模型；一个完整的火焰示例（定位、颜色渐变、缩放）；四种发射器与 bursts 爆发脉冲；用 updateCallback 写自定义物理（重力/风——雨和雪）；以及粒子的性能账本。学完这章，你的三维看板就有了\"天气与特效\"这一层。",
       "hash": "c64d959397fcfe1d",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 109.218,
+      "duration": 20.872
     },
     {
       "index": 10,
       "text": "1. 心智模型：发射器、生命周期、更新回调",
       "hash": "b5505e63a3ef2f66",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 130.09,
+      "duration": 4.885
     },
     {
       "index": 11,
       "text": "粒子系统不是\"一个对象\"，而是一条 流水线 ：",
       "hash": "67f1803255c7e9fd",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 134.975,
+      "duration": 4.206
     },
     {
       "index": 12,
       "text": "Emitter ：决定粒子的 出生位置与初速度分布 （点/圆盘/锥形/球形四种）。",
       "hash": "3e9e3a1dd0586740",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 139.18,
+      "duration": 7.314
     },
     {
       "index": 13,
       "text": "生命周期 ： minimumParticleLife maximumParticleLife （秒）随机取值；颜色与大小按 startColor到endColor 、 startScale到endScale 随寿命插值。",
       "hash": "08b3951a07c341ea",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 146.495,
+      "duration": 12.46
     },
     {
       "index": 14,
       "text": "updateCallback ：每帧对 每颗活着的粒子 调用一次 (particle, dt) ，你可以在里面施加自定义力。",
       "hash": "3ba711a2590597db",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 158.955,
+      "duration": 9.587
     },
     {
       "index": 15,
       "text": "整条流水线在场景里的\"落脚点\"由 modelMatrix 决定——把它设成某个地面点的东北天坐标系，粒子就在那里喷发。",
       "hash": "0bd14181d4762b50",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 168.542,
+      "duration": 9.404
     },
     {
       "index": 16,
       "text": "2. 最小示例：营火",
       "hash": "ef484ba7fb408a63",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 177.946,
+      "duration": 2.482
     },
     {
       "index": 17,
       "text": "跑起来就是一团从地面往上蹿的火焰：粒子从锥口出生、随机初速上升、颜色由黄转红渐隐、尺寸逐渐放大。 调参顺序建议 ：先定 emissionRate 与 particleLife （数量账），再调颜色与缩放（观感），最后动 updateCallback （物理）。",
       "hash": "ffc8129778f60649",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 180.428,
+      "duration": 18.024
     },
     {
       "index": 18,
       "text": "viewer.scene.primitives.add(particleSystem) ——粒子是渲染原语",
       "hash": "8b1052dda6494d61",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 198.452,
+      "duration": 5.277
     },
     {
       "index": 19,
       "text": "modelMatrix + Transforms.eastNorthUpToFixedFrame(position) 是\"把特效放地上\"的标准姿势",
       "hash": "d6d8b2783740c001",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 203.729,
+      "duration": 8.202
     },
     {
       "index": 20,
       "text": "稳态粒子数 约等于 emissionRate × 平均 particleLife——先算账，再调参",
       "hash": "3ffc119d3e069937",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 211.931,
+      "duration": 6.896
     },
     {
       "index": 21,
       "text": "3. 四种发射器与 bursts：控制\"出生方式\"",
       "hash": "f60b54f18e2ee5a2",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 218.828,
+      "duration": 4.206
     },
     {
       "index": 22,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 223.033,
+      "duration": 2.664
     },
     {
       "index": 23,
       "text": "bursts ：在指定时刻一次性\"喷一批\"——烟花的爆炸、开局的一阵烟：",
       "hash": "718bc1f0ccab7618",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 225.698,
+      "duration": 5.956
     },
     {
       "index": 24,
       "text": "bursts 与 emissionRate 可以叠加 ：continuous 出烟 + 定点爆发出火星，一个系统两种节奏。系统寿命 lifetime 到了会触发 complete 事件（配合 loop: false 做\"播一次就完\"的一次性特效）——注意 loop 默认 true 时 lifetime 到点会自动归零重来、 complete 永不触发 ； lifetime 为默认 Number.MAXVALUE 时该机制整体关闭。",
       "hash": "a6249cd351445fb0",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 231.654,
+      "duration": 29.309
     },
     {
       "index": 25,
       "text": "4. updateCallback：给粒子装上物理",
       "hash": "1de820b027550471",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 260.963,
+      "duration": 3.631
     },
     {
       "index": 26,
       "text": "(particle, dt) 回调是粒子系统的\"物理引擎接口\"—— particle 有 position / velocity / mass 等字段， dt 是帧间隔（秒）。雨和雪的区别就写在回调里：",
       "hash": "2d8499e7be42d944",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 264.594,
+      "duration": 13.479
     },
     {
       "index": 27,
       "text": "把回调与发射器组合成 天气系统 ：雨用大范围 BoxEmitter 罩住相机上方区域 + 高速下落 + 细长贴图；雪用 CircleEmitter + 慢速 + 白色圆点贴图 + 摆动回调。官方 Sandcastle 的 Rain / Snow 示例就是这套组合，可直接对照。",
       "hash": "d42d56b8f32ab71e",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 278.073,
+      "duration": 21.786
     },
     {
       "index": 28,
       "text": "回调 = 每帧 × 每颗活粒子。纪律三条：① 预分配临时向量复用（示例里的 tmp1/tmp2）， 绝不 new 对象 ；② 常量计算（如风向向量）提到回调外；③ 粒子数上千后先看帧率，再决定要不要降 emissionRate。",
       "hash": "3302f604f1955614",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 299.86,
+      "duration": 19.984
     },
     {
       "index": 29,
       "text": "5. 性能账本与选型",
       "hash": "0f81ed9e00561cce",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 319.843,
+      "duration": 2.795
     },
     {
       "index": 30,
       "text": "粒子的开销 = 常驻数量 × 单粒绘制成本。控制手段：",
       "hash": "8a756f498bd182d8",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 322.638,
+      "duration": 5.277
     },
     {
       "index": 31,
       "text": "什么时候 不用 粒子：标注（用 Entity 三件套，第 5 章）、少量可交互对象（拾取粒子很绕，业务上应放隐形 Entity 代理）、海量静态点（用 PointPrimitiveCollection ，第 10 章）。粒子的领域是\" 大量 + 短命 + 有运动规律 \"的视觉效果。",
       "hash": "58bee0d6f03df950",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 327.915,
+      "duration": 19.749
     },
     {
       "index": 32,
       "text": "综合练习：在第 10 章的收官看板上加一场雪——以相机所在位置为中心的大范围降雪（跟随相机移动），雪花缓慢下落并横向摆动，白色圆点贴图，密度控制在 500 颗常驻以内。",
       "hash": "c6cc4258279b42b4",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 347.664,
+      "duration": 15.386
     },
     {
       "index": 33,
       "text": "6. 本章小结",
       "hash": "952a4cb932518efd",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 363.05,
+      "duration": 2.142
     },
     {
       "index": 34,
       "text": "粒子三件套：Emitter（出生）+ 生命周期（插值衰减）+ updateCallback（每帧施力）。",
       "hash": "991f365cd190c4fa",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 365.192,
+      "duration": 8.385
     },
     {
       "index": 35,
       "text": "落地姿势： primitives.add + modelMatrix （eastNorthUpToFixedFrame）。",
       "hash": "53efb2fe329f397b",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 373.577,
+      "duration": 6.426
     },
     {
       "index": 36,
       "text": "数量账：emissionRate × 平均寿命 = 常驻粒子数；贴图小、不透明粒子更省。",
       "hash": "50f58536d938c905",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 380.003,
+      "duration": 7.732
     },
     {
       "index": 37,
       "text": "适用边界：大量、短命、有运动规律的视觉元素；可交互对象与静态点海另有正主。",
       "hash": "fff9ed1fe5aeaf32",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 387.736,
+      "duration": 7.393
     },
     {
       "index": 38,
       "text": "至此，你的三维看板有了完整的表现力层次：底图、地形、实体、模型、时间动态、天气特效。三维 GIS 的\"展示\"侧到本章收官——下一步是把第 09 章的量算与本章特效结合，或接真实数据源做行业场景。",
       "hash": "bacb399fc40d68f5",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "start": 395.128,
+      "duration": 18.651
     },
     {
       "index": 39,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "start": 413.78,
+      "duration": 1.306
     },
     {
       "index": 40,
       "text": "粒子系统官方教程： CesiumJS Particle System 教程 （含火焰/天气完整示例）",
       "hash": "b58362cfa4708d46",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "start": 415.086,
+      "duration": 6.975
     },
     {
       "index": 41,
       "text": "ParticleSystem API 参考： Cesium.ParticleSystem",
       "hash": "c73385f084c28663",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "start": 422.06,
+      "duration": 4.624
     },
     {
       "index": 42,
       "text": "发射器家族： Cesium.ParticleEmitter",
       "hash": "fb5b50c10b308845",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "start": 426.684,
+      "duration": 3.736
     },
     {
       "index": 43,
       "text": "官方天气示例：Sandcastle 搜索 Rain / Snow / Weather",
       "hash": "3ce3bddcd2eb390c",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "start": 430.42,
+      "duration": 4.441
     },
     {
       "index": 44,
       "text": "前置章节： CesiumJS 课 乘 性能优化与实战收官",
       "hash": "47e07f17a46e4ce7",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "start": 434.86,
+      "duration": 4.571
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133716384_10-particles-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.792Z"
 }

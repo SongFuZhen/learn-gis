@@ -8,367 +8,494 @@
       "index": 0,
       "text": "白话版（先看这个）",
       "hash": "6977374ca2a45355",
-      "audio": "seg00.mp3"
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.612
     },
     {
       "index": 1,
       "text": "老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。 这章解决什么问题 ：你已经会用 Leaflet 打开一张平面地图（ GIS 课第 15 章 ），但地球是三维的——山有高度、楼有楼层、卫星在天上飞。 CesiumJS （开源三维地球引擎）就是干这个的：它给你一个能转、能飞、能加载三维城市的\"数字地球\"。 我的经验一句话 ：Leaflet 是\"看地图\"，Cesium 是\"进入地图\"——思维方式要从\"图层叠瓦片\"升级为\"场景里放对象\"。 我见过的坑（你大概率也会踩） ：",
       "hash": "e77019752912d3ca",
-      "audio": "seg01.mp3"
+      "audio": "seg01.mp3",
+      "start": 2.612,
+      "duration": 42.658
     },
     {
       "index": 2,
       "text": "new Cesium.Viewer(...) 什么都不配就跑——默认会去请求 Cesium ion 的付费影像服务，没有 token 直接 401 报错。本章第一个要记住的事就是： 底图必须显式指定 。",
       "hash": "3428946e3886dbf8",
-      "audio": "seg02.mp3"
+      "audio": "seg02.mp3",
+      "start": 45.27,
+      "duration": 14.498
     },
     {
       "index": 3,
       "text": "把 CesiumJS 和 ion 搞混——前者是开源引擎（Apache 2.0），后者是官方的数据托管服务（有免费额度但需要注册账号）。不注册 ion 也完全可以学完本课程，我们全程用 OpenStreetMap 等免费数据源。",
       "hash": "5277a21e9971be56",
-      "audio": "seg03.mp3"
+      "audio": "seg03.mp3",
+      "start": 59.768,
+      "duration": 16.744
     },
     {
       "index": 4,
       "text": "在 React/Vue 里直接 import 后页面白屏——Cesium 操作真实 DOM，必须等容器渲染完成再初始化，且要关闭服务端渲染。 必记 3 条 ：",
       "hash": "61be58ece494daa8",
-      "audio": "seg04.mp3"
+      "audio": "seg04.mp3",
+      "start": 76.513,
+      "duration": 11.677
     },
     {
       "index": 5,
       "text": "创建 Viewer 必须显式给 baseLayer ，否则默认请求 ion 影像并报 401",
       "hash": "61e45e9b229c32c9",
-      "audio": "seg05.mp3"
+      "audio": "seg05.mp3",
+      "start": 88.189,
+      "duration": 5.878
     },
     {
       "index": 6,
       "text": "Cesium 的经纬度是「经度在前、纬度在后」（lon, lat），和 GIS 课的 (lat, lng) 习惯相反",
       "hash": "f000c771e7bfc256",
-      "audio": "seg06.mp3"
+      "audio": "seg06.mp3",
+      "start": 94.067,
+      "duration": 9.117
     },
     {
       "index": 7,
       "text": "学 Cesium 最好的草稿本是官方 Sandcastle，改一行看一次效果",
       "hash": "9dccd3600dd0cfc9",
-      "audio": "seg07.mp3"
+      "audio": "seg07.mp3",
+      "start": 103.184,
+      "duration": 5.695
     },
     {
       "index": 8,
       "text": "本章你会学到",
       "hash": "2d47d26230218cbb",
-      "audio": "seg08.mp3"
+      "audio": "seg08.mp3",
+      "start": 108.878,
+      "duration": 1.593
     },
     {
       "index": 9,
       "text": "这一章不写任何业务，只把\"环境 + 第一个球\"跑通：Cesium 和二维地图库的本质区别是什么、本地环境怎么搭、一个最小可用的 Viewer（查看器）长什么样、以及官方 Sandcastle 怎么当草稿本用。学完这章，你有一个能转的三维地球，并且知道它为什么不会 401。",
       "hash": "77203955893541e5",
-      "audio": "seg09.mp3"
+      "audio": "seg09.mp3",
+      "start": 110.472,
+      "duration": 20.532
     },
     {
       "index": 10,
       "text": "1. Cesium 和 Leaflet 的本质区别",
       "hash": "3420e8f2ed1d0b84",
-      "audio": "seg10.mp3"
+      "audio": "seg10.mp3",
+      "start": 131.004,
+      "duration": 3.213
     },
     {
       "index": 11,
       "text": "GIS 课第 15 章 讲过：Leaflet / MapLibre / OpenLayers 是 二维瓦片地图库 ——世界被投影成平面方格（Web 墨卡托），库把方格拼起来给你看。Cesium 走的是另一条路：",
       "hash": "02fb22dcbcdd4efc",
-      "audio": "seg11.mp3"
+      "audio": "seg11.mp3",
+      "start": 134.217,
+      "duration": 15.491
     },
     {
       "index": 12,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg12.mp3"
+      "audio": "seg12.mp3",
+      "start": 149.708,
+      "duration": 2.795
     },
     {
       "index": 13,
       "text": "一句话： 只要需求里出现\"三维\"\"倾斜\"\"地形\"\"时间回放\"中的任何一个，就该上 Cesium ；只是标个点画条线，Leaflet 依然是最优解。",
       "hash": "db0eb4d0dc919d38",
-      "audio": "seg13.mp3"
+      "audio": "seg13.mp3",
+      "start": 152.503,
+      "duration": 11.729
     },
     {
       "index": 14,
       "text": "Cesium 是元素「铯」——铯原子钟定义了时间标准，对应 Cesium 对\"时间维度\"的一等支持。中文里引擎名不翻译，读。",
       "hash": "061d408253c387f0",
-      "audio": "seg14.mp3"
+      "audio": "seg14.mp3",
+      "start": 164.232,
+      "duration": 9.822
     },
     {
       "index": 15,
       "text": "2. 环境准备：Vite + npm",
       "hash": "15ea96779ef035a8",
-      "audio": "seg15.mp3"
+      "audio": "seg15.mp3",
+      "start": 174.054,
+      "duration": 3.5
     },
     {
       "index": 16,
       "text": "本课程所有示例都假设你用 Vite 起了一个纯前端项目（不需要框架，Vanilla JS 最直观）：",
       "hash": "3b82e8d32b40ef86",
-      "audio": "seg16.mp3"
+      "audio": "seg16.mp3",
+      "start": 177.554,
+      "duration": 7.497
     },
     {
       "index": 17,
       "text": "装好后还要做一步 资源拷贝 ：Cesium 自带 Workers、Assets、Widgets、ThirdParty 四个静态目录，打包工具不会自动搬它们。Vite 下用 vite-plugin-static-copy 或手动把 nodemodules/cesium/Build/Cesium/ 下的这四个目录拷到输出目录，并声明全局路径：",
       "hash": "bb051d5efd5419ea",
-      "audio": "seg17.mp3"
+      "audio": "seg17.mp3",
+      "start": 185.051,
+      "duration": 21.603
     },
     {
       "index": 18,
       "text": "不想折腾本地环境？直接开 Sandcastle ——官方在线示例场，左边改代码右边看球，本章所有代码都能粘进去跑。",
       "hash": "8c7aefad4e3d64bb",
-      "audio": "seg18.mp3"
+      "audio": "seg18.mp3",
+      "start": 206.655,
+      "duration": 9.639
     },
     {
       "index": 19,
       "text": "3. 第一个 Viewer：显式指定免费底图",
       "hash": "358641a5971625a8",
-      "audio": "seg19.mp3"
+      "audio": "seg19.mp3",
+      "start": 216.294,
+      "duration": 4.101
     },
     {
       "index": 20,
       "text": "下面是本课程 最模板化的十行代码 ——每个示例的第一步都是它：",
       "hash": "eb60e713d4459ec4",
-      "audio": "seg20.mp3"
+      "audio": "seg20.mp3",
+      "start": 220.395,
+      "duration": 6.113
     },
     {
       "index": 21,
       "text": "不带 baseLayer 参数的 Viewer 会用默认的 ion 托管影像（Bing 影像）。没有 token 时控制台直接甩一个 401 Unauthorized ，画面变空球。这不是 bug，是\"数据源需要授权\"。本课程所有代码都显式指定免费底图；如果你在别处看到别人的 demo 一行配置都没写还能出图，那是因为人家注册过 ion 并设了 Cesium.Ion.defaultAccessToken 。",
       "hash": "2c8d183809b4b947",
-      "audio": "seg21.mp3"
+      "audio": "seg21.mp3",
+      "start": 226.508,
+      "duration": 29.1
     },
     {
       "index": 22,
       "text": "跑起来后你会看到一个可以拖转的地球。右下角自带几个控件：罗盘（转向）、比例尺、动画时钟。用鼠标试三件事： 左键拖 = 转球 、 中键/右键缩放 = 推近拉远 、 按住右键或 Ctrl+左键拖 = 倾斜视角 ——最后一个就是二维地图库永远给不了你的\"贴地看城市\"。",
       "hash": "4c3386819ebba7ee",
-      "audio": "seg22.mp3"
+      "audio": "seg22.mp3",
+      "start": 255.608,
+      "duration": 23.458
     },
     {
       "index": 23,
       "text": "4. Sandcastle：官方草稿本",
       "hash": "cf6727bd976d21a6",
-      "audio": "seg23.mp3"
+      "audio": "seg23.mp3",
+      "start": 279.066,
+      "duration": 2.664
     },
     {
       "index": 24,
       "text": "Sandcastle 是官方的在线示例场：每个官方 API 都有可运行的示例，左边代码右边球，改完即见。三个用法建议：",
       "hash": "adb3bdd39f61d671",
-      "audio": "seg24.mp3"
+      "audio": "seg24.mp3",
+      "start": 281.731,
+      "duration": 9.874
     },
     {
       "index": 25,
       "text": "查 API 用法 ：想不起 flyTo 参数怎么写，去 Sandcastle 搜 \"camera flyTo\"，抄现成的。",
       "hash": "2b91f040b6393ee6",
-      "audio": "seg25.mp3"
+      "audio": "seg25.mp3",
+      "start": 291.605,
+      "duration": 7.628
     },
     {
       "index": 26,
       "text": "验证猜想 ：不确定某个 Provider 在你的网络环境能不能出图，先在 Sandcastle 试，再搬回本地。",
       "hash": "04aca0474f13190c",
-      "audio": "seg26.mp3"
+      "audio": "seg26.mp3",
+      "start": 299.233,
+      "duration": 7.993
     },
     {
       "index": 27,
       "text": "读官方示例源码 ：Sandcastle 每个示例下方有源码 tab，是免费的最佳实践库。",
       "hash": "e099c257b3a9655d",
-      "audio": "seg27.mp3"
+      "audio": "seg27.mp3",
+      "start": 307.226,
+      "duration": 7.993
     },
     {
       "index": 28,
       "text": "new Cesium.Viewer(el, { baseLayer: 显式指定 }) ——不给 baseLayer 就是 401",
       "hash": "f91d9b23a5b8ea73",
-      "audio": "seg28.mp3"
+      "audio": "seg28.mp3",
+      "start": 315.22,
+      "duration": 7.393
     },
     {
       "index": 29,
       "text": "Cesium 的地理坐标是 (经度, 纬度) 顺序（lon, lat），与前端常见的 (lat, lng) 相反",
       "hash": "3e0b7b077261ff65",
-      "audio": "seg29.mp3"
+      "audio": "seg29.mp3",
+      "start": 322.612,
+      "duration": 7.393
     },
     {
       "index": 30,
       "text": "本地环境必须处理 CESIUMBASEURL 与四个静态资源目录；图省事直接用 Sandcastle",
       "hash": "7c359b07b0ef4e5c",
-      "audio": "seg30.mp3"
+      "audio": "seg30.mp3",
+      "start": 330.005,
+      "duration": 9.404
     },
     {
       "index": 31,
       "text": "把示例里的 OpenStreetMap 换成另一个免费瓦片源试试，比如 ArcGIS World Imagery（免费瓦片服务，无需 token）：",
       "hash": "50259e111561486a",
-      "audio": "seg31.mp3"
+      "audio": "seg31.mp3",
+      "start": 339.409,
+      "duration": 10.005
     },
     {
       "index": 32,
       "text": "观察两件事：卫星影像和 OSM 街道图在\"拉近到城市\"时视觉信息量的差异；以及影像模式下再倾斜视角（Ctrl+左键拖），地形起伏感是否更强——这为第 03 章讲\"影像之外的第二层（地形）\"埋下伏笔。",
       "hash": "1887338e3af58080",
-      "audio": "seg32.mp3"
+      "audio": "seg32.mp3",
+      "start": 349.414,
+      "duration": 18.181
     },
     {
       "index": 33,
       "text": "5. 版本基线：课程代码基于哪个版本？",
       "hash": "16db4f8705379b39",
-      "audio": "seg33.mp3"
+      "audio": "seg33.mp3",
+      "start": 367.595,
+      "duration": 3.866
     },
     {
       "index": 34,
       "text": "全课程代码统一基于 CesiumJS 1.107+（2023-07 起） 的写法——这也是当前官方文档与 Sandcastle 的默认风格；在更新的版本上无需改动即可运行。CesiumJS 每月发一个小版本，但 破坏性变更极少 ：绝大多数 API 多年签名稳定，真正影响写法的里程碑只有下面几个。",
       "hash": "2de50c0b06abfc36",
-      "audio": "seg34.mp3"
+      "audio": "seg34.mp3",
+      "start": 371.461,
+      "duration": 25.339
     },
     {
       "index": 35,
       "text": "关键版本里程碑 （只列影响本课程代码的）：",
       "hash": "26b6f3709f04778f",
-      "audio": "seg35.mp3"
+      "audio": "seg35.mp3",
+      "start": 396.8,
+      "duration": 4.206
     },
     {
       "index": 36,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg36.mp3"
+      "audio": "seg36.mp3",
+      "start": 401.006,
+      "duration": 2.795
     },
     {
       "index": 37,
       "text": "新旧写法对照表 （旧教程 到 本课程写法）：",
       "hash": "280a96346d7ce57b",
-      "audio": "seg37.mp3"
+      "audio": "seg37.mp3",
+      "start": 403.801,
+      "duration": 4.571
     },
     {
       "index": 38,
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
-      "audio": "seg38.mp3"
+      "audio": "seg38.mp3",
+      "start": 408.372,
+      "duration": 2.795
     },
     {
       "index": 39,
       "text": "1.115–1.124 近期重大变更（2024 年，按与课程的关联排序） ：",
       "hash": "d206d38bd9839055",
-      "audio": "seg39.mp3"
+      "audio": "seg39.mp3",
+      "start": 411.167,
+      "duration": 7.21
     },
     {
       "index": 40,
       "text": "3D Tiles 碰撞语义变更（1.115/1.116） ：默认关闭与相机的碰撞、Entity 也不再自动贴到 3D Tiles 表面；需要「实体贴楼顶」时设 Cesium3DTileset.enableCollision: true 。老的 disableCollision 字段已移除。",
       "hash": "36e6ba16d91c6749",
-      "audio": "seg40.mp3"
+      "audio": "seg40.mp3",
+      "start": 418.377,
+      "duration": 23.615
     },
     {
       "index": 41,
       "text": "观感默认值变化（1.121） ：MSAA 默认 4 倍 + 色调映射换为 Khronos PBR Neutral——升级后同一份代码「画面变亮、边缘更平滑」，属于官方视觉质量调整，不是代码回归；不满意可通过 PostProcessStageCollection 的 tonemapper/exposure 自定义。",
       "hash": "2cea53fe4bf3d8d7",
-      "audio": "seg41.mp3"
+      "audio": "seg41.mp3",
+      "start": 441.992,
+      "duration": 21.159
     },
     {
       "index": 42,
       "text": "动态位置性能新选项（1.122） ： CallbackPositionProperty 支持懒求值——比每帧全量求值的 CallbackProperty 更省，高频移动目标（第 6 章轨迹）的新推荐。",
       "hash": "5ef292e68d9f0e6b",
-      "audio": "seg42.mp3"
+      "audio": "seg42.mp3",
+      "start": 463.151,
+      "duration": 14.42
     },
     {
       "index": 43,
       "text": "全局椭球可换（1.119） ： Ellipsoid.default 一处设置全 API 生效——做月球/火星场景或非 WGS84 基准面对比时不再逐个传参（GIS 课基准面概念的引擎级落地）。",
       "hash": "8b57408987be03fc",
-      "audio": "seg43.mp3"
+      "audio": "seg43.mp3",
+      "start": 477.571,
+      "duration": 16.17
     },
     {
       "index": 44,
       "text": "地形夸张换家（1.116） ： Globe.terrainExaggeration 已移除，统一到 Scene.verticalExaggeration / verticalExaggerationRelativeHeight 。",
       "hash": "7dd0edd9e1916c0d",
-      "audio": "seg44.mp3"
+      "audio": "seg44.mp3",
+      "start": 493.74,
+      "duration": 12.591
     },
     {
       "index": 45,
       "text": "相机俯仰上限（1.123） ： ScreenSpaceCameraController.maximumTiltAngle 可限制用户最大倾斜角——防钻地/防穿模的交互约束。",
       "hash": "55fd05e74a125e09",
-      "audio": "seg45.mp3"
+      "audio": "seg45.mp3",
+      "start": 506.331,
+      "duration": 11.912
     },
     {
       "index": 46,
       "text": "稳定区 （课程用到、多年无破坏性改动，旧资料可放心引用）：Entity 体系、GeoJsonDataSource、CallbackProperty、CZML 文档结构、ScreenSpaceEventHandler 与 pick、EllipsoidGeodesic / EllipsoidTangentPlane、Clock。",
       "hash": "8b4a427883aaf918",
-      "audio": "seg46.mp3"
+      "audio": "seg46.mp3",
+      "start": 518.243,
+      "duration": 19.096
     },
     {
       "index": 47,
       "text": "每个版本的废弃与破坏性变更都记录在仓库的 CHANGES.md（按版本倒序）；升级前搜一下你用到的类名即可确认写法是否过期。",
       "hash": "f5073a78beb7a866",
-      "audio": "seg47.mp3"
+      "audio": "seg47.mp3",
+      "start": 537.339,
+      "duration": 12.382
     },
     {
       "index": 48,
       "text": "6. 本章小结",
       "hash": "952a4cb932518efd",
-      "audio": "seg48.mp3"
+      "audio": "seg48.mp3",
+      "start": 549.721,
+      "duration": 2.194
     },
     {
       "index": 49,
       "text": "Cesium = 三维 + 时间维度的地球引擎；Leaflet = 二维瓦片库。需求决定选型。",
       "hash": "785d4fe5e47a3212",
-      "audio": "seg49.mp3"
+      "audio": "seg49.mp3",
+      "start": 551.915,
+      "duration": 7.445
     },
     {
       "index": 50,
       "text": "环境两件事：装 cesium 包 + 处理静态资源（ CESIUMBASEURL ）。",
       "hash": "d571bcd0164b590f",
-      "audio": "seg50.mp3"
+      "audio": "seg50.mp3",
+      "start": 559.36,
+      "duration": 7.131
     },
     {
       "index": 51,
       "text": "第一个 Viewer 必须显式指定免费底图 ，这是本课程的\"第 0 号惯例\"。",
       "hash": "41290b403d6399d9",
-      "audio": "seg51.mp3"
+      "audio": "seg51.mp3",
+      "start": 566.491,
+      "duration": 6.139
     },
     {
       "index": 52,
       "text": "Sandcastle 是草稿本，官方示例源码是免费的最佳实践库。",
       "hash": "73ec015dcb754e29",
-      "audio": "seg52.mp3"
+      "audio": "seg52.mp3",
+      "start": 572.63,
+      "duration": 5.068
     },
     {
       "index": 53,
       "text": "下一章：让相机飞起来——把 GIS 课的经纬度真正\"放\"到这个球上。",
       "hash": "31f8176d212c8b06",
-      "audio": "seg53.mp3"
+      "audio": "seg53.mp3",
+      "start": 577.698,
+      "duration": 6.008
     },
     {
       "index": 54,
       "text": "延伸阅读",
       "hash": "e558bd3b8ec12c95",
-      "audio": "seg54.mp3"
+      "audio": "seg54.mp3",
+      "start": 583.706,
+      "duration": 1.176
     },
     {
       "index": 55,
       "text": "官方入门教程（本章环境部分的最佳补充）： CesiumJS Quickstart",
       "hash": "d8868f4243188eb2",
-      "audio": "seg55.mp3"
+      "audio": "seg55.mp3",
+      "start": 584.882,
+      "duration": 6.557
     },
     {
       "index": 56,
       "text": "在线草稿本： Sandcastle 官方示例场",
       "hash": "5877c4bf04e6e857",
-      "audio": "seg56.mp3"
+      "audio": "seg56.mp3",
+      "start": 591.438,
+      "duration": 3.5
     },
     {
       "index": 57,
       "text": "源码与许可证： CesiumGS/cesium（GitHub）",
       "hash": "0b27dbf7a4e9fc2f",
-      "audio": "seg57.mp3"
+      "audio": "seg57.mp3",
+      "start": 594.939,
+      "duration": 4.153
     },
     {
       "index": 58,
       "text": "Vite 集成示例模板： cesium-vite（社区）",
       "hash": "63f2687f93723bbf",
-      "audio": "seg58.mp3"
+      "audio": "seg58.mp3",
+      "start": 599.092,
+      "duration": 4.284
     },
     {
       "index": 59,
       "text": "OSM 瓦片使用政策（免费不等于无限制）： osmfoundation.org/policies/tiles",
       "hash": "e69f711f5d0fe4c9",
-      "audio": "seg59.mp3"
+      "audio": "seg59.mp3",
+      "start": 603.376,
+      "duration": 8.568
     },
     {
       "index": 60,
       "text": "版本变更日志（废弃/破坏性变更按版本罗列）： CesiumJS CHANGES.md",
       "hash": "5bb514b458f7fd29",
-      "audio": "seg60.mp3"
+      "audio": "seg60.mp3",
+      "start": 611.944,
+      "duration": 9.665
     }
-  ]
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794133697823_00-cesium-intro-merged.mp3"
+  },
+  "publishedAt": "2026-11-08T10:28:37.777Z"
 }

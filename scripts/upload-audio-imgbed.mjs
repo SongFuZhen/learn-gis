@@ -76,8 +76,21 @@ async function main() {
 
   // 收集任务
   const tasks = [];
+  let mergedPending = 0;
   for (const ch of chapters) {
     const m = JSON.parse(readFileSync(ch.path, 'utf8'));
+    // 整章合并模式（audio:merge 之后）：一章一个文件，KV 写次数 505→1
+    if (m.merged) {
+      if (m.merged.publicUrl) continue;
+      const mp3 = join(MP3_ROOT, ch.slug, m.merged.audio);
+      if (!existsSync(mp3)) {
+        console.error(`缺合并文件：${ch.slug}/${m.merged.audio}，跳过该章`);
+        continue;
+      }
+      mergedPending++;
+      tasks.push({ type: 'merged', slug: ch.slug, mp3, name: `${ch.slug}-merged.mp3`, manifestPath: ch.path });
+      continue;
+    }
     for (const seg of m.segments) {
       if (seg.publicUrl) continue;
       const mp3 = join(MP3_ROOT, ch.slug, seg.audio);
@@ -85,31 +98,26 @@ async function main() {
         console.error(`缺 mp3：${ch.slug}/${seg.audio}，跳过该段`);
         continue;
       }
-      tasks.push({
-        slug: ch.slug,
-        seg,
-        mp3,
-        name: `${ch.slug}-${basename(seg.audio, '.mp3')}.mp3`,
-        manifestPath: ch.path,
-      });
+      tasks.push({ type: 'seg', slug: ch.slug, seg, mp3, name: `${ch.slug}-${basename(seg.audio, '.mp3')}.mp3`, manifestPath: ch.path });
     }
   }
   const skipped = chapters.reduce((n, ch) => {
     const m = JSON.parse(readFileSync(ch.path, 'utf8'));
-    return n + m.segments.filter((s) => s.publicUrl).length;
+    return n + (m.merged ? (m.merged.publicUrl ? m.segments.length : 0) : m.segments.filter((s) => s.publicUrl).length);
   }, 0);
-  console.log(`待上传 ${tasks.length} 段（已带 publicUrl 跳过 ${skipped} 段），并发 ${CONCURRENCY}，渠道 ${CHANNEL}`);
+  console.log(`待上传 ${tasks.length} 项（合并整章 ${mergedPending}，已带 publicUrl 跳过 ${skipped} 段），并发 ${CONCURRENCY}，渠道 ${CHANNEL}`);
 
   const errors = [];
-  const byManifest = new Map(); // manifestPath -> [ {seg, url} ]
+  const byManifest = new Map(); // manifestPath -> [ {type, seg?, url} ]
   await runPool(tasks, async (t) => {
     try {
       const url = await uploadOne(t.mp3, t.name);
       if (!byManifest.has(t.manifestPath)) byManifest.set(t.manifestPath, []);
-      byManifest.get(t.manifestPath).push({ seg: t.seg, url });
+      byManifest.get(t.manifestPath).push({ type: t.type, seg: t.seg, url });
     } catch (e) {
-      errors.push(`${t.slug}/${t.seg.audio}: ${e.message}`);
-      console.error(`FAIL ${t.slug}/${t.seg.audio}: ${e.message}`);
+      const tag = t.type === 'merged' ? t.slug + '/merged' : `${t.slug}/${t.seg.audio}`;
+      errors.push(`${tag}: ${e.message}`);
+      console.error(`FAIL ${tag}: ${e.message}`);
     }
   });
 
@@ -117,18 +125,27 @@ async function main() {
   let written = 0;
   for (const [path, list] of byManifest) {
     const m = JSON.parse(readFileSync(path, 'utf8'));
-    const byAudio = new Map(list.map((x) => [x.seg.audio, x.url]));
-    for (const seg of m.segments) {
-      const url = byAudio.get(seg.audio);
-      if (url) {
-        seg.publicUrl = url;
+    const segList = list.filter((x) => x.type === 'seg');
+    if (segList.length) {
+      const byAudio = new Map(segList.map((x) => [x.seg.audio, x.url]));
+      for (const seg of m.segments) {
+        const url = byAudio.get(seg.audio);
+        if (url) {
+          seg.publicUrl = url;
+          written++;
+        }
+      }
+    }
+    for (const x of list) {
+      if (x.type === 'merged') {
+        m.merged.publicUrl = x.url;
         written++;
       }
     }
     m.publishedAt = new Date().toISOString();
     writeFileSync(path, JSON.stringify(m, null, 2), 'utf8');
   }
-  console.log(`回写 ${written} 段 publicUrl，失败 ${errors.length} 段`);
+  console.log(`回写 ${written} 项 publicUrl，失败 ${errors.length} 项`);
   if (errors.length) {
     console.error('失败清单：\n' + errors.join('\n'));
     process.exit(2);
