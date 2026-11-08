@@ -195,6 +195,18 @@ CloudFlare ImgBed /file/{id}（不进 git）
 | D. 其他对象存储 / CDN | S3 / 火山 TOS / Vercel Blob | 改动点同 §7.3，只换上传脚本与前缀；国内可达、CORS 可控，最稳 |
 | E. git-lfs | `git lfs track 'public/audio/**/*.mp3'` | 配额/带宽成本、clone 变重、二进制 diff 无意义；不推荐 |
 
+### 7.6 整章合并模式（Cesium 课程，KV 写次数优化）
+
+KV 免费版限制的是**写次数**（每文件一次）而非大小——505 个分段文件一天内必撞配额。对策（`npm run audio:merge`）：
+
+- **一章一文件**：`scripts/merge-audio.py` 把各章 `segNN.mp3` 帧级拼接为 `chapter.mp3`（12 章 ≈ 47MB），manifest 加 `merged` 字段 + 段级 `start/duration` 秒偏移
+- **拼接正确性关键**：只剥段间 ID3v2/ID3v1 标签，**保留全部帧**（含各段的 Xing/Info 头帧）——帧字节流连续是对齐的根本；剥离 Xing 帧反而会因帧长计算误差破坏对齐。libsndfile 的 `sf.info` 会被首段 Xing 头骗到（只报首段时长），**验证时长必须用帧遍历**（脚本内置 `walk_frames`）
+- **段时长口径**：用帧遍历测（含 Xing 帧），与拼接后的字节时间线严格一致（最坏偏差 0.003s）；用 `sf.info` 会累计漂移 ~2.5s/章
+- **前端**：`useSpeech` 检测 `merged` 字段 → 整章单文件播放，段切换按 `start` seek（`loadedmetadata` 应用挂起 seek）、`timeupdate` 越界推进段落、无缝衔接不回跳
+- **上传**：`audio:upload` 自动识别 `merged` 模式——一章一文件回写 `merged.publicUrl`（12 次写 vs 505 次）
+- **管线顺序**：`gen:audio`（逐段生成/增量）→ `audio:merge`（合并+偏移）→ `audio:upload`（整章上传）
+- GIS 17 章保持逐段模式不动（已发布 1391 个 publicUrl，合并会使其作废）
+
 ### 7.6 备用方案评估记录
 
 - **方案 F（小批量直入 git）曾于 2026-11-07 启用过一次**（160 段 / 10.56 MB），后按用户决定**撤销**——音频一律不入仓库，统一走图床
