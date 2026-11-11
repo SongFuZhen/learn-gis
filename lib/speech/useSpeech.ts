@@ -81,7 +81,8 @@ export function useSpeech(slug: string) {
   const applyVolume = useCallback((value: number) => {
     const a = audioRef.current;
     if (!a) return;
-    a.volume = Math.min(1, value);
+    // 启用 Web Audio 后统一由 Gain 控制，避免原生音量与增益相乘导致音量被调低两次。
+    a.volume = enhancedRef.current ? 1 : Math.min(1, value);
     if (gainRef.current) gainRef.current.gain.value = enhancedRef.current ? value : 1;
   }, []);
 
