@@ -21,3 +21,6 @@ public/audio/**/*.mp3
 
 # python 编译产物
 __pycache__/
+
+.vercel
+.env*
