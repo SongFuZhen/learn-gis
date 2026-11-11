@@ -86,15 +86,6 @@ export function useSpeech(slug: string) {
     if (gainRef.current) gainRef.current.gain.value = enhancedRef.current ? value : 1;
   }, []);
 
-  const setVolume = useCallback((value: number) => {
-    const next = clampVolume(value);
-    volumeRef.current = next;
-    applyVolume(next);
-    setVolumeState(next);
-    localStorage.setItem(VOLUME_KEY, String(next));
-    window.dispatchEvent(new CustomEvent(VOLUME_EVENT, { detail: next }));
-  }, [applyVolume]);
-
   const enableEnhancement = useCallback(async () => {
     const a = audioRef.current;
     if (!a || volumeRef.current <= 1) return;
@@ -108,7 +99,6 @@ export function useSpeech(slug: string) {
       return;
     }
     if (!sourceRef.current) {
-      a.crossOrigin = 'anonymous';
       sourceRef.current = context.createMediaElementSource(a);
     }
     if (!enhancedRef.current) {
@@ -118,9 +108,26 @@ export function useSpeech(slug: string) {
       gainRef.current.connect(limiter);
       enhancedRef.current = true;
     }
-    await context.resume();
+    // 增益先落地，不依赖 AudioContext.resume() 的时机：播放中把音量拉过 100% 时也要立即生效。
     applyVolume(volumeRef.current);
+    await context.resume().catch(() => {});
   }, [applyVolume]);
+
+  // 首次播放时音量 ≤100% 不会建 Web Audio；之后播放中拉到 >100% 要即时接上增益链路。
+  const activateEnhancementIfNeeded = useCallback(() => {
+    if (enhancedRef.current || volumeRef.current <= 1 || !audioRef.current?.src) return;
+    void enableEnhancement().catch(() => {});
+  }, [enableEnhancement]);
+
+  const setVolume = useCallback((value: number) => {
+    const next = clampVolume(value);
+    volumeRef.current = next;
+    applyVolume(next);
+    setVolumeState(next);
+    localStorage.setItem(VOLUME_KEY, String(next));
+    window.dispatchEvent(new CustomEvent(VOLUME_EVENT, { detail: next }));
+    activateEnhancementIfNeeded();
+  }, [applyVolume, activateEnhancementIfNeeded]);
 
   const playAudio = useCallback((a: HTMLAudioElement) => {
     void enableEnhancement().then(() => {
@@ -166,6 +173,8 @@ export function useSpeech(slug: string) {
   useEffect(() => {
     const a = new Audio();
     a.preload = 'none';
+    // 建源前就固定 CORS 模式，避免播放中途改 crossOrigin 触发重载（音频全程走同源代理）。
+    a.crossOrigin = 'anonymous';
     // 浏览器媒体请求会忽略 referrerPolicy；远程 URL 在 playIndex 走同源 Range 代理。
     audioRef.current = a;
     const onEnded = () => {
@@ -300,6 +309,7 @@ export function useSpeech(slug: string) {
       volumeRef.current = next;
       applyVolume(next);
       setVolumeState(next);
+      activateEnhancementIfNeeded();
     };
     const onStorage = (event: StorageEvent) => {
       if (event.key !== VOLUME_KEY) return;
@@ -307,6 +317,7 @@ export function useSpeech(slug: string) {
       volumeRef.current = next;
       applyVolume(next);
       setVolumeState(next);
+      activateEnhancementIfNeeded();
     };
     window.addEventListener(VOLUME_EVENT, onVolume);
     window.addEventListener('storage', onStorage);
@@ -314,7 +325,7 @@ export function useSpeech(slug: string) {
       window.removeEventListener(VOLUME_EVENT, onVolume);
       window.removeEventListener('storage', onStorage);
     };
-  }, [applyVolume, volume]);
+  }, [applyVolume, activateEnhancementIfNeeded, volume]);
 
   const play = useCallback(() => {
     const a = audioRef.current;

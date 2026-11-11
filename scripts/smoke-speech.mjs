@@ -1,7 +1,7 @@
 // 冒烟验收：真实 Chrome 用受控音频验证朗读播放与手动音量。
 // 不依赖图床 / 公网：page.route 拦截 manifest 与 /api/audio/stream，就地生成 WAV。
-// 覆盖：手动调音量、增益随音量降低、静音恢复上一次音量、播放不重置设置、
-//       刷新持久化、真实播放进度、远程地址走同源流式代理。
+// 覆盖：手动调音量、增益随音量降低、播放中拉过 100% 即时启用增强且不打断播放、
+//       静音恢复上一次音量、播放不重置设置、刷新持久化、真实播放进度、同源流式代理。
 // 用法：先 `npm run dev`，再 `npm run smoke:speech`（BASE_URL 可覆盖）
 import { chromium } from "playwright-core";
 
@@ -62,82 +62,86 @@ function check(ok, label, detail = "") {
 }
 const near = (a, b) => typeof a === "number" && Math.abs(a - b) < 0.02;
 
-const browser = await chromium.launch({
-  channel: "chrome",
-  headless: true,
-  args: ["--autoplay-policy=no-user-gesture-required"],
-});
-const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
-const pageErrors = [];
-page.on("pageerror", (e) => pageErrors.push(String(e)));
+// ---- 页面夹具 ----
+async function installProbe(page) {
+  // 抓到 useSpeech 内部创建的 Audio / GainNode / AudioContext，才能断言真实增益而非界面数字
+  await page.addInitScript(() => {
+    const probe = { audio: null, gain: null, context: null, enhanced: false };
+    window.__speechProbe = probe;
 
-// 探针：抓到 useSpeech 内部创建的 Audio / GainNode，才能断言真实增益而非界面数字
-await page.addInitScript(() => {
-  const probe = { audio: null, gain: null, enhanced: false };
-  window.__speechProbe = probe;
+    const NativeAudio = window.Audio;
+    function WrappedAudio(...args) {
+      const el = new NativeAudio(...args);
+      probe.audio = el;
+      return el;
+    }
+    WrappedAudio.prototype = NativeAudio.prototype;
+    window.Audio = WrappedAudio;
 
-  const NativeAudio = window.Audio;
-  function WrappedAudio(...args) {
-    const el = new NativeAudio(...args);
-    probe.audio = el;
-    return el;
-  }
-  WrappedAudio.prototype = NativeAudio.prototype;
-  window.Audio = WrappedAudio;
-
-  for (const Ctor of [window.AudioContext, window.webkitAudioContext]) {
-    if (!Ctor) continue;
-    const createGain = Ctor.prototype.createGain;
-    Ctor.prototype.createGain = function (...args) {
-      const node = createGain.apply(this, args);
-      probe.gain = node;
-      return node;
-    };
-    const createSource = Ctor.prototype.createMediaElementSource;
-    Ctor.prototype.createMediaElementSource = function (...args) {
-      probe.enhanced = true;
-      return createSource.apply(this, args);
-    };
-  }
-});
-
-// 受控数据：manifest + 音频（支持 Range，保证边下边播与 seek）
-await page.route(/\/audio\//, async (route) => {
-  const url = new URL(route.request().url());
-  if (url.pathname.endsWith("manifest.json")) {
-    await route.fulfill({
-      status: 200,
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify(manifest),
-    });
-    return;
-  }
-  const range = route.request().headers().range ?? "";
-  const match = /bytes=(\d+)-(\d*)/.exec(range);
-  const start = match ? Number(match[1]) : 0;
-  const end = match && match[2] ? Math.min(Number(match[2]), WAV.length - 1) : WAV.length - 1;
-  const chunk = WAV.subarray(start, end + 1);
-  await route.fulfill({
-    status: match ? 206 : 200,
-    headers: {
-      "content-type": "audio/wav",
-      "content-length": String(chunk.length),
-      "accept-ranges": "bytes",
-      "access-control-allow-origin": "*",
-      ...(match ? { "content-range": `bytes ${start}-${end}/${WAV.length}` } : {}),
-    },
-    body: chunk,
+    for (const Ctor of [window.AudioContext, window.webkitAudioContext]) {
+      if (!Ctor) continue;
+      const createGain = Ctor.prototype.createGain;
+      Ctor.prototype.createGain = function (...args) {
+        const node = createGain.apply(this, args);
+        probe.gain = node;
+        return node;
+      };
+      const createSource = Ctor.prototype.createMediaElementSource;
+      Ctor.prototype.createMediaElementSource = function (...args) {
+        probe.enhanced = true;
+        probe.context = this;
+        return createSource.apply(this, args);
+      };
+    }
   });
-});
+}
 
-const slider = page.locator('input[aria-label="朗读音量"]');
-const volume = () => slider.inputValue();
-const gain = () => page.evaluate(() => window.__speechProbe.gain?.gain.value ?? null);
-const audioVolume = () => page.evaluate(() => window.__speechProbe.audio?.volume ?? null);
-const audioSrc = () => page.evaluate(() => window.__speechProbe.audio?.src ?? "");
+async function installRoutes(page) {
+  // 受控数据：manifest + 音频（支持 Range，保证边下边播与 seek）
+  await page.route(/\/audio\//, async (route) => {
+    const url = new URL(route.request().url());
+    if (url.pathname.endsWith("manifest.json")) {
+      await route.fulfill({
+        status: 200,
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(manifest),
+      });
+      return;
+    }
+    const range = route.request().headers().range ?? "";
+    const match = /bytes=(\d+)-(\d*)/.exec(range);
+    const start = match ? Number(match[1]) : 0;
+    const end = match && match[2] ? Math.min(Number(match[2]), WAV.length - 1) : WAV.length - 1;
+    const chunk = WAV.subarray(start, end + 1);
+    await route.fulfill({
+      status: match ? 206 : 200,
+      headers: {
+        "content-type": "audio/wav",
+        "content-length": String(chunk.length),
+        "accept-ranges": "bytes",
+        "access-control-allow-origin": "*",
+        ...(match ? { "content-range": `bytes ${start}-${end}/${WAV.length}` } : {}),
+      },
+      body: chunk,
+    });
+  });
+}
 
-async function setVolume(value) {
-  await slider.evaluate((el, v) => {
+// ---- 页面内读数与操作 ----
+const sliderOf = (page) => page.locator('input[aria-label="朗读音量"]');
+const volume = (page) => sliderOf(page).inputValue();
+const gain = (page) => page.evaluate(() => window.__speechProbe.gain?.gain.value ?? null);
+const audioVolume = (page) => page.evaluate(() => window.__speechProbe.audio?.volume ?? null);
+const audioSrc = (page) => page.evaluate(() => window.__speechProbe.audio?.src ?? "");
+const probe = (page) =>
+  page.evaluate(() => ({
+    enhanced: window.__speechProbe.enhanced,
+    contextState: window.__speechProbe.context?.state ?? null,
+  }));
+const currentTime = (page) => page.evaluate(() => window.__speechProbe.audio?.currentTime ?? -1);
+
+async function setVolume(page, value) {
+  await sliderOf(page).evaluate((el, v) => {
     const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, "value").set;
     setter.call(el, String(v));
     el.dispatchEvent(new Event("input", { bubbles: true }));
@@ -145,7 +149,7 @@ async function setVolume(value) {
   }, value);
 }
 
-async function waitPlaying() {
+async function waitPlaying(page) {
   await page.waitForFunction(
     () => {
       const a = window.__speechProbe.audio;
@@ -156,20 +160,33 @@ async function waitPlaying() {
   );
 }
 
+const browser = await chromium.launch({
+  channel: "chrome",
+  headless: true,
+  args: ["--autoplay-policy=no-user-gesture-required"],
+});
+
+// ========== 场景一：默认 200% 起播 ==========
+const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+const pageErrors = [];
+page.on("pageerror", (e) => pageErrors.push(String(e)));
+await installProbe(page);
+await installRoutes(page);
+
 await page.goto(PAGE, { waitUntil: "networkidle" });
-await slider.waitFor();
+await sliderOf(page).waitFor();
 
 // 1) 默认 200% 可手动调节
-check((await volume()) === "2", "默认音量为 200%", await volume());
-check((await slider.getAttribute("aria-valuetext"))?.includes("200%"), "界面显示 200% 增强");
+check((await volume(page)) === "2", "默认音量为 200%", await volume(page));
+check((await sliderOf(page).getAttribute("aria-valuetext"))?.includes("200%"), "界面显示 200% 增强");
 
 // 2) 播放：远程地址走同源流式代理，Web Audio 增益 = 2 且原生音量不被二次调低
 await page.getByRole("button", { name: "播放", exact: true }).click();
-await waitPlaying();
-check((await audioSrc()).includes("/api/audio/stream?url="), "远程音频经 /api/audio/stream 同源代理", await audioSrc());
+await waitPlaying(page);
+check((await audioSrc(page)).includes("/api/audio/stream?url="), "远程音频经 /api/audio/stream 同源代理", await audioSrc(page));
 await page.waitForFunction(() => window.__speechProbe.gain !== null, null, { timeout: 10000 });
-check(near(await gain(), 2), "增强后 Gain = 2（默认音量）", String(await gain()));
-check((await audioVolume()) === 1, "增强后原生音量保持 1，不与增益相乘", String(await audioVolume()));
+check(near(await gain(page), 2), "增强后 Gain = 2（默认音量）", String(await gain(page)));
+check((await audioVolume(page)) === 1, "增强后原生音量保持 1，不与增益相乘", String(await audioVolume(page)));
 
 // 3) 真实播放推进：整章合并模式下按段级 start/duration 跳段
 await page.waitForFunction(() => /\b2 \/ 3\b/.test(document.body.innerText), null, { timeout: 15000 });
@@ -178,28 +195,28 @@ await page.waitForFunction(() => /\b3 \/ 3\b/.test(document.body.innerText), nul
 check(true, "播放推进到第 3 段（真实音频 timeupdate）");
 
 // 4) 手动调低音量要实际降低增益，不是只改界面
-await setVolume(0.5);
-check((await volume()) === "0.5", "滑块调到 50%");
-check(near(await gain(), 0.5), "调低音量后 Gain 实际降到 0.5", String(await gain()));
-check((await audioVolume()) === 1, "调低音量后原生音量仍为 1", String(await audioVolume()));
+await setVolume(page, 0.5);
+check((await volume(page)) === "0.5", "滑块调到 50%");
+check(near(await gain(page), 0.5), "调低音量后 Gain 实际降到 0.5", String(await gain(page)));
+check((await audioVolume(page)) === 1, "调低音量后原生音量仍为 1", String(await audioVolume(page)));
 
 // 5) 手动调高、倍速区外仍保留用户设置
-await setVolume(1.5);
-check((await slider.getAttribute("aria-valuetext"))?.includes("150%"), "界面显示 150% 增强");
-check(near(await gain(), 1.5), "Gain 同步升到 1.5", String(await gain()));
+await setVolume(page, 1.5);
+check((await sliderOf(page).getAttribute("aria-valuetext"))?.includes("150%"), "界面显示 150% 增强");
+check(near(await gain(page), 1.5), "Gain 同步升到 1.5", String(await gain(page)));
 
 // 6) 静音 → 恢复：回到静音前的音量，而不是固定 200%
 await page.getByRole("button", { name: "静音", exact: true }).click();
-check((await volume()) === "0", "静音后音量为 0");
-check(near(await gain(), 0), "静音后 Gain 为 0", String(await gain()));
+check((await volume(page)) === "0", "静音后音量为 0");
+check(near(await gain(page), 0), "静音后 Gain 为 0", String(await gain(page)));
 await page.getByRole("button", { name: "恢复音量", exact: true }).click();
-check((await volume()) === "1.5", "取消静音恢复到静音前的 150%（非 200%）", await volume());
+check((await volume(page)) === "1.5", "取消静音恢复到静音前的 150%（非 200%）", await volume(page));
 
 // 7) 暂停后再次播放不重置用户音量
 await page.getByRole("button", { name: "暂停", exact: true }).click();
 await page.getByRole("button", { name: "播放", exact: true }).click();
-await waitPlaying();
-check((await volume()) === "1.5", "重新播放后音量仍为 150%", await volume());
+await waitPlaying(page);
+check((await volume(page)) === "1.5", "重新播放后音量仍为 150%", await volume(page));
 check(
   (await page.evaluate(() => localStorage.getItem("learn-gis:speech-volume"))) === "1.5",
   "音量写入 localStorage",
@@ -207,15 +224,59 @@ check(
 
 // 8) 刷新持久化，且增强链路按持久化音量重建（不二次调低）
 await page.reload({ waitUntil: "networkidle" });
-await slider.waitFor();
-check((await volume()) === "1.5", "刷新后音量仍为 150%", await volume());
+await sliderOf(page).waitFor();
+check((await volume(page)) === "1.5", "刷新后音量仍为 150%", await volume(page));
 await page.getByRole("button", { name: "播放", exact: true }).click();
-await waitPlaying();
+await waitPlaying(page);
 await page.waitForFunction(() => window.__speechProbe.gain !== null, null, { timeout: 10000 });
-check(near(await gain(), 1.5), "刷新后重建的 Gain = 1.5", String(await gain()));
-check((await audioVolume()) === 1, "刷新后原生音量仍为 1", String(await audioVolume()));
+check(near(await gain(page), 1.5), "刷新后重建的 Gain = 1.5", String(await gain(page)));
+check((await audioVolume(page)) === 1, "刷新后原生音量仍为 1", String(await audioVolume(page)));
+check(pageErrors.length === 0, "场景一无未捕获页面异常", pageErrors.slice(0, 3).join(" | "));
 
-check(pageErrors.length === 0, "无未捕获页面异常", pageErrors.slice(0, 3).join(" | "));
+// ========== 场景二：≤100% 起播，播放中拉过 100% ==========
+// 独立页面（独立 storage），预置 80% 音量，模拟「首次播放时音量 ≤100%」
+const page2 = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+const errors2 = [];
+page2.on("pageerror", (e) => errors2.push(String(e)));
+await page2.addInitScript(() => {
+  localStorage.setItem("learn-gis:speech-volume", "0.8");
+});
+await installProbe(page2);
+await installRoutes(page2);
+await page2.goto(PAGE, { waitUntil: "networkidle" });
+await sliderOf(page2).waitFor();
+
+check((await volume(page2)) === "0.8", "场景二：起始音量为 80%（来自持久化值）", await volume(page2));
+await page2.getByRole("button", { name: "播放", exact: true }).click();
+await waitPlaying(page2);
+check(!(await probe(page2)).enhanced, "起始 ≤100% 时未启用 Web Audio 增强");
+check((await audioVolume(page2)) === 0.8, "未增强时原生音量为 0.8", String(await audioVolume(page2)));
+check((await gain(page2)) === null, "此时尚未创建 GainNode");
+
+const t0 = await currentTime(page2);
+await setVolume(page2, 1.5);
+await page2.waitForFunction(() => window.__speechProbe.gain !== null, null, { timeout: 10000 });
+check((await volume(page2)) === "1.5", "播放中把音量拉到 150%");
+check((await probe(page2)).enhanced, "播放中即时接上 Web Audio 增益链路");
+check(near(await gain(page2), 1.5), "播放中启用增强后 Gain = 1.5", String(await gain(page2)));
+check((await audioVolume(page2)) === 1, "增强后原生音量改为 1（不与增益相乘）", String(await audioVolume(page2)));
+await page2.waitForFunction(
+  () => window.__speechProbe.context?.state === "running",
+  null,
+  { timeout: 10000 },
+);
+check((await probe(page2)).contextState === "running", "AudioContext 已 running（不会静音）");
+
+const t1 = await currentTime(page2);
+check(t1 >= t0 - 0.05, "拉高音量未回退播放进度（crossOrigin 未触发重载）", `t0=${t0.toFixed(2)} t1=${t1.toFixed(2)}`);
+await page2.waitForFunction((t) => window.__speechProbe.audio.currentTime > t + 0.25, t1, { timeout: 10000 });
+check(true, "拉高音量后播放继续推进（未重启）");
+check((await sliderOf(page2).getAttribute("aria-valuetext"))?.includes("150%"), "场景二界面显示 150% 增强");
+check(
+  (await page2.evaluate(() => localStorage.getItem("learn-gis:speech-volume"))) === "1.5",
+  "场景二音量写入 localStorage",
+);
+check(errors2.length === 0, "场景二无未捕获页面异常", errors2.slice(0, 3).join(" | "));
 
 await browser.close();
 console.log(
