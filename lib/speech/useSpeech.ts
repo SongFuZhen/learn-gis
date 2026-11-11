@@ -2,6 +2,42 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ChapterManifest } from './manifest';
 
+const VOLUME_KEY = 'learn-gis:speech-volume';
+const VOLUME_EVENT = 'learn-gis:speech-volume-change';
+const DEFAULT_VOLUME = 2;
+
+let sharedContext: AudioContext | null = null;
+let sharedLimiter: DynamicsCompressorNode | null = null;
+let activeAudio: HTMLAudioElement | null = null;
+
+function clampVolume(value: number) {
+  return Math.max(0, Math.min(2, Number.isFinite(value) ? value : DEFAULT_VOLUME));
+}
+
+function audioContext() {
+  if (sharedContext?.state === 'closed') {
+    sharedContext = null;
+    sharedLimiter = null;
+  }
+  if (!sharedContext) {
+    const w = window as typeof window & { webkitAudioContext?: typeof AudioContext };
+    const Context = window.AudioContext ?? w.webkitAudioContext;
+    if (!Context) throw new Error('浏览器不支持 Web Audio 音量增强');
+    sharedContext = new Context();
+  }
+  if (!sharedLimiter) {
+    sharedLimiter = sharedContext.createDynamicsCompressor();
+    // 放大低响度语音时限制突发峰值，避免削波破音。
+    sharedLimiter.threshold.value = -3;
+    sharedLimiter.knee.value = 0;
+    sharedLimiter.ratio.value = 20;
+    sharedLimiter.attack.value = 0.003;
+    sharedLimiter.release.value = 0.15;
+    sharedLimiter.connect(sharedContext.destination);
+  }
+  return { context: sharedContext, limiter: sharedLimiter };
+}
+
 export type SpeechStatus =
   | 'loading'
   | 'ready'
@@ -9,7 +45,8 @@ export type SpeechStatus =
   | 'paused'
   | 'ended'
   | 'missing'
-  | 'error';
+  | 'error'
+  | 'buffering';
 
 export interface SpeechSegmentView {
   text: string;
@@ -24,14 +61,80 @@ export function useSpeech(slug: string) {
   const [segments, setSegments] = useState<SpeechSegmentView[]>([]);
   const [current, setCurrent] = useState(-1);
   const [rate, setRateState] = useState(1);
+  const [volume, setVolumeState] = useState(() => {
+    if (typeof window === 'undefined') return DEFAULT_VOLUME;
+    return clampVolume(Number(localStorage.getItem(VOLUME_KEY) ?? DEFAULT_VOLUME));
+  });
   const [error, setError] = useState<string | undefined>(undefined);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const currentRef = useRef(-1);
   const segmentsRef = useRef<SpeechSegmentView[]>([]);
   const rateRef = useRef(1);
+  const volumeRef = useRef(DEFAULT_VOLUME);
+  const gainRef = useRef<GainNode | null>(null);
+  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
+  const enhancedRef = useRef(false);
   // 合并播放：换 src 后等 loadedmetadata 再 seek（元数据未就绪时设 currentTime 会被忽略）
   const pendingSeekRef = useRef<number | null>(null);
+
+  const applyVolume = useCallback((value: number) => {
+    const a = audioRef.current;
+    if (!a) return;
+    a.volume = Math.min(1, value);
+    if (gainRef.current) gainRef.current.gain.value = enhancedRef.current ? value : 1;
+  }, []);
+
+  const setVolume = useCallback((value: number) => {
+    const next = clampVolume(value);
+    volumeRef.current = next;
+    applyVolume(next);
+    setVolumeState(next);
+    localStorage.setItem(VOLUME_KEY, String(next));
+    window.dispatchEvent(new CustomEvent(VOLUME_EVENT, { detail: next }));
+  }, [applyVolume]);
+
+  const enableEnhancement = useCallback(async () => {
+    const a = audioRef.current;
+    if (!a || volumeRef.current <= 1) return;
+    let context: AudioContext;
+    let limiter: DynamicsCompressorNode;
+    try {
+      ({ context, limiter } = audioContext());
+    } catch {
+      // 老浏览器没有 Web Audio 时仍可原生播放，只是不能超过 100%。
+      a.volume = Math.min(1, volumeRef.current);
+      return;
+    }
+    if (!sourceRef.current) {
+      a.crossOrigin = 'anonymous';
+      sourceRef.current = context.createMediaElementSource(a);
+    }
+    if (!enhancedRef.current) {
+      sourceRef.current.disconnect();
+      if (!gainRef.current) gainRef.current = context.createGain();
+      sourceRef.current.connect(gainRef.current);
+      gainRef.current.connect(limiter);
+      enhancedRef.current = true;
+    }
+    await context.resume();
+    applyVolume(volumeRef.current);
+  }, [applyVolume]);
+
+  const playAudio = useCallback((a: HTMLAudioElement) => {
+    void enableEnhancement().then(() => {
+      if (activeAudio && activeAudio !== a) activeAudio.pause();
+      activeAudio = a;
+      if (audioRef.current !== a) return;
+      return a.play();
+    }).catch((e: unknown) => {
+      if (audioRef.current !== a) return;
+      setStatus('error');
+      setError(e instanceof Error && e.name === 'NotAllowedError'
+        ? '浏览器阻止了播放，请再次点击播放'
+        : String(e));
+    });
+  }, [enableEnhancement]);
 
   const playIndex = useCallback((i: number) => {
     const a = audioRef.current;
@@ -41,25 +144,28 @@ export function useSpeech(slug: string) {
     currentRef.current = i;
     setCurrent(i);
     a.playbackRate = rateRef.current;
-    const target = new URL(seg.url, window.location.href).href;
+    a.preload = 'auto';
+    const remoteUrl = new URL(seg.url, window.location.href);
+    const target = remoteUrl.origin === window.location.origin
+      ? remoteUrl.href
+      : new URL('/api/audio/stream?url=' + encodeURIComponent(remoteUrl.href), window.location.href).href;
     if (a.src !== target) {
       // 逐段模式（或首个合并段）：换源，挂起 seek 待元数据就绪
       pendingSeekRef.current = seg.start ?? 0;
-      a.src = seg.url;
+      a.src = target;
       a.load();
-      const p = a.play();
-      if (p) p.catch((e) => setError(String(e)));
+      playAudio(a);
     } else {
       // 合并模式内跳段：同文件直接 seek
       if (seg.start !== undefined) a.currentTime = seg.start;
-      const p = a.play();
-      if (p) p.catch((e) => setError(String(e)));
+      playAudio(a);
     }
-  }, []);
+  }, [playAudio]);
 
   useEffect(() => {
     const a = new Audio();
     a.preload = 'none';
+    // 浏览器媒体请求会忽略 referrerPolicy；远程 URL 在 playIndex 走同源 Range 代理。
     audioRef.current = a;
     const onEnded = () => {
       const next = currentRef.current + 1;
@@ -93,23 +199,46 @@ export function useSpeech(slug: string) {
         }
       }
     };
+    const onPlay = () => {
+      if (audioRef.current !== a) return;
+      setStatus('playing');
+      if (activeAudio && activeAudio !== a) activeAudio.pause();
+      activeAudio = a;
+    };
+    const onPause = () => {
+      if (activeAudio === a) activeAudio = null;
+      setStatus((s) => (s === 'playing' || s === 'buffering' ? 'paused' : s));
+    };
+    const onError = () => {
+      if (audioRef.current !== a) return;
+      // 音频全部经同源代理，不依赖跨域 Web Audio；加载失败保留可操作错误提示。
+      setStatus('error');
+      setError('远程音频获取失败，请稍后重试');
+    };
     a.addEventListener('loadedmetadata', onLoadedMetadata);
     a.addEventListener('timeupdate', onTimeUpdate);
     a.addEventListener('ended', onEnded);
-    a.addEventListener('play', () => setStatus('playing'));
-    a.addEventListener('pause', () =>
-      setStatus((s) => (s === 'playing' ? 'paused' : s)),
-    );
+    const onWaiting = () => setStatus('buffering');
+    const onPlaying = () => setStatus('playing');
+    a.addEventListener('play', onPlay);
+    a.addEventListener('pause', onPause);
+    a.addEventListener('waiting', onWaiting);
+    a.addEventListener('playing', onPlaying);
     // 音频加载失败（404 / 网络中断）：让 UI 可见，而不是无声卡住
-    a.addEventListener('error', () => {
-      setStatus('error');
-      setError('音频文件加载失败');
-    });
+    a.addEventListener('error', onError);
     return () => {
       a.removeEventListener('loadedmetadata', onLoadedMetadata);
       a.removeEventListener('timeupdate', onTimeUpdate);
       a.removeEventListener('ended', onEnded);
+      a.removeEventListener('play', onPlay);
+      a.removeEventListener('pause', onPause);
+      a.removeEventListener('waiting', onWaiting);
+      a.removeEventListener('playing', onPlaying);
+      a.removeEventListener('error', onError);
       a.pause();
+      sourceRef.current?.disconnect();
+      gainRef.current?.disconnect();
+      if (activeAudio === a) activeAudio = null;
     };
   }, [playIndex]);
 
@@ -161,16 +290,40 @@ export function useSpeech(slug: string) {
     };
   }, [slug]);
 
+  useEffect(() => {
+    const initial = volume;
+    volumeRef.current = initial;
+    applyVolume(initial);
+    const onVolume = (event: Event) => {
+      const next = clampVolume((event as CustomEvent<number>).detail);
+      volumeRef.current = next;
+      applyVolume(next);
+      setVolumeState(next);
+    };
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== VOLUME_KEY) return;
+      const next = event.newValue === null ? DEFAULT_VOLUME : clampVolume(Number(event.newValue));
+      volumeRef.current = next;
+      applyVolume(next);
+      setVolumeState(next);
+    };
+    window.addEventListener(VOLUME_EVENT, onVolume);
+    window.addEventListener('storage', onStorage);
+    return () => {
+      window.removeEventListener(VOLUME_EVENT, onVolume);
+      window.removeEventListener('storage', onStorage);
+    };
+  }, [applyVolume, volume]);
+
   const play = useCallback(() => {
     const a = audioRef.current;
     if (!a) return;
     if (currentRef.current < 0 && segmentsRef.current.length) {
       playIndex(0);
     } else if (a.paused) {
-      const p = a.play();
-      if (p) p.catch((e) => setError(String(e)));
+      playAudio(a);
     }
-  }, [playIndex]);
+  }, [playIndex, playAudio]);
 
   const pause = useCallback(() => {
     audioRef.current?.pause();
@@ -201,5 +354,5 @@ export function useSpeech(slug: string) {
     if (audioRef.current) audioRef.current.playbackRate = r;
   }, []);
 
-  return { status, segments, current, rate, error, play, pause, toggle, next, prev, jump, setRate };
+  return { status, segments, current, rate, volume, error, play, pause, toggle, next, prev, jump, setRate, setVolume };
 }

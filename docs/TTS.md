@@ -47,7 +47,8 @@
 ### 2.3 前端播放
 - `SpeechBar` 读 `manifest.json`，按段 `<audio>` 顺序播放预生成文件。
 - 段落高亮跟随（段级）、点击任意段落从该段起播、`playbackRate` 调速（浏览器原生，无需重合成）。
-- 离线即可播，无需 TTS 服务在线。
+- **远程流式**：远程 MP3 经 `/api/audio/stream` 同源转发（Host 白名单），直接流式返回上游 body，透传 Range / 206 / Content-Range，支持边下边播和整章 seek；不把整段音频读进内存。图床会拦截跨站 Referer，代理请求必须显式 `referrerPolicy: no-referrer`。
+- **音量增强**：0–100% 走原生音量，100–200% 走共享 Web Audio Gain + 限幅器；默认 200%，偏好保存在 `localStorage`，同页播放器互斥。
 
 ---
 

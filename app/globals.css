@@ -399,7 +399,7 @@ body {
 }
 
 .prose-lesson thead {
-  background: hsl(var(--surface-muted));
+  background: hsl(var(--brand-primary) / 0.12);
 }
 
 .prose-lesson th,
@@ -411,7 +411,7 @@ body {
 }
 
 .prose-lesson th {
-  font-weight: 600;
+  font-weight: 700;
   color: hsl(var(--foreground));
 }
 
