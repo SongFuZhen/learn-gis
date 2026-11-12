@@ -79,7 +79,11 @@ async function streamAudio(request: NextRequest) {
   }
   responseHeaders.set("Cache-Control", "private, max-age=3600");
 
-  return new Response(request.method === "HEAD" ? null : upstream.body, {
+  // HEAD 上游仍按 GET 取流，但只回传响应头；必须取消未消费的 body，避免占着上游连接。
+  const isHead = request.method === "HEAD";
+  if (isHead) await upstream.body?.cancel();
+
+  return new Response(isHead ? null : upstream.body, {
     status: upstream.status,
     headers: responseHeaders,
   });

@@ -97,14 +97,52 @@ describe("远程音频流式代理", () => {
     expect(await res.text()).toBe("0123456789");
   });
 
-  it("HEAD 透传上游头但不返回 body（上游仍按 GET 取流）", async () => {
-    fetchMock.mockResolvedValue(
-      upstream("audio-bytes", { headers: { "content-length": "11", "accept-ranges": "bytes" } }),
-    );
-    const res = await HEAD(request(AUDIO_URL, { method: "HEAD" }));
-    expect(res.status).toBe(200);
-    expect(res.headers.get("content-length")).toBe("11");
-    expect(res.body).toBeNull();
+  it("HEAD 透传上游头但不返回 body，并取消未消费的上游流", async () => {
+    let cancelled = false;
+    const stream = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode("audio-bytes"));
+        controller.close();
+      },
+      cancel() {
+        cancelled = true;
+      },
+    });
+    const res = new Response(stream, {
+      headers: {
+        "content-type": "audio/mpeg",
+        "content-length": "11",
+        "accept-ranges": "bytes",
+      },
+    });
+    Object.defineProperty(res, "url", { value: AUDIO_URL });
+    fetchMock.mockResolvedValue(res);
+
+    const out = await HEAD(request(AUDIO_URL, { method: "HEAD" }));
+    expect(out.status).toBe(200);
+    expect(out.headers.get("content-length")).toBe("11");
+    expect(out.body).toBeNull();
+    expect(cancelled).toBe(true);
+  });
+
+  it("GET 不取消上游流（body 需要继续转发）", async () => {
+    let cancelled = false;
+    const stream = new ReadableStream<Uint8Array>({
+      start(controller) {
+        controller.enqueue(new TextEncoder().encode("audio-bytes"));
+        controller.close();
+      },
+      cancel() {
+        cancelled = true;
+      },
+    });
+    const res = new Response(stream, { headers: { "content-type": "audio/mpeg" } });
+    Object.defineProperty(res, "url", { value: AUDIO_URL });
+    fetchMock.mockResolvedValue(res);
+
+    const out = await GET(request());
+    expect(await out.text()).toBe("audio-bytes");
+    expect(cancelled).toBe(false);
   });
 
   it("上游返回非音频内容时拦截为 502", async () => {
