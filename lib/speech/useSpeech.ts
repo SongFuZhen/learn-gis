@@ -115,9 +115,11 @@ export function useSpeech(slug: string) {
       gainRef.current.connect(limiter);
       enhancedRef.current = true;
     }
-    // 增益先落地，不依赖 AudioContext.resume() 的时机：播放中把音量拉过 100% 时也要立即生效。
+    // 增益先落地：播放中把音量拉过 100% 时也要立即生效。
     applyVolume(volumeRef.current);
-    await context.resume().catch(() => {});
+    // 不要 await resume：缺少用户手势时 resume 可能挂起或拒绝，await 会拖住上层 a.play() 起播。
+    // 播放总由用户点击触发，resume 会在同一手势窗口内完成；这里只负责点火，不阻塞播放。
+    context.resume().catch(() => {});
   }, [applyVolume]);
 
   // 首次播放时音量 ≤100% 不会建 Web Audio；之后播放中拉到 >100% 要即时接上增益链路。
