@@ -42,7 +42,9 @@ async function streamAudio(request: NextRequest) {
       // Next 的服务端 fetch 默认继承页面 Referer；图床会因此返回防盗链 403 图片。
       referrer: "",
       referrerPolicy: "no-referrer",
-      cache: "no-store",
+      // no-store 会让每次重播都重新拉取上游；改 no-cache 允许条件请求（304），
+      // 既省带宽又不会盲用陈旧内容。响应本身仍带 Cache-Control 供浏览器侧缓存。
+      cache: "no-cache",
       redirect: "follow",
       signal: request.signal,
     });

@@ -84,7 +84,7 @@ describe("远程音频流式代理", () => {
     expect(String(target)).toBe(AUDIO_URL);
     expect((init.headers as Headers).get("Range")).toBe("bytes=0-9");
     expect(init.referrerPolicy).toBe("no-referrer");
-    expect(init.cache).toBe("no-store");
+    expect(init.cache).toBe("no-cache");
     expect(init.redirect).toBe("follow");
     expect(init.signal).toBe(req.signal);
 

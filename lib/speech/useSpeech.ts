@@ -277,6 +277,13 @@ export function useSpeech(slug: string) {
     setCurrent(-1);
   }
 
+  // slug 变化立停上一章仍在播放的音频，并清掉挂起的 seek，避免旧音频继续响、或新 src 加载后
+  // 误用残留的 pendingSeek 跳到错误位置。
+  useEffect(() => {
+    audioRef.current?.pause();
+    pendingSeekRef.current = null;
+  }, [slug]);
+
   useEffect(() => {
     let cancelled = false;
     currentRef.current = -1;
@@ -317,22 +324,28 @@ export function useSpeech(slug: string) {
   }, [slug]);
 
   useEffect(() => {
-    const initial = volume;
-    volumeRef.current = initial;
-    applyVolume(initial);
+    // 初始化：从持久化值恢复增益/原生音量（与 useState 初始化一致，直接读 localStorage
+    // 而非依赖 volume 态，避免每次量程变化都重跑本 effect、并把音量落到每个挂载实例）。
+    volumeRef.current = clampVolume(Number(localStorage.getItem(VOLUME_KEY) ?? DEFAULT_VOLUME));
+    applyVolume(volumeRef.current);
     const onVolume = (event: Event) => {
       const next = clampVolume((event as CustomEvent<number>).detail);
       volumeRef.current = next;
-      applyVolume(next);
       setVolumeState(next);
+      // 仅对正在播放或已增强的实例落地音量，避免 /audio 页大量暂停实例被逐个改原生音量
+      if (audioRef.current && (activeAudio === audioRef.current || enhancedRef.current)) {
+        applyVolume(next);
+      }
       activateEnhancementIfNeeded();
     };
     const onStorage = (event: StorageEvent) => {
       if (event.key !== VOLUME_KEY) return;
       const next = event.newValue === null ? DEFAULT_VOLUME : clampVolume(Number(event.newValue));
       volumeRef.current = next;
-      applyVolume(next);
       setVolumeState(next);
+      if (audioRef.current && (activeAudio === audioRef.current || enhancedRef.current)) {
+        applyVolume(next);
+      }
       activateEnhancementIfNeeded();
     };
     window.addEventListener(VOLUME_EVENT, onVolume);
@@ -341,7 +354,7 @@ export function useSpeech(slug: string) {
       window.removeEventListener(VOLUME_EVENT, onVolume);
       window.removeEventListener('storage', onStorage);
     };
-  }, [applyVolume, activateEnhancementIfNeeded, volume]);
+  }, [applyVolume, activateEnhancementIfNeeded]);
 
   const play = useCallback(() => {
     const a = audioRef.current;
