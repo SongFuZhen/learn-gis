@@ -13,15 +13,11 @@ export default function SpeechBar({
   /** 紧凑模式（音频汇总页用）：只显示控制条 + 进度 + 当前文本，不显示段落列表 */
   compact?: boolean;
 }) {
-  const { status, segments, current, rate, volume, error, toggle, next, prev, jump, setRate, setVolume } =
+  const { status, segments, current, rate, volume, lastAudible, error, toggle, next, prev, jump, setRate, setVolume } =
     useSpeech(slug);
 
   // 当前段变化时，把段落列表滚动到可见位置
   const listRef = useRef<HTMLOListElement>(null);
-  const lastAudibleVolumeRef = useRef(volume > 0 ? volume : 1);
-  useEffect(() => {
-    if (volume > 0) lastAudibleVolumeRef.current = volume;
-  }, [volume]);
   useEffect(() => {
     if (current < 0) return;
     listRef.current?.children[current]?.scrollIntoView({ block: 'nearest' });
@@ -148,7 +144,7 @@ export default function SpeechBar({
       <div className='mt-3 flex items-center gap-2 text-foreground-tertiary'>
         <button
           type='button'
-          onClick={() => setVolume(volume > 0 ? 0 : lastAudibleVolumeRef.current)}
+          onClick={() => setVolume(volume > 0 ? 0 : lastAudible)}
           aria-label={volume > 0 ? '静音' : '恢复音量'}
           className='inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full hover:bg-background-hover'
         >

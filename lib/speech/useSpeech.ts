@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { ChapterManifest } from './manifest';
 
 const VOLUME_KEY = 'learn-gis:speech-volume';
+const LAST_AUDIBLE_KEY = 'learn-gis:speech-last-audible';
 const VOLUME_EVENT = 'learn-gis:speech-volume-change';
 const DEFAULT_VOLUME = 2;
 
@@ -65,6 +66,12 @@ export function useSpeech(slug: string) {
     if (typeof window === 'undefined') return DEFAULT_VOLUME;
     return clampVolume(Number(localStorage.getItem(VOLUME_KEY) ?? DEFAULT_VOLUME));
   });
+  // 静音恢复用的「上一次可听音量」，持久化以免刷新（静音态 stored 0）后落到固定 100%。
+  const [lastAudible, setLastAudible] = useState(() => {
+    if (typeof window === 'undefined') return DEFAULT_VOLUME;
+    const v = Number(localStorage.getItem(LAST_AUDIBLE_KEY));
+    return Number.isFinite(v) && v > 0 ? clampVolume(v) : DEFAULT_VOLUME;
+  });
   const [error, setError] = useState<string | undefined>(undefined);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -114,8 +121,11 @@ export function useSpeech(slug: string) {
   }, [applyVolume]);
 
   // 首次播放时音量 ≤100% 不会建 Web Audio；之后播放中拉到 >100% 要即时接上增益链路。
-  const activateEnhancementIfNeeded = useCallback(() => {
+  // force=true 表示本实例主动调音量，应当建图；跨实例/跨标签页的全局事件只应作用于
+  // 当前正在播放的实例，避免 /audio 页大量 SpeechBar 被联动建立 Web Audio 图谱。
+  const activateEnhancementIfNeeded = useCallback((force = false) => {
     if (enhancedRef.current || volumeRef.current <= 1 || !audioRef.current?.src) return;
+    if (!force && activeAudio !== audioRef.current) return;
     void enableEnhancement().catch(() => {});
   }, [enableEnhancement]);
 
@@ -125,8 +135,12 @@ export function useSpeech(slug: string) {
     applyVolume(next);
     setVolumeState(next);
     localStorage.setItem(VOLUME_KEY, String(next));
+    if (next > 0) {
+      setLastAudible(next);
+      localStorage.setItem(LAST_AUDIBLE_KEY, String(next));
+    }
     window.dispatchEvent(new CustomEvent(VOLUME_EVENT, { detail: next }));
-    activateEnhancementIfNeeded();
+    activateEnhancementIfNeeded(true);
   }, [applyVolume, activateEnhancementIfNeeded]);
 
   const playAudio = useCallback((a: HTMLAudioElement) => {
@@ -366,5 +380,5 @@ export function useSpeech(slug: string) {
     if (audioRef.current) audioRef.current.playbackRate = r;
   }, []);
 
-  return { status, segments, current, rate, volume, error, play, pause, toggle, next, prev, jump, setRate, setVolume };
+  return { status, segments, current, rate, volume, lastAudible, error, play, pause, toggle, next, prev, jump, setRate, setVolume };
 }
