@@ -3,7 +3,7 @@
 // 覆盖：手动调音量、增益随音量降低、播放中拉过 100% 即时启用增强且不打断播放、
 //       静音恢复上一次音量、播放不重置设置、刷新持久化、真实播放进度、同源流式代理、
 //       静音态刷新后恢复上一次可听音量（last-audible 持久化）、
-//       跨章节跳转（第二 slug）时上一章音频立即停播且复用同一 Audio 元素。
+//       跨章节跳转（第二 / 第三 slug 连续跳转）时上一章音频立即停播且无遗留播放。
 // 用法：先 `npm run dev`，再 `npm run smoke:speech`（BASE_URL 可覆盖）
 import { chromium } from "playwright-core";
 
@@ -11,6 +11,7 @@ const BASE = process.env.BASE_URL ?? "http://localhost:25000";
 const PAGE = `${BASE}/s/cesium/00`;
 const SLUG = "00-cesium-intro";
 const SLUG2 = "01-camera-coords";
+const SLUG3 = "02-imagery-layers";
 const REMOTE = "https://cloudflare-imgbed-91r.pages.dev/file/smoke-chapter.wav";
 const SEGMENT_SECONDS = 1.5;
 const SEGMENTS = 3;
@@ -68,6 +69,22 @@ const manifest2 = {
   })),
 };
 
+// 第三个 slug 的受控 manifest：同理，验证连续跳转（00→01→02）时每一章都独立停/起。
+const manifest3 = {
+  ...manifest,
+  slug: SLUG3,
+  segments: Array.from({ length: SEGMENTS }, (_, i) => ({
+    index: i,
+    text: `第三章第 ${i + 1} 段：影像图层`,
+    hash: `smoke3-${i}`,
+    audio: `seg${String(i).padStart(2, "0")}.wav`,
+    start: i * SEGMENT_SECONDS,
+    duration: SEGMENT_SECONDS,
+  })),
+};
+
+const MANIFESTS = { [SLUG]: manifest, [SLUG2]: manifest2, [SLUG3]: manifest3 };
+
 const failures = [];
 function check(ok, label, detail = "") {
   if (ok) {
@@ -119,10 +136,10 @@ async function installRoutes(page) {
   await page.route(/\/audio\//, async (route) => {
     const url = new URL(route.request().url());
     if (url.pathname.endsWith("manifest.json")) {
-      // 按请求路径里的 slug 选择 manifest，模拟第二 slug 的独立章节音频
+      // 按请求路径里的 slug 选择 manifest，模拟各章节独立音频
       const seg = url.pathname.split("/").filter(Boolean);
       const slug = seg[seg.length - 2] ?? "";
-      const chosen = slug === SLUG2 ? manifest2 : manifest;
+      const chosen = MANIFESTS[slug] ?? manifest;
       await route.fulfill({
         status: 200,
         headers: { "content-type": "application/json" },
@@ -410,7 +427,43 @@ try {
   await page4.waitForFunction(() => window.__speechProbe.gain !== null, null, { timeout: 10000 });
   check(near(await gain(page4), 2), "第二 slug 起播后 Gain = 2（默认音量增强）", String(await gain(page4)));
   check((await audioVolume(page4)) === 1, "第二 slug 起播后原生音量仍为 1", String(await audioVolume(page4)));
-  check(errors4.length === 0, "场景四无未捕获页面异常", errors4.slice(0, 3).join(" | "));
+
+  // ========== 场景五：连续跳转第三 slug（01 → 02），验证每章独立停/起无状态泄漏 ==========
+  // 复用 page4：当前正播第二章（01），再点「下一章」跳到第三章（02）。重点验证上一章（01）
+  // 在播音频被停、无遗留播放，且第三 slug 的 manifest 与增益链路正常接管。
+  await page4.evaluate(() => {
+    window.__speechProbe.audio.__navTag = "playing-2";
+  });
+  await page4.getByRole("link", { name: /下一章/ }).click();
+  await page4.waitForURL("**/cesium/02", { timeout: 15000 });
+  await page4.waitForFunction(
+    () => document.body.innerText.includes("第三章第 1 段：影像图层"),
+    null,
+    { timeout: 15000 },
+  );
+
+  // 被打标记的「第二章在播」音频已暂停（连续跳转不残留上一章声音）
+  const secondPaused = await page4.evaluate(() => {
+    const el = window.__speechProbe.audios.find((a) => a.__navTag === "playing-2");
+    return el ? el.paused === true : false;
+  });
+  check(secondPaused, "连续跳转后第二章在播音频已暂停（无状态泄漏）");
+  check(
+    await page4.evaluate(() => window.__speechProbe.audios.every((a) => a.paused === true)),
+    "连续跳转后所有 Audio 元素均静音（无遗留播放）",
+  );
+  check(
+    await page4.evaluate(() =>
+      document.body.innerText.includes("第三章第 2 段：影像图层"),
+    ),
+    "第三 slug 的 manifest 已加载（段列表更新为第三章）",
+  );
+  await page4.getByRole("button", { name: "播放", exact: true }).click();
+  await waitPlaying(page4);
+  await page4.waitForFunction(() => window.__speechProbe.gain !== null, null, { timeout: 10000 });
+  check(near(await gain(page4), 2), "第三 slug 起播后 Gain = 2（默认音量增强）", String(await gain(page4)));
+  check((await audioVolume(page4)) === 1, "第三 slug 起播后原生音量仍为 1", String(await audioVolume(page4)));
+  check(errors4.length === 0, "场景四/五无未捕获页面异常", errors4.slice(0, 3).join(" | "));
 } catch (e) {
   const msg = e instanceof Error ? e.message : String(e);
   failures.push("脚本异常：" + msg);

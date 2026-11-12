@@ -79,6 +79,9 @@ export default function ResultSummary({
               答对{" "}
               <span className="font-semibold text-foreground">{result.correct}</span>{" "}
               / {result.answered} 题
+              {result.skipped > 0 && (
+                <span className="ml-2 text-warning">跳过 {result.skipped}</span>
+              )}
             </p>
             <p
               className={
@@ -106,8 +109,15 @@ export default function ResultSummary({
                 key={question.id}
                 className="rounded-md border border-border bg-card p-4 shadow-card"
               >
-                <span className="font-mono text-[11px] text-foreground-muted">
-                  {question.id}
+                <span className="inline-flex items-center gap-2">
+                  <span className="font-mono text-[11px] text-foreground-muted">
+                    {question.id}
+                  </span>
+                  {result.skippedIds.includes(question.id) && (
+                    <span className="rounded-sm bg-warning-light px-1.5 py-0.5 text-[10px] font-medium text-warning">
+                      跳过
+                    </span>
+                  )}
                 </span>
                 <p className="mt-1 text-[14px] leading-relaxed text-foreground-secondary">
                   {question.stem}

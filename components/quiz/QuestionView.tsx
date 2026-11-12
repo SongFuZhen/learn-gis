@@ -1,13 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import dynamic from "next/dynamic";
 import { cn } from "@/lib/utils";
-import { grade } from "@/lib/quiz/grade";
+import { expectedAnswer, grade } from "@/lib/quiz/grade";
 import type { AnswerRecord, Question, QuizResponse } from "@/lib/quiz/types";
 import ChoiceList from "./ChoiceList";
 import AnswerFeedback from "./AnswerFeedback";
-import { Check, X } from "lucide-react";
+import { Check, SkipForward, X } from "lucide-react";
 
 const MapPicker = dynamic(() => import("./MapPicker"), { ssr: false });
 
@@ -17,6 +17,7 @@ type Props = {
   isLast: boolean;
   reviewMode?: boolean;
   onSubmit: (response: QuizResponse) => void;
+  onSkip: () => void;
   onNext: () => void;
 };
 
@@ -26,6 +27,7 @@ export default function QuestionView({
   isLast,
   reviewMode,
   onSubmit,
+  onSkip,
   onNext,
 }: Props) {
   const answered = record !== null;
@@ -33,15 +35,23 @@ export default function QuestionView({
   const [text, setText] = useState("");
   const [numericText, setNumericText] = useState("");
   const [boolAnswer, setBoolAnswer] = useState<boolean | null>(
-    record && record.response.kind === "boolean" ? record.response.value : null,
+    record && record.response?.kind === "boolean" ? record.response.value : null,
   );
   const [mapPoint, setMapPoint] = useState<{ lat: number; lng: number } | null>(
-    record && record.response.kind === "map"
+    record && record.response?.kind === "map"
       ? { lat: record.response.lat, lng: record.response.lng }
       : null,
   );
 
-  const result = record ? grade(question, record.response) : null;
+  const result = useMemo(
+    () =>
+      record
+        ? record.response
+          ? grade(question, record.response)
+          : { correct: false, expected: expectedAnswer(question) }
+        : null,
+    [record, question],
+  );
   const numericValue = Number(numericText);
   const canSubmit =
     question.type === "map"
@@ -63,6 +73,7 @@ export default function QuestionView({
             type: "review-answer",
             questionId: question.id,
             isCorrect: result.correct,
+            skipped: record.skipped,
           }
         : {
             type: "submit-answer",
@@ -70,6 +81,7 @@ export default function QuestionView({
             moduleSlug: question.module,
             questionId: question.id,
             isCorrect: result.correct,
+            skipped: record.skipped,
           };
       try {
         await fetch("/api/progress", {
@@ -170,7 +182,7 @@ export default function QuestionView({
   }, [answered, onNext, question, submit, toggle]);
 
   const selectedKeys =
-    record && record.response.kind === "choice"
+    record && record.response?.kind === "choice"
       ? record.response.selected
       : selected;
 
@@ -312,6 +324,7 @@ export default function QuestionView({
             response={record.response}
             correct={result.correct}
             expected={result.expected}
+            skipped={record.skipped}
           />
         ) : null}
       </section>
@@ -339,14 +352,24 @@ export default function QuestionView({
               {isLast ? "查看结果" : "下一题"}
             </button>
           ) : (
-            <button
-              type="button"
-              onClick={submit}
-              disabled={!canSubmit}
-              className="h-12 w-full rounded-sm bg-brand-gradient text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:w-auto sm:px-5"
-            >
-              提交答案
-            </button>
+            <>
+              <button
+                type="button"
+                onClick={onSkip}
+                className="inline-flex h-12 shrink-0 items-center justify-center gap-1.5 rounded-sm border border-border-strong bg-card px-4 text-[14px] font-medium text-foreground-secondary transition-colors hover:bg-background-hover sm:h-12 sm:text-sm"
+              >
+                <SkipForward className="h-4 w-4" strokeWidth={2} aria-hidden="true" />
+                不知道，跳过
+              </button>
+              <button
+                type="button"
+                onClick={submit}
+                disabled={!canSubmit}
+                className="h-12 flex-1 rounded-sm bg-brand-gradient text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none sm:w-auto sm:flex-none sm:px-5"
+              >
+                提交答案
+              </button>
+            </>
           )}
         </div>
       </div>

@@ -393,9 +393,11 @@ body {
 
 .prose-lesson table {
   display: table;
-  width: 100%;
+  width: auto;
+  max-width: 100%;
   margin: 0;
   border-collapse: collapse;
+  table-layout: auto;
 }
 
 .prose-lesson thead {
@@ -406,7 +408,9 @@ body {
 .prose-lesson td {
   padding: 0.6rem 0.75rem;
   text-align: left;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   vertical-align: top;
 }
 
@@ -423,6 +427,44 @@ body {
   margin: 2rem 0;
   border: 0;
   border-top: 1px solid hsl(var(--border));
+}
+
+/* ============================================================
+   讲义划线标注：三色 mark（备注/记录/疑问），暗色靠 HSL 变量自动切换
+   ============================================================ */
+.anno-mark {
+  border-radius: 3px;
+  padding: 0 1px;
+  color: inherit;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  cursor: pointer;
+  transition: filter 0.15s ease;
+}
+
+.anno-mark:hover {
+  filter: brightness(0.97);
+}
+
+.anno-note {
+  background: hsl(var(--info-light));
+  box-shadow: inset 0 -1.5px 0 hsl(var(--info) / 0.55);
+}
+
+.anno-record {
+  background: hsl(var(--brand-soft));
+  box-shadow: inset 0 -1.5px 0 hsl(var(--brand-primary) / 0.55);
+}
+
+.anno-question {
+  background: hsl(var(--warning-light));
+  box-shadow: inset 0 -1.5px 0 hsl(var(--warning) / 0.55);
+}
+
+/* 侧栏点击定位后短暂高亮 */
+.anno-flash {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: no-preference) {

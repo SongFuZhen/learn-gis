@@ -20,6 +20,7 @@
     "audio:upload": "node scripts/upload-audio-imgbed.mjs",
     "smoke:quiz": "node scripts/smoke-quiz.mjs",
     "smoke:speech": "node scripts/smoke-speech.mjs",
+    "smoke:annotations": "node scripts/smoke-annotations.mjs",
     "check:overflow": "node scripts/check-overflow.mjs",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",

@@ -46,10 +46,22 @@ function formatLatLng(p: { lat: number; lng: number }): string {
   return Math.abs(p.lat).toFixed(2) + "°" + ns + ", " + Math.abs(p.lng).toFixed(2) + "°" + ew;
 }
 
+/** 各题型的参考答案（展示用）：跳过/未作答时也能取到 */
+export function expectedAnswer(question: Question): string[] {
+  if (question.type === "map") return [formatLatLng(question.target)];
+  if (question.type === "short") return question.accepted.slice(0, 1);
+  if (question.type === "numeric") return [formatNumeric(question)];
+  if (question.type === "truefalse") return [question.answer ? "对" : "错"];
+  if (isChoice(question)) return [...question.answer];
+  return [];
+}
+
 export function grade(question: Question, response: QuizResponse): Grade {
+  const expected = expectedAnswer(question);
+
   if (question.type === "map") {
     if (response.kind !== "map") {
-      return { correct: false, expected: [formatLatLng(question.target)] };
+      return { correct: false, expected };
     }
     const dist = haversineKm(
       response.lat,
@@ -59,46 +71,46 @@ export function grade(question: Question, response: QuizResponse): Grade {
     );
     return {
       correct: dist <= question.toleranceKm,
-      expected: [formatLatLng(question.target)],
+      expected,
     };
   }
 
   if (question.type === "short") {
     if (response.kind !== "short") {
-      return { correct: false, expected: question.accepted.slice(0, 1) };
+      return { correct: false, expected };
     }
     const value = normalizeShortAnswer(response.text);
     const correct =
       value.length > 0 &&
       question.accepted.some((a) => normalizeShortAnswer(a) === value);
-    return { correct, expected: question.accepted.slice(0, 1) };
+    return { correct, expected };
   }
 
   if (question.type === "numeric") {
     if (response.kind !== "numeric") {
-      return { correct: false, expected: [formatNumeric(question)] };
+      return { correct: false, expected };
     }
     const correct = Math.abs(response.value - question.answer) <= question.tolerance;
-    return { correct, expected: [formatNumeric(question)] };
+    return { correct, expected };
   }
 
   if (question.type === "truefalse") {
     if (response.kind !== "boolean") {
-      return { correct: false, expected: [question.answer ? "对" : "错"] };
+      return { correct: false, expected };
     }
     return {
       correct: response.value === question.answer,
-      expected: [question.answer ? "对" : "错"],
+      expected,
     };
   }
 
   if (isChoice(question)) {
     if (response.kind !== "choice") {
-      return { correct: false, expected: [...question.answer] };
+      return { correct: false, expected };
     }
     return {
       correct: sameSet(response.selected, question.answer),
-      expected: [...question.answer],
+      expected,
     };
   }
   return { correct: false, expected: [] };

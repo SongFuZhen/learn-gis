@@ -1,9 +1,9 @@
 import { NextResponse } from "next/server";
-import { cookies } from "next/headers";
 import { and, asc, desc, eq, isNull, lte, or } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
-import { examSessions, moduleProgress, users, wrongAnswers } from "@/db/schema";
+import { examSessions, moduleProgress, wrongAnswers } from "@/db/schema";
+import { getOrCreateUserId } from "@/lib/api/user";
 import { INITIAL_CARD, schedule, type CardState } from "@/lib/quiz/schedule";
 import { withRetry } from "@/lib/db-retry";
 
@@ -11,51 +11,13 @@ export const dynamic = "force-dynamic";
 
 const REVIEW_QUEUE_LIMIT = 20;
 
-/** 校验 cookie 里的 user_id 是否为合法 uuid（防止伪造串导致 pg 类型错误） */
-const uuidSchema = z.uuid();
-
-/**
- * 从 cookie 取访客用户：
- * - cookie 不存在、不是合法 uuid、或 db 里查无此人 → 新建并写 cookie；
- * - 否则只刷新 lastSeenAt 后复用，绝不直接信任客户端传入的 id 作为外键。
- */
-async function getOrCreateUserId(): Promise<string> {
-  const cookieStore = await cookies();
-  const raw = cookieStore.get("user_id")?.value;
-
-  if (raw && uuidSchema.safeParse(raw).success) {
-    const [existing] = await db
-      .select({ id: users.id })
-      .from(users)
-      .where(eq(users.id, raw))
-      .limit(1);
-    if (existing) {
-      await db
-        .update(users)
-        .set({ lastSeenAt: new Date() })
-        .where(eq(users.id, existing.id));
-      return existing.id;
-    }
-  }
-
-  const [created] = await db.insert(users).values({}).returning({ id: users.id });
-  if (!created) throw new Error("create user failed");
-  cookieStore.set("user_id", created.id, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: 60 * 60 * 24 * 365,
-  });
-  return created.id;
-}
-
-/** 累计一次答题（存在则 +1，否则创建） */
+/** 累计一次答题（存在则 +1，否则创建）；skipped=true 时同时累计跳过数 */
 async function bumpModuleProgress(
   userId: string,
   skill: string,
   moduleSlug: string,
   correct: boolean,
+  skipped: boolean,
 ) {
   const [current] = await db
     .select()
@@ -75,6 +37,7 @@ async function bumpModuleProgress(
       moduleSlug,
       totalAttempts: 1,
       wrongCount: correct ? 0 : 1,
+      skippedCount: skipped ? 1 : 0,
       lastAttemptAt: new Date(),
     });
     return;
@@ -85,6 +48,7 @@ async function bumpModuleProgress(
     .set({
       totalAttempts: current.totalAttempts + 1,
       wrongCount: current.wrongCount + (correct ? 0 : 1),
+      skippedCount: current.skippedCount + (skipped ? 1 : 0),
       lastAttemptAt: new Date(),
     })
     .where(eq(moduleProgress.id, current.id));
@@ -130,6 +94,8 @@ const submitAnswerSchema = z.object({
   moduleSlug: z.string().min(1),
   questionId: z.string().min(1),
   isCorrect: z.boolean(),
+  /** 主动跳过：服务端强制按答错处理 */
+  skipped: z.boolean().optional().default(false),
 });
 
 const examCompleteSchema = z
@@ -138,11 +104,12 @@ const examCompleteSchema = z
     mode: z.enum(["daily", "mock"]),
     correct: z.number().int().min(0),
     total: z.number().int().min(1),
+    skipped: z.number().int().min(0).optional().default(0),
     moduleSlug: z.string().optional(),
     dateKey: z.string().optional(),
   })
-  .refine((b) => b.correct <= b.total, {
-    message: "correct 不能大于 total",
+  .refine((b) => b.correct + b.skipped <= b.total, {
+    message: "correct + skipped 不能大于 total",
     path: ["correct"],
   })
   .superRefine((b, ctx) => {
@@ -162,9 +129,10 @@ const moduleQuizCompleteSchema = z
     moduleSlug: z.string().min(1),
     correct: z.number().int().min(0),
     total: z.number().int().min(1),
+    skipped: z.number().int().min(0).optional().default(0),
   })
-  .refine((b) => b.correct <= b.total, {
-    message: "correct 不能大于 total",
+  .refine((b) => b.correct + b.skipped <= b.total, {
+    message: "correct + skipped 不能大于 total",
     path: ["correct"],
   });
 
@@ -172,6 +140,8 @@ const reviewAnswerSchema = z.object({
   type: z.literal("review-answer"),
   questionId: z.string().min(1),
   isCorrect: z.boolean(),
+  /** 复习时主动跳过：按答错推进 SM-2（lapse+1，明天到期） */
+  skipped: z.boolean().optional().default(false),
 });
 
 const bodySchema = z.discriminatedUnion("type", [
@@ -201,7 +171,9 @@ export async function POST(request: Request) {
   const userId = await getOrCreateUserId();
 
   if (body.type === "submit-answer") {
-    const { skill, moduleSlug, questionId, isCorrect } = body;
+    const { skill, moduleSlug, questionId, skipped } = body;
+    // 跳过 = 不会：服务端强制按答错处理，不信任客户端传来的 isCorrect
+    const isCorrect = skipped ? false : body.isCorrect;
 
     // 同一题做错多次只保留一条未消除记录：冲突时刷新时间并重新计入复习队列
     if (!isCorrect) {
@@ -213,13 +185,15 @@ export async function POST(request: Request) {
           set: { wrongAt: new Date(), clearedAt: null },
         });
     }
-    await bumpModuleProgress(userId, skill, moduleSlug, isCorrect);
+    await bumpModuleProgress(userId, skill, moduleSlug, isCorrect, skipped);
     return NextResponse.json({ ok: true });
   }
 
   if (body.type === "exam-complete") {
-    const { mode, correct, total, dateKey } = body;
-    const mastery = (correct / total) * 100;
+    const { mode, correct, total, skipped, dateKey } = body;
+    // 跳过题不参与得分率分母：mastery 只按实际作答题计算
+    const graded = total - skipped;
+    const mastery = graded === 0 ? 0 : (correct / graded) * 100;
 
     // 每日一卷：同一天（dateKey）只保留最新一次，防止客户端刷多条
     await db
@@ -229,6 +203,7 @@ export async function POST(request: Request) {
         mode,
         size: total,
         correct,
+        skipped,
         mastery,
         dateKey: mode === "daily" ? dateKey! : null,
       })
@@ -237,6 +212,7 @@ export async function POST(request: Request) {
         set: {
           size: total,
           correct,
+          skipped,
           mastery,
           createdAt: new Date(),
         },
@@ -246,7 +222,9 @@ export async function POST(request: Request) {
   }
 
   if (body.type === "review-answer") {
-    const { questionId, isCorrect } = body;
+    const { questionId, skipped } = body;
+    // 跳过按答错推进：lapse+1、明天到期、不会毕业
+    const isCorrect = skipped ? false : body.isCorrect;
     const [row] = await db
       .select()
       .from(wrongAnswers)
@@ -287,8 +265,9 @@ export async function POST(request: Request) {
   }
 
   // module-quiz-complete
-  const { skill, moduleSlug, correct, total } = body;
-  const mastery = (correct / total) * 100;
+  const { skill, moduleSlug, correct, total, skipped } = body;
+  const graded = total - skipped;
+  const mastery = graded === 0 ? 0 : (correct / graded) * 100;
 
   // 章节掌握度滚动平均：mastery 按章节测验次数平均
   const [current] = await db

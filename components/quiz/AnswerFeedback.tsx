@@ -5,9 +5,12 @@ import { Check, X } from "lucide-react";
 
 type Props = {
   question: Question;
-  response: QuizResponse;
+  /** 跳过（「不知道」）时为 null */
+  response: QuizResponse | null;
   correct: boolean;
   expected: string[];
+  /** 主动跳过：反馈框按错题样式，但文案强调「记住它」 */
+  skipped?: boolean;
 };
 
 /**
@@ -19,9 +22,10 @@ export default function AnswerFeedback({
   response,
   correct,
   expected,
+  skipped = false,
 }: Props) {
-  const wrong = wrongPicks(question, response);
-  const missed = missedPicks(question, response);
+  const wrong = response ? wrongPicks(question, response) : [];
+  const missed = response ? missedPicks(question, response) : [];
   const expectedText = expected.join(" / ");
 
   return (
@@ -55,7 +59,7 @@ export default function AnswerFeedback({
             correct ? "text-success" : "text-destructive",
           )}
         >
-          {correct ? "答对了" : "答错了"}
+          {correct ? "答对了" : skipped ? "这道题跳过了，记住它" : "答错了"}
         </p>
         {!correct && (
           <p className="ml-auto text-[12px] text-foreground-secondary">

@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import ModulePager from "@/components/ModulePager";
 import FloatingToc from "@/components/FloatingToc";
 import SpeechBar from "@/components/lesson/SpeechBar";
+import AnnotationLayer from "@/components/lesson/annotations/AnnotationLayer";
+import AnnotationPanel from "@/components/lesson/annotations/AnnotationPanel";
 import { SKILLS,
   getLesson,
   getModule,
@@ -98,9 +100,11 @@ export default async function ModulePage({
           <SpeechBar slug={moduleMeta.file} />
         </header>
 
-        <article className="prose-lesson mt-8 max-w-[42rem] lg:max-w-none">
-          {Lesson ? <Lesson /> : <p>讲义正在编写中。</p>}
-        </article>
+        <AnnotationLayer skill={skillId} moduleSlug={moduleSlug}>
+          <article className="prose-lesson mt-8 max-w-[42rem] lg:max-w-none">
+            {Lesson ? <Lesson /> : <p>讲义正在编写中。</p>}
+          </article>
+        </AnnotationLayer>
 
         <div className="mt-8 border-t border-border pt-5">
           <Link
@@ -155,6 +159,7 @@ export default async function ModulePage({
               </ul>
             </nav>
           )}
+          <AnnotationPanel />
           <div className="mt-3 border-t border-border-subtle pt-3">
             <p className="text-[12px] leading-relaxed text-foreground-tertiary">
               答错先讲为什么错；掌握度低于 {PASS_LINE}% 建议重读后重练。

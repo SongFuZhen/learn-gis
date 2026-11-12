@@ -84,6 +84,9 @@ export type Grade = {
 
 export type AnswerRecord = {
   questionId: string;
-  response: QuizResponse;
+  /** 跳过（「不知道」）时为 null，此时 skipped=true、correct=false */
+  response: QuizResponse | null;
   correct: boolean;
+  /** 主动跳过：按答错处理（进复习队列），但统计中单列、不进正确率分母 */
+  skipped: boolean;
 };

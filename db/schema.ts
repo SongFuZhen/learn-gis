@@ -6,6 +6,8 @@ import {
   real,
   timestamp,
   unique,
+  jsonb,
+  index,
 } from "drizzle-orm/pg-core";
 
 // 所有表统一放在 gis schema 下（同 ../ink_template 的 ink schema 做法）
@@ -33,6 +35,8 @@ export const moduleProgress = gis.table("module_progress", {
   quizCount: integer("quiz_count").notNull().default(0),
   totalAttempts: integer("total_attempts").notNull().default(0),
   wrongCount: integer("wrong_count").notNull().default(0),
+  /** 「不知道，跳过」次数：跳过按答错计入 wrongCount，此处单独计数用于统计展示 */
+  skippedCount: integer("skipped_count").notNull().default(0),
   lastAttemptAt: timestamp("last_attempt_at"),
 });
 
@@ -68,6 +72,8 @@ export const examSessions = gis.table("exam_sessions", {
   mode: text("mode", { enum: ["daily", "mock"] }).notNull(),
   size: integer("size").notNull(),
   correct: integer("correct").notNull(),
+  /** 跳过题数（不会而主动跳过，按错题处理但单列统计） */
+  skipped: integer("skipped").notNull().default(0),
   mastery: real("mastery").notNull(),
   /** 每日卷去重键 YYYY-MM-DD；综合卷为 null */
   dateKey: text("date_key"),
@@ -75,4 +81,37 @@ export const examSessions = gis.table("exam_sessions", {
 }, (table) => [
   // 每日一卷去重：同一用户同一天只保留一条（date_key 为 null 的综合卷不受限）
   unique("uq_exam_user_datekey").on(table.userId, table.dateKey),
+]);
+
+/** 讲义划线标注：备注 / 记录 / 疑问，锚定章节正文中的一段选中文字 */
+export const annotations = gis.table("annotations", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  /** 所属技能：gis / cesium / … */
+  skill: text("skill").notNull().default("gis"),
+  moduleSlug: text("module_slug").notNull(),
+  /** note=备注 record=记录 question=疑问 */
+  kind: text("kind", { enum: ["note", "record", "question"] }).notNull(),
+  /** 选中的原文，用于侧栏摘录与锚点兜底匹配 */
+  quote: text("quote").notNull(),
+  /**
+   * 定位锚点（合成示例）：
+   * { start: 120, end: 128, prefix: "…前文24字", suffix: "后文24字…" }
+   * start/end 为 article 全文 TextNode 拼接后的字符偏移；prefix/suffix 供讲义改版后兜底搜索。
+   */
+  anchor: jsonb("anchor").$type<{
+    start: number;
+    end: number;
+    prefix: string;
+    suffix: string;
+  }>().notNull(),
+  /** 附言，可为空字符串（纯划线） */
+  note: text("note").notNull().default(""),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  // 按用户 + 章节拉取本章全部标注
+  index("idx_annot_user_module").on(table.userId, table.skill, table.moduleSlug),
 ]);

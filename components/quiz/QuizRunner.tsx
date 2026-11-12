@@ -14,7 +14,13 @@ import ProgressBar from "./ProgressBar";
 import QuestionView from "./QuestionView";
 import ResultSummary from "./ResultSummary";
 
-type QuizResult = { correct: number; total: number; skill?: string; moduleSlug?: string };
+type QuizResult = {
+  correct: number;
+  total: number;
+  skipped?: number;
+  skill?: string;
+  moduleSlug?: string;
+};
 
 /** 考试完成（每日一考/综合考试）：写考试记录 */
 async function submitExamProgress(mode: "daily" | "mock", result: QuizResult) {
@@ -55,6 +61,7 @@ async function submitModuleQuizProgress(
         moduleSlug,
         correct: result.correct,
         total: result.total,
+        skipped: result.skipped ?? 0,
       }),
     });
   } catch {
@@ -101,13 +108,18 @@ export default function QuizRunner({
   // 完成时上报：考试卷写考试记录；章节测验只更新章节掌握度；复习模式不上报
   useEffect(() => {
     if (!finished || reviewMode) return;
-    const payload = { correct: result.correct, total: result.answered, skill };
+    const payload = {
+      correct: result.correct,
+      total: result.answered,
+      skipped: result.skipped,
+      skill,
+    };
     if (examMode) {
       void submitExamProgress(examMode, payload);
     } else if (moduleSlug) {
       void submitModuleQuizProgress(moduleSlug, skill, payload);
     }
-  }, [finished, reviewMode, examMode, result.correct, result.answered, skill, moduleSlug]);
+  }, [finished, reviewMode, examMode, result.correct, result.answered, result.skipped, skill, moduleSlug]);
 
   return (
     <div className="flex min-h-[calc(100dvh-3.5rem)] w-full flex-col px-4 py-5 sm:px-6 sm:py-8 lg:min-h-0 lg:px-8">
@@ -152,6 +164,7 @@ export default function QuizRunner({
           isLast={state.index === state.questions.length - 1}
           reviewMode={reviewMode}
           onSubmit={(response) => dispatch({ type: "submit", response })}
+          onSkip={() => dispatch({ type: "skip" })}
           onNext={() => dispatch({ type: "next" })}
         />
       )}

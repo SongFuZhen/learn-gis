@@ -12,6 +12,7 @@ type Row = {
   quizCount: number;
   totalAttempts: number;
   wrongCount: number;
+  skippedCount?: number;
 };
 
 export default function ProgressPanel() {
@@ -72,6 +73,7 @@ export default function ProgressPanel() {
                 <p className="mt-2 text-[11px] text-foreground-tertiary">
                   测验 {row.quizCount} 次 · 累计 {row.totalAttempts} 答 · 错{" "}
                   {row.wrongCount}
+                  {row.skippedCount ? ` · 跳过 ${row.skippedCount}` : ""}
                 </p>
               )}
             </li>

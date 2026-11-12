@@ -1,20 +1,26 @@
 // 冒烟验收：真实 Chrome 把每章题库全做一遍（全对 → 100% 掌握度），
 // 再把「每日一考 / 综合考试」两套随机卷按题干反查题库做一遍。
 // 用法：先 `npm run dev`，再 `npm run smoke:quiz`（BASE_URL / MODULE / SKIP_EXAM 可覆盖）
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { chromium } from "playwright-core";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:25000";
 const ONLY = process.env.MODULE ?? null;
 const SKIP_EXAM = process.env.SKIP_EXAM === "1";
-const CONTENT_DIR = path.resolve(process.cwd(), "content/gis");
+const CONTENT_ROOT = path.resolve(process.cwd(), "content");
+const loadBanks = (dir) =>
+  readdirSync(path.join(CONTENT_ROOT, dir))
+    .filter((f) => f.endsWith(".questions.json"))
+    .sort()
+    .map((file) =>
+      JSON.parse(readFileSync(path.join(CONTENT_ROOT, dir, file), "utf8")),
+    );
 
-const files = readdirSync(CONTENT_DIR)
-  .filter((f) => f.endsWith(".questions.json"))
-  .sort();
-const banks = files.map((file) =>
-  JSON.parse(readFileSync(path.join(CONTENT_DIR, file), "utf8")),
+// 章节测验只跑 gis；考试题库是全站合并（gis + cesium，见 content/all-questions.ts），反查表需覆盖全部 skill
+const chapterBanks = loadBanks("gis");
+const banks = chapterBanks.concat(
+  existsSync(path.join(CONTENT_ROOT, "cesium")) ? loadBanks("cesium") : [],
 );
 const stemMap = new Map();
 for (const bank of banks) {
@@ -66,7 +72,7 @@ async function answerOne(page, q, context) {
 }
 
 // 1) 章节测验：按题库顺序逐题作答
-for (const bank of banks) {
+for (const bank of chapterBanks) {
   if (ONLY && bank.module !== ONLY) continue;
 
   const page = await browser.newPage({ viewport: { width: 390, height: 780 } });
@@ -123,7 +129,8 @@ for (const exam of EXAMS) {
       failed += 1;
       totalQuestions += 1;
       console.log(`✗ ${exam.name} 题干未命中题库：${stem.slice(0, 40)}`);
-      await page.getByRole("button", { name: /提交/ }).click();
+      // 未命中时无法作答，提交按钮处于 disabled；跳过按钮始终可点，用它推进流程
+      await page.getByRole("button", { name: /不知道，跳过/ }).click();
       await page.getByRole("button", { name: /下一题|查看结果/ }).click();
       continue;
     }
@@ -136,6 +143,55 @@ for (const exam of EXAMS) {
     `${missed === 0 && failed === 0 ? "✓" : "✗"} ${exam.name} · ${exam.size} 题 · ${answerLine ?? ""} · console 错误 ${errors.length}`,
   );
   if (errors.length > 0) console.log("  errors:", errors.slice(0, 3));
+  await page.close();
+}
+
+// 3) 跳过专项：第一章第一题点「不知道，跳过」，校验反馈/结果统计/错题标签
+{
+  const bank = banks[0];
+  const page = await browser.newPage({ viewport: { width: 390, height: 780 } });
+  const errors = [];
+  page.on("console", (m) => {
+    if (m.type() === "error") errors.push(m.text());
+  });
+  page.on("pageerror", (e) => errors.push(String(e)));
+
+  await page.goto(`${BASE}/s/gis/${bank.module}/quiz`, { waitUntil: "networkidle" });
+  await page.getByRole("heading", { level: 2 }).waitFor();
+
+  await page.getByRole("button", { name: /不知道，跳过/ }).click();
+  const skipVerdict = page.getByText("这道题跳过了，记住它").first();
+  await skipVerdict.waitFor();
+  totalQuestions += 1;
+
+  // 跳过题在错题列表带「跳过」标签，结果统计行出现「跳过 1」
+  await page.getByRole("button", { name: /下一题|查看结果/ }).click();
+
+  // 一章有多题：跳过首题后把剩余题答完，才会进入结果页
+  for (let i = 1; i < bank.questions.length; i += 1) {
+    const heading = page.getByRole("heading", { level: 2 }).first();
+    if (!(await heading.isVisible().catch(() => false))) break;
+    const stem = (await heading.innerText()).trim();
+    const q = stemMap.get(stem);
+    if (!q) {
+      await page.getByRole("button", { name: /不知道，跳过/ }).click();
+      await page.getByRole("button", { name: /下一题|查看结果/ }).click();
+      continue;
+    }
+    await answerOne(page, q, "跳过专项");
+  }
+  await page.getByText(/测验结果/).waitFor();
+  const mainText = await page.locator("main").innerText();
+  if (!/跳过\s*1/.test(mainText)) {
+    failed += 1;
+    console.log("✗ 跳过专项：结果页缺少「跳过 1」统计");
+  }
+  if (errors.length > 0) {
+    failed += 1;
+    console.log("✗ 跳过专项：console 错误", errors.slice(0, 3));
+  } else {
+    console.log("✓ 跳过专项：反馈/统计/标签均正确 · console 错误 0");
+  }
   await page.close();
 }
 

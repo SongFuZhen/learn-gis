@@ -99,6 +99,27 @@ describe("sessionReducer", () => {
   it("空题库直接抛错（避免空会话渲染）", () => {
     expect(() => createSession([])).toThrow();
   });
+
+  it("skip 记录为跳过并进入 revealed（不判卷）", () => {
+    let state = createSession(questions);
+    state = sessionReducer(state, { type: "skip" });
+    expect(state.phase).toBe("revealed");
+    expect(state.records).toHaveLength(1);
+    expect(state.records[0]).toMatchObject({
+      questionId: "gis-01-001",
+      response: null,
+      correct: false,
+      skipped: true,
+    });
+  });
+
+  it("revealed 阶段重复 skip 被忽略", () => {
+    let state = createSession(questions);
+    state = sessionReducer(state, { type: "skip" });
+    const again = sessionReducer(state, { type: "skip" });
+    expect(again).toBe(state);
+    expect(again.records).toHaveLength(1);
+  });
 });
 
 describe("summarize", () => {
@@ -126,5 +147,37 @@ describe("summarize", () => {
 
   it("未作答时正确率为 0", () => {
     expect(summarize(createSession(questions)).accuracy).toBe(0);
+  });
+
+  it("跳过题计入 wrongIds 与 skipped，但不进正确率分母", () => {
+    let state = createSession(questions);
+    // 第 1 题答对
+    state = sessionReducer(state, {
+      type: "submit",
+      response: { kind: "choice", selected: ["A"] },
+    });
+    state = sessionReducer(state, { type: "next" });
+    // 第 2 题跳过
+    state = sessionReducer(state, { type: "skip" });
+    state = sessionReducer(state, { type: "next" });
+
+    const result = summarize(state);
+    expect(result.answered).toBe(2);
+    expect(result.correct).toBe(1);
+    expect(result.skipped).toBe(1);
+    // 分母只含实际作答的 1 题 → 100%，而非 1/2
+    expect(result.accuracy).toBe(1);
+    expect(result.mastery).toBe(100);
+    expect(result.wrongIds).toEqual(["gis-01-002"]);
+  });
+
+  it("全部跳过时正确率为 0", () => {
+    let state = createSession(questions.slice(0, 1));
+    state = sessionReducer(state, { type: "skip" });
+    const result = summarize(state);
+    expect(result.skipped).toBe(1);
+    expect(result.accuracy).toBe(0);
+    expect(result.mastery).toBe(0);
+    expect(result.wrongIds).toEqual(["gis-01-001"]);
   });
 });
