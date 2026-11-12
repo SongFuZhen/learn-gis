@@ -18,6 +18,7 @@ import {
   setUnresolved,
   useAnnotations,
 } from "@/lib/annotations/store";
+import { findConflict } from "@/lib/annotations/conflict";
 import { cn } from "@/lib/utils";
 import AnnotationPopover from "./AnnotationPopover";
 import { AnnotationPanelMobile } from "./AnnotationPanel";
@@ -52,12 +53,25 @@ export default function AnnotationLayer({
   const rootRef = useRef<HTMLDivElement>(null);
   const { items, loading } = useAnnotations();
   const [toolbar, setToolbar] = useState<Toolbar | null>(null);
+  const [conflictMsg, setConflictMsg] = useState<string | null>(null);
   const [popover, setPopover] = useState<PopoverState | null>(null);
+  // 选区监听器只挂载一次，用 ref 读取最新 items 做冲突判断
+  const itemsRef = useRef(items);
+  useEffect(() => {
+    itemsRef.current = items;
+  }, [items]);
 
   useEffect(() => {
     void loadChapter(skill, moduleSlug);
     installProbe();
   }, [skill, moduleSlug]);
+
+  // 冲突提示 2.4s 后自动消失
+  useEffect(() => {
+    if (!conflictMsg) return;
+    const t = setTimeout(() => setConflictMsg(null), 2400);
+    return () => clearTimeout(t);
+  }, [conflictMsg]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -78,17 +92,27 @@ export default function AnnotationLayer({
     const el = rootRef.current;
     if (!el) return;
 
-    function onMouseUp() {
+    // selectionchange 同时覆盖鼠标、触屏拖选手柄、键盘 Shift+方向键；
+    // 高频事件，用防抖在选区稳定后再建锚点
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    function onSelectionChange() {
+      if (timer) clearTimeout(timer);
+      timer = setTimeout(syncToolbar, 120);
+    }
+
+    function syncToolbar() {
       const root = rootRef.current;
       if (!root) return;
       const selection = document.getSelection();
       if (!selection || selection.rangeCount === 0 || selection.isCollapsed) {
         setToolbar(null);
+        setConflictMsg(null);
         return;
       }
       const range = selection.getRangeAt(0);
       if (!root.contains(range.commonAncestorContainer)) {
         setToolbar(null);
+        setConflictMsg(null);
         return;
       }
       const base = buildAnchor(root, range);
@@ -96,6 +120,7 @@ export default function AnnotationLayer({
       const quote = raw.trim();
       if (!base || !quote) {
         setToolbar(null);
+        setConflictMsg(null);
         return;
       }
       // 选区首尾的空白不进 quote，anchor 也要对齐到 trim 后的真实边界，
@@ -107,6 +132,26 @@ export default function AnnotationLayer({
         base.start + lead,
         base.end - tailGap,
       );
+      // 与已有划线区间相交/重复：不弹工具条，给出提示，避免嵌套 mark 破坏文本结构
+      const hit = itemsRef.current.find((it) => {
+        const sameSpan =
+          it.anchor.start === anchor.start && it.anchor.end === anchor.end;
+        const intersects =
+          anchor.start < it.anchor.end && anchor.end > it.anchor.start;
+        return sameSpan || intersects;
+      });
+      if (hit) {
+        const sameSpan =
+          hit.anchor.start === anchor.start && hit.anchor.end === anchor.end;
+        setToolbar(null);
+        setConflictMsg(
+          sameSpan
+            ? "这段文字已经划过线了"
+            : "选区与已有划线重叠，请调整选区范围",
+        );
+        return;
+      }
+      setConflictMsg(null);
       const rect = range.getBoundingClientRect();
       const width = 192;
       const x = Math.max(
@@ -135,16 +180,30 @@ export default function AnnotationLayer({
       });
     }
 
-    el.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("selectionchange", onSelectionChange);
     el.addEventListener("click", onClick);
     return () => {
-      el.removeEventListener("mouseup", onMouseUp);
+      if (timer) clearTimeout(timer);
+      document.removeEventListener("selectionchange", onSelectionChange);
       el.removeEventListener("click", onClick);
     };
   }, []);
 
   async function addAnnotation(kind: AnnotationKind) {
     if (!toolbar) return;
+    // 防御性兜底：选区展示后、点击前若已有同区间标注，拒绝重复提交
+    if (
+      findConflict(
+        items.map((it) => ({ id: it.id, kind: it.kind, anchor: it.anchor })),
+        { start: toolbar.anchor.start, end: toolbar.anchor.end },
+        kind,
+      )
+    ) {
+      setToolbar(null);
+      setConflictMsg("这段文字已经划过线了");
+      document.getSelection()?.removeAllRanges();
+      return;
+    }
     await createAnnotation({
       skill,
       moduleSlug,
@@ -172,8 +231,8 @@ export default function AnnotationLayer({
           aria-label="添加划线笔记"
           className="fixed z-40 flex h-10 items-center gap-1 rounded-md border border-border bg-card px-1.5 shadow-[0_12px_32px_-10px_rgba(20,26,64,0.35)]"
           style={{ left: toolbar.x, top: toolbar.y }}
-          // 按下按钮前不能丢选区
-          onMouseDown={(e) => e.preventDefault()}
+          // 按下按钮前不能丢选区：pointerdown 同时覆盖鼠标与触屏
+          onPointerDown={(e) => e.preventDefault()}
         >
           {KINDS.map((item) => (
             <button
@@ -187,6 +246,16 @@ export default function AnnotationLayer({
               {item.label}
             </button>
           ))}
+        </div>
+      )}
+
+      {conflictMsg && (
+        <div
+          role="status"
+          data-anno-conflict
+          className="fixed left-1/2 top-14 z-40 -translate-x-1/2 rounded-md border border-border bg-card px-3 py-1.5 text-[12px] text-foreground-secondary shadow-[0_12px_32px_-10px_rgba(20,26,64,0.35)]"
+        >
+          {conflictMsg}
         </div>
       )}
 

@@ -119,6 +119,21 @@ async function selectTextInArticle(page, nth) {
   }, nth);
 }
 
+/** 选中第一条 mark 内部的文字，制造与已有划线重叠的选区 */
+async function selectInsideFirstMark(page) {
+  await page.evaluate(() => {
+    const mark = document.querySelector("mark.anno-mark");
+    const node = mark?.firstChild;
+    if (!node) return;
+    const range = document.createRange();
+    range.setStart(node, 0);
+    range.setEnd(node, Math.min(3, (node.textContent ?? "").length));
+    const selection = window.getSelection();
+    selection.removeAllRanges();
+    selection.addRange(range);
+  });
+}
+
 let browser;
 try {
   browser = await chromium.launch({ channel: "chrome", headless: true });
@@ -220,6 +235,21 @@ try {
     (await page.locator("[data-anno-list] [data-anno-item]").count()) === 2,
     "侧栏同步剩 2 条",
   );
+
+  // 6) 重叠/重复选区：不弹工具条，给出冲突提示，mark 数量不变
+  const beforeOverlap = await page.locator("mark.anno-mark").count();
+  await selectInsideFirstMark(page);
+  await page.locator("[data-anno-conflict]").waitFor({ timeout: 5000 });
+  check(
+    (await page.locator('[role="toolbar"][aria-label="添加划线笔记"]').count()) === 0,
+    "重叠选区不弹出划线工具条",
+  );
+  check(
+    (await page.locator("mark.anno-mark").count()) === beforeOverlap,
+    "重叠选区不新增 mark",
+    `before=${beforeOverlap}`,
+  );
+  await page.locator("[data-anno-conflict]").waitFor({ state: "detached", timeout: 6000 });
 
   check(pageErrors.length === 0, "无未捕获页面异常", pageErrors.slice(0, 3).join(" | "));
 } catch (e) {
