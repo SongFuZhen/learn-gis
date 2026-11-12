@@ -2,13 +2,15 @@
 // 不依赖图床 / 公网：page.route 拦截 manifest 与 /api/audio/stream，就地生成 WAV。
 // 覆盖：手动调音量、增益随音量降低、播放中拉过 100% 即时启用增强且不打断播放、
 //       静音恢复上一次音量、播放不重置设置、刷新持久化、真实播放进度、同源流式代理、
-//       静音态刷新后恢复上一次可听音量（last-audible 持久化）。
+//       静音态刷新后恢复上一次可听音量（last-audible 持久化）、
+//       跨章节跳转（第二 slug）时上一章音频立即停播且复用同一 Audio 元素。
 // 用法：先 `npm run dev`，再 `npm run smoke:speech`（BASE_URL 可覆盖）
 import { chromium } from "playwright-core";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:25000";
 const PAGE = `${BASE}/s/cesium/00`;
 const SLUG = "00-cesium-intro";
+const SLUG2 = "01-camera-coords";
 const REMOTE = "https://cloudflare-imgbed-91r.pages.dev/file/smoke-chapter.wav";
 const SEGMENT_SECONDS = 1.5;
 const SEGMENTS = 3;
@@ -52,6 +54,20 @@ const manifest = {
   })),
 };
 
+// 第二个 slug 的受控 manifest：段文本刻意不同，用于断言跳转后真正加载了新章节的 manifest。
+const manifest2 = {
+  ...manifest,
+  slug: SLUG2,
+  segments: Array.from({ length: SEGMENTS }, (_, i) => ({
+    index: i,
+    text: `第二章第 ${i + 1} 段：相机与坐标系`,
+    hash: `smoke2-${i}`,
+    audio: `seg${String(i).padStart(2, "0")}.wav`,
+    start: i * SEGMENT_SECONDS,
+    duration: SEGMENT_SECONDS,
+  })),
+};
+
 const failures = [];
 function check(ok, label, detail = "") {
   if (ok) {
@@ -67,13 +83,14 @@ const near = (a, b) => typeof a === "number" && Math.abs(a - b) < 0.02;
 async function installProbe(page) {
   // 抓到 useSpeech 内部创建的 Audio / GainNode / AudioContext，才能断言真实增益而非界面数字
   await page.addInitScript(() => {
-    const probe = { audio: null, gain: null, context: null, enhanced: false };
+    const probe = { audio: null, audios: [], gain: null, context: null, enhanced: false };
     window.__speechProbe = probe;
 
     const NativeAudio = window.Audio;
     function WrappedAudio(...args) {
       const el = new NativeAudio(...args);
       probe.audio = el;
+      probe.audios.push(el);
       return el;
     }
     WrappedAudio.prototype = NativeAudio.prototype;
@@ -102,10 +119,14 @@ async function installRoutes(page) {
   await page.route(/\/audio\//, async (route) => {
     const url = new URL(route.request().url());
     if (url.pathname.endsWith("manifest.json")) {
+      // 按请求路径里的 slug 选择 manifest，模拟第二 slug 的独立章节音频
+      const seg = url.pathname.split("/").filter(Boolean);
+      const slug = seg[seg.length - 2] ?? "";
+      const chosen = slug === SLUG2 ? manifest2 : manifest;
       await route.fulfill({
         status: 200,
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(manifest),
+        body: JSON.stringify(chosen),
       });
       return;
     }
@@ -333,6 +354,63 @@ try {
     await volume(page3),
   );
   check(errors3.length === 0, "场景三无未捕获页面异常", errors3.slice(0, 3).join(" | "));
+
+  // ========== 场景四：跨章节跳转（第二 slug）应立停上一章音频并复用同一 Audio ==========
+  // 独立页面、默认 200%；从 /s/cesium/00 客户端跳转到 /s/cesium/01，验证上一章音频被暂停、
+  // 进度冻结、且 SpeechBar 复用同一个 Audio 元素（而非重新挂载），随后新章节可正常起播。
+  const page4 = await browser.newPage({ viewport: { width: 1280, height: 900 } });
+  const errors4 = [];
+  page4.on("pageerror", (e) => errors4.push(String(e)));
+  await installProbe(page4);
+  await installRoutes(page4);
+  await page4.goto(PAGE, { waitUntil: "networkidle" });
+  await sliderOf(page4).waitFor();
+
+  await page4.getByRole("button", { name: "播放", exact: true }).click();
+  await waitPlaying(page4);
+
+  // 给「正在播放」的音频元素打标记（StrictMode 下页面可能有多个元素，只有当前活动的是在播的）
+  await page4.evaluate(() => {
+    window.__speechProbe.audio.__navTag = "playing";
+  });
+
+  // 客户端跳转（Next <Link>）：点「下一章」而非整页刷新
+  await page4.getByRole("link", { name: /下一章/ }).click();
+  await page4.waitForURL("**/cesium/01", { timeout: 15000 });
+  // 等第二 slug 的 manifest 加载完（段文本变为第二章内容）
+  await page4.waitForFunction(
+    () => document.body.innerText.includes("第二章第 1 段：相机与坐标系"),
+    null,
+    { timeout: 15000 },
+  );
+
+  // 跳转后：被打标记的「上一章正在播放」音频已暂停 —— 旧音频真正停下，而非静音残留
+  const oldPaused = await page4.evaluate(() => {
+    const el = window.__speechProbe.audios.find((a) => a.__navTag === "playing");
+    return el ? el.paused === true : false;
+  });
+  check(oldPaused, "跳转后上一章正在播放的音频已暂停（旧音频真正停播）");
+  // 整页所有 Audio 元素此时都静音：无遗留播放、无后台 orphan 在响
+  const allPaused = await page4.evaluate(() =>
+    window.__speechProbe.audios.every((a) => a.paused === true),
+  );
+  check(allPaused, "跳转后页面所有 Audio 元素均静音（无遗留播放）");
+
+  // 第二 slug 的 manifest 确实加载：段列表显示第二章文本
+  check(
+    await page4.evaluate(() =>
+      document.body.innerText.includes("第二章第 2 段：相机与坐标系"),
+    ),
+    "第二 slug 的 manifest 已加载（段列表更新为第二章）",
+  );
+
+  // 在新章节上起播，验证复用元素仍可用、增益链路照常工作
+  await page4.getByRole("button", { name: "播放", exact: true }).click();
+  await waitPlaying(page4);
+  await page4.waitForFunction(() => window.__speechProbe.gain !== null, null, { timeout: 10000 });
+  check(near(await gain(page4), 2), "第二 slug 起播后 Gain = 2（默认音量增强）", String(await gain(page4)));
+  check((await audioVolume(page4)) === 1, "第二 slug 起播后原生音量仍为 1", String(await audioVolume(page4)));
+  check(errors4.length === 0, "场景四无未捕获页面异常", errors4.slice(0, 3).join(" | "));
 } catch (e) {
   const msg = e instanceof Error ? e.message : String(e);
   failures.push("脚本异常：" + msg);
