@@ -1,0 +1,173 @@
+{
+  "skill": "turf",
+  "module": "04",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-04-001",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "点恰好落在 Polygon 外环上时，booleanPointInPolygon 默认返回什么？",
+      "explanation": "默认 ignoreBoundary 为 false，外环和孔洞边界都被计入面的范围，因此压线点返回 true；需要严格内部时才显式开启 ignoreBoundary。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "true", "hint": "默认规则把边界视为面范围的一部分" },
+        { "key": "B", "text": "false" },
+        { "key": "C", "text": "null" },
+        { "key": "D", "text": "必定抛出异常" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-04-002",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "设置 ignoreBoundary: true 后，落在外环上的点仍会被 booleanPointInPolygon 判为内部。",
+      "explanation": "错误。ignoreBoundary: true 的语义就是排除边界，压在外环上的点会返回 false；默认值才将边界点视为在面内。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-04-003",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "一个点位于 Polygon 外环上，booleanDisjoint(point, polygon) 应返回什么？",
+      "explanation": "Disjoint 要求两个几何没有任何公共点。压线点与多边形边界有公共位置，所以返回 false，即使该点没有进入严格内部也不相离。",
+      "refs": [{ "title": "Turf booleanDisjoint API", "url": "https://turfjs.org/docs/api/booleanDisjoint" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "true，因为点不在严格内部" },
+        { "key": "B", "text": "false，因为点与边界有公共点", "hint": "相离判断连边界接触也不允许" },
+        { "key": "C", "text": "null，因为维度不同" },
+        { "key": "D", "text": "返回公共边界的新几何" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-04-004",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "Turf v7 中，对两个 Polygon 求交集的标准输入组织方式是什么？",
+      "explanation": "v7 的 intersect 接收由 Polygon 或 MultiPolygon 组成的 FeatureCollection，而不是沿用旧教程的两个独立位置参数；没有交集时还要处理 null。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "intersect(featureCollection([a, b]))", "hint": "v7 用 FeatureCollection 组织参与叠置的面" },
+        { "key": "B", "text": "intersect(a.geometry.coordinates, b.properties)" },
+        { "key": "C", "text": "intersect(point([0, 0]), lineString([[0, 0], [1, 1]]))" },
+        { "key": "D", "text": "intersect(a.properties, b.properties)" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-04-005",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "Turf 的 union 可以把两条 LineString 合并成一条线，语义与两个 Polygon 的合并完全相同。",
+      "explanation": "错误。本章的 union 是 Polygon/MultiPolygon 面叠置运算，负责合并面并消解内部边，不是任意 LineString 的通用拼线工具。",
+      "refs": [{ "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-04-006",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于 Contains、Within 与 Overlap 的关系语义，下列说法正确的有哪些？",
+      "explanation": "Contains 与 Within 的参数观察方向相反；Overlap 要求同维度几何部分重叠，完全包含和仅边界接触都不应被当作 Overlap。",
+      "refs": [
+        { "title": "Turf booleanContains API", "url": "https://turfjs.org/docs/api/booleanContains" },
+        { "title": "Turf booleanWithin API", "url": "https://turfjs.org/docs/api/booleanWithin" },
+        { "title": "Turf booleanOverlap API", "url": "https://turfjs.org/docs/api/booleanOverlap" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "booleanContains(a, b) 的主体是 a", "hint": "读作 a 是否完整包含 b" },
+        { "key": "B", "text": "两个面只要共享一个角点，就一定 booleanOverlap 为 true" },
+        { "key": "C", "text": "booleanWithin(a, b) 判断 a 是否位于 b 内", "hint": "Within 的观察方向与 Contains 相反" },
+        { "key": "D", "text": "一个面完全包含另一个面时，不应依赖 Overlap 表达这种包含关系", "hint": "完全包含应使用 Contains 或 Within" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "turf-04-007",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "大 Polygon 完整包含一个小 Polygon，要直接验证这种关系，优先使用哪个函数？",
+      "explanation": "booleanContains(big, small) 专门验证完整包含。Overlap 面向部分重叠而非包含，Disjoint 则要求完全无公共点，都与题意不符。",
+      "refs": [{ "title": "Turf booleanContains API", "url": "https://turfjs.org/docs/api/booleanContains" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "booleanDisjoint(big, small)" },
+        { "key": "B", "text": "booleanOverlap(big, small)" },
+        { "key": "C", "text": "booleanContains(big, small)", "hint": "参数顺序就是大面包含小面" },
+        { "key": "D", "text": "difference(featureCollection([big, small])) 只用于返回布尔值" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-04-008",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "两个输入面没有公共面积时，调用 intersect 后下游代码首先应该做什么？",
+      "explanation": "无交集时 intersect 返回 null，因此下游必须先判空再访问 geometry 或做面积计算；直接读取 coordinates 会引发运行时错误。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "先检查结果是否为 null", "hint": "空结果是没有交集的正常语义，不应直接解引用" },
+        { "key": "B", "text": "直接读取 result.geometry.coordinates[0]" },
+        { "key": "C", "text": "假定结果一定是单 Polygon" },
+        { "key": "D", "text": "把结果当作 true 参与 Contains" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-04-009",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "处理 MultiPolygon 交并差结果时，下列工程判断正确的有哪些？",
+      "explanation": "公共部分可能分离成多个面，差集顺序决定谁被谁剪除，空结果也是合法分支。代码不能强制按单 Polygon 取第一个环，也不能假设所有输入属性会按业务需要自动合并。",
+      "refs": [
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" },
+        { "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" },
+        { "title": "RFC 7946 MultiPolygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.7" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "intersect 的结果可能是 MultiPolygon", "hint": "多个分离碎片共同构成合法交集" },
+        { "key": "B", "text": "difference 中交换首项与后续项会改变业务语义", "hint": "首项是被后续面剪除的主体" },
+        { "key": "C", "text": "任何 MultiPolygon 结果都可只取 coordinates[0] 而保证不丢面积" },
+        { "key": "D", "text": "关键输出属性应显式构造，并处理 null 结果", "hint": "属性与空结果都不应靠隐式假设" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-04-010",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "两个相邻行政区的共享边界上发生一次告警，业务要求恰好归属一个区，哪种方案最可靠？",
+      "explanation": "默认点面判断可能双命中，ignoreBoundary 又可能零命中。可靠方案是把边界命中识别为特殊分支，再按明确的优先级、管辖表或业务规则确定性分配，同时保留审计信息。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "完全依赖默认规则，命中几个区就全部各记一次" },
+        { "key": "B", "text": "统一 ignoreBoundary: true，并假设边界告警不存在" },
+        { "key": "C", "text": "识别边界命中，再按明确的确定性管辖规则分配一次", "hint": "唯一归属需要业务规则补完，几何谓词本身不决定优先级" },
+        { "key": "D", "text": "改用 Cesium scene.pick，像素结果会自动解决行政区归属" }
+      ],
+      "answer": ["C"]
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "skill": "turf",
+  "module": "09",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-09-001",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "flatten 接收一个包含两个面的 MultiPolygon Feature 时，主要输出是什么？",
+      "explanation": "flatten 把多几何拆成单几何 FeatureCollection，因此两个 Polygon 会成为两个 Feature，并保留原要素属性。它不会直接把面炸成顶点。",
+      "refs": [{ "title": "Turf flatten API", "url": "https://turfjs.org/docs/api/flatten" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "包含两个 Polygon Feature 的 FeatureCollection", "hint": "Multi 被拆开，但几何层级仍是 Polygon" },
+        { "key": "B", "text": "一个包含全部顶点的 Point Feature" },
+        { "key": "C", "text": "一个自动消除所有重叠的 Polygon" },
+        { "key": "D", "text": "一个 Leaflet 图层组" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-002",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "需要取得一条 LineString 的所有顶点作为点时，应使用哪个函数？",
+      "explanation": "explode 把输入几何的坐标顶点抽成 Point FeatureCollection。flatten 只拆多几何，combine 用于组合同类几何，rewind 只调整环方向。",
+      "refs": [{ "title": "Turf explode API", "url": "https://turfjs.org/docs/api/explode" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "explode", "hint": "它把几何顶点展开为点集合" },
+        { "key": "B", "text": "rewind" },
+        { "key": "C", "text": "combine" },
+        { "key": "D", "text": "cleanCoords" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-003",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "关于 combine 的几何组合行为，下列说法正确的有哪些？",
+      "explanation": "combine 按几何类型把 Point、LineString、Polygon 分别组成 MultiPoint、MultiLineString、MultiPolygon；混合输入可产生多个 Multi 结果。它只组合结构，不执行 dissolve 或消除重叠边界。",
+      "refs": [{ "title": "Turf combine API", "url": "https://turfjs.org/docs/api/combine" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "多个 Point 可以组成 MultiPoint", "hint": "同类点几何会组合到多点结构" },
+        { "key": "B", "text": "多个 LineString 可以组成 MultiLineString", "hint": "同类线几何也有对应的多几何输出" },
+        { "key": "C", "text": "多个重叠 Polygon 会自动合并边界并消除重叠" },
+        { "key": "D", "text": "混合输入可以按类型产生多个 Multi 几何要素", "hint": "combine 不是把所有类型强塞进同一种 Multi" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-09-004",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "rewind 默认按右手规则规范多边形环方向，即外环逆时针、孔洞环顺时针。",
+      "explanation": "正确。默认 rewind 与 RFC 7946 的环方向约定一致；reverse: true 会采用相反方向。改变顶点顺序不等于改变多边形覆盖区域。",
+      "refs": [
+        { "title": "Turf rewind API", "url": "https://turfjs.org/docs/api/rewind" },
+        { "title": "GeoJSON RFC 7946 Polygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-09-005",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "cleanCoords 与 rewind 能自动修复多边形自相交、孔洞越界等全部拓扑错误。",
+      "explanation": "错误。cleanCoords 清理冗余坐标，rewind 调整环方向；自相交和孔洞越界属于其他拓扑问题，需要专门检测与修复，不能因调用这两个函数就认定数据有效。",
+      "refs": [
+        { "title": "Turf cleanCoords API", "url": "https://turfjs.org/docs/api/cleanCoords" },
+        { "title": "Turf rewind API", "url": "https://turfjs.org/docs/api/rewind" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-09-006",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "按照 GeoJSON RFC 7946 的右手规则，多边形外环与孔洞环的方向分别是什么？",
+      "explanation": "RFC 7946 规定外环逆时针、孔洞环顺时针，便于表示带孔面并提高跨系统互操作性。旧数据方向相反并不应仅因此被解析器拒绝，但输出时可规范化。",
+      "refs": [{ "title": "GeoJSON RFC 7946 Polygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "外环逆时针，孔洞环顺时针", "hint": "这是 rewind 默认规范化的目标方向" },
+        { "key": "B", "text": "外环顺时针，孔洞环逆时针" },
+        { "key": "C", "text": "外环和孔洞环都必须逆时针" },
+        { "key": "D", "text": "方向完全由地图缩放级别决定" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-007",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "普通 GeoJSON 对象可以通过 postMessage 发送给 Worker，发送过程通常采用结构化克隆。",
+      "explanation": "正确。由普通对象、数组、字符串和数字组成的 GeoJSON 可结构化克隆；DOM、地图实例、函数和 Cesium Entity 等行为对象不能作为纯 GeoJSON 直接克隆。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-09-008",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "对大数组 Turf 运算做性能基准测试时，哪些方法能得到更可信的结论？",
+      "explanation": "输入生成应排除在目标算法计时外，预热可减少首次执行影响，多轮中位数与尾部分位数比单次结果更稳定。评估 Worker 时还应计入消息复制与回传，而非只看内部计算。",
+      "refs": [
+        { "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" },
+        { "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "固定输入与参数，在计时区外生成随机测试数据", "hint": "这样测到的是目标算法，而不是数据生成器" },
+        { "key": "B", "text": "先预热，再进行多轮测量并报告中位数和尾部分位数", "hint": "多次样本能暴露首次执行与偶发卡顿" },
+        { "key": "C", "text": "在计时循环里打印十万条日志，让结果更接近真实负载" },
+        { "key": "D", "text": "Worker 端到端测试包含 postMessage 到收到结果的时间", "hint": "用户感受到的是完整链路，不只是 Worker 内函数耗时" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-09-009",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "主线程向模块 Worker 发送点集并接收聚类结果，应使用哪组通信机制？",
+      "explanation": "Worker 与页面通过 postMessage 发消息、onmessage 收消息。模块 Worker 内可以 import Turf，但不能直接操作 DOM；请求 id 用于对应可能乱序返回的并发任务。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "postMessage 发送，onmessage 接收，并用任务 id 对应结果", "hint": "消息协议既传纯数据，也标识异步任务" },
+        { "key": "B", "text": "Worker 直接读取并修改页面 DOM" },
+        { "key": "C", "text": "把 maplibregl.Map 实例克隆给 Worker 做几何计算" },
+        { "key": "D", "text": "让 Worker 与页面同时原地修改同一个普通对象" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-010",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "十万点 KMeans 让地图交互卡顿，哪种改造与性能结论最严谨？",
+      "explanation": "应把纯 GeoJSON 与参数发给 Worker，在 Worker 内聚类并返回结果，主线程只更新视图；测试比较从发送到收结果的端到端耗时。Worker 能缓解阻塞，但复制和算法成本仍存在。",
+      "refs": [
+        { "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" },
+        { "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "发送纯点集与参数给 Worker，回传结果并测量完整消息链路", "hint": "既释放主线程，也把克隆和回传成本纳入结论" },
+        { "key": "B", "text": "把整个地图实例传给 Worker，并要求它直接修改 DOM" },
+        { "key": "C", "text": "只测 Worker 内 KMeans 一次耗时，忽略所有消息成本" },
+        { "key": "D", "text": "认定放进 Worker 后算法复杂度会自动降低" }
+      ],
+      "answer": ["A"]
+    }
+  ]
+}

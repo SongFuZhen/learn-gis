@@ -1,0 +1,165 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：几万个订单点直接撒到地图上，只会得到一片杂乱的针毯。业务真正想问的是「每个行政区卖了多少」「订单自然形成哪些热点」「每个六边形格子里有多少单」。**一句话心智模型**：聚合就是把一堆点变成有业务含义的组、面或数字；Turf 负责算出 GeoJSON（/ˈdʒiːoʊ dʒeɪˈsɒn/，「吉欧-杰森」）底表，地图库负责上色。**常见坑**：
+- 把 DBSCAN（/ˈdiːbiːskæn/，「迪-比-斯坎」）和 KMeans（/ˈkeɪ miːnz/，「剋-明兹」）当成同一算法：前者看密度并能识别噪声，后者按指定簇数寻找质心。
+- 以为 `hexGrid` 会顺便统计点数：网格函数只生成几何，计数要自己做。
+- 忘记 `maxDistance`、`cellSide` 的单位，结果把 500 米写成 500 千米。**必记 3 条**：
+1. `collect` 按面收集点的属性值，输出仍是一组面。
+2. DBSCAN 不用预先给簇数；KMeans 要指定 `numberOfClusters`，且不负责识别噪声。
+3. 网格 + 点面计数 = 热力图底表；颜色分级是渲染层的事。
+
+## 本章你会学到
+
+用 `collect` 做行政区属性汇总，用 `clustersDbscan` 与 `clustersKmeans` 发现订单簇，再生成六边形、矩形与点网格，封装一个 `pointCount` 得到可直接上色的计数面。最后会比较这些结果与 CesiumJS 的屏幕聚合有什么本质区别。
+
+## 1. collect：把点属性收进所属面
+
+`collect(polygons, points, inProperty, outProperty)` 对每个面寻找内部点，把点的 `inProperty` 属性组成数组，写到该面的 `outProperty` 上。它不是求和器，而是**属性收集器**；求和、平均、最大最小值可以在结果上继续算。
+
+```js
+import { collect, featureCollection, point, polygon } from "@turf/turf";
+
+const districts = featureCollection([
+  polygon([[[116.38, 39.89], [116.43, 39.89], [116.43, 39.94],
+    [116.38, 39.94], [116.38, 39.89]]], { name: "西区" }),
+  polygon([[[116.43, 39.89], [116.48, 39.89], [116.48, 39.94],
+    [116.43, 39.94], [116.43, 39.89]]], { name: "东区" }),
+]);
+
+const orders = featureCollection([
+  point([116.40, 39.90], { amount: 32 }),
+  point([116.41, 39.92], { amount: 28 }),
+  point([116.46, 39.91], { amount: 45 }),
+]);
+
+const collected = collect(districts, orders, "amount", "amounts");
+for (const district of collected.features) {
+  const values = district.properties.amounts;
+  const total = values.reduce((sum, value) => sum + value, 0);
+  console.log(district.properties.name, values.length, total);
+}
+// 西区：2 单，60；东区：1 单，45
+```
+
+没有命中点时，对应数组为空。`collect` 的答案取决于点面包含关系，因此错误坐标、未闭合环或跨面边界点都应先检查；需要严格控制边界语义时，可先读第 4 章的空间判断。
+
+## 2. clustersDbscan：按密度找簇，也允许噪声
+
+DBSCAN 的核心概念是：一个点附近在 `maxDistance` 内至少有 `minPoints` 个点，它就可能成为密度核心；彼此可达的核心及其邻接点扩展成簇，远离所有稠密区的点被标为噪声。簇数由数据与阈值共同决定，不需要提前猜。
+
+```js
+import { clustersDbscan } from "@turf/turf";
+
+const dbscan = clustersDbscan(orders, 1.5, {
+  units: "kilometers",
+  minPoints: 2,
+});
+
+for (const feature of dbscan.features) {
+  console.log(feature.properties.dbscan); // core、edge 或 noise
+  console.log(feature.properties.cluster); // 属于某簇时的数字编号
+}
+```
+
+返回点会附加 `dbscan` 与聚类相关属性。`maxDistance` 是地理距离，不是屏幕像素；缩放地图不会改变结果。`minPoints` 越大、距离越小，越容易产生噪声。调参时应结合业务尺度，例如骑手驻店热点可用百米级，城市间站点聚类则用千米级。
+
+<Callout type="info" title="和 CesiumJS 的 EntityCluster 不是一回事">
+Cesium 的 EntityCluster 主要把屏幕上靠得太近的 Entity 合并显示，相机缩放后簇会变化；Turf 的 DBSCAN 与 KMeans 按地理坐标计算，结果是可保存、可统计的 GeoJSON。可以先用 Turf 算地理簇，再按 [Cesium GeoJSON 章](/s/cesium/04)的方式加载展示，但不要拿屏幕聚合结果冒充空间分析。
+</Callout>
+
+## 3. clustersKmeans：给定簇数，围绕质心分组
+
+KMeans 先确定要分成几组，再迭代调整质心，使各点尽量靠近所属质心。它适合「全城划定 8 个运营片区」这类有明确组数的任务，不适合自动判断异常点或发现任意形状的密度簇。
+
+```js
+import { clustersKmeans } from "@turf/turf";
+
+const kmeans = clustersKmeans(orders, { numberOfClusters: 2 });
+for (const feature of kmeans.features) {
+  console.log(feature.properties.cluster);  // 簇编号
+  console.log(feature.properties.centroid); // 所属簇的质心坐标
+}
+```
+
+| 对比项 | DBSCAN | KMeans |
+| --- | --- | --- |
+| 是否预设簇数 | 否 | 是，`numberOfClusters` |
+| 是否识别噪声 | 是 | 否，点通常都会归入某簇 |
+| 主要尺度 | 邻域距离与最小点数 | 到质心的距离 |
+| 适合形状 | 可发现非球形密度簇 | 更偏向紧凑、大小相近的簇 |
+
+<Callout type="warn" title="不要只跑一次就把簇当真相">
+两种算法都受参数与输入分布影响。先用地图检查点是否落在合理位置，再做阈值敏感性对比；跨经纬度大范围数据尤其要理解距离与投影语义。簇编号只是标签，编号 0 并不天然比编号 1 更重要。
+</Callout>
+
+## 4. 三种网格：hexGrid、rectangleGrid、pointGrid
+
+三种函数都接收 `[minX, minY, maxX, maxY]` 顺序的包围盒与 `cellSide`，并通过 `units` 控制格元尺度。前两者返回面网格，适合做统计单元；`pointGrid` 返回规则点集，适合采样或做格网中心标记。
+
+```js
+import { hexGrid, pointGrid, rectangleGrid } from "@turf/turf";
+
+const bbox = [116.36, 39.87, 116.50, 39.96]; // 北京附近，[西, 南, 东, 北]
+const hexes = hexGrid(bbox, 2, { units: "kilometers" });
+const squares = rectangleGrid(bbox, 2, { units: "kilometers" });
+const centers = pointGrid(bbox, 2, { units: "kilometers" });
+
+console.log(hexes.features[0].geometry.type);    // Polygon
+console.log(squares.features[0].geometry.type);  // Polygon
+console.log(centers.features[0].geometry.type);  // Point
+```
+
+六边形邻居关系均匀、视觉上较少方向偏好，常用于城市热力；矩形便于行列索引和与服务端表格对齐；点网格没有面边界，不能直接拿本章的面计数函数统计。`mask` 选项可保留与指定面相交的网格，从而减少研究区外的无效单元。
+
+## 5. 自定义 pointCount：生成热力底表
+
+Turf 的网格函数只造格子，官方 API 没有一个通用的 `pointCount` 来替业务完成全部统计。下面用这个直观名字封装本章函数：遍历每个面格，数出内部点，并把 `count` 写回 properties。
+
+```js
+import { booleanPointInPolygon, featureCollection } from "@turf/turf";
+
+function pointCount(cells, points) {
+  return featureCollection(cells.features.map((cell) => {
+    const count = points.features.filter((order) =>
+      booleanPointInPolygon(order, cell)
+    ).length;
+
+    return {
+      ...cell,
+      properties: { ...cell.properties, count },
+    };
+  }));
+}
+
+const heatCells = pointCount(hexes, orders);
+console.log(heatCells.features.map((cell) => cell.properties.count));
+```
+
+这份结果已经是热力图底表：每个 Polygon 都带一个可分级设色的 `count`。小数据可以直接这样写；大网格乘大点集会产生 `格数 × 点数` 的重复判断，应使用空间索引、先按包围盒分桶，或交给 Web Worker，具体见第 9 章。
+
+<Callout type="tip" title="从底表到热力样式">
+先过滤 `count === 0` 的格子，再按分位数设置颜色与透明度，通常比线性套色更耐离群值。不要在高倍缩放时仍沿用城市级格元：格元尺寸应和观察尺度一起设计。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 做一张订单六边形热力底表">
+用第 7 章将学到的 `randomPoint` 在上面的包围盒内生成 500 个模拟订单，以 1 千米六边形生成网格，再用本章 `pointCount` 统计每格订单数。输出非空格子的最大、最小和中位计数，并分别尝试 DBSCAN 与 KMeans，解释为什么二者簇数不同。
+<ExerciseSolution>
+核心链路是 `randomPoint → hexGrid → pointCount`。把计数数组排序后，中位数取下标 `Math.floor(sorted.length / 2)`（偶数长度可取中间两项均值），最大值可用 `Math.max(...counts)`。DBSCAN 的簇数由 `maxDistance`、`minPoints` 和随机密度共同决定；KMeans 则直接由 `numberOfClusters` 控制。若 DBSCAN 全是噪声，优先放大邻域或降低 `minPoints`，而不是把噪声强行算作一个热点。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- `collect` 输出带属性数组的面，不是自动汇总后的数字。
+- DBSCAN 看密度并识别噪声；KMeans 按指定簇数围绕质心分组。
+- `hexGrid`、`rectangleGrid` 生成面，`pointGrid` 生成点；包围盒顺序始终是 `[minX, minY, maxX, maxY]`。
+- 网格计数生成的是与渲染无关的 GeoJSON 底表，可交给 Leaflet、MapLibre 或 CesiumJS 展示。
+
+下一章学习空间插值与随机测试数据，让网格从「计数容器」变成「连续现象估计」。
+
+## 延伸阅读
+
+- [Turf collect](https://turfjs.org/docs/api/collect)
+- [Turf clustersDbscan](https://turfjs.org/docs/api/clustersDbscan) 与 [clustersKmeans](https://turfjs.org/docs/api/clustersKmeans)
+- [Turf hexGrid](https://turfjs.org/docs/api/hexGrid)、[rectangleGrid](https://turfjs.org/docs/api/rectangleGrid) 与 [pointGrid](https://turfjs.org/docs/api/pointGrid)
+- [GeoJSON RFC 7946](https://datatracker.ietf.org/doc/html/rfc7946)

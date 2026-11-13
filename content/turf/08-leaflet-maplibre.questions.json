@@ -1,0 +1,174 @@
+{
+  "skill": "turf",
+  "module": "08",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-08-001",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "把 Turf 结果交给 L.geoJSON 前，必须先把所有 GeoJSON 坐标改成 [纬度, 经度]。",
+      "explanation": "错误。L.geoJSON 接收标准 GeoJSON，坐标仍是 [经度, 纬度]；只有 L.latLng 等 Leaflet 经纬度对象 API 使用先纬后经顺序，库会在边界处理转换。",
+      "refs": [
+        { "title": "Leaflet GeoJSON API", "url": "https://leafletjs.com/reference.html" },
+        { "title": "GeoJSON RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-08-002",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "要把 Leaflet 矢量图层交回 Turf 做分析，优先使用哪个公开方法？",
+      "explanation": "Leaflet 矢量图层可通过 toGeoJSON 导出标准 GeoJSON，再输入 Turf。Turf 不识别 L.Polygon 等地图实例，因此不应直接传入渲染对象。",
+      "refs": [{ "title": "Leaflet Layer toGeoJSON", "url": "https://leafletjs.com/reference.html" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "layer.toGeoJSON()", "hint": "它把 Leaflet 矢量层转换回标准数据格式" },
+        { "key": "B", "text": "map.remove()" },
+        { "key": "C", "text": "layer.getPane()" },
+        { "key": "D", "text": "map.zoomIn()" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-08-003",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "MapLibre 更新同一 GeoJSON 分析结果时，推荐每次都 removeSource 再 addSource。",
+      "explanation": "错误。稳定做法是在地图加载后创建一次 source 和 layer，数据变化时对已有 GeoJSON source 调用 setData，避免无意义地拆建数据源与样式层。",
+      "refs": [{ "title": "MapLibre GL JS GeoJSON Source", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-08-004",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Leaflet 点击回调取得 event.latlng 后，怎样构造 Turf 点坐标？",
+      "explanation": "Turf 遵循 GeoJSON 的 [经度, 纬度] 顺序，因此应写 [event.latlng.lng, event.latlng.lat]。MapLibre 的 event.lngLat 同理，也是 lng 在前。",
+      "refs": [
+        { "title": "Leaflet MouseEvent", "url": "https://leafletjs.com/reference.html" },
+        { "title": "Turf point API", "url": "https://turfjs.org/docs/api/point" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "[event.latlng.lng, event.latlng.lat]", "hint": "GeoJSON 坐标始终经度在前" },
+        { "key": "B", "text": "[event.latlng.lat, event.latlng.lng]" },
+        { "key": "C", "text": "[event.latlng.lat, event.latlng.lat]" },
+        { "key": "D", "text": "[event.latlng.lng]" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-08-005",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "调用 Turf buffer 后，返回的 Polygon 会自动添加到当前 Leaflet 或 MapLibre 地图。",
+      "explanation": "错误。Turf 是无地图、无 DOM 的纯计算库，只返回 GeoJSON。应用必须显式调用 L.geoJSON.addData 或 MapLibre source.setData 等渲染接口。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-08-006",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于 MapLibre 中 Turf 结果的数据源管理，下列做法正确的有哪些？",
+      "explanation": "GeoJSON source 通常在 load 后创建，样式层用固定 source id 引用它，后续 setData 更新数据。若事件可能早于 load，需要检查数据源或暂存输入，不能假定它始终已经存在。",
+      "refs": [{ "title": "MapLibre GL JS 文档", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "在 load 后创建 GeoJSON source", "hint": "此时地图样式已准备好接受新数据源" },
+        { "key": "B", "text": "样式 layer 通过固定的 source id 引用数据", "hint": "数据与样式分离后可独立更新" },
+        { "key": "C", "text": "每次点击都重新 new maplibregl.Map" },
+        { "key": "D", "text": "结果变化时调用已有 source 的 setData", "hint": "只替换数据即可保留数据源和图层" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-08-007",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "在 MapLibre 的 addSource 配置中，承载 Turf GeoJSON 结果应使用哪种 type？",
+      "explanation": "Turf 输出是 GeoJSON，因此数据源类型应写 geojson，data 可以是 Feature、FeatureCollection 或数据地址。raster、vector 等类型服务不同数据来源。",
+      "refs": [{ "title": "MapLibre GeoJSON Source", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "geojson", "hint": "类型名称与 Turf 的输入输出格式一致" },
+        { "key": "B", "text": "raster" },
+        { "key": "C", "text": "canvas" },
+        { "key": "D", "text": "3d-tiles" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-08-008",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "实现鼠标移动实时缓冲预览时，哪些做法能降低状态与性能问题？",
+      "explanation": "高频事件应合帧并只处理最新输入，同时复用图层或数据源；原始输入和结果独立保存可支持撤销与重算。缓冲区单位还要显式写出，不能依赖默认单位猜业务距离。",
+      "refs": [
+        { "title": "MapLibre GL JS 文档", "url": "https://maplibre.org/maplibre-gl-js/docs/" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "用 requestAnimationFrame 合并同一帧的多次鼠标事件", "hint": "避免每产生一个事件就完整计算和刷新" },
+        { "key": "B", "text": "复用已创建的 Leaflet 图层或 MapLibre source", "hint": "稳定对象减少闪烁和拆建成本" },
+        { "key": "C", "text": "把地图实例内部私有字段作为唯一原始输入" },
+        { "key": "D", "text": "把原始 GeoJSON、参数和结果保存在地图外的 state", "hint": "独立状态便于清空、撤销、测试与跨框架复用" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-08-009",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "用户点击地图后生成 300 米缓冲区并持续更新，哪条数据流最合理？",
+      "explanation": "正确链路先把地图事件标准化为 Turf Point，显式以米为单位计算 buffer，再复用已有渲染通道更新结果。Turf 不读屏幕像素，也不需要重建整个地图。",
+      "refs": [
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" },
+        { "title": "Leaflet API 参考", "url": "https://leafletjs.com/reference.html" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "事件经纬度转 Turf Point，buffer 使用 meters，再更新既有图层或 source", "hint": "标准化输入、纯几何计算、稳定渲染更新三段分离" },
+        { "key": "B", "text": "把屏幕像素直接作为 GeoJSON 经纬度并重建地图" },
+        { "key": "C", "text": "调用 buffer 后等待它自行寻找地图并添加图层" },
+        { "key": "D", "text": "先把 300 米传给 L.latLng，再完全跳过 Turf" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-08-010",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "点击北京后缓冲区坐标异常，代码写 point([event.latlng.lat, event.latlng.lng])，最可能的根因与修复是什么？",
+      "explanation": "代码把 Leaflet 的 latLng 顺序误当成 GeoJSON 顺序，导致纬度位置放入经度值。应改成 [event.latlng.lng, event.latlng.lat]，并只在地图事件到 Turf 的边界转换一次。",
+      "refs": [
+        { "title": "Leaflet LatLng API", "url": "https://leafletjs.com/reference.html" },
+        { "title": "GeoJSON RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "经纬度顺序写反，改为 [lng, lat]", "hint": "北京纬度约 40，经度约 116，交换后不再是中国附近有效位置" },
+        { "key": "B", "text": "Turf 必须使用屏幕像素，改成 clientX/clientY" },
+        { "key": "C", "text": "Leaflet 不支持 GeoJSON，必须删除全部矢量数据" },
+        { "key": "D", "text": "缓冲区单位错误导致经纬度交换，只需换 units" }
+      ],
+      "answer": ["A"]
+    }
+  ]
+}

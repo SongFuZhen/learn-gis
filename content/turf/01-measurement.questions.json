@@ -1,0 +1,263 @@
+{
+  "skill": "turf",
+  "module": "01",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-01-001",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "turf.distance 计算两个点之间距离时，采用的是哪种距离模型？",
+      "explanation": "distance 基于 haversine 等球面公式计算大圆距离，直接吃经纬度即可，无需先投影；它不是平面欧氏距离，也不考虑地形起伏。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Web 墨卡托平面上的欧氏直线距离" },
+        {
+          "key": "B",
+          "text": "球面大圆距离",
+          "hint": "经纬度直接参与球面三角运算"
+        },
+        { "key": "C", "text": "沿地形起伏的贴地距离" },
+        { "key": "D", "text": "曼哈顿网格距离" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-01-002",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "想统计一条骑行 LineString 的总里程，应该用哪个 Turf 函数？",
+      "explanation": "length 专门计算 LineString/MultiLineString 的长度，内部对相邻顶点逐段求大圆距离再求和；distance 只处理点到点，area 处理面积。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "turf.area" },
+        { "key": "B", "text": "turf.distance" },
+        {
+          "key": "C",
+          "text": "turf.length",
+          "hint": "线要素总长，分段大圆距离求和"
+        },
+        { "key": "D", "text": "turf.along" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-01-003",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "turf.along 的作用是在一条线上按给定距离取出对应的插值点。",
+      "explanation": "对。along(line, distance, options) 返回沿该线行走指定距离处的 Point Feature，里程桩、沿途播报都靠它；超出线总长时返回终点。",
+      "refs": [
+        {
+          "title": "Turf along API",
+          "url": "https://turfjs.org/docs/api/along"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-01-004",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "做米级偏航判断调用 pointToLineDistance 时，最稳妥的写法是？",
+      "explanation": "这些量测函数默认单位是 kilometers，不写 units 时 100 表示 100 公里；米级业务必须显式传 { units: \"meters\" }，否则阈值放大一千倍。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "省略 options，使用默认单位" },
+        {
+          "key": "B",
+          "text": "显式传入 { units: \"meters\" }",
+          "hint": "单位显式化是最便宜的防错手段"
+        },
+        { "key": "C", "text": "先把坐标投影成米再调用，函数会自动识别" },
+        { "key": "D", "text": "把米数除以 1000 后按默认单位传，效果完全等价且无歧义" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-01-005",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于 pointToLineDistance 返回的「点到线距离」，下列理解正确的是？",
+      "explanation": "它计算点到线中每一个线段的最短球面距离再取最小值，落足点可以在线段内部，而不是简单比较点到各个顶点的距离；因此顶点稀疏的线也能给出正确垂距。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "等于点到最近一个顶点的距离" },
+        {
+          "key": "B",
+          "text": "点到各线段最短距离的最小值，落足点可在线段内部",
+          "hint": "逐线段比较，而非逐顶点"
+        },
+        { "key": "C", "text": "点到线起点的大圆距离" },
+        { "key": "D", "text": "只对闭合 Polygon 有效，LineString 会报错" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-01-006",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "下列关于 Turf 量测与 Cesium 量算差异的说法，正确的有哪些？",
+      "explanation": "Turf 是二维球面库，只有大圆距离语义、没有地形概念；Cesium 额外提供弦长与 sampleTerrain 驱动的贴地距离。Turf 结果可以作为 GeoJSON 交给 Cesium 渲染，但贴地里程必须在 Cesium 侧重算。",
+      "refs": [
+        {
+          "title": "Turf 量测函数索引",
+          "url": "https://turfjs.org/docs/"
+        },
+        {
+          "title": "Cesium EllipsoidGeodesic",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Turf 的 distance 属于大圆/大地线距离语义",
+          "hint": "球面模型上的最短弧"
+        },
+        {
+          "key": "B",
+          "text": "Turf 无法计算沿地形起伏的贴地距离",
+          "hint": "二维库没有地形数据"
+        },
+        { "key": "C", "text": "Turf 内置弦长（穿椭球直线）距离选项" },
+        {
+          "key": "D",
+          "text": "山区实际路程需要 Cesium sampleTerrain 分段累加",
+          "hint": "贴地语义是三维引擎的领域"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-01-007",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "同一条弯曲道路，分别用 5 个顶点和 500 个顶点的 LineString 调 turf.length，结果通常会怎样？",
+      "explanation": "length 是相邻顶点间大圆距离之和，折线是对真实曲线的分段线性逼近；顶点越密越贴合弯曲，长度越接近真实曲线，所以密集版结果一般更大或相等，不会更小。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "两者完全相等，因为端点相同" },
+        {
+          "key": "B",
+          "text": "500 顶点版本通常更长，更贴近真实弯曲路径",
+          "hint": "分段线性逼近的精度随顶点密度提升"
+        },
+        { "key": "C", "text": "5 顶点版本更长，因为单段弧更弯" },
+        { "key": "D", "text": "顶点数超过 100 后函数直接报错" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-01-008",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "把经纬度坐标直接当平面坐标，用勾股定理算两点距离，在 Turf 场景下是正确做法。",
+      "explanation": "错。经度一度对应的实际距离随纬度余弦变化，赤道与高纬差异巨大；度不是等距单位，勾股定理只适用于同一笛卡尔平面坐标系。Turf 的球面公式直接处理经纬度，正是为了规避这个错误。",
+      "refs": [
+        {
+          "title": "Haversine formula（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Haversine_formula"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-01-009",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "turf.area 处理一个带孔洞（内环）的 Polygon 时，返回值如何计算？",
+      "explanation": "area 按外环球面面积减去所有内环孔洞面积计算，MultiPolygon 则累加各成员；返回值统一为平方米，与是否投影无关。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        },
+        {
+          "title": "RFC 7946 Polygon",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只算外环，内环被忽略" },
+        {
+          "key": "B",
+          "text": "外环面积减去内环孔洞面积",
+          "hint": "孔洞是挖空区域，理应扣除"
+        },
+        { "key": "C", "text": "外环与内环面积相加" },
+        { "key": "D", "text": "含内环时抛出不支持错误" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-01-010",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "一个骑行 App 要在浏览器端实现「偏离路线 500 米语音提醒」，下列方案最合理的是？",
+      "explanation": "定位点与规划路线的关系是二维点线垂距问题，pointToLineDistance 传米制单位即可在前端实时判定，无需服务器；弦长/贴地属于三维语义，路面导航的偏航阈值在二维大圆上已足够，Cesium 渲染层只负责展示。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "每个定位点都发请求让 PostGIS 算 ST_Distance" },
+        {
+          "key": "B",
+          "text": "前端用 pointToLineDistance(point, route, { units: \"meters\" })，超 500 米触发提醒",
+          "hint": "纯前端球面垂距，实时且免后端"
+        },
+        { "key": "C", "text": "用 Cesium 弦长距离，因为它比大圆距离更精确" },
+        { "key": "D", "text": "比较定位点与路线各顶点的 distance，取最小值代替垂距" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

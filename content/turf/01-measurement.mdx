@@ -1,0 +1,133 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：地图上最常见的问题就是「多远、多大、多长」。两个点之间多远（distance）、一条轨迹多长（length）、一块地多大（area，上章见过）、走到线上某点还有多远（pointToLineDistance）、沿线 500 米处是哪个坐标（along）。**Turf 的量测哲学一句话**：输入永远是 GeoJSON，距离单位由 `units` 参数显式声明，绝不偷偷按平面直角坐标算。**和 Cesium 的关键差异**：Cesium 量距离有弦长（chord，/kɔːrd/，「扣德」，两点直线穿地球）、大圆（great-circle，贴椭球面）、贴地（沿地形起伏）三种语义（见 [Cesium 量算章](/s/cesium/08)）；Turf 只有「球面大圆」这一种二维语义，没有地形概念。**常见坑**：
+- 把经纬度当平面坐标自己用勾股算距离——经度一度的实际长度随纬度变化，直接算误差能到 50%。
+- `units` 不写时默认是千米（`kilometers`），团队代码里建议永远写明。
+- `length` 喂 Point 会报错，它只吃 LineString/MultiLineString。**必记 3 条**：
+1. `distance` 算点到点、`length` 算线总长、`area` 算面面积、`along` 沿线取点、`pointToLineDistance` 算点到线的垂距。
+2. 全部基于球面/椭球公式，经纬度直接喂，不需要投影。
+3. 单位参数 `units` 显式写：`"kilometers" | "meters" | "miles" | "degrees"`。
+
+## 本章你会学到
+
+五个量测函数的签名、适用几何与单位体系，线段是怎么被「大圆弧段」处理的，以及如何用这些原语拼一个「点击地图量路线长度」的交互——第 8 章接入地图框架时会直接复用。
+
+## 1. distance：点到点的大圆距离
+
+`distance(from, to, options)` 吃两个 Point Feature，返回大圆弧长：
+
+```js
+import { point } from "@turf/helpers";
+import distance from "@turf/distance";
+
+const beijing = point([116.407, 39.904]);
+const tianjin = point([117.201, 39.084]);
+
+const km = distance(beijing, tianjin, { units: "kilometers" });
+console.log(km.toFixed(1)); // 约 100+ km
+```
+
+底层是 haversine（/ˈhævərsaɪn/，「哈沃森」，半正矢）类球面公式，把地球当半径约 6371km 的球。GIS 课讲过的大地测量学里这叫大圆距离：球面上两点的最短路径是大圆弧，不是墨卡托地图上画的直线。
+
+<Callout type="info" title="为什么不用投影后量？">
+投影到平面（如 Web 墨卡托）后用欧氏距离算，图上是直线，地理上却是错的——墨卡托在高纬度拉伸严重。Turf 直接在球面模型上算，免投影、全球一致，代价是它不考虑地形起伏（那是 Cesium 贴地量算的领域）。
+</Callout>
+
+## 2. length 与 area：线长与面面积
+
+```js
+import { lineString, polygon } from "@turf/helpers";
+import length from "@turf/length";
+import area from "@turf/area";
+
+const trail = lineString([
+  [116.4, 39.9],
+  [116.5, 39.95],
+  [116.55, 40.0],
+]);
+console.log(length(trail, { units: "kilometers" })); // 各段大圆距离之和
+
+const plot = polygon([
+  [
+    [116.4, 39.9],
+    [116.5, 39.9],
+    [116.5, 40.0],
+    [116.4, 40.0],
+    [116.4, 39.9],
+  ],
+]);
+console.log(area(plot)); // 平方米
+```
+
+`length` 的实现就是逐顶点调球面距离再求和——所以折线顶点越密，越贴近真实弯曲路径。`area` 对 MultiPolygon 也成立，返回所有外环面积减内环孔洞后的总和。
+
+## 3. along：沿一条线走出指定距离
+
+`along(line, distance, options)` 返回线上「走了这么远」所在的点 Feature。里程桩、沿途播报、「前方 2 公里」标记全靠它：
+
+```js
+import along from "@turf/along";
+
+const marker = along(trail, 2, { units: "kilometers" });
+console.log(marker.geometry.coordinates); // 线上距起点 2km 的 [lng, lat]
+```
+
+如果给定距离超过线总长，Turf 返回线的终点而不是报错——调用方要自己判断业务语义。
+
+## 4. pointToLineDistance：点到线的最近距离
+
+这是工程里最高频的量测之一：车辆偏航检测、「离我最近的路」、噪声点清洗。它返回点到线段集合的**最短球面距离**：
+
+```js
+import pointToLineDistance from "@turf/point-to-line-distance";
+
+const rider = point([116.46, 39.93]);
+const d = pointToLineDistance(rider, trail, { units: "meters" });
+console.log(d); // 骑手离这条轨迹最近多少米
+```
+
+注意它比较的是点到每一段的距离再取最小值，不是点到某个顶点的距离。
+
+<Callout type="warn" title="units 的坑：默认值不是米">
+distance/length 默认单位是 kilometers，pointToLineDistance 的默认单位同样是 kilometers。做围栏、偏航这类米级逻辑时务必显式传 `{ units: "meters" }`，否则 100 会被当成 100 公里。
+</Callout>
+
+## 5. 与 Cesium 三种距离的正面对比
+
+[Cesium 量算章](/s/cesium/08)讲过三种距离，放到一起对照：
+
+| 距离语义 | Cesium API 方向 | Turf 对应 | 适用场景 |
+| --- | --- | --- | --- |
+| 弦长（两点直线穿椭球） | Cartesian3 直线距离 | 无 | 视距、LOD |
+| 大圆/大地线（贴椭球面） | `EllipsoidGeodesic` | `distance` / `length` | 城市间距离、路线里程 |
+| 贴地（沿地形起伏） | sampleTerrain + 分段累加 | 无（二维库无地形） | 山区实际路程 |
+
+协作模式：二维业务（配送范围、网格统计）全程 Turf；同一个项目里三维可视分析需要贴地里程时，把相同坐标搬给 Cesium 算，两套结果在文档里注明语义，不要混用。
+
+<Callout type="must" title="必背 · 本章三条">
+1. 五点函数分工：distance 点、length 线、area 面、along 沿线取点、pointToLineDistance 点线垂距。
+2. 球面计算免投影，但没有地形语义；贴地里程只能找 Cesium。
+3. units 显式传，米级业务用 `"meters"`。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 轨迹体检器">
+给定一条含 20 个顶点的骑行 GeoJSON LineString：①用 length 算总里程（千米，保留两位小数）；②用 along 每 1 公里取一个里程桩点，输出 FeatureCollection；③随机造一个偏离路线的点，用 pointToLineDistance 算它离轨迹多远。把里程桩 FeatureCollection 丢进 geojson.io 查看分布。
+<ExerciseSolution>
+里程桩循环：`for (let d = 1; d < total; d++) stakes.features.push(along(trail, d, { units: "kilometers" }));`。验证要点：桩点数量应约等于总里程向下取整；在 geojson.io 上桩点应严格落在原线上——along 返回的是插值点而非原顶点，这正是它与「找最近顶点」的区别。偏航点若垂距超过业务阈值（如 500 米）即可标记为偏航，这就是外卖/骑行 App 偏航提醒的最小原型。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- Turf 量测全在球面模型上：distance、length、area、along、pointToLineDistance 覆盖 90% 的二维量算需求。
+- 折线长度 = 分段大圆距离之和，顶点密度决定贴合度。
+- 与 Cesium 互补：Turf 给大圆距离，Cesium 额外提供弦长与贴地距离。
+- 单位永远显式声明，是这套 API 最便宜的防错手段。
+
+下一章：方位角与目的地——不只是量「多远」，还要算「朝哪走、走到哪」。
+
+## 延伸阅读
+
+- Turf 量测函数索引：[turfjs.org/docs](https://turfjs.org/docs/)（distance / length / area / along / point-to-line-distance）
+- 大圆距离原理：[Haversine formula（Wikipedia）](https://en.wikipedia.org/wiki/Haversine_formula)
+- Cesium 大地线 API：[EllipsoidGeodesic](https://cesium.com/learn/cesiumjs/ref-doc/EllipsoidGeodesic.html)

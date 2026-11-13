@@ -6,6 +6,8 @@ export type ExerciseTool =
   | "qgis"
   | "gdal"
   | "leaflet"
+  | "turf"
+  | "three"
   | "sql";
 
 const TOOL_LABELS: Record<ExerciseTool, string> = {
@@ -14,6 +16,8 @@ const TOOL_LABELS: Record<ExerciseTool, string> = {
   qgis: "QGIS",
   gdal: "GDAL",
   leaflet: "Leaflet",
+  turf: "Turf.js",
+  three: "three.js",
   sql: "SQL",
 };
 

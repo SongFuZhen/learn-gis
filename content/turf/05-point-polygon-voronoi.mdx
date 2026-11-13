@@ -1,0 +1,161 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：你有几千个订单点和几十个行政区，要知道订单归谁；有规则网格上的温度采样，要生成温度区间面；有若干门店，要按「离哪家最近」划分服务范围。**一句话心智模型**：批量归属是反复做点面判断，等值面 isoband（/ˈaɪsoʊbænd/，「艾-索-班德」）把采样数值连成区间，泰森多边形 Voronoi（/ˌvɔːrəˈnɔɪ/，「沃-若-诺伊」）把平面切成最近站点区域。**常见坑**：
+- 批量点面忽略压线点与未命中点，导致重复计数或悄悄漏单。
+- 把 `isobands` 当插值魔法——输入采样稀疏、断裂或 breaks 不覆盖值域，输出再漂亮也不可靠。
+- `voronoi` 不裁范围、输入含重复点，或把最近欧氏距离区域解释为真实驾车服务区。**必记 3 条**：
+1. 批量归属必须定义边界、未命中和重复命中的处理政策。
+2. `isobands` 吃带数值属性的规则点网格，`breaks` 决定分段区间。
+3. Voronoi 的底子是 Delaunay 对偶，输出要用业务 bbox 裁剪，且不等于交通时空服务区。
+
+## 本章你会学到
+
+用 `booleanPointInPolygon` 构建批量归属管道，用 `pointGrid + isobands` 生成等值区间面，用 `voronoi` 划分最近站点区域，并识别三类业务中常见的数据质量与解释风险。
+
+## 1. 批量点面归属：把每个点写进业务分区
+
+上一章解决单个点，本章把区域放外层、点放内层，找到第一个命中面后写入属性。默认边界仍算内部，所以示例点先避开共享边；真实数据必须单独处理压线情况。
+
+```js
+import { point, polygon, featureCollection } from "@turf/helpers";
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+
+const regions = featureCollection([
+  polygon([[
+    [116.30, 39.80], [116.40, 39.80], [116.40, 39.90],
+    [116.30, 39.90], [116.30, 39.80],
+  ]], { regionId: "west" }),
+  polygon([[
+    [116.40, 39.80], [116.50, 39.80], [116.50, 39.90],
+    [116.40, 39.90], [116.40, 39.80],
+  ]], { regionId: "east" }),
+]);
+const orders = featureCollection([
+  point([116.35, 39.85], { orderId: "o1" }),
+  point([116.45, 39.85], { orderId: "o2" }),
+  point([116.60, 39.85], { orderId: "o3" }),
+]);
+
+const unmatched = [];
+for (const order of orders.features) {
+  const hit = regions.features.find((region) =>
+    booleanPointInPolygon(order, region),
+  );
+  if (hit) order.properties.regionId = hit.properties.regionId;
+  else unmatched.push(order);
+}
+console.log(orders.features.map((p) => p.properties));
+console.log("未归属", unmatched.length); // o3 不应被静默丢弃
+```
+
+这是 `区域数 × 点数` 的候选判断。数据量大时，可先用 bbox 或空间索引筛掉不可能命中的区域，再对候选区域做精确点面判断；索引只负责减少候选，不能替代最终拓扑计算。
+
+<Callout type="warn" title="find 的第一个命中不等于唯一合法归属">
+区域重叠或点压共享边时，默认规则可能命中多个面，`find` 只是按数组顺序取一个。若业务要求唯一归属，应记录全部命中，再用明确优先级裁决；若允许多归属，则不能遇到第一个就停止。无论哪种政策，都要保留未命中列表供审计。
+</Callout>
+
+## 2. isobands：从规则采样点生成等值区间面
+
+等值面把连续数值划成多个区间，例如 0–5℃、5–10℃。Turf 的 `isobands` 需要规则点网格，每个 Point 的属性中带有采样值；它不会替你从任意散乱业务点自动补全可靠采样。
+
+```js
+import { point } from "@turf/helpers";
+import pointGrid from "@turf/point-grid";
+import distance from "@turf/distance";
+import isobands from "@turf/isobands";
+
+const center = point([116.425, 39.925]);
+const samples = pointGrid(
+  [116.35, 39.85, 116.50, 40.00],
+  5,
+  { units: "kilometers" },
+);
+for (const sample of samples.features) {
+  sample.properties.value = distance(center, sample, {
+    units: "kilometers",
+  });
+}
+
+const bands = isobands(samples, [0, 5, 10, 15, 20], {
+  zProperty: "value",
+});
+console.log(bands.features.length); // 每个 Feature 对应一个数值区间
+```
+
+这里用「距中心距离」模拟观测值，便于运行后看到环状区间。真实业务可把 `value` 换成温度、噪声或降雨。`breaks` 要覆盖关心的值域，采样间距则决定细节上限：5 公里网格不可能可靠表达几十米宽的热岛。
+
+等值面的视觉平滑不等于测量精度。输入缺测、网格太稀或断裂区间都会改变结果，发布前应保留采样数据与 breaks 元数据。
+
+## 3. voronoi：按最近站点切分平面
+
+`voronoi(points, options)` 返回一组 Polygon，使每个单元内部的位置相对其他站点更接近该单元对应站点。实际使用应传业务 `bbox`，否则默认世界范围会让单元过大、坐标也不适合局部地图。
+
+```js
+import { point, featureCollection } from "@turf/helpers";
+import voronoi from "@turf/voronoi";
+
+const stores = featureCollection([
+  point([116.38, 39.88], { storeId: "s1" }),
+  point([116.43, 39.91], { storeId: "s2" }),
+  point([116.48, 39.86], { storeId: "s3" }),
+  point([116.41, 39.84], { storeId: "s4" }),
+]);
+
+const cells = voronoi(stores, {
+  bbox: [116.32, 39.80, 116.53, 39.96],
+});
+console.log(cells.features.length); // 正常情况下与有效站点数对应
+```
+
+bbox 是裁切范围，不是新的站点，也不应比站点分布范围还小。输出 cell 不应被假定为自动携带输入点的全部业务 properties；要建立明确的站点 ID 映射，再把单元用于归属统计。
+
+重复站点、全部共线或过少站点会产生退化情况。进入 Voronoi 前先去重、检查站点数与分布，结果生成后检查空单元和异常坐标。
+
+## 4. Delaunay：Voronoi 背后的三角网
+
+Delaunay（/dəˈloʊneɪ/，「德-洛-内」）三角剖分把站点连接成三角形，其三角形外接圆内不包含其他站点；连接相邻三角形外心等关系可形成 Voronoi 单元，二者构成对偶关系。
+
+这也解释了为什么输入质量重要：重复点让「最近站点」不唯一，共线点没有正常三角剖分，密集或几乎共圆的站点会放大数值误差。业务侧不需要手写三角网，但必须理解它不是随机分区，而是由站点几何唯一驱动的结构。
+
+Voronoi 使用平面坐标关系划分最近区域，经度一度与纬度一度的实际地面长度又不相同。小范围业务可把它当快速近似，大范围或精密应用应评估投影与距离模型。
+
+## 5. 三种方法怎样服务真实业务
+
+| 方法 | 典型问题 | 业务产物 | 不能直接代表 |
+| --- | --- | --- | --- |
+| 批量点面判断 | 订单落在哪个行政区 | regionId、分区订单数 | 唯一边界政策 |
+| isobands | 哪些区域处于某数值区间 | 温度、噪声、降雨分层面 | 超出采样密度的精度 |
+| voronoi | 哪个站点在平面上最近 | 门店邻域、设施服务单元 | 驾车时间、真实招生辖区 |
+
+<Callout type="info" title="与 CesiumJS 对比：二维分区可以上球，但不会变成三维分析">
+Turf 生成的归属点、等值面和 Voronoi cells 都能交给 Cesium `GeoJsonDataSource` 渲染；Cesium 的地形、建筑遮挡和三维拾取不会反向改变这些二维计算结果。可对照 [Cesium 拾取章](/s/cesium/07)：屏幕选中一个三维对象，与在 GeoJSON 平面上求最近站点是两类问题，业务结论应注明所用模型。
+</Callout>
+
+<Callout type="must" title="必背 · 本章三条">
+1. 批量归属要保留全部命中或未命中信息，不能用数组顺序冒充管辖规则。
+2. 等值面的可信度由采样与 breaks 决定，不由颜色是否平滑决定。
+3. Voronoi = 最近站点的平面近似分区；先清洗站点、设置 bbox，再映射业务属性。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 门店邻域与订单归属">
+用 4 个门店 Point 和 20 个订单 Point 构造 FeatureCollection：①在包含所有站点的局部 bbox 内生成 Voronoi cells；②建立 cell 与 storeId 的明确映射；③逐个订单做 `booleanPointInPolygon`，统计每个门店邻域订单数；④列出未命中订单；⑤任选一个压线订单，观察默认边界规则是否造成重复归属。
+<ExerciseSolution>
+核心流程是 `voronoi(stores, { bbox })` 生成 cells，再遍历订单与 cells 做归属，并同时记录命中数组而不是只保留第一个。统计前按所用 Turf 版本的输出顺序或坐标关系建立并验证 storeId 映射，不要假设输入 properties 自动透传。bbox 外的订单进入 unmatched，压线订单若命中多个 cell，应按预先声明的规则裁决并标记 boundary。若把 Voronoi 单元直接称为「10 分钟配送区」则结论过度，因为本章没有道路网络和出行时间数据。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- 批量点面归属是完整数据管道：候选筛选、精确判断、边界政策、未命中审计缺一不可。
+- `pointGrid + isobands` 适合规则采样数值的区间面生成，结果质量受采样密度约束。
+- Voronoi 借助 Delaunay 对偶形成最近站点分区，bbox、重复点和共线点都要处理。
+- 三类结果都能进入地图或 Cesium 展示，但二维几何结论不能自动升级为三维或交通结论。
+
+下一章进入聚合统计，用收集、聚类和网格计数把离散点变成可比较的统计单元。
+
+## 延伸阅读
+
+- 批量判断与网格：[booleanPointInPolygon](https://turfjs.org/docs/api/booleanPointInPolygon)、[pointGrid](https://turfjs.org/docs/api/pointGrid)
+- 等值面：[isobands](https://turfjs.org/docs/api/isobands)
+- 泰森多边形：[voronoi](https://turfjs.org/docs/api/voronoi)
+- Cesium GeoJSON 加载：[GeoJsonDataSource](https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html)

@@ -1,0 +1,169 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：气象站只有 20 个，却想铺满整张温度图；新功能没有真实数据，却要先造 1000 个点、线和面做测试；三角网已经搭好，还想估算网内某点高度。**一句话心智模型**：空间插值是「由已知点估计未知位置」，随机函数是「为测试造输入」，采样是「从已有集合挑代表」，三者不要混为一谈。**常见坑**：
+- 把 Turf `interpolate` 当普通线性插值：它做的是反距离权重（Inverse Distance Weighting，/ˈɪnvɜːrs ˈdistəns ˈweɪtɪŋ/，「因-沃斯-迪斯-坦斯-威-廷」）空间插值。
+- 把分段设色里的线性插值（Linear Interpolation，/ˈlɪniər ˌɪntərpəˈleɪʃən/，「林-尼儿-因-特泼-雷-申」）和空间插值混为一谈：前者映射数值与颜色，后者估计地理空间属性。
+- 把 `sample` 当成沿线等距取点；它实际上从 FeatureCollection 随机抽取要素。**必记 3 条**：
+1. `interpolate` 根据散点属性生成规则网格，`weight` 控制距离衰减。
+2. `randomPoint/randomLine/randomPolygon` 的包围盒顺序都是 `[minX, minY, maxX, maxY]`。
+3. `tin` 建不规则三角网，`planepoint` 用某个三角面的平面方程估计点值。
+
+## 本章你会学到
+
+从离散站点生成属性网格，再写一个不依赖空间库的数值—颜色线性插值器；用随机函数批量构造测试 GeoJSON，正确区分随机抽样与沿线等距采样；最后用 `tin` 和 `planepoint` 完成局部平面估计。
+
+## 1. interpolate：由散点估计规则网格
+
+`interpolate(points, cellWidth, options)` 对每个网格单元，根据周围已知点的属性值与距离计算估计值。距离越近通常影响越大，`weight` 是距离幂次；数值越大，近点主导越明显，远点影响衰减越快。
+
+```js
+import { featureCollection, interpolate, point } from "@turf/turf";
+
+const stations = featureCollection([
+  point([116.30, 39.90], { temperature: 18 }),
+  point([116.42, 39.98], { temperature: 21 }),
+  point([116.55, 39.88], { temperature: 24 }),
+  point([116.38, 39.80], { temperature: 19 }),
+]);
+
+const temperatureGrid = interpolate(stations, 2, {
+  gridType: "square",
+  property: "temperature",
+  units: "kilometers",
+  weight: 2,
+});
+
+console.log(temperatureGrid.features[0].properties.temperature);
+```
+
+`property` 指定要估计的数值字段，`cellWidth` 决定输出网格分辨率。格子越小不一定越真实：它只增加输出单元数量，不会创造新的观测信息。站点稀疏、分布不均或存在异常值时，结果都可能误导。
+
+<Callout type="warn" title="空间估计不是颜色渐变">
+`interpolate` 的输入是带数值属性的地理点，输出是带估计属性的地理网格；普通线性插值只是在两个数或两种颜色之间按比例取值。把二者混用，会导致「颜色看起来平滑，却被误当成有观测依据的空间预测」。
+</Callout>
+
+## 2. 线性插值：服务分段设色，而不是伪造观测
+
+有了网格属性后，可以把数值映射为颜色。下面 `lerp` 完成一维线性插值，`colorAt` 在两个色标之间混合 RGB 通道；它和 Turf 的空间插值互相独立，也可以直接用于第 6 章的 `count`。
+
+```js
+const low = { value: 15, color: [49, 54, 149] };
+const high = { value: 25, color: [215, 48, 39] };
+
+function lerp(start, end, t) {
+  return start + (end - start) * t;
+}
+
+function colorAt(value) {
+  const t = Math.max(0, Math.min(1,
+    (value - low.value) / (high.value - low.value)
+  ));
+  return low.color.map((channel, index) =>
+    Math.round(lerp(channel, high.color[index], t))
+  );
+}
+
+console.log(colorAt(20)); // 两个色标各 50% 的 RGB 混合色
+```
+
+真正分段设色时，可准备多个色标并先找到数值所在区间。务必处理 `value` 缺失、非有限数与色标上下界；空间估计值是否可信，仍要回到站点分布和插值模型判断。
+
+## 3. randomPoint、randomLine、randomPolygon：批量造测试数据
+
+随机函数适合压测、演示和边界回归，不需要先连接数据库。三个函数第一个参数都是生成数量，`bbox` 限定经度与纬度范围。
+
+```js
+import { randomLine, randomPoint, randomPolygon } from "@turf/turf";
+
+const bbox = [116.30, 39.80, 116.60, 40.00];
+const points = randomPoint(100, { bbox });     // 100 个 Point
+const lines = randomLine(5, { bbox });         // 5 条 LineString
+const polygons = randomPolygon(3, { bbox });   // 3 个 Polygon
+
+console.log(points.features.length);   // 100
+console.log(lines.features[0].geometry.type);    // LineString
+console.log(polygons.features[0].geometry.type); // Polygon
+```
+
+每次调用通常得到不同结果，因此不要直接断言某个随机坐标值。测试应断言数量、几何类型、坐标是否在范围内等不变量；需要稳定复现失败样本时，把当次输出保存为固定 GeoJSON 后再写回归测试。
+
+<Callout type="tip" title="随机不等于真实分布">
+随机包围盒数据只能证明程序能运行，不能证明模型适合真实业务。性能测试还应准备密集城区、稀疏郊区、极长线和带孔面等偏态样本，避免结果被过于均匀的合成数据美化。
+</Callout>
+
+## 4. sample 与 along：随机抽样不是沿线等距采样
+
+`sample(featureCollection, num)` 从集合中随机选出指定数量的要素，适合从大样本抽测试子集：
+
+```js
+import { sample } from "@turf/turf";
+
+const subset = sample(points, 10);
+console.log(subset.features.length); // 10
+```
+
+如果需求是「沿路线每 1 千米放一个里程桩」，应使用第 1 章的 `length` 与 `along`，而不是 `sample`：
+
+```js
+import { along, featureCollection, length, lineString } from "@turf/turf";
+
+const route = lineString([
+  [116.30, 39.90],
+  [116.42, 39.98],
+  [116.55, 39.88],
+]);
+const total = length(route, { units: "kilometers" });
+const count = Math.floor(total);
+const stationsOnRoute = featureCollection(
+  Array.from({ length: count }, (_, index) =>
+    along(route, index + 1, { units: "kilometers" })
+  )
+);
+```
+
+一个是「从已有要素中随机挑」，另一个是「沿线几何按距离生成新点」，输入、输出与业务语义完全不同。
+
+## 5. tin 与 planepoint：在三角面上估计数值
+
+不规则三角网 TIN（/ˌtiː aɪ ˈen/，「提-爱-恩」）把散点连接成一组三角形。`tin(points, z)` 读取指定属性，输出三角形顶点对应的 `a`、`b`、`c` 值；`planepoint(point, triangle)` 再利用三点定义的平面求目标位置的值。
+
+```js
+import { centroid, planepoint, tin } from "@turf/turf";
+
+const triangles = tin(stations, "temperature");
+const triangle = triangles.features[0];
+const target = centroid(triangle); // 保证目标在该三角形内部
+const estimated = planepoint(target, triangle);
+
+console.log(triangle.properties.a, triangle.properties.b, triangle.properties.c);
+console.log(estimated);
+```
+
+`planepoint` 使用的是**一个三角面的平面方程**。目标点超出该三角形时，数学上可能只是外推；工程中应先确认点面关系，并决定无覆盖区域返回空值还是采用其他模型。它不是地形光线求交，也不会自动采样 Cesium 地形。
+
+<Callout type="info" title="和 CesiumJS 的插值、地形采样对比">
+Turf 这里估计的是二维位置上的属性；Cesium 的 SampledProperty 常按时间插值动态对象状态，sampleTerrain 则查询地形高度，三者问题不同。时间动画见 [Cesium CZML 时间章](/s/cesium/05)，地形高度见 [Cesium 地形章](/s/cesium/03)。可以把 Turf 估计网格转成交给 Cesium 的 GeoJSON，但不要把属性插值结果当成椭球或地形高程。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 随机站点到温度网格">
+在固定包围盒中生成 40 个随机点，为每点写入 15–25 的模拟 `temperature`，用 `interpolate` 生成 2 千米方形网格，再用 `colorAt` 输出每格 RGB。随后随机抽取 8 个站点作为验证集，并用 `length + along` 给一条路线每千米布点，说明它为何不能用 `sample` 替代。
+<ExerciseSolution>
+生成站点后可执行 `randomPoint(40, { bbox })`，逐个 feature 写入 `properties.temperature`，再调用本章 `interpolate`。验证子集用 `sample(stations, 8)`；路线里程桩则循环 `along(route, distance, { units: "kilometers" })`。前者只从现有站点中挑选，后者在线上任意的整千米位置生成新坐标。若温度网格出现极值，先检查是否来自模拟站点和距离权重，不要仅靠调颜色掩盖数据问题。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- `interpolate` 是反距离权重空间插值；数值与颜色之间的线性插值是另一层工具。
+- 随机点、线、面适合构造测试输入，断言不变量并保存失败样本，别断言随机坐标。
+- `sample` 随机抽集合要素；沿线等距布点使用 `length + along`。
+- `tin + planepoint` 提供局部平面估计；Cesium 的时间插值和地形采样属于不同语义。
+
+下一章把这些计算结果接入 Leaflet 与 MapLibre GL，让「鼠标输入—Turf 计算—地图更新」形成闭环。
+
+## 延伸阅读
+
+- [Turf interpolate](https://turfjs.org/docs/api/interpolate)
+- [Turf randomPoint](https://turfjs.org/docs/api/randomPoint)、[randomLine](https://turfjs.org/docs/api/randomLine) 与 [randomPolygon](https://turfjs.org/docs/api/randomPolygon)
+- [Turf sample](https://turfjs.org/docs/api/sample) 与 [along](https://turfjs.org/docs/api/along)
+- [Turf tin](https://turfjs.org/docs/api/tin) 与 [planepoint](https://turfjs.org/docs/api/planepoint)

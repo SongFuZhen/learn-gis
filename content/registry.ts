@@ -11,6 +11,11 @@ import {
   PLANNED_MODULES as CESIUM_PLANNED,
 } from "./cesium/modules";
 import { rawQuestionsFor as cesiumRawQuestions } from "./cesium/questions";
+import {
+  TURF_MODULES,
+  PLANNED_MODULES as TURF_PLANNED,
+} from "./turf/modules";
+import { rawQuestionsFor as turfRawQuestions } from "./turf/questions";
 
 /** lucide 图标名（UI 层在 content/icons.ts 映射为组件；registry 被 node 脚本引用，不引 React） */
 export type SkillIconName = "Map" | "Globe" | "Boxes" | "Box" | "Smartphone";
@@ -59,6 +64,18 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
     modules: CESIUM_MODULES,
     plannedModules: CESIUM_PLANNED,
     rawQuestionsFor: cesiumRawQuestions,
+  },
+  {
+    id: "turf",
+    dir: "turf",
+    title: "Turf.js 二维空间运算",
+    description:
+      "跑在浏览器与 Node 里的几何引擎：量测、缓冲、叠置、点面分析、聚合与插值，GeoJSON 进 GeoJSON 出，配合 Leaflet/MapLibre 完成二维地图应用。",
+    track: "geospatial",
+    icon: "Boxes",
+    modules: TURF_MODULES,
+    plannedModules: TURF_PLANNED,
+    rawQuestionsFor: turfRawQuestions,
   },
 ];
 

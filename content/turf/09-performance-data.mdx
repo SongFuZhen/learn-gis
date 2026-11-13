@@ -1,0 +1,198 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：真实 GeoJSON 常带 Multi 几何、重复点、反向环和奇怪属性；数据一大，主线程又卡住，地图点击都没有反馈。**一句话心智模型**：先把数据整理成算法需要的形状，再用可复现的基准测试（Benchmark，/ˈbentʃmɑːrk/，「本奇-马克」）找到瓶颈，最后才把重计算移出主线程。**常见坑**：
+- 把 `flatten`、`explode`、`combine` 当成同义词：它们分别拆多几何、抽顶点、合并同类几何。
+- 以为 `rewind` 能修复所有坏面：它只规范环方向，不负责修自相交。
+- 把 Web Worker（/web ˈwɜːrkər/，「外卜-沃克」）当免费加速：消息复制与序列化也有成本。**必记 3 条**：
+1. `flatten` 拆 Multi，`explode` 取所有顶点，`combine` 把同类单几何合成 Multi。
+2. `rewind` 默认按右手规则（Right-Hand Rule，/raɪt hænd ruːl/，「赖特-汉德-如尔」）调整环，`cleanCoords` 清理冗余坐标。
+3. 计时先预热、固定输入、多轮取统计量；Worker 消息里的 GeoJSON 会经过结构化克隆。
+
+## 本章你会学到
+
+搭建一条可测试的数据清洗管线，理解多几何与顶点之间的转换，正确解释 RFC 7946 环方向；使用 `performance.now` 与 `console.time` 做大数组基准测试，并用模块化 Worker 卸载 Turf 聚类计算。
+
+## 1. 先设计管线，再调用函数
+
+真实项目可按以下顺序组织，但每一步都要由数据问题驱动，而不是无脑全跑：
+
+1. **解析与校验**：确认 Feature、Geometry、properties 结构以及经纬度范围。
+2. **清洗与规范化**：`cleanCoords` 去冗余，`rewind` 统一环方向。
+3. **形状转换**：算法只收单几何时 `flatten`，需要逐顶点时 `explode`，需要打包输出时 `combine`。
+4. **空间计算与输出**：保留原始属性，记录输入规模、参数和耗时。
+5. **性能优化**：先测量，再决定降采样、空间索引、缓存或 Worker。
+
+<Callout type="warn" title="清洗不等于随便改数据">
+每次转换都可能改变几何数量、属性承载方式或拓扑含义。保留原始输入，为关键步骤写小样本回归测试；不要为了让校验「通过」而静默删除大面积几何或业务字段。
+</Callout>
+
+## 2. flatten、explode、combine：三种形状转换
+
+`flatten` 把 MultiPoint、MultiLineString、MultiPolygon 等多几何拆成单几何 FeatureCollection，并保留要素属性，方便逐条处理。`explode` 则进一步把输入几何的顶点抽成 Point 集合。`combine` 反向把同类点、线、面分别组合成 Multi 几何。
+
+```js
+import {
+  combine,
+  explode,
+  featureCollection,
+  flatten,
+  lineString,
+  multiPoint,
+  point,
+} from "@turf/turf";
+
+const multi = multiPoint([[116.40, 39.90], [116.41, 39.91]], {
+  category: "shop",
+});
+const singles = flatten(multi);
+console.log(singles.features.length); // 2
+console.log(singles.features[0].geometry.type); // Point
+console.log(singles.features[0].properties.category); // shop
+
+const vertices = explode(lineString([
+  [116.40, 39.90],
+  [116.45, 39.95],
+  [116.50, 39.92],
+]));
+console.log(vertices.features.length); // 3
+
+const packed = combine(featureCollection([
+  point([116.40, 39.90]),
+  point([116.41, 39.91]),
+]));
+console.log(packed.features[0].geometry.type); // MultiPoint
+```
+
+若输入是 MultiPolygon，`flatten` 输出的是多个 Polygon，而不是把每个面的顶点变成点；后者才需要 `explode`。闭合线的首尾坐标、重复顶点可能让 `explode` 结果含重复位置，需要按业务另行去重。`combine` 也不是几何合并或 dissolve：它组合坐标结构，不自动消除重叠边界。
+
+## 3. rewind 与 cleanCoords：环方向和冗余坐标
+
+RFC 7946 为兼容性规定多边形外环按逆时针、孔洞环按顺时针，这符合右手规则。`rewind(geojson)` 默认按这个方向重排坐标；传入 `{ reverse: true }` 则使用相反方向。它改变的是顶点顺序，不应改变环所覆盖的区域。
+
+`cleanCoords(geojson)` 按 Turf 的规则移除冗余坐标，适合清理重复点或不必要的共线点。两者可以组合，但职责不同：
+
+```js
+import { booleanClockwise, cleanCoords, polygon, rewind } from "@turf/turf";
+
+const messy = polygon([[[
+  [116.40, 39.90],
+  [116.40, 39.91],
+  [116.40, 39.91], // 重复顶点
+  [116.41, 39.91],
+  [116.41, 39.90],
+  [116.40, 39.90],
+]]]);
+
+const normalized = rewind(cleanCoords(messy));
+console.log(booleanClockwise(normalized.geometry.coordinates[0])); // false
+```
+
+RFC 7946 同时强调解析器不应仅因旧数据环方向不同就拒绝处理，因此 `rewind` 更适合作为**对外输出与跨系统互操作的规范化步骤**，不是判断数据能否使用的唯一门槛。自相交、未闭合、孔洞越界等问题需要专门校验和修复，不能指望这两个函数包办。
+
+## 4. 大数组基准测试：测得准比跑得快更优先
+
+`console.time/timeEnd` 适合快速定位，`performance.now` 适合保存多轮样本并计算统计量。下面输入生成在计时外，先预热，再重复 7 轮取中位数和近似第 95 百分位：
+
+```js
+import { clustersKmeans, randomPoint } from "@turf/turf";
+
+const points = randomPoint(20_000, {
+  bbox: [116.30, 39.80, 116.60, 40.00],
+});
+const run = () => clustersKmeans(points, { numberOfClusters: 8 });
+
+console.time("kmeans-single-check");
+run();
+console.timeEnd("kmeans-single-check");
+
+run(); // 预热，不让首次加载与 JIT 编译主导样本
+const durations = [];
+for (let round = 0; round < 7; round += 1) {
+  const startedAt = performance.now();
+  run();
+  durations.push(performance.now() - startedAt);
+}
+durations.sort((a, b) => a - b);
+console.table({
+  medianMs: durations[Math.floor(durations.length / 2)],
+  p95Ms: durations[Math.floor((durations.length - 1) * 0.95)],
+});
+```
+
+测试时固定输入数据、参数、浏览器与构建模式，分开报告不同 `n`，不要在计时区里生成随机数据或打印几万条日志。平均值会掩盖偶发卡顿，至少同时看中位数与尾部分位数。若评估端到端 Worker 方案，还要把消息复制与结果回传计入，而不是只测 Worker 内部函数。
+
+<Callout type="info" title="和 CesiumJS 性能优化对比">
+Turf 常见瓶颈是大量 GeoJSON 的几何遍历、分配与主线程阻塞；Cesium 还涉及 WebGL 绘制调用、Entity 变化、图元批处理、3D Tiles 调度与显存。两者都需要先测量再优化，但指标不同，见 [Cesium 性能收官章](/s/cesium/09)。把 Turf 计算放进 Worker 能减轻主线程压力，却不会自动降低 Cesium 的渲染成本。
+</Callout>
+
+## 5. Web Worker：把重计算移出主线程
+
+Worker 与页面通过消息通信。结构化克隆（Structured Clone，/ˈstrʌktʃərd kloʊn/，「斯特拉克-彻德-克隆」）可以复制普通 GeoJSON 对象，但不能复制 DOM、地图实例、函数或 Cesium Entity 等行为对象。因此消息里应只放纯数据与参数。
+
+主线程创建模块 Worker，发送输入，并用请求编号对应结果：
+
+```js
+const worker = new Worker(
+  new URL("./turf.worker.js", import.meta.url),
+  { type: "module" }
+);
+
+worker.onmessage = ({ data }) => {
+  if (data.error) {
+    console.error(`任务 ${data.id} 失败：${data.error}`);
+    return;
+  }
+  console.log(`任务 ${data.id} 完成`, data.result);
+  // 在这里复用 Leaflet 图层或 MapLibre source 更新地图。
+};
+
+worker.postMessage({ id: 1, points, numberOfClusters: 8 });
+// 页面或组件销毁时：worker.terminate();
+```
+
+`turf.worker.js` 内运行同样的 Turf ESM 代码，不访问 DOM：
+
+```js
+import { clustersKmeans } from "@turf/turf";
+
+self.onmessage = ({ data }) => {
+  const { id, points, numberOfClusters } = data;
+  try {
+    const result = clustersKmeans(points, { numberOfClusters });
+    self.postMessage({ id, result });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    self.postMessage({ id, error: message });
+  }
+};
+```
+
+普通 GeoJSON 通常是嵌套对象与数组，会复制而不是零成本共享。输入输出很大时，复制本身可能成为瓶颈；可通过减少字段、分批、缓存任务或改为可转移的二进制表示优化。并发任务还要带 `id`，因为后发的短任务可能先返回；组件销毁后应终止 Worker 并忽略过期结果。
+
+<Callout type="tip" title="Worker 不是算法优化器">
+同一个算法在 Worker 里不会自动少做一次点面判断。它的主要收益是避免阻塞页面交互。若算法本身复杂度不合适，仍需先减少输入、建立索引、换算法或缓存结果。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 清洗并离线计算十万点聚类">
+准备一组含 MultiPoint、重复坐标与环方向不规范的样本：先把 Multi 几何拍平，再对适合的面执行 cleanCoords 与 rewind，记录每步 Feature 数量。另生成十万点，用 7 轮中位数比较主线程 KMeans 与 Worker 端到端耗时，Worker 计时必须包含消息发送和结果回传。
+<ExerciseSolution>
+拍平用 `flatten`，面清洗用 `cleanCoords` 后接 `rewind`；不要把 explode 后的顶点误当成原面继续 rewind。主线程计时按本章多轮方法执行，Worker 方案则在 postMessage 前记录 startedAt，在对应 id 的 onmessage 中计算差值。输入生成应在计时外，但 GeoJSON 克隆和结果回传必须在端到端计时内。若 Worker 总耗时没有优势，先报告复制成本与输入规模，不要仅凭 Worker 内部计算更快就宣称交互链路更快。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- `flatten` 拆多几何、`explode` 抽顶点、`combine` 组合同类几何，三者语义不可互换。
+- `rewind` 规范环方向，`cleanCoords` 清理冗余坐标；它们都不是通用拓扑修复器。
+- 大数组测试要固定输入、预热、多轮统计，并把端到端成本纳入结论。
+- Worker 通过结构化克隆传递纯 GeoJSON，可释放主线程，却不能消除复制与算法本身的开销。
+
+至此完成 Turf 二维分析主线：从几何原语、空间判断与聚合，到地图交互、数据工程和性能验证。
+
+## 延伸阅读
+
+- [Turf flatten](https://turfjs.org/docs/api/flatten)、[explode](https://turfjs.org/docs/api/explode) 与 [combine](https://turfjs.org/docs/api/combine)
+- [Turf rewind](https://turfjs.org/docs/api/rewind) 与 [cleanCoords](https://turfjs.org/docs/api/cleanCoords)
+- [GeoJSON RFC 7946：Polygon 与环方向](https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6)
+- [MDN Web Worker](https://developer.mozilla.org/docs/Web/API/Worker)
+- [MDN performance.now](https://developer.mozilla.org/docs/Web/API/Performance/now)

@@ -1,0 +1,165 @@
+{
+  "skill": "turf",
+  "module": "06",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-06-001",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "collect(districts, orders, \"amount\", \"amounts\") 会把订单的 amount 如何处理？",
+      "explanation": "collect 按点面包含关系，把每个面内部订单的 amount 值组成数组，写入该面的 amounts 属性；它不会自动求和，求和需要调用方继续处理。",
+      "refs": [{ "title": "Turf collect API", "url": "https://turfjs.org/docs/api/collect" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把每个面内订单的 amount 收集为 amounts 数组", "hint": "先收集属性，再按业务求和或求均值" },
+        { "key": "B", "text": "直接把 amount 总和写成一个数字" },
+        { "key": "C", "text": "把所有订单合并为一个 MultiPoint" },
+        { "key": "D", "text": "删除不在任何面内的订单并返回点集" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-002",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "与 KMeans 相比，DBSCAN 最典型的能力是什么？",
+      "explanation": "DBSCAN 根据邻域距离和最小点数扩展密度簇，可以把稀疏点标为噪声，也不需要预先指定簇数；KMeans 围绕指定数量的质心分组。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "必须提前给出精确的簇数量" },
+        { "key": "B", "text": "按密度形成簇，并允许把离群点识别为噪声", "hint": "密度可达与噪声是 DBSCAN 的关键词" },
+        { "key": "C", "text": "保证每个簇拥有完全相同的点数" },
+        { "key": "D", "text": "只能处理矩形网格，不能处理散点" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-06-003",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "关于 clustersKmeans 的输入与输出，下列说法正确的有哪些？",
+      "explanation": "KMeans 需要通过 numberOfClusters 指定期望簇数，结果为点附加 cluster 编号与 centroid 质心信息。它不是噪声检测算法，也不会用 DBSCAN 的 minPoints 控制密度。",
+      "refs": [{ "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "可以用 numberOfClusters 指定簇数", "hint": "K 值是 KMeans 的关键输入" },
+        { "key": "B", "text": "结果点可以带 cluster 编号", "hint": "编号用于区分所属簇" },
+        { "key": "C", "text": "结果点可以带所属簇的 centroid", "hint": "质心描述该簇的中心位置" },
+        { "key": "D", "text": "必须用 minPoints 才能运行，并自动标出噪声" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-06-004",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "clustersDbscan 的 maxDistance 显式设置 units 为 kilometers 时，数值 2 表示邻域半径为 2 千米。",
+      "explanation": "正确。maxDistance 是带单位的地理距离，显式传 units 可避免把米级业务参数误当成千米；它与地图屏幕上的像素距离无关。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-06-005",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "DBSCAN 可能把某些点标为噪声，而 KMeans 通常会把输入点分配到某个簇中。",
+      "explanation": "正确。噪声识别是密度聚类的重要特征；KMeans 以点到质心的分配为目标，不提供 DBSCAN 那种噪声语义，因此不能直接拿它检测异常点。",
+      "refs": [
+        { "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" },
+        { "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-06-006",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "调用 hexGrid、rectangleGrid 或 pointGrid 时，包围盒数组应采用哪种顺序？",
+      "explanation": "Turf 的包围盒遵循 [minX, minY, maxX, maxY]，经纬度场景即 [西, 南, 东, 北]。写成Leaflet式的纬度经度顺序会生成错误区域或无效范围。",
+      "refs": [{ "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "[minY, minX, maxY, maxX]" },
+        { "key": "B", "text": "[minX, minY, maxX, maxY]", "hint": "X 在前、Y 在后，最小值在前、最大值在后" },
+        { "key": "C", "text": "[maxX, maxY, minX, minY]" },
+        { "key": "D", "text": "[centerX, centerY, width, height]" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-06-007",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "已经用 rectangleGrid 得到面网格，怎样能得到每格订单数用于热力上色？",
+      "explanation": "网格函数只创建几何。需要对每格做点面包含统计，把 count 写回 properties；本章 pointCount 是基于 booleanPointInPolygon 的自定义封装，并非 Turf 官方通用函数。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "逐格统计内部订单点，并把 count 写入格子的 properties", "hint": "先有点面计数，再有渲染颜色" },
+        { "key": "B", "text": "直接读取网格自动生成的 heat 属性" },
+        { "key": "C", "text": "对所有订单执行 clustersKmeans 后忽略格子" },
+        { "key": "D", "text": "把格子的坐标顺序反转即可自动计数" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-008",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "pointGrid 返回一组 Polygon 面，因此可以直接用面向多边形的点计数逻辑统计每格点数。",
+      "explanation": "错误。pointGrid 返回 Point 的 FeatureCollection，不是面网格。若需要按格统计，应使用 hexGrid、rectangleGrid 等面单元，或另行建立点与统计单元的映射。",
+      "refs": [{ "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-06-009",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "要把城市订单网格计数做成可靠的热力底表，下列工程决策合理的有哪些？",
+      "explanation": "格元尺度必须显式并匹配观察尺度，mask 可限制研究区，count 应与几何一起保存在底表供不同渲染器使用。空格子、离群值与大数据复杂度也要处理，不能假定网格函数自动完成统计。",
+      "refs": [
+        { "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" },
+        { "title": "Turf pointsWithinPolygon API", "url": "https://turfjs.org/docs/api/pointsWithinPolygon" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "显式设置 cellSide 和 units，并检查不同缩放尺度是否适用", "hint": "格元尺度决定统计分辨率" },
+        { "key": "B", "text": "用 mask 限制研究区，减少区外无效格子", "hint": "先缩小计算范围通常更经济" },
+        { "key": "C", "text": "认为 hexGrid 会自动把所有订单金额求平均" },
+        { "key": "D", "text": "把 count 存入格子属性，使 Leaflet、MapLibre 和 Cesium 可复用同一底表", "hint": "分析与渲染解耦后结果更容易复用" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-06-010",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "业务不知道城市有多少个自然热点，还希望孤立定位点不形成热点，应优先选择哪种方案？",
+      "explanation": "不知道簇数且需要剔除孤立点，正符合 DBSCAN 的密度模型。KMeans 必须预设簇数并通常分配所有点，屏幕聚合和网格计数也不能直接替代这种噪声感知的空间聚类。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "使用 clustersDbscan，并按业务距离调整 maxDistance 与 minPoints", "hint": "未知簇数与噪声要求共同指向密度聚类" },
+        { "key": "B", "text": "使用 clustersKmeans，随意指定一个簇数即可" },
+        { "key": "C", "text": "只用 Cesium EntityCluster 的屏幕显示结果做永久统计" },
+        { "key": "D", "text": "只创建 pointGrid，不读取订单位置" }
+      ],
+      "answer": ["A"]
+    }
+  ]
+}

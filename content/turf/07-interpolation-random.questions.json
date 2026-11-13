@@ -1,0 +1,168 @@
+{
+  "skill": "turf",
+  "module": "07",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-07-001",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "Turf 的 interpolate 只是在两个数之间做普通线性插值，与地理距离无关。",
+      "explanation": "错误。interpolate 使用反距离权重方法，根据已知散点的属性值及其到网格单元的地理距离估计未知值；普通数值或颜色线性插值是另一种计算。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-07-002",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "站点点集带有 temperature 属性，使用 interpolate 时应怎样指定待估计字段？",
+      "explanation": "应在 options 中设置 property: \"temperature\"。该字段提供各已知点的数值，输出网格会把估计结果写入对应属性；字段缺失或非数值会破坏估计。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "设置 property: \"temperature\"", "hint": "property 用来选择已知点上的观测属性" },
+        { "key": "B", "text": "设置 units: \"temperature\"" },
+        { "key": "C", "text": "设置 bbox: \"temperature\"" },
+        { "key": "D", "text": "把属性名写入坐标的第三个元素即可" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-07-003",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在数值 0 对应颜色通道 0、数值 10 对应颜色通道 100 的线性色标中，数值 2.5 应映射为多少？",
+      "explanation": "线性插值比例为 (2.5 - 0) / (10 - 0) = 0.25，因此通道值为 0 + (100 - 0) × 0.25 = 25。这只是数值映射，不涉及空间插值。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "2.5" },
+        { "key": "B", "text": "25", "hint": "先算区间比例 0.25，再混合两个通道值" },
+        { "key": "C", "text": "50" },
+        { "key": "D", "text": "250" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-07-004",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "randomPoint(100, { bbox }) 中 bbox 的坐标顺序是什么？",
+      "explanation": "bbox 使用 [minX, minY, maxX, maxY]，经纬度场景即 [最小经度, 最小纬度, 最大经度, 最大纬度]。顺序错误会把点生成到意外区域。",
+      "refs": [{ "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "[minX, minY, maxX, maxY]", "hint": "与 Turf 网格函数的包围盒约定一致" },
+        { "key": "B", "text": "[minY, minX, maxY, maxX]" },
+        { "key": "C", "text": "[maxX, minY, minX, maxY]" },
+        { "key": "D", "text": "[centerX, centerY, width, height]" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-07-005",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "相同参数连续两次调用 randomPoint，应该断言两次生成的坐标数组完全相等。",
+      "explanation": "错误。随机数据测试应断言数量、类型、范围等不变量，而不是具体坐标。若发现失败样本，应将其保存成固定 GeoJSON，用于可重复的回归测试。",
+      "refs": [{ "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-07-006",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "sample(routePoints, 10) 会沿一条 LineString 每十分之一里程自动生成十个新点。",
+      "explanation": "错误。sample 从 FeatureCollection 中随机抽取指定数量的已有要素，不做沿线等距计算。沿线固定间距布点应使用 length 计算总长并循环调用 along。",
+      "refs": [
+        { "title": "Turf sample API", "url": "https://turfjs.org/docs/api/sample" },
+        { "title": "Turf along API", "url": "https://turfjs.org/docs/api/along" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-07-007",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 tin 与 planepoint 的组合，下列说法正确的有哪些？",
+      "explanation": "tin 根据带属性散点构建三角网，三角形保存三个顶点对应的 a、b、c 值；planepoint 使用一个三角形定义的平面估计目标点的值。超出三角形时需要警惕外推，不能把它当 Cesium 地形采样。",
+      "refs": [
+        { "title": "Turf tin API", "url": "https://turfjs.org/docs/api/tin" },
+        { "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "tin 可以通过属性名指定三角形的顶点数值", "hint": "例如高程或温度字段" },
+        { "key": "B", "text": "planepoint 依据单个三角面的平面方程求值", "hint": "三点确定一个空间平面" },
+        { "key": "C", "text": "使用三角形之外的点时应考虑外推风险", "hint": "平面能延伸不代表估计有观测支持" },
+        { "key": "D", "text": "planepoint 会自动查询 Cesium 地形瓦片" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-07-008",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "randomLine(5, { bbox }) 的返回值结构最符合下列哪项描述？",
+      "explanation": "randomLine 返回 FeatureCollection，其中包含指定数量的 LineString Feature，并受 bbox 范围约束。它不是一条 MultiLineString，也不会自动渲染到地图。",
+      "refs": [{ "title": "Turf randomLine API", "url": "https://turfjs.org/docs/api/randomLine" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "包含 5 个 LineString Feature 的 FeatureCollection", "hint": "count 控制集合中的要素数量" },
+        { "key": "B", "text": "包含 5 个 Polygon 的 FeatureCollection" },
+        { "key": "C", "text": "一个必然只有 5 个顶点的 Point" },
+        { "key": "D", "text": "一个已经绑定 Leaflet 的图层对象" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-07-009",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "使用随机 GeoJSON 设计自动化测试时，哪些做法更可靠？",
+      "explanation": "随机测试应验证不依赖具体随机值的性质，并覆盖不同几何类型；失败样本要固化才能重现。均匀随机数据不代表真实分布，因此还需补充密集、稀疏和异常形状等场景。",
+      "refs": [
+        { "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" },
+        { "title": "Turf randomPolygon API", "url": "https://turfjs.org/docs/api/randomPolygon" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "断言要素数量、几何类型和坐标范围等不变量", "hint": "这些性质不应随随机坐标改变" },
+        { "key": "B", "text": "把导致失败的随机结果保存为固定测试样本", "hint": "固定样本让回归测试可重复" },
+        { "key": "C", "text": "只测均匀点集即可代表所有真实数据分布" },
+        { "key": "D", "text": "额外准备密集、稀疏和复杂多边形等人工样本", "hint": "边界形状与偏态分布需要专门覆盖" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-07-010",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "已有带高程属性的散点和由 tin 生成的三角形，怎样估计某三角形内部一点的高程？",
+      "explanation": "可先确认目标点位于某个三角形内，再把目标点与该三角形传给 planepoint，由三个顶点的属性值确定局部平面并求值。sample 只做随机抽样，along 只处理路线里程。",
+      "refs": [{ "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "先定位覆盖三角形，再调用 planepoint(target, triangle)", "hint": "局部平面估计需要目标点和一个有效三角形" },
+        { "key": "B", "text": "调用 sample(triangle, 1) 自动得到高程" },
+        { "key": "C", "text": "把目标点颜色做线性插值即可得到地形高度" },
+        { "key": "D", "text": "只调用 randomPoint，不读取任何已知高程" }
+      ],
+      "answer": ["A"]
+    }
+  ]
+}

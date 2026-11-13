@@ -1,0 +1,164 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：「道路两侧 100 米」「门店周边 1 公里」「把这块地旋转 30° 再向东挪 500 米」都不是改样式，而是在制造新几何。缓冲区 buffer（/ˈbʌfər/，「巴弗」）把距离阈值变成 Polygon，`circle` 快速生成离散圆，三个 `transform*` 函数负责旋转、缩放和平移，`bbox` 系列则描述几何的外包范围。**一句话心智模型**：样式回答「看起来多宽」，缓冲回答「哪些空间真的在范围内」。**常见坑**：
+- 给 LineString 做缓冲却期待更粗的线——返回的是有面积的面，不是线样式。
+- 省略 `units`，把 500 米写成 500 千米；或把 `steps` 当成圆周总点数。
+- 以为所有变换都会改原对象——默认 `mutate: false`，结果在返回值里。**必记 3 条**：
+1. `buffer` 面向多种几何，`circle` 专门由圆心和半径生成多边形。
+2. 旋转、缩放、平移默认返回新对象，原数据不变。
+3. `bbox` 是 `[minX, minY, maxX, maxY]`，`bboxPolygon` 把这个范围变成面。
+
+## 本章你会学到
+
+线缓冲与面缓冲的形状差异、负半径收缩、离散圆的精度与成本，旋转缩放平移的枢轴和复制语义，以及包围盒工具在视野与空间索引中的用途。
+
+## 1. buffer：把距离条件变成空间范围
+
+`buffer(geojson, radius, options)` 接收点、线、面等 GeoJSON，返回 Polygon 或 MultiPolygon。单位默认是千米，工程里建议显式写出。
+
+```js
+import { lineString, polygon } from "@turf/helpers";
+import buffer from "@turf/buffer";
+
+const road = lineString([
+  [116.40, 39.90],
+  [116.43, 39.93],
+  [116.48, 39.94],
+]);
+const road100m = buffer(road, 100, { units: "meters" });
+// 结果是有面积的“胶囊状”面，而不是更粗的 LineString
+
+const land = polygon([[
+  [116.40, 39.90],
+  [116.42, 39.90],
+  [116.42, 39.92],
+  [116.40, 39.92],
+  [116.40, 39.90],
+]]);
+const expanded = buffer(land, 0.5, { units: "kilometers" });
+const shrunk = buffer(land, -0.05, { units: "kilometers" });
+if (shrunk) console.log(shrunk.geometry.type);
+```
+
+正半径让面向外扩张，负半径让面向内收缩。收缩量太大时，面可能消失并返回空结果，因此下游必须判空，不能直接访问 `geometry.coordinates`。
+
+`steps` 控制圆弧段的离散精细度：越大越平滑，顶点、文件体积和后续计算成本也越高。它描述每段圆弧的分段参数，不等于整个圆周固定只生成这么多个顶点。
+
+## 2. circle：由圆心快速生成离散圆
+
+`circle(center, radius, options)` 返回 Polygon，适合只关心「某点半径范围」的场景。它通过沿不同方向不断推演圆周点来构造结果，所以不是数学上无限光滑的曲线。
+
+```js
+import { point } from "@turf/helpers";
+import circle from "@turf/circle";
+
+const shop = point([116.407, 39.904], { name: "门店 A" });
+const deliveryArea = circle(shop, 3, {
+  units: "kilometers",
+  steps: 64,
+  properties: { level: "标准配送圈" },
+});
+console.log(deliveryArea.geometry.type); // Polygon
+```
+
+`circle` 与 `buffer(point)` 在简单业务里都可表达服务圈，但前者意图更直接，后者是通用几何缓冲。半径相同时也不要假设两种实现的顶点逐点一致，判断归属应使用生成后的面，而不是拿顶点数量做业务依据。
+
+<Callout type="warn" title="负缓冲不是反向正缓冲">
+面的负缓冲是在原边界内侧重算几何，不是把正缓冲结果缩回去。狭窄区域会先消失，孔洞也可能变化；MultiPolygon 的各部分还可能出现不同结果。业务上应处理空结果，并检查收缩后的拓扑是否仍满足要求。
+</Callout>
+
+## 3. transformRotate：围绕枢轴旋转
+
+`transformRotate(geojson, angle, options)` 按右手定则旋转，默认围绕数据的质心；用 `pivot` 可指定固定点。默认不修改输入。
+
+```js
+import { point } from "@turf/helpers";
+import transformRotate from "@turf/transform-rotate";
+
+const pivot = point([116.41, 39.91]);
+const rotated = transformRotate(land, 30, {
+  pivot,
+  mutate: false,
+});
+console.log(land === rotated); // false：返回新 Feature
+```
+
+在北向上的普通经纬度视图里，正角表现为逆时针。若要做「绕门店转动配送面」，就把门店设为 `pivot`；若省略，形状位置可能围绕自身中心原地改变方向。
+
+## 4. transformScale 与 transformTranslate
+
+`transformScale` 按倍数缩放：2 表示各方向尺度放大到约 2 倍，0.5 表示缩小；`origin` 控制缩放锚点。`transformTranslate` 按距离与方位平移所有顶点，可额外指定 `zTranslation` 修改第三坐标。
+
+```js
+import transformScale from "@turf/transform-scale";
+import transformTranslate from "@turf/transform-translate";
+
+const enlarged = transformScale(rotated, 1.2, {
+  origin: "centroid",
+  mutate: false,
+});
+const moved = transformTranslate(enlarged, 2, 90, {
+  units: "kilometers",
+  mutate: false,
+});
+console.log(moved.geometry.type);
+```
+
+平移方向仍按导航方位理解，90° 表示向东。这里的操作外观类似仿射变换 affine（/əˈfaɪn/，「厄-法因」），但输入是经纬度，Turf 内部采用球面或恒向线计算，不能承诺椭球面积严格按 `factor²` 增长，也不会自动替折线之间插入更多采样点。
+
+<Callout type="tip" title="何时打开 mutate">
+连续做多次变换且不再需要原对象时，`mutate: true` 可减少复制，但调用者必须清楚数据所有权。共享给 React 状态、缓存或其他组件的 GeoJSON 建议保持默认 `false`，用返回值生成新状态，避免界面不更新或历史快照被悄悄改掉。
+</Callout>
+
+## 5. bbox、bboxPolygon 与 centerOfBBox
+
+包围盒（bounding box，/ˈbaʊndɪŋ bɑːks/，「邦丁-巴克斯」）用四个数概括数据范围，是地图缩放到数据、粗筛候选几何的常用工具。
+
+```js
+import bbox from "@turf/bbox";
+import bboxPolygon from "@turf/bbox-polygon";
+import centerOfBBox from "@turf/center-of-bbox";
+
+const box = bbox(moved);
+const boxArea = bboxPolygon(box);
+const boxCenter = centerOfBBox(moved);
+
+console.log(box);       // [minLng, minLat, maxLng, maxLat]
+console.log(boxArea);   // 矩形 Polygon Feature
+console.log(boxCenter); // 包围盒中心 Point Feature
+```
+
+`bboxPolygon` 只是矩形的四个角，不是原几何的缓冲或最小旋转外接矩形。跨反经线、极区或全球数据时，简单最小最大经纬度还可能产生过宽范围，不能盲用于精细距离判断。
+
+<Callout type="info" title="与 CesiumJS 对比：几何缓冲不是屏幕宽度">
+Turf 的 buffer 会产生可继续做面积、交并差和点面判断的 GeoJSON；Cesium 的走廊宽度、线宽或模型缩放首先服务于三维显示。可对照 [Cesium 量算章](/s/cesium/08)：Turf 的距离单位进入几何计算，Cesium 还能结合椭球与地形。常见协作是 Turf 算缓冲面，再由 Cesium `GeoJsonDataSource` 加载渲染。
+</Callout>
+
+<Callout type="must" title="必背 · 本章三条">
+1. 线缓冲得到面；面负缓冲可能为空；`units` 与 `steps` 要按需设置。
+2. 三个变换默认不改原对象，枢轴、缩放原点和方向决定结果。
+3. 包围盒只适合概括与粗筛，不能代替真实边界或缓冲范围。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 可复用的配送区变换链">
+用一个四边形 Polygon 表示门店初始配送区：①向外缓冲 300 米；②绕门店 Point 旋转 45°；③放大 1.1 倍；④向东北方向（45°）平移 800 米；⑤输出最终包围盒与包围盒中心。全程保留初始四边形不变，最后再尝试 `mutate: true`，比较输入对象是否变化。
+<ExerciseSolution>
+依次把上一步返回值传给 `buffer`、`transformRotate`、`transformScale`、`transformTranslate`，每一步都显式设置 `mutate: false`，旋转传 `{ pivot: shop }`，平移传 `{ units: "meters" }`，最后用 `bbox` 和 `centerOfBBox` 读取范围。原始四边形应与初始深拷贝相等；改成 `mutate: true` 后，被传入的那一步对象会原地变化。若某一步误用旧变量而非上一步返回值，就会形成分叉结果而不是连续变换链。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- `buffer` 是可分析的地理范围，线、面输入的输出语义不同，负缓冲要判空。
+- `circle` 是圆心加半径的快捷入口，输出仍是有限顶点的 Polygon。
+- 旋转、缩放、平移要关注锚点、单位和 `mutate`，默认优先使用返回值。
+- `bbox` 系列适合快速概括范围与粗筛，不能冒充真实空间边界。
+
+下一章进入空间关系判断与交并差，让「看起来重叠」升级为可计算、可测试的拓扑语义。
+
+## 延伸阅读
+
+- 缓冲与圆：[buffer](https://turfjs.org/docs/api/buffer)、[circle](https://turfjs.org/docs/api/circle)
+- 几何变换：[transformRotate](https://turfjs.org/docs/api/transformRotate)、[transformScale](https://turfjs.org/docs/api/transformScale)、[transformTranslate](https://turfjs.org/docs/api/transformTranslate)
+- 包围盒：[bbox](https://turfjs.org/docs/api/bbox)、[bboxPolygon](https://turfjs.org/docs/api/bboxPolygon)、[centerOfBBox](https://turfjs.org/docs/api/centerOfBBox)
+- Cesium GeoJSON 加载：[GeoJsonDataSource](https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html)

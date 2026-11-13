@@ -7,6 +7,7 @@ import {
 import { getSkillRegistration, SKILL_REGISTRY } from "@/content/registry";
 import { loadLesson as loadGisLesson } from "@/content/gis/lessons";
 import { loadLesson as loadCesiumLesson } from "@/content/cesium/lessons";
+import { loadLesson as loadTurfLesson } from "@/content/turf/lessons";
 import type { ModuleMeta, SkillTrack } from "@/content/types";
 
 /**
@@ -110,6 +111,7 @@ const LESSON_LOADERS: Record<
 > = {
   gis: loadGisLesson,
   cesium: loadCesiumLesson,
+  turf: loadTurfLesson,
 };
 
 export async function getLesson(skillId: string, moduleSlug: string) {

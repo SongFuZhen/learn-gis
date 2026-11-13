@@ -1,0 +1,190 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：前面算出的缓冲区、网格和聚类还只是内存对象，用户需要在地图上看到它们，也需要点击、画线来驱动下一次计算。**一句话心智模型**：GeoJSON 是 Turf 与二维地图库之间的数据总线；地图事件负责产生坐标，Turf 负责产生新几何，图层或数据源负责展示。**常见坑**：
+- Leaflet（/ˈliːflət/，「利夫-利特」）的 `L.latLng` 是 `[纬度, 经度]`，GeoJSON 与 Turf 坐标仍是 `[经度, 纬度]`。
+- 每次鼠标移动都删除并重建地图、数据源和图层，造成闪烁与内存抖动。
+- 用地图内部对象当唯一数据源，结果无法可靠复现分析；应保留一份独立的原始 GeoJSON。**必记 3 条**：
+1. 事件转 Turf：显式构造 `[lng, lat]`；Turf 结果回地图：直接作为 GeoJSON 加载。
+2. Leaflet 用 `L.geoJSON` 管理结果，反向可用 `layer.toGeoJSON()`。
+3. MapLibre GL（/mæp ˈliːbrə dʒiː el/，「麦普-利-布拉-吉-艾尔」）在加载后创建一次 source/layer，后续调用 `setData` 更新。
+
+## 本章你会学到
+
+Turf 与 Leaflet、MapLibre GL 的双向数据流，点击绘线并实时计算缓冲区的完整闭环，以及 MapLibre `addSource`、`addLayer`、`setData` 的稳定更新模式。最后会与 CesiumJS 的屏幕拾取和 GeoJSON 加载路径对照。
+
+## 1. 先定数据契约：地图是视图，GeoJSON 是事实源
+
+无论使用哪个地图库，都建议把分析状态保存在普通 JavaScript 变量里：原始输入、参数和 Turf 输出都不依赖地图对象。这样切换底图、重建图层或放进 Web Worker 时，计算链不必重写。
+
+```js
+import { buffer, point } from "@turf/turf";
+
+const input = point([116.407, 39.904], { name: "当前位置" });
+const output = buffer(input, 300, { units: "meters" });
+
+// input 与 output 都是独立 GeoJSON；下一步才交给具体地图库。
+console.log(output.geometry.type); // Polygon
+```
+
+坐标顺序容易混淆，是因为同一个库里有不同 API 约定：Leaflet 的 `L.latLng(39.904, 116.407)` 先纬后经，但传给 `L.geoJSON` 的标准 GeoJSON 仍然先经后纬。`L.geoJSON` 会在内部完成经纬度对象转换，不需要你先把 GeoJSON 数组倒过来。
+
+<Callout type="must" title="只在一个边界转换坐标">
+推荐在地图事件回调里立刻生成标准 Turf Point，此后分析链全部使用 GeoJSON。不要在每个函数里反复交换经纬度；转换点越多，越难判断某次错误来自数据还是渲染。
+</Callout>
+
+## 2. Leaflet：L.geoJSON 双向连接 Turf
+
+下面先创建地图与一个空 GeoJSON 图层。`render` 只清理这个分析图层，不碰底图与地图实例；`addData` 可直接接收 Turf 的 Feature 或 FeatureCollection。
+
+```js
+import * as L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { buffer, point } from "@turf/turf";
+
+const map = L.map("map").setView([39.904, 116.407], 12);
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  attribution: "© OpenStreetMap contributors",
+}).addTo(map);
+
+const analysisLayer = L.geoJSON(null, {
+  style: { color: "#e63946", weight: 2, fillOpacity: 0.25 },
+}).addTo(map);
+
+function render(data) {
+  analysisLayer.clearLayers();
+  analysisLayer.addData(data);
+}
+
+map.on("click", (event) => {
+  const center = point([event.latlng.lng, event.latlng.lat]);
+  render(buffer(center, 300, { units: "meters" }));
+});
+```
+
+反向流程也很直接：Leaflet 矢量图层可导出 GeoJSON，再交给 Turf。地图只负责提供几何与属性，不需要把 `L.Marker`、`L.Polygon` 等实例硬塞给 Turf。
+
+```js
+analysisLayer.eachLayer((layer) => {
+  const geojson = layer.toGeoJSON();
+  console.log(geojson.geometry); // 可作为后续 Turf 运算的几何部分
+});
+```
+
+## 3. 鼠标绘线 + 实时 buffer：最小交互闭环
+
+把点击点累积为标准坐标数组，点数达到两个后构造 LineString，再计算 150 米缓冲区。每次输入都走同一条「清理旧分析结果 → 添加新线 → 添加新面」路径：
+
+```js
+import { lineString } from "@turf/turf";
+
+const draft = [];
+
+map.on("click", (event) => {
+  draft.push([event.latlng.lng, event.latlng.lat]);
+  analysisLayer.clearLayers();
+
+  if (draft.length < 2) return;
+  const route = lineString(draft);
+  const corridor = buffer(route, 150, { units: "meters" });
+
+  analysisLayer.addData(route);
+  analysisLayer.addData(corridor);
+});
+```
+
+这就是交互闭环：**地图事件 → 标准化坐标 → Turf 计算 → 图层更新**。若改为 `mousemove` 连续预览，应通过 `requestAnimationFrame` 合并同一帧的多次事件，并对大数据降频；否则几何计算和图层重建会争抢主线程。提供「完成、撤销、清空」操作时，要同时重置 `draft` 和分析图层，避免状态不一致。
+
+<Callout type="info" title="和 CesiumJS 拾取流程对比">
+Leaflet 与 MapLibre 的点击事件直接给二维经纬度；Cesium 通常先用 ScreenSpaceEventHandler 取得屏幕位置，再通过 pickEllipsoid、pickPosition 等 API 转成场景坐标，细节见 [Cesium 拾取事件章](/s/cesium/07)。两者都能转成 GeoJSON 交给 Turf 做二维分析；Turf 结果也可按 [Cesium GeoJSON 章](/s/cesium/04)加载，但高程与贴地展示仍由 Cesium 负责。
+</Callout>
+
+## 4. MapLibre GL：固定 source，setData 更新
+
+MapLibre 的数据源与样式层分离。推荐在 `load` 后创建一次 GeoJSON source 和引用它的 layer，后续只替换 source 数据。下面点击地图即可更新 Turf 缓冲区：
+
+```js
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import { buffer, featureCollection, point } from "@turf/turf";
+
+const map = new maplibregl.Map({
+  container: "map",
+  style: "https://demotiles.maplibre.org/style.json",
+  center: [116.407, 39.904],
+  zoom: 11,
+});
+
+map.on("load", () => {
+  map.addSource("turf-analysis", {
+    type: "geojson",
+    data: featureCollection([]),
+  });
+
+  map.addLayer({
+    id: "turf-analysis-fill",
+    type: "fill",
+    source: "turf-analysis",
+    paint: { "fill-color": "#e63946", "fill-opacity": 0.3 },
+  });
+});
+
+function updateAnalysis(data) {
+  const source = map.getSource("turf-analysis");
+  if (source) source.setData(data);
+}
+
+map.on("click", (event) => {
+  const center = point([event.lngLat.lng, event.lngLat.lat]);
+  updateAnalysis(buffer(center, 300, { units: "meters" }));
+});
+```
+
+`map.getSource` 取得的是已注册数据源，`setData` 接受新的 GeoJSON 对象或数据地址。若点击发生在 `load` 前，数据源可能尚未创建，所以示例做了存在性检查；正式应用也可以在加载完成前暂存输入，加载后统一刷新。
+
+## 5. 数据源更新模式：别让渲染对象吞掉原始数据
+
+稳定的更新策略包含四点：
+
+1. **source 一次创建**：保持 id 不变，样式层持续引用它。
+2. **layer 一次创建**：只改数据时，不必反复 `removeLayer/addLayer`。
+3. **输入独立保存**：原始绘线、参数与最新结果放在地图外；需要撤销、重算或切换框架时仍可使用。
+4. **高频更新合帧**：连续鼠标事件先保留最新坐标，在动画帧里计算并 `setData`；大任务再考虑第 9 章 Worker。
+
+```js
+const state = { input: null, result: null };
+
+function analyze(center) {
+  state.input = center;
+  state.result = buffer(center, 300, { units: "meters" });
+  updateAnalysis(state.result);
+}
+```
+
+从地图要素回到 Turf 时，优先读取这份标准状态。若从第三方绘制控件取结果，则使用控件公开的 GeoJSON 导出接口，不要依赖私有字段；渲染查询返回的要素还可能被切片、抽稀或裁剪，不一定等于原始输入。
+
+<Callout type="tip" title="样式表达式只负责表现">
+MapLibre 的 `paint`、`layout` 表达式可以按 properties 改颜色与宽度，却不应被当成空间分析引擎。计数、缓冲、聚类先在 Turf 中完成，再把明确字段交给样式层，计算逻辑才容易测试和复用。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 三点绘制实时安全走廊">
+任选 Leaflet 或 MapLibre：依次点击三个位置形成折线，实时生成 200 米缓冲区；第四次点击前提供清空按钮。要求地图只创建一次图层或数据源，并把最新 LineString 与 buffer 结果保存在独立 state 中，再计算缓冲区面积。
+<ExerciseSolution>
+事件回调先写入 `state.draft`，不足两点时只显示草稿点；达到两点后执行 `lineString(state.draft)` 与 `buffer(route, 200, { units: "meters" })`。Leaflet 复用 `L.geoJSON` 的 `clearLayers/addData`，MapLibre 复用已注册 source 的 `setData`；两者都不重建地图。面积用 `area(state.result)`，单位为平方米。清空时同时重置 draft、input、result 和地图数据，避免画面已空而下次点击仍接着旧线。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- Turf 与地图库通过标准 GeoJSON 解耦，原始输入和结果应独立于地图实例保存。
+- Leaflet 事件需显式转成 `[lng, lat]`，`L.geoJSON` 展示结果，`toGeoJSON` 支持反向输出。
+- MapLibre 在 `load` 后固定创建 source/layer，更新几何调用 `setData`，不要频繁拆建。
+- Cesium 的屏幕拾取与三维展示属于另一条渲染链，但二维分析仍可复用同一 Turf 结果。
+
+下一章处理真实数据的清洗、拍平、环方向与大规模计算，把交互原型升级为可靠的工程管线。
+
+## 延伸阅读
+
+- [Leaflet API 参考：L.geoJSON 与图层](https://leafletjs.com/reference.html)
+- [MapLibre GL JS 文档：Map 与 GeoJSON Source](https://maplibre.org/maplibre-gl-js/docs/)
+- [Turf buffer](https://turfjs.org/docs/api/buffer)
+- [GeoJSON RFC 7946](https://datatracker.ietf.org/doc/html/rfc7946)

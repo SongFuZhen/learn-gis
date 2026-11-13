@@ -1,0 +1,154 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：你在 [GIS 理论课](/s/gis/00)里学了一堆空间概念（缓冲区、叠加分析、泰森多边形），在 [Cesium 课](/s/cesium/00)里学会了把数据放到三维地球上——但「算一个多边形面积」「判断点在不在围栏里」这种纯几何活儿，难道还要把数据发到 PostGIS 服务器？**Turf.js**（/tɜːrf dʒeɪ ˈes/，「特夫-杰斯」，浏览器端几何引擎）就是在前端把这些活儿就地干了的库：**GeoJSON 进，GeoJSON 出**，不依赖服务器、不依赖地图库。**一句话经验**：Turf 不画地图、不发请求、不管瓦片，它只做几何计算；画地图交给 Leaflet/MapLibre，三维交给 Cesium，Turf 是它们背后的「计算器」。**常见坑**：
+- 把 Turf 当地图库用——它没有地图、没有 DOM、没有底图，`import * as turf` 之后你拿不到任何 `map` 对象。
+- 坐标顺序写反——Turf 全程遵循 GeoJSON 规范 `[经度, 纬度]`（lng, lat），和 Cesium 一致，和 Leaflet 的 `L.latLng(lat, lng)` 相反。
+- 拿 Turf 算三维——它是纯二维库，几何里的第三个坐标会被大多数函数忽略。**必记 3 条**：
+1. Turf 的输入输出统一是 GeoJSON（Feature / FeatureCollection / Geometry）。
+2. 角度用十进制度，距离面积默认单位由函数参数 `units` 控制（`kilometers` 最常用）。
+3. 纯函数、无副作用：同样的输入永远得到同样的输出，方便测试与组合。
+
+## 本章你会学到
+
+Turf 在整个技术栈里的定位、两种接入方式（npm 与 CDN）、GeoJSON 几何类型速览，以及用 `area` 完成第一个真实计算。学完你能回答：什么活该交给 Turf，什么活该交给 Cesium 或后端。
+
+## 1. Turf 是什么：技术栈里的几何引擎
+
+GIS 课讲过一个完整的 GIS 栈：数据存储（PostGIS）→ 服务（OGC API）→ 客户端渲染（Leaflet/Cesium）。Turf 补的是客户端这一层的**分析能力**：
+
+| 能力 | 谁来干 |
+| --- | --- |
+| 存数据、SQL 空间查询 | PostGIS / GeoPackage |
+| 发瓦片、发矢量 | GeoServer / 地图服务 |
+| 画二维地图、管交互 | Leaflet、MapLibre GL、OpenLayers |
+| 画三维地球、地形、3D Tiles | CesiumJS |
+| **前端就地做几何计算** | **Turf.js** |
+
+典型场景：用户在地图上画了一条路线，你想立刻告诉他「总长 3.2 公里」；画了一个围栏，想立刻判断 100 个外卖小哥谁在围栏内。数据根本不用出浏览器，Turf 毫秒级算完。
+
+<Callout type="info" title="Turf 的模块化设计">
+Turf 不是一个单体大包，而是 `@turf/helpers`、`@turf/buffer`、`@turf/area` 等几十个小包的集合，`@turf/turf` 是把它们打包在一起的总入口。现代项目推荐按函数装小包（tree-shaking 更友好），学习阶段直接用总入口最省心。
+</Callout>
+
+## 2. 与 Cesium 的分工：二维计算 vs 三维世界
+
+这门课每章都会和 Cesium 对比，先建立总览：
+
+| 维度 | Turf.js | CesiumJS |
+| --- | --- | --- |
+| 世界模型 | 平面几何（经纬度当二维坐标） | 真实椭球上的三维场景 |
+| 输入输出 | GeoJSON 对象 | Entity / Primitive / 3D Tiles |
+| 距离含义 | 大圆距离（haversine 类公式） | 弦长 / 大圆 / 贴地三种可选（见 [Cesium 量算章](/s/cesium/08)） |
+| 渲染 | 无 | WebGL 渲染器 |
+| 体积 | 小，可进 Web Worker | 大，引擎级 |
+
+协作模式很常见：**Turf 算好 GeoJSON 结果 → 丢给 Cesium 的 `GeoJsonDataSource.load()` 上球**。比如 Turf 生成 5 公里缓冲区，Cesium 负责把这个多边形贴地画出来。反过来，Cesium 拾取到的 Entity 坐标也能转回 GeoJSON 给 Turf 分析。
+
+## 3. 两种接入方式
+
+### npm + Vite（本课程主线）
+
+```bash
+npm create vite@latest turf-lab -- --template vanilla
+cd turf-lab
+npm install @turf/turf
+npm run dev
+```
+
+按需安装的写法（工程推荐）：
+
+```bash
+npm install @turf/helpers @turf/area
+```
+
+### CDN 零构建（适合原型与文档页）
+
+```html
+<script type="module">
+  import * as turf from "https://cdn.jsdelivr.net/npm/@turf/turf@7/esm/index.js";
+  console.log(turf.area(turf.polygon([[...]])));
+</script>
+```
+
+<Callout type="warn" title="版本基线">
+本课程基于 Turf **v7**。v6→v7 的主要变化是全面 ESM、去掉对 CommonJS 的历史包袱，函数签名基本稳定。网上 v5 时代的教程要警惕：部分函数的多几何行为有调整，遇到旧代码先查 v7 文档。
+</Callout>
+
+## 4. GeoJSON 速览：Turf 的唯一语言
+
+Turf 不发明数据格式，只认 [RFC 7946 GeoJSON](https://datatracker.ietf.org/doc/html/rfc7946)。七种几何类型：`Point`、`MultiPoint`、`LineString`、`MultiLineString`、`Polygon`、`MultiPolygon`、`GeometryCollection`，外面可以包 `Feature`（带 properties）或 `FeatureCollection`。
+
+用 `@turf/helpers` 创建，比手写对象少出错：
+
+```js
+import { point, lineString, polygon, featureCollection } from "@turf/helpers";
+
+const shop = point([116.404, 39.915], { name: "天安门" }); // [lng, lat]
+const route = lineString([
+  [116.404, 39.915],
+  [116.42, 39.92],
+]);
+const block = polygon([
+  [
+    [116.40, 39.91],
+    [116.41, 39.91],
+    [116.41, 39.92],
+    [116.40, 39.92],
+    [116.40, 39.91], // 多边形首尾必须闭合
+  ],
+]);
+const fc = featureCollection([shop, route, block]);
+```
+
+注意 Polygon 的环是**坐标数组的数组**（外环 + 可选内环），且首尾点必须相同——这是 GeoJSON 校验高频报错点。
+
+## 5. 第一个计算：area 面积
+
+`area` 接收任意 GeoJSON，返回平方米。它内部按球面模型计算，不需要投影，这也是前端空间库相对桌面 GIS 的一大便利：
+
+```js
+import { area } from "@turf/area";
+import { polygon } from "@turf/helpers";
+
+const olympic = polygon([
+  [
+    [116.385, 39.99],
+    [116.395, 39.99],
+    [116.395, 40.0],
+    [116.385, 40.0],
+    [116.385, 39.99],
+  ],
+]);
+
+const m2 = area(olympic);
+console.log(`${(m2 / 1_000_000).toFixed(2)} 平方公里`);
+```
+
+<Callout type="must" title="必背 · 本章三条">
+1. Turf = 前端几何引擎，GeoJSON 进 GeoJSON 出，不渲染地图。
+2. 坐标顺序 `[lng, lat]`；多边形环首尾闭合；它是二维库。
+3. 与 Cesium 的协作：Turf 负责算，Cesium 负责画三维；距离语义上 Turf 只有大圆一类。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 量一个真实小区">
+在 [geojson.io](https://geojson.io/) 上沿你熟悉的一个小区围墙画一个 Polygon，复制它的 GeoJSON，在 Vite 项目里用 `area` 算出平方米与公顷（1 公顷 = 10000 平方米）。再把同一个 GeoJSON 用 Cesium 的 `GeoJsonDataSource.load` 加载到三维地球上，观察同一份数据在两个库里的角色差异。
+<ExerciseSolution>
+代码核心就两行：`const m2 = area(geoJson); const ha = m2 / 10000;`。观察重点：geojson.io 画出来的是平面矢量，Turf 只消费坐标数字、完全不关心形状怎么显示；进 Cesium 后同一份 Polygon 被贴上椭球，默认可能悬空或贴地（clampToGround），说明「几何」与「渲染」是两层关注点——这正是 Turf 与 Cesium 分工的具象体现。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- Turf 补齐了客户端 GIS 的分析层：无服务器、无地图、纯函数。
+- 技术栈定位：PostGIS 存储、Leaflet/Cesium 渲染、Turf 计算。
+- 接入走 npm（v7，ESM）或 CDN；helpers 创建 GeoJSON 最稳。
+- 第一个函数 `area`：输入任意 GeoJSON，输出平方米，球面计算免投影。
+
+下一章进入量测全家桶：距离、线长、沿线取点，并和 Cesium 的三种三维距离正面对比。
+
+## 延伸阅读
+
+- 官方文档与函数索引：[Turf.js 官网](https://turfjs.org/)
+- GeoJSON 规范：[RFC 7946](https://datatracker.ietf.org/doc/html/rfc7946)
+- 在线画 GeoJSON 的草稿本：[geojson.io](https://geojson.io/)
+- v7 发布说明与 ESM 迁移：[Turf GitHub Releases](https://github.com/Turfjs/turf/releases)

@@ -1,0 +1,148 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：上一章回答「有多远」，本章回答「朝哪走、会走到哪里」。从北京看上海是什么方向？沿正东飞 100 公里会到哪里？两座城市的中点在哪？**一句话心智模型**：方位角 bearing（/ˈberɪŋ/，「贝尔-英」）是「从正北顺时针转多少度」，`destination` 则拿起点、距离和方向反算终点；`midpoint` 找两点中途，`center` 找一组几何的包围盒中心。**常见坑**：
+- 把角度当成数学坐标系里的「从正东逆时针」——Turf 方位角从正北起算、顺时针为正，返回值通常在 `[-180, 180]`。
+- 混用大圆航线与恒向线：短距离差别不明显，跨洋航行会走出完全不同的路径。
+- 把 `center` 当质心——它算的是包围盒中心，不保证落在多边形内部。**必记 3 条**：
+1. `bearing` 求大圆初始方向，`rhumbBearing` 求恒向线方向。
+2. `destination(起点, 距离, 方位角)` 默认按千米推演新坐标。
+3. `midpoint` 是两点球面中点，`center` 是整体包围盒中心，二者不是一回事。
+
+## 本章你会学到
+
+方位角的零方向、正负号与首末方向，`bearing` 和 `rhumbBearing` 的航线差异，如何用 `destination` 做位置推演，以及 `midpoint`、`center` 各自适合的业务。最后会把这些二维结果与 Cesium 的椭球大地线计算对齐。
+
+## 1. bearing：从正北顺时针读方向
+
+`bearing(start, end)` 返回起点朝向终点的大圆初始方位角：正北为 0°，正东为 90°，正南为 ±180°，正西为 -90°。如果业务界面只显示 `0–360°`，做一次归一化即可。
+
+```js
+import { point } from "@turf/helpers";
+import bearing from "@turf/bearing";
+
+const beijing = point([116.407, 39.904]);
+const shanghai = point([121.474, 31.230]);
+
+const b = bearing(beijing, shanghai);
+const compass = (b + 360) % 360;
+console.log(b);        // 可能带正负号
+console.log(compass);  // 约 117°：东偏南方向
+```
+
+| 目标方向 | 常用带符号角度 | 归一化到 0–360° |
+| --- | ---: | ---: |
+| 北 | 0° | 0° |
+| 东 | 90° | 90° |
+| 西 | -90° | 270° |
+
+大圆航线在长途飞行中会不断改变航向，因此 Turf 默认给的是**起点初始方向**。传 `{ final: true }` 则求到达终点时的方向，它不是简单把初始方向加 180°。
+
+```js
+const finalBearing = bearing(beijing, shanghai, { final: true });
+console.log(finalBearing);
+```
+
+## 2. rhumbBearing：罗盘指向始终不变
+
+恒向线（rhumb line，/rʌm laɪn/，「拉姆-莱恩」）是以固定角度穿过所有经线的航线。它的导航操作简单：设好一个罗盘方向后一直走；代价是通常不是最短路径。
+
+```js
+import rhumbBearing from "@turf/rhumb-bearing";
+
+const initial = bearing(beijing, shanghai);
+const constant = rhumbBearing(beijing, shanghai);
+console.log({ initial, constant }); // 两个数字不应混用
+```
+
+大圆（great-circle，/ˌɡreɪt ˈsɜːrkəl/，「格瑞特-瑟克尔」）航线适合求最短距离，恒向线适合固定航向导航。城市内部短距离可先观察两者差异，跨洲路径则必须明确业务选择。
+
+<Callout type="warn" title="方向函数要与推演函数配套">
+`destination` 按大圆初始方位前进，不要拿 `rhumbBearing` 的结果直接喂给它，再声称走出了恒向线。恒向线推演应使用 `rhumbDestination`。两条航线语义不同，即使起终点相同，中间经过的位置也不同。
+</Callout>
+
+## 3. destination：从起点向外推演坐标
+
+知道起点、距离和方向，就能反求目的地。它非常适合绘制雷达扇区顶点、推算船只位置、生成某方向的虚拟采样点。
+
+```js
+import destination from "@turf/destination";
+
+const east100km = destination(beijing, 100, 90, {
+  units: "kilometers",
+  properties: { label: "正东 100km" },
+});
+console.log(east100km.geometry.coordinates);
+```
+
+这里 90° 表示从起点出发时朝正东，并不表示终点的经度只增加一个固定数值。地球曲率会让大圆路径逐渐改变局部方向，纬度越高越不能套平面公式。
+
+默认单位是 `kilometers`；米级无人机或园区应用要写 `{ units: "meters" }`。`destination` 只处理二维位置，第三个高程坐标不会替你计算三维落点。
+
+## 4. midpoint：两点的球面中点
+
+`midpoint(point1, point2)` 取两点大圆路径的中点，相当于「走一半距离时在哪里」。不要直接把两个经度、两个纬度分别求平均，尤其在跨东西半球或反经线附近。
+
+```js
+import midpoint from "@turf/midpoint";
+
+const losAngeles = point([-118.244, 34.052]);
+const tokyo = point([139.692, 35.690]);
+const halfway = midpoint(losAngeles, tokyo);
+console.log(halfway.geometry.coordinates);
+```
+
+对北京与上海这样相近的点，经纬度算术平均看似接近答案；跨越反经线后，一个在东经、一个在西经，简单平均却可能把中点放到地球另一侧。`midpoint` 的球面计算正是为了避免这类问题。
+
+## 5. center：整组几何的包围盒中心
+
+`center(geojson)` 先求所有坐标的外包矩形，再返回矩形中心。它可以给标签找一个快速锚点，也能为地图视野提供初始中心。
+
+```js
+import { polygon } from "@turf/helpers";
+import center from "@turf/center";
+
+const district = polygon([[
+  [116.35, 39.90],
+  [116.52, 39.90],
+  [116.48, 40.04],
+  [116.35, 39.90],
+]]);
+
+const labelPoint = center(district);
+console.log(labelPoint.geometry.coordinates); // 包围盒中心
+```
+
+它不是折线首末点的 `midpoint`，也不是考虑形状质量分布的 `centerOfMass`。对凹多边形、月牙形或多岛区域，包围盒中心可能落在区域外；需要「面内标签点」时应另选 `pointOnFeature`。
+
+<Callout type="info" title="与 CesiumJS 对比：球面公式和椭球大地线">
+Turf 的方位与目的地采用球面公式、忽略高程，适合二维业务快速推演；Cesium 的 `EllipsoidGeodesic` 在 WGS84 椭球上表达大地线，还能与三维位置和相机场景协作。可回顾 [Cesium 量算章](/s/cesium/08) 的大圆距离：两个库结果接近不代表模型完全相同，精密测量要注明基准与算法。
+</Callout>
+
+<Callout type="must" title="必背 · 本章三条">
+1. 方位角从正北顺时针；`final: true` 求终点方向。
+2. 大圆用 `bearing + destination`，恒向线用 `rhumbBearing + rhumbDestination`。
+3. `midpoint` 属于两点的路径，`center` 属于整组坐标的包围盒，不保证在面内。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 生成海上会合点">
+给定青岛附近起点 `[120.383, 36.067]` 与一艘船的位置 `[122.100, 36.900]`：①求起点到船只的大圆初始方位；②求两点球面中点；③从中点沿正东推演 20 海里作为备用会合点；④把四个关键位置组成 FeatureCollection，并求其 `center`。观察这个 `center` 与两点 `midpoint` 为什么不重合。
+<ExerciseSolution>
+核心调用是 `bearing(start, ship)`、`midpoint(start, ship)`、`destination(halfway, 20, 90, { units: "nauticalmiles" })`，最后用 `featureCollection` 组织起点、船只、中点和备用点，再调用 `center`。`center` 取决于所有点的最小最大经纬度，新增备用点会拉动包围盒；`midpoint` 只由原两点的大圆路径决定，所以二者通常不同。若改用恒向线导航，方向与推演必须同时换成 `rhumbBearing` 和 `rhumbDestination`。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- `bearing` 求大圆初始或末尾方向，输出角度默认带正负号。
+- `rhumbBearing` 表达固定航向，不能与大圆推演函数混搭。
+- `destination` 由起点、距离、方向反算位置，单位要显式指定。
+- `midpoint` 与 `center` 一个面向路径、一个面向包围盒，标签放置时要留意面外风险。
+
+下一章用缓冲区把「距离范围」变成真正的面，并对 GeoJSON 做旋转、缩放和平移。
+
+## 延伸阅读
+
+- Turf 方位与推演：[bearing](https://turfjs.org/docs/api/bearing)、[destination](https://turfjs.org/docs/api/destination)
+- 恒向线函数：[rhumbBearing](https://turfjs.org/docs/api/rhumbBearing)、[rhumbDestination](https://turfjs.org/docs/api/rhumbDestination)
+- 中点与中心：[midpoint](https://turfjs.org/docs/api/midpoint)、[center](https://turfjs.org/docs/api/center)
+- Cesium 椭球大地线：[EllipsoidGeodesic](https://cesium.com/learn/cesiumjs/ref-doc/EllipsoidGeodesic.html)

@@ -1,0 +1,277 @@
+{
+  "skill": "turf",
+  "module": "00",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-00-001",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "下列哪个需求最适合交给 Turf.js 完成？",
+      "explanation": "Turf 是前端几何引擎，负责 GeoJSON 的空间计算；渲染底图是 Leaflet/MapLibre 的职责，三维渲染归 Cesium，瓦片服务由后端提供。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "在页面上显示一张带瓦片底图的二维地图" },
+        {
+          "key": "B",
+          "text": "在浏览器里判断一批点是否落在某个多边形围栏内",
+          "hint": "纯几何计算，GeoJSON 进结果出，正是 Turf 的主场"
+        },
+        { "key": "C", "text": "加载 3D Tiles 并渲染倾斜摄影城市" },
+        { "key": "D", "text": "对外发布 WMTS 瓦片服务" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-00-002",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Turf.js 函数的输入和输出统一使用哪种数据格式？",
+      "explanation": "Turf 不发明私有格式，所有函数都以 GeoJSON（Feature、FeatureCollection、Geometry）为输入输出，符合 RFC 7946。",
+      "refs": [
+        {
+          "title": "RFC 7946 The GeoJSON Format",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Shapefile 二进制" },
+        { "key": "B", "text": "KML" },
+        {
+          "key": "C",
+          "text": "GeoJSON",
+          "hint": "GeoJSON 进、GeoJSON 出是 Turf 的核心约定"
+        },
+        { "key": "D", "text": "Protocol Buffers" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-00-003",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Turf 中坐标数组的顺序是 [纬度, 经度]，和 Leaflet 的 L.latLng 一致。",
+      "explanation": "错。Turf 遵循 GeoJSON 规范，坐标是 [经度, 纬度]（lng, lat），与 Cesium 的 fromDegrees 一致，反而与 Leaflet 的 latLng 顺序相反。",
+      "refs": [
+        {
+          "title": "RFC 7946 Position 定义",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-00-004",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "turf.area 返回的面积单位是什么？",
+      "explanation": "area 固定返回平方米，业务上需要平方公里或公顷时自行除以 10^6 或 10^4，它内部按球面模型计算，无需预先投影。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "平方公里" },
+        { "key": "B", "text": "公顷" },
+        {
+          "key": "C",
+          "text": "平方米",
+          "hint": "area 的返回值单位固定为平方米"
+        },
+        { "key": "D", "text": "由输入几何的坐标系决定" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-00-005",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "GeoJSON Polygon 的外环坐标数组在写法上有什么硬性要求？",
+      "explanation": "Polygon 的环是闭合的线性环，首尾必须是同一个坐标；同时环本身是坐标数组的数组（外环 + 可选内环孔洞）。首尾不闭合会导致校验失败或计算异常。",
+      "refs": [
+        {
+          "title": "RFC 7946 Polygon",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "首尾坐标必须相同（线性环闭合）",
+          "hint": "闭合环是 Polygon 的规范要求"
+        },
+        { "key": "B", "text": "至少包含 2 个坐标点即可" },
+        { "key": "C", "text": "坐标必须先投影成米制平面坐标" },
+        { "key": "D", "text": "不允许出现内环（孔洞）" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-00-006",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于 Turf.js 与 CesiumJS 的分工，下列说法正确的有哪些？",
+      "explanation": "Turf 只做二维几何计算且不渲染；Cesium 是三维 WebGL 引擎，负责椭球场景、地形与渲染。常见协作是 Turf 算好 GeoJSON 再交给 GeoJsonDataSource 上球。Turf 不提供地图对象，也不负责三维量算。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        },
+        {
+          "title": "Cesium GeoJsonDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Turf 计算出的 GeoJSON 可以交给 Cesium 的 GeoJsonDataSource 加载",
+          "hint": "计算与渲染解耦的典型协作方式"
+        },
+        {
+          "key": "B",
+          "text": "Turf 不渲染任何图形，没有 map 对象",
+          "hint": "Turf 是纯计算库"
+        },
+        { "key": "C", "text": "Turf 内置 WebGL 三维渲染能力" },
+        { "key": "D", "text": "Cesium 提供弦长/大圆/贴地等多种三维距离语义" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-00-007",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "工程中按需安装 @turf/buffer、@turf/area 这类小包，相比只装 @turf/turf 总入口，主要好处是什么？",
+      "explanation": "Turf 由大量独立小包组成，按函数安装配合打包器 tree-shaking 能减小最终 bundle 体积；总入口适合学习与原型。函数行为在两种装法下一致，并不改变计算精度。",
+      "refs": [
+        {
+          "title": "@turf/turf 包说明（npm）",
+          "url": "https://www.npmjs.com/package/@turf/turf"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "减小打包产物体积，只带上用到的函数",
+          "hint": "按需小包 + tree-shaking 的核心收益"
+        },
+        { "key": "B", "text": "计算结果精度更高" },
+        { "key": "C", "text": "可以绕过 GeoJSON 格式限制" },
+        { "key": "D", "text": "总入口在 v7 已被官方删除无法使用" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-00-008",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "给 Turf 函数传入带第三个坐标（高程 z）的 GeoJSON 点，会发生什么？",
+      "explanation": "Turf 是二维库，绝大多数函数忽略第三维，只取 [lng, lat] 参与计算；需要三维距离或地形分析应转用 Cesium 等三维引擎，而不是指望 Turf 处理高程。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "大多数函数忽略 z，只按二维经纬度计算",
+          "hint": "Turf 的二维定位决定了 z 不参与运算"
+        },
+        { "key": "B", "text": "自动做三维欧氏距离计算" },
+        { "key": "C", "text": "直接抛出类型错误拒绝执行" },
+        { "key": "D", "text": "自动把 z 当作米制高程并叠加到面积里" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-00-009",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "Turf 函数普遍被设计为纯函数，这对工程实践意味着什么？",
+      "explanation": "纯函数意味着不修改入参、无副作用、相同输入必得相同输出，因此可直接单元测试、可组合、可放进 Web Worker 而不用担心共享状态。实践中应以返回值为准，不要依赖入参被原地修改。",
+      "refs": [
+        {
+          "title": "Turf.js GitHub 仓库",
+          "url": "https://github.com/Turfjs/turf"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "同样的输入永远得到同样的输出，便于写单元测试",
+          "hint": "纯函数的可预测性"
+        },
+        {
+          "key": "B",
+          "text": "多个小函数可以管道式组合完成复杂分析",
+          "hint": "无副作用让组合安全"
+        },
+        { "key": "C", "text": "函数内部会自动把结果写回后端数据库" },
+        {
+          "key": "D",
+          "text": "放进 Web Worker 计算时不需要考虑共享状态竞争",
+          "hint": "无副作用天然适合 Worker"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-00-010",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "一个外卖平台要在浏览器里实时判断 500 个骑手是否落在商家 3 公里配送围栏内，并把围栏与命中点画在三维地球上。最合理的技术组合是？",
+      "explanation": "围栏归属是二维点面判断，数据不出浏览器即可由 Turf 批量计算；三维可视化（贴地围栏、地球场景）交给 Cesium；PostGIS 适合服务端持久化与大规模查询，Leaflet 只解决二维渲染。组合体现计算与渲染分层。",
+      "refs": [
+        {
+          "title": "Turf booleanPointInPolygon",
+          "url": "https://turfjs.org/docs/api/booleanPointInPolygon"
+        },
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "全部用 Leaflet，二维瓦片足以表达三维地球" },
+        {
+          "key": "B",
+          "text": "Turf 负责点面判断，Cesium 负责三维渲染围栏与骑手",
+          "hint": "计算层与渲染层各用其长"
+        },
+        { "key": "C", "text": "全部塞进 Cesium，用 Entity API 做 500 点循环几何判断" },
+        { "key": "D", "text": "每个骑手都发一次 PostGIS 请求再用 Cesium 画点" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

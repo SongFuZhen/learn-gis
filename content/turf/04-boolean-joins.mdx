@@ -1,0 +1,163 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：「点在不在围栏里」「两块地是否重叠」「从 A 里剪掉 B 还剩多少」都需要明确的拓扑语义，而不是靠肉眼。拓扑 topology（/təˈpɑːlədʒi/，「特-帕-勒-吉」）关心几何之间如何相接、包含与相交。**一句话心智模型**：`boolean*` 只回答 true/false，`intersect/union/difference` 则真正生成新几何；前者是判断题，后者是剪刀与胶水。**常见坑**：
+- 忘记边界规则——点恰好压在外环上时，`booleanPointInPolygon` 默认算内部。
+- 把「有接触」都当重叠——只碰一条边的两个面并不满足 `booleanOverlap`。
+- 沿用旧版 `intersect(a, b)` 两参数写法——Turf v7 叠置入口使用 FeatureCollection。**必记 3 条**：
+1. 点面默认包含边界，`ignoreBoundary: true` 才把边界排除。
+2. `Contains/Within` 看包含，`Overlap` 看同维度部分重叠，`Disjoint` 看是否完全无公共点。
+3. 交并差输入面几何、输出可能为 null，Multi 几何与空结果都要显式处理。
+
+## 本章你会学到
+
+常用空间谓词的语义边界，压线点为什么会被重复归属，Turf v7 的交并差调用方式，以及 MultiPolygon、孔洞和无效几何进入生产流程时的注意事项。
+
+## 1. booleanPointInPolygon：先决定边界算不算内部
+
+空间谓词 predicate（/ˈpredɪkət/，「普瑞-迪-克特」）是一种只返回布尔值的关系判断。`booleanPointInPolygon(point, polygon)` 支持 Polygon 与 MultiPolygon，默认把外环或孔洞边界上的点也视为在面内。
+
+```js
+import { point, polygon } from "@turf/helpers";
+import booleanPointInPolygon from "@turf/boolean-point-in-polygon";
+
+const areaA = polygon([[
+  [116.40, 39.90],
+  [116.42, 39.90],
+  [116.42, 39.92],
+  [116.40, 39.92],
+  [116.40, 39.90],
+]], { name: "A" });
+
+const onRing = point([116.40, 39.91]); // 正好压在左边外环上
+console.log(booleanPointInPolygon(onRing, areaA)); // true
+console.log(booleanPointInPolygon(onRing, areaA, {
+  ignoreBoundary: true,
+})); // false
+```
+
+`ignoreBoundary: true` 不是「更精确」的通用开关，而是另一种业务定义：只认严格内部。若两个相邻行政区共享边，默认规则可能让压线点同时命中两个区；全部排除边界又可能让压线点一个区都进不了。必须提前约定归属策略。
+
+## 2. Contains、Within、Overlap、Disjoint 不要混用
+
+这几个函数读法相似，但观察方向与判定条件不同：
+
+| 函数 | 回答的问题 | 关键提醒 |
+| --- | --- | --- |
+| `booleanContains(a, b)` | a 是否完整包含 b | 主体是 a，顺序不能反 |
+| `booleanWithin(a, b)` | a 是否完整位于 b 内 | 与上面的观察方向相反 |
+| `booleanOverlap(a, b)` | 是否同维度部分重叠 | 一个完全包含另一个时不算 Overlap |
+| `booleanDisjoint(a, b)` | 是否完全没有公共点 | 仅边界相触也不算 Disjoint |
+
+```js
+import booleanContains from "@turf/boolean-contains";
+import booleanWithin from "@turf/boolean-within";
+import booleanOverlap from "@turf/boolean-overlap";
+import booleanDisjoint from "@turf/boolean-disjoint";
+
+const areaB = polygon([[
+  [116.41, 39.90],
+  [116.43, 39.90],
+  [116.43, 39.92],
+  [116.41, 39.92],
+  [116.41, 39.90],
+]], { name: "B" });
+
+console.log(booleanContains(areaA, areaB)); // false：只是部分重叠
+console.log(booleanWithin(onRing, areaA));  // true：点位于该面范围中
+console.log(booleanOverlap(areaA, areaB));  // true：内部有公共面积
+console.log(booleanDisjoint(onRing, areaA)); // false：压线点仍有公共点
+```
+
+`Overlap` 不是「有一点接触就算」。两个面只在边或角上相碰，没有公共面积，应视为接触而非部分重叠；两个点或点与面的关系，也应优先选择更合适的专用谓词。
+
+## 3. intersect：保留共同部分
+
+叠置分析 overlay（/ˌoʊvərˈleɪ/，「欧沃-雷」）会生成新面。`intersect` 保留各输入面的公共区域；没有公共面积时返回 null，而不是制造一个可随意读取坐标的面。
+
+```js
+import { featureCollection } from "@turf/helpers";
+import intersect from "@turf/intersect";
+
+const common = intersect(featureCollection([areaA, areaB]), {
+  properties: { source: "A ∩ B" },
+});
+if (common) {
+  console.log(common.geometry.type); // Polygon 或 MultiPolygon
+} else {
+  console.log("没有交集");
+}
+```
+
+交集可能由多个互不相连的碎片组成，所以返回类型可能是 MultiPolygon。调用方不能只按单一外环处理；若要做面积统计，应让 `area` 直接消费整个结果。
+
+## 4. union 与 difference：合并和剪除
+
+`union` 把输入面合并并消解内部共享边；`difference` 用第一个面减去后续面的覆盖范围。两者同样采用 FeatureCollection 入口。
+
+```js
+import union from "@turf/union";
+import difference from "@turf/difference";
+
+const polygons = featureCollection([areaA, areaB]);
+const merged = union(polygons, {
+  properties: { name: "A 与 B 合并" },
+});
+const onlyA = difference(polygons);
+
+console.log(merged?.geometry.type);
+console.log(onlyA?.geometry.type); // A 去掉与 B 的交集后仍有剩余
+```
+
+`difference` 的输入顺序决定谁被保留：把 B 放首项，语义就变成「B 减 A」。若首项被后续面完全覆盖，结果会是 null；合并结果也可能因为存在分离区域而成为 MultiPolygon。
+
+<Callout type="warn" title="v7 调用签名与属性继承">
+Turf v7 的 `intersect`、`union`、`difference` 使用 `featureCollection([a, b])` 组织输入，不要照抄旧教程的两个独立面参数。叠置后哪些 properties 保留、由 options 如何指定，应以对应函数文档为准；关键业务字段最好显式重建，不要依赖输入属性会自动合并。
+</Callout>
+
+## 5. Multi 几何与无效输入：结果正确的前提
+
+MultiPolygon 不是「多个 Polygon 的简单数组外壳」那么轻松：它可能有孔洞、分离岛屿和复杂边界。交并差会保留这些结构，因此下游遍历几何前先确认类型。
+
+```js
+const resultType = common?.geometry.type;
+if (resultType === "Polygon") {
+  // 一个外环加零到多个孔洞
+} else if (resultType === "MultiPolygon") {
+  // 多个 Polygon，每个都可能带孔洞
+}
+```
+
+自相交外环、重复到无法成面的环、错误孔洞关系都会让叠置结果不稳定。不要靠 `try/catch` 掩盖脏数据，应在入口做 GeoJSON 校验与清洗，再用小样本确认结果。
+
+<Callout type="info" title="与 CesiumJS 对比：屏幕拾取不等于拓扑判断">
+Cesium 的 `scene.pick` 回答「这个屏幕像素拾到了哪个对象」，受相机、遮挡和渲染状态影响；Turf 的 `booleanPointInPolygon` 回答「坐标与 GeoJSON 面是什么空间关系」，不需要场景或相机。可对照 [Cesium 拾取章](/s/cesium/07)：先用 Cesium 拾取业务对象，再交给 Turf 做二维拓扑判断，才是可靠分工。
+</Callout>
+
+<Callout type="must" title="必背 · 本章三条">
+1. 压线点默认在面内；唯一归属需要业务规则，不是换一个参数就万事大吉。
+2. `Overlap` 排除完全包含和仅边界接触，`Disjoint` 连边界接触也不允许。
+3. v7 交并差传 FeatureCollection，返回 Polygon、MultiPolygon 或 null，属性和空结果都要显式处理。
+</Callout>
+
+<Exercise tool="turf" title="动手 · 相邻围栏的压线事件">
+构造两个共享一条竖边的正方形围栏 A、B，再构造一个正好落在共享边中点的告警 Point。①分别测试该点对 A、B 的默认点面判断；②加上 `ignoreBoundary: true` 再测试；③用两个有部分公共面积的 Polygon 运行 intersect、union、difference；④把无交集的一组输入也跑一遍，验证空结果分支。
+<ExerciseSolution>
+默认情况下压线点对 A、B 都返回 true，所以简单循环会把一次告警归属两次；开启 ignoreBoundary 后两边都返回 false，又会成为未归属事件。唯一归属应另加确定性规则，例如按行政区优先级处理压线点，并单独记录边界命中。交并差都要传 FeatureCollection，交集和差集使用前先判断是否为 null；结果若出现 MultiPolygon，不应强行只取第一个外环。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- 点面判断首先是边界政策问题，其次才是循环写法。
+- Contains/Within 方向相反，Overlap 与 Disjoint 不能当作随意的「相交」别名。
+- intersect、union、difference 分别负责取公共、合并、剪除，v7 使用 FeatureCollection。
+- MultiPolygon、孔洞、null 和脏几何是生产代码必须正面处理的分支。
+
+下一章把点面判断扩展到批量归属，并用等值面和泰森多边形解决真实业务分区问题。
+
+## 延伸阅读
+
+- 点面与谓词：[booleanPointInPolygon](https://turfjs.org/docs/api/booleanPointInPolygon)、[booleanContains](https://turfjs.org/docs/api/booleanContains)、[booleanOverlap](https://turfjs.org/docs/api/booleanOverlap)
+- 接触与包含：[booleanWithin](https://turfjs.org/docs/api/booleanWithin)、[booleanDisjoint](https://turfjs.org/docs/api/booleanDisjoint)
+- 交并差：[intersect](https://turfjs.org/docs/api/intersect)、[union](https://turfjs.org/docs/api/union)、[difference](https://turfjs.org/docs/api/difference)
+- GeoJSON 几何规范：[RFC 7946](https://datatracker.ietf.org/doc/html/rfc7946)

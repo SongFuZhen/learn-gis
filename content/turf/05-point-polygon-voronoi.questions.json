@@ -1,0 +1,171 @@
+{
+  "skill": "turf",
+  "module": "05",
+  "version": 1,
+  "questions": [
+    {
+      "id": "turf-05-001",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "批量订单归属时，订单点正好压在行政区外环上，默认 booleanPointInPolygon 会如何判定？",
+      "explanation": "默认边界计入面的范围，因此压线订单返回 true。若相邻区域共享这条边，同一订单可能同时命中多个区域，必须额外执行唯一归属规则。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "判定为在面内", "hint": "默认 ignoreBoundary 为 false，边界也算内部" },
+        { "key": "B", "text": "必定判定为面外" },
+        { "key": "C", "text": "自动删除订单" },
+        { "key": "D", "text": "自动按行政区名称决定唯一归属" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-002",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "批量归属循环结束后，一个订单没有命中任何区域，最稳妥的处理方式是什么？",
+      "explanation": "未命中可能来自区域覆盖空洞、脏坐标或 bbox 外数据，应进入 unmatched 集合供审计与修正；静默丢弃会让分区总数与订单总数不一致。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "静默丢弃，不影响统计" },
+        { "key": "B", "text": "强行归入数组第一个区域" },
+        { "key": "C", "text": "记录到未命中集合，保留订单供检查", "hint": "未归属是数据质量与统计对账的重要分支" },
+        { "key": "D", "text": "复制订单到所有区域，保证不漏" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-05-003",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "Voronoi 会自动把所有输入站点划分成面积完全相等的 Polygon 单元。",
+      "explanation": "错误。Voronoi 依据最近站点关系划分空间，单元面积由站点分布与裁剪 bbox 决定，并不承担等面积分区目标。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-05-004",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "为城市门店生成 Voronoi 时传入局部 bbox，主要作用是什么？",
+      "explanation": "bbox 将无限延伸的 Voronoi 单元裁切到业务关注范围，避免默认世界范围产生过大单元；它不是新增站点，也不是缓冲区半径。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把输出单元裁剪到指定业务范围内", "hint": "局部 bbox 是城市级 Voronoi 的必要边界" },
+        { "key": "B", "text": "强制所有单元面积相同" },
+        { "key": "C", "text": "把门店自动投影到三维地形" },
+        { "key": "D", "text": "为每个门店增加四个重复点" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-005",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "isobands 可以直接吃任意行政区 Polygon，并在没有任何采样数值的情况下生成可靠温度等值面。",
+      "explanation": "错误。isobands 需要带数值属性的规则点网格以及数值 breaks；没有观测或模拟采样值，就没有生成等值区间面的依据。",
+      "refs": [
+        { "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" },
+        { "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-05-006",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "要把批量点面归属做成可审计的生产流程，下列做法正确的有哪些？",
+      "explanation": "生产流程需要保留多命中与未命中分支，并为压线或重叠区域制定明确规则。空间索引可用于减少候选面，但最终归属仍需精确几何判断与业务政策。",
+      "refs": [
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" },
+        { "title": "Turf bbox API", "url": "https://turfjs.org/docs/api/bbox" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "对可能多次命中的点保留全部命中，再按规则裁决", "hint": "数组 find 的第一个结果不代表唯一合法归属" },
+        { "key": "B", "text": "保留未命中点并与总点数对账", "hint": "未命中审计能发现覆盖空洞和脏坐标" },
+        { "key": "C", "text": "只要使用 find，就能把重叠区域自动变成无重叠区域" },
+        { "key": "D", "text": "大数据量时可先用 bbox 或索引粗筛，再做精确点面判断", "hint": "粗筛减少计算量，精确谓词负责最终关系" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-05-007",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "Delaunay 三角剖分与 Voronoi 图之间的关系是什么？",
+      "explanation": "二者具有对偶关系：Delaunay 连接站点形成满足空外接圆性质的三角网，Voronoi 则围绕站点形成最近区域。Voronoi 的质量因此直接受重复点、共线点等退化输入影响。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "二者是对偶结构，站点质量会影响 Voronoi 结果", "hint": "理解对偶关系即可解释重复点与共线点的退化问题" },
+        { "key": "B", "text": "Delaunay 负责地图瓦片，Voronoi 负责三维拾取" },
+        { "key": "C", "text": "二者毫无关系，Voronoi 完全随机生成" },
+        { "key": "D", "text": "Delaunay 会保证所有 Voronoi 单元面积相同" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-008",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "isobands 的 breaks 写为 [0, 5, 10] 时，最合理的理解是什么？",
+      "explanation": "相邻 breaks 定义等值面的数值区间，这里用于生成 0–5 与 5–10 两个层级的面。zProperty 则告诉 Turf 从每个采样点的哪个属性读取数值。",
+      "refs": [{ "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "定义 0–5、5–10 两个数值区间", "hint": "连续断点成对描述等值带，zProperty 提供采样值" },
+        { "key": "B", "text": "只生成数值恰好等于 0、5、10 的三个订单点" },
+        { "key": "C", "text": "把地图缩放级别固定为 0、5、10" },
+        { "key": "D", "text": "把所有采样值统一改成 5" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-009",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "将 Voronoi 结果用于门店归属统计前，下列检查或处理正确的有哪些？",
+      "explanation": "重复与共线站点会导致退化，局部 bbox 决定裁切范围，输出单元与门店业务 ID 之间需要明确映射。属性映射与异常分支不处理好，后续点面统计再快也会归错门店。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "先检查并去除重复站点，识别过少或共线输入", "hint": "退化输入会破坏正常三角剖分与单元生成" },
+        { "key": "B", "text": "选择覆盖业务区域的局部 bbox，并检查结果边界", "hint": "裁切范围会直接影响最外侧服务单元" },
+        { "key": "C", "text": "假定输入 properties 会自动完整复制到每个输出 cell" },
+        { "key": "D", "text": "显式建立并验证 cell 到 storeId 的映射", "hint": "业务统计必须知道每个几何单元属于哪家门店" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-05-010",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "业务需要「按真实驾车 10 分钟划分门店服务区」，为什么不能直接把 Voronoi 单元当作最终答案？",
+      "explanation": "Voronoi 按平面最近站点关系分区，不含道路网络、车速、河流阻隔和交通拥堵。真实驾车等时区需要路由或等时线服务与交通数据，Voronoi 最多作为快速近似或对照底图。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Voronoi 不包含道路与出行时间模型，不能代表驾车等时区", "hint": "几何最近不等于实际到达时间最短" },
+        { "key": "B", "text": "因为 Voronoi 只能输出 Point，无法输出 Polygon" },
+        { "key": "C", "text": "因为只要把 bbox 放大，就能自动获得实时路况" },
+        { "key": "D", "text": "因为增加一个重复门店就能计算道路拥堵" }
+      ],
+      "answer": ["A"]
+    }
+  ]
+}
