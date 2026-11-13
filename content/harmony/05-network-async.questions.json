@@ -1,0 +1,255 @@
+{
+  "skill": "harmony",
+  "module": "05",
+  "version": 1,
+  "questions": [
+    {
+      "id": "harmony-05-001",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "@ohos.net.http 的 createHttp() 用于创建 HTTP 请求对象。",
+      "explanation": "http.createHttp() 创建请求实例。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-05-002",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "ArkTS 支持 Promise 链式调用 then/catch/finally。",
+      "explanation": "Promise 范式完整支持，包括 then、catch、finally、Promise.all、Promise.race 等。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-05-003",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "Promise.all 在所有 Promise 都成功时才 resolve，任一失败则 reject。",
+      "explanation": "Promise.all 是「全部成功」语义，任一失败立即 reject。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-05-004",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "TaskPool 是 HarmonyOS 提供的多线程任务调度能力，适合执行耗时计算任务。",
+      "explanation": "TaskPool 自动管理线程池，开发者只需提交任务无需手动管理线程。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-05-005",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "在 build() 方法中可以使用 await 等待异步数据加载后再渲染。",
+      "explanation": "build() 不能是 async 函数，不能使用 await，异步数据应通过状态变量驱动渲染。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-05-006",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "异步回调返回后 UI 可能已销毁，应检查组件存活再更新状态。",
+      "explanation": "长耗时回调返回时页面可能已退出，避免操作失效对象。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-05-007",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "@ohos.net.websocket 可用于建立 WebSocket 双向长连接。",
+      "explanation": "WebSocket 适合实时聊天收发。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-05-008",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "Worker 由线程池自动创建和销毁，开发者无需手动管理。",
+      "explanation": "Worker 需要开发者手动创建、通信与销毁；自动管理线程池的是 TaskPool。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-05-009",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "HTTP 请求无论成功还是异常都要释放请求对象，最合适的结构是什么？",
+      "explanation": "在 finally 中调用 destroy 能覆盖成功、非成功状态码和解析异常等路径，避免每个分支重复编写释放逻辑。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只在 then 中调用 destroy" },
+        { "key": "B", "text": "在 finally 中调用 destroy", "hint": "覆盖所有完成路径" },
+        { "key": "C", "text": "等待系统自动关闭每个对象" },
+        { "key": "D", "text": "只在响应码为 200 时释放" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-05-010",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "快速切换关卡时旧请求最后返回并覆盖新页面，最直接的防护是什么？",
+      "explanation": "每次请求递增会话序号，只有响应携带的发起序号仍等于当前序号时才更新状态；销毁页面时也使当前会话失效。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "给所有响应无条件赋值" },
+        { "key": "B", "text": "把 build 改成 async" },
+        { "key": "C", "text": "使用递增请求序号校验响应时效", "hint": "旧响应到达时序号已不匹配" },
+        { "key": "D", "text": "把读取超时设置为一秒即可根治" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-05-011",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "一个可靠的 WebSocket 页面连接应包含哪些管理措施？",
+      "explanation": "长连接需要成对管理事件订阅和关闭，异常断线采用有上限退避重连；主动离开页面后不应继续自动重连。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "处理 open、message、close 和 error 事件" },
+        { "key": "B", "text": "退出页面时移除监听并关闭连接" },
+        { "key": "C", "text": "主动退出后立即无限重连" },
+        { "key": "D", "text": "异常重连采用有限次数的指数退避" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-05-012",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "关于网络异步和后台计算，哪些说法符合 ArkTS 工程实践？",
+      "explanation": "await 不会阻塞 UI 线程，异步结果通过状态驱动渲染；独立短计算适合 TaskPool，Worker 不再使用时应主动终止。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "await  Promise 不会锁死 UI 线程" },
+        { "key": "B", "text": "TaskPool 适合独立的短时计算任务" },
+        { "key": "C", "text": "Worker 可以任意直接操作组件状态" },
+        { "key": "D", "text": "Worker 不再使用时应 terminate" }
+      ],
+      "answer": ["A", "B", "D"]
+    }
+  ]
+}

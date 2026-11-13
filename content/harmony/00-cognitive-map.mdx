@@ -1,0 +1,190 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：会 React/TypeScript，不等于打开鸿蒙工程就知道每层在干什么。HarmonyOS（/ˈhɑːrməni oʊ ˈes/，「哈-莫尼-O-S」）把语言、UI、应用壳、数据和构建工具拆成不同层，先认清地图，后面才不会把配置文件、组件和生命周期搅在一起。**一句话经验**：ArkTS（/ɑːrk tiː ˈes/，「阿克-T-S」）不是「换个后缀的 TS」，而是为静态检查和运行性能收紧了规则的 TypeScript 严格子集。**常见坑**：
+- 把 ArkTS 当成 TS 超集，照搬 `any`、解构和运行时增删属性，结果编译期直接被拦下。
+- 把 ArkUI 当成网页 DOM 操作库，到处找 `document`；这里应当描述 UI，并让状态驱动更新。
+- 把 Stage 模型、UIAbility、页面组件当成同一个东西；它们分别管应用模型、有界面的应用实例和具体 UI。
+- 把 `oh-package.json5` 当模块清单；依赖、模块声明、应用信息各有自己的文件。**必记 3 条**：
+1. ArkTS 管语言，ArkUI 管声明式界面，Stage 模型管应用与 Ability 的组织方式。
+2. ArkTS 强调明确类型和固定对象形态，许多动态 TS 写法要提前改掉。
+3. UIAbility 是有界面的应用入口之一，页面组件则由窗口舞台加载，二者不是同一层。
+
+## 本章你会学到
+
+技术栈各层的分工、React 概念如何迁移、ArkTS 的关键语言约束，以及从 UIAbility 到页面组件的启动路径。读完应能解释「这段代码属于哪一层」，并写出一个类型明确的最小 ArkUI 组件。
+
+## 1. 先建立技术栈地图
+
+鸿蒙应用不是单个框架包，而是一组协同工作的层。学习时先按职责归类，比死记缩写有效。
+
+| HarmonyOS 概念 | 负责什么 | React/Web 世界类比 |
+| --- | --- | --- |
+| ArkTS | 业务逻辑、类型、组件语言 | 收紧动态能力的 TypeScript |
+| ArkUI | 声明式组件、布局、事件、状态驱动 UI | React 的组件与渲染模型 |
+| Stage 模型 | 应用入口、Ability、窗口与生命周期组织 | 应用壳层与入口运行时 |
+| UIAbility | 一个带用户界面的应用实例 | 应用入口实例，不是一个普通组件 |
+| ExtensionAbility | 卡片、后台等扩展场景入口 | 特定能力的后台/扩展入口 |
+| ArkData | 首选项、关系型数据等数据管理能力 | localStorage / IndexedDB 所在的数据层 |
+| DevEco Studio | 创建工程、编辑、预览、调试、签名与构建 | IDE + 项目脚手架 + 调试工具 |
+| hvigor | 编译、打包、构建任务 | Vite / webpack 的构建职责 |
+| ohpm | 安装与发布依赖 | npm |
+| HAP | 可部署的 Harmony Ability Package 模块产物 | 可安装应用模块包，而非 npm 包 |
+
+<Callout type="info" title="React 类比只负责搭桥">
+ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）和 React 都是「UI 是状态的表达」，但 ArkUI 没有浏览器 DOM、JSX 和 npm 生态。类比帮助定位概念，不意味着 API 可以逐字翻译。
+</Callout>
+
+## 2. ArkTS：不是 TS 的超集
+
+TypeScript 允许很多动态写法；ArkTS 为了提前发现问题并支撑静态优化，把其中一部分直接排除。因此，「TS 能写」不能推出「ArkTS 能编译」。
+
+| 写法 | ArkTS 中的处理 | 迁移策略 |
+| --- | --- | --- |
+| `any` / `unknown` | 不作为逃生舱使用 | 给出真实类、接口、联合类型或泛型 |
+| 对象/数组解构 | 受限制 | 逐项读取、逐项赋值 |
+| 运行时增删对象属性 | 禁止 | 在类或接口中预先声明完整结构 |
+| structural typing | 不按「形状相同就兼容」处理 | 使用明确的类与继承/实现关系 |
+| `class` 多继承 | 不支持 | 单继承，多能力用接口表达 |
+| 数组展开 `[...arr]` | 支持 | 可用于不可变数组更新 |
+| `async/await`、泛型、可选参数 | 支持 | 保留熟悉的静态 TS 写法 |
+
+下面是一个符合固定结构思路的 ArkTS 数据模型。字段在类中写清，实例通过构造函数创建，不靠 `any` 或临时加字段。
+
+```ts
+class Learner {
+  name: string;
+  completedLessons: number;
+
+  constructor(name: string, completedLessons: number) {
+    this.name = name;
+    this.completedLessons = completedLessons;
+  }
+
+  finishOne(): void {
+    this.completedLessons++;
+  }
+}
+
+const learner: Learner = new Learner('小鸿', 0);
+learner.finishOne();
+console.info(`${learner.name} 已完成 ${learner.completedLessons} 章`);
+```
+
+<Callout type="warn" title="不要用 as any 把问题按下去">
+动态写法在 ArkTS 中往往会在编译期失败，这是语言约束在起作用，不是 DevEco Studio「误报」。优先把数据形状改成明确类或接口；对象展开、参数解构等熟悉写法也要逐项核对迁移规则。
+</Callout>
+
+## 3. Stage 模型：应用壳与页面分开看
+
+Stage 模型中，`UIAbility` 处理带界面的应用实例生命周期，`WindowStage` 管理它对应的窗口舞台，具体 ArkUI 页面再通过 `loadContent` 加载。
+
+```text
+应用启动
+  → EntryAbility（UIAbility 子类）
+    → onCreate：实例创建
+    → onWindowStageCreate：窗口舞台就绪
+      → loadContent('pages/Index')
+        → Index.ets 中的 @Entry 组件
+          → build() 描述页面 UI
+```
+
+这张链路能解释两个常见误会：
+
+- `EntryAbility.ets` 不是首页组件，它负责把窗口与首页连接起来。
+- `Index.ets` 不是应用进程入口，它是被加载的页面；页面里写 `@Component struct`，不是再继承一次 `UIAbility`。
+
+后台扩展场景由不同的 ExtensionAbility 承担，不要为了让普通页面显示而滥用扩展入口。第 1 章会展开完整骨架，本章先认位置。
+
+## 4. 声明式 UI 的最小心智模型
+
+ArkUI 组件用 `@Component` 装饰 `struct`，在 `build()` 中描述界面；事件修改被观察的状态，框架再更新依赖它的 UI。下面代码来自计数器模式，暂时没有涉及任何 DOM 操作。
+
+```ts
+@Entry
+@Component
+struct Index {
+  @State count: number = 0;
+
+  build() {
+    Column({ space: 12 }) {
+      Text(`当前计数：${this.count}`)
+        .fontSize(24)
+      Button('完成一小节')
+        .onClick(() => {
+          this.count++;
+        })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+这里的 `@Entry` 标记页面入口，`@Component` 声明自定义组件，`@State` 声明组件内可观察状态，`Column` 是纵向容器，`Text` 与 `Button` 是内置组件。第 2、3 章会分别拆 UI 语法与状态观察规则。
+
+| 你熟悉的 React 思路 | 在 ArkUI 中对应什么 |
+| --- | --- |
+| function component | `@Component struct` |
+| 返回 JSX | `build()` 内的声明式 UI |
+| `useState` | V1 的 `@State`；V2 的 `@Local` |
+| `onClick={handler}` | `.onClick(() => { ... })` |
+| 组件组合复用 | 自定义组件、`@Builder` 等机制 |
+
+## 5. 工具链各自站在哪一步
+
+写代码前由 DevEco Studio 生成 Stage 工程；依赖声明在 `oh-package.json5`，由 ohpm 安装；hvigor 执行构建；最终的 HAP 部署到设备。Previewer 适合看 UI，但不能替代真机验证权限、传感器和完整系统交互。
+
+<Callout type="must" title="必背 · 本章三条">
+1. ArkTS 是 TypeScript 的严格子集，不是所有 TS 代码都能直接迁移。
+2. ArkUI 负责状态驱动的声明式 UI；Stage/UIAbility 负责应用壳与生命周期。
+3. DevEco Studio 管工程全流程，hvigor 管构建，ohpm 管依赖，三者不要混称。
+</Callout>
+
+<Exercise tool="harmony" title="动手 · 把动态 TS 思维改成 ArkTS 组件">
+定义一个 `StudyProgress` 类，固定包含 `lessonName: string` 与 `done: boolean` 两个字段；再用 `@Component struct` 展示课程名和完成状态，点击按钮后把状态改为完成。要求不用 `any`、解构或动态新增属性。
+<ExerciseSolution>
+参考实现如下。数据形状由类固定，UI 只读取状态并在事件中更新。
+
+```ts
+class StudyProgress {
+  lessonName: string;
+  done: boolean;
+
+  constructor(lessonName: string, done: boolean) {
+    this.lessonName = lessonName;
+    this.done = done;
+  }
+}
+
+@Component
+struct ProgressCard {
+  @State progress: StudyProgress = new StudyProgress('认知地图', false);
+
+  build() {
+    Column({ space: 8 }) {
+      Text(this.progress.lessonName)
+      Text(this.progress.done ? '已完成' : '学习中')
+      Button('标记完成').onClick(() => {
+        this.progress.done = true;
+      })
+    }
+  }
+}
+```
+
+本例用于练习语言与组件分层。后续状态章会继续讨论对象属性的观察边界；需要可靠驱动深层更新时，还会引入 `@Observed/@ObjectLink` 或 V2 的 `@ObservedV2/@Trace`。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- 技术栈按语言、UI、应用模型、数据、工具链分层理解，不要把名字相似的概念混为一谈。
+- ArkTS 收紧了 TS 的动态能力，明确类型与固定对象结构是迁移起点。
+- UIAbility 通过 WindowStage 加载 ArkUI 页面；页面组件用 `build()` 描述 UI。
+- React 类比适合建立心智模型，真正编码仍要遵守 ArkTS/ArkUI 自己的约束。
+
+## 延伸阅读
+
+- [ArkTS 开发入门](https://developer.huawei.com/consumer/cn/arkts/devstart/)
+- [从 TypeScript 到 ArkTS 的适配规则](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide)

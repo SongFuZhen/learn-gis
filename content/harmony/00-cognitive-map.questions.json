@@ -1,0 +1,319 @@
+{
+  "skill": "harmony",
+  "module": "00",
+  "version": 1,
+  "questions": [
+    {
+      "id": "harmony-00-001",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkTS 支持 readonly 只读属性修饰符。",
+      "explanation": "readonly 修饰的属性只能在声明处或构造函数中赋值。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-00-002",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkTS 支持正则表达式 RegExp。",
+      "explanation": "RegExp 是支持的标准能力。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-00-003",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkTS 支持函数可选参数（?: 语法）。",
+      "explanation": "function f(a: string, b?: number) 是支持的。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-00-004",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "ArkTS 支持 try/catch/finally 异常处理结构。",
+      "explanation": "标准异常处理语法均支持。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-00-005",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkTS 支持 async/await 异步语法。",
+      "explanation": "async/await 是 ArkTS 支持的异步范式。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-00-006",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "ArkTS 中可以使用负索引访问数组末尾元素（如 arr[-1]）。",
+      "explanation": "ArkTS 数组不支持负索引，访问末尾应用 arr[arr.length - 1]。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-00-007",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkTS 支持 import/export 模块化语法。",
+      "explanation": "标准 ESM 模块化语法是支持的。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-00-008",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkTS 支持泛型以及泛型约束 extends。",
+      "explanation": "如 <T extends Base> 泛型约束是支持的。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-00-009",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于 ArkTS 与 TypeScript 的关系，下列哪项描述最准确？",
+      "explanation": "ArkTS 收紧了 TypeScript 的动态能力，以静态检查和固定对象形态支撑编译期检查与运行优化，不能直接照搬所有 TypeScript 写法。",
+      "refs": [
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ArkTS 是 TypeScript 的严格子集，部分动态写法会受到限制"
+        },
+        {
+          "key": "B",
+          "text": "ArkTS 是 TypeScript 的超集，所有 TypeScript 代码都能直接编译"
+        },
+        {
+          "key": "C",
+          "text": "ArkTS 只是修改了文件后缀，语言规则完全没有变化"
+        },
+        {
+          "key": "D",
+          "text": "ArkTS 主要依靠 any 保留 JavaScript 的动态对象能力"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-00-010",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "Stage 模型启动页面时，WindowStage.loadContent('pages/Index') 的直接作用是什么？",
+      "explanation": "UIAbility 在窗口舞台就绪后通过 loadContent 加载指定 ArkUI 页面；EntryAbility 负责组织窗口与页面，Index.ets 则描述具体界面。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 pages/Index 对应页面加载到当前窗口舞台"
+        },
+        {
+          "key": "B",
+          "text": "把 Index.ets 注册成新的 UIAbility 子类"
+        },
+        {
+          "key": "C",
+          "text": "把应用依赖安装到 oh_modules 目录"
+        },
+        {
+          "key": "D",
+          "text": "把页面编译并发布为 ohpm 依赖包"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-00-011",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "迁移 TypeScript 数据模型到 ArkTS 时，哪些做法符合固定对象形态与明确类型的要求？",
+      "explanation": "类中预先声明字段、构造函数完成初始化以及使用明确联合类型，都能让数据结构保持静态可见；运行时增删字段和 any 逃生舱则相反。",
+      "refs": [
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "在类中预先声明字段及其类型"
+        },
+        {
+          "key": "B",
+          "text": "通过构造函数初始化全部必需字段"
+        },
+        {
+          "key": "C",
+          "text": "按运行结果随时给对象添加未声明字段"
+        },
+        {
+          "key": "D",
+          "text": "用明确联合类型表达有限的取值范围"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-00-012",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "下列 HarmonyOS 技术栈概念与职责的对应关系，哪些是正确的？",
+      "explanation": "ArkUI 负责声明式界面，hvigor 负责构建任务，ohpm 负责依赖安装与发布；模块和 Ability 声明属于配置文件职责，不是 ArkData 的职责。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        },
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "ArkUI：描述状态驱动的声明式界面"
+        },
+        {
+          "key": "B",
+          "text": "hvigor：执行编译、打包等构建任务"
+        },
+        {
+          "key": "C",
+          "text": "ohpm：安装与发布依赖包"
+        },
+        {
+          "key": "D",
+          "text": "ArkData：声明模块中的 UIAbility 与权限"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    }
+  ]
+}

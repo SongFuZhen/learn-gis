@@ -1,0 +1,362 @@
+{
+  "skill": "harmony",
+  "module": "03",
+  "version": 1,
+  "questions": [
+    {
+      "id": "harmony-03-001",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "@Computed 属性不能手动赋值，只能通过 getter 计算得到。",
+      "explanation": "@Computed 装饰 getter，是只读的派生属性。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-03-002",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "@Consume 在没有对应 @Provide 时可以使用本地默认值兜底。",
+      "explanation": "@Consume 必须匹配到 @Provide，且不允许本地初始化。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-03-003",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "@Consumer 未匹配到 @Provider 时会报错，没有兜底值。",
+      "explanation": "@Consumer 未匹配到 @Provider 时会使用本地初始化的默认值兜底。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-03-004",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "@Event 装饰的回调在子组件中实现，父组件只负责声明。",
+      "explanation": "@Event 由子组件声明回调契约，父组件注入实现（与题干相反）。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-03-005",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "@Link 可以接收父组件传入的普通字面量（如 Child({ v: 1 })）。",
+      "explanation": "@Link 需传入状态变量的引用（this.$v），不能传字面量。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-03-006",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "@Local 装饰的变量变化会触发关联 UI 刷新。",
+      "explanation": "@Local 是 V2 组件内私有状态，变化驱动 UI 更新。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-03-007",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "@Monitor 装饰的回调在 @Trace、@Local 等状态变化时触发。",
+      "explanation": "@Monitor 是 V2 的变化监听机制，对应 V1 的 @Watch。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-03-008",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "@ObjectLink 装饰的变量可以在子组件内本地初始化。",
+      "explanation": "@ObjectLink 必须由父组件传入 @Observed 实例，不允许本地初始化。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-03-009",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "V1 父组件用 @State score 与子组件 @Link score 双向同步时，正确的传参方式是什么？",
+      "explanation": "@Link 需要父组件状态变量的引用，使用 this.$score 建立双向同步；普通值、字面量或 this.score 不能替代这种引用传法。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Child({ score: this.$score })"
+        },
+        {
+          "key": "B",
+          "text": "Child({ score: 60 })"
+        },
+        {
+          "key": "C",
+          "text": "Child({ score: this.score })"
+        },
+        {
+          "key": "D",
+          "text": "Child({ score: 'score' })"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-03-010",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于 V1 的 @Prop，下列哪项描述正确？",
+      "explanation": "@Prop 用于父到子的单向同步，子组件可以有本地修改，但不会把修改反向写回父组件源值；需要双向同步时才考虑 @Link。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "父组件源值可同步到子组件，子组件本地修改不反向写回源值"
+        },
+        {
+          "key": "B",
+          "text": "子组件每次修改都会自动双向写回父组件"
+        },
+        {
+          "key": "C",
+          "text": "父组件必须通过 this.$value 才能初始化任意 @Prop"
+        },
+        {
+          "key": "D",
+          "text": "@Prop 与 @Link 的同步方向和规则完全相同"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-03-011",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于跨组件状态共享与 V2 父子通信，下列哪些说法正确？",
+      "explanation": "V1 可用 @Provide/@Consume 跨层级共享，V2 可用 @Param 传数据、@Event 通知父组件；AppStorage 是内存状态中枢，不会自动把全部状态持久化到磁盘。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@Provide 与 @Consume",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-provide-and-consume"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "V1 可用 @Provide/@Consume 在祖先与后代间共享状态"
+        },
+        {
+          "key": "B",
+          "text": "V2 可用 @Param 向下传数据、@Event 向上通知变更意图"
+        },
+        {
+          "key": "C",
+          "text": "AppStorage 会把其中任意状态自动写入磁盘并永久保存"
+        },
+        {
+          "key": "D",
+          "text": "同一条数据流应随意交替使用 @State 与 @Local 以避免刷新"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-03-012",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "排查「数据已修改但 UI 不刷新」时，下列哪些修复措施符合对应观察规则？",
+      "explanation": "数组可用新引用替换，V1 嵌套对象使用 @Observed/@ObjectLink，V2 使用 @ObservedV2/@Trace；同一数据流混用 V1/V2 会破坏规则一致性，不是修复方法。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "数组新增元素时使用 this.arr = [...this.arr, item]"
+        },
+        {
+          "key": "B",
+          "text": "V1 嵌套对象使用 @Observed 类与 @ObjectLink 接收实例"
+        },
+        {
+          "key": "C",
+          "text": "V2 使用 @ObservedV2 类并用 @Trace 标记待观察属性"
+        },
+        {
+          "key": "D",
+          "text": "在同一数据流中混用 V1 与 V2 装饰器以扩大观察范围"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+{
+  "skill": "harmony",
+  "module": "06",
+  "version": 1,
+  "questions": [
+    {
+      "id": "harmony-06-001",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "UIAbilityContext 的 startAbility 方法只能启动同应用内的 Ability。",
+      "explanation": "startAbility 可启动其他应用的 Ability，但需目标 Ability 配置为可被外部调用。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-06-002",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "一个应用只能包含一个 UIAbility 实例。",
+      "explanation": "一个应用可以配置多个 UIAbility，每个 UIAbility 独立管理自己的生命周期和界面。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-06-003",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "首页页面显示发生在 onCreate 回调之前。",
+      "explanation": "时序为 onCreate → onWindowStageCreate → loadContent → 页面显示，页面在其后。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-06-004",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "ServiceExtensionAbility 可以被应用自身启动，也可以被其他应用通过隐式调用启动。",
+      "explanation": "ServiceExtensionAbility 支持显式和隐式调用，但隐式调用需在 module.json5 中配置。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-06-005",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "键值型数据库 KV Store 适合存储结构化关系查询密集的数据。",
+      "explanation": "KV Store 适合简单键值，关系查询用 RDB。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-06-006",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "用户首选项 Preferences 适合存储少量键值数据（如用户设置）。",
+      "explanation": "Preferences ≈ localStorage，轻量 KV。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-06-007",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "关系型数据库 RDB 底层基于 SQLite。",
+      "explanation": "RDB 以 SQLite 为持久化引擎。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-06-008",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "隐式 Want 启动 Ability 时，系统通过 action 和 entity 匹配目标 Ability。",
+      "explanation": "隐式调用不指定具体 bundleName/abilityName，靠 action/entity/uri 匹配。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        },
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-06-009",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "向 Preferences 写入主题设置后，为确保修改持久化还应执行什么？",
+      "explanation": "put 只完成键值修改，之后还要等待 flush 成功，才能把这次设置视为已可靠写入持久化文件。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "调用 flush", "hint": "将修改写入持久化文件" },
+        { "key": "B", "text": "调用组件 build" },
+        { "key": "C", "text": "重新启动 UIAbility" },
+        { "key": "D", "text": "只打印一条成功日志" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-06-010",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "更新通关进度与写入统计必须一起成功或一起失败，应使用哪种机制？",
+      "explanation": "把两次数据库写入放入同一个 RDB 事务，全部完成后提交，任一步异常则回滚，避免出现只写入一半的状态。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "两次独立的 Preferences put" },
+        { "key": "B", "text": "RDB 事务与提交或回滚", "hint": "事务提供原子写入边界" },
+        { "key": "C", "text": "在 build 中连续赋值" },
+        { "key": "D", "text": "仅延长应用进入后台的时间" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-06-011",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "使用 RDB 查询和保存数据时，哪些做法能降低资源泄漏与数据损坏风险？",
+      "explanation": "ResultSet 使用后要关闭，谓词用于表达条件查询，多步写入放入事务；不要拼接不可信输入或假设游标必有记录。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "在 finally 中关闭 ResultSet" },
+        { "key": "B", "text": "使用 RdbPredicates 表达查询条件" },
+        { "key": "C", "text": "多步相关写入使用事务" },
+        { "key": "D", "text": "不检查游标位置并假定总有记录" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-06-012",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "关于 UIAbility 生命周期和关键进度保存，哪些认识正确？",
+      "explanation": "冷启动通常先 onCreate 再 onWindowStageCreate 和 onForeground；后台不表示立即销毁，也不能把 onDestroy 当作唯一保存时机。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "onWindowStageCreate 中可加载首页内容" },
+        { "key": "B", "text": "进入后台时可以保存关键进度并暂停任务" },
+        { "key": "C", "text": "进入后台必然立刻执行 onDestroy" },
+        { "key": "D", "text": "onCreate 通常早于 onWindowStageCreate" }
+      ],
+      "answer": ["A", "B", "D"]
+    }
+  ]
+}

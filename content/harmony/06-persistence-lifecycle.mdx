@@ -1,0 +1,218 @@
+## 🍼 白话版（先看这个）
+> **解决什么问题**：用户设置的主题、答到第几题、已经通过哪些关，关掉应用后不能凭空消失。持久化负责“下次还在”，生命周期负责“什么时候加载、保存和释放”。
+>
+> **一句话经验**：少量设置用 Preferences，结构化查询用 RDB，UI 小状态可用 PersistenceV2；进入后台先保存关键状态，不靠 `onDestroy` 救命。
+- **常见坑 1**：调用 `put()` 后忘记 `flush()`，内存已经变了，磁盘却未必落盘。
+- **常见坑 2**：把需要条件查询和关联统计的海量题目硬塞成一个 Preferences 字符串。
+- **常见坑 3**：RDB 查询后忘了关闭 ResultSet，批量循环中越用越耗资源。
+- **常见坑 4**：认为进入后台马上会执行 `onDestroy()`，把唯一一次保存拖到进程销毁。
+- **常见坑 5**：把全局 Context 当成随处可用的静态对象，不区分 Ability 与应用上下文。
+- **必记 1**：Preferences 写后 `flush`；RDB 多步写用事务。
+- **必记 2**：冷启动常见顺序是 `onCreate → onWindowStageCreate → onForeground`。
+- **必记 3**：后台不等于销毁；敏感数据不能明文塞进普通键值存储。
+## 本章你会学到
+- Preferences 的创建、读取、写入与落盘。
+- RDB、SQLite、RdbPredicates、ResultSet 和事务的关系。
+- 根据数据规模与查询方式选择持久化方案。
+- UIAbility 生命周期和 Context 的职责。
+- PersistenceV2 适合保存什么，以及它不能替代什么。
+## 1. 先按数据形状选仓库
+| 数据 | 推荐方案 | 判断理由 |
+| --- | --- | --- |
+| 主题、是否自动下一题 | Preferences | 少量键值、读取直接 |
+| 当前关卡、少量 UI 恢复状态 | PersistenceV2 或 Preferences | 状态需要持久化，但规模很小 |
+| 数千道题、答题记录、条件筛选 | RDB | 结构化字段、索引、查询和事务 |
+| 大图、音视频 | 文件存储，数据库保存元数据 | 不把大二进制宜接塞进键值项 |
+| 密码、长期令牌 | 系统安全存储能力 | 普通明文存储不满足保密要求 |
+SQLite（/ˌes kjuː el ˈlaɪt/，「艾斯-凯由-艾欧-莱特」）是嵌入式关系数据库。HarmonyOS 的 RDB 基于关系数据模型提供建表、查询、更新和事务能力，不需要自己拼一套文件格式。
+<Callout type="info" title="React 类比">
+| Web / React | HarmonyOS | 使用边界 |
+| --- | --- | --- |
+| `localStorage` | Preferences | 轻量键值，不适合复杂查询 |
+| IndexedDB | RDB | 结构化数据、查询与事务 |
+| Context / 应用服务 | UIAbilityContext / ApplicationContext | 提供当前环境能力 |
+| 页面加载初始化 | `onCreate / onWindowStageCreate` | 初始化阶段不同 |
+| 持久化状态库 | PersistenceV2 | 状态与持久化连接，不是通用数据库 |
+</Callout>
+## 2. Preferences：put 只是开始
+Preferences（/ˈprefrənsɪz/，「普莱-弗润-西兹」）以键值形式保存轻量数据。同步 API 简单，但不应在 UI 热路径反复读写大内容。
+```ts
+import { preferences } from '@kit.ArkData';
+import { common } from '@kit.AbilityKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+const STORE_NAME: string = 'settings_store';
+const THEME_KEY: string = 'theme_mode';
+export function readTheme(context: common.UIAbilityContext): string {
+  const store: preferences.Preferences =
+    preferences.getPreferencesSync(context, { name: STORE_NAME });
+  return store.getSync(THEME_KEY, 'system') as string;
+}
+export async function saveTheme(
+  context: common.UIAbilityContext,
+  theme: string
+): Promise<void> {
+  const store: preferences.Preferences =
+    await preferences.getPreferences(context, { name: STORE_NAME });
+  try {
+    await store.put(THEME_KEY, theme);
+    await store.flush();
+  } catch (error) {
+    const err = error as BusinessError;
+    console.error(`save theme failed: ${err.code}`);
+    throw error;
+  }
+}
+```
+`getPreferences` 获取指定名称的存储实例，`put` 修改键值，`flush` 将修改写入持久化文件。只有 `flush` 成功，才把这次保存当作可靠完成。
+真实闯关项目可在仓库层缓存 Preferences 实例，例如 `ProgressStore` 统一负责读回、整组替换状态以及 `flush` 失败日志；组件不直接散落存储键名。
+<Callout type="warn" title="不要存下整个运行时世界">
+Preferences 中存设置和小快照，不存网络连接、组件实例或无限增长的日志。数组更新采用“新数组替换旧数组”，再序列化需要保存的纯数据；密钥和敏感令牌改用安全存储。
+</Callout>
+## 3. RDB：查询用谓词，批量写用事务
+下面表结构只保存答题记录。SQL 建表语句可以固定，业务查询尽量通过 RdbPredicates 表达。
+```ts
+import { relationalStore } from '@kit.ArkData';
+import { common } from '@kit.AbilityKit';
+const STORE_CONFIG: relationalStore.StoreConfig = {
+  name: 'quiz.db',
+  securityLevel: relationalStore.SecurityLevel.S1
+};
+const CREATE_LOG: string = `
+  CREATE TABLE IF NOT EXISTS answer_log (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    question_id TEXT NOT NULL,
+    correct INTEGER NOT NULL,
+    created_at INTEGER NOT NULL
+  )`;
+export async function openQuizStore(
+  context: common.UIAbilityContext
+): Promise<relationalStore.RdbStore> {
+  const db: relationalStore.RdbStore =
+    await relationalStore.getRdbStore(context, STORE_CONFIG);
+  await db.executeSql(CREATE_LOG);
+  return db;
+}
+export async function countCorrect(
+  db: relationalStore.RdbStore,
+  questionId: string
+): Promise<number> {
+  const predicates: relationalStore.RdbPredicates =
+    new relationalStore.RdbPredicates('answer_log');
+  predicates.equalTo('question_id', questionId).and().equalTo('correct', 1);
+  const rows: relationalStore.ResultSet = await db.query(predicates);
+  try {
+    return rows.rowCount;
+  } finally {
+    rows.close();
+  }
+}
+```
+ResultSet 是游标，不是普通数组：读取列之前按当前行取数据，用完立即 `close()`。生产实现还应检查 `goToFirstRow()` 等游标操作结果，而不是假设必有记录。
+### 事务保证“一起成功或一起失败”
+通关可能同时修改用户进度和写入答题统计，两次写入不能只做一半：
+```ts
+export async function savePassed(db: relationalStore.RdbStore): Promise<void> {
+  db.beginTransaction();
+  try {
+    const progress: relationalStore.ValuesBucket = {
+      'level_id': '04',
+      'passed': 1
+    };
+    await db.insert('level_progress', progress);
+    const stat: relationalStore.ValuesBucket = {
+      'question_id': 'harmony-04-001',
+      'correct': 1,
+      'created_at': Date.now()
+    };
+    await db.insert('answer_log', stat);
+    db.commit();
+  } catch (error) {
+    db.rollBack();
+    throw error;
+  }
+}
+```
+示例省略建表细节，但事务边界完整。提交或回滚也要在明确路径执行；不能让异常留下一个永远未结束的事务。
+## 4. UIAbility：从创建到前后台
+UIAbility 是有界面的能力实例，EntryAbility 是应用入口。一次常见冷启动：
+```text
+onCreate
+  → onWindowStageCreate（加载 pages/Index）
+    → onForeground
+      → 用户操作
+      → onBackground（退到后台）
+      → onForeground（再次回来）
+      → onWindowStageDestroy / onDestroy（真正销毁时）
+```
+```ts
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+import { BusinessError } from '@kit.BasicServicesKit';
+export default class EntryAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void {
+    this.context.getApplicationContext();
+    // 初始化不依赖窗口的应用级服务。
+  }
+  onWindowStageCreate(stage: window.WindowStage): void {
+    stage.loadContent('pages/Index', (err: BusinessError) => {
+      if (err.code) {
+        console.error(`load page failed: ${err.code}`);
+      }
+    });
+  }
+  onForeground(): void {
+    // 恢复必要的轻量任务；避免重复注册监听。
+  }
+  onBackground(): void {
+    // 尽快保存关键进度，暂停非必要任务。
+  }
+  onWindowStageDestroy(): void {
+    // 释放窗口相关资源。
+  }
+  onDestroy(): void {
+    // 最后清理；不能保证所有退出场景都来得及执行。
+  }
+}
+```
+组件的 `aboutToAppear/aboutToDisappear` 管组件，UIAbility 的回调管能力实例。不要把两者按名字猜成同一层级。
+## 5. Context：拿能力，也要拿对范围
+- `UIAbilityContext`：当前 UIAbility 的环境，可启动 Ability、访问其资源与存储路径。
+- `ApplicationContext`：应用级环境，可设置应用颜色模式等，不绑定某个页面。
+- `getContext(this)`：组件里取得上下文后按需转换，不要把 `as` 当作运行时校验。
+- 仓库函数显式接收 Context，比让模块偷偷捕获某个页面的 Context 更容易测试和释放。
+## 6. PersistenceV2：少量状态自动接持久化
+PersistenceV2 面向状态管理 V2，可把指定状态键连接到持久化，适合“当前 Tab”“少量界面恢复状态”。对 `@ObservedV2` 的 `QuizDraft` 调用 `PersistenceV2.connect(QuizDraft, 'quiz_draft', () => new QuizDraft())` 创建连接。
+使用前要确认目标 API 版本、存储键和读回策略；读回的数据仍需校验。它不是把任意类、任意大型嵌套对象都安全序列化的魔法，也不提供 RDB 的复杂查询、索引和事务。
+<Exercise tool="harmony" title="练习：可靠保存主题并选对存储">
+实现 `saveTheme`：取得名为 `settings_store` 的 Preferences，写入 `theme_mode`，确保落盘；失败时继续抛出异常。再回答：十万条带条件筛选的答题记录为什么不放 Preferences？
+<ExerciseSolution>
+```ts
+import { preferences } from '@kit.ArkData';
+import { common } from '@kit.AbilityKit';
+async function saveTheme(
+  context: common.UIAbilityContext,
+  theme: string
+): Promise<void> {
+  const store: preferences.Preferences =
+    await preferences.getPreferences(context, { name: 'settings_store' });
+  await store.put('theme_mode', theme);
+  await store.flush();
+}
+```
+Promise 失败会自然向调用方抛出。十万条记录需要查询、索引和事务，Preferences 的键值模型不合适；应使用 RDB，并关闭 ResultSet、为多步写入开启事务。
+</ExerciseSolution>
+</Exercise>
+## 本章小结
+- 少量键值用 Preferences，写入后确认 `flush` 成功。
+- 结构化数据用 RDB，查询关闭 ResultSet，多步写入用事务。
+- 冷启动先创建 Ability，再创建 WindowStage 并加载页面，随后进入前台。
+- 后台不是销毁；关键进度应在状态变化时或进入后台时及时保存。
+- PersistenceV2 连接少量 UI 状态与持久化，不能代替数据库和安全存储。
+<Callout type="must" title="必背">
+**轻量 KV 记得 flush，结构化数据记得事务与 close，生命周期记得“后台未死、销毁太晚”。**
+</Callout>
+## 延伸阅读
+- [通过用户首选项实现数据持久化](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences)
+- [通过关系型数据库实现数据持久化](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store)
+- [Stage 模型入门](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)
+- [状态变量不刷新排查](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage)

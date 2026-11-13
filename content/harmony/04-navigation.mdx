@@ -1,0 +1,214 @@
+## 🍼 白话版（先看这个）
+> **解决什么问题**：一个 App 不只有一页。章节列表要点进答题页，答题结束要返回，还要把关卡编号带过去；Navigation 就是管理这些页面和返回栈的容器。
+>
+> **一句话经验**：一个 `Navigation` 管一个 `NavPathStack`，目标页包 `NavDestination`，参数用普通对象传，返回交给栈。
+- **常见坑 1**：只写 `NavDestination`，外层没有对应的 `Navigation`，页面无法按预期入栈。
+- **常见坑 2**：从父组件新建一份栈，子页面又新建一份，结果 `pop()` 操作的不是同一条栈。
+- **常见坑 3**：在目标组件里读全局旧参数，而不是从当前导航上下文读取，连续跳转后拿到上一页数据。
+- **常见坑 4**：每个按钮都手写 `router.pushUrl`，页面关系和转场越写越散；新项目应统一走 Navigation。
+- **必记 1**：`pushPathByName` 入栈，`pop` 出栈，`replacePathByName` 替换当前页。
+- **必记 2**：`NavDestination` 是页面容器，不是另一个 `Navigation`。
+- **必记 3**：销毁清理看组件的 `aboutToDisappear`，页面显隐不要等同于组件销毁。
+## 本章你会学到
+- Navigation 与 NavDestination 各自负责什么。
+- 怎样共享 NavPathStack，跳转并传递关卡 ID。
+- 怎样返回、替换页面以及设置自定义转场。
+- 页面显示、隐藏与组件创建、销毁的区别。
+- 为什么新项目优先 Navigation，而不是继续堆 router 调用。
+## 1. 先建立页面地图
+Navigation（/ˌnævɪˈɡeɪʃn/，「奈-维-给-申」）是导航根容器；NavDestination（/ˌdestɪˈneɪʃn/，「奈夫-德斯-提-内-申」）是目标页容器；NavPathStack（/pɑːθ stæk/，「帕斯-斯泰克」）保存目标页组成的路径。
+```text
+Navigation（首页）
+  └─ NavPathStack
+       ├─ 首页（栈底）
+       ├─ 答题页：levelId = 04
+       └─ 解析页：questionId = 04-001（栈顶）
+```
+栈顶就是用户看到的页面。点返回时弹出一项，不是把整份页面数组重新渲染。
+<Callout type="info" title="React 类比">
+| React / React Router | ArkUI | 职责 |
+| --- | --- | --- |
+| Router / Routes | `Navigation` | 提供导航作用域 |
+| Route 对应的页面 | `NavDestination` | 一个目标页面 |
+| `navigate('/quiz')` | `pathStack.pushPathByName(...)` | 新页面入栈 |
+| `navigate(-1)` | `pathStack.pop()` | 返回上一页 |
+| location state | 跳转时的 `param` | 随本次跳转传参数 |
+React 组件不直接拥有浏览器 History；同样，目标页也不应私自创建另一条 NavPathStack。
+</Callout>
+## 2. 在根页面持有路由栈
+下面用系统路由表模式：根页面持有栈，详情页的构建函数注册到路由表。这里先关注页面关系。
+```ts
+@Entry
+@Component
+struct Index {
+  private pathStack: NavPathStack = new NavPathStack();
+  build() {
+    Navigation(this.pathStack) {
+      Column({ space: 12 }) {
+        Text('HarmonyOS 闯关').fontSize(24)
+        Button('进入第 4 关')
+          .onClick(() => {
+            const param: QuizParam = { levelId: '04' };
+            this.pathStack.pushPathByName('QuizPage', param);
+          })
+      }
+      .padding(16)
+    }
+    .hideTitleBar(true)
+    .mode(NavigationMode.Stack)
+  }
+}
+export interface QuizParam {
+  levelId: string;
+}
+```
+`QuizParam` 是明确的接口，参数保持 JSON 友好的普通对象。不要把组件实例、网络连接或回调塞进路由参数：这些对象不适合作为页面状态恢复的数据。系统路由表和自定义 `navDestination` 构建器选择一种组织方式，避免重复注册。
+## 3. 目标页读取本次参数
+目标页把内容包在 `NavDestination` 中，并从 `onReady` 保存当前上下文里的栈。使用系统路由表时，构建函数的 `param` 是本次传入的数据。
+```ts
+@Builder
+export function QuizPageBuilder(name: string, param: object) {
+  QuizPage({ launch: param as QuizParam });
+}
+@Component
+struct QuizPage {
+  @Prop launch: QuizParam = { levelId: '' };
+  private pathStack?: NavPathStack;
+  build() {
+    NavDestination() {
+      Column({ space: 16 }) {
+        Text(`正在挑战：${this.launch.levelId}`)
+        Button('返回关卡列表')
+          .onClick(() => {
+            this.pathStack?.pop();
+          })
+      }
+      .padding(16)
+    }
+    .title('答题')
+    .onReady((context: NavDestinationContext) => {
+      this.pathStack = context.pathStack;
+    })
+  }
+}
+```
+`onReady` 表示目标页已经准备好，不等于每次重新显示都会执行。若数据来自路由构建函数，要确保该参数确实进入组件；若使用 `getParamByName`，也要按目标页名读取并校验类型。
+<Callout type="warn" title="参数不是万能全局变量">
+只传恢复页面所需的稳定数据，例如 `levelId`。整份题库应由仓库按 ID 加载，而不是在多层页面之间复制。连续进入不同关卡时，也要确认组件收到的是本次参数。
+</Callout>
+## 4. 入栈、替换与返回结果
+闯关完成后进入下一关，通常用替换而不是继续压栈：这样用户按返回不会又回到“已完成的结算页”。
+```ts
+private openNextLevel(levelId: string): void {
+  const param: QuizParam = { levelId };
+  this.pathStack?.replacePathByName('QuizPage', param);
+}
+private closePage(): void {
+  this.pathStack?.pop();
+}
+```
+- `pushPathByName`：保留当前页，适合列表进入详情。
+- `replacePathByName`：替换当前目标，适合结算后进入下一关。
+- `pop`：移除栈顶；返回前若存在未保存作答，应先提示或先保存。
+- `clear`：清空整个栈，只用于确有必要的主流程重置，不是普通返回按钮。
+系统路由表让页面名称与构建函数集中配置；组件里只写稳定的页面名和业务参数。修改页面目录时，不必在几十个按钮中搜索字符串路径。
+## 5. 页面生命周期与组件生命周期
+这是两套相关但不同的观察角度：
+```text
+目标组件创建：aboutToAppear → build → onDidBuild
+目标页显示：  NavDestination.onShown
+目标页隐藏：  NavDestination.onHidden
+目标组件销毁：aboutToDisappear
+```
+新页入栈后，旧页往往只是隐藏，并未销毁。因此：
+- 每次回到页面都要刷新的数据，可放在 `onShown`。
+- 只需创建时加载一次的数据，可放在 `aboutToAppear`。
+- 定时器、订阅和监听器，应在配对的清理时机释放；组件不再需要时，在 `aboutToDisappear` 清理。
+- `aboutToDisappear` 不修改状态，也不依赖耗时异步操作来完成关键保存。
+```ts
+@Component
+struct ListeningCard {
+  private timer: number = -1;
+  aboutToAppear(): void {
+    this.timer = setInterval(() => {
+      console.info('poll lightweight status');
+    }, 5000);
+  }
+  aboutToDisappear(): void {
+    if (this.timer >= 0) {
+      clearInterval(this.timer);
+      this.timer = -1;
+    }
+  }
+  build() {
+    Text('状态卡片')
+  }
+}
+```
+## 6. 转场：让页面关系可感知
+默认转场已经能表达“进入”和“返回”。需要共享视觉元素或特殊方向时，再使用 `customNavContentTransition` 自定义 NavDestination 转场。
+自定义转场应回答三个问题：进入怎样开始、退出怎样结束、交互被取消时怎样恢复。优先使用透明度和位移，避免长时间动画阻塞答题操作。转场对象由页面统一注册，不要在每个按钮里修改组件坐标来模拟跳转；真正的页面状态仍由 NavPathStack 管理。
+## 7. router 为什么不再作为新项目首选
+`router.pushUrl` 可以完成传统页面跳转，但复杂场景下，页面栈、模式化导航和转场由 Navigation 体系统一表达更清楚。
+| 需求 | 推荐处理 |
+| --- | --- |
+| 新 Stage 工程页面导航 | `Navigation + NavPathStack` |
+| 列表到详情 | 按名称入栈并传普通对象 |
+| 页面内返回 | 当前 NavDestination 上下文中的栈执行 `pop` |
+| 复杂转场与分栏 | Navigation 的导航与模式能力 |
+| 维护旧代码 | 可保留 router，新增主流程不要继续扩散 |
+<Exercise tool="harmony" title="练习：从关卡列表进入答题页并安全返回">
+实现一个根页面和一个答题目标页：点击按钮传入 `levelId = "04"`，答题页显示该 ID，并能通过当前导航栈返回。另说明为什么不在答题页重新 `new NavPathStack()`。
+<ExerciseSolution>
+参考实现（系统路由表中把 `QuizPage` 名称映射到目标构建函数）：
+```ts
+interface QuizParam {
+  levelId: string;
+}
+@Entry
+@Component
+struct LevelIndex {
+  private stack: NavPathStack = new NavPathStack();
+  build() {
+    Navigation(this.stack) {
+      Button('挑战第 4 关').onClick(() => {
+        const param: QuizParam = { levelId: '04' };
+        this.stack.pushPathByName('QuizPage', param);
+      })
+    }
+  }
+}
+@Component
+struct QuizPage {
+  @Prop launch: QuizParam = { levelId: '' };
+  private stack?: NavPathStack;
+  build() {
+    NavDestination() {
+      Column({ space: 12 }) {
+        Text(`关卡 ${this.launch.levelId}`)
+        Button('返回').onClick(() => this.stack?.pop())
+      }
+    }
+    .onReady((ctx: NavDestinationContext) => {
+      this.stack = ctx.pathStack;
+    })
+  }
+}
+```
+答题页不能新建另一条栈，否则 `pop()` 只操作自己的空栈，与根页面正在显示的导航栈无关。
+</ExerciseSolution>
+</Exercise>
+## 本章小结
+- Navigation 提供作用域，NavDestination 承载目标页，NavPathStack 管路径。
+- 用 `pushPathByName` 传稳定、可序列化的小参数；返回与替换要符合业务流程。
+- 页面隐藏不等于组件销毁，加载和清理要选择正确生命周期。
+- 自定义转场只改变过渡表现，不代替导航栈。
+- 新项目主流程采用 Navigation，不把 router 当成默认方案。
+<Callout type="must" title="必背">
+**一个根导航、一条共享栈、一页一个目的地；参数随本次跳转走，资源随生命周期清。**
+</Callout>
+## 延伸阅读
+- [Navigation 导航架构](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture)
+- [Navigation 页面跳转](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump)
+- [Router 页面路由](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing)
+- [Stage 模型入门](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)

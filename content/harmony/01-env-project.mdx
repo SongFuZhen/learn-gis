@@ -1,0 +1,216 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：会用 DevEco Studio（/ˈdev iːkoʊ ˈstjuːdioʊ/，「德夫-伊口-斯丢-迪欧」）点出模板，不等于知道每个目录和配置文件的职责。Stage（/steɪdʒ/，「斯泰吉」）工程把应用级信息、模块级能力、依赖和构建配置分开存放，改错位置常表现为「代码没错，工程却跑不起来」。**一句话经验**：先沿 `AppScope → entry → UIAbility → WindowStage → pages/Index` 找启动链路，再按配置归属改文件。**常见坑**：
+- 把 `bundleName` 写进 `module.json5`，或把 Ability 声明写进 `AppScope/app.json5`。
+- 在页面组件里继承 `UIAbility`，把应用实例入口与 ArkUI 页面混为一层。
+- 手动修改 `oh_modules`，或把构建产物当成应当维护的源码。
+- 只依赖 Previewer 验证权限、后台行为和完整设备能力。**必记 3 条**：
+1. `AppScope/app.json5` 管应用级信息，`module.json5` 管模块、Ability 与权限。
+2. `UIAbility` 在 `onWindowStageCreate` 中通过 `loadContent` 加载页面。
+3. hvigor 管构建，ohpm 管依赖；预览器不能替代真机验证。
+## 本章你会学到
+
+从模板创建 Stage 工程，辨认核心目录和配置文件，读懂 UIAbility 的启动骨架，并正确放置资源与权限声明。读完应能独立解释首页为何显示，以及新增依赖、图片或网络权限时应修改哪里。
+## 1. 从 Empty Ability 建立可运行基线
+
+安装稳定版 DevEco Studio 后，新建 Application 工程并选择 Empty Ability 模板，应用模型选 Stage、语言选 ArkTS。先保持模板结构运行一次，再逐步改代码；这样出问题时能区分环境、配置和业务代码。
+
+创建时重点核对三项：
+
+- `bundleName`：应用唯一标识，使用反向域名风格，发布后不要随意更改。
+- 模块与设备类型：`entry` 是主入口模块，手机、平板等设备支持要在模块配置中声明。
+- SDK 与签名：真机运行前确认 SDK 可用，并按 DevEco Studio 提示完成签名配置。
+
+| React/Web 工程的熟悉动作 | HarmonyOS 工程对应动作 | 注意事项 |
+| --- | --- | --- |
+| 用脚手架创建项目 | 用 DevEco Studio 创建 Empty Ability | 模板同时生成应用壳与页面 |
+| `npm install` | ohpm 安装依赖 | 依赖声明写入 `oh-package.json5` |
+| Vite 启动开发服务器 | 使用 Previewer 或运行到设备 | 两者验证范围不同 |
+| 构建产物交给部署平台 | 构建 HAP 并安装到设备 | 真机还涉及签名与设备能力 |
+| 浏览器打开入口页 | UIAbility 创建窗口并加载页面 | 不是通过 HTML 入口启动 |
+
+<Callout type="info" title="用 React 工程经验定位，不要逐字套目录">
+`src`、构建脚本和包管理的职责仍然相似，但 Stage 工程多了应用模型与 Ability 配置。React 的入口组件不能直接类比为 UIAbility：前者描述 UI，后者是有界面应用实例的生命周期入口。
+</Callout>
+## 2. 先认目录，再改配置
+
+一个典型 Stage 工程可以先收缩成下面这张地图：
+
+```text
+MyApplication/
+├─ AppScope/
+│  ├─ app.json5                 # 应用级 bundleName、图标、名称等
+│  └─ resources/                # 应用级共享资源
+├─ entry/
+│  ├─ src/main/
+│  │  ├─ ets/
+│  │  │  ├─ entryability/EntryAbility.ets
+│  │  │  └─ pages/Index.ets
+│  │  ├─ resources/             # 模块资源与页面相关配置
+│  │  └─ module.json5           # 模块、Ability、设备与权限
+│  ├─ build-profile.json5       # entry 模块构建配置
+│  └─ oh-package.json5          # entry 模块依赖
+├─ build-profile.json5          # 工程级构建配置
+└─ oh-package.json5             # 工程级依赖
+```
+
+| 文件或目录 | 主要负责什么 | 不该拿来做什么 |
+| --- | --- | --- |
+| `AppScope/app.json5` | 应用级标识、名称、图标、版本等 | 声明某个模块的 Ability |
+| `entry/src/main/module.json5` | 模块类型、Ability、设备类型、权限 | 保存业务状态 |
+| `oh-package.json5` | 声明 ohpm 依赖 | 配置窗口或页面生命周期 |
+| `build-profile.json5` | 工程或模块的构建选项 | 代替依赖清单 |
+| `resources/base` | 字符串、颜色、图片等基础资源 | 存放 ArkTS 业务逻辑 |
+| `oh_modules` | 安装后生成的依赖目录 | 手动编辑或当作源码维护 |
+
+`resources/base` 是默认资源，限定词目录可承接深色模式、语言、屏幕规格等差异。代码通过 `$r('app.color.primary')`、`$r('app.media.startIcon')` 引用资源，不为每种模式复制一套组件。
+## 3. UIAbility 怎样把首页加载出来
+
+`EntryAbility` 是 `UIAbility` 子类，负责应用实例与窗口生命周期。下面的骨架保留主要回调，并在窗口舞台创建后加载 `pages/Index`。
+
+```ts
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+
+export default class EntryAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void { console.info('onCreate'); }
+
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    windowStage.loadContent('pages/Index', (err) => {
+      if (err.code) {
+        console.error(`页面加载失败：${err.code}，${err.message}`);
+        return;
+      }
+      console.info('页面加载成功');
+    });
+  }
+
+  onWindowStageDestroy(): void { console.info('WindowStageDestroy'); }
+  onForeground(): void { console.info('Foreground'); }
+  onBackground(): void { console.info('Background'); }
+  onDestroy(): void { console.info('Destroy'); }
+}
+```
+
+`onCreate` 适合初始化应用实例需要的数据；`onWindowStageCreate` 才拿到窗口舞台；前后台切换分别进入 `onForeground` 与 `onBackground`。不要在 `build()` 中替代这些回调管理应用级资源。
+
+被加载的 `pages/Index.ets` 仍是普通 ArkUI 页面组件：
+
+```ts
+@Entry @Component
+struct Index {
+  @State message: string = 'Stage 工程已启动';
+
+  build() {
+    Column({ space: 12 }) {
+      Text(this.message).fontSize(24)
+      Button('更新提示').onClick(() => {
+        this.message = '首页由 loadContent 加载';
+      })
+    }
+    .width('100%').height('100%').justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+启动链路可记为：`EntryAbility.onCreate → onWindowStageCreate → loadContent → @Entry 页面 → build()`。`onForeground` 描述 Ability 前后台状态，不等于组件的 `aboutToAppear`。
+## 4. 资源与权限各有入口
+
+文本、颜色和图片优先资源化管理，模块需要的系统能力则在 `module.json5` 中声明。例如网络权限片段：
+
+```json5
+{
+  "module": {
+    "name": "entry",
+    "type": "entry",
+    "requestPermissions": [
+      {
+        "name": "ohos.permission.INTERNET",
+        "reason": "$string:network_reason"
+      }
+    ]
+  }
+}
+```
+
+`reason` 指向向用户解释的字符串资源，不是随手写的备注。不同权限还可能有授权方式、使用场景与额外配置要求，声明存在不代表所有权限都会自动获批。
+
+<Callout type="warn" title="权限声明不等于完成全部授权流程">
+先确认能力所需权限及其等级，再处理运行时申请、拒绝和设置页跳转等场景。不要为省事申请无关权限，也不要仅凭 Previewer 中可用就认定真机行为已经验证。
+</Callout>
+## 5. hvigor、ohpm 与验证边界
+
+hvigor（/ˈhɪvɪɡər/，「希-维-格」）读取构建配置并执行编译、打包等任务；ohpm（/oʊ eɪtʃ piː em/，「O-H-P-M」）根据 `oh-package.json5` 管理依赖。DevEco Studio 将创建工程、编辑、预览、调试、签名和构建串在一起，但三个名字不能互换。
+
+修改工程后按顺序排查：
+
+1. 配置归属是否正确，JSON5 是否可解析。
+2. 依赖是否声明并安装，是否误改了 `oh_modules`。
+3. 构建日志中的首个错误是什么，不要只看最后一行摘要。
+4. Previewer 能否复现；涉及权限、传感器、后台任务时转到真机验证。
+
+<Callout type="must" title="必背 · 本章三条">
+1. 应用级配置放 `AppScope/app.json5`，模块、Ability 与权限放 `module.json5`。
+2. 启动主链路是 UIAbility 创建 WindowStage，再由 `loadContent` 加载 `@Entry` 页面。
+3. DevEco Studio 管工程流程，hvigor 管构建，ohpm 管依赖，设备能力最终看真机。
+</Callout>
+
+<Exercise tool="harmony" title="动手 · 补齐 Stage 工程启动链路">
+在模板的 `EntryAbility.ets` 中保留 `onCreate`、`onWindowStageCreate` 和前后台回调，通过 `loadContent('pages/Index')` 加载页面。首页显示一句学习状态，点击按钮后改为「已完成工程结构练习」。要求页面使用 `@Entry @Component struct`，不继承 `UIAbility`。
+<ExerciseSolution>
+Ability 与页面分层实现如下；其余生命周期回调可按上一节骨架保留。
+
+```ts
+import { AbilityConstant, UIAbility, Want } from '@kit.AbilityKit';
+import { window } from '@kit.ArkUI';
+
+export default class EntryAbility extends UIAbility {
+  onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void { }
+
+  onWindowStageCreate(windowStage: window.WindowStage): void {
+    windowStage.loadContent('pages/Index', (err) => {
+      if (err.code) {
+        console.error(`首页加载失败：${err.code}`);
+        return;
+      }
+    });
+  }
+
+  onForeground(): void { }
+  onBackground(): void { }
+}
+```
+
+```ts
+@Entry
+@Component
+struct Index {
+  @State status: string = '正在学习工程结构';
+
+  build() {
+    Column({ space: 12 }) {
+      Text(this.status)
+      Button('标记完成').onClick(() => {
+        this.status = '已完成工程结构练习';
+      })
+    }
+    .width('100%')
+    .height('100%')
+    .justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+关键检查点：`EntryAbility` 只连接窗口和页面，`Index` 只描述页面；`loadContent` 的路径必须与实际页面配置一致。
+</ExerciseSolution>
+</Exercise>
+## 6. 本章小结
+
+- Stage 工程按应用、模块、页面和构建工具分层，先认职责再改配置。
+- `AppScope/app.json5` 与 `module.json5` 分别承接应用级和模块级信息。
+- UIAbility 通过 WindowStage 加载 ArkUI 页面，Ability 生命周期不等于组件生命周期。
+- 资源使用 `$r` 引用，权限声明与授权流程分开处理；预览与真机验证不能互相替代。
+## 延伸阅读
+
+- [构建第一个 HarmonyOS 应用（ArkTS）](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)
+- [ArkUI 基本语法概述](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview)

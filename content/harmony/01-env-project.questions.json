@@ -1,0 +1,282 @@
+{
+  "skill": "harmony",
+  "module": "01",
+  "version": 1,
+  "questions": [
+    {
+      "id": "harmony-01-001",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "代码提交前应确保编译通过和测试通过。",
+      "explanation": "CI/CD 流程中编译和测试是基本门禁，提交前本地应先验证。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-01-002",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "HSP 模块中的页面无法通过 Navigation 路由访问。",
+      "explanation": "HSP 模块页面注册到路由表后，可通过 NavPathStack 正常导航访问。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-01-003",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "DevEco Studio 是 HarmonyOS 官方 IDE，基于 IntelliJ 平台开发。",
+      "explanation": "DevEco Studio 提供项目管理、代码编辑、预览、调试、构建等全流程支持。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-01-004",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "应用图标可以直接使用随意截取的图片。",
+      "explanation": "图标有分层设计与尺寸规范，需按规范制作。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-01-005",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "颜色值直接写死在代码中即可，深色模式会自动适配。",
+      "explanation": "颜色应提取到资源文件（$r('app.color.xxx')），系统才能自动切换深浅色。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-01-006",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "使用 @Builder 复用 UI 结构片段是推荐的做法。",
+      "explanation": "@Builder 将重复的 UI 结构封装为可复用函数，减少代码重复。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-01-007",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "业务逻辑代码应放在组件的 build() 方法中。",
+      "explanation": "build() 只负责 UI 描述，业务逻辑应抽离到独立的 Service/Model 层。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-01-008",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "ArkTS 项目推荐使用 ESLint 进行代码规范检查。",
+      "explanation": "ArkTS 有专属的代码规范工具，ESLint 不适用于 ArkTS 的特殊语法约束。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-01-009",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "需要声明 entry 模块中的 UIAbility 与网络权限时，应优先修改哪个文件？",
+      "explanation": "模块的 abilities 与 requestPermissions 都属于模块级配置，应在 entry/src/main/module.json5 中声明，而不是应用级 app.json5 或依赖清单。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "entry/src/main/module.json5"
+        },
+        {
+          "key": "B",
+          "text": "AppScope/app.json5"
+        },
+        {
+          "key": "C",
+          "text": "entry/oh-package.json5"
+        },
+        {
+          "key": "D",
+          "text": "entry/src/main/ets/pages/Index.ets"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-01-010",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "下列哪条链路正确描述 Stage 工程从 Ability 到 ArkUI 首页的启动过程？",
+      "explanation": "UIAbility 创建后在 onWindowStageCreate 获得窗口舞台，通过 loadContent 加载页面，页面再执行 build 描述 UI；页面组件不需要继承 UIAbility。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "UIAbility → onWindowStageCreate → loadContent → @Entry 页面 → build"
+        },
+        {
+          "key": "B",
+          "text": "@Entry 页面 → 创建 UIAbility → ohpm 安装窗口 → build"
+        },
+        {
+          "key": "C",
+          "text": "build → 创建 module.json5 → 安装 HAP → onCreate"
+        },
+        {
+          "key": "D",
+          "text": "hvigor → 创建 WindowStage → 页面继承 UIAbility → loadContent"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-01-011",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于 Stage 工程中常见配置文件的职责，下列哪些说法正确？",
+      "explanation": "应用级标识位于 AppScope/app.json5，模块依赖位于 oh-package.json5，Ability 位于 module.json5；权限不写进构建配置，构建产物也不用于保存源码。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "AppScope/app.json5 可保存应用级 bundleName"
+        },
+        {
+          "key": "B",
+          "text": "module.json5 可声明模块中的 abilities"
+        },
+        {
+          "key": "C",
+          "text": "oh-package.json5 可声明模块依赖"
+        },
+        {
+          "key": "D",
+          "text": "build-profile.json5 应用来声明所有运行时权限"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-01-012",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于 HarmonyOS 工程的工具链与运行验证，下列哪些做法合理？",
+      "explanation": "hvigor 执行构建任务，ohpm 按依赖清单安装依赖；生成目录不应手工维护，涉及权限与设备能力时还必须进行真机验证。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用 hvigor 执行编译与打包任务"
+        },
+        {
+          "key": "B",
+          "text": "使用 ohpm 安装 oh-package.json5 中声明的依赖"
+        },
+        {
+          "key": "C",
+          "text": "直接编辑 oh_modules 中的依赖源码作为长期维护方式"
+        },
+        {
+          "key": "D",
+          "text": "仅凭 Previewer 结果确认全部权限和传感器行为"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+## 🍼 白话版（先看这个）
+> **解决什么问题**：功能能跑只是起点。长列表不能卡，动画不能乱，联网不能“为了方便”关安全校验，核心规则要有测试托底；最后还要把这些能力装回同一个闯关 App。
+>
+> **一句话经验**：长列表懒加载，动画少触发布局，安全底线不让步，测试盯住真实业务规则。
+- **常见坑 1**：几百项仍裸用 `ForEach`，首屏一次创建全部组件。
+- **常见坑 2**：`LazyForEach` 的 key 用数组下标，删除一项后内容和状态错位。
+- **常见坑 3**：以为 `cachedCount` 越大越流畅，结果内存和首屏成本一起上升。
+- **常见坑 4**：在 `build()` 中启动动画或改状态，造成重复执行和刷新循环。
+- **常见坑 5**：为了抓包关闭 HTTPS 证书校验，把调试后门带进正式包。
+- **必记 1**：长列表 = `List + LazyForEach + IDataSource + 稳定唯一 key`。
+- **必记 2**：动画优先 `opacity/translate/scale/rotate`，时长用毫秒。
+- **必记 3**：Hypium 测试正常、边界和异常；证书校验永远不能为了省事关闭。
+## 本章你会学到
+- 用 LazyForEach 和 IDataSource 构建可回收长列表。
+- 用 animateTo 做低成本、可取消干扰少的动画。
+- 落实证书校验、最小权限与敏感数据保护。
+- 用 Hypium 为判分与进度规则写单元测试。
+- 复盘九大高频坑，并拼出完整闯关 App 架构。
+## 1. 长列表：只创建看得见的部分
+`ForEach` 适合少量、稳定集合；大量数据应使用 LazyForEach（/ˈleɪzi fɔːr iːtʃ/，「雷-齐-佛-伊奇」）。它通过 IDataSource（/ˈdeɪtə sɔːrs/，「爱-德塔-索斯」）提供总数、按索引取项和变更通知。
+```ts
+export class LevelItem {
+  constructor(public id: string, public title: string, public passed: boolean) {}
+}
+export class LevelDataSource implements IDataSource {
+  private items: LevelItem[] = [];
+  private listeners: DataChangeListener[] = [];
+  constructor(items: LevelItem[]) {
+    this.items = items;
+  }
+  totalCount(): number {
+    return this.items.length;
+  }
+  getData(index: number): LevelItem {
+    return this.items[index];
+  }
+  registerDataChangeListener(listener: DataChangeListener): void {
+    if (!this.listeners.includes(listener)) {
+      this.listeners.push(listener);
+    }
+  }
+  unregisterDataChangeListener(listener: DataChangeListener): void {
+    const index: number = this.listeners.indexOf(listener);
+    if (index >= 0) {
+      this.listeners.splice(index, 1);
+    }
+  }
+  replaceAll(items: LevelItem[]): void {
+    this.items = items;
+    for (const listener of this.listeners) {
+      listener.onDataReloaded();
+    }
+  }
+}
+```
+将数据源作为组件的稳定成员，不要在每次 `build()` 都重新 new 一份：
+```ts
+@Entry
+@Component
+struct LevelListPage {
+  private source: LevelDataSource = new LevelDataSource(makeLevels());
+  build() {
+    List({ space: 12 }) {
+      LazyForEach(this.source, (item: LevelItem) => {
+        ListItem() {
+          Row() {
+            Text(item.title)
+            Blank()
+            Text(item.passed ? '已通关' : '待挑战')
+          }
+          .padding(16)
+        }
+      }, (item: LevelItem) => item.id)
+    }
+    .cachedCount(3)
+    .width('100%')
+    .height('100%')
+  }
+}
+function makeLevels(): LevelItem[] {
+  return [];
+}
+```
+key 使用不变的 `id`，不要用数组下标。局部新增、删除应发送对应的数据变更通知；整组替换才 `onDataReloaded`。`cachedCount` 从较小值开始，根据滚动测量调整。
+## 2. 动画：状态改变，动画表达过程
+`animateTo` 在闭包内执行状态变化，由框架按指定曲线插值。动画由事件或合适的生命周期触发，不在 `build()` 里启动。
+```ts
+@Component
+struct PassBadge {
+  @State scaleValue: number = 1;
+  build() {
+    Button('已通关')
+      .scale({ x: this.scaleValue, y: this.scaleValue })
+      .onClick(() => {
+        this.getUIContext().animateTo({ duration: 220, curve: Curve.EaseOut }, () => {
+          this.scaleValue = 1.12;
+        });
+      })
+  }
+}
+```
+`duration: 220` 表示 220 毫秒，不是 220 秒。动画结束后若需回到原状态，可再用明确状态变化恢复，避免在 `build()` 中偷偷重置。
+| 优先动画属性 | 谨慎动画属性 | 原因 |
+| --- | --- | --- |
+| `translate`、`scale`、`rotate` | `width`、`height` | 后者容易反复触发布局 |
+| `opacity` | 大范围模糊与阴影 | 后者绘制成本更高 |
+| 小范围短时反馈 | 永久循环动画 | 后者持续占用资源并分散注意 |
+组件消失时停止循环动画；页面不可见时暂停无意义的媒体和动画。
+## 3. 安全：性能优化不能碰底线
+### HTTPS 与证书
+**严禁关闭证书校验，也不要在 SSL 错误回调里默认继续加载。** 调试抓包使用开发环境受信代理证书，正式构建移除调试配置；不能让“任意证书都接受”进入生产代码。
+### 权限与数据
+- 只申请当前功能实际需要的权限，在使用前向用户解释用途。
+- 网络权限不授予读取相册、通讯录等额外能力。
+- 日志不输出完整令牌、隐私数据和认证请求头。
+- 普通 Preferences 不明文保存密码、长期令牌；选用系统安全能力并缩短敏感数据生命周期。
+- Web 内容需要限制来源和 JavaScript 桥暴露范围，不能收到任意 SSL 错误都继续。
+<Callout type="warn" title="抓包后门不是调试技巧">
+关闭证书校验会让中间人能够伪造服务器，用户看到的 HTTPS 也不再可信。只在受控开发环境配置受信代理证书，绝不用跳过验证替代正确配置。
+</Callout>
+## 4. Hypium：让核心规则可重复验证
+Hypium（/ˈhaɪpiəm/，「海-皮-厄姆」）测试使用 `describe` 分组、`it` 描述行为、`expect` 做断言。优先测试纯函数：判分、通关阈值、下一关解锁和数据迁移。
+```ts
+import { describe, it, expect } from '@ohos/hypium';
+function isPassed(correct: number, total: number): boolean {
+  return total > 0 && correct / total >= 0.6;
+}
+export default function graderTest(): void {
+  describe('grader', () => {
+    it('passes_at_threshold', () => {
+      expect(isPassed(6, 10)).assertEqual(true);
+    });
+    it('rejects_empty_set', () => {
+      expect(isPassed(0, 0)).assertEqual(false);
+    });
+  });
+}
+```
+异步测试要让框架等待 Promise 完成，不能请求未结束就退出用例。UI 自动化测试补充关键点击路径，但不代替纯逻辑单元测试。覆盖率是线索，不是目标：空数组、重复提交、损坏数据、断网和异常才是高风险边界。
+## 5. 九大高频坑复盘
+下表完整保留路线图第 7 关的九类问题，按“症状—正确姿势”排查。
+| # | 高频坑 | 正确姿势 |
+| --- | --- | --- |
+| 1 | `@State` 数组原地 `push` 后界面不刷新 | 整组替换：`arr = [...arr, item]`，V2 可结合 `@ObservedV2 + @Trace` |
+| 2 | 修改深层对象属性，界面不刷新 | V1 使用 `@Observed + @ObjectLink`；V2 使用 `@ObservedV2 + @Trace` 标记观测字段 |
+| 3 | 同一条数据流混用状态管理 V1/V2 | 同一数据流只选一套装饰器体系，跨层传递保持约定一致 |
+| 4 | 100+ 项仍裸 `ForEach` | `List + LazyForEach + IDataSource`，并提供稳定唯一 key |
+| 5 | 新项目继续以 `router.pushUrl` 拼导航 | 使用 `Navigation + NavPathStack` 统一管理页面栈和转场 |
+| 6 | 用 `&&` 拼条件渲染导致显隐或类型问题 | 使用明确的 `if/else` 表达分支，不依赖隐式值转换 |
+| 7 | 在 `build()` 中修改状态，引发反复构建甚至死循环 | 在事件回调或生命周期钩子中修改状态，`build()` 保持纯粹 |
+| 8 | 定时器、监听器、长连接不释放 | 在配对清理时机释放；组件销毁时于 `aboutToDisappear()` 清理 |
+| 9 | 为抓包关闭 HTTPS 证书校验 | 始终校验证书；调试使用受信代理证书，正式包绝不保留绕过逻辑 |
+<Callout type="info" title="React 类比">
+| React 常见问题 | ArkUI 对应问题 | 共同原则 |
+| --- | --- | --- |
+| 数组原地修改 | `@State` 数组原地修改 | 让框架能观察到引用或字段变化 |
+| 大列表无虚拟化 | 大量裸 `ForEach` | 只创建可见项与少量缓存 |
+| effect 改状态死循环 | `build()` 改状态 | 渲染函数保持无副作用 |
+| effect 未返回清理函数 | 定时器与监听不清理 | 创建和释放必须配对 |
+| React DevTools 性能面板 | 真机帧率与布局分析 | 先测量，再优化 |
+</Callout>
+## 6. 综合实战：闯关 App 架构蓝图
+把前七章能力装进同一条业务流，而不是堆在一个超大页面：
+- `EntryAbility → Index`：Navigation 加首页、考试、我的三个 Tab；首页用 rawfile 索引和三态关卡卡片。
+- `QuizPage / WrongBookPage / AboutPage`：分别负责答题结算、错题重练、版本与隐私说明。
+- `BankLoader / Grader`：读取并校验 rawfile JSON，以纯函数完成判分。
+- `ProgressStore / QuizResume`：整组替换进度并持久化，保存题号与作答快照。
+首页只展示当前视口附近的卡片；点击可挑战关卡后，通过 NavPathStack 传 `levelId`，而不是复制整个题库。
+![闯关首页的三态关卡卡片](/harmony/01-home.png)
+答题页把“当前题、是否已提交、是否答对”拆成明确状态。提交后显示解析，答错可进入错题本；达到通关阈值才解锁下一关，快速重复点击不能重复记分。
+![答题页的题干与选项](/harmony/11-quiz-question.png)
+![提交后展示答案解析](/harmony/12-quiz-explain.png)
+### 一条可验证的主流程
+1. 启动时读取题库索引并校验，不让损坏 JSON 直接进入渲染。
+2. 读回进度和断点；无效关卡 ID、越界题号回退到安全默认值。
+3. 点击关卡，Navigation 传入 ID；答题页异步加载并处理失败重试。
+4. 提交答案，Grader 纯函数判分；状态整组替换触发 UI 更新。
+5. 显示解析并保存断点；结算时更新通关进度，重复提交保持幂等。
+6. 返回列表，卡片立即显示新三态；离开页面清理定时器与监听。
+7. Hypium 覆盖阈值、重复提交、空题库和解锁规则。
+<Exercise tool="harmony" title="练习：为通关规则补测试并选择列表方案">
+现有规则：总题数大于 0，且答对比例至少 60% 才算通关。用 Hypium 写出“刚好 60% 通过”和“空题库不通过”两个断言；再说明 500 个关卡卡片应使用什么渲染组合。
+<ExerciseSolution>
+```ts
+import { describe, it, expect } from '@ohos/hypium';
+function isPassed(correct: number, total: number): boolean {
+  return total > 0 && correct / total >= 0.6;
+}
+export default function passRuleTest(): void {
+  describe('pass_rule', () => {
+    it('accepts_exact_threshold', () => {
+      expect(isPassed(3, 5)).assertEqual(true);
+    });
+    it('rejects_empty_bank', () => {
+      expect(isPassed(0, 0)).assertEqual(false);
+    });
+  });
+}
+```
+500 项使用 `List + LazyForEach + IDataSource`，key 取稳定唯一的关卡 ID，`cachedCount` 从小值开始按真机表现调整，不使用下标作为 key。
+</ExerciseSolution>
+</Exercise>
+## 本章小结
+- LazyForEach 的数据源、稳定 key 和适量缓存缺一不可。
+- 动画在事件中触发，优先合成友好的属性，离开页面停止无效工作。
+- HTTPS 证书校验、最小权限和敏感数据保护是发布底线。
+- Hypium 先测纯业务规则，再补异步和 UI 路径；边界比覆盖率数字更重要。
+- 综合 App 按页面、数据源、纯逻辑和存储分层，九大坑进入每次提交前检查表。
+<Callout type="must" title="必背">
+**懒加载保流畅，状态驱动保正确，证书校验保安全，自动化测试保重构。**
+</Callout>
+## 延伸阅读
+- [状态变量不刷新的常见排查](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage)
+- [HTTP 数据请求](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request)
+- [Navigation 导航架构](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture)
+- [Stage 模型入门](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)

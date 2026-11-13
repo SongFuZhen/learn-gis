@@ -1,0 +1,220 @@
+## 🍼 白话版（先看这个）
+> **解决什么问题**：题目在服务器、进度要同步、消息要实时到达，都离不开网络。`async/await` 只是让等待写起来顺，不会把慢网络变快，也不会自动取消旧请求。
+>
+> **一句话经验**：权限先声明，响应先检查，连接要释放；旧请求要失效，重计算才交给其他线程。
+- **常见坑 1**：忘记在 `module.json5` 声明 `ohos.permission.INTERNET`，代码正确也发不出请求。
+- **常见坑 2**：只看 Promise 是否成功，不检查 HTTP 状态码，把 404 的错误页当 JSON 解析。
+- **常见坑 3**：每次请求创建 HTTP 对象却不 `destroy()`，WebSocket 离开页面也不 `close/off`。
+- **常见坑 4**：快速切换关卡时，较慢的旧请求最后返回，覆盖新关卡状态。
+- **常见坑 5**：把 JSON 解析或批量计算全塞给 UI 线程，页面滑动开始掉帧。
+- **必记 1**：`await` 不阻塞 UI 线程，但 `build()` 不能写成异步函数。
+- **必记 2**：HTTP 请求要检查状态码、设置超时并释放。
+- **必记 3**：TaskPool（/tɑːsk puːl/，「塔斯克-普尔」）适合独立短任务，Worker（/ˈwɜːrkər/，「沃-克」）适合可控的长驻任务；两者都不直接操作 UI。
+## 本章你会学到
+- 配置网络权限并写出可释放、可超时的 HTTP 请求。
+- 管理 WebSocket 的打开、消息、关闭和异常事件。
+- 用 Promise 与 `async/await` 组织页面加载。
+- 处理超时、取消和旧响应竞态。
+- 根据任务形态选择 TaskPool 或 Worker。
+## 1. 权限与异步边界
+网络访问先在 `entry/src/main/module.json5` 声明权限：
+```json5
+{
+  "module": {
+    "requestPermissions": [
+      { "name": "ohos.permission.INTERNET" }
+    ]
+  }
+}
+```
+这条权限允许联网，不代表服务器一定成功，也不代表可以跳过 HTTPS 校验。
+<Callout type="info" title="React 类比">
+| React / 浏览器 | HarmonyOS / ArkTS | 注意点 |
+| --- | --- | --- |
+| `fetch` | `http.createHttp().request` | HTTP 对象需主动释放 |
+| `new WebSocket(url)` | `webSocket.createWebSocket()` | 事件订阅与连接都要清理 |
+| `Promise / async` | 同样的异步语法 | 等待不会锁死 UI 线程 |
+| Web Worker | TaskPool / Worker | 计算结果回传，UI 仍在主线程更新 |
+| AbortController / 请求序号 | 取消、会话序号 | 防止旧响应覆盖新状态 |
+</Callout>
+`build()` 只描述当前状态。启动请求放在 `aboutToAppear` 或用户事件中，完成后再更新 `@State`。
+## 2. HTTP：完整请求不只是一行 await
+```ts
+import { http } from '@kit.NetworkKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+export interface LevelDto {
+  id: string;
+  title: string;
+}
+export async function loadLevel(id: string): Promise<LevelDto> {
+  const request: http.HttpRequest = http.createHttp();
+  try {
+    const response: http.HttpResponse = await request.request(
+      `https://example.com/api/levels/${id}`,
+      {
+        method: http.RequestMethod.GET,
+        connectTimeout: 5000,
+        readTimeout: 5000,
+        expectDataType: http.HttpDataType.STRING
+      }
+    );
+    if (response.responseCode !== 200) {
+      throw new Error(`HTTP ${response.responseCode}`);
+    }
+    return JSON.parse(response.result as string) as LevelDto;
+  } finally {
+    request.destroy();
+  }
+}
+```
+这里有三道保险：超时以毫秒限制等待；仅成功响应进入 JSON 解析，真实项目还要校验字段；`finally` 保证所有路径释放请求对象。POST 数据放在 `extraData`，按服务端约定设置请求头，不把令牌拼进 URL 或日志。
+<Callout type="warn" title="Promise fulfilled 不等于业务成功">
+断网会 reject，但 404/500 也可能正常返回一个 HTTP 响应。检查 `responseCode` 后再处理 `result`，并为空响应、错误 JSON 和服务端业务错误准备界面状态。
+</Callout>
+## 3. 页面加载：启动与渲染分开
+```ts
+@Component
+struct LevelPanel {
+  @State title: string = '加载中';
+  @State failed: boolean = false;
+  private session: number = 0;
+  aboutToAppear(): void {
+    this.refresh('04');
+  }
+  aboutToDisappear(): void {
+    this.session++;
+  }
+  private refresh(id: string): void {
+    const current: number = ++this.session;
+    this.failed = false;
+    loadLevel(id)
+      .then((level: LevelDto) => {
+        if (current === this.session) {
+          this.title = level.title;
+        }
+      })
+      .catch((error: BusinessError) => {
+        if (current === this.session) {
+          this.failed = true;
+          console.error(JSON.stringify(error));
+        }
+      });
+  }
+  build() {
+    Column() {
+      if (this.failed) {
+        Button('加载失败，重试').onClick(() => this.refresh('04'))
+      } else {
+        Text(this.title)
+      }
+    }
+  }
+}
+```
+`session` 是失效令牌：每次新请求递增，旧响应回来时不再匹配；组件销毁后递增也能避免晚到更新。超时限制“等多久”，序号保护解决“回来后还要不要用”。两者不是同一件事。若所用请求能力支持取消，还应在切换任务时主动取消旧请求，节省流量。
+## 4. WebSocket：连接也是资源
+WebSocket（/ˈwebˌsɒkɪt/，「外卜-扫-基特」）适合服务端主动推送和持续双向通信。一次短请求取题库用 HTTP 即可，不必为了“高级”而保持长连接。
+```ts
+import { webSocket } from '@kit.NetworkKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+export class ProgressChannel {
+  private socket: webSocket.WebSocket = webSocket.createWebSocket();
+  private manualClose: boolean = false;
+  connect(url: string): void {
+    this.manualClose = false;
+    this.socket.on('open', () => {
+      console.info('channel open');
+    });
+    this.socket.on('message', (err: BusinessError, data: string | ArrayBuffer) => {
+      if (!err && typeof data === 'string') {
+        console.info(`progress message: ${data}`);
+      }
+    });
+    this.socket.on('close', () => {
+      if (!this.manualClose) {
+        // 生产代码使用有上限的指数退避，不立即无限重连。
+        console.info('unexpected close');
+      }
+    });
+    this.socket.on('error', (err: BusinessError) => {
+      console.error(JSON.stringify(err));
+    });
+    this.socket.connect(url).catch((err: BusinessError) => {
+      console.error(JSON.stringify(err));
+    });
+  }
+  sendProgress(levelId: string): void {
+    this.socket.send(JSON.stringify({ levelId })).catch((err: BusinessError) => {
+      console.error(JSON.stringify(err));
+    });
+  }
+  dispose(): void {
+    this.manualClose = true;
+    this.socket.off('open');
+    this.socket.off('message');
+    this.socket.off('close');
+    this.socket.off('error');
+    this.socket.close().catch((err: BusinessError) => {
+      console.error(JSON.stringify(err));
+    });
+  }
+}
+```
+文本消息与 `ArrayBuffer` 要分别处理。心跳用于发现假连接；重连要指数退避并设上限；用户主动退出后停止重连。重复订阅同一事件可能让一条消息处理多次，所以连接生命周期应由一个对象统一管理。
+## 5. Promise 组合与错误归属
+互不依赖的请求用 `Promise.all` 并行，有先后依赖则顺序 `await`；失败时进入可重试状态，不吞错让 UI 永远“加载中”。日志不记录敏感信息。
+## 6. TaskPool 与 Worker：让计算离开 UI 线程
+| 场景 | 选择 | 原因 |
+| --- | --- | --- |
+| 一次大数组统计、独立 CPU 计算 | TaskPool | 线程池托管，任务结束自动回收 |
+| 长驻接收协议、反复收发任务 | Worker | 生命周期与消息通道由开发者明确控制 |
+| 小 JSON、几十项过滤 | UI 线程即可 | 跨线程序列化反而更贵 |
+| 改 `@State`、操作组件 | UI 线程 | 后台线程不能直接操作 UI |
+TaskPool 任务用 `@Concurrent` 标记。传给任务的数据和返回值需要满足跨线程传递约束；不要假设它能随手捕获组件的 `this` 和任意闭包。
+TaskPool 的 `@Concurrent` 函数接收可跨线程传递的纯数据，不捕获组件 `this`；独立短任务可执行 `new taskpool.Task(sumValues, values)`。任务过大要拆分，过小要合并。Worker 不再使用时要 `terminate()` 并移除监听；后台线程只回传结果，状态仍在 UI 线程更新。
+<Exercise tool="harmony" title="练习：给关卡请求补齐工程防线">
+写一个 `loadLevelSafe`：GET 请求、连接和读取超时各 5 秒，只接受 200，返回解析后的 `LevelDto`，任何路径都释放 HTTP 对象。再列出防止旧请求覆盖新页面的一个办法。
+<ExerciseSolution>
+```ts
+import { http } from '@kit.NetworkKit';
+interface LevelDto {
+  id: string;
+  title: string;
+}
+async function loadLevelSafe(id: string): Promise<LevelDto> {
+  const client: http.HttpRequest = http.createHttp();
+  try {
+    const res: http.HttpResponse = await client.request(
+      `https://example.com/api/levels/${id}`,
+      {
+        method: http.RequestMethod.GET,
+        connectTimeout: 5000,
+        readTimeout: 5000,
+        expectDataType: http.HttpDataType.STRING
+      }
+    );
+    if (res.responseCode !== 200) {
+      throw new Error(`HTTP ${res.responseCode}`);
+    }
+    return JSON.parse(res.result as string) as LevelDto;
+  } finally {
+    client.destroy();
+  }
+}
+```
+页面维护递增 `session`，响应落地前比较请求发起时的值；也可结合请求取消。销毁页面时让当前会话失效。
+</ExerciseSolution>
+</Exercise>
+## 本章小结
+- 先声明 INTERNET 权限，再处理状态码、数据格式、超时与释放。
+- 异步代码在事件或生命周期启动，结果通过状态驱动 UI。
+- 请求取消和响应失效共同解决竞态，不能只依赖加载顺序。
+- WebSocket 要管理订阅、关闭、心跳和有限退避重连。
+- 独立短计算选 TaskPool，长驻通信选 Worker，UI 更新回到 UI 线程。
+<Callout type="must" title="必背">
+**请求四件套：状态码、超时、异常、释放；异步两条线：取消旧任务、拒绝旧结果。**
+</Callout>
+## 延伸阅读
+- [HTTP 数据请求](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request)
+- [WebSocket 接口参考](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket)
+- [Stage 模型入门](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)

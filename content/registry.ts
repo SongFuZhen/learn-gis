@@ -21,6 +21,11 @@ import {
   PLANNED_MODULES as THREE_PLANNED,
 } from "./three/modules";
 import { rawQuestionsFor as threeRawQuestions } from "./three/questions";
+import {
+  HARMONY_MODULES,
+  PLANNED_MODULES as HARMONY_PLANNED,
+} from "./harmony/modules";
+import { rawQuestionsFor as harmonyRawQuestions } from "./harmony/questions";
 
 /** lucide 图标名（UI 层在 content/icons.ts 映射为组件；registry 被 node 脚本引用，不引 React） */
 export type SkillIconName = "Map" | "Globe" | "Boxes" | "Box" | "Smartphone";
@@ -93,6 +98,18 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
     modules: THREE_MODULES,
     plannedModules: THREE_PLANNED,
     rawQuestionsFor: threeRawQuestions,
+  },
+  {
+    id: "harmony",
+    dir: "harmony",
+    title: "HarmonyOS / ArkTS 应用开发",
+    description:
+      "React 视角学鸿蒙：Stage 模型与工程结构、ArkUI 声明式 UI、状态管理 V1/V2、Navigation 路由、网络与并发、持久化与生命周期、性能安全与综合实战。",
+    track: "platform",
+    icon: "Smartphone",
+    modules: HARMONY_MODULES,
+    plannedModules: HARMONY_PLANNED,
+    rawQuestionsFor: harmonyRawQuestions,
   },
 ];
 

@@ -1,0 +1,259 @@
+{
+  "skill": "harmony",
+  "module": "07",
+  "version": 1,
+  "questions": [
+    {
+      "id": "harmony-07-001",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "应用可以通过隐式 Want 启动任意其他应用的 Ability。",
+      "explanation": "目标 Ability 必须在 module.json5 中配置 exported: true 才能被外部应用启动。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-07-002",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "Canvas 组件可以用于自定义绘制和动画。",
+      "explanation": "Canvas 提供绑定 2D/3D 绘制上下文，可自定义绘制图形和动画。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-07-003",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "WebView 支持通过 Cookie 管理器设置和获取 Cookie。",
+      "explanation": "WebCookieManager 提供 setCookie、getCookie 等方法管理 WebView Cookie。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-07-004",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "应用间通过 IPC 通信时，应验证对方的身份和权限。",
+      "explanation": "IPC 通信中验证调用方身份可防止未授权访问和权限提升攻击。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-07-005",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "WebView 中可以通过 runJavaScript 在网页中执行 JavaScript 代码。",
+      "explanation": "runJavaScript 注入并执行 JS 代码，返回执行结果。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-07-006",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "Lottie 动画可以通过 lottie-arkts 第三方库在 ArkUI 中播放。",
+      "explanation": "ohpm 上有 lottie-arkts 包，支持播放 Lottie JSON 动画。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-07-007",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "hypium 内置了完整的 mock 库，可直接对任意对象打桩。",
+      "explanation": "hypium 不内置 mock 库，但可以通过函数替换/桩函数方式实现 mock。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-07-008",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "WebView 支持 Service Worker。",
+      "explanation": "WebView 支持 Service Worker，可用于离线缓存和后台同步。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-07-009",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "500 个关卡卡片需要按需创建并在滚动时复用，应选择哪种组合？",
+      "explanation": "List 配合 LazyForEach 和 IDataSource 可按需创建可见项，稳定唯一的关卡 ID 用作 key，避免删除或重排后状态错位。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "List + LazyForEach + IDataSource", "hint": "懒加载并提供稳定 key" },
+        { "key": "B", "text": "Column 中一次性裸用 500 个组件" },
+        { "key": "C", "text": "build 中不断重建数据源" },
+        { "key": "D", "text": "仅用下标作为可重排列表 key" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-010",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "开发环境需要分析 HTTPS 请求时，哪种做法符合安全底线？",
+      "explanation": "调试应在受控环境配置受信代理证书，正式包移除调试配置；关闭证书校验或遇 SSL 错误继续加载会破坏安全保证。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "永久关闭所有证书校验" },
+        { "key": "B", "text": "遇到任意 SSL 错误都继续加载" },
+        { "key": "C", "text": "受控调试环境使用受信代理证书", "hint": "调试能力不进入正式包" },
+        { "key": "D", "text": "把证书异常当成成功响应" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-07-011",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "为了兼顾列表性能与动画流畅度，哪些做法合理？",
+      "explanation": "列表 key 要稳定唯一，缓存从小值开始测量；动画优先透明度与变换属性，并在事件中触发，避免在 build 中启动或修改状态。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "使用稳定且唯一的列表项 key" },
+        { "key": "B", "text": "cachedCount 无上限越大越好" },
+        { "key": "C", "text": "优先对 opacity 与 translate 做动画" },
+        { "key": "D", "text": "在点击事件中调用 animateTo" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-07-012",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "为闯关 App 的判分与进度逻辑设计 Hypium 测试，哪些场景值得覆盖？",
+      "explanation": "核心规则需要验证刚好阈值、空题库等边界，也要防止重复提交重复记分，并覆盖损坏数据和异常路径；不能只测正常成功。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "答对率刚好等于通关阈值" },
+        { "key": "B", "text": "空题库与越界题号" },
+        { "key": "C", "text": "同一道题快速重复提交" },
+        { "key": "D", "text": "只测试一次正常通关即可" }
+      ],
+      "answer": ["A", "B", "C"]
+    }
+  ]
+}

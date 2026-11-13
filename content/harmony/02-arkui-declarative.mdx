@@ -1,0 +1,218 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）看起来像「在 TypeScript 里写 UI」，实际写法不是 JSX，也没有浏览器 DOM。你要在 `build()` 中描述组件树，通过状态变化让框架更新界面。**一句话经验**：先想清楚 UI 是哪些状态的表达，再选容器、组件和列表语法，不要在 `build()` 里做命令式操作。**常见坑**：
+- 在 `build()` 中发请求、启动定时器或反复修改状态，导致副作用随重建重复执行。
+- 混淆 Column/Row 的主轴与交叉轴，想要居中却设置了另一根轴。
+- `ForEach` 省略稳定唯一的 key，或用会随插入、删除变化的位置冒充数据身份。
+- 长列表仍一次性创建全部子组件，或忘记 `List` 中的列表项容器。**必记 3 条**：
+1. `@Component struct` 定义组件，`build()` 只负责声明式描述 UI。
+2. Column 主轴纵向、Row 主轴横向，主轴对齐与交叉轴对齐分开设置。
+3. `ForEach` 需要稳定唯一 key；长列表用 `List + LazyForEach + IDataSource`。
+## 本章你会学到
+
+自定义组件的结构、常用组件与事件、Column/Row/Stack 布局、条件渲染和列表渲染，以及 `@Builder` 等复用手段。读完应能把一个 React（/riˈækt/，「瑞-阿克特」）函数组件拆成 ArkUI 组件树，并解释列表更新时 key 为什么重要。
+## 1. 从函数组件切换到 @Component struct
+
+ArkUI 自定义组件由装饰器和 `struct` 组成。`@Entry` 标记页面入口，`@Component` 声明自定义组件，`@State` 保存组件内可观察状态，`build()` 返回的不是 JSX（/dʒeɪ es eks/，「J-S-X」），而是一段声明式 UI 描述。
+
+```ts
+@Entry @Component
+struct Index {
+  @State keyword: string = '';
+  build() {
+    Column({ space: 12 }) {
+      TextInput({ placeholder: '输入想复习的内容', text: this.keyword })
+        .onChange((value: string) => { this.keyword = value; })
+      Text(this.keyword.length > 0 ? `正在查找：${this.keyword}` : '尚未输入')
+      Button('清空').onClick(() => { this.keyword = ''; })
+    }
+    .width('100%').padding(16)
+  }
+}
+```
+
+事件回调修改 `keyword` 后，框架重新计算依赖它的 UI。不要寻找 `document.querySelector`，也不要直接给某个 Text 节点赋文本。
+
+| React 中的思路 | ArkUI 中的对应方式 | 关键差异 |
+| --- | --- | --- |
+| 函数组件 | `@Component struct` | 使用装饰器与结构化语法 |
+| 返回 JSX | `build()` 中的组件树 | 不是 JavaScript XML |
+| `useState` | V1 的 `@State` | 状态驱动更新，不操作 DOM |
+| props | 组件成员与参数初始化 | 双向或单向规则由状态装饰器决定 |
+| `onChange={...}` | `.onChange((value) => { ... })` | 事件以链式属性挂载 |
+| 条件表达式 | `if/else` 或条件表达式 | 不同分支描述不同组件树 |
+| 数组 `map` | `ForEach` | 另需 key 生成器 |
+| CSS 类与行内样式 | 链式属性、`@Styles`、`@Extend` | 没有浏览器样式表模型 |
+
+<Callout type="info" title="类比到「状态驱动 UI」这一层即可">
+React 与 ArkUI 都强调组件化和声明式更新，但组件声明、参数传递、样式、状态观察规则不同。尤其不要把 JSX 的任意 JavaScript 表达式习惯原样搬进 `build()`。
+</Callout>
+## 2. 布局先分主轴与交叉轴
+
+Column 将子组件纵向排列，Row 将子组件横向排列，Stack 将子组件层叠。线性布局优先使用 Column/Row；只有需要伸缩规则或层叠效果时，再考虑 Flex 或 Stack。
+
+| 容器 | 主轴 | 主轴对齐 | 交叉轴对齐 |
+| --- | --- | --- | --- |
+| Column | 纵向 | `justifyContent(FlexAlign.*)` | `alignItems(HorizontalAlign.*)` |
+| Row | 横向 | `justifyContent(FlexAlign.*)` | `alignItems(VerticalAlign.*)` |
+| Stack | 层叠方向不按线性主轴理解 | 不使用线性主轴分配规则 | 用 `alignContent` 控制九种位置 |
+
+```ts
+@Entry @Component
+struct LayoutPage {
+  build() {
+    Column({ space: 16 }) {
+      Row({ space: 12 }) {
+        Text('鸿蒙').fontSize(28)
+        Column({ space: 4 }) {
+          Text('学习进度').fontSize(18)
+          Text('本章完成 60%').fontSize(13)
+        }
+        Blank()
+        Button('继续')
+      }
+      .width('100%').alignItems(VerticalAlign.Center)
+      Text('正文区域').layoutWeight(1)
+    }
+    .width('100%').height('100%').padding(16).alignItems(HorizontalAlign.Start)
+  }
+}
+```
+
+`Blank()` 占据 Row 剩余空间，`layoutWeight(1)` 让正文按权重分配 Column 剩余高度。尺寸常用 vp 或百分比；先明确父容器约束，再决定固定尺寸、百分比或权重，避免多层无意义嵌套。
+## 3. 条件与列表都描述组件树
+
+简单条件用 `if/else`，列表用 `ForEach`。第三个参数是 key 生成器，应为每条数据返回稳定且唯一的字符串。
+
+```ts
+class LessonItem {
+  id: number; title: string; done: boolean;
+  constructor(id: number, title: string, done: boolean) {
+    this.id = id;
+    this.title = title;
+    this.done = done;
+  }
+}
+
+@Component struct LessonList {
+  @State lessons: LessonItem[] = [
+    new LessonItem(1, '组件结构', true), new LessonItem(2, '布局与列表', false)
+  ];
+  build() {
+    Column({ space: 8 }) {
+      if (this.lessons.length === 0) {
+        Text('暂时没有课程')
+      } else {
+        ForEach(this.lessons, (item: LessonItem) => {
+          Row({ space: 8 }) {
+            Text(item.title)
+            Blank()
+            Text(item.done ? '已完成' : '学习中')
+          }.width('100%')
+        }, (item: LessonItem) => item.id.toString())
+      }
+    }.padding(16)
+  }
+}
+```
+
+`ForEach` 适合数量有限的静态列表；数据量大且需要滚动时，使用 `List` 配合 `LazyForEach`，由 `IDataSource` 提供数据，框架只按需创建可见区域附近的项。`List` 的直接子组件使用 `ListItem` 或 `ListItemGroup`，并给列表明确尺寸约束。
+
+<Callout type="warn" title="key 描述数据身份，不是当前位置">
+不要把数组下标当作万能 key。插入、删除或排序后，下标会指向另一条数据，可能造成组件复用与状态错配。也不要为了「触发刷新」频繁更换稳定 key，应修正数据和状态更新方式。
+</Callout>
+## 4. 复用 UI，但保持 build 纯粹
+
+只有一段 UI 结构重复时，可在组件内使用 `@Builder`；需要独立状态、生命周期或复用边界时，再抽成自定义组件。
+
+```ts
+@Component struct CoursePanel {
+  @Builder
+  CourseLine(title: string, value: string) {
+    Row() {
+      Text(title)
+      Blank()
+      Text(value)
+    }.width('100%')
+  }
+
+  build() {
+    Column({ space: 8 }) {
+      this.CourseLine('当前章节', '声明式 UI')
+      this.CourseLine('完成练习', '2 / 3')
+    }.padding(16)
+  }
+}
+```
+
+| 复用机制 | 适用边界 |
+| --- | --- |
+| 自定义组件 | 独立 UI 单元，需要自身状态或生命周期 |
+| `@Builder` | 抽取轻量 UI 结构，可按引用或值传递参数 |
+| `@BuilderParam` | 让父组件向自定义组件注入 UI 片段 |
+| `@Styles` | 复用通用属性样式，不支持事件 |
+| `@Extend` | 扩展指定内置组件的样式与事件组合 |
+
+`build()` 应保持无副作用：不要在这里请求数据、注册监听或创建定时器。初始化工作可放入 `aboutToAppear`，清理放入 `aboutToDisappear`；事件回调负责响应用户动作。
+
+<Callout type="must" title="必背 · 本章三条">
+1. 组件用 `@Component struct` 声明，`build()` 只描述 UI，副作用移到合适生命周期或事件中。
+2. Column/Row 分别先判断纵向、横向主轴，再设置主轴和交叉轴对齐。
+3. `ForEach` 使用稳定唯一 key，长列表使用 `List + LazyForEach + IDataSource` 按需创建。
+</Callout>
+
+<Exercise tool="harmony" title="动手 · 渲染可追加的课程列表">
+定义固定包含 `id: number` 与 `title: string` 的 `Course` 类，用 `ForEach` 渲染三门课程，以 `id` 生成唯一 key。列表为空时显示「暂无课程」；点击按钮追加一门课程，使用不可变数组更新，不直接操作 UI 节点。
+<ExerciseSolution>
+参考实现把数据、空态和列表项放在同一个组件树中，新增课程时替换数组引用。
+
+```ts
+class Course {
+  id: number; title: string;
+  constructor(id: number, title: string) {
+    this.id = id;
+    this.title = title;
+  }
+}
+
+@Entry @Component
+struct Index {
+  @State courses: Course[] = [
+    new Course(1, '认知地图'), new Course(2, '工程结构'), new Course(3, '声明式 UI')
+  ];
+  private nextId: number = 4;
+
+  build() {
+    Column({ space: 12 }) {
+      if (this.courses.length === 0) {
+        Text('暂无课程')
+      } else {
+        ForEach(this.courses, (item: Course) => {
+          Text(item.title).width('100%').padding(8)
+        }, (item: Course) => item.id.toString())
+      }
+      Button('追加课程').onClick(() => {
+        const course: Course = new Course(this.nextId, `新课程 ${this.nextId}`);
+        this.nextId++;
+        this.courses = [...this.courses, course];
+      })
+    }
+    .width('100%').padding(16)
+  }
+}
+```
+
+key 来自课程 `id`，追加后原课程身份不变；数组展开生成新数组，状态章会继续解释这种更新方式为何可靠。
+</ExerciseSolution>
+</Exercise>
+## 5. 本章小结
+
+- ArkUI 用 `@Component struct` 与 `build()` 描述组件树，状态和事件驱动更新。
+- Column、Row、Stack 对应不同布局意图，对齐属性必须结合主轴与交叉轴理解。
+- `if/else` 描述条件 UI，`ForEach` 依赖稳定唯一 key 维持数据身份。
+- 长列表按需创建，UI 复用按边界选择组件或 `@Builder`，并保持 `build()` 无副作用。
+## 延伸阅读
+
+- [ArkUI 基本语法概述](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview)
+- [声明式 UI 描述](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description)
+- [创建自定义组件](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components)

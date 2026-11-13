@@ -9,6 +9,7 @@ import { loadLesson as loadGisLesson } from "@/content/gis/lessons";
 import { loadLesson as loadCesiumLesson } from "@/content/cesium/lessons";
 import { loadLesson as loadTurfLesson } from "@/content/turf/lessons";
 import { loadLesson as loadThreeLesson } from "@/content/three/lessons";
+import { loadLesson as loadHarmonyLesson } from "@/content/harmony/lessons";
 import type { ModuleMeta, SkillTrack } from "@/content/types";
 
 /**
@@ -114,6 +115,7 @@ const LESSON_LOADERS: Record<
   cesium: loadCesiumLesson,
   turf: loadTurfLesson,
   three: loadThreeLesson,
+  harmony: loadHarmonyLesson,
 };
 
 export async function getLesson(skillId: string, moduleSlug: string) {

@@ -1,0 +1,219 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：HarmonyOS（/ˈhɑːrməni oʊ ˈes/，「哈-莫尼-O-S」）页面「变量确实变了，Text 却没变」通常不是 Text 出错，而是状态所有权、观察层级或 V1/V2 用法不匹配。ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）只更新它能观察到的依赖。**一句话经验**：先确定谁拥有状态，再选父子传递方式，最后检查数组和对象属性是否落在观察范围内。**常见坑**：
+- `@State` 数组原地 `push` 后丢响应：改用 `this.arr = [...this.arr, item]` 替换数组引用。
+- 对象深层属性修改后不刷新：V1 用 `@Observed + @ObjectLink`，V2 用 `@ObservedV2 + @Trace`。
+- 同一数据流混用 V1/V2 装饰器：同一数据流只选一套，不让 `@State` 与 `@Param` 等混着接力。
+- 把 `@Prop` 当成双向绑定，或给 `@Link` 传普通字面量。**必记 3 条**：
+1. V1 组件内状态用 `@State`，V2 用 `@Local`；父传子与事件上传要分清。
+2. 数组优先不可变替换，嵌套对象必须补齐对应版本的属性观察机制。
+3. `AppStorage` 管跨组件共享状态，不等于磁盘持久化。
+## 本章你会学到
+
+V1 的 `@State/@Prop/@Link/@Provide/@Consume`、嵌套对象的 `@Observed/@ObjectLink`，以及 V2 的 `@Local/@Param/@Event/@ObservedV2/@Trace`。读完应能为一条数据流选定一套装饰器，并按「引用、层级、版本」排查状态不刷新。
+## 1. 先确定状态归谁，再决定怎么传
+
+组件自己拥有并修改的状态，与父组件借给子组件的状态，不应使用同一种装饰器。V1 与 V2 可以在工程中分别使用，但同一条数据流不要混用两套规则。
+
+| 数据关系 | V1 选择 | V2 选择 | 更新方向 |
+| --- | --- | --- | --- |
+| 组件私有状态 | `@State` | `@Local` | 组件内部更新 |
+| 父传子、子可读 | `@Prop` | `@Param` | 父到子，子不反向写源值 |
+| 父子双向同步 | `@Link` | 通常改为 `@Param + @Event` | V2 推荐事件通知父改值 |
+| 跨层级共享 | `@Provide/@Consume` | `@Provider/@Consumer` | 后代直接访问共享状态 |
+| 嵌套对象属性 | `@Observed/@ObjectLink` | `@ObservedV2/@Trace` | 观察类实例的被标记属性 |
+| 应用级状态中枢 | `AppStorage` | `AppStorageV2` | 跨组件共享，不自动持久化 |
+
+| React（/riˈækt/，「瑞-阿克特」）思路 | 推荐迁移方式 | 不要误做成什么 |
+| --- | --- | --- |
+| `useState` | V1 `@State` 或 V2 `@Local` | 普通成员变量却期待刷新 |
+| props 向下传 | `@Prop` 或 `@Param` | 子组件直接改写父源值 |
+| 回调子传父 | V2 `@Param + @Event` | 到处建立隐式双向绑定 |
+| Context | Provide/Consume 或 Provider/Consumer | 每层机械转发无关参数 |
+| 全局状态库 | AppStorage 对应版本能力 | 把内存共享当作数据库 |
+
+<Callout type="info" title="V2 更像「数据向下，事件向上」">
+`@Param` 表达父组件传入的数据，`@Event` 表达子组件发出的变更意图，父组件再修改自己的 `@Local`。这比双向引用更容易追踪数据来源，但仍须遵守 ArkUI 的装饰器规则。
+</Callout>
+## 2. V1：@Prop 单向，@Link 双向
+
+`@Prop` 会从父组件同步源值，子组件的本地修改不会反向写回；`@Link` 则与父组件状态建立双向同步。`@Link` 不能本地初始化，父组件传参使用 `this.$score`，不是 `this.score` 或字面量。
+
+```ts
+@Component
+struct ScoreEditor {
+  @Link score: number;
+  build() {
+    Row({ space: 8 }) {
+      Button('减一分').onClick(() => { this.score--; })
+      Text(`得分：${this.score}`)
+      Button('加一分').onClick(() => { this.score++; })
+    }
+  }
+}
+
+@Entry @Component
+struct Index {
+  @State score: number = 60;
+  build() {
+    Column({ space: 12 }) {
+      Text(`父组件得分：${this.score}`)
+      ScoreEditor({ score: this.$score })
+    }
+    .width('100%').justifyContent(FlexAlign.Center)
+  }
+}
+```
+
+跨多层共享可在祖先写 `@Provide('studyScore') score: number = 60`，后代写 `@Consume('studyScore') score: number`。二者名称和类型要匹配，`@Consume` 不使用本地默认值兜底；只传一两层时，不必把每个值都提升为共享状态。
+## 3. 嵌套对象：V1 与 V2 各补各的观察能力
+
+V1 中，`@State` 持有对象不等于所有深层属性都自动进入观察链路。需要子组件直接观察并修改类实例属性时，给类加 `@Observed`，子组件用 `@ObjectLink` 接收，且不要本地初始化它。
+
+```ts
+@Observed
+class Learner {
+  name: string;
+  completed: number;
+
+  constructor(name: string, completed: number) {
+    this.name = name;
+    this.completed = completed;
+  }
+}
+
+@Component struct LearnerCard {
+  @ObjectLink learner: Learner;
+  build() {
+    Column({ space: 8 }) {
+      Text(`${this.learner.name}：${this.learner.completed} 章`)
+      Button('完成一章').onClick(() => { this.learner.completed++; })
+    }
+  }
+}
+
+@Component struct LearnerPage {
+  @State learner: Learner = new Learner('小鸿', 0);
+  build() {
+    LearnerCard({ learner: this.learner })
+  }
+}
+```
+
+V2 改用 `@ObservedV2` 标记类、`@Trace` 标记需要观察的属性。子组件通过 `@Param` 读取实例，修改 `@Trace` 属性即可驱动关联 UI；不要给 `@Param` 本身重新赋值。
+
+```ts
+@ObservedV2
+class Lesson {
+  title: string;
+  @Trace done: boolean = false;
+
+  constructor(title: string) {
+    this.title = title;
+  }
+}
+
+@ComponentV2 struct LessonCard {
+  @Param lesson: Lesson = new Lesson('未命名');
+
+  build() {
+    Button(this.lesson.done ? `${this.lesson.title}：已完成` : `${this.lesson.title}：学习中`)
+      .onClick(() => { this.lesson.done = !this.lesson.done; })
+  }
+}
+```
+## 4. 三类不刷新，按固定顺序排查
+
+**第一类：数组原地修改。** 高频症状是 `@State` 数组执行 `push` 后 UI 没响应。统一采用不可变替换，让状态引用变化清晰可见：
+
+```ts
+// 不推荐：依赖原地 push 触发当前观察链路
+this.lessons.push(newLesson);
+
+// 推荐：生成新数组并重新赋值
+this.lessons = [...this.lessons, newLesson];
+```
+
+**第二类：深层属性越过观察边界。** 先确认修改的是对象本身、第一层字段还是更深字段，再补齐 V1 的 `@Observed/@ObjectLink` 或 V2 的 `@ObservedV2/@Trace`。无差别重建整个对象可能掩盖所有权错误，也增加不必要更新。
+
+**第三类：同一数据流混用版本。** 例如父组件用 `@State` 持有值，子组件却按 V2 的 `@Param/@Event` 规则期待同步。应把这条链路整体改成 V1 或 V2，而不是继续叠装饰器试错。
+
+<Callout type="warn" title="不要用 setTimeout 或强制重建掩盖不刷新">
+先打印更新前后的引用与字段值，再检查装饰器版本、父子传参和观察层级。延迟刷新、随机 key、销毁重建页面都没有修复状态链路，还会引入新的时序问题。
+</Callout>
+## 5. 共享状态不等于持久化
+
+`AppStorage` 与 `AppStorageV2` 适合进程内跨组件共享，例如登录态或全局配置。它们不是把任意状态自动写入磁盘的替代品；首选项、关系型数据与状态持久化应按后续持久化方案处理。保存高频变化状态时，也要控制订阅范围，避免全局更新放大成整页刷新。
+
+<Callout type="must" title="必背 · 本章三条">
+1. 先定所有权：V1 用 `@State/@Prop/@Link`，V2 用 `@Local/@Param/@Event`，同一数据流不混版。
+2. 数组用 `arr = [...arr, item]` 等不可变更新；深层属性按版本补 `@ObjectLink` 或 `@Trace`。
+3. 排查顺序固定为「值和引用是否变化 → 观察层级是否覆盖 → 数据流是否混用 V1/V2」。
+</Callout>
+
+<Exercise tool="harmony" title="动手 · 用 V2 修复列表与完成状态">
+定义 `@ObservedV2` 的 `StudyTask`，包含 `id`、`title` 和被 `@Trace` 观察的 `done`。用 `@ComponentV2 + @Local` 渲染任务列表，子组件通过 `@Param` 切换完成状态；点击追加按钮时用新数组添加任务，全程不使用 V1 装饰器。
+<ExerciseSolution>
+下面同时处理属性观察与数组引用更新，key 使用稳定任务 id。
+
+```ts
+@ObservedV2
+class StudyTask {
+  id: number;
+  title: string;
+  @Trace done: boolean = false;
+
+  constructor(id: number, title: string) {
+    this.id = id;
+    this.title = title;
+  }
+}
+
+@ComponentV2
+struct TaskRow {
+  @Param task: StudyTask = new StudyTask(0, '未命名');
+
+  build() {
+    Row({ space: 8 }) {
+      Text(this.task.title)
+      Blank()
+      Button(this.task.done ? '已完成' : '标记完成').onClick(() => { this.task.done = !this.task.done; })
+    }.width('100%')
+  }
+}
+
+@Entry @ComponentV2
+struct Index {
+  @Local tasks: StudyTask[] = [new StudyTask(1, '状态管理')];
+  private nextId: number = 2;
+
+  build() {
+    Column({ space: 12 }) {
+      ForEach(this.tasks, (item: StudyTask) => {
+        TaskRow({ task: item })
+      }, (item: StudyTask) => item.id.toString())
+      Button('追加任务').onClick(() => {
+        const task: StudyTask = new StudyTask(this.nextId, `任务 ${this.nextId}`);
+        this.nextId++;
+        this.tasks = [...this.tasks, task];
+      })
+    }.padding(16)
+  }
+}
+```
+
+`@Trace` 覆盖 `done` 属性更新，数组展开覆盖列表新增；父、子与类都使用 V2 机制，没有跨版本混用。
+</ExerciseSolution>
+</Exercise>
+## 6. 本章小结
+
+- 状态装饰器由数据所有权和传递方向决定，不是看到变量就加 `@State`。
+- V1 与 V2 都有完整的父子、跨层和嵌套观察方案，同一数据流只选一套。
+- 数组不可变替换、嵌套属性观察、版本一致性，是状态不刷新的三条核心排查线。
+- 应用级内存共享与持久化是不同问题，不能指望 AppStorage 自动保存到磁盘。
+## 延伸阅读
+
+- [状态管理概述](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview)
+- [@State：组件内状态](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state)
+- [@Provide 与 @Consume](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-provide-and-consume)
+- [状态变量不刷新的常见排查](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage)

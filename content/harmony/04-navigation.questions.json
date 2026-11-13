@@ -1,0 +1,291 @@
+{
+  "skill": "harmony",
+  "module": "04",
+  "version": 1,
+  "questions": [
+    {
+      "id": "harmony-04-001",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "UIAbility 可以通过 startAbilityForResult 启动其他 Ability 并接收返回结果。",
+      "explanation": "类似 Android startActivityForResult，通过回调接收目标 Ability 返回的数据。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-002",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "UIAbility 是 HarmonyOS Stage 模型中最小的可调度单元。",
+      "explanation": "UIAbility 是应用的能力载体，是系统调度的最小单元，一个应用可包含多个 UIAbility。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-003",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "UIAbility 生命周期的入口回调为 onCreate。",
+      "explanation": "系统拉起 UIAbility 先触发 onCreate，应用级初始化在此执行。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-004",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "ExtensionAbility 是为特定场景扩展的能力，不提供用户界面。",
+      "explanation": "ExtensionAbility 如 ServiceExtensionAbility、DataShareExtensionAbility 等无 UI 界面。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-005",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "NavDestination 是路由目标页面的容器组件。",
+      "explanation": "NavDestination 包裹页面内容，类比 Route。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-006",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "NavPathStack 是路由栈，支持 push/pop/replace 操作。",
+      "explanation": "NavPathStack 提供路由栈的完整 API。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-007",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "Navigation 支持设置模式为单页面栈或分栏（Split）模式。",
+      "explanation": "NavigationMode.Stack/Split，平板分栏常用。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-008",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "want 参数是 Ability 启动时传递的数据载体，包含 action、entity、uri、type 等字段。",
+      "explanation": "Want 是 HarmonyOS 中传递启动意图的核心对象。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-04-009",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "从关卡列表进入答题页并保留列表作为返回目标，应使用哪种操作？",
+      "explanation": "pushPathByName 会把答题页压入当前导航栈并保留列表页，执行 pop 即可返回；replace 会替换当前目标。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "pathStack.pushPathByName", "hint": "新目标入栈" },
+        { "key": "B", "text": "pathStack.clear" },
+        { "key": "C", "text": "pathStack.pop" },
+        { "key": "D", "text": "重新创建 NavPathStack" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-04-010",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "答题页需要操作当前 Navigation 的返回栈，最可靠的获取方式是什么？",
+      "explanation": "目标页可在 NavDestination 的 onReady 回调中取得 NavDestinationContext，并保存其中与本次导航对应的 pathStack。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "在目标页新建一条空栈" },
+        { "key": "B", "text": "从 onReady 的导航上下文获取", "hint": "上下文持有当前路径栈" },
+        { "key": "C", "text": "从路由业务参数中反序列化" },
+        { "key": "D", "text": "在 build 中调用全局 pop" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-011",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于 Navigation 参数传递与资源清理，哪些做法合理？",
+      "explanation": "导航参数应是可序列化的少量稳定数据；定时器和监听器要与组件生命周期配对清理，不能依赖页面隐藏等于销毁。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "传递关卡 ID，由目标仓库加载题库" },
+        { "key": "B", "text": "把组件实例直接作为路由参数" },
+        { "key": "C", "text": "组件销毁时清理定时器和监听" },
+        { "key": "D", "text": "假设旧页隐藏后必然已经销毁" }
+      ],
+      "answer": ["A", "C"]
+    },
+    {
+      "id": "harmony-04-012",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "在一个新 Navigation 主流程中，哪些页面操作与业务意图相匹配？",
+      "explanation": "详情入栈可保留来源页，结算后替换可避免返回到过期结算页；清空整条栈不是普通返回，router 也不是新项目首选。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "列表进入详情时执行入栈" },
+        { "key": "B", "text": "普通返回时清空全部导航历史" },
+        { "key": "C", "text": "结算进入下一关时替换当前目标" },
+        { "key": "D", "text": "新主流程统一使用 NavPathStack" }
+      ],
+      "answer": ["A", "C", "D"]
+    }
+  ]
+}

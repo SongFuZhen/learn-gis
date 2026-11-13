@@ -8,6 +8,7 @@ export type ExerciseTool =
   | "leaflet"
   | "turf"
   | "three"
+  | "harmony"
   | "sql";
 
 const TOOL_LABELS: Record<ExerciseTool, string> = {
@@ -18,6 +19,7 @@ const TOOL_LABELS: Record<ExerciseTool, string> = {
   leaflet: "Leaflet",
   turf: "Turf.js",
   three: "three.js",
+  harmony: "ArkTS",
   sql: "SQL",
 };
 
