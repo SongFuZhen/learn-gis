@@ -16,6 +16,11 @@ import {
   PLANNED_MODULES as TURF_PLANNED,
 } from "./turf/modules";
 import { rawQuestionsFor as turfRawQuestions } from "./turf/questions";
+import {
+  THREE_MODULES,
+  PLANNED_MODULES as THREE_PLANNED,
+} from "./three/modules";
+import { rawQuestionsFor as threeRawQuestions } from "./three/questions";
 
 /** lucide 图标名（UI 层在 content/icons.ts 映射为组件；registry 被 node 脚本引用，不引 React） */
 export type SkillIconName = "Map" | "Globe" | "Boxes" | "Box" | "Smartphone";
@@ -76,6 +81,18 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
     modules: TURF_MODULES,
     plannedModules: TURF_PLANNED,
     rawQuestionsFor: turfRawQuestions,
+  },
+  {
+    id: "three",
+    dir: "three",
+    title: "three.js 图形渲染",
+    description:
+      "通用 WebGL 三维渲染：场景图、相机与渲染循环、几何材质、光照阴影、glTF、拾取、粒子、GLSL 着色器与后处理，最后把 three 场景叠回地理地图。",
+    track: "graphics",
+    icon: "Box",
+    modules: THREE_MODULES,
+    plannedModules: THREE_PLANNED,
+    rawQuestionsFor: threeRawQuestions,
   },
 ];
 

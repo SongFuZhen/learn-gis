@@ -1,0 +1,182 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：内置材质像自动挡汽车，够用却不让你改发动机；ShaderMaterial 允许你直接告诉 GPU「每个顶点放哪里、每个像素涂什么色」。着色器程序用 GLSL（/ˌdʒiː ɛs ɛs ˈel/，「吉-埃斯-埃斯-埃尔」）编写。**一句话经验**：顶点着色器负责 `gl_Position`，片元（fragment，/ˈfræɡmənt/，「弗拉格-门特」）着色器负责颜色；JS 通过 uniform 递参数，顶点通过 varying 给片元捎话。**常见坑**：
+- 在 ShaderMaterial 里又声明一遍 `position`、`uv`、`projectionMatrix`，导致重复定义；这些是 three 自动注入的。
+- 把「每个顶点不同」的数据塞进 uniform，结果所有顶点只能拿到同一个值；逐顶点数据应使用 attribute。
+- JS 改了 `material.uniforms.uTime` 整个对象，却不改它的 `.value`，着色器拿不到预期数字。
+- 把 Cesium 后处理的 `out_FragColor`、`colorTexture` 原样搬进 three 材质模板，忘了两套框架的注入约定不同。**必记 3 条**：
+1. 管线顺序：顶点 → 图元装配 → 光栅化 → 片元；varying 会在三角形内部插值。
+2. 入门选 ShaderMaterial：内置矩阵和 position/normal/uv 已备好，不要重复声明。
+3. 每帧动画只更新 `uniforms.xxx.value`，不要每帧重建材质或编译着色器。
+
+## 本章你会学到
+
+WebGL 渲染管线各阶段的职责，RawShaderMaterial 与 ShaderMaterial 的差别，attribute、uniform、varying 三件套，以及 GLSL 的基本类型和输入输出。最后用一个顶点位移加颜色渐变的波浪平面，把 JS 与 GLSL 接起来。
+
+## 1. 从顶点到像素：渲染管线回顾
+
+GPU 不是「拿到一个 Mesh 就画完」，而是按阶段加工数据：
+
+```text
+position / normal / uv / 自定义 attribute
+                ↓
+顶点着色器：逐顶点计算 gl_Position、写 varying
+                ↓
+图元装配与裁剪：顶点组成三角形，裁掉视锥外部分
+                ↓
+光栅化：三角形覆盖哪些像素？插值得到每片元的 varying
+                ↓
+片元着色器：逐候选片元计算颜色
+                ↓
+深度/模板测试与混合 → framebuffer
+```
+
+顶点着色器的输入是一份顶点数据，输出是**裁剪空间**位置；光栅化把矢量三角形变成屏幕上的片元候选，并对 varying 做插值。因此一个三角形只需要三个顶点各写一次颜色，内部像素就能得到平滑渐变。片元着色器执行后仍可能因深度测试失败而被丢弃，所以「候选片元」不等于最终像素。
+
+<Callout type="tip" title="先判断该改哪一段">
+让几何真正起伏、顶点左右摆动 → 顶点着色器；只改贴图、渐变色、透明度和发光颜色 → 片元着色器。若只想在屏幕上做整幅滤镜，则更适合第 08 章的后处理 Pass。
+</Callout>
+
+## 2. ShaderMaterial 与 RawShaderMaterial
+
+两者都允许自定义 GLSL，差别在 three 帮你准备了多少「开场白」。
+
+| 能力 | ShaderMaterial | RawShaderMaterial |
+| --- | --- | --- |
+| 自动声明 position / normal / uv attribute | 是 | 否 |
+| 自动声明 projectionMatrix / modelViewMatrix / viewMatrix | 是 | 否 |
+| 自动提供 modelMatrix、normalMatrix、cameraPosition | 是 | 否 |
+| 自动注入精度与内建定义 | 是 | 基本由你写全 |
+| 适合 | 大多数自定义材质 | 完全控制前缀、复用外部 shader |
+
+`modelViewMatrix = viewMatrix × modelMatrix`，把局部坐标变到相机空间；`projectionMatrix` 再变到裁剪空间；`normalMatrix` 是用于变换法线的 3×3 矩阵。ShaderMaterial 已经声明这些名字，直接使用即可。
+
+```glsl
+// RawShaderMaterial 的最小顶点着色器：这些声明都要自己写。
+precision highp float;
+uniform mat4 projectionMatrix;
+uniform mat4 modelViewMatrix;
+attribute vec3 position;
+void main() {
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+}
+```
+
+RawShaderMaterial 并不会让 GPU 绕过必要步骤，它只是少注入模板，不等于天然更快。
+
+## 3. attribute / uniform / varying 三件套
+
+- **attribute**：逐顶点输入，在顶点着色器里只读。position、normal、uv 是内置项；自定义项要先 `geometry.setAttribute()`，再在 GLSL 声明。
+- **uniform**（/ˈjuːnɪfɔːrm/，「优-尼-佛姆」）：一次绘制中保持不变的全局参数，顶点和片元都能读，例如时间、颜色、纹理。
+- **varying**（/ˈvɛəriɪŋ/，「维-瑞-英」）：顶点着色器写、片元着色器读，光栅化阶段自动插值；两边的名字与类型必须一致。
+
+```js
+// 自定义逐顶点数据：每个顶点一个 float。
+geometry.setAttribute(
+  "aScale",
+  new THREE.BufferAttribute(new Float32Array([0.5, 1.0, 1.5]), 1),
+);
+// 在 ShaderMaterial 的 vertexShader 中声明：attribute float aScale;
+// position/normal/uv 不要重复声明。
+```
+
+常用 GLSL 类型有 `float`、`int`、`bool`、`vec2/3/4`、`mat3/4`、`sampler2D`。向量可用 `color.rgb`、`p.xy` 访问分量；`vec3(1.0)` 会把三个分量都设为 1。浮点常量写 `1.0`，矩阵在向量左侧相乘，别照搬 JS 的 `let`、模板字符串或数组方法。
+
+## 4. 可运行模板：波浪顶点 + 渐变片元
+
+下面用 PlaneGeometry 提供细分顶点，顶点着色器改变局部 z，片元着色器混合 UV 与高度两种渐变。无需灯光，因为颜色完全由自定义 shader 给出。
+
+```js
+import * as THREE from "three";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(0, 2.5, 4);
+camera.lookAt(0, 0, 0);
+
+const material = new THREE.ShaderMaterial({
+  side: THREE.DoubleSide,
+  uniforms: {
+    uTime: { value: 0 },
+    uColor: { value: new THREE.Color(0x2563eb) },
+  },
+  vertexShader: /* glsl */ `
+    uniform float uTime;
+    varying vec2 vUv;
+    varying float vHeight;
+    void main() {
+      vUv = uv;
+      vec3 p = position;
+      p.z = sin(p.x * 3.0 + uTime) * 0.15
+          + cos(p.y * 4.0 + uTime) * 0.08;
+      vHeight = p.z;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
+    }
+  `,
+  fragmentShader: /* glsl */ `
+    uniform vec3 uColor;
+    varying vec2 vUv;
+    varying float vHeight;
+    void main() {
+      vec3 base = mix(uColor, vec3(0.1, 0.9, 1.0), vUv.y);
+      float crest = smoothstep(-0.2, 0.2, vHeight);
+      vec3 color = mix(base, vec3(1.0, 0.35, 0.1), crest * 0.5);
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `,
+});
+const geometry = new THREE.PlaneGeometry(4, 4, 128, 128);
+const wave = new THREE.Mesh(geometry, material);
+wave.rotation.x = -Math.PI / 2; // 局部 z 位移旋转后成为世界 y 起伏
+scene.add(wave);
+
+const clock = new THREE.Clock();
+function tick() {
+  material.uniforms.uTime.value = clock.getElapsedTime();
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+tick();
+```
+
+`gl_Position` 必须是 `vec4`，最后的 1.0 表示位置而不是方向。`gl_FragColor` 是 three 当前默认 GLSL 兼容写法的片元输出；若自行指定 `glslVersion: THREE.GLSL3`，则应使用 `in/out` 与自定义片元输出变量，不要混用两套语法。
+
+## 5. uniform 更新与 Cesium 后处理约定
+
+更新已有 uniform 不会触发重新编译；适合每帧做。新增 define、改变 shader 源码或切换某些材质结构才需要 `material.needsUpdate = true`，不要在动画循环里滥用。
+
+<Callout type="info" title="与 Cesium 自定义后处理对照">
+[Cesium 后处理章](/s/cesium/11)的 PostProcessStage 只写整屏片元阶段：用 `uniform sampler2D colorTexture` 读上一阶段，用 `in vec2 v_textureCoordinates` 采样，并写 `out_FragColor`；JS 的 `uniforms` 可以是值或每帧求值函数。three ShaderMaterial 则处理自己的几何，既可写顶点又可写片元，JS 侧采用 `uniforms: { uTime: { value: 0 } }`。两者都要让 GLSL 声明与 JS 参数名一致，但**框架注入的输入输出名不能互抄**。
+</Callout>
+
+<Callout type="warn" title="编译报错先看浏览器控制台">
+three 会打印带行号的 shader 编译日志。优先检查：是否重复声明内置 attribute/uniform、varying 两端类型是否一致、float 是否误写成 int、分号与括号是否遗漏。黑屏不一定是矩阵错，也可能是编译失败后材质没有正常输出。
+</Callout>
+
+<Exercise tool="three" title="动手 · 给波浪加振幅与鼠标颜色">
+新增 `uAmplitude` uniform，把两个正弦位移之和整体乘上它，初始值 0.2；把 uTime 的推进改成 delta 累加。再新增 `uHotColor` 替代片元里硬编码的橙色，点击画布时在蓝色与紫色两套配色间切换，不重建 material。
+<ExerciseSolution>
+在 uniforms 加 `uAmplitude: { value: 0.2 }` 与 `uHotColor: { value: new THREE.Color(1.0, 0.35, 0.1) }`，顶点声明 `uniform float uAmplitude;`，把 `p.z = (sin(...) * 0.15 + cos(...) * 0.08) * uAmplitude;`，片元把 `vec3(1.0, 0.35, 0.1)` 换成 uHotColor 并声明同名 uniform。点击时只写 `material.uniforms.uHotColor.value.set(0xa855f7)`。全程没有改 vertexShader/fragmentShader，因此不需要 `material.needsUpdate`。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- 顶点决定位置，图元装配与光栅化生成片元，片元着色器决定候选颜色。
+- ShaderMaterial 自动注入矩阵和 position/normal/uv；RawShaderMaterial 要自行声明。
+- attribute 逐顶点、uniform 一次绘制共享、varying 跨阶段插值。
+- 每帧只改 uniform.value；GLSL3 与默认兼容语法不要混写。
+
+下一章把「给一个材质写 shader」扩展到「给整屏画面加滤镜」：EffectComposer 与后处理链。
+
+## 延伸阅读
+
+- 自定义材质：[ShaderMaterial](https://threejs.org/docs/#api/en/materials/ShaderMaterial)、[RawShaderMaterial](https://threejs.org/docs/#api/en/materials/RawShaderMaterial)
+- 着色器官方示例：[three.js shader examples](https://threejs.org/examples/)
+- WebGL 渲染基础：[MDN WebGL API](https://developer.mozilla.org/docs/Web/API/WebGL_API)
+- GLSL 规范入口：[Khronos OpenGL Wiki](https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language)
+- Cesium 对照：[自定义后处理课程](/s/cesium/11)

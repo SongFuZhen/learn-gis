@@ -1,0 +1,156 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：浏览器要画三维，底层只有 WebGL（/ˌdʌbəljuː dʒiː ˈel/，「达波留-吉-埃尔」，浏览器的三维绘图标准）。原生 WebGL 是一堆「绑缓冲、编译着色器、配状态机」的底层指令，画个三角形要上百行。**three.js**（/θriː dʒeɪ ˈes/，「斯瑞-杰斯」）把这些脏活包成「场景里放物体、相机对着拍、渲染器出画面」的直觉模型。**一句话经验**：three 是**通用三维渲染器**，不懂地球、不懂经纬度；[Cesium 课](/s/cesium/00)里的 Cesium 也是 WebGL 渲染器，但它内置了椭球、影像、地形与时钟——两者是「通用引擎」与「地理专用引擎」的关系，不是替代关系。**常见坑**：
+- 装完直接 `new WebGLRenderer()` 挂到不存在的 DOM——和 Cesium 一样，容器必须先渲染出来，框架项目里要在 mount 之后初始化。
+- 相机放在原点、物体也在原点，画面一片黑——相机在盒子内部，先学会把相机后撤。
+- 忘了 `requestAnimationFrame` 渲染循环，改了属性画面不动——three 不会自动重绘。**必记 3 条**：
+1. 三件套：`Scene`（场景图容器）、`PerspectiveCamera`（相机）、`WebGLRenderer`（渲染器）。
+2. 可见物体 = `Geometry`（形状数据）+ `Material`（外观）组成的 `Mesh`，加进 Scene。
+3. 每帧调 `renderer.render(scene, camera)`，循环靠 `requestAnimationFrame`。
+
+## 本章你会学到
+
+原生 WebGL 难在哪、场景图（scene graph）思想是什么、three 与 Cesium 的技术分工、Vite 最小工程，以及让第一个立方体转起来。学完你会有一个可交互的 3D 页面，并能说清什么时候该用 three、什么时候该用 Cesium。
+
+## 1. 原生 WebGL 的痛点
+
+WebGL 是浏览器对接 GPU 的 API，它的工作单位是：顶点缓冲、片元、着色器程序、全局状态机。画一个旋转立方体，原生写法要自己处理：编译链接着色器、上传顶点/法线/索引缓冲、维护模型视图投影三个矩阵、每帧重设几十种 GL 状态。GIS 课讲的是空间数据模型，而 WebGL 讲的是「怎么让 GPU 把三角形画出来」——中间缺一层工程抽象。
+
+three.js 补的就是这层抽象：
+
+| 原生 WebGL 概念 | three.js 对应 |
+| --- | --- |
+| 顶点缓冲 + 属性指针 | `BufferGeometry` 的 Attribute |
+| 手写 GLSL 矩阵 | `Object3D.position/rotation/scale` + 相机 |
+| 全局状态开关 | `Material` 参数、renderer 配置 |
+| 编译链接着色器 | 内置材质自动生成，自定义才写 ShaderMaterial（第 7 章） |
+| 手动 draw 循环 | `renderer.render()` 一句 |
+
+<Callout type="info" title="WebGL 与 WebGPU">
+three 底层默认走 WebGL2（WebGL1 已淘汰）。新版本同时实验性支持 WebGPU（/ˈwɛb dʒiː piː juː/，下一代浏览器图形 API），但本课程代码全部基于成熟的 WebGLRenderer，概念在两个后端间通用。
+</Callout>
+
+## 2. 场景图：three 的核心思想
+
+场景图是一棵对象树：根是 `Scene`，树上每个节点都是 `Object3D`，可以挂子节点。父节点的位移/旋转/缩放会级联给所有子节点——这和 Cesium 的 Entity 层级、前端 DOM 的嵌套是同构思想。
+
+```
+Scene
+└─ Group（机械臂底座）
+   ├─ Mesh（底座圆柱）
+   └─ Group（大臂，旋转带动末端）
+      ├─ Mesh（臂杆）
+      └─ Mesh（抓手）
+```
+
+对比 Cesium：Cesium 的场景图服务于「地球 + 实体 + 瓦片集」，相机默认绑定椭球；three 的场景图是裸的笛卡尔空间，单位是你自己定义的「1 个单位」——可以是米、厘米，也可以是光年，引擎不关心。
+
+## 3. three 与 Cesium 的分工
+
+[Cesium 第 0 章](/s/cesium/00)说过「Leaflet 看地图，Cesium 进入地图」。three 站在更通用的位置：
+
+| 维度 | three.js | CesiumJS |
+| --- | --- | --- |
+| 定位 | 通用三维引擎 | 地理三维引擎 |
+| 坐标语义 | 无名笛卡尔单位 | WGS84 经纬度 + 椭球高 |
+| 内置地理能力 | 无 | 影像、地形、3D Tiles、Clock、CZML |
+| 典型产物 | 产品展示、数字孪生小品、游戏、粒子艺术 | 数字地球、城市级场景、轨迹回放 |
+| 学习迁移 | 渲染管线、着色器、图形学基本功 | 地理数据三维化 |
+
+关键判断：**数据本身是地理数据（经纬度、瓦片、地形）→ Cesium；数据是任意三维模型、要做产品级渲染特效 → three**。第 9 章会演示二者的桥梁——把 three 场景作为 MapLibre 的 custom layer 叠到地图上。
+
+## 4. Vite 最小工程
+
+```bash
+npm create vite@latest three-lab -- --template vanilla
+cd three-lab
+npm install three
+npm run dev
+```
+
+three 是纯 ESM 包，按需导入即可，没有 Cesium 那套静态资源拷贝问题（Workers/Assets 只在用到特定加载器时才需配置，第 4 章会讲）。
+
+## 5. 第一个旋转立方体
+
+```js
+import * as THREE from "three";
+
+// ① 渲染器：接管 canvas
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+document.body.appendChild(renderer.domElement);
+
+// ② 场景与相机
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b1220);
+const camera = new THREE.PerspectiveCamera(
+  55,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  100,
+);
+camera.position.set(3, 2, 4); // 后撤，否则相机在物体内部
+camera.lookAt(0, 0, 0);
+
+// ③ 几何体 + 材质 = 网格
+const geometry = new THREE.BoxGeometry(1, 1, 1);
+const material = new THREE.MeshStandardMaterial({ color: 0x3b82f6 });
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// ④ PBR 材质需要光，否则只剩黑色
+const light = new THREE.DirectionalLight(0xffffff, 2);
+light.position.set(4, 6, 3);
+scene.add(light);
+scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+// ⑤ 渲染循环
+function tick() {
+  cube.rotation.x += 0.01;
+  cube.rotation.y += 0.012;
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+tick();
+
+// ⑥ 自适应窗口
+window.addEventListener("resize", () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+```
+
+<Callout type="warn" title="两个必踩坑">
+① 用了 `MeshStandardMaterial` 却不加任何光源，画面纯黑——它是基于物理的材质（PBR），没有光就没有反射。调试期可先用不受光照影响的 `MeshBasicMaterial` 确认几何位置。② `resize` 后只改 renderer 尺寸不调 `camera.updateProjectionMatrix()`，画面会被拉伸变形。
+</Callout>
+
+<Callout type="must" title="必背 · 本章三条">
+1. three = Scene + Camera + Renderer 三件套，Mesh = Geometry + Material。
+2. three 是通用笛卡尔空间，无地理语义；地理三维找 Cesium，通用渲染找 three。
+3. 渲染循环必须手动 requestAnimationFrame；PBR 材质必须配光。
+</Callout>
+
+<Exercise tool="three" title="动手 · 立方体换成球并加第二个物体">
+把 BoxGeometry 换成 `SphereGeometry(0.7, 32, 16)`，再 new 一个 Mesh（TorusGeometry 圆环）用 `position.set(-2, 0, 0)` 放到左边并加入同一个 scene。在 tick 里只让球自转、圆环不动。观察：两个物体互不影响，因为它们是场景图上的兄弟节点。
+<ExerciseSolution>
+核心代码：`const ball = new THREE.Mesh(new THREE.SphereGeometry(0.7, 32, 16), material); scene.add(ball);`，tick 内只写 `ball.rotation.y += 0.02`。SphereGeometry 的后两个参数是水平/垂直分段数，分段越高越圆滑但顶点越多——这是第 2 章「几何即数据」的直观预告。兄弟节点的变换互不级联，若把圆环 add 到 ball 上变成子节点，球旋转时圆环就会跟着公转。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- WebGL 是 GPU 状态机，three 用场景图把它抽象成对象树。
+- three 通用、Cesium 地理专用；选型看数据有没有地理语义。
+- 最小程序六步：renderer → scene/camera → mesh → light → 循环 → resize。
+- 黑屏先查两件事：相机位置、有没有光。
+
+下一章拆开三件套：透视相机的视锥参数、场景树的变换级联与渲染循环的时间步进。
+
+## 延伸阅读
+
+- 官方文档与手册：[three.js Manual](https://threejs.org/docs/)
+- 官方示例库（最好的 API 草稿本）：[three.js examples](https://threejs.org/examples/)
+- WebGL 基础概念（MDN）：[WebGL API](https://developer.mozilla.org/docs/Web/API/WebGL_API)
+- Cesium 定位对照：[CesiumJS 文档](https://cesium.com/documentation/cesiumjs/)

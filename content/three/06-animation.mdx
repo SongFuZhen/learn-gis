@@ -1,0 +1,202 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：让物体动起来，最容易写成 `rotation.y += 0.01`——60 Hz 屏幕转得正常，144 Hz 屏幕就像开了二倍速。动画的第一原则不是「每帧走多少」，而是「每秒走多少」。**一句话经验**：`Clock` 量出两帧隔了多久，位移 = 速度 × 时间；GSAP 管「从 A 平滑到 B」，AnimationMixer 管「模型自带的关键帧」，Points 管「一大群小点」。**常见坑**：
+- 在 rAF 里用固定增量，动画速度被刷新率绑架；正确单位是「弧度/秒」「米/秒」。
+- 同时用 GSAP 自己的 ticker 和另一个 rAF 改同一个属性，两边互相覆盖；统一时钟，别抢方向盘。
+- glTF 动画已经加载却静止：只创建 mixer 不够，每帧还要 `mixer.update(delta)`。
+- 粒子透明贴图边缘出现黑块：常常是没设 `transparent`、`depthWrite: false`，或混合方式不合适。**必记 3 条**：
+1. 连续动画用 delta，补间用时间轴，模型动画用 mixer——三者不要混成固定帧增量。
+2. 粒子 = BufferGeometry 的位置数据 + PointsMaterial 的外观 + Points 一次绘制。
+3. 动画系统退出时要停 rAF、杀补间、释放几何和材质，不能只管创建。
+
+## 本章你会学到
+
+用 `THREE.Clock` 写帧率无关动画，用 GSAP 3 组织补间与时间轴，用 KeyframeTrack、AnimationClip、AnimationMixer 播放关键帧和 glTF 动画，修改 morph target 做变形，并用 Points 写一个会上升的粒子喷泉。最后对照 Cesium 的声明式粒子系统。
+
+## 1. Clock 与 delta：动画不能按帧计工资
+
+`THREE.Clock` 的 `getDelta()` 返回距上次调用的秒数，`elapsedTime` 返回累计秒数。浏览器掉帧时 delta 变大，这一帧就多走一点；高刷屏 delta 变小，每一帧就少走一点。这样不同设备上的**实际速度一致**。
+
+```js
+import * as THREE from "three";
+
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(0, 2, 7);
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(innerWidth, innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(),
+  new THREE.MeshNormalMaterial(),
+);
+scene.add(cube);
+
+const clock = new THREE.Clock();
+let frameId = 0;
+function tick() {
+  const delta = Math.min(clock.getDelta(), 0.05); // 切回标签页时避免一步跳太远
+  const elapsed = clock.elapsedTime;
+  cube.rotation.y += Math.PI * delta; // 每秒转半圈，不是每帧转固定角度
+  cube.position.y = Math.sin(elapsed * 2) * 0.5;
+  renderer.render(scene, camera);
+  frameId = requestAnimationFrame(tick);
+}
+tick();
+// 页面卸载时：cancelAnimationFrame(frameId); renderer.dispose();
+```
+
+`Math.sin(elapsed)` 适合周期运动，delta 适合速度积分。物理模拟常把过大的 delta 再切成固定小步长；普通展示动画先做上限保护即可。
+
+## 2. GSAP 3：声明「去哪里」，不必手写插值
+
+GSAP（GreenSock Animation Platform）擅长一次性的状态过渡：点击后相机飞近、面板展开、物体弹跳。它默认有自己的 ticker，可以直接驱动 `gsap.to`；three 的 rAF 只负责渲染。
+
+```js
+import gsap from "gsap";
+
+// 安装：npm install gsap
+const tween = gsap.to(cube.position, {
+  x: 2,
+  y: 1,
+  duration: 1.2,
+  ease: "power2.inOut",
+});
+
+const timeline = gsap.timeline({ defaults: { ease: "power2.out" } });
+timeline
+  .to(cube.scale, { x: 1.5, y: 1.5, z: 1.5, duration: 0.4 })
+  .to(cube.rotation, { y: Math.PI * 2, duration: 1 }, "<")
+  .to(cube.position, { x: 0, duration: 0.6 });
+
+// 若禁用 gsap.ticker，改由 three 的 rAF 统一驱动：
+gsap.ticker.remove(gsap.updateRoot);
+let manualTime = 0;
+function manualTick() {
+  const delta = Math.min(clock.getDelta(), 0.05);
+  manualTime += delta;
+  gsap.updateRoot(manualTime);
+  renderer.render(scene, camera);
+  requestAnimationFrame(manualTick);
+}
+// 二选一：默认 ticker 模式就不要再启动 manualTick。
+// 卸载时：tween.kill(); timeline.kill();
+```
+
+上例先演示默认协作，再展示手动模式的代码；实际项目**选择一种启动方式**。默认模式最省事；已有统一时间系统（例如录制、回放）时，才把 GSAP 的根时钟交给 rAF。
+
+<Callout type="warn" title="别同时启动两套演示循环">
+若页面已经在运行第 1 节的 `tick()`，不要再调用 `manualTick()`。默认 GSAP 模式下保留原 tick 即可；手动模式下先停止旧 rAF，并用同一枚 Clock 重新计时。
+</Callout>
+
+## 3. KeyframeTrack → AnimationClip → AnimationMixer
+
+three 的原生动画数据按「轨道」组织：一条关键帧轨道（keyframe track，/ˈkiːfreɪm træk/，「基-弗雷姆 查克」）记录某属性在若干时刻的值，对应类是 KeyframeTrack；多条轨道组成 AnimationClip；AnimationMixer 是播放器，把 clip 应用到具体对象。
+
+```js
+const times = [0, 1, 2];
+const values = [0, 0, 0, 2, 0, 0, 0, 0, 0];
+const track = new THREE.VectorKeyframeTrack(".position", times, values);
+const clip = new THREE.AnimationClip("move-and-back", 2, [track]);
+const mixer = new THREE.AnimationMixer(cube);
+mixer.clipAction(clip).play();
+
+// 渲染循环中：
+const delta = Math.min(clock.getDelta(), 0.05);
+mixer.update(delta); // 没有这一步，时间不会前进
+renderer.render(scene, camera);
+```
+
+轨道名 `.position` 作用于 mixer 根对象；也可以定位子节点，如 `"Armature.position"`。要循环播放用 `action.setLoop(THREE.LoopRepeat, Infinity)`，只播一次则 `THREE.LoopOnce` 配合 `action.clampWhenFinished = true`。
+
+## 4. glTF 动画与 morph targets
+
+GLTFLoader 返回的 `gltf.animations` 是 AnimationClip 数组。模型、相机和灯光在 `gltf.scene`，动画另存在数组里，别漏掉。
+
+```js
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+const gltf = await new GLTFLoader().loadAsync("/models/robot.glb");
+scene.add(gltf.scene);
+const modelMixer = new THREE.AnimationMixer(gltf.scene);
+const idle = THREE.AnimationClip.findByName(gltf.animations, "Idle");
+if (idle) modelMixer.clipAction(idle).play();
+
+// 每帧：modelMixer.update(delta);
+// morph target 是另一套入口：网格预存多组顶点偏移，权重范围通常为 0～1。
+const face = gltf.scene.getObjectByProperty("isMesh", true);
+if (face?.morphTargetInfluences?.length) {
+  face.morphTargetInfluences[0] = 0.5 + 0.5 * Math.sin(clock.elapsedTime * 2);
+}
+```
+
+关键帧动画常驱动骨骼、位置与旋转；morph target（/mɔːrf ˈtɑːrɡɪt/，「莫夫 塔-吉特」）直接插值顶点，适合表情、嘴唇和柔和形变。取第一个 mesh 只用于演示，实际项目应通过模型里已知的节点名找到目标网格。
+
+## 5. Points：一份顶点数据画出整群粒子
+
+three 没有替你管理出生、寿命和重力的通用 ParticleSystem；最基础的粒子是 `THREE.Points`：每个 position 顶点在屏幕上画一个点。下面用 CPU 更新位置，几千个点足够直观。
+
+```js
+const count = 1500;
+const positions = new Float32Array(count * 3);
+const speeds = new Float32Array(count);
+for (let i = 0; i < count; i++) {
+  positions[i * 3] = (Math.random() - 0.5) * 0.6;
+  positions[i * 3 + 1] = Math.random() * 3;
+  positions[i * 3 + 2] = (Math.random() - 0.5) * 0.6;
+  speeds[i] = 0.8 + Math.random() * 1.2;
+}
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute("position", new THREE.BufferAttribute(positions, 3));
+const material = new THREE.PointsMaterial({
+  color: 0x66ccff,
+  size: 0.07,
+  sizeAttenuation: true, // 远处变小；false 则按屏幕像素理解
+  map: new THREE.TextureLoader().load("/textures/spark.png"),
+  transparent: true,
+  depthWrite: false,
+  blending: THREE.AdditiveBlending,
+});
+const particles = new THREE.Points(geometry, material);
+scene.add(particles);
+
+function updateParticles(delta) {
+  for (let i = 0; i < count; i++) {
+    positions[i * 3 + 1] += speeds[i] * delta;
+    if (positions[i * 3 + 1] > 3) positions[i * 3 + 1] = 0;
+  }
+  geometry.attributes.position.needsUpdate = true;
+}
+// 每帧先 updateParticles(delta)，再 renderer.render(scene, camera)。
+```
+
+`map` 应是带透明通道的小贴图；加法混合适合发光火星，普通烟雾通常用默认 NormalBlending。动态修改 attribute 后必须置 `needsUpdate`，并且不要每帧 new 新数组。
+
+<Callout type="info" title="与 Cesium ParticleSystem 对照">
+[Cesium 粒子章](/s/cesium/10)的 `ParticleSystem` 是声明式系统：ConeEmitter 等 CPU 发射器负责出生，`updateCallback(particle, dt)` 可加重力，`modelMatrix` 把系统落到地球局部坐标。three 的 Points 只负责**高效绘制**，出生、回收与力由你写；自由度更高，也意味着生命周期和性能账都归你管。两者都不是「每个粒子一个 Mesh/Entity」。
+</Callout>
+
+<Exercise tool="three" title="动手 · 给喷泉加重力并让速度不随刷新率变化">
+把第 5 节的恒速上升改成竖直速度 `vy`：每帧执行 `vy[i] -= 2 * delta`、`y += vy[i] * delta`；粒子超过高度 3 时回到 y = 0 并把 vy 重置为 2～4 的随机值。再把粒子数量从 1500 提到 15000，观察 draw call 是否随之等倍增加。
+<ExerciseSolution>
+在 speeds 数组之外初始化 `const velocitiesY = new Float32Array(count)`，循环中写 `velocitiesY[i] -= 2 * delta; positions[i * 3 + 1] += velocitiesY[i] * delta;`，回收时 `velocitiesY[i] = 2 + Math.random() * 2`。初始化和回收都要赋初速度。最后仍只需一次 `position.needsUpdate = true`。Points 的所有顶点通常同属一次 draw call，数量增加主要提高顶点、CPU 更新和片元填充开销，不会变成 15000 次绘制。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- delta 把动画从「每帧增量」改成「每秒速度」，elapsed 适合正弦周期运动。
+- GSAP 默认 ticker 与 three rAF 可以分工；手动接管根时钟时只保留一条更新路径。
+- AnimationMixer 播放 KeyframeTrack/AnimationClip，也播放 glTF 动画；每帧必须 update。
+- morph target 改顶点形变权重；Points 用一份 BufferGeometry 批量绘制粒子。
+
+下一章进入 GPU：用 ShaderMaterial 把顶点和颜色的计算写进 GLSL。
+
+## 延伸阅读
+
+- 时钟与动画：[THREE.Clock](https://threejs.org/docs/#api/en/core/Clock)、[AnimationMixer](https://threejs.org/docs/#api/en/animation/AnimationMixer)
+- 关键帧数据：[KeyframeTrack](https://threejs.org/docs/#api/en/animation/KeyframeTrack)、[AnimationClip](https://threejs.org/docs/#api/en/animation/AnimationClip)
+- 粒子绘制：[THREE.Points](https://threejs.org/docs/#api/en/objects/Points)、[PointsMaterial](https://threejs.org/docs/#api/en/materials/PointsMaterial)
+- GSAP 3 官方文档：[GSAP Docs](https://gsap.com/docs/v3/)
+- Cesium 对照：[ParticleSystem 课程](/s/cesium/10)

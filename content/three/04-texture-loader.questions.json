@@ -1,0 +1,287 @@
+{
+  "skill": "three",
+  "module": "04",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-04-001",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "几何体上的 UV Attribute 主要用来描述什么？",
+      "explanation": "UV 为每个顶点提供二维纹理坐标，光栅化时在三角形内部插值，从而确定片元应采样图片的哪个位置；它不是三维世界坐标。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.uv",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "three.js Texture",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "每个顶点的三维世界位置" },
+        {
+          "key": "B",
+          "text": "顶点在二维纹理中的采样坐标",
+          "hint": "通常用 U、V 两个分量定位图片"
+        },
+        { "key": "C", "text": "光源到片元的阴影深度" },
+        { "key": "D", "text": "模型文件的压缩密码" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-04-002",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "加载一张用于 material.map 的普通 sRGB 彩色图片后，应怎样设置颜色空间？",
+      "explanation": "material.map 保存表面颜色，普通彩色图片通常以 sRGB 编码，应设置 texture.colorSpace = THREE.SRGBColorSpace，让渲染器正确转换到线性工作空间。",
+      "refs": [
+        {
+          "title": "three.js Texture.colorSpace",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "保持任何情况下都不设置颜色空间" },
+        {
+          "key": "B",
+          "text": "设置 texture.colorSpace = THREE.SRGBColorSpace",
+          "hint": "颜色图需要按其实际编码进行解码"
+        },
+        { "key": "C", "text": "设置 camera.colorSpace = THREE.NoColorSpace" },
+        { "key": "D", "text": "把图片当作 normalMap 使用" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-04-003",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "希望纹理横向重复 4 次、纵向重复 2 次，哪种配置完整？",
+      "explanation": "重复平铺既要设置 repeat，也要把两个包裹方向设为 RepeatWrapping。若保持默认 ClampToEdgeWrapping，超出范围的 UV 会被钳到边缘而非连续重复。",
+      "refs": [
+        {
+          "title": "three.js Texture.repeat 与 wrapping",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只执行 texture.repeat.set(4, 2)，其余保持默认" },
+        {
+          "key": "B",
+          "text": "wrapS 与 wrapT 设为 RepeatWrapping，再 repeat.set(4, 2)",
+          "hint": "包裹模式与重复次数必须配合"
+        },
+        { "key": "C", "text": "把 material.roughness 设为 4、metalness 设为 2" },
+        { "key": "D", "text": "把 camera.near 设为 4、far 设为 2" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-04-004",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "normalMap、roughnessMap、metalnessMap 都应该像彩色 map 一样设置为 SRGBColorSpace。",
+      "explanation": "错误。这些贴图存储法线方向或物理参数，是数据而非显示颜色，应保持 NoColorSpace。进行 sRGB 解码会改变数值并破坏材质计算。",
+      "refs": [
+        {
+          "title": "three.js Texture.colorSpace",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-04-005",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "提高 texture.anisotropy 主要改善哪类视觉问题？",
+      "explanation": "各向异性过滤用于改善纹理在倾斜视角下的采样，特别适合地面和道路。它不直接提高模型几何分段，也不会代替正确的 UV 配置。",
+      "refs": [
+        {
+          "title": "three.js Texture.anisotropy",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "地面或道路斜看时纹理过度模糊",
+          "hint": "斜视角采样需要各向异性过滤"
+        },
+        { "key": "B", "text": "模型缺少三角形索引" },
+        { "key": "C", "text": "平行光阴影相机范围过大" },
+        { "key": "D", "text": "GLB 文件没有动画轨道" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-04-006",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于 LoadingManager 的加载进度与错误处理，正确的说法有哪些？",
+      "explanation": "onProgress 提供当前 URL、已完成数和总数，onLoad 表示本批项目完成，onError 可定位失败 URL。模型依赖会在解析中逐步发现，因此 total 可能动态增长。",
+      "refs": [
+        {
+          "title": "three.js LoadingManager",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "onProgress 可接收 url、loaded、total",
+          "hint": "这三个参数足够驱动基础进度 UI"
+        },
+        {
+          "key": "B",
+          "text": "onLoad 表示当前管理器的本批项目已完成",
+          "hint": "可在这里关闭加载遮罩"
+        },
+        { "key": "C", "text": "total 从第一个请求开始就永远固定，百分比严格单调" },
+        {
+          "key": "D",
+          "text": "onError 可用于识别具体失败的资源 URL",
+          "hint": "错误处理不能只显示无限转圈"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-04-007",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "GLTFLoader 成功加载 robot.glb 后，通常应把哪个对象加入 scene？",
+      "explanation": "加载结果的 gltf.scene 是模型场景根节点，应把它加入当前 Scene。gltf.animations 是动画片段数组，不是可加入场景树的 Object3D。",
+      "refs": [
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        },
+        {
+          "title": "three.js GLTFLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "gltf.animations" },
+        { "key": "B", "text": "gltf.parser" },
+        {
+          "key": "C",
+          "text": "gltf.scene",
+          "hint": "它是加载所得模型的场景根节点"
+        },
+        { "key": "D", "text": "textureLoader.manager" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-04-008",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "对加载后的模型根节点调用 removeFromParent，就会自动释放其全部几何体、材质和纹理。",
+      "explanation": "错误。removeFromParent 只解除场景层级关系，GPU 资源仍需在确认不再共享和使用后，对 Geometry、Material、Texture 分别调用 dispose。",
+      "refs": [
+        {
+          "title": "three.js Object3D.removeFromParent",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js BufferGeometry.dispose",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-04-009",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于 DRACOLoader 与压缩 glTF 模型，正确的说法有哪些？",
+      "explanation": "DRACO 压缩几何需要对应解码器，setDecoderPath 指向的文件必须在部署环境可访问。并非所有 glTF 都使用 DRACO；解码器 workers 应等本批压缩模型加载完成后再释放。",
+      "refs": [
+        {
+          "title": "three.js DRACOLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/DRACOLoader"
+        },
+        {
+          "title": "Khronos glTF",
+          "url": "https://www.khronos.org/gltf/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "DRACO 压缩几何需要浏览器端解码器还原",
+          "hint": "压缩传输与解码是配套流程"
+        },
+        {
+          "key": "B",
+          "text": "setDecoderPath 的部署路径必须真实可访问",
+          "hint": "生产环境的解码器 404 会让模型失败"
+        },
+        { "key": "C", "text": "任何未压缩 glTF 都必须先配置 DRACOLoader 才能加载" },
+        {
+          "key": "D",
+          "text": "不再加载同批压缩模型后可调用 draco.dispose 释放 workers",
+          "hint": "不要在本批模型尚未完成时提前销毁"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-04-010",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "两个模型共享同一批纹理，卸载其中一个时立即 dispose 所有遍历到的纹理，另一个随后显示异常。应怎样设计释放逻辑？",
+      "explanation": "问题出在资源所有权而非加载器。共享纹理应由缓存或资源管理器统一持有，按引用计数或明确生命周期在最后一位使用者离开后再释放；单个模型不能销毁自己并不独占的资源。",
+      "refs": [
+        {
+          "title": "three.js Texture.dispose",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js LoadingManager",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "每个模型都随意 dispose 共享纹理，再由另一个模型自动恢复" },
+        {
+          "key": "B",
+          "text": "由共享资源管理层跟踪使用者，最后一个使用者释放时再 dispose",
+          "hint": "先明确所有权和生命周期，再销毁资源"
+        },
+        { "key": "C", "text": "只把模型移出 Scene，并认为显存已经释放" },
+        { "key": "D", "text": "把所有纹理改成 sRGB 即可避免共享冲突" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

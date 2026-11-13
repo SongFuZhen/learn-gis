@@ -1,0 +1,223 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：three 会画模型，却不懂「东经 116.397° 在哪里」；MapLibre 会画地图，却不是通用三维引擎。桥梁是 MapLibre 的自定义图层（custom layer，/ˈkʌstəm ˈleɪər/，「卡斯-特姆 雷-尔」）：地图每帧把 WebGL 上下文（context，/ˈkɒntɛkst/，「康-泰克斯特」）和相机矩阵交给你，你在同一张画布上补画 three 场景。**一句话经验**：经纬度先变 MercatorCoordinate，模型米制尺寸再变 Mercator 单位，最后每帧用地图主矩阵乘模型矩阵；相机跟着地图走，模型才不会「滑出地球」。**常见坑**：
+- 另建一个 canvas 盖在地图上，却忘记同步缩放、旋转和俯仰，模型像一张漂浮截图。
+- 共享画布时让 three 自动清屏，底图整片被擦掉；必须 `renderer.autoClear = false`。
+- 把经纬度直接塞进 `Vector3(lng, lat, 0)`；角度不是地图的归一化 Mercator 坐标。
+- 只在 onAdd 设置一次相机矩阵，首次对齐、拖动后错位。**必记 3 条**：
+1. 共享 `map.getCanvas()` 与 onAdd 的 gl，渲染前后尊重 MapLibre 的 GL 状态。
+2. `fromLngLat` 管位置，`meterInMercatorCoordinateUnits()` 管米到地图单位的比例。
+3. render 每次重取 `args.defaultProjectionData.mainMatrix`，不要缓存地图相机矩阵。
+
+## 本章你会学到
+
+MapLibre custom layer 的 onAdd/render/onRemove 生命周期，共享 WebGL context 与独立 renderer 两条路线，Web Mercator 的归一化坐标和米制缩放，以及 three 相机矩阵的逐帧同步。最后用完整立方体图层收官，并给出 three、MapLibre、Cesium 的选型结论。
+
+## 1. custom layer：地图给舞台，three 负责演员
+
+MapLibre 的 CustomLayerInterface 要求 `id`、`type: "custom"`、`render`，可选 `renderingMode`、`onAdd`、`onRemove`。本章使用 MapLibre GL JS 6.x 的回调形式：
+
+```js
+const layer = {
+  id: "three-content",
+  type: "custom",
+  renderingMode: "3d", // 与地图其他 3D 图层共享深度缓冲
+  onAdd(map, gl) {
+    // 建 scene、camera、renderer 与 GPU 资源。
+    // gl 是公开回调参数；旧示例也常取内部路径 map.painter.context.gl。
+    // 新代码优先使用 gl，而不是依赖 painter 内部结构。
+  },
+  render(gl, args) {
+    // 每次地图绘制时调用；地图主矩阵在 args.defaultProjectionData.mainMatrix。
+  },
+  onRemove(map, gl) {
+    // 释放 geometry、material、texture、renderer，解绑自定义事件。
+  },
+};
+```
+
+`renderingMode: "3d"` 让自定义层进入地图的三维深度关系；`"2d"` 则适合不涉及深度共享的覆盖绘制。MapLibre 调用 custom layer 前只保证部分混合与深度状态，three 也会缓存 GL 状态，所以共享上下文时要显式处理边界。
+
+| 集成路线 | 优点 | 代价与同步责任 |
+| --- | --- | --- |
+| 共用 map canvas + WebGL context | 同屏合成、可共享深度，不需额外 DOM | autoClear、GL 状态、资源释放都要守规矩 |
+| 独立 three canvas + renderer | 上下文隔离，three 配置自由 | 双画布开销；监听 move/zoom/rotate/pitch，同步尺寸和相机 |
+
+**custom layer 推荐第一条**。第二条适合独立覆盖层，但没有共享深度，纹理、 framebuffer 等资源也不能直接跨 context 共用；只监听 `move` 往往不够，缩放、旋转、俯仰和 resize 都要驱动同步。
+
+<Callout type="warn" title="共享画布不是共享所有权">
+MapLibre 拥有 canvas 尺寸与绘制调度。custom layer 中不要另开一套 rAF、不要随意 `renderer.setSize()`，而是在 render 中画完后用 `map.triggerRepaint()` 请求下一帧。静态场景不必永久触发重绘，只有交互或模型变化时请求即可。
+</Callout>
+
+## 2. 经纬度 → MercatorCoordinate → 米制模型变换
+
+Web Mercator（/wɛb ˈmɜːrkətər/，「外博 墨-卡-特」）投影之后，MapLibre 把整个投影世界归一化为 1×1：西北角约为 `(0, 0)`，东南角约为 `(1, 1)`，z 保存与高度对应的投影单位。这个坐标既不是经纬度角度，也不是 ECEF 米。
+
+```js
+const coord = maplibregl.MercatorCoordinate.fromLngLat([116.397, 39.909], 0);
+console.log(coord.x, coord.y, coord.z);
+const oneMeter = coord.meterInMercatorCoordinateUnits();
+// BoxGeometry(40, 40, 40) 的 40 米，要乘 oneMeter 才进入地图单位。
+```
+
+`meterInMercatorCoordinateUnits()` 与该点纬度有关，因为 Web Mercator 的实际地面尺度会随纬度变化。模型矩阵按列向量从右向左理解：先转模型轴，再把米缩放为 Mercator 单位，最后平移到地理落点。
+
+```js
+const modelMatrix = new THREE.Matrix4()
+  .makeTranslation(coord.x, coord.y, coord.z)
+  .scale(new THREE.Vector3(oneMeter, -oneMeter, oneMeter))
+  .multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2));
+```
+
+这里 y 取负是因为 three 局部 y 与 Mercator 屏幕式 y 方向相反；绕 x 转 90° 是把本章「局部 y 向上」的模型变成「Mercator z 向上」。不同 glTF 的建模轴向不同，旋转应据模型调整，不是永恒常数。
+
+## 3. 相机矩阵：每帧把地图视角接给 three
+
+矩阵（matrix，/ˈmeɪtrɪks/，「梅-吹克斯」）同步的核心只有一行思想：
+
+```text
+threeCamera.projectionMatrix = mapMainMatrix × modelMatrix
+```
+
+`mapMainMatrix` 已包含 MapLibre 当前的观察与投影状态；`modelMatrix` 把局部米制模型放到 Mercator 世界。地图每次缩放、平移、旋转或俯仰都会给出新主矩阵，所以要在 **render 内** 重取并相乘。这里使用普通 `THREE.Camera`，不再另设 PerspectiveCamera 的 fov/aspect，避免两套投影互相打架。
+
+<Callout type="info" title="与 Cesium 坐标、相机和拾取对照">
+[Cesium 相机坐标章](/s/cesium/01)用 `Cartesian3.fromDegrees(lon, lat, height)` 进入以米计的地心固连系，地球、地形和相机由同一引擎管理；本章进入的是 MapLibre 归一化 Mercator 平面，桥接者必须同步矩阵。[Cesium 拾取章](/s/cesium/07)的 ScreenSpaceEventHandler + scene.pick 能统一拾取场景对象；MapLibre `queryRenderedFeatures` 只认识地图样式要素，不会自动命中 three Mesh，后者要另用 Raycaster 并构造与地图一致的射线。
+</Callout>
+
+## 4. 完整骨架：随地图贴合的旋转立方体
+
+安装依赖，并在 HTML 放置 `<div id="map"></div>`，让 html、body、#map 的高度均为 100%。
+
+```bash
+npm install three maplibre-gl@6
+```
+
+```js
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
+import * as THREE from "three";
+
+const modelOrigin = [116.397, 39.909];
+const coord = maplibregl.MercatorCoordinate.fromLngLat(modelOrigin, 0);
+const meter = coord.meterInMercatorCoordinateUnits();
+const modelMatrix = new THREE.Matrix4()
+  .makeTranslation(coord.x, coord.y, coord.z)
+  .scale(new THREE.Vector3(meter, -meter, meter))
+  .multiply(new THREE.Matrix4().makeRotationX(Math.PI / 2));
+
+const map = new maplibregl.Map({
+  container: "map",
+  style: "https://demotiles.maplibre.org/style.json",
+  center: modelOrigin,
+  zoom: 16,
+  pitch: 60,
+  bearing: 30,
+  canvasContextAttributes: { antialias: true },
+});
+map.addControl(new maplibregl.NavigationControl(), "top-right");
+
+const threeLayer = {
+  id: "three-cube",
+  type: "custom",
+  renderingMode: "3d",
+
+  onAdd(mapInstance, gl) {
+    this.map = mapInstance;
+    this.camera = new THREE.Camera();
+    this.scene = new THREE.Scene();
+    this.clock = new THREE.Clock();
+
+    this.cube = new THREE.Mesh(
+      new THREE.BoxGeometry(40, 40, 40), // 局部单位按米理解
+      new THREE.MeshStandardMaterial({ color: 0xff7a1a, roughness: 0.35 }),
+    );
+    this.cube.position.y = 20; // 立方体底面落在局部地面
+    this.scene.add(this.cube);
+    this.scene.add(new THREE.AmbientLight(0xffffff, 0.7));
+    const sun = new THREE.DirectionalLight(0xffffff, 2.5);
+    sun.position.set(80, -100, 120);
+    this.scene.add(sun);
+
+    this.renderer = new THREE.WebGLRenderer({
+      canvas: mapInstance.getCanvas(),
+      context: gl, // 与 map.painter.context.gl 同源，但优先使用公开参数
+      antialias: true,
+    });
+    this.renderer.autoClear = false; // 不清掉 MapLibre 已绘制的底图
+  },
+
+  render(gl, args) {
+    const delta = Math.min(this.clock.getDelta(), 0.05);
+    this.cube.rotation.y += delta * 0.5;
+
+    this.camera.projectionMatrix
+      .fromArray(args.defaultProjectionData.mainMatrix)
+      .multiply(modelMatrix);
+    this.camera.projectionMatrixInverse
+      .copy(this.camera.projectionMatrix)
+      .invert();
+
+    this.renderer.resetState(); // MapLibre 改过的 GL 状态不能相信 three 缓存
+    this.renderer.render(this.scene, this.camera);
+    this.map.triggerRepaint(); // 本例持续旋转；静态层不要无限重绘
+  },
+
+  onRemove() {
+    this.scene.traverse((object) => {
+      if (!object.isMesh) return;
+      object.geometry.dispose();
+      const materials = Array.isArray(object.material)
+        ? object.material : [object.material];
+      materials.forEach((material) => material.dispose());
+    });
+    this.renderer.dispose();
+    this.map = null;
+  },
+};
+
+map.on("style.load", () => {
+  if (!map.getLayer(threeLayer.id)) map.addLayer(threeLayer);
+});
+```
+
+地图拖动时不需要另写 `cube.position = ...`：位置由 modelMatrix 固定，视角由地图主矩阵逐帧更新，两者共同保持贴合。此骨架针对默认 Mercator 投影；启用地球投影、地形 draping 或特殊投影过渡时，要按对应 MapLibre 示例选择模型矩阵接口。生产项目还应处理 `webglcontextlost/restored`，透明模型则要遵守 custom layer 的预乘 alpha 混合约定。
+
+## 5. 收官选型：不是谁更强，而是谁懂你的数据
+
+| 需求 | 首选 | 原因 |
+| --- | --- | --- |
+| 经纬度数据、三维地球、真实地形、3D Tiles、时间动态 | CesiumJS | 地理基准、ECEF、地形、瓦片和 Clock 是内置能力 |
+| 平面地图上的通用 3D 特效、产品模型、轻量数字孪生 | three + MapLibre | 地图交互与通用渲染分工，custom layer 做桥 |
+| 无地理语义的模型、游戏、创意视觉、产品展示 | 纯 three | 不必背地图投影、瓦片和地理引擎成本 |
+| 只需普通二维矢量地图或简单楼块拉伸 | MapLibre 原生图层 | 不为简单需求引入第二套渲染器 |
+
+<Callout type="must" title="必背 · 地理融合三条">
+1. 共享 canvas/context 时：autoClear = false、resetState、onRemove 释放资源。
+2. fromLngLat 定位置、meterInMercatorCoordinateUnits 定米制比例、render 每帧同步主矩阵。
+3. 地球/地形/3D Tiles 选 Cesium；平面地图通用 3D 选 three + MapLibre；无地理语义选纯 three。
+</Callout>
+
+<Exercise tool="three" title="动手 · 把立方体换成本地 glTF 并停止无限重绘">
+用 GLTFLoader 加载 `/models/product.glb`，在 onAdd 中把模型加入 scene，按已知模型轴向调整旋转；删除本章立方体的逐帧自转。加载完成、模型变化或地图交互时才触发重绘，并补全 glTF 纹理释放。
+<ExerciseSolution>
+在 onAdd 中创建 loader，`loader.load("/models/product.glb", (gltf) => { this.scene.add(gltf.scene); this.map.triggerRepaint(); })`；静态模型下移除 render 内对 rotation 的更新和每帧 triggerRepaint，MapLibre 自身交互仍会调用 render。若模型局部 y 向上可沿用 modelMatrix 的旋转，否则按模型调整。onRemove 遍历 glTF Mesh，除 geometry/material 外，还要遍历 material 中实际使用的 Texture 并 dispose；异步加载回调应检查图层是否已移除，避免销毁后重新添加资源。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- custom layer 在 MapLibre 的渲染循环里承载 three；onAdd 建资源、render 同步并绘制、onRemove 清理。
+- MercatorCoordinate 是归一化地图坐标，米制模型必须乘纬度相关的单位比例。
+- `projectionMatrix = mainMatrix × modelMatrix` 每帧计算，缩放旋转才不会错位。
+- 最终选型看地理语义与平台能力，不把 three 与 Cesium 当成同赛道的替代品。
+
+课程到这里完成：从场景图、几何材质、动画和 shader，到后处理与地图融合。下一步用一个真实小项目，把性能预算和资源生命周期也纳入交付。
+
+## 延伸阅读
+
+- 自定义层接口：[MapLibre CustomLayerInterface](https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/)
+- 坐标转换：[MapLibre MercatorCoordinate](https://maplibre.org/maplibre-gl-js/docs/API/classes/MercatorCoordinate/)
+- 当前 render 参数示例：[Add a custom style layer](https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/)
+- 共享渲染器与矩阵：[THREE.WebGLRenderer](https://threejs.org/docs/#api/en/renderers/WebGLRenderer)、[THREE.Matrix4](https://threejs.org/docs/#api/en/math/Matrix4)
+- 地理三维对照：[CesiumJS 官方文档](https://cesium.com/documentation/cesiumjs/)

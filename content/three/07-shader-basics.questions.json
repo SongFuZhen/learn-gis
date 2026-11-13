@@ -1,0 +1,174 @@
+{
+  "skill": "three",
+  "module": "07",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-07-001",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "下列哪一项符合 WebGL 渲染管线的基本先后顺序？",
+      "explanation": "顶点着色器先处理逐顶点数据，随后图元装配形成三角形并光栅化为片元候选，再由片元着色器计算颜色。光栅化不是发生在顶点处理之前。",
+      "refs": [{ "title": "MDN WebGL API", "url": "https://developer.mozilla.org/docs/Web/API/WebGL_API" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "光栅化 → 顶点着色 → 片元着色 → 图元装配" },
+        { "key": "B", "text": "顶点着色 → 图元装配 → 光栅化 → 片元着色", "hint": "先处理顶点，再覆盖像素" },
+        { "key": "C", "text": "片元着色 → 光栅化 → 顶点着色 → 图元装配" },
+        { "key": "D", "text": "图元装配 → 片元着色 → 顶点着色 → 光栅化" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-07-002",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在 ShaderMaterial 的顶点着色器中，哪项声明通常不应由你重复书写？",
+      "explanation": "ShaderMaterial 会自动声明内置 position attribute，重复写 attribute vec3 position 会引发重复定义。uTime、自定义 vUv 和 aScale 则需要按代码用途自行声明。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "attribute vec3 position;", "hint": "three 已注入内置顶点属性" },
+        { "key": "B", "text": "uniform float uTime;" },
+        { "key": "C", "text": "varying vec2 vUv;" },
+        { "key": "D", "text": "attribute float aScale;" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-003",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 RawShaderMaterial 与 ShaderMaterial，正确的说法有哪些？",
+      "explanation": "RawShaderMaterial 不自动拼入内置矩阵和 position 等属性声明，需要开发者补齐；ShaderMaterial 会注入这些常用定义。Raw 不代表必然更快，ShaderMaterial 也支持自定义 attribute。",
+      "refs": [
+        { "title": "RawShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/RawShaderMaterial" },
+        { "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "RawShaderMaterial 需要自行声明使用的投影矩阵和 position", "hint": "它不提供同样的内建声明模板" },
+        { "key": "B", "text": "ShaderMaterial 自动提供 modelViewMatrix 等常用 uniform", "hint": "可直接参与顶点变换" },
+        { "key": "C", "text": "RawShaderMaterial 在所有场景下都比 ShaderMaterial 帧率更高" },
+        { "key": "D", "text": "ShaderMaterial 禁止通过 geometry.setAttribute 添加自定义属性" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "three-07-004",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "uniform 适合为同一次绘制中的每个顶点分别存放一个不同的随机数。",
+      "explanation": "错误。uniform 在一次绘制中对所有顶点共享同一个值；逐顶点不同的随机数应存进 BufferAttribute，并通过 attribute 传给顶点着色器。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-07-005",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "varying 在顶点着色器与片元着色器之间承担什么职责？",
+      "explanation": "顶点着色器写 varying，光栅化阶段在三角形内部插值，片元着色器读取插值结果。两端必须保持名称与类型一致，不能把它当作任意 JS 全局变量。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把 JS 数组自动保存到 localStorage" },
+        { "key": "B", "text": "由顶点阶段写入，经插值后供片元阶段读取", "hint": "常用于 UV、颜色和高度" },
+        { "key": "C", "text": "替代所有纹理采样操作" },
+        { "key": "D", "text": "让相机自动围绕模型旋转" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-07-006",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "ShaderMaterial 中把局部坐标 position 变换到裁剪空间，常见写法是？",
+      "explanation": "modelViewMatrix 把局部坐标变换到相机空间，projectionMatrix 再变换到裁剪空间。gl_Position 是 vec4，因此通常用 vec4(position, 1.0) 构造位置。",
+      "refs": [{ "title": "ShaderMaterial 内置矩阵", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "gl_Position = vec4(position, 1.0);" },
+        { "key": "B", "text": "gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);", "hint": "矩阵顺序是先模型视图、后投影" },
+        { "key": "C", "text": "gl_FragColor = projectionMatrix * position;" },
+        { "key": "D", "text": "gl_Position = uv;" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-07-007",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于本章使用的 GLSL 写法，下列说法正确的有哪些？",
+      "explanation": "默认兼容语法下 gl_FragColor 用于片元输出，varying 可以把 UV 插值到片元阶段。GLSL 不使用 JS 的 let，attribute 是逐顶点输入而非全绘制共享参数。",
+      "refs": [
+        { "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" },
+        { "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "默认兼容写法中可用 gl_FragColor 输出片元颜色", "hint": "本章片元模板采用这一输出" },
+        { "key": "B", "text": "varying vec2 vUv 可把 UV 从顶点阶段传到片元阶段", "hint": "三角形内部会自动插值" },
+        { "key": "C", "text": "GLSL 必须像 JS 一样用 let 声明所有局部变量" },
+        { "key": "D", "text": "attribute 用来给所有顶点传同一个标量" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "three-07-008",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "每帧修改 material.uniforms.uTime.value 后，必须重新创建 ShaderMaterial 才能让动画生效。",
+      "explanation": "错误。更新已声明 uniform 的 value 正是常规动态传参方式，不需要重建材质，也不需要重新编译着色器。重建材质反而会增加不必要开销。",
+      "refs": [{ "title": "ShaderMaterial uniforms", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-07-009",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "哪一组名称符合 Cesium 自定义 PostProcessStage 的整屏采样与输出约定？",
+      "explanation": "Cesium 后处理通过 colorTexture 读取上一阶段画面，v_textureCoordinates 提供纹理坐标，当前 GLSL 模板输出到 out_FragColor。它不是 three ShaderMaterial 的内置名称集合。",
+      "refs": [{ "title": "CesiumJS 官方文档", "url": "https://cesium.com/documentation/cesiumjs/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "colorTexture、v_textureCoordinates、out_FragColor", "hint": "整屏输入、采样坐标、输出三约定" },
+        { "key": "B", "text": "position、normal、gl_Position" },
+        { "key": "C", "text": "map、uv、diffuseColor" },
+        { "key": "D", "text": "modelMatrix、cameraPosition、gl_PointSize" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-010",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "把 ShaderMaterial 的顶点模板直接放进 RawShaderMaterial 后，编译提示 projectionMatrix 和 position 未定义。怎样处理最合理？",
+      "explanation": "RawShaderMaterial 不自动注入这些内建声明。可以改回 ShaderMaterial 使用自动模板，或者保留 Raw 并补齐 precision、projectionMatrix/modelViewMatrix uniform 与 position attribute；仅设置 needsUpdate 无法补上缺失声明。",
+      "refs": [
+        { "title": "RawShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/RawShaderMaterial" },
+        { "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "改用 ShaderMaterial，或在 Raw 中补齐精度、矩阵 uniform 和 position attribute 声明", "hint": "问题是注入约定不同，不是渲染循环" },
+        { "key": "B", "text": "每帧设置 material.needsUpdate = true，直到声明自动出现" },
+        { "key": "C", "text": "删除 renderer.render，改由 GSAP 绘制" },
+        { "key": "D", "text": "把 camera.position 改成原点即可" }
+      ],
+      "answer": ["A"]
+    }
+  ]
+}

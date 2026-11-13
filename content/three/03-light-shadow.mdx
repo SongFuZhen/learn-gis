@@ -1,0 +1,178 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：同一个立方体，为什么有时像金属、有时像塑料，有时全黑、有时平得没有体积？答案不只在材质，还在光从哪里来、表面怎么反射、阴影有没有把空间关系交代清楚。**一句话经验**：环境光负责「看得见」，主光负责「有体积」，阴影负责「站得住」，环境贴图负责「反射有内容」。**常见坑**：
+- 只加 AmbientLight，所有面都一样亮，物体像一张平面剪纸。
+- 开了 `castShadow` 却漏了 `renderer.shadowMap.enabled` 或地面的 `receiveShadow`。
+- 平行光阴影模糊、残缺，只调大贴图，不检查 `light.shadow.camera` 是否罩住场景。
+- 把 `metalness` 当「亮度」用，结果材质发黑又缺少环境反射。**必记 3 条**：
+1. 平行光模拟太阳，点光模拟灯泡，聚光模拟手电，环境与半球光负责补光。
+2. 阴影要同时满足 renderer 开启、光源投射、物体投射、接收面接收。
+3. PBR 调粗糙度与金属度；IBL 提供环境反射，但不会自动替代投影主光。
+
+## 本章你会学到
+
+五类光源的适用面、阴影贴图的生成与调参、PBR 金属度粗糙度工作流，以及用预滤波环境贴图快速获得可信反射。重点是建立一套可复用的产品展示布光思路。
+
+## 1. 五类光源：先选角色，再调强度
+
+| 光源 | 直觉模型 | 适用面 | 阴影 |
+| --- | --- | --- | --- |
+| `AmbientLight` | 到处一样的底光 | 防止暗部纯黑，成本最低 | 不支持 |
+| `HemisphereLight` | 天空色与地面色渐变 | 户外柔和补光，比环境光有方向层次 | 不支持 |
+| `DirectionalLight` | 无限远处的平行阳光 | 室外主光、方向明确的展示光 | 支持 |
+| `PointLight` | 向四周发光的灯泡 | 局部照明、灯具 | 支持，需六个方向 |
+| `SpotLight` | 有锥角的手电 | 舞台、车灯、重点照明 | 支持 |
+
+```js
+import * as THREE from "three";
+
+const ambient = new THREE.AmbientLight(0xffffff, 0.15);
+const hemisphere = new THREE.HemisphereLight(0xbfdcff, 0x3b3025, 0.6);
+const sun = new THREE.DirectionalLight(0xffffff, 2.5);
+sun.position.set(5, 8, 4);
+
+const bulb = new THREE.PointLight(0xffb266, 30, 8, 2);
+bulb.position.set(-2, 2, 1);
+
+const spot = new THREE.SpotLight(
+  0xffffff,
+  50,
+  15,
+  Math.PI / 6, // 锥角
+  0.35,        // 边缘柔化
+  2,           // 距离衰减
+);
+spot.position.set(0, 6, 2);
+spot.target.position.set(0, 0, 0);
+scene.add(ambient, hemisphere, sun, bulb, spot, spot.target);
+```
+
+点光与聚光默认按物理距离衰减，`distance` 可限制影响范围。SpotLight 的照射方向由自身位置指向 `target`；目标也是场景节点，移动目标后记得把它加入场景并参与矩阵更新。
+
+## 2. 阴影贴图：先从光源方向画一张深度图
+
+阴影贴图（shadow map，/ˈʃædoʊ mæp/，「沙-豆 麦普」）的原理是：先从光源视角渲染场景深度，再从正常相机渲染时比较「当前片元到光源的距离」与「深度图中最近距离」。更远就说明前面有遮挡物，该片元落入阴影。
+
+```js
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+sun.castShadow = true;
+sun.shadow.mapSize.set(2048, 2048);
+
+const box = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshStandardMaterial({ color: 0x60a5fa }),
+);
+box.position.y = 0.5;
+box.castShadow = true;
+box.receiveShadow = true;
+
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(20, 20),
+  new THREE.MeshStandardMaterial({ color: 0x94a3b8 }),
+);
+ground.rotation.x = -Math.PI / 2;
+ground.receiveShadow = true;
+scene.add(box, ground);
+```
+
+四个开关各司其职：renderer 允许阴影流程，光源生成阴影图，物体写入遮挡深度，接收面执行阴影比较。默认材质不因为场景有光就自动显示阴影。
+
+## 3. 阴影相机与 bias：清晰、完整和不悬浮的平衡
+
+DirectionalLight 使用正交阴影相机。它的覆盖范围应刚好包住「会投影 + 会接收」的区域：范围越大，每像素对应的世界面积越大，阴影越粗糙。
+
+```js
+const shadowCamera = sun.shadow.camera;
+shadowCamera.left = -8;
+shadowCamera.right = 8;
+shadowCamera.top = 8;
+shadowCamera.bottom = -8;
+shadowCamera.near = 0.5;
+shadowCamera.far = 30;
+shadowCamera.updateProjectionMatrix();
+
+sun.shadow.bias = -0.0001;   // 轻微缓解自遮挡条纹
+sun.shadow.normalBias = 0.02; // 沿法线偏移，按场景尺度调整
+```
+
+阴影表面的条纹常叫自遮挡，`bias/normalBias` 可缓解；偏移过大又会让影子与物体接触点分离，出现「悬浮」。`mapSize` 翻倍会把阴影图边长翻倍、像素量变成四倍，不能代替合理覆盖范围。点光阴影需要从六个方向渲染，成本尤其高。
+
+<Callout type="warn" title="SpotLight 有光斑却不投影，先查 target 与 shadow 两条链">
+SpotLight 的 `target` 必须在场景树中，方向才按预期更新；阴影还要分别检查 `spot.castShadow`、物体 `castShadow`、接收面 `receiveShadow`。若物体在阴影相机 near/far 或聚光锥之外，同样不会出现预期影子。
+</Callout>
+
+## 4. PBR：金属度与粗糙度不是亮度滑块
+
+基于物理的渲染（PBR，/ˌpiː biː ˈɑːr/，「披-比-阿尔」）用能量守恒近似表面反射。`MeshStandardMaterial` 采用金属度—粗糙度工作流：
+
+```js
+const paintedPlastic = new THREE.MeshStandardMaterial({
+  color: 0x2563eb,
+  metalness: 0,
+  roughness: 0.65,
+});
+
+const brushedCopper = new THREE.MeshStandardMaterial({
+  color: 0xb87333,
+  metalness: 1,
+  roughness: 0.35,
+});
+
+const polishedCopper = brushedCopper.clone();
+polishedCopper.roughness = 0.08;
+```
+
+非金属通常 `metalness = 0`，反射高光多呈浅色；金属通常接近 1，反射颜色更受基础色影响。`roughness` 越低，反射越锐利；越高，高光越散。中间金属度适合表现混合层或艺术效果，但真实单一材质通常靠近两端。
+
+## 5. IBL：让金属「有东西可反射」
+
+基于图像的光照（IBL，/ˌaɪ biː ˈel/，「爱-比-埃尔」）用环境贴图提供来自各方向的漫反射与镜面反射。没有环境时，高金属度材质在直射光之外容易发黑，这不是把 light 强度继续拉满就能自然解决的。
+
+```js
+import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
+
+const pmrem = new THREE.PMREMGenerator(renderer);
+const environmentRT = pmrem.fromScene(new RoomEnvironment(), 0.04);
+scene.environment = environmentRT.texture;
+scene.environmentIntensity = 0.8;
+pmrem.dispose();
+
+// 整个应用 teardown 且不再使用环境时：
+// environmentRT.dispose();
+```
+
+`PMREMGenerator` 会把环境预滤波成适合不同粗糙度采样的数据，通常只生成一次。`scene.environment` 给 PBR 材质提供环境照明，但不会自动生成物体之间的投影阴影；仍需要 DirectionalLight 或 SpotLight 承担主光与接触阴影。
+
+<Callout type="info" title="和 Cesium 的模型光照对照">
+[Cesium 第 06 章](/s/cesium/06)中的 3D Tiles / glTF 模型同样会使用 PBR 材质与场景环境光照；Cesium 还多了一层地球、太阳方向和地理时间语境。three 的 Light 则只是普通场景节点，位置、目标、阴影范围都由你定义，不会因为模型来自 glTF 就自动获得太阳光。
+</Callout>
+
+<Callout type="must" title="必背 · 展示场景布光顺序">
+先用主光确定体积与阴影，再用 Hemisphere/Ambient 轻补暗部，随后调 metalness/roughness，最后加 IBL 丰富反射。不要一开始就叠很多高强度灯；光源越多，明暗关系越难判断，阴影成本也越高。
+</Callout>
+
+<Exercise tool="three" title="动手 · 让金属球落地并出现清晰阴影">
+放一个半径 0.7 的金属球，球底恰好接触 `y = 0` 的平面。使用一盏平行光产生阴影，再给球添加环境反射；要求阴影相机只覆盖 6×6 的地面核心区域，并说明为什么仅加 AmbientLight 不够。
+<ExerciseSolution>
+球心设为 `ball.position.y = 0.7`，球与地面分别设置 `castShadow = true`、`receiveShadow = true`，同时开启 renderer 和 `sun.castShadow`。阴影相机的 left/right/bottom/top 可设为 `-3/3/-3/3`，再收紧 near/far 并更新投影矩阵。环境用 `scene.environment` 提供金属反射；AmbientLight 没有方向、不支持阴影，无法单独交代球体体积与接触关系。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- Ambient/Hemisphere 适合补光，Directional/Point/Spot 负责有方向的局部或主照明。
+- 阴影来自光源视角深度比较，需要 renderer、光源、投射物和接收面共同开启。
+- 阴影清晰度优先收紧阴影相机，再考虑贴图尺寸；bias 过大会让接触影悬浮。
+- metalness 描述金属属性，roughness 描述反射粗糙程度，都不等同于亮度。
+- IBL 提供环境反射与柔和照明，主光阴影仍需单独设计。
+
+下一章把图片贴到 UV 上，并用 GLTFLoader、DRACOLoader 和 LoadingManager 加载完整模型。
+
+## 延伸阅读
+
+- 光源家族：[AmbientLight](https://threejs.org/docs/#api/en/lights/AmbientLight)、[DirectionalLight](https://threejs.org/docs/#api/en/lights/DirectionalLight)、[SpotLight](https://threejs.org/docs/#api/en/lights/SpotLight)
+- 阴影参数：[LightShadow](https://threejs.org/docs/#api/en/lights/shadows/LightShadow)、[DirectionalLightShadow](https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow)
+- 材质与环境：[MeshStandardMaterial](https://threejs.org/docs/#api/en/materials/MeshStandardMaterial)、[PMREMGenerator](https://threejs.org/docs/#api/en/extras/PMREMGenerator)
+- 可复用室内环境：[RoomEnvironment](https://threejs.org/docs/#examples/en/environments/RoomEnvironment)

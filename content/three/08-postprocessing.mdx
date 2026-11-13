@@ -1,0 +1,206 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：直接把场景画到屏幕，就像照片拍完立刻冲印；后处理允许先把画面存成纹理，再叠加泛光、暗角、颜色调整等效果。**一句话经验**：EffectComposer 是流水线，RenderPass 负责「拍原片」，ShaderPass 负责「修图」，OutputPass 负责最后的色调映射与色彩空间转换。每个渲染通道（pass，/pæs/，「帕斯」）都有成本，顺序也会改变结果。**常见坑**：
+- 还在用 `renderer.render(scene, camera)`，却纳闷 composer 上的效果为何没出现；接入后应由 `composer.render()` 出图。
+- 把 OutputPass 放在最前或漏掉它，导致色调映射、输出色彩空间不对。
+- 只调用 `renderer.setSize()`，忘了同步 `composer.setSize()`，画面模糊、错位或尺寸不匹配。
+- 以为 UnrealBloomPass 就是一次全屏绘制；它内部还有多级模糊与多个渲染目标。**必记 3 条**：
+1. 基础链：RenderPass → 效果 Pass → OutputPass，最后有效 Pass 才输出到屏幕。
+2. UnrealBloomPass 三参数：threshold 选亮区、strength 调强度、radius 调扩散。
+3. resize 同时更新相机、renderer、composer；性能按物理像素和实际子 Pass 数算账。
+
+## 本章你会学到
+
+EffectComposer 的离屏渲染与 ping-pong 缓冲思想，RenderPass 和 Pass 链顺序，UnrealBloomPass 的三个核心参数，OutputPass 的收尾职责，以及用 ShaderPass 编写自定义暗角。最后处理 resize、DPR 和性能，并对照 Cesium 的 postProcessStages。
+
+## 1. 心智模型：场景先画进纹理，再逐道加工
+
+直接渲染时，终点是 canvas 的默认 framebuffer。使用 composer 后，场景先进入 WebGLRenderTarget；后续 Pass 把上一张纹理当输入，处理后写到另一张纹理。EffectComposer 用 readBuffer/writeBuffer 来回交换，这就是常说的 **ping-pong**。
+
+```text
+Scene + Camera
+      ↓ RenderPass
+离屏颜色纹理 readBuffer
+      ↓ UnrealBloomPass：亮区提取 + 多级模糊 + 合成
+      ↓ ShaderPass：你的自定义片元效果
+      ↓ OutputPass：tone mapping + 输出色彩空间转换
+默认 framebuffer（屏幕）
+```
+
+EffectComposer 构造时可以传自定义 renderTarget；不传时会按 renderer 尺寸创建内部目标。大多数效果只关心屏幕像素，不关心这个像素来自哪个 Mesh，因此同一套滤镜可以作用于整个场景。
+
+<Callout type="tip" title="最后一个 Pass 自动上屏">
+composer 会把链上最后一个启用的 Pass 设为 renderToScreen，其余 Pass 在离屏目标间传递。不要把每个 Pass 的 renderToScreen 都手动设为 true，否则中间结果会提前覆盖屏幕。
+</Callout>
+
+## 2. 最小完整链：RenderPass → Bloom → OutputPass
+
+下面是一个可运行的 Vite/ESM 示例。自发光材质提供亮区，UnrealBloomPass 制造泛光（bloom，/bluːm/，「布卢姆」），OutputPass 完成最终显示转换。
+
+```js
+import * as THREE from "three";
+import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
+import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
+import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+const pixelRatio = Math.min(devicePixelRatio, 2);
+renderer.setPixelRatio(pixelRatio);
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x05070d);
+const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(0, 0, 4);
+camera.lookAt(0, 0, 0);
+
+const knot = new THREE.Mesh(
+  new THREE.TorusKnotGeometry(0.8, 0.25, 128, 24),
+  new THREE.MeshStandardMaterial({
+    color: 0x334466,
+    emissive: 0x4488ff,
+    emissiveIntensity: 2.5,
+    roughness: 0.3,
+    metalness: 0.5,
+  }),
+);
+scene.add(knot);
+scene.add(new THREE.AmbientLight(0xffffff, 0.25));
+const keyLight = new THREE.DirectionalLight(0xffffff, 3);
+keyLight.position.set(3, 4, 5);
+scene.add(keyLight);
+
+const composer = new EffectComposer(renderer);
+composer.setPixelRatio(pixelRatio);
+composer.setSize(innerWidth, innerHeight);
+composer.addPass(new RenderPass(scene, camera));
+const bloomPass = new UnrealBloomPass(
+  new THREE.Vector2(innerWidth, innerHeight),
+  0.9,  // strength
+  0.35, // radius
+  0.8,  // threshold
+);
+composer.addPass(bloomPass);
+const outputPass = new OutputPass();
+composer.addPass(outputPass);
+
+const clock = new THREE.Clock();
+function tick() {
+  const delta = Math.min(clock.getDelta(), 0.05);
+  knot.rotation.y += delta * 0.5;
+  composer.render(delta); // 不再调用 renderer.render(scene, camera)
+  requestAnimationFrame(tick);
+}
+tick();
+```
+
+`RenderPass` 是场景进入链的入口，换相机时更新它的 `camera` 或替换这个 Pass。`OutputPass` 会读取 renderer 的色调映射设置；ACES 色调映射（tone mapping，/toʊn ˈmæpɪŋ/，「透恩 麦-平」）把 HDR 亮度压进可显示范围，再做输出颜色空间转换。
+
+## 3. UnrealBloomPass：先选亮区，再把光晕扩散回去
+
+| 参数 | 直觉含义 | 调整结果 |
+| --- | --- | --- |
+| `threshold` | 多亮才算光源 | 越高，参与泛光的区域越少 |
+| `strength` | 光晕叠回去多强 | 越高，亮区越「炸」 |
+| `radius` | 模糊向外扩多远 | 越高，光晕越宽越柔 |
+
+```js
+bloomPass.threshold = 0.9;
+bloomPass.strength = 0.7;
+bloomPass.radius = 0.25;
+```
+
+泛光不等于把所有物体整体提亮。若画面完全没有光晕，先确认亮区亮度是否超过 threshold，再检查 OutputPass 是否位于链尾。使用 LDR 颜色且 threshold 很高时，可能根本没有像素被选中；自发光强度和光照可以产生超过 1 的 HDR 颜色。
+
+## 4. ShaderPass：自定义整屏暗角
+
+ShaderPass 会把这个 Pass 的输入纹理自动交给 `tDiffuse` uniform。下面的顶点模板绘制全屏几何，片元 shader 采样上一阶段，再让画面四周变暗。
+
+```js
+import { ShaderPass } from "three/addons/postprocessing/ShaderPass.js";
+
+const VignetteShader = {
+  uniforms: {
+    tDiffuse: { value: null },
+    strength: { value: 0.45 },
+  },
+  vertexShader: /* glsl */ `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: /* glsl */ `
+    uniform sampler2D tDiffuse;
+    uniform float strength;
+    varying vec2 vUv;
+    void main() {
+      vec4 color = texture2D(tDiffuse, vUv);
+      float d = distance(vUv, vec2(0.5));
+      float shade = 1.0 - strength * smoothstep(0.25, 0.75, d);
+      gl_FragColor = vec4(color.rgb * shade, color.a);
+    }
+  `,
+};
+
+const vignettePass = new ShaderPass(VignetteShader);
+// 当前顺序是 [RenderPass, Bloom, OutputPass]，在 OutputPass 前插入。
+composer.insertPass(vignettePass, 2);
+// 动态调参只改值：vignettePass.uniforms.strength.value = 0.6;
+```
+
+`ShaderPass` 构造函数会克隆传入 shader 的 uniforms，所以调参应改 `vignettePass.uniforms`，不要只改原始的 `VignetteShader.uniforms`。新增此 Pass 后的顺序是 RenderPass → Bloom → Vignette → OutputPass。
+
+## 5. resize、DPR 与性能账本
+
+```js
+window.addEventListener("resize", () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+  composer.setSize(innerWidth, innerHeight);
+});
+
+// DPR 改变（例如窗口移到另一块显示器）时：
+// renderer.setPixelRatio(nextRatio);
+// composer.setPixelRatio(nextRatio);
+```
+
+`setSize` 接收 CSS 像素尺寸，composer 内部再乘自己的 pixelRatio；不要先把宽度乘 DPR 又调用 `setPixelRatio(DPR)`，否则像素数会重复放大。每个全屏 Pass 的片元工作量近似为 `宽 × 高 × DPR²`，而 Bloom 内部包含多个模糊子阶段与渲染目标，不能只按「链上有一个 Bloom」估成一次绘制。
+
+<Callout type="info" title="与 Cesium postProcessStages 对照">
+[Cesium 后处理章](/s/cesium/11)把 `scene.postProcessStages` 当作滤镜图：`fxaa`、`bloom` 可直接 enabled，自定义 PostProcessStage 使用 `colorTexture + v_textureCoordinates → out_FragColor`。three 的 EffectComposer 则显式组织 RenderPass、ShaderPass 和 OutputPass，能插入场景渲染、自定义 renderTarget 等更多节点。两者共同点是**顺序有意义、每个全屏阶段都耗带宽**，但 GLSL 输入输出约定不能直接互换。
+</Callout>
+
+<Callout type="warn" title="离屏渲染的抗锯齿另算账">
+WebGLRenderer 的 `antialias: true` 作用于默认 framebuffer，不保证 composer 的离屏目标也有同样的 MSAA。边缘变锯齿时可评估支持 MSAA 的 renderTarget 或 SMAA/FXAA Pass，同时把额外显存与全屏开销一起计入。
+</Callout>
+
+<Exercise tool="three" title="动手 · 加呼吸暗角，并修复高分屏尺寸">
+让暗角 strength 在 0.25～0.55 之间随时间正弦变化；把窗口resize处理补全，确保 DPR = 2 时 composer 仍按 CSS 尺寸设置。再把 bloomPass.enabled 切换为 false，观察链上其他效果是否仍然工作。
+<ExerciseSolution>
+每帧写 `vignettePass.uniforms.strength.value = 0.4 + 0.15 * Math.sin(clock.elapsedTime * 2)`，无需重建 Pass。resize 中依次更新 camera.aspect、camera.updateProjectionMatrix、renderer.setSize(innerWidth, innerHeight)、composer.setSize(innerWidth, innerHeight)，不要手动给 setSize 的尺寸乘 2。关闭 bloom 后 composer 会跳过它，RenderPass、Vignette、OutputPass 仍能继续传递与输出画面。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- EffectComposer 在离屏 renderTarget 间组织 Pass，最后一个启用 Pass 输出到屏幕。
+- RenderPass 提供场景图像，效果 Pass 依次处理，OutputPass 负责色调映射与颜色空间收尾。
+- Bloom 用 threshold、strength、radius 控制亮区、强度和扩散，内部不止一个绘制阶段。
+- ShaderPass 从 tDiffuse 读输入；resize 要同步 composer，性能按 DPR² 和实际子 Pass 数估算。
+
+下一章收官：把 three 场景接入 MapLibre 的 WebGL 地图，让通用三维效果拥有经纬度落点。
+
+## 延伸阅读
+
+- 后处理核心：[EffectComposer](https://threejs.org/docs/#examples/en/postprocessing/EffectComposer)、[Pass](https://threejs.org/docs/#examples/en/postprocessing/Pass)
+- 场景与泛光：[RenderPass](https://threejs.org/docs/#examples/en/postprocessing/RenderPass)、[UnrealBloomPass](https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass)
+- 自定义与输出：[ShaderPass](https://threejs.org/docs/#examples/en/postprocessing/ShaderPass)、[OutputPass](https://threejs.org/docs/#examples/en/postprocessing/OutputPass)
+- 官方后处理示例：[three.js postprocessing examples](https://threejs.org/examples/)
+- Cesium 对照：[postProcessStages 课程](/s/cesium/11)

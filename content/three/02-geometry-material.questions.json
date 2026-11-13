@@ -1,0 +1,275 @@
+{
+  "skill": "three",
+  "module": "02",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-02-001",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "BufferGeometry 中 position、normal、uv 三种 Attribute 的 itemSize 通常依次是？",
+      "explanation": "position 与 normal 都是三维向量，每项三个数；uv 是二维纹理坐标，每项两个数。三种属性按相同顶点序号一一对应。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry 默认属性",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "2、3、3" },
+        {
+          "key": "B",
+          "text": "3、3、2",
+          "hint": "位置、法线是三维，UV 是二维"
+        },
+        { "key": "C", "text": "3、2、3" },
+        { "key": "D", "text": "1、1、2" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-02-002",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在 BufferGeometry 中设置 index 的主要作用是什么？",
+      "explanation": "index 按顶点序号描述三角形，让多个三角形复用同一份顶点属性。它能减少重复数据，同时也会影响共享顶点法线的平均结果。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.setIndex",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "指定每个像素的屏幕颜色" },
+        {
+          "key": "B",
+          "text": "用顶点序号组织三角形并复用顶点",
+          "hint": "两个三角形可共享四边形的四个顶点"
+        },
+        { "key": "C", "text": "给 Mesh 设置唯一业务名称" },
+        { "key": "D", "text": "控制纹理图片的加载优先级" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-02-003",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "索引几何调用 computeVertexNormals 后，共享顶点附近通常呈平滑光照，原因是什么？",
+      "explanation": "共享顶点会被多个相邻三角形共同使用，自动计算的法线会综合这些面的方向，形成平滑过渡。展开为非索引几何后，各面可以拥有独立法线，边界会更硬。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.computeVertexNormals",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "渲染器自动把材质透明度降低" },
+        {
+          "key": "B",
+          "text": "相邻三角形在共享顶点上共同影响法线",
+          "hint": "共享顶点意味着共享一份 normal"
+        },
+        { "key": "C", "text": "UV 坐标被自动归一化到同一位置" },
+        { "key": "D", "text": "索引会把所有三角形合并成一个平面" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-02-004",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "只要给 MeshStandardMaterial 设置 opacity = 0.5，就无需开启 transparent 也能正确半透明。",
+      "explanation": "错误。transparent 决定是否进入透明混合路径，opacity 只控制不透明度。想获得常规半透明效果，需要显式设置 transparent = true。",
+      "refs": [
+        {
+          "title": "three.js Material.opacity 与 transparent",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-02-005",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "要表现粗糙的非金属表面，下列哪组 StandardMaterial 参数最符合直觉？",
+      "explanation": "粗糙表面的反射更分散，应使用较高 roughness；非金属的 metalness 通常为 0。低粗糙度配高金属度更接近光滑金属，而非粗糙非金属。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "roughness = 0.05，metalness = 1" },
+        {
+          "key": "B",
+          "text": "roughness = 0.85，metalness = 0",
+          "hint": "高粗糙度、非金属"
+        },
+        { "key": "C", "text": "roughness = 0，metalness = 0" },
+        { "key": "D", "text": "roughness = 1，metalness = 1" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-02-006",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "运行时修改了几何顶点位置，下列哪些后续处理可能必要？",
+      "explanation": "修改 BufferAttribute 后应设置 needsUpdate，让新数据上传 GPU。若变形影响光照或包围范围，还应重算法线和包围球，避免旧派生数据造成错误显示或剔除。",
+      "refs": [
+        {
+          "title": "three.js BufferAttribute.needsUpdate",
+          "url": "https://threejs.org/docs/#api/en/core/BufferAttribute"
+        },
+        {
+          "title": "three.js BufferGeometry",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "将 position Attribute 的 needsUpdate 设为 true",
+          "hint": "CPU 数组修改需要显式标记上传"
+        },
+        {
+          "key": "B",
+          "text": "形状影响表面方向时重新计算顶点法线",
+          "hint": "旧法线不再匹配新形状"
+        },
+        {
+          "key": "C",
+          "text": "变形超出原范围时重新计算包围球",
+          "hint": "旧包围球可能导致错误视锥剔除"
+        },
+        { "key": "D", "text": "只要改了 position.array，其余数据都会自动完美同步" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-02-007",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "子 Mesh 的 position 为 (2,0,0)，父 Group 再平移 (5,0,0)。子节点局部 position 会如何？",
+      "explanation": "子节点的 position 始终描述相对父级的局部位置，仍是 (2,0,0)。父级平移会反映到 matrixWorld 和 getWorldPosition 的结果中，而不会改写子节点 position。",
+      "refs": [
+        {
+          "title": "three.js Object3D.position",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "自动被改写为 (7,0,0)" },
+        { "key": "B", "text": "自动归零以避免重复位移" },
+        {
+          "key": "C",
+          "text": "仍为 (2,0,0)，世界位置才包含父级平移",
+          "hint": "局部坐标与世界坐标分层保存"
+        },
+        { "key": "D", "text": "变成相机坐标 (-2,0,0)" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-02-008",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "为了避免背面剔除问题，所有材质都应无条件设置 side = THREE.DoubleSide。",
+      "explanation": "错误。DoubleSide 会增加绘制成本，透明物体还可能产生额外排序问题。应先检查几何朝向、索引绕序和法线，仅在确需双面时使用。",
+      "refs": [
+        {
+          "title": "three.js Material.side",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-02-009",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 three 内置几何体的说法，正确的有哪些？",
+      "explanation": "SphereGeometry 的分段数会影响平滑度与三角形数量；PlaneGeometry 默认在 XY 平面；TorusGeometry 描述圆环。内置几何体通常已经提供位置、法线和 UV，并非缺少法线。",
+      "refs": [
+        {
+          "title": "three.js SphereGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/SphereGeometry"
+        },
+        {
+          "title": "three.js PlaneGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/PlaneGeometry"
+        },
+        {
+          "title": "three.js TorusGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/TorusGeometry"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "球体分段增加通常更平滑，但顶点与三角形也更多",
+          "hint": "平滑度与性能需要权衡"
+        },
+        {
+          "key": "B",
+          "text": "PlaneGeometry 默认位于 XY 平面",
+          "hint": "做水平地面时常需要旋转"
+        },
+        {
+          "key": "C",
+          "text": "TorusGeometry 可用于创建圆环",
+          "hint": "圆环半径与管道半径是两个不同参数"
+        },
+        { "key": "D", "text": "所有内置几何体都不带 normal 和 uv" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-02-010",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "刚修改父 Group 的旋转，尚未再次 render 就读取子 Mesh 的世界位置，结果仍是旧值。最可靠的即时读取方式是什么？",
+      "explanation": "渲染器通常在 render 前更新世界矩阵，但手动即时读取不能依赖上一帧。应先对场景或相关父级调用 updateMatrixWorld(true)，再用 getWorldPosition 取得包含父级链变换的位置。",
+      "refs": [
+        {
+          "title": "three.js Object3D.updateMatrixWorld",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "直接读取子节点的 position，因为它已经是世界坐标" },
+        { "key": "B", "text": "把材质 wireframe 打开，矩阵会随之刷新" },
+        {
+          "key": "C",
+          "text": "先 updateMatrixWorld(true)，再调用 getWorldPosition",
+          "hint": "主动更新父级链矩阵，不等待下一次渲染"
+        },
+        { "key": "D", "text": "删除父 Group，子节点世界位置就会自动正确" }
+      ],
+      "answer": ["C"]
+    }
+  ]
+}

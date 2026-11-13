@@ -1,0 +1,180 @@
+{
+  "skill": "three",
+  "module": "06",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-06-001",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "THREE.Clock 的 getDelta() 返回值表示什么？",
+      "explanation": "getDelta 返回距上一次调用所经过的秒数，并更新内部计时点。它适合把每秒速度换算成当前帧的位移；elapsedTime 则是累计经过的秒数。",
+      "refs": [{ "title": "THREE.Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "当前屏幕的刷新率，单位 Hz" },
+        { "key": "B", "text": "距上次调用经过的秒数", "hint": "用它乘每秒速度" },
+        { "key": "C", "text": "当前帧的绘制耗时，固定为 16.7 毫秒" },
+        { "key": "D", "text": "动画剪辑剩余的秒数" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-06-002",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "把 rotation.y += 0.01 改为帧率无关动画，正确写法是？",
+      "explanation": "固定每帧增量会让高刷新率设备在一秒内执行更多次，从而转得更快。以 delta 秒数乘每秒角速度，才能让不同刷新率下的实际角速度一致。",
+      "refs": [
+        { "title": "THREE.Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" },
+        { "title": "MDN requestAnimationFrame", "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "rotation.y += Math.PI * delta", "hint": "角速度乘以帧间隔" },
+        { "key": "B", "text": "rotation.y += 0.01 / delta" },
+        { "key": "C", "text": "rotation.y = 0.01" },
+        { "key": "D", "text": "rotation.y += delta / Math.PI" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-06-003",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "关于 GSAP 3 与 three 渲染循环协作，正确的说法有哪些？",
+      "explanation": "GSAP 默认由自己的 ticker 推进补间，three 的 rAF 可以只负责渲染。需要统一时间源时，可移除默认 updateRoot 后在 rAF 中手动推进；不再使用的补间应 kill。",
+      "refs": [{ "title": "MDN requestAnimationFrame", "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "默认模式下 GSAP ticker 推进补间，three 的 rAF 负责渲染", "hint": "两套循环可以分工" },
+        { "key": "B", "text": "统一时钟时可移除默认 updateRoot，再手动调用 gsap.updateRoot", "hint": "手动模式要接管根时钟" },
+        { "key": "C", "text": "必须同时让两个循环修改同一个 position 才能同步" },
+        { "key": "D", "text": "卸载页面时应 kill 不再使用的 tween 或 timeline", "hint": "动画也需要清理生命周期" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-06-004",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "对 AnimationMixer 调用 clipAction(clip).play() 后，即使不在渲染循环调用 mixer.update(delta)，动画也会自动播放。",
+      "explanation": "错误。play 只把动作设为播放状态，AnimationMixer 的时间要由 update(delta) 推进；漏掉这行是 glTF 模型动画静止的常见原因。",
+      "refs": [{ "title": "AnimationMixer 文档", "url": "https://threejs.org/docs/#api/en/animation/AnimationMixer" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-06-005",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "GLTFLoader 加载出带动画的模型后，播放名为 Idle 的动画，哪组操作正确？",
+      "explanation": "gltf.scene 是模型根节点，gltf.animations 是 AnimationClip 数组。应以模型根节点创建 mixer，找到 Idle clip 后 clipAction().play()，并在每帧 update。",
+      "refs": [
+        { "title": "GLTFLoader 文档", "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader" },
+        { "title": "AnimationClip 文档", "url": "https://threejs.org/docs/#api/en/animation/AnimationClip" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "直接调用 gltf.scene.play('Idle')" },
+        { "key": "B", "text": "new AnimationMixer(gltf.scene)，对找到的 Idle clip 创建 action 并 play", "hint": "模型根节点是 mixer 的绑定目标" },
+        { "key": "C", "text": "把 gltf.animations 直接赋给 material.map" },
+        { "key": "D", "text": "只需 renderer.render(gltf.animations, camera)" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-06-006",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "要让带 morph targets 的网格逐渐呈现第一组变形，通常应修改什么？",
+      "explanation": "morphTargetInfluences 保存各变形目标的权重，逐渐把索引 0 的权重从 0 调到 1 即可插值到第一组形态。它不是 AnimationClip 数组，也不需要替换整个几何体。",
+      "refs": [{ "title": "THREE.Mesh 文档", "url": "https://threejs.org/docs/#api/en/objects/Mesh" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "mesh.morphTargetInfluences[0] 的权重", "hint": "通常从 0 插值到 1" },
+        { "key": "B", "text": "renderer.domElement.width" },
+        { "key": "C", "text": "camera.projectionMatrix" },
+        { "key": "D", "text": "material.wireframe" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-06-007",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "关于 THREE.Points 与动态 BufferGeometry，下列说法正确的有哪些？",
+      "explanation": "Points 使用 position 等 BufferAttribute 批量绘制顶点。CPU 改完数组后要设置 needsUpdate 才会重新上传；PointsMaterial 不自带出生、死亡或重力逻辑，混合方式也应按视觉效果选择。",
+      "refs": [
+        { "title": "THREE.Points 文档", "url": "https://threejs.org/docs/#api/en/objects/Points" },
+        { "title": "BufferAttribute 文档", "url": "https://threejs.org/docs/#api/en/core/BufferAttribute" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "每颗粒子的位置可存放在 position BufferAttribute 中", "hint": "一个属性数组承载整群点" },
+        { "key": "B", "text": "CPU 修改位置数组后应设置 attribute.needsUpdate = true", "hint": "通知 three 更新 GPU 数据" },
+        { "key": "C", "text": "PointsMaterial 自动提供完整的出生、寿命和重力管理" },
+        { "key": "D", "text": "所有粒子贴图都必须使用 AdditiveBlending，否则无法显示" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "three-06-008",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "PointsMaterial 的 sizeAttenuation 为 true 时，点会随相机深度产生近大远小的尺寸变化。",
+      "explanation": "正确。sizeAttenuation 控制点尺寸是否随深度衰减，适合有空间尺度感的粒子；关闭后尺寸不随距离产生这种透视变化。",
+      "refs": [{ "title": "PointsMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/PointsMaterial" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-06-009",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "与 Cesium ParticleSystem 相比，本章 THREE.Points 方案最准确的差异是？",
+      "explanation": "Cesium ParticleSystem 提供发射器、生命周期和 updateCallback 等声明式粒子管理。THREE.Points 专注批量绘制，位置更新、回收和重力等规则由开发者自行实现。",
+      "refs": [
+        { "title": "THREE.Points 文档", "url": "https://threejs.org/docs/#api/en/objects/Points" },
+        { "title": "CesiumJS 官方文档", "url": "https://cesium.com/documentation/cesiumjs/" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Points 自动完成地理投影，ParticleSystem 不支持定位" },
+        { "key": "B", "text": "Points 负责批量绘制，生命周期与力通常由开发者实现", "hint": "Cesium 额外提供发射与生命周期规则" },
+        { "key": "C", "text": "Points 每颗粒子都必须创建一个 Mesh" },
+        { "key": "D", "text": "ParticleSystem 只能绘制静态点，不能更新速度" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-06-010",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "同一帧先调用一次 clock.getDelta() 更新立方体，再调用一次更新 mixer，结果模型几乎不动。最合理的修复是？",
+      "explanation": "getDelta 每次都会刷新内部计时点，第二次调用只得到两行代码之间极短的间隔。应在每帧开头只取一次 delta，保存后同时传给物体运动和 mixer.update，避免时间被重复消费。",
+      "refs": [
+        { "title": "THREE.Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" },
+        { "title": "AnimationMixer 文档", "url": "https://threejs.org/docs/#api/en/animation/AnimationMixer" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把 mixer.update(delta) 改成 mixer.update(0)" },
+        { "key": "B", "text": "每帧只取一次 delta，并复用于立方体和 mixer", "hint": "不要让第二次调用消费近零间隔" },
+        { "key": "C", "text": "删除 clipAction(clip).play()" },
+        { "key": "D", "text": "把 Clock 换成 Date，再分别取两次 delta" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

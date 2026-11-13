@@ -1,0 +1,186 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：`Mesh` 看起来是一个物体，拆开后其实是「顶点表格 + 表面说明书」。`BufferGeometry` 回答长什么样，`Material` 回答光照上来是什么颜色、亮不亮、透不透，`Group` 再回答零件怎么一起动。**一句话经验**：几何管数据，材质管外观，层级管变换；改错层，越调越乱。**常见坑**：
+- `position` 数组写得很热闹，却漏了索引或法线，结果面不显示、受光也不对。
+- 修改顶点坐标后直接等画面变化，忘了把 Attribute 标记为需要更新。
+- 设了 `opacity: 0.5` 却不设 `transparent: true`，材质依旧完全不透明。
+- 改完父子位置马上读取世界坐标，拿到上一帧旧矩阵。**必记 3 条**：
+1. 三大 Attribute：`position` 每顶点 3 个数，`normal` 3 个，`uv` 2 个。
+2. `computeVertexNormals()` 会按共享顶点求法线；硬边与平滑面的差别就在顶点是否共享。
+3. 子节点局部矩阵只描述相对父级的变换，世界矩阵还要乘上完整父级链。
+
+## 本章你会学到
+
+手工构造 `BufferGeometry`、理解索引与法线、选用内置几何体、调整 `MeshStandardMaterial` 的关键参数，并用 `Group` 搭建可级联运动的父子结构。
+
+## 1. BufferGeometry：几何就是几张顶点表
+
+顶点（vertex，/ˈvɜːrteks/，「弗-泰克斯」）不只是位置点。渲染器按相同顶点序号读取多张表：`position` 给三维坐标，`normal` 给光照方向，`uv` 给纹理采样位置。它们的 `count` 必须一致，只是每项长度不同。
+
+索引（index，/ˈɪndeks/，「因-代克斯」）则告诉 GPU「哪三个顶点组成一个三角形」。两个三角形拼四边形只需四个顶点，不必重复写六个位置。
+
+```js
+import * as THREE from "three";
+
+const geometry = new THREE.BufferGeometry();
+geometry.setAttribute(
+  "position",
+  new THREE.Float32BufferAttribute([
+    -1, -1, 0,
+     1, -1, 0,
+     1,  1, 0,
+    -1,  1, 0,
+  ], 3),
+);
+geometry.setAttribute(
+  "uv",
+  new THREE.Float32BufferAttribute([
+    0, 0,
+    1, 0,
+    1, 1,
+    0, 1,
+  ], 2),
+);
+geometry.setIndex([0, 1, 2, 0, 2, 3]);
+geometry.computeVertexNormals();
+
+const material = new THREE.MeshStandardMaterial({
+  color: 0x38bdf8,
+  side: THREE.DoubleSide,
+});
+const quad = new THREE.Mesh(geometry, material);
+```
+
+| Attribute | itemSize | 每个顶点的意义 |
+| --- | --- | --- |
+| `position` | 3 | 局部空间中的 x、y、z |
+| `normal` | 3 | 单位法线方向，用于光照 |
+| `uv` | 2 | 纹理横纵坐标，通常在 0～1 |
+
+没有索引时，渲染器按 position 的顺序每三个顶点画一个三角形；有索引时，三角形可以复用顶点。法线若缺失，`MeshStandardMaterial` 无法得到正常的明暗。
+
+## 2. 内置 Geometry：常用形状不必手搓
+
+```js
+const geometries = [
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.SphereGeometry(0.7, 32, 16),
+  new THREE.PlaneGeometry(2, 2, 1, 1),
+  new THREE.TorusGeometry(0.7, 0.22, 16, 64),
+];
+
+const meshes = geometries.map((geometry, index) => {
+  const mesh = new THREE.Mesh(
+    geometry,
+    new THREE.MeshStandardMaterial({ color: 0x60a5fa }),
+  );
+  mesh.position.x = (index - 1.5) * 2;
+  return mesh;
+});
+scene.add(...meshes);
+```
+
+- `BoxGeometry`：盒子，分段越多，后续做顶点位移越细。
+- `SphereGeometry`：经纬分段球，水平、垂直分段决定平滑度。
+- `PlaneGeometry`：平面，默认位于 XY 平面，做地面常绕 X 轴转 -90°。
+- `TorusGeometry`：圆环，分别控制圆环半径、管道半径与两方向分段。
+
+内置几何体已经带好 position、normal、uv 和合适的索引。分段不是越高越好：三角形增加会抬高显存与绘制成本，应以视觉收益为准。
+
+## 3. 法线与顶点更新：形状变了，派生数据也要变
+
+`computeVertexNormals()` 会为索引几何平均相邻三角形的法线，共享顶点因此看起来平滑。若要每个面各有独立法线，可先 `toNonIndexed()` 展开顶点再计算，代价是顶点数增加；简单材质也可使用 `flatShading: true`。
+
+```js
+const position = geometry.getAttribute("position");
+position.setY(0, -0.8);       // 修改第一个顶点的 y
+position.needsUpdate = true;  // 通知 renderer 重新上传缓冲
+
+geometry.computeVertexNormals();
+geometry.computeBoundingSphere(); // 变形后同步更新包围球，避免错误剔除
+```
+
+<Callout type="warn" title="改数组不等于 GPU 已收到">
+直接改 `position.array` 或调用 `setX/setY/setZ` 后，都要设置 `position.needsUpdate = true`。只改 CPU 数组不标脏，画面可能保持原样；修改形状后还要检查法线、包围球与包围盒是否仍适用。
+</Callout>
+
+## 4. MeshStandardMaterial：表面外观的关键旋钮
+
+```js
+const standard = new THREE.MeshStandardMaterial({
+  color: 0x9ca3af,
+  roughness: 0.7,   // 0 光滑，1 粗糙
+  metalness: 0.1,   // 0 非金属，1 金属
+  side: THREE.FrontSide,
+});
+
+standard.wireframe = true;      // 调试拓扑：只画三角形线框
+standard.wireframe = false;
+standard.transparent = true;    // 先进入透明渲染路径
+standard.opacity = 0.6;         // 再控制不透明度
+```
+
+`color` 是表面基础色；`roughness` 控制反射扩散程度；`metalness` 描述金属导电反射特征，真实材质通常靠近 0 或 1。`side` 可选正面、背面或双面，双面会增加绘制与透明排序负担，不该成为「面朝向错了」的万能补丁。
+
+透明材质还涉及排序与深度写入，复杂交叠时可能穿帮。调试几何可暂时开 `wireframe`，排查光照则应恢复正常网格。
+
+## 5. Group：局部变换如何合成世界变换
+
+`Group` 本身不画东西，但能作为父节点统一移动零件。每个 `Object3D` 都有描述自身相对父级的 `matrix`，以及包含父级链结果的 `matrixWorld`。
+
+```js
+const vehicle = new THREE.Group();
+const chassis = new THREE.Mesh(
+  new THREE.BoxGeometry(2, 0.5, 1),
+  new THREE.MeshStandardMaterial({ color: 0x475569 }),
+);
+const beacon = new THREE.Mesh(
+  new THREE.SphereGeometry(0.15, 16, 8),
+  new THREE.MeshStandardMaterial({ color: 0xf97316 }),
+);
+
+scene.add(vehicle);
+vehicle.add(chassis, beacon);
+vehicle.position.set(5, 0, 0);
+vehicle.rotation.y = Math.PI / 4;
+beacon.position.set(0.8, 0.5, 0); // 相对 vehicle 的局部位置
+
+scene.updateMatrixWorld(true);
+const worldPosition = beacon.getWorldPosition(new THREE.Vector3());
+console.log(beacon.position);  // 局部坐标仍是 (0.8, 0.5, 0)
+console.log(worldPosition);    // 已包含 vehicle 的平移和旋转
+```
+
+世界矩阵（world matrix，/wɜːrld ˈmeɪtrɪks/，「沃尔德 梅-吹克斯」）由父级矩阵一路乘到当前节点。renderer 通常会在渲染前自动更新矩阵；但你在渲染前手动读取世界位置时，应先 `updateMatrixWorld(true)`，不要依赖上一帧结果。
+
+<Callout type="info" title="和 Cesium 坐标思维对照">
+[Cesium 第 01 章](/s/cesium/01)常把业务点直接转换为地心 `Cartesian3`；three 的模型零件更常先写局部坐标，再由 Group 合成世界坐标。前者带地理语义，后者只是通用矩阵层级。两边都要区分「数据给的是局部还是世界」，否则就会重复叠加父级位移。
+</Callout>
+
+<Callout type="must" title="必背 · 几何材质四问">
+面不显示：索引和三角形绕序对吗？受光不对：法线对吗？透明无效：transparent 开了吗？子物体位置不对：读的是局部坐标还是世界坐标？按这四问定位，比同时乱改几何、材质和 Group 更快。
+</Callout>
+
+<Exercise tool="three" title="动手 · 地球与月球的父子轨道">
+创建一个位于原点的地球，以及距离地球 3 单位的月球。要求月球随地球所在 Group 一起绕原点公转，同时保留自己的局部偏移；随后输出月球的世界坐标，验证它不是简单的 `(3, 0, 0)`。
+<ExerciseSolution>
+建立 `orbit = new THREE.Group()`，把地球放在轨道组原点，把月球设为 `moon.position.set(3, 0, 0)` 并加入同一组。每帧修改 `orbit.rotation.y` 后，在需要读取时调用 `scene.updateMatrixWorld(true)`，再执行 `moon.getWorldPosition(new THREE.Vector3())`。公转后世界 x、z 都随角度变化，而 `moon.position` 仍保持局部值 `(3, 0, 0)`。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- BufferGeometry 用 position、normal、uv 描述顶点，用 index 组织三角形并复用数据。
+- 内置几何适合常规形状，分段数要在平滑度与性能之间取舍。
+- 修改顶点后标记 Attribute 更新，并按需重算法线和包围体。
+- StandardMaterial 的 roughness、metalness 管物理外观，透明必须显式开启。
+- Group 负责变换级联；局部位置、局部矩阵与世界矩阵不是同一层数据。
+
+下一章给材质真正的工作环境：五类光源、阴影贴图、PBR 参数与环境照明。
+
+## 延伸阅读
+
+- 几何数据：[BufferGeometry](https://threejs.org/docs/#api/en/core/BufferGeometry)、[BufferAttribute](https://threejs.org/docs/#api/en/core/BufferAttribute)
+- 网格与材质：[Mesh](https://threejs.org/docs/#api/en/objects/Mesh)、[MeshStandardMaterial](https://threejs.org/docs/#api/en/materials/MeshStandardMaterial)
+- 层级与矩阵：[Group](https://threejs.org/docs/#api/en/objects/Group)、[Object3D](https://threejs.org/docs/#api/en/core/Object3D)
+- 内置几何入口：[Geometries](https://threejs.org/docs/#api/en/geometries/BoxGeometry)

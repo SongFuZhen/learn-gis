@@ -1,0 +1,287 @@
+{
+  "skill": "three",
+  "module": "05",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-05-001",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "OrbitControls 开启 enableDamping 后，为什么还需要在动画循环里持续调用 update？",
+      "explanation": "阻尼惯性需要在后续帧中逐步衰减并更新相机位置。只处理输入事件而不持续调用 controls.update，松手后的过渡无法按预期推进。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls.enableDamping",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "update 只负责加载纹理，与阻尼无关" },
+        {
+          "key": "B",
+          "text": "update 持续推进惯性并更新相机状态",
+          "hint": "开启阻尼后应放入每帧循环"
+        },
+        { "key": "C", "text": "update 用来把 Mesh 转为 Group" },
+        { "key": "D", "text": "只有创建新 Scene 时才需要调用一次" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-002",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 OrbitControls.maxPolarAngle，下列描述正确的是？",
+      "explanation": "maxPolarAngle 限制轨道极角，角度从正 Y 轴向下计算，单位为弧度。设为略小于 Math.PI / 2 可防止相机绕到目标水平面以下。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls.maxPolarAngle",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "它限制经度，单位是度" },
+        { "key": "B", "text": "它设置纹理纵向重复次数" },
+        {
+          "key": "C",
+          "text": "它限制从正 Y 轴起算的极角，单位是弧度",
+          "hint": "Math.PI / 2 对应目标水平面方向"
+        },
+        { "key": "D", "text": "它直接决定 Raycaster 的最大命中距离" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-05-003",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "指针恰好位于 canvas 可见区域中心，换算后的 NDC 应接近哪个值？",
+      "explanation": "NDC 将画布横纵坐标映射到 [-1,1]，中心位于两个方向的中间，因此为 (0,0)。计算时需先扣除 canvas 在视口中的 left/top 偏移。",
+      "refs": [
+        {
+          "title": "three.js Raycaster.setFromCamera",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "(-1,-1)" },
+        {
+          "key": "B",
+          "text": "(0,0)",
+          "hint": "画布中心映射到归一化坐标原点"
+        },
+        { "key": "C", "text": "(1,1)" },
+        { "key": "D", "text": "(devicePixelRatio,devicePixelRatio)" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-004",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "即使 canvas 只占页面一角，也可以始终用 clientX / window.innerWidth 和 clientY / window.innerHeight 得到正确 NDC。",
+      "explanation": "错误。指针坐标必须先减去 canvas 的 bounding rect 左上角偏移，再除以画布自身的 CSS 宽高；使用 window 尺寸会在偏移或非全屏画布中造成错位。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        },
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-05-005",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "Raycaster.intersectObjects 返回多个命中时，普通单选为什么通常取 hits[0]？",
+      "explanation": "命中数组按交点到射线起点的 distance 从近到远排序，hits[0] 是最近的可见交点。空数组表示没有打中任何传入对象。",
+      "refs": [
+        {
+          "title": "three.js Raycaster.intersectObjects",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "因为首项永远是距离最远的对象" },
+        {
+          "key": "B",
+          "text": "因为结果按距离升序，首项是最近命中",
+          "hint": "常规单选关心最前面的交点"
+        },
+        { "key": "C", "text": "因为首项永远是传入的 Group 根节点" },
+        { "key": "D", "text": "因为数组顺序完全随机，首项可去重" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-006",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 OrbitControls 的目标与交互限制，正确的说法有哪些？",
+      "explanation": "target 是轨道中心，minDistance/maxDistance 限制相机到目标的距离，maxPolarAngle 使用弧度限制极角。开启阻尼后仍需每帧 update，并非设置一次就结束。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "controls.target 决定相机围绕哪个点运动",
+          "hint": "修改目标后应调用 update"
+        },
+        {
+          "key": "B",
+          "text": "minDistance 与 maxDistance 可限制缩放距离",
+          "hint": "二者约束相机到 target 的距离"
+        },
+        {
+          "key": "C",
+          "text": "maxPolarAngle 用弧度限制轨道极角",
+          "hint": "角度单位不是度"
+        },
+        { "key": "D", "text": "enableDamping = true 后可以永久停止 controls.update" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-05-007",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "射线没有命中 pickables 中任何对象时，intersectObjects 的返回结果是什么？",
+      "explanation": "intersectObjects 在没有交点时返回空数组。示例中的 hits[0] ?? null 将不存在的首项转换为 null，便于业务统一处理未命中状态。",
+      "refs": [
+        {
+          "title": "three.js Raycaster.intersectObjects",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "空数组 []",
+          "hint": "访问首项会得到 undefined，可再转为 null"
+        },
+        { "key": "B", "text": "一个 distance 为 Infinity 的固定命中" },
+        { "key": "C", "text": "整个 Scene 根节点" },
+        { "key": "D", "text": "必定抛出 WebGL 异常" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-05-008",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "递归拾取 glTF 时，Intersection.object 一定就是传入 intersectObjects 的最外层模型 Group。",
+      "explanation": "错误。递归检测会返回实际与射线相交的子 Mesh。若业务 ID 挂在模型根节点，需要沿 parent 链向上找到带 selectable 标记的根对象。",
+      "refs": [
+        {
+          "title": "three.js Raycaster Intersection.object",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "three.js Object3D.parent",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-05-009",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "实现稳定的 hover 高亮与 click 选中，下列做法合理的有哪几项？",
+      "explanation": "hover 和 selected 是两种不同生命周期的状态，应分别保存。点击空白通常清除选中，轨道拖拽可用位移阈值过滤；共享材质不能直接改色，否则其他 Mesh 会一起变化。",
+      "refs": [
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "three.js Material",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "分别保存 hovered 与 selected，并统一刷新高亮",
+          "hint": "选中态可优先于临时悬停态"
+        },
+        {
+          "key": "B",
+          "text": "点击空白时把 selected 清空",
+          "hint": "未命中也是明确的业务交互"
+        },
+        {
+          "key": "C",
+          "text": "用 pointerdown 与 click 的位置差过滤轨道拖拽",
+          "hint": "超过位移阈值就不执行点选"
+        },
+        { "key": "D", "text": "多个 Mesh 共享材质时，直接改其中一个的 material 颜色绝不会影响其他 Mesh" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-05-010",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "非全屏画布中拾取偏移，命中后查不到根模型 ID，改色又让所有共享材质的模型一起亮。哪套修复最完整？",
+      "explanation": "三个症状分别来自坐标空间、命中层级和资源共享：应使用 canvas rect 换算 NDC，沿 parent 找到带业务标记的根节点，并为目标使用独立材质或不改共享材质的轮廓高亮方案。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "three.js Material",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "统一改用 window 尺寸，删除 parent 链，并继续共享材质" },
+        {
+          "key": "B",
+          "text": "用 canvas rect 算 NDC，向上映射业务根节点，并避免直接修改共享材质",
+          "hint": "分别修复坐标、层级和材质所有权三层问题"
+        },
+        { "key": "C", "text": "只提高 maxDistance，并把 dampingFactor 改为 1" },
+        { "key": "D", "text": "关闭递归拾取，再把所有命中都强制当成 Scene" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

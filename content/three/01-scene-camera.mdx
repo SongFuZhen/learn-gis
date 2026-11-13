@@ -1,0 +1,193 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：上一章把立方体画出来了，但场景像仓库、相机像眼睛、渲染器像投影仪，三者到底怎么配合？**一句话经验**：先把物体挂进 `Scene` 树，再让相机视锥罩住它，最后用渲染器按帧拍照；黑屏就沿这条链排查。**常见坑**：
+- 把物体 `add` 到了错误父节点，或 `remove` 后还以为它会自动销毁——前者是层级问题，后者只是摘下来，GPU 资源仍在。
+- `near` 写成 0、`far` 随手写一百万，结果深度精度浪费，远处表面互相穿插。
+- 用「每帧转 0.01」做动画，高刷屏转得飞快，低帧率机器像慢放。
+- resize 只改画布，不改相机宽高比和投影矩阵，模型立刻变胖。**必记 3 条**：
+1. `Scene.children` 是直属子节点，`add/remove` 管的是挂载关系，不等于资源创建与销毁。
+2. 透视相机四参数是 `fov / aspect / near / far`，分别管纵向视野、宽高比和可见深度范围。
+3. 动画位移乘 `delta`，resize 做齐 `aspect → updateProjectionMatrix → setSize` 三件套。
+
+## 本章你会学到
+
+场景树的挂载与卸载、透视与正交相机的差别、渲染器关键初始化项、基于时间的动画循环，以及窗口变化时的完整适配流程。学完后，你能解释「物体明明存在，为什么画面里没有」。
+
+## 1. Scene：先理清父子关系
+
+`Scene` 是场景树根，网格、灯光、相机和 `Group` 都是 `Object3D` 节点。`children` 只列直属子节点，不包含孙节点；`add` 会把节点从旧父级移到新父级，同一个节点不会同时有两个父亲。
+
+```js
+import * as THREE from "three";
+
+const scene = new THREE.Scene();
+const robot = new THREE.Group();
+const body = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1.6, 0.6),
+  new THREE.MeshStandardMaterial({ color: 0x3b82f6 }),
+);
+const head = new THREE.Mesh(
+  new THREE.SphereGeometry(0.4, 32, 16),
+  new THREE.MeshStandardMaterial({ color: 0xf8fafc }),
+);
+
+scene.add(robot);
+robot.add(body, head);
+head.position.y = 1.3;
+console.log(scene.children.includes(robot)); // true
+console.log(scene.children.includes(head));  // false，head 是孙节点
+
+robot.remove(head); // 只脱离层级，不销毁几何体和材质
+scene.add(head);    // 现在 head 成为 Scene 的直属子节点
+```
+
+父节点变换会传给子节点，所以转动 `robot` 会带动仍挂在它下面的 `body`。`remove` 后若确定不再使用，还要按第 4 章的方法释放资源。
+
+## 2. Camera：视锥决定谁能入镜
+
+透视相机的可见区域叫视锥（frustum，/ˈfrʌstəm/，「弗拉斯-特姆」），像从眼睛向前张开的四棱锥。四个参数缺一不可：
+
+| 参数 | 含义 | 调大后的直观结果 |
+| --- | --- | --- |
+| `fov` | 纵向视野角，单位是度 | 看得更宽，透视变形更明显 |
+| `aspect` | 画布宽度 ÷ 高度 | 应与实际显示比例一致 |
+| `near` | 近平面距离 | 太小的物体会从视野中裁掉 |
+| `far` | 远平面距离 | 更远的物体可入镜，但深度精度更紧张 |
+
+```js
+const camera = new THREE.PerspectiveCamera(
+  50,                              // fov：纵向 50°
+  window.innerWidth / window.innerHeight,
+  0.1,                             // near：必须大于 0
+  100,                             // far：必须大于 near
+);
+camera.position.set(4, 3, 6);
+camera.lookAt(0, 0, 0);
+
+// 同场景也可换正交相机：物体不随距离近大远小
+const halfHeight = 2;
+const aspect = window.innerWidth / window.innerHeight;
+const orthoCamera = new THREE.OrthographicCamera(
+  -halfHeight * aspect,
+  halfHeight * aspect,
+  halfHeight,
+  -halfHeight,
+  0.1,
+  100,
+);
+orthoCamera.position.set(4, 3, 6);
+orthoCamera.lookAt(0, 0, 0);
+```
+
+正交投影（orthographic projection，/ˌɔːrθəˈɡræfɪk prəˈdʒekʃn/，「奥-索-格拉菲克 普罗-杰克申」）适合工程图、轴测视图和编辑器；产品展示、漫游通常用透视投影。
+
+<Callout type="info" title="和 Cesium 相机对照">
+[Cesium 第 01 章](/s/cesium/01)的 `setView/flyTo/lookAt` 操作的是地心坐标中的地球相机；three 相机只在普通笛卡尔空间工作，没有经纬度入口。两者都有视锥、近平面和远平面，但在 three 里你要直接管理投影参数，不会有一个 Globe 替你决定观察对象。
+</Callout>
+
+## 3. WebGLRenderer：把场景拍到画布上
+
+渲染器创建时就要决定是否抗锯齿；像素比则建议封顶，避免高分屏把片元工作量放大数倍。现代 three 默认输出 sRGB，这里显式写出，方便团队统一约定。
+
+```js
+import * as THREE from "three";
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+document.body.appendChild(renderer.domElement);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0b1220);
+const camera = new THREE.PerspectiveCamera(
+  50,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  100,
+);
+camera.position.set(3, 2, 5);
+camera.lookAt(0, 0, 0);
+
+const cube = new THREE.Mesh(
+  new THREE.BoxGeometry(1, 1, 1),
+  new THREE.MeshStandardMaterial({ color: 0x38bdf8 }),
+);
+scene.add(cube);
+scene.add(new THREE.AmbientLight(0xffffff, 0.4));
+const sun = new THREE.DirectionalLight(0xffffff, 2);
+sun.position.set(3, 5, 4);
+scene.add(sun);
+```
+
+`antialias` 是构造参数，之后改 `renderer.antialias` 没有用。`setPixelRatio` 与 `setSize` 也不同：前者决定内部渲染像素密度，后者设置画布显示尺寸与绘制缓冲区尺寸。
+
+## 4. 渲染循环：按时间走，不按帧数走
+
+`requestAnimationFrame` 的回调频率跟随屏幕刷新，60 Hz 与 120 Hz 屏幕每秒回调次数不同。时间步长（delta time，/ˈdeltə taɪm/，「德尔塔 泰姆」）表示距上一帧过了多少秒，角速度乘它才能保证「每秒转多少」不随帧率变化。
+
+```js
+let previousTime = performance.now();
+const angularSpeed = Math.PI / 2; // 每秒 90°，单位是弧度
+
+function tick(now) {
+  const delta = Math.min((now - previousTime) / 1000, 0.05);
+  previousTime = now;
+
+  cube.rotation.y += angularSpeed * delta;
+  renderer.render(scene, camera);
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(tick);
+```
+
+把 `delta` 上限截到 0.05 秒，可以避免切回后台标签页后物体突然跳过一大段。浏览器通常暂停后台页面的动画帧，因此不要用回调次数推算真实经过时间。
+
+<Callout type="warn" title="near / far 不是越大越保险">
+透视相机要求 `near > 0` 且 `far > near`。深度缓冲精度在近平面附近最密集，`near` 极小、`far/near` 比例过大，会让远处共面或相近表面出现闪烁穿插（z-fighting）。按场景尺度收紧范围，比盲目扩大视锥更有效。
+</Callout>
+
+## 5. resize：相机和画布一起改
+
+窗口变化后必须按顺序完成三件套：更新宽高比、重建投影矩阵、重设渲染尺寸。漏掉中间一步，相机仍会使用旧投影。
+
+```js
+window.addEventListener("resize", () => {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+  renderer.setSize(width, height);
+});
+```
+
+如果画布只在页面某个容器里，应读取容器的 `clientWidth/clientHeight`，而不是无条件使用 `window` 尺寸。
+
+<Callout type="must" title="必背 · 渲染链排查顺序">
+物体在场景树里 → 父级变换没把它移走 → 目标位于相机视锥内 → 材质有合适光照 → 渲染循环仍在执行。黑屏不要先乱调材质，沿这条链从结构查到像素，效率最高。
+</Callout>
+
+<Exercise tool="three" title="动手 · 两兄弟用不同速度旋转">
+在机器人场景里再给 `head` 挂回 `robot`，让 `robot` 每秒转 30°、`head` 相对父级每秒反向转 60°。要求动画在 60 Hz 和 120 Hz 下速度一致，并说明 `scene.children.length` 会不会随每帧旋转改变。
+<ExerciseSolution>
+在 `tick` 中写 `robot.rotation.y += (Math.PI / 6) * delta; head.rotation.y -= (Math.PI / 3) * delta;`。`head` 的旋转是局部变换，会叠加 `robot` 的世界变换，所以它会一边随父级公转一边反向自转。旋转只修改矩阵，不调用 `add/remove`，因此直属子节点数量始终不变。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- `Scene` 管层级，`children` 只看直属子节点；`remove` 不等于释放 GPU 资源。
+- 透视相机用 `fov/aspect/near/far` 定义视锥，正交相机没有近大远小。
+- 渲染器抗锯齿在构造时决定，像素比应设上限，输出颜色空间保持 sRGB。
+- 动画使用秒为单位的 `delta`，不要假定帧率固定。
+- resize 三件套：改 `aspect`、更新投影矩阵、重设 renderer 尺寸。
+
+下一章进入网格内部：顶点、法线、UV、索引与材质，再看父子矩阵如何合成世界位置。
+
+## 延伸阅读
+
+- 场景与节点基类：[Scene](https://threejs.org/docs/#api/en/scenes/Scene)、[Object3D](https://threejs.org/docs/#api/en/core/Object3D)
+- 相机参数与投影：[PerspectiveCamera](https://threejs.org/docs/#api/en/cameras/PerspectiveCamera)、[OrthographicCamera](https://threejs.org/docs/#api/en/cameras/OrthographicCamera)
+- 渲染器配置：[WebGLRenderer](https://threejs.org/docs/#api/en/renderers/WebGLRenderer)
+- 浏览器动画帧：[MDN requestAnimationFrame](https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame)

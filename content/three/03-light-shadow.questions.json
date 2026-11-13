@@ -1,0 +1,283 @@
+{
+  "skill": "three",
+  "module": "03",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-03-001",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "需要模拟来自无限远处、方向一致的太阳光，应优先选择哪种光源？",
+      "explanation": "DirectionalLight 的光线彼此平行，光源位置主要用来确定照射方向，最适合模拟远处太阳。PointLight 和 SpotLight 都有明确的局部发光位置。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLight",
+          "url": "https://threejs.org/docs/#api/en/lights/DirectionalLight"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "DirectionalLight",
+          "hint": "平行光是太阳的有效近似"
+        },
+        { "key": "B", "text": "PointLight" },
+        { "key": "C", "text": "AmbientLight" },
+        { "key": "D", "text": "HemisphereLight" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-03-002",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "只使用较高强度的 AmbientLight，最典型的视觉问题是什么？",
+      "explanation": "AmbientLight 从所有方向均匀照亮物体，缺少随表面方向变化的明暗层次，也不支持阴影，因此画面容易显得扁平。",
+      "refs": [
+        {
+          "title": "three.js AmbientLight",
+          "url": "https://threejs.org/docs/#api/en/lights/AmbientLight"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "自动生成过强的点光阴影" },
+        {
+          "key": "B",
+          "text": "各面受光过于均匀，体积感偏弱",
+          "hint": "环境光没有可用于塑形的主方向"
+        },
+        { "key": "C", "text": "所有物体必定变成线框" },
+        { "key": "D", "text": "UV 坐标自动重复无限次" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-03-003",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "SpotLight 的光锥方向已经设置，却没有照向预期目标，最应该检查什么？",
+      "explanation": "SpotLight 从自身位置照向 target。target 是独立的 Object3D，改变其位置后应把它加入场景树并确保矩阵更新，否则光锥可能仍朝旧目标。",
+      "refs": [
+        {
+          "title": "three.js SpotLight.target",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "材质的 wireframe 是否开启" },
+        { "key": "B", "text": "球体几何的 UV 分段数量" },
+        {
+          "key": "C",
+          "text": "spot.target 是否设置正确并加入场景",
+          "hint": "聚光方向由光源与目标共同决定"
+        },
+        { "key": "D", "text": "renderer 是否使用正交相机" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-03-004",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "只要设置 renderer.shadowMap.enabled = true，场景里的所有灯光和物体就会自动产生并接收阴影。",
+      "explanation": "错误。还需要光源 castShadow、遮挡物体 castShadow、接收物体 receiveShadow，并让相关物体进入阴影相机范围；AmbientLight 与 HemisphereLight 本身不支持阴影。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.shadowMap",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        },
+        {
+          "title": "three.js LightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/LightShadow"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-03-005",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "DirectionalLight 的阴影很粗糙，而阴影相机覆盖了远大于实际场景的区域，优先如何改善？",
+      "explanation": "阴影相机覆盖过大会让每张贴图像素对应更大的世界面积。先收紧 left/right/top/bottom 与 near/far，让分辨率集中在有效区域，再考虑提高 mapSize。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "收紧阴影相机到实际投影与接收区域",
+          "hint": "提高有效区域对阴影贴图的利用率"
+        },
+        { "key": "B", "text": "继续扩大 left、right、top、bottom" },
+        { "key": "C", "text": "关闭 receiveShadow 以获得更多采样" },
+        { "key": "D", "text": "把环境光强度提高十倍" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-03-006",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "要让一个盒子在平行光下把阴影投到地面上，需要满足哪些条件？",
+      "explanation": "平行光阴影需要 renderer 开启阴影流程、光源开启 castShadow、盒子作为遮挡物开启 castShadow，同时地面开启 receiveShadow。仅让盒子投影而地面不接收，地面仍不会显示影子。",
+      "refs": [
+        {
+          "title": "three.js Object3D.castShadow",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "renderer.shadowMap.enabled = true",
+          "hint": "先允许渲染器执行阴影流程"
+        },
+        {
+          "key": "B",
+          "text": "平行光 castShadow = true",
+          "hint": "光源需要生成自己的阴影图"
+        },
+        { "key": "C", "text": "只给盒子 castShadow，地面 receiveShadow 保持 false" },
+        {
+          "key": "D",
+          "text": "盒子 castShadow = true，地面 receiveShadow = true",
+          "hint": "遮挡深度与阴影接收缺一不可"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-03-007",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "增大 shadow.bias 或 normalBias 后，物体影子与接触点明显分离，应怎样调整？",
+      "explanation": "偏移用于缓解自遮挡条纹，但过大会把接收面的深度比较推得过远，产生悬浮或 peter-panning。应按场景尺度减小偏移，在条纹与接触感之间折中。",
+      "refs": [
+        {
+          "title": "three.js LightShadow.bias",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/LightShadow"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "继续成倍增大两个偏移值" },
+        { "key": "B", "text": "删除所有光源，只保留 AmbientLight" },
+        {
+          "key": "C",
+          "text": "按场景尺度减小 bias 或 normalBias",
+          "hint": "偏移过大会牺牲接触阴影"
+        },
+        { "key": "D", "text": "把材质 opacity 改成 0.5 即可修复深度" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-03-008",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "AmbientLight 和 HemisphereLight 都可以通过 castShadow 生成物体阴影。",
+      "explanation": "错误。这两类光用于无阴影的环境补光，不具备 DirectionalLight、PointLight、SpotLight 那样的阴影投射流程。",
+      "refs": [
+        {
+          "title": "three.js AmbientLight",
+          "url": "https://threejs.org/docs/#api/en/lights/AmbientLight"
+        },
+        {
+          "title": "three.js HemisphereLight",
+          "url": "https://threejs.org/docs/#api/en/lights/HemisphereLight"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-03-009",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于 PBR 材质与 IBL 环境照明，正确的说法有哪些？",
+      "explanation": "真实金属的 metalness 通常接近 1；roughness 越低反射越锐利。IBL 能提供各方向环境反射，但不会自动生成物体间投影阴影，也不能用 AmbientLight 简单替代。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        },
+        {
+          "title": "three.js PMREMGenerator",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "真实金属材质的 metalness 通常接近 1",
+          "hint": "金属度不是亮度参数"
+        },
+        {
+          "key": "B",
+          "text": "roughness 越低，镜面反射通常越清晰",
+          "hint": "光滑表面的反射更集中"
+        },
+        {
+          "key": "C",
+          "text": "IBL 可提供环境反射，但主光阴影仍需另行配置",
+          "hint": "环境贴图与阴影贴图是两套机制"
+        },
+        { "key": "D", "text": "提高 AmbientLight 就能等价替代完整环境反射贴图" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-03-010",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "高金属度球在平行光之外大面积发黑，持续提高 AmbientLight 仍显得死板。更合理的修复方案是什么？",
+      "explanation": "金属外观高度依赖来自周围环境的镜面反射，单一平行光与均匀环境光不能提供丰富方向信息。应加入经过 PMREM 处理的环境贴图并合理设置 roughness，同时保留主光塑造明暗和阴影。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial.envMap",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        },
+        {
+          "title": "three.js PMREMGenerator",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把 metalness 固定为 1 并删除所有光源" },
+        {
+          "key": "B",
+          "text": "加入 scene.environment 环境照明，调整 roughness 并保留主光",
+          "hint": "让金属获得来自各方向的真实反射内容"
+        },
+        { "key": "C", "text": "把所有面的 side 改成 DoubleSide" },
+        { "key": "D", "text": "只把阴影 mapSize 提高到最大值" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "skill": "three",
+  "module": "00",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-00-001",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "three.js 在浏览器技术栈中扮演的角色最准确的描述是？",
+      "explanation": "three 是对原生 WebGL 的工程抽象，属于通用三维渲染引擎；它不提供地球、瓦片或经纬度语义，地理三维能力是 Cesium 的领域。",
+      "refs": [
+        {
+          "title": "three.js 官方手册",
+          "url": "https://threejs.org/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "浏览器内置的地理信息系统" },
+        {
+          "key": "B",
+          "text": "封装 WebGL 的通用三维渲染引擎",
+          "hint": "场景图抽象是它对原生 WebGL 的核心增量"
+        },
+        { "key": "C", "text": "一种三维模型文件格式" },
+        { "key": "D", "text": "服务端瓦片发布服务" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-00-002",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "three.js 最小可渲染程序的「三件套」是？",
+      "explanation": "Scene 是场景图容器，PerspectiveCamera 定义观察视角，WebGLRenderer 负责把场景画到 canvas；Mesh 是物体而非三件套之一。",
+      "refs": [
+        {
+          "title": "three.js Creating a scene",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Creating-a-scene"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Scene、PerspectiveCamera、WebGLRenderer",
+          "hint": "场景、相机、渲染器"
+        },
+        { "key": "B", "text": "Geometry、Material、Texture" },
+        { "key": "C", "text": "Vertex、Fragment、Program" },
+        { "key": "D", "text": "Entity、DataSource、Viewer" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-00-003",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "一个可见的 three 网格（Mesh）由哪两部分组合而成？",
+      "explanation": "Geometry 只描述形状的顶点数据，Material 描述光照下的外观，二者组成 Mesh 才能被加入场景渲染，这与 Cesium 的几何+外观思路一致。",
+      "refs": [
+        {
+          "title": "three.js Mesh 文档",
+          "url": "https://threejs.org/docs/#api/en/objects/Mesh"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Camera 与 Light" },
+        {
+          "key": "B",
+          "text": "Geometry 与 Material",
+          "hint": "形状数据 + 外观材质"
+        },
+        { "key": "C", "text": "Scene 与 Renderer" },
+        { "key": "D", "text": "Buffer 与 Texture" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-00-004",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "three.js 会在修改物体属性后自动重绘画布，不需要手动渲染循环。",
+      "explanation": "错。three 没有响应式系统，属性变化不会触发重绘，必须在 requestAnimationFrame 循环里每帧调用 renderer.render(scene, camera) 才能看到动画。",
+      "refs": [
+        {
+          "title": "three.js Creating a scene（Manual）",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Creating-a-scene"
+        },
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-00-005",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用 MeshStandardMaterial 渲染出的立方体整个纯黑，最可能遗漏了什么？",
+      "explanation": "MeshStandardMaterial 是 PBR 材质，需要光照才能产生明暗；没加任何光源时它没有可反射的入射光，结果就是黑色。调试可用不受光照的 MeshBasicMaterial 先验证几何。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "没有调用 lookAt" },
+        {
+          "key": "B",
+          "text": "场景里缺少光源",
+          "hint": "PBR 材质无入射光即全黑"
+        },
+        { "key": "C", "text": "几何体顶点数太少" },
+        { "key": "D", "text": "没有启用 antialias" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-00-006",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "下列关于 three.js 与 CesiumJS 对比的说法，正确的有哪些？",
+      "explanation": "three 是无地理语义的通用笛卡尔三维引擎，单位自定义；Cesium 内置 WGS84 椭球、影像、地形、3D Tiles 与时钟，面向地理场景。两者都基于 WebGL，Cesium 并非 three 的上层封装。",
+      "refs": [
+        {
+          "title": "three.js 官网",
+          "url": "https://threejs.org/"
+        },
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "three 的空间单位由开发者自定义，引擎不解释为米或经纬度",
+          "hint": "通用引擎没有地理语义"
+        },
+        {
+          "key": "B",
+          "text": "Cesium 内置椭球、影像图层、地形与时间系统",
+          "hint": "地理专用引擎的一等公民"
+        },
+        { "key": "C", "text": "Cesium 是基于 three.js 二次封装的库" },
+        {
+          "key": "D",
+          "text": "两者底层都依赖浏览器 WebGL 能力",
+          "hint": "同为 WebGL 渲染器"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-00-007",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "窗口尺寸变化后，只调用 renderer.setSize 而不执行 camera.updateProjectionMatrix，最可能出现什么现象？",
+      "explanation": "透视相机的投影矩阵在构造时按旧宽高比烘焙，resize 后 aspect 虽改但矩阵未重建，画面会出现拉伸/压扁变形；正确做法是先改 camera.aspect 再 updateProjectionMatrix，最后 setSize。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.updateProjectionMatrix",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "canvas 直接消失报 WebGL 错误" },
+        {
+          "key": "B",
+          "text": "画面比例失调，物体被拉伸或压扁",
+          "hint": "投影矩阵仍持有旧宽高比"
+        },
+        { "key": "C", "text": "没有任何变化，three 会自动同步" },
+        { "key": "D", "text": "相机构造函数抛异常" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-00-008",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "场景图（scene graph）中父 Object3D 的旋转会带动所有子节点一起变换。",
+      "explanation": "对。场景图是变换层级树，子节点的世界矩阵由父级链级联相乘得到，这正是机械臂、太阳系这类层级动画的实现基础；兄弟节点之间则互不影响。",
+      "refs": [
+        {
+          "title": "three.js Object3D 文档",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-00-009",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "下列哪个需求更适合用 three.js 而不是 CesiumJS？",
+      "explanation": "电商产品的 3D 展示是无地理语义的通用渲染需求，three 更轻更合适；城市级倾斜摄影、卫星轨迹回放、带地形的园区都涉及地理坐标或地形，属于 Cesium 主场。",
+      "refs": [
+        {
+          "title": "three.js examples",
+          "url": "https://threejs.org/examples/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "加载城市级 3D Tiles 倾斜摄影并漫游" },
+        { "key": "B", "text": "在三维地球上回放卫星轨道" },
+        {
+          "key": "C",
+          "text": "电商页面里可旋转的商品三维模型展示",
+          "hint": "无地理语义的通用产品渲染"
+        },
+        { "key": "D", "text": "沿真实地形量算山区贴地距离" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-00-010",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "相机与立方体都位于原点 (0,0,0)，其余代码正确，渲染结果最可能是什么，应如何修复？",
+      "explanation": "相机位于盒子内部时，盒面在相机身后或被近平面裁掉，画面看不到正常立方体（只剩背景色或穿模）。修复是把相机沿某轴后撤并 lookAt 原点，让目标落在视锥内部，这也解释了示例为什么先 position.set 再 lookAt。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera 视锥参数",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "立方体正常显示，因为原点是默认焦点" },
+        {
+          "key": "B",
+          "text": "看不到立方体（在相机内部/近平面外），需后撤相机并 lookAt 目标",
+          "hint": "视锥内没有目标几何"
+        },
+        { "key": "C", "text": "渲染器自动把相机推到物体前方" },
+        { "key": "D", "text": "报几何体未定义异常" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

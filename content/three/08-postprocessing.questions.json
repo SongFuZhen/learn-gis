@@ -1,0 +1,174 @@
+{
+  "skill": "three",
+  "module": "08",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-08-001",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "EffectComposer 在后处理工作流中的主要职责是什么？",
+      "explanation": "EffectComposer 管理离屏 renderTarget 与 Pass 链，把场景图像依次交给各阶段处理，最后输出到屏幕。它不是模型加载器，也不负责把经纬度转成地理坐标。",
+      "refs": [{ "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "加载 glTF 并自动绑定所有骨骼" },
+        { "key": "B", "text": "组织离屏缓冲与有序 Pass 链", "hint": "让各后处理阶段传递渲染结果" },
+        { "key": "C", "text": "替代所有几何体和材质" },
+        { "key": "D", "text": "把浏览器变成地理数据库" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-08-002",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "一个包含场景、泛光和最终显示转换的基础 Pass 链，合理顺序是？",
+      "explanation": "RenderPass 先把场景画入离屏目标，UnrealBloomPass 再处理亮区，OutputPass 最后执行色调映射与输出色彩空间转换。把输出转换放最前会让后续阶段处理错误的颜色空间。",
+      "refs": [
+        { "title": "RenderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/RenderPass" },
+        { "title": "OutputPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/OutputPass" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "OutputPass → RenderPass → UnrealBloomPass" },
+        { "key": "B", "text": "RenderPass → UnrealBloomPass → OutputPass", "hint": "先场景、再效果、最后输出转换" },
+        { "key": "C", "text": "UnrealBloomPass → OutputPass → RenderPass" },
+        { "key": "D", "text": "RenderPass → OutputPass → UnrealBloomPass" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-08-003",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于 three 后处理 Pass 链，下列说法正确的有哪些？",
+      "explanation": "RenderPass 负责把指定场景与相机渲染进链，Pass 顺序决定加工顺序，ShaderPass 会把输入缓冲提供给 tDiffuse。并非每个 Pass 都重新绘制场景，很多 Pass 只处理全屏纹理。",
+      "refs": [
+        { "title": "Pass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/Pass" },
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "RenderPass 接收 scene 与 camera，为链提供场景图像", "hint": "它是常见的链入口" },
+        { "key": "B", "text": "交换两个效果 Pass 的顺序可能改变最终画面", "hint": "图像加工通常不满足任意交换律" },
+        { "key": "C", "text": "ShaderPass 的 tDiffuse 用于读取上一阶段输入", "hint": "自定义片元先采样它" },
+        { "key": "D", "text": "每个 Pass 都必须重新绘制全部 Mesh，不能处理全屏纹理" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-08-004",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "OutputPass 通常放在后处理链尾部，用于色调映射和输出色彩空间转换。",
+      "explanation": "正确。OutputPass 根据 renderer 的色调映射与输出颜色空间设置做最终显示收尾，通常不应放在泛光等线性空间效果之前。",
+      "refs": [{ "title": "OutputPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/OutputPass" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-08-005",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "想让 UnrealBloomPass 的光晕更强、扩散更宽，应主要调整哪组参数？",
+      "explanation": "strength 控制光晕叠加强度，radius 控制模糊扩散范围；threshold 决定多亮的区域参与泛光。提高前两者会分别增强和拓宽光晕。",
+      "refs": [{ "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "提高 strength 与 radius", "hint": "一个管强度，一个管扩散" },
+        { "key": "B", "text": "只提高 camera.near" },
+        { "key": "C", "text": "降低 geometry 的顶点数" },
+        { "key": "D", "text": "把 OutputPass 移到链首" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-08-006",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "其他设置不变，把 UnrealBloomPass 的 threshold 明显提高，通常会出现什么结果？",
+      "explanation": "threshold 是参与泛光的亮度门槛。门槛提高后，较暗或中等亮度的区域会被排除，通常只有更亮的区域产生光晕，因此泛光覆盖范围减少。",
+      "refs": [{ "title": "UnrealBloomPass 参数", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "所有像素都变成纯黑，无法恢复" },
+        { "key": "B", "text": "参与泛光的区域通常减少", "hint": "亮度门槛变得更严格" },
+        { "key": "C", "text": "所有暗部必然产生更强泛光" },
+        { "key": "D", "text": "场景自动切换为正交相机" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-08-007",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于 composer 的尺寸、DPR 与性能，下列说法正确的有哪些？",
+      "explanation": "窗口变化要同步 composer.setSize，DPR 变化要同步 composer.setPixelRatio。setSize 使用 CSS 尺寸，内部再乘 pixelRatio；Bloom 会额外使用多级模糊和渲染目标，成本不能按单次绘制估算。",
+      "refs": [{ "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "窗口尺寸变化后调用 composer.setSize", "hint": "离屏目标也要匹配新尺寸" },
+        { "key": "B", "text": "像素比变化后调用 composer.setPixelRatio", "hint": "与 renderer 的像素比保持协调" },
+        { "key": "C", "text": "setSize 前必须手动把 CSS 尺寸乘 DPR，再让 composer 乘一次" },
+        { "key": "D", "text": "UnrealBloomPass 内部包含额外模糊阶段与渲染目标", "hint": "它不只是一次全屏绘制" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-08-008",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "接入 EffectComposer 后，窗口 resize 只需调用 renderer.setSize，composer 的内部渲染目标会自动读取 DOM 并同步。",
+      "explanation": "错误。renderer 和 composer 各自管理尺寸状态，窗口变化时还要调用 composer.setSize；相机 aspect 与 updateProjectionMatrix 也应同步更新。",
+      "refs": [{ "title": "EffectComposer.setSize", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-08-009",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "与 three EffectComposer 对照，Cesium 自定义后处理通常使用哪套接口与输入输出约定？",
+      "explanation": "Cesium 把自定义 PostProcessStage 加入 scene.postProcessStages，片元通过 colorTexture 与 v_textureCoordinates 采样上一阶段，并输出 out_FragColor。three ShaderPass 常用的是 tDiffuse。",
+      "refs": [{ "title": "CesiumJS 官方文档", "url": "https://cesium.com/documentation/cesiumjs/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "scene.postProcessStages；colorTexture、v_textureCoordinates、out_FragColor", "hint": "Cesium 的整屏滤镜图约定" },
+        { "key": "B", "text": "THREE.AnimationMixer；position、normal、uv" },
+        { "key": "C", "text": "MapLibre custom layer；tDiffuse、uTime、gl_Position" },
+        { "key": "D", "text": "Raycaster；gl_FragDepth、modelMatrix、viewMatrix" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-08-010",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "性能分析发现 UnrealBloomPass 的 GPU 开销明显高于单个普通 ShaderPass，最根本的原因是什么？",
+      "explanation": "UnrealBloomPass 不是简单的一次全屏着色：它要进行亮区提取、多级分辨率的模糊、合成，并维护相应渲染目标。物理像素越高，这些额外阶段的带宽与填充成本越明显。",
+      "refs": [
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" },
+        { "title": "three.js 后处理示例", "url": "https://threejs.org/examples/" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "它每帧都会重新创建所有场景几何体" },
+        { "key": "B", "text": "它内部执行多级模糊与合成，使用多个渲染目标", "hint": "Pass 数量不等于实际全屏子阶段数量" },
+        { "key": "C", "text": "它必须对每颗粒子做一次 CPU 射线拾取" },
+        { "key": "D", "text": "它会把 WebGL 自动切换为服务端渲染" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "skill": "three",
+  "module": "09",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-09-001",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "MapLibre custom layer 在 three 与地图集成中主要提供什么能力？",
+      "explanation": "custom layer 让开发者在 MapLibre 的绘制流程中取得地图 GL 上下文和相机相关矩阵，从而把自定义 WebGL 或 three 内容画进地图，而不是把经纬度当作普通 three 坐标。",
+      "refs": [{ "title": "MapLibre CustomLayerInterface", "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "自动把任意 glTF 转换成地形瓦片" },
+        { "key": "B", "text": "在地图渲染生命周期中执行自定义 WebGL 绘制", "hint": "onAdd 初始化，render 绘制，onRemove 清理" },
+        { "key": "C", "text": "替代所有 MapLibre 样式与数据源" },
+        { "key": "D", "text": "让 three 自动获得 Cesium 的地形服务" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-09-002",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "MercatorCoordinate.fromLngLat 返回的坐标应怎样理解？",
+      "explanation": "它把经纬度与高度转换为 MapLibre 的归一化 Web Mercator 三维坐标，整个投影世界约为 1×1，原点位于西北角；返回的不是以米计的 ECEF 坐标。",
+      "refs": [{ "title": "MapLibre MercatorCoordinate", "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/MercatorCoordinate/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "整个投影世界归一化为约 1×1 的 Mercator 坐标", "hint": "西北角约 0,0，东南角约 1,1" },
+        { "key": "B", "text": "以地球质心为原点的米制 ECEF 坐标" },
+        { "key": "C", "text": "屏幕上的 CSS 像素坐标" },
+        { "key": "D", "text": "未经投影的经纬度弧度数组" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-09-003",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "在 MapLibre 与 three 共享 canvas 和 WebGL context 时，哪些做法正确？",
+      "explanation": "共享 renderer 应使用 map.getCanvas 与 onAdd 提供的 gl，并关闭 autoClear 以保留底图。renderer.resetState 用于避免 three 盲信被外部改动的 GL 状态；canvas 尺寸由地图管理，不应在 render 中随意 setSize。",
+      "refs": [
+        { "title": "MapLibre CustomLayerInterface", "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/" },
+        { "title": "THREE.WebGLRenderer", "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "renderer 使用 map.getCanvas() 和 onAdd 的 gl", "hint": "两者绘入同一地图画布与上下文" },
+        { "key": "B", "text": "设置 renderer.autoClear = false", "hint": "避免清掉已绘制的地图" },
+        { "key": "C", "text": "绘制前调用 renderer.resetState()", "hint": "外部渲染器可能已修改 GL 状态" },
+        { "key": "D", "text": "每次 render 都调用 renderer.setSize，主动争夺画布尺寸所有权" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-004",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "meterInMercatorCoordinateUnits() 可把模型的一米换算为当前纬度下的一单位 MercatorCoordinate 长度。",
+      "explanation": "正确。该方法返回该位置的一米在归一化 Mercator 坐标中的尺度，可用来缩放以米建模的几何；由于投影尺度随纬度变化，不应全局随意固定一个比例。",
+      "refs": [{ "title": "MercatorCoordinate 米制换算", "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/MercatorCoordinate/" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-09-005",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "本章把地图主矩阵与局部模型矩阵同步给 THREE.Camera，正确的乘法关系是？",
+      "explanation": "列向量约定下先用 modelMatrix 把局部米制模型变换到 Mercator 世界，再由 mainMatrix 应用地图观察与投影，因此 projectionMatrix = mainMatrix × modelMatrix。",
+      "refs": [
+        { "title": "MapLibre custom layer 示例", "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/" },
+        { "title": "THREE.Matrix4", "url": "https://threejs.org/docs/#api/en/math/Matrix4" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "projectionMatrix = mainMatrix × modelMatrix", "hint": "局部模型变换在右侧先执行" },
+        { "key": "B", "text": "projectionMatrix = modelMatrix × mainMatrix" },
+        { "key": "C", "text": "projectionMatrix = modelMatrix，忽略地图相机" },
+        { "key": "D", "text": "projectionMatrix 永远保持单位矩阵" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-09-006",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "为什么必须在 custom layer 的 render 中逐帧读取地图主矩阵？",
+      "explanation": "缩放、平移、旋转和俯仰都会改变地图的观察或投影矩阵。逐帧读取并相乘，three 模型才能跟随地图；只在 onAdd 设置一次会在首次交互后错位。",
+      "refs": [{ "title": "MapLibre CustomLayerInterface.render", "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "为了每帧重新编译所有材质" },
+        { "key": "B", "text": "地图交互会改变矩阵，需要持续同步视角", "hint": "模型位置不变，观察投影会变化" },
+        { "key": "C", "text": "因为经纬度在每帧都会随机变化" },
+        { "key": "D", "text": "为了把 WebGL2 降级为 Canvas 2D" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-09-007",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "关于 three、MapLibre 与 Cesium 的选型，下列结论合理的有哪些？",
+      "explanation": "地理地球、真实地形与 3D Tiles 是 Cesium 的内置主场；平面地图上的通用三维模型适合 three + MapLibre；无地理语义的产品展示用纯 three 更直接。三者应按数据语义和平台能力选型。",
+      "refs": [
+        { "title": "CesiumJS 官方文档", "url": "https://cesium.com/documentation/cesiumjs/" },
+        { "title": "three.js 官方示例", "url": "https://threejs.org/examples/" },
+        { "title": "MapLibre CustomLayerInterface", "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "三维地球、真实地形与城市级 3D Tiles 优先考虑 Cesium", "hint": "这些地理能力是它的一等功能" },
+        { "key": "B", "text": "平面地图上的产品模型和通用三维特效可用 three + MapLibre", "hint": "地图与通用引擎各司其职" },
+        { "key": "C", "text": "无地理语义的创意视觉或产品展示可用纯 three", "hint": "无需引入地图引擎" },
+        { "key": "D", "text": "任何项目都必须同时使用三套引擎，否则无法实现三维" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-008",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "MapLibre 的 queryRenderedFeatures 会自动把 custom layer 中所有 THREE.Mesh 作为普通地图要素返回。",
+      "explanation": "错误。queryRenderedFeatures 面向 MapLibre 已知的样式要素，不理解 three 场景图。拾取 three Mesh 需要使用 Raycaster，并根据同一地图视角构造正确射线或另做业务代理。",
+      "refs": [
+        { "title": "MapLibre Map API", "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/" },
+        { "title": "THREE.Raycaster", "url": "https://threejs.org/docs/#api/en/core/Raycaster" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-09-009",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "custom layer 被移除时，onRemove 最合理的职责是什么？",
+      "explanation": "onRemove 是资源生命周期终点，应解绑自定义监听，释放几何、材质、纹理和 renderer 等自建资源，避免反复 setStyle 或移除图层后遗留 GPU 对象与回调。",
+      "refs": [{ "title": "CustomLayerInterface.onRemove", "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只把图层 id 改一个名字，资源全部保留" },
+        { "key": "B", "text": "释放自建 GPU 资源并解绑事件", "hint": "与 onAdd 的初始化工作对应" },
+        { "key": "C", "text": "每帧创建更多相同 Mesh" },
+        { "key": "D", "text": "强制清空整个地图实例的所有业务数据" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-09-010",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "模型初始落点正确，但地图一缩放或旋转就相对地表滑动。代码只在 onAdd 设置过相机矩阵，最应怎样修复？",
+      "explanation": "初始矩阵只代表当时的地图视角，交互后已经失效。应在 render 中每次从 args.defaultProjectionData.mainMatrix 读取当前主矩阵，再乘固定 modelMatrix，并同步 projectionMatrixInverse，而不是反复修改模型经纬度。",
+      "refs": [
+        { "title": "MapLibre custom layer 示例", "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/" },
+        { "title": "THREE.Camera", "url": "https://threejs.org/docs/#api/en/cameras/Camera" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "每次 render 重取 mainMatrix 并乘 modelMatrix，更新相机矩阵", "hint": "让 three 视角持续跟随地图" },
+        { "key": "B", "text": "永久禁用地图缩放和旋转，因为矩阵无法更新" },
+        { "key": "C", "text": "每帧随机修改模型经纬度直到视觉对齐" },
+        { "key": "D", "text": "删除 modelMatrix，仅保留一个固定屏幕像素位置" }
+      ],
+      "answer": ["A"]
+    }
+  ]
+}

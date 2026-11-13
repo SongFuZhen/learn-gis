@@ -1,0 +1,182 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：模型能看之后，用户马上会想拖着转、滚轮缩放、悬停看反馈、点击查属性。OrbitControls 管「相机怎么绕」，Raycaster 管「这个像素打中了谁」，两者共享画布事件，却不能混成一件事。**一句话经验**：先把指针像素位置换成 NDC，再从相机发出一条射线；命中列表取最近项，状态更新遵循「恢复旧高亮，再设置新高亮」。**常见坑**：
+- 开了阻尼却不在每帧调用 `controls.update()`，惯性像没开。
+- 用 `window.innerWidth/Height` 换算指针，画布只占页面一角时拾取整体偏移。
+- `intersectObjects` 命中的是 Group 内部的子 Mesh，业务却按外层模型 ID 查属性。
+- 多个 Mesh 共享材质，只高亮一个却整批变色；拖完相机还触发一次点击选中。**必记 3 条**：
+1. 阻尼开启后每帧 `controls.update()`，再 `renderer.render(scene, camera)`。
+2. NDC 要用 canvas 的 bounding rect 计算，x 映射到 [-1,1]，y 方向相反。
+3. 命中结果按距离从近到远排序；hover 是临时态，click 是持久选中态。
+
+## 本章你会学到
+
+OrbitControls 的阻尼、距离与俯仰限制，指针事件的 NDC 坐标换算，Raycaster 的射线求交与结果排序，以及一套不会互相覆盖状态的悬停高亮 + 点击选中实现。
+
+## 1. OrbitControls：相机围着 target 转
+
+轨道控制器把左键拖动、滚轮和触摸手势转换为相机绕目标点的运动。阻尼（damping，/ˈdæmpɪŋ/，「丹-平」）是在松手后继续衰减的惯性，不是降低旋转速度的简单系数。
+
+```js
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 0.5, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 2;
+controls.maxDistance = 20;
+controls.maxPolarAngle = Math.PI / 2 - 0.02;
+controls.update();
+
+function animate() {
+  requestAnimationFrame(animate);
+  controls.update(); // enableDamping 为 true 时必须持续调用
+  renderer.render(scene, camera);
+}
+animate();
+```
+
+`target` 是轨道中心，修改后调用 `update()` 才会同步视角。`minDistance/maxDistance` 限制相机到目标的距离；`maxPolarAngle` 是从正 Y 轴向下计算的极角，单位是弧度，限制为略小于 90° 可避免相机绕到目标水平面以下。
+
+## 2. pointer 到 NDC：先扣除画布偏移
+
+浏览器 PointerEvent 给的 `clientX/clientY` 是视口像素坐标，而 Raycaster 需要归一化设备坐标（NDC，/ˌen diː ˈsiː/，「恩-迪-西」）：画布左下为 `(-1,-1)`，右上为 `(1,1)`。
+
+```js
+const pointer = new THREE.Vector2();
+
+function updatePointer(event) {
+  const rect = renderer.domElement.getBoundingClientRect();
+  pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+  pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+}
+```
+
+公式先用 `client - rect.left/top` 得到画布内像素，再除以画布 CSS 尺寸归一化。Y 前加负号，是因为浏览器像素坐标向下增长，而 NDC 向上增长。这里不要用 canvas 内部 drawing buffer 像素尺寸替换 rect，也不必额外乘 devicePixelRatio。
+
+<Callout type="warn" title="拾取位置总偏一块，先打印 rect 与 NDC">
+画布不在页面左上角、有 CSS 边框或被滚动容器包裹时，直接使用 `clientX / window.innerWidth` 会偏。调试时观察指针位于画布中心和四角时的 NDC：中心应接近 `(0,0)`，四角应接近 `±1`。
+</Callout>
+
+## 3. Raycaster：一个像素对应三维中的一条线
+
+射线（ray，/reɪ/，「瑞」）从相机出发，穿过指针在成像平面上的位置并向场景延伸。射线与三角形求交后，就可能得到命中对象、交点、距离、面和 UV 等信息。
+
+```js
+const raycaster = new THREE.Raycaster();
+
+function pick(event) {
+  updatePointer(event);
+  raycaster.setFromCamera(pointer, camera);
+  const hits = raycaster.intersectObjects(pickables, true);
+  return hits[0] ?? null;
+}
+```
+
+`intersectObjects(objects, true)` 的第二个参数表示递归检查子节点。返回数组按 `distance` 从近到远排序，所以普通单选取 `hits[0]`；没有命中时是空数组，不是 `null`。Intersection 中的 `object` 是实际被射线打中的 Mesh，未必等于你传入的外层 Group。
+
+<Callout type="info" title="和 Cesium 拾取的两段式模型对照">
+[Cesium 第 07 章](/s/cesium/07)用 `ScreenSpaceEventHandler` 接收屏幕像素事件，再用 `scene.pick` 取最上层对象、`drillPick` 取穿透结果。three 则直接监听浏览器 pointer 事件，自己完成 NDC 换算，再由 Raycaster 返回按距离排序的数组。形式不同，核心都是「屏幕事件 → 三维求交」两段式。
+</Callout>
+
+## 4. hover + click：临时反馈与持久选中分开存
+
+下面的三个盒子各自拥有独立材质，避免共享材质导致一起变色。`hovered` 随指针移动，`selected` 只在点击时改变；统一重算高亮可让选中态优先于悬停态。
+
+```js
+const pickables = ["产品 A", "产品 B", "产品 C"].map((label, index) => {
+  const mesh = new THREE.Mesh(
+    new THREE.BoxGeometry(1, 1, 1),
+    new THREE.MeshStandardMaterial({ color: 0x94a3b8 }),
+  );
+  mesh.position.x = (index - 1) * 1.6;
+  mesh.userData.label = label;
+  scene.add(mesh);
+  return mesh;
+});
+
+let hovered = null;
+let selected = null;
+
+function updateHighlights() {
+  for (const mesh of pickables) {
+    const active = mesh === selected;
+    const hot = mesh === hovered;
+    mesh.material.emissive.setHex(
+      active ? 0x2563eb : hot ? 0x1e3a8a : 0x000000,
+    );
+    mesh.material.emissiveIntensity = active ? 0.8 : 0.5;
+  }
+}
+
+renderer.domElement.addEventListener("pointermove", (event) => {
+  hovered = pick(event)?.object ?? null;
+  updateHighlights();
+  renderer.domElement.style.cursor = hovered ? "pointer" : "default";
+});
+
+renderer.domElement.addEventListener("pointerleave", () => {
+  hovered = null;
+  updateHighlights();
+});
+```
+
+点击时再写入持久选中态，并用按下与抬起的位移过滤轨道拖拽：
+
+```js
+let downX = 0;
+let downY = 0;
+
+renderer.domElement.addEventListener("pointerdown", (event) => {
+  downX = event.clientX;
+  downY = event.clientY;
+});
+
+renderer.domElement.addEventListener("click", (event) => {
+  const moved = Math.hypot(event.clientX - downX, event.clientY - downY);
+  if (moved > 5) return; // 转相机不算点选
+
+  selected = pick(event)?.object ?? null;
+  updateHighlights();
+  console.log(selected?.userData.label ?? "点击空白，取消选中");
+});
+```
+
+若拾取 glTF，命中对象常是深层子 Mesh。可以在模型根节点设置 `userData.selectable = true`，命中后沿 `object.parent` 向上找到该根节点，再读写业务 ID。若材质共享，需要按目标克隆材质，或把高亮放到独立轮廓层，不能直接改共享颜色。
+
+## 5. 性能与维护：少算、只算需要拾取的对象
+
+不要把所有灯光、地面、装饰物都无条件丢进射线检测。维护明确的 `pickables`，能递归解决时就不要遍历无关场景；大量 Mesh 的 hover 可把最新指针坐标存下来，每个动画帧最多求交一次，而不是每个 pointermove 都算。
+
+对象刚移动、尚未经过下一次 render 时，若需要立即拾取，应先更新相关世界矩阵。业务销毁时还要移除事件监听并 `controls.dispose()`，避免重复初始化和闭包引用造成泄漏。
+
+<Callout type="must" title="必背 · 交互状态四步">
+读取事件并换算 NDC → setFromCamera → 对 pickables 求交并取最近项 → 分别更新 hover/selected 后统一刷新视觉。点空白要允许取消，拖拽要过滤，子 Mesh 要映射回业务根节点。
+</Callout>
+
+<Exercise tool="three" title="动手 · 限制轨道并避免拖拽误选">
+把观察目标设为 `(0,1,0)`，缩放距离限制为 3～12，极角不得超过 80°。点击空白时取消选中，拖动超过 5 像素后释放不得触发选中；说明为什么这些限制不会阻止 hover 高亮。
+<ExerciseSolution>
+设置 `controls.target.set(0,1,0)`、`minDistance = 3`、`maxDistance = 12`、`maxPolarAngle = THREE.MathUtils.degToRad(80)` 并调用 update。click 中沿用按下点距离判断，超过 5 像素直接 return，否则把未命中结果写成 `selected = null`。距离与极角只约束相机，pointermove 仍会执行射线检测，所以 hover 逻辑不受影响。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- OrbitControls 围绕 target 工作，阻尼需要每帧 update，距离与极角限制单位要分清。
+- PointerEvent 是视口像素坐标，必须结合 canvas rect 换算为 NDC，Y 轴要翻转。
+- Raycaster 返回按距离升序的命中数组，首项是最近命中，空数组表示未命中。
+- hover 与 selected 分开管理；共享材质、子 Mesh 根节点和拖拽点击是最常见的业务坑。
+- 大型场景限制拾取集合并控制求交频率，销毁时移除监听并释放控制器。
+
+下一章进入时间驱动内容：Clock、关键帧与补间动画，以及 Points 粒子系统。
+
+## 延伸阅读
+
+- 控制器：[OrbitControls](https://threejs.org/docs/#examples/en/controls/OrbitControls)
+- 射线求交：[Raycaster](https://threejs.org/docs/#api/en/core/Raycaster)、[Vector2](https://threejs.org/docs/#api/en/math/Vector2)
+- 指针事件：[MDN Pointer events](https://developer.mozilla.org/docs/Web/API/Pointer_events)
+- 画布位置读取：[MDN getBoundingClientRect](https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect)
+- Cesium 对照：[CesiumJS 文档](https://cesium.com/documentation/cesiumjs/)

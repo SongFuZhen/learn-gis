@@ -1,0 +1,187 @@
+## 🍼 白话版（先看这个）
+
+> **这章解决什么问题**：白模像没装修的房，纹理是墙面与地板，glTF 模型则是连家具一起搬来的整装方案。但图片贴上去会发灰、拉伸、斜看模糊，模型还可能卡在解码器路径或加载进度上。**一句话经验**：先确认 UV 把图片坐标指对了，再分清「颜色图要转线性、数据图别乱转」，最后管好加载与释放。**常见坑**：
+- 所有贴图一律设 `SRGBColorSpace`，法线图和粗糙度图因此出现错误数值。
+- `repeat.set(4, 2)` 写了，却没把 `wrapS/wrapT` 设为重复包裹，图片边缘被钳制。
+- GLB 下载成功，DRACO 解码器却 404；生产环境路径和本地路径不一致。
+- 把模型从 Scene 移除就当释放完成，纹理与几何仍占着显存。**必记 3 条**：
+1. 颜色贴图设 sRGB；normal、roughness、metalness 等数据贴图保持无颜色空间。
+2. 重复平铺 = RepeatWrapping + repeat；斜角清晰度再看 anisotropy。
+3. GLTFLoader 负责模型结构，DRACOLoader 只负责压缩几何解码；remove 不代替 dispose。
+
+## 本章你会学到
+
+UV 坐标如何把图片映射到三角形、TextureLoader 的颜色空间与采样配置、LoadingManager 的进度统计、glTF/GLB 和 DRACO 的加载方式，以及不再使用的模型资源怎样正确销毁。
+
+## 1. UV 与 TextureLoader：把图片坐标贴到顶点上
+
+UV 映射（UV mapping，/ˌjuː viː ˈmæpɪŋ/，「优-维 麦-平」）用二维坐标指定每个顶点应读取图片的哪个位置。U 沿图片横向，V 沿纵向，常见范围是 0～1；顶点之间由光栅化插值，三角形内部便得到连续图像。
+
+```js
+import * as THREE from "three";
+
+const plane = new THREE.PlaneGeometry(4, 4);
+console.log(plane.getAttribute("position").count); // 4
+console.log(plane.getAttribute("uv").count);       // 4，与顶点一一对应
+
+const textureLoader = new THREE.TextureLoader();
+const colorTexture = textureLoader.load("/textures/brick/color.jpg");
+colorTexture.colorSpace = THREE.SRGBColorSpace;
+
+const roughnessTexture = textureLoader.load("/textures/brick/roughness.jpg");
+// 数据贴图保持默认 NoColorSpace，不做 sRGB 解码
+
+const material = new THREE.MeshStandardMaterial({
+  map: colorTexture,
+  roughnessMap: roughnessTexture,
+  roughness: 1,
+});
+const wall = new THREE.Mesh(plane, material);
+scene.add(wall);
+```
+
+`map` 存的是颜色，sRGB 图片要先解码到线性工作空间，才能正确参与光照；粗糙度图的像素是数值，不是给人看的颜色。normalMap、metalnessMap、aoMap 同理，都不应标成 sRGB。
+
+<Callout type="warn" title="贴图发灰、发亮，先查颜色空间而不是曝光">
+颜色图漏设 `SRGBColorSpace`，常导致光照后颜色偏差；把数据图误设成 sRGB，则会让法线方向或粗糙度数值被错误转换。现代 three 的 renderer 输出通常是 sRGB，但这不等于所有输入纹理都使用同一种颜色空间。
+</Callout>
+
+## 2. 平铺与各向异性：解决重复和斜看模糊
+
+```js
+colorTexture.wrapS = THREE.RepeatWrapping;
+colorTexture.wrapT = THREE.RepeatWrapping;
+colorTexture.repeat.set(4, 2); // 横向重复 4 次，纵向 2 次
+
+colorTexture.anisotropy = Math.min(
+  8,
+  renderer.capabilities.getMaxAnisotropy(),
+);
+```
+
+`wrapS/wrapT` 决定 UV 超出 0～1 后如何处理：`ClampToEdgeWrapping` 钳住边缘，`RepeatWrapping` 重复，`MirroredRepeatWrapping` 镜像重复。只改 `repeat` 而保持默认钳制，不会得到连续平铺。
+
+各向异性（anisotropy，/ˌænaɪˈsɒtrəpi/，「安奈-索-戳皮」）改善地面、道路等纹理在斜视角下的清晰度。数值不是越高越好，应结合设备上限和视觉收益选择。
+
+## 3. LoadingManager：把多个加载任务汇成一个进度条
+
+```js
+const manager = new THREE.LoadingManager();
+
+manager.onStart = (url, loaded, total) => {
+  console.log("开始加载", url, loaded, total);
+};
+manager.onProgress = (url, loaded, total) => {
+  const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+  console.log(`资源进度 ${percent}%：${url}`);
+};
+manager.onLoad = () => console.log("本批资源全部完成");
+manager.onError = (url) => console.error("加载失败", url);
+
+const managedTextures = new THREE.TextureLoader(manager);
+const albedo = managedTextures.load("/textures/brick/color.jpg");
+albedo.colorSpace = THREE.SRGBColorSpace;
+const roughness = managedTextures.load("/textures/brick/roughness.jpg");
+```
+
+同一个 manager 可传给 TextureLoader、GLTFLoader 等加载器，统一统计本批资源。模型解析中还可能发现新的纹理和缓冲，所以 `total` 会增长，进度百分比不一定严格单调；UI 应允许这种变化，并同时处理 `onError`。
+
+## 4. GLTFLoader 与 DRACOLoader：加载整装模型
+
+glTF（/dʒiː el tiː ˈef/，「吉-埃尔-提-埃夫」）是开放的三维场景传输格式，通常由 JSON、几何缓冲与纹理组成；GLB 把这些内容打包成二进制单文件。GLTFLoader 两者都能读，返回的不只是 Mesh，还可能包含场景树、材质、相机和动画。
+
+DRACO 是几何压缩方案：模型更小时，需要对应 WebAssembly 解码器在浏览器中还原。Vite 项目可把 `node_modules/three/examples/jsm/libs/draco/gltf/` 下的解码文件复制到 `public/draco/`，再用下面的 `/draco/` 路径。
+
+```js
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+
+const draco = new DRACOLoader(manager);
+draco.setDecoderPath("/draco/");
+
+const gltfLoader = new GLTFLoader(manager);
+gltfLoader.setDRACOLoader(draco);
+
+const gltf = await gltfLoader.loadAsync("/models/robot.glb");
+gltf.scene.traverse((object) => {
+  if (object.isMesh) {
+    object.castShadow = true;
+    object.receiveShadow = true;
+  }
+});
+scene.add(gltf.scene);
+console.log("动画片段", gltf.animations);
+
+// 所有需要 DRACO 的模型都加载完后再释放解码器 workers
+// draco.dispose();
+```
+
+未压缩 glTF 不必配置 DRACOLoader；压缩模型则必须保证解码器文件可从部署站点访问。加载完成不等于业务初始化完成，还要检查模型尺度、朝向、材质与资源所有权。
+
+<Callout type="info" title="和 Cesium 的模型加载对照">
+[Cesium 第 06 章](/s/cesium/06)的 3D Tiles 面向城市级空间数据流式调度，glTF 常作为瓦片内部模型内容；three 的 GLTFLoader 面向单个模型或场景，不自带地理坐标、层级瓦片和地球LOD调度。都是 glTF，不等于加载后自动拥有同一套地理能力。
+</Callout>
+
+## 5. dispose：摘掉模型只是第一步
+
+Geometry、Material、Texture 都可能持有 GPU 资源，需要分别 `dispose()`。同一模型的多个 Mesh 常共享材质与纹理，所以先收集去重，再统一释放。
+
+```js
+function disposeModel(root) {
+  const geometries = new Set();
+  const materials = new Set();
+  const textures = new Set();
+
+  root.traverse((object) => {
+    if (!object.isMesh) return;
+    geometries.add(object.geometry);
+    const list = Array.isArray(object.material)
+      ? object.material
+      : [object.material];
+
+    for (const material of list) {
+      materials.add(material);
+      for (const value of Object.values(material)) {
+        if (value?.isTexture) textures.add(value);
+      }
+    }
+  });
+
+  for (const texture of textures) texture.dispose();
+  for (const material of materials) material.dispose();
+  for (const geometry of geometries) geometry.dispose();
+  root.removeFromParent();
+}
+
+// 确认 gltf.scene 及其资源不再被任何其他对象复用后：
+// disposeModel(gltf.scene);
+```
+
+<Callout type="must" title="必背 · 释放前先确认资源所有权">
+若两个模型共享同一张纹理，其中一个卸载就 dispose，另一个也会受影响。只释放在当前资源边界内独占的 geometry/material/texture；共享资源应由缓存或资源管理器按引用统一回收。DRACOLoader 也要等本批压缩模型全部完成后才 dispose。
+</Callout>
+
+<Exercise tool="three" title="动手 · 一面可重复且斜看清晰的砖墙">
+把砖墙颜色贴图设置为横向重复 6 次、纵向重复 3 次，并使用设备支持、最高不超过 8 的各向异性。再说明 roughnessMap 为什么不能照抄颜色贴图的 sRGB 设置。
+<ExerciseSolution>
+设置 `colorTexture.wrapS = colorTexture.wrapT = THREE.RepeatWrapping`，执行 `colorTexture.repeat.set(6, 3)`，再令 `colorTexture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy())`。roughnessMap 存储的是物理参数，若进行 sRGB 解码会改变数值，导致粗糙度分布错误，因此保持 NoColorSpace。
+</ExerciseSolution>
+</Exercise>
+
+## 6. 本章小结
+
+- UV 将顶点与纹理坐标对应，颜色图与数据图必须按用途设置颜色空间。
+- 平铺需要 RepeatWrapping 配合 repeat；anisotropy 用于改善斜视角采样。
+- LoadingManager 可汇总多个加载器的进度，但模型依赖发现会让 total 动态变化。
+- GLTFLoader 读取 glTF/GLB，DRACOLoader 提供压缩几何解码，解码路径必须可部署访问。
+- remove 只脱离场景；独占的 Geometry、Material、Texture 要去重后分别 dispose。
+
+下一章让模型真正可交互：OrbitControls 的轨道约束，以及 Raycaster 的悬停高亮和点击选中。
+
+## 延伸阅读
+
+- 纹理与加载：[Texture](https://threejs.org/docs/#api/en/textures/Texture)、[TextureLoader](https://threejs.org/docs/#api/en/loaders/TextureLoader)
+- 批量进度：[LoadingManager](https://threejs.org/docs/#api/en/loaders/managers/LoadingManager)
+- 模型加载手册：[Loading 3D models](https://threejs.org/docs/#manual/en/introduction/Loading-3D-models)
+- 加载器 API：[GLTFLoader](https://threejs.org/docs/#examples/en/loaders/GLTFLoader)、[DRACOLoader](https://threejs.org/docs/#examples/en/loaders/DRACOLoader)
+- 格式规范：[Khronos glTF](https://www.khronos.org/gltf/)

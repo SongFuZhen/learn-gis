@@ -1,0 +1,271 @@
+{
+  "skill": "three",
+  "module": "01",
+  "version": 1,
+  "questions": [
+    {
+      "id": "three-01-001",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "执行 scene.add(group) 且 group.add(mesh) 后，scene.children 中会直接包含哪个节点？",
+      "explanation": "children 只保存直属子节点。mesh 挂在 group 下面，是 scene 的孙节点，因此 scene.children 包含 group，不直接包含 mesh。",
+      "refs": [
+        {
+          "title": "three.js Object3D.children",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "同时直接包含 group 和 mesh" },
+        {
+          "key": "B",
+          "text": "只直接包含 group",
+          "hint": "mesh 需要通过 group.children 访问"
+        },
+        { "key": "C", "text": "只直接包含 mesh" },
+        { "key": "D", "text": "两个都不包含，必须使用 Scene.add(mesh)" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-01-002",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "PerspectiveCamera 的 fov 参数表示什么？",
+      "explanation": "fov 是垂直方向的视野角，单位为度。它控制纵向能看到多大范围，横向视野还会受到 aspect 的影响。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "相机到目标点的直线距离" },
+        { "key": "B", "text": "水平视野角，单位是弧度" },
+        {
+          "key": "C",
+          "text": "垂直视野角，单位是度",
+          "hint": "constructor 的第一个参数"
+        },
+        { "key": "D", "text": "远平面的世界坐标高度" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-01-003",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "下列哪组透视相机裁剪面参数最合理？",
+      "explanation": "透视相机的 near 必须大于 0，far 必须大于 near。在覆盖场景的前提下收紧范围可以更好地利用深度精度，而不是把范围无限拉大。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera 视锥",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "near = 0，far = 100" },
+        {
+          "key": "B",
+          "text": "near = 0.1，far = 100",
+          "hint": "near 为正且远近范围适度"
+        },
+        { "key": "C", "text": "near = 100，far = 0.1" },
+        { "key": "D", "text": "near = -1，far = 10000000" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-01-004",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "调用 parent.remove(mesh) 会自动释放 mesh 的几何体、材质和纹理资源。",
+      "explanation": "错误。remove 只把节点从场景树中摘下，不会调用任何 dispose。不再使用的几何体、材质与纹理仍需按资源所有权分别释放。",
+      "refs": [
+        {
+          "title": "three.js Object3D.remove",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-01-005",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "需要开启抗锯齿并限制高分屏像素比，下列写法正确的是？",
+      "explanation": "抗锯齿是 WebGLRenderer 的构造参数，不能在创建后通过任意属性补齐。像素比可用 Math.min(window.devicePixelRatio, 2) 设置合理上限。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "new WebGLRenderer({ antialias: true })，再 setPixelRatio(Math.min(devicePixelRatio, 2))",
+          "hint": "构造时抗锯齿，创建后设置像素比"
+        },
+        { "key": "B", "text": "先创建默认 renderer，再把 renderer.antialias 改为 true" },
+        { "key": "C", "text": "只调用 renderer.setSize(2, 2)" },
+        { "key": "D", "text": "把 camera.fov 设为 2 即可同时完成两项设置" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-01-006",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于 requestAnimationFrame 与 delta 时间步进，正确的说法有哪些？",
+      "explanation": "动画帧回调频率取决于浏览器和显示设备，并不固定为 60 Hz。速度乘 delta 能让不同帧率下运动一致，限制异常大的 delta 还能避免恢复页面时物体瞬移。",
+      "refs": [
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        },
+        {
+          "title": "three.js Creating a scene",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Creating-a-scene"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "回调频率不保证永远等于每秒 60 次",
+          "hint": "高刷新率屏幕会有更多回调"
+        },
+        {
+          "key": "B",
+          "text": "角速度乘 delta 可减少帧率对动画速度的影响",
+          "hint": "按秒描述速度，而不是按帧"
+        },
+        { "key": "C", "text": "后台标签页仍保证按固定频率持续回调" },
+        {
+          "key": "D",
+          "text": "给异常大的 delta 设上限可避免恢复页面时突然跳变",
+          "hint": "本章示例将单帧步长截到 0.05 秒"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-01-007",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "透视相机随窗口 resize 适配时，哪一组操作完整且顺序正确？",
+      "explanation": "先根据新尺寸修改 camera.aspect，再调用 updateProjectionMatrix 重建投影矩阵，最后通过 renderer.setSize 更新画布尺寸；只改其中一项会导致比例或显示尺寸不一致。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.updateProjectionMatrix",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        },
+        {
+          "title": "three.js WebGLRenderer.setSize",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只调用 renderer.setPixelRatio" },
+        { "key": "B", "text": "只修改 camera.fov，然后重新创建 Scene" },
+        {
+          "key": "C",
+          "text": "修改 camera.aspect，调用 updateProjectionMatrix，再调用 renderer.setSize",
+          "hint": "相机投影与画布尺寸需要一起更新"
+        },
+        { "key": "D", "text": "调用 renderer.setSize 后重新编译所有材质" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-01-008",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "正交相机会像人眼一样，让相同物体随距离增加而明显变小。",
+      "explanation": "错误。正交投影没有透视的近大远小效果，平行线在投影中仍保持平行，因此适合工程图和轴测视图。",
+      "refs": [
+        {
+          "title": "three.js OrthographicCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/OrthographicCamera"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-01-009",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于 Scene 层级与 Object3D 挂载关系，正确的说法有哪些？",
+      "explanation": "add 会建立唯一的父子挂载关系，父级变换会级联到子级。remove 只解除关系，不销毁资源；children 也不会递归列出所有后代。",
+      "refs": [
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Scene",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把已有父级的节点 add 到新父级后，它会从旧父级移出",
+          "hint": "一个 Object3D 同时只能有一个父级"
+        },
+        {
+          "key": "B",
+          "text": "父 Group 的旋转会影响其子节点的世界变换",
+          "hint": "这是场景层级存在的核心价值"
+        },
+        { "key": "C", "text": "remove 会自动对几何体和材质调用 dispose" },
+        { "key": "D", "text": "scene.children 会递归包含场景中的全部孙节点" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "three-01-010",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "场景尺度只有几十单位，却设置 near = 0.00001、far = 10000000，远处相邻表面开始闪烁穿插。优先怎么修？",
+      "explanation": "极端的 far/near 比例会浪费深度缓冲精度，远处相邻表面容易因深度量化而 z-fighting。应按实际尺度提高 near 并缩小 far，同时避免不必要的共面几何。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera 深度精度说明",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "继续把 far 增大到十亿，并把 near 改成 0" },
+        {
+          "key": "B",
+          "text": "按实际场景范围提高 near、收紧 far，并处理共面几何",
+          "hint": "改善深度精度比扩大视锥更关键"
+        },
+        { "key": "C", "text": "把抗锯齿关闭，深度值就会自动变成浮点数" },
+        { "key": "D", "text": "每秒多调用几次 updateProjectionMatrix 即可根治" }
+      ],
+      "answer": ["B"]
+    }
+  ]
+}
