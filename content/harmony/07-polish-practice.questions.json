@@ -254,6 +254,40 @@
         { "key": "D", "text": "只测试一次正常通关即可" }
       ],
       "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-07-013",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "LazyForEach 的数据源整体替换后，应调用 DataChangeListener 的哪个方法通知列表刷新？",
+      "explanation": "onDataReloaded 用于通知 LazyForEach 数据已整体重载；局部增删改则应使用对应的数据变更通知，避免把全量刷新当成默认手段。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "short",
+      "accepted": ["onDataReloaded", "onDataReloaded()"],
+      "placeholder": "例如：onDataReloaded"
+    },
+    {
+      "id": "harmony-07-014",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "点击事件中要把闭包内的状态变化做成显式动画，应调用哪个 ArkUI API？",
+      "explanation": "animateTo 接收动画参数和状态变更闭包，使闭包内的可动画属性按指定曲线过渡；不要在 build 中启动动画。",
+      "refs": [
+        {
+          "title": "显式动画",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-explicit-animation"
+        }
+      ],
+      "type": "short",
+      "accepted": ["animateTo", "animateTo()"],
+      "placeholder": "例如：animateTo"
     }
   ]
 }

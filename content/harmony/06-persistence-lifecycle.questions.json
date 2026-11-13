@@ -250,6 +250,40 @@
         { "key": "D", "text": "onCreate 通常早于 onWindowStageCreate" }
       ],
       "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-06-013",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "代码中通过哪个 relationalStore 接口按 StoreConfig 获取 RDB 存储实例？",
+      "explanation": "relationalStore.getRdbStore 根据上下文与 StoreConfig 获取关系型数据库存储实例，之后才能执行建表、查询和写入等操作。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "short",
+      "accepted": ["relationalStore.getRdbStore", "relationalStore.getRdbStore()", "getRdbStore", "getRdbStore()"],
+      "placeholder": "例如：getRdbStore"
+    },
+    {
+      "id": "harmony-06-014",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "V2 状态持久化中，用哪个静态方法把状态对象与 PersistenceV2 存储建立连接？",
+      "explanation": "PersistenceV2.connect 将指定状态对象连接到持久化存储，使声明的状态可恢复与保存；它不能替代面向复杂关系查询的 RDB。",
+      "refs": [
+        {
+          "title": "PersistenceV2：持久化存储 UI 状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-new-persistencev2"
+        }
+      ],
+      "type": "short",
+      "accepted": ["PersistenceV2.connect", "PersistenceV2.connect()", "connect", "connect()"],
+      "placeholder": "例如：PersistenceV2.connect"
     }
   ]
 }

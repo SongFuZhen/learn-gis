@@ -277,6 +277,40 @@
         "A",
         "B"
       ]
+    },
+    {
+      "id": "harmony-01-013",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "AppScope/app.json5 中，哪个字段声明应用的唯一包名？",
+      "explanation": "bundleName 是应用的唯一标识，应与发布和签名配置保持一致；它不是界面标题或模块名称。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["bundleName"],
+      "placeholder": "例如：bundleName"
+    },
+    {
+      "id": "harmony-01-014",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "module.json5 中，哪个数组用于声明模块运行所需的权限？",
+      "explanation": "requestPermissions 保存模块的权限声明。声明权限不等于已完成所有运行时授权，敏感权限仍需按系统流程申请。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["requestPermissions"],
+      "placeholder": "例如：requestPermissions"
     }
   ]
 }

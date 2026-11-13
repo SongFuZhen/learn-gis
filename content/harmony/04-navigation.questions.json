@@ -286,6 +286,40 @@
         { "key": "D", "text": "新主流程统一使用 NavPathStack" }
       ],
       "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-04-013",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "NavDestination 每次显示时，可在哪个生命周期回调中刷新数据或记录曝光？",
+      "explanation": "onShown 在 NavDestination 显示时触发，适合处理每次可见时需要执行的工作；页面隐藏不等于已经销毁。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "short",
+      "accepted": ["onShown", "onShown()"],
+      "placeholder": "例如：onShown"
+    },
+    {
+      "id": "harmony-04-014",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "NavPathStack 中，哪个方法会清空整条路由栈？",
+      "explanation": "clear 会清空 NavPathStack 中的全部页面，适合明确重置主流程；普通返回上一页应使用 pop，而不是清栈。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "short",
+      "accepted": ["clear", "clear()"],
+      "placeholder": "例如：clear"
     }
   ]
 }

@@ -357,6 +357,40 @@
         "B",
         "C"
       ]
+    },
+    {
+      "id": "harmony-03-013",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "V2 的 @ObservedV2 类中，用哪个装饰器标记需要被 UI 观察的属性？",
+      "explanation": "@Trace 标记 @ObservedV2 类中需要观察的属性。未标记的属性不会被这层机制自动追踪，修改后不能指望关联 UI 刷新。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@Trace", "Trace"],
+      "placeholder": "例如：@Trace"
+    },
+    {
+      "id": "harmony-03-014",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "V2 中，哪个应用级状态存储 API 用于跨组件内存共享，但不等于磁盘持久化？",
+      "explanation": "AppStorageV2 提供 V2 的应用级内存状态共享能力。它不会自动把任意状态写入磁盘，持久化应另选 Preferences、PersistenceV2 或数据库方案。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": ["AppStorageV2"],
+      "placeholder": "例如：AppStorageV2"
     }
   ]
 }

@@ -250,6 +250,40 @@
         { "key": "D", "text": "Worker 不再使用时应 terminate" }
       ],
       "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-05-013",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "发起 HTTP 或 WebSocket 网络请求前，应在 module.json5 中声明哪个网络权限？",
+      "explanation": "网络访问需要声明 ohos.permission.INTERNET。遗漏该权限时，请求代码即使正确也无法获得所需网络访问能力。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "short",
+      "accepted": ["ohos.permission.INTERNET"],
+      "placeholder": "例如：ohos.permission.INTERNET"
+    },
+    {
+      "id": "harmony-05-014",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "TaskPool 中，用哪个装饰器标记可并发执行的任务函数？",
+      "explanation": "@Concurrent 用于标记可交给 TaskPool 并发执行的函数。函数及其传递数据还需遵守并发任务的序列化与使用约束。",
+      "refs": [
+        {
+          "title": "TaskPool 简介",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/taskpool-introduction"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@Concurrent", "Concurrent"],
+      "placeholder": "例如：@Concurrent"
     }
   ]
 }

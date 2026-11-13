@@ -349,6 +349,40 @@
         "B",
         "C"
       ]
+    },
+    {
+      "id": "harmony-02-013",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "自定义组件首次 build() 前，适合执行初始化工作的生命周期回调叫什么？",
+      "explanation": "aboutToAppear 在组件创建后、首次 build 前执行，适合初始化；不要把网络请求或定时器等副作用放进 build。",
+      "refs": [
+        {
+          "title": "创建自定义组件",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components"
+        }
+      ],
+      "type": "short",
+      "accepted": ["aboutToAppear", "aboutToAppear()"],
+      "placeholder": "例如：aboutToAppear"
+    },
+    {
+      "id": "harmony-02-014",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Stack 容器中，用哪个属性设置子组件的九宫格对齐位置？",
+      "explanation": "Stack 使用 alignContent 设置九种对齐位置；Column 与 Row 则应结合主轴和交叉轴使用 justifyContent、alignItems。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "short",
+      "accepted": ["alignContent", "alignContent()"],
+      "placeholder": "例如：alignContent"
     }
   ]
 }

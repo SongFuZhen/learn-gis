@@ -314,6 +314,40 @@
         "B",
         "C"
       ]
+    },
+    {
+      "id": "harmony-00-013",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkUI 中，用哪个装饰器标记页面入口组件？（写装饰器名）",
+      "explanation": "@Entry 用来标记页面入口组件；@Component 只声明自定义组件，不能替代入口标记。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@Entry", "Entry"],
+      "placeholder": "例如：@Entry"
+    },
+    {
+      "id": "harmony-00-014",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Stage 模型中，entry 或 feature 模块编译打包后的应用模块包简称是什么？",
+      "explanation": "HAP 是 HarmonyOS Ability Package 的简称，是模块编译打包后的产物；HSP 与 HAR 分别对应共享包和静态共享包。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["HAP", "HarmonyOS Ability Package"],
+      "placeholder": "例如：HAP"
     }
   ]
 }
