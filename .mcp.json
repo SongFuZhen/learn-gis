@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "learn-gis": {
+      "command": "npx",
+      "args": ["tsx", "mcp/server.ts"],
+      "disabled": false
+    }
+  }
+}

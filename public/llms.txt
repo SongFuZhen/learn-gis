@@ -1,0 +1,87 @@
+# learn-gis
+
+> 以问答驱动的 GIS 学习应用：讲义 → 刷题 → 即时讲解 → 间隔复习，从零建立地理信息系统的知识体系。
+
+> 全站共 5 门课程、57 章讲义、2530 道校验题库。
+
+## GIS 基础 [gis] · 地理空间轨
+
+从坐标与经纬度的数学打底讲起：基准面、投影、数据模型、格式、OGC 服务、空间运算与 PostGIS。（无前置课程）
+
+- [坐标、角度与经纬度（数学打底）](https://gis.ason.top/s/gis/00)：零基础起步：一个点为什么是一组数字、平面直角坐标的三种 x/y 约定、度分秒与弧度换算、经纬度是什么以及「一度有多长」。（159 题）
+- [三角函数与数学符号：读法和用法](https://gis.ason.top/s/gis/01)：零基础读音手册：sin/cos/tan 与反三角怎么读怎么用、常用希腊字母、∑∫√∞±≈∠°′″ 等符号的读法，以及它们在 GIS 公式里的实际含义。（43 题）
+- [地球、椭球与基准面](https://gis.ason.top/s/gis/02)：用旋转椭球近似不规则的地球，并用基准面规定椭球怎么摆；为什么同一经纬度换个基准面就差上百米。（145 题）
+- [地图投影：变形与取舍](https://gis.ason.top/s/gis/03)：球面为什么不能无变形地铺平，等角/等积/等距怎么选，以及你天天在用的 Web 墨卡托做了什么简化。（116 题）
+- [坐标参考系实战：EPSG、分带与重投影](https://gis.ason.top/s/gis/04)：地理坐标 vs 投影坐标、EPSG 编码体系、轴序与单位陷阱、UTM/高斯分带与基准面转换。（138 题）
+- [矢量与栅格：空间数据模型](https://gis.ason.top/s/gis/05)：点线面与属性表、拓扑、像元与分辨率、重采样，以及矢量与栅格各自的适用场景。（160 题）
+- [地图制图：符号、配色与数据分级](https://gis.ason.top/s/gis/06)：从数据到图：视觉变量、顺序/发散/类别配色、四种分级方法、比例尺与综合，以及地图为什么会说谎。（116 题）
+- [数据格式与瓦片](https://gis.ason.top/s/gis/07)：GeoJSON / Shapefile / GeoPackage / GeoTIFF / COG，瓦片金字塔、MVT 矢量瓦片与 PMTiles。（133 题）
+- [QGIS 与 GDAL/OGR 工具链](https://gis.ason.top/s/gis/08)：打开 QGIS 认识界面，用 ogrinfo/gdalinfo 体检数据，用 ogr2ogr/gdalwarp 做转换、重投影与裁剪。（80 题）
+- [数据采集与数据质量](https://gis.ason.top/s/gis/09)：GNSS 原理与 RTK、地图数字化、OSM 与开放数据、质量六维、accuracy vs precision、元数据与溯源。（107 题）
+- [空间分析 I：缓冲、叠置与邻域](https://gis.ason.top/s/gis/10)：缓冲区、叠置分析（交/并/差）、空间连接、近邻与网格统计、可达性入门——GIS 的核心生产力。（125 题）
+- [空间分析 II：插值、DEM 与地形](https://gis.ason.top/s/gis/11)：IDW/样条/克里金怎么选、DEM 从哪来、nDSM 减法、坡度坡向山体阴影、水文四步与流域。（108 题）
+- [遥感基础](https://gis.ason.top/s/gis/12)：电磁波谱与波谱指纹、四类分辨率、Landsat/Sentinel/高分、NDVI 与假彩色、监督与非监督分类。（117 题）
+- [空间运算与空间数据库](https://gis.ason.top/s/gis/13)：Buffer/Intersect/Distance、GiST 索引与 KNN，Turf.js 与 PostGIS 各自的正确用法。（165 题）
+- [OGC 服务与 WebGIS 实战](https://gis.ason.top/s/gis/14)：WMS / WMTS / WFS / WCS / OGC API，Leaflet、MapLibre、OpenLayers 的分工与性能取舍。（142 题）
+- [卫星轨道与星下点](https://gis.ason.top/s/gis/15)：LEO/MEO/GEO 三档轨道、开普勒直觉、星下点轨迹为什么是正弦波、波束与覆盖、TLE 两行根数。（121 题）
+- [卫星星座与互联网](https://gis.ason.top/s/gis/16)：为什么单星不够、Walker 星座设计、Starlink / OneWeb / 千帆 / GW 的取舍、NASA/ESA/ITU 的角色。（122 题）
+
+## CesiumJS 三维地球 [cesium] · 地理空间轨
+
+从零到一学会 CesiumJS：Viewer、相机与坐标系、影像与地形、Entity 与 CZML、3D Tiles、拾取交互、空间量算与性能优化，全程免 ion token 示例。（前置课程：gis → turf）
+
+- [初见 CesiumJS：三维地球与第一个 Viewer](https://gis.ason.top/s/cesium/00)：Cesium 和 Leaflet/MapLibre 的本质区别（3D + 时间）、Vite 环境准备、用 OSM 底图创建第一个 Viewer，以及所有人都会踩的默认 ion 影像 401 坑。（10 题）
+- [相机与坐标系：经纬度变成三维坐标](https://gis.ason.top/s/cesium/01)：把 GIS 课的经纬度翻译成 Cesium 的 Cartesian3 笛卡尔坐标，相机六大操作，heading/pitch/roll 怎么读怎么用。（12 题）
+- [影像图层：瓦片金字塔与多图层叠加](https://gis.ason.top/s/cesium/02)：ImageryProvider 家族与瓦片金字塔（衔接 GIS 课的瓦片章节），多图层叠加、透明度与层级，UrlTemplateImageryProvider 接自定义瓦片服务。（12 题）
+- [地形：影像之外的第二层](https://gis.ason.top/s/cesium/03)：影像和地形为什么是两层东西，EllipsoidTerrainProvider 的默认平地行为，quantized-mesh 概念与真实地形数据的来路。（12 题）
+- [Entity 可视化与 GeoJSON](https://gis.ason.top/s/cesium/04)：Entity 体系与三件套标注（点/文字/图标）、线面的贴地与拉伸、GeoJSON 整包加载与逐要素染色、CallbackProperty 最简动画——把 GIS 课的矢量数据立起来。（12 题）
+- [CZML 与时间动态](https://gis.ason.top/s/cesium/05)：CZML 文档结构、Clock 时间遥控器、SampledPositionProperty 轨迹插值与 VelocityOrientation 自动转向——卫星过境与车辆回放的声明式解法。（12 题）
+- [3D Tiles：三维瓦片与城市](https://gis.ason.top/s/cesium/06)：3D Tiles 开放标准的瓦片树与 LOD、Cesium3DTileset 挂载、Cesium3DTileStyle 按属性染色；OSM Buildings 需 token 的边界与自托管 token-free 路径。（11 题）
+- [拾取与交互事件](https://gis.ason.top/s/cesium/07)：ScreenSpaceEventHandler 两段式事件模型、pick 与 drillPick 的分工、Entity 与 3D Tiles 要素两类拾取结果、悬停高亮与点击面板的经典闭环。（11 题）
+- [空间量算：距离、面积与贴地线](https://gis.ason.top/s/cesium/08)：弦长/大圆/贴地三种距离的适用边界、切平面投影法算面积、点击取点 + CallbackProperty 预览的完整量算交互闭环。（10 题）
+- [性能优化与实战收官](https://gis.ason.top/s/cesium/09)：requestRenderMode 按需渲染、SSE 精度总闸、Entity/Collection/Primitive 选型递进；收官实战：把全课程拼成 GIS 数据三维看板。（11 题）
+- [粒子系统：火焰、雨雪与天气特效](https://gis.ason.top/s/cesium/10)：Emitter/生命周期/updateCallback 三件套、modelMatrix 落地定位、bursts 爆发脉冲与四种发射器；用 updateCallback 写雨雪物理，并算清粒子性能账。（12 题）
+- [后处理与视觉特效：给渲染结果加滤镜](https://gis.ason.top/s/cesium/11)：postProcessStages 滤镜链、内置 fxaa/bloom/环境光遮蔽、自定义 shader 三约定（colorTexture/v_textureCoordinates/out_FragColor）、selected 选中高亮与全屏 pass 性能账。（12 题）
+
+## Turf.js 二维空间运算 [turf] · 地理空间轨
+
+跑在浏览器与 Node 里的几何引擎：量测、缓冲、叠置、点面分析、聚合与插值，GeoJSON 进 GeoJSON 出，配合 Leaflet/MapLibre 完成二维地图应用。（前置课程：gis）
+
+- [初见 Turf：浏览器里的几何引擎](https://gis.ason.top/s/turf/00)：Turf 是什么、与 GIS 理论课和 Cesium 的分工，GeoJSON 作为唯一输入输出，Vite/CDN 两种接入方式，第一个 area 面积计算。（10 题）
+- [量测全家桶：距离、长度、面积与沿线取点](https://gis.ason.top/s/turf/01)：distance、length、area、along、pointToLineDistance 的单位与适用面，对比 Cesium 的弦长/大圆/贴地三种三维量算。（10 题）
+- [方位角与目的地：在椭球面上推演坐标](https://gis.ason.top/s/turf/02)：bearing 与 rhumbBearing 的区别、destination 反解目的地、中点与圆心计算，对比 Cesium Ellipsoid 经纬网 API。（10 题）
+- [缓冲与变换：buffer、circle 与仿射操作](https://gis.ason.top/s/turf/03)：buffer 缓冲区分割线/面的差异、circle 离散圆、transformRotate/transformScale/transformTranslate 与 bbox 系列工具。（10 题）
+- [空间判断与叠置：boolean 系列与交并差](https://gis.ason.top/s/turf/04)：booleanPointInPolygon、booleanContains/Within/Overlap 的语义边界，intersect/union/difference 叠置运算与 Multi 几何处理。（10 题）
+- [点面分析实战：归属判断、等值面与泰森多边形](https://gis.ason.top/s/turf/05)：批量点归属到行政区、isobands 等值面生成、voronoi 泰森多边形的 Delaunay 底子与业务用法（服务区/邻域）。（10 题）
+- [聚合统计：collect、聚类与网格计数](https://gis.ason.top/s/turf/06)：collect 属性收集、clustersDbscan/clustersKmeans 两种聚类、hexGrid/rectangleGrid 网格 + pointCount 热力底表。（10 题）
+- [插值与采样：interpolate、随机数据与 sample](https://gis.ason.top/s/turf/07)：interpolate 线性插值做分段渲染、randomPoint/randomLine/randomPolygon 测试数据生成、sample 沿线采样的工程用途。（10 题）
+- [接入地图框架：Leaflet / MapLibre 里跑 Turf](https://gis.ason.top/s/turf/08)：GeoJSON 在 Turf 与地图库之间的双向流、鼠标绘制 + 实时 buffer 闭环、MapLibre GL 数据源与 Turf 结果的更新模式。（10 题）
+- [数据工程与性能：清洗、拍平与 Web Worker](https://gis.ason.top/s/turf/09)：flatten/explode/combine、rewind 环方向、cleanCoords 修坐标，大数组 benchmark 方法论与 Web Worker 卸载主线程。（10 题）
+
+## three.js 图形渲染 [three] · 图形渲染轨
+
+通用 WebGL 三维渲染：场景图、相机与渲染循环、几何材质、光照阴影、glTF、拾取、粒子、GLSL 着色器与后处理，最后把 three 场景叠回地理地图。（无前置课程）
+
+- [初见 three.js：从原生 WebGL 到场景图](https://gis.ason.top/s/three/00)：原生 WebGL 的痛点与 three 的定位、场景图思想，与 Cesium（同为 WebGL 渲染器但内置地球/时间/地理坐标）的分工，Vite 起步第一个立方体。（10 题）
+- [Scene / Camera / Renderer 三件套与渲染循环](https://gis.ason.top/s/three/01)：场景树、透视相机视锥参数、WebGLRenderer 配置、resize 适配、requestAnimationFrame 渲染循环与帧率概念。（10 题）
+- [几何与材质：BufferGeometry、Mesh 与层级](https://gis.ason.top/s/three/02)：Geometry 与 BufferGeometry 的数据底子（position/normal/uv）、MeshStandardMaterial 关键参数、网格法线、Group 层级与局部/世界变换。（10 题）
+- [光照与阴影：光源家族与 PBR 材质](https://gis.ason.top/s/three/03)：环境光/平行光/点光/聚光的适用面、阴影贴图原理与 shadow camera 调参、PBR 金属度粗糙度工作流。（10 题）
+- [纹理、UV 与 glTF 模型加载](https://gis.ason.top/s/three/04)：TextureLoader 与 UV 映射、颜色空间与各向异性、GLTFLoader 加载 glTF/GLB、DRACO 压缩解码与加载管理器。（10 题）
+- [OrbitControls 与 Raycaster 拾取](https://gis.ason.top/s/three/05)：轨道控制器阻尼与限制、Raycaster 射线拾取原理，对比 Cesium ScreenSpaceEventHandler/pick 两段式事件模型。（10 题）
+- [动画、时钟与粒子系统](https://gis.ason.top/s/three/06)：Clock delta 时间、关键帧与 GSAP 补间、morph 变形、Points 粒子与 PointsMaterial，对比 Cesium ParticleSystem。（10 题）
+- [ShaderMaterial 入门：GLSL 最小着色器](https://gis.ason.top/s/three/07)：attribute/uniform/varying 三件套、顶点与片元着色器管线、最简 GLSL 模板，对比 Cesium 自定义后处理三约定。（10 题）
+- [EffectComposer 后处理链](https://gis.ason.top/s/three/08)：RenderPass/通道链、UnrealBloomPass 泛光、着色器 Pass 写法，对比 Cesium postProcessStages 的滤镜图。（10 题）
+- [地理融合收官：three 场景叠到地图](https://gis.ason.top/s/three/09)：MapLibre custom layer 承载 three 场景、经纬度到平面投影换算、与 Cesium 三维地球方案的选型结论，拼成收官示例。（10 题）
+
+## HarmonyOS / ArkTS 应用开发 [harmony] · 平台开发轨
+
+React 视角学鸿蒙：Stage 模型与工程结构、ArkUI 声明式 UI、状态管理 V1/V2、Navigation 路由、网络与并发、持久化与生命周期、性能安全与综合实战。（无前置课程）
+
+- [认知地图：鸿蒙生态、Stage 模型与 ArkTS](https://gis.ason.top/s/harmony/00)：HarmonyOS 技术栈全貌、ArkTS 作为 TypeScript 严格子集的约束、Stage 模型与 ArkUI/ArkData 全景，建立 React 视角的概念映射。（12 题）
+- [环境与工程结构：DevEco Studio 与 Stage 工程](https://gis.ason.top/s/harmony/01)：DevEco Studio 起步、AppScope/app.json5 与 module.json5 职责、entry 模块目录、hvigor 构建与 ohpm 包管理、资源目录与权限声明。（12 题）
+- [ArkUI 声明式 UI：组件、布局与构建函数](https://gis.ason.top/s/harmony/02)：@Component struct 与 build()、Column/Row/Stack 布局、基础组件与事件、ForEach/List 列表渲染、@Builder 构建函数，与 React/Compose 类比。（12 题）
+- [状态管理 V1/V2：装饰器与不刷新排查](https://gis.ason.top/s/harmony/03)：@State/@Prop/@Link/@Provide/@Consume 与 AppStorage，V2 的 @Local/@Param/@Event/@ObservedV2/@Trace，状态不刷新高频坑与排查路径。（12 题）
+- [页面路由 Navigation：NavPathStack 与转场](https://gis.ason.top/s/harmony/04)：Navigation + NavDestination 架构、NavPathStack 栈操作与参数传递、路由转场动画、组件/页面生命周期，router 已不推荐的原因。（12 题）
+- [网络与异步：HTTP、WebSocket 与 TaskPool](https://gis.ason.top/s/harmony/05)：@ohos.net.http 请求与权限声明、WebSocket 长连接、Promise/async 约定、TaskPool 与 Worker 并发选型、超时与取消。（12 题）
+- [数据持久化与 UIAbility 生命周期](https://gis.ason.top/s/harmony/06)：Preferences 键值存储、RDB 关系型数据库选型与事务、UIAbility 生命周期回调、上下文 Context、PersistenceV2 与状态持久化。（12 题）
+- [性能、安全、动画、测试与综合实战](https://gis.ason.top/s/harmony/07)：LazyForEach 长列表、动画与媒体、安全实践（证书校验/权限最小化）、测试体系、九大高频坑复盘，综合闯关 App 架构蓝图。（12 题）
