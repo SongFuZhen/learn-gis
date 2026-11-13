@@ -4,14 +4,16 @@
 //       静音恢复上一次音量、播放不重置设置、刷新持久化、真实播放进度、同源流式代理、
 //       静音态刷新后恢复上一次可听音量（last-audible 持久化）、
 //       跨章节跳转（第二 / 第三 slug 连续跳转）时上一章音频立即停播且无遗留播放。
-// 用法：先 `npm run dev`，再 `npm run smoke:speech`（BASE_URL 可覆盖）
+// 用法：先 `npm run dev`，再 `npm run smoke:speech`
+//      （BASE_URL / SKILL / SLUG / SLUG2 / SLUG3 可覆盖；默认 cesium 前三章）
 import { chromium } from "playwright-core";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:25000";
-const PAGE = `${BASE}/s/cesium/00`;
-const SLUG = "00-cesium-intro";
-const SLUG2 = "01-camera-coords";
-const SLUG3 = "02-imagery-layers";
+const SKILL = process.env.SKILL ?? "cesium";
+const PAGE = `${BASE}/s/${SKILL}/00`;
+const SLUG = process.env.SLUG ?? "00-cesium-intro";
+const SLUG2 = process.env.SLUG2 ?? "01-camera-coords";
+const SLUG3 = process.env.SLUG3 ?? "02-imagery-layers";
 const REMOTE = "https://cloudflare-imgbed-91r.pages.dev/file/smoke-chapter.wav";
 const SEGMENT_SECONDS = 1.5;
 const SEGMENTS = 3;
@@ -393,7 +395,7 @@ try {
 
   // 客户端跳转（Next <Link>）：点「下一章」而非整页刷新
   await page4.getByRole("link", { name: /下一章/ }).click();
-  await page4.waitForURL("**/cesium/01", { timeout: 15000 });
+  await page4.waitForURL(`**/${SKILL}/01`, { timeout: 15000 });
   // 等第二 slug 的 manifest 加载完（段文本变为第二章内容）
   await page4.waitForFunction(
     () => document.body.innerText.includes("第二章第 1 段：相机与坐标系"),
@@ -435,7 +437,7 @@ try {
     window.__speechProbe.audio.__navTag = "playing-2";
   });
   await page4.getByRole("link", { name: /下一章/ }).click();
-  await page4.waitForURL("**/cesium/02", { timeout: 15000 });
+  await page4.waitForURL(`**/${SKILL}/02`, { timeout: 15000 });
   await page4.waitForFunction(
     () => document.body.innerText.includes("第三章第 1 段：影像图层"),
     null,

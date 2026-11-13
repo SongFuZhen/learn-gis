@@ -1,10 +1,12 @@
 // 冒烟验收：讲义划线笔记全链路（选区→三色划线→弹窗附言→刷新持久化→侧栏定位→删除）。
 // 不依赖数据库：page.route 拦截 /api/annotations，用内存数组模拟 GET/POST/PATCH/DELETE。
-// 用法：先 `npm run dev`，再 `npm run smoke:annotations`（BASE_URL 可覆盖）
+// 用法：先 `npm run dev`，再 `npm run smoke:annotations`（BASE_URL / SKILL / MODULE 可覆盖）
 import { chromium } from "playwright-core";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:25000";
-const PAGE = `${BASE}/s/gis/01`;
+const SKILL = process.env.SKILL ?? "gis";
+const MODULE = process.env.MODULE ?? "01";
+const PAGE = `${BASE}/s/${SKILL}/${MODULE}`;
 
 const failures = [];
 function check(ok, label, detail = "") {

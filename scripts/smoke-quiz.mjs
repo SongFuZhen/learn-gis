@@ -1,26 +1,40 @@
 // 冒烟验收：真实 Chrome 把每章题库全做一遍（全对 → 100% 掌握度），
 // 再把「每日一考 / 综合考试」两套随机卷按题干反查题库做一遍。
-// 用法：先 `npm run dev`，再 `npm run smoke:quiz`（BASE_URL / MODULE / SKIP_EXAM 可覆盖）
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+// 用法：先 `npm run dev`，再 `npm run smoke:quiz`（BASE_URL / MODULE / SKILL / SKIP_EXAM 可覆盖）
+import { readdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { chromium } from "playwright-core";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:25000";
 const ONLY = process.env.MODULE ?? null;
+const SKILL_FILTER = process.env.SKILL ?? null;
 const SKIP_EXAM = process.env.SKIP_EXAM === "1";
 const CONTENT_ROOT = path.resolve(process.cwd(), "content");
 const loadBanks = (dir) =>
   readdirSync(path.join(CONTENT_ROOT, dir))
     .filter((f) => f.endsWith(".questions.json"))
     .sort()
-    .map((file) =>
-      JSON.parse(readFileSync(path.join(CONTENT_ROOT, dir, file), "utf8")),
-    );
+    .map((file) => ({
+      ...JSON.parse(readFileSync(path.join(CONTENT_ROOT, dir, file), "utf8")),
+      skill: dir,
+    }));
 
-// 章节测验只跑 gis；考试题库是全站合并（gis + cesium，见 content/all-questions.ts），反查表需覆盖全部 skill
-const chapterBanks = loadBanks("gis");
-const banks = chapterBanks.concat(
-  existsSync(path.join(CONTENT_ROOT, "cesium")) ? loadBanks("cesium") : [],
+// 枚举 content/ 下全部含题库的技能目录；SKILL=<id> 可限定单门课。
+// 考试题库是全站合并（见 content/all-questions.ts），反查表需覆盖全部 skill。
+const skillDirs = readdirSync(CONTENT_ROOT, { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name)
+  .filter((dir) => {
+    if (SKILL_FILTER && dir !== SKILL_FILTER) return false;
+    return readdirSync(path.join(CONTENT_ROOT, dir)).some((f) =>
+      f.endsWith(".questions.json"),
+    );
+  })
+  .sort();
+const chapterBanks = skillDirs.flatMap(loadBanks);
+const banks = chapterBanks;
+console.log(
+  `技能目录：${skillDirs.join(", ")}；章节题库 ${chapterBanks.length} 个`,
 );
 const stemMap = new Map();
 for (const bank of banks) {
@@ -82,19 +96,19 @@ for (const bank of chapterBanks) {
   });
   page.on("pageerror", (e) => errors.push(String(e)));
 
-  await page.goto(`${BASE}/s/gis/${bank.module}/quiz`, {
+  await page.goto(`${BASE}/s/${bank.skill}/${bank.module}/quiz`, {
     waitUntil: "networkidle",
   });
 
   for (const q of bank.questions) {
     await page.getByRole("heading", { level: 2 }).waitFor();
-    await answerOne(page, q, `第 ${bank.module} 章`);
+    await answerOne(page, q, `${bank.skill}/${bank.module}`);
   }
 
   await page.getByText(/测验结果/).waitFor();
   const answerLine = (await page.locator("main").innerText()).match(/答对[^\n]*/)?.[0];
   console.log(
-    `${failed === 0 ? "✓" : "✗"} 第 ${bank.module} 章 · ${bank.questions.length} 题 · ${answerLine ?? ""} · console 错误 ${errors.length}`,
+    `${failed === 0 ? "✓" : "✗"} ${bank.skill}/${bank.module} · ${bank.questions.length} 题 · ${answerLine ?? ""} · console 错误 ${errors.length}`,
   );
   if (errors.length > 0) console.log("  errors:", errors.slice(0, 3));
   await page.close();
@@ -156,7 +170,7 @@ for (const exam of EXAMS) {
   });
   page.on("pageerror", (e) => errors.push(String(e)));
 
-  await page.goto(`${BASE}/s/gis/${bank.module}/quiz`, { waitUntil: "networkidle" });
+  await page.goto(`${BASE}/s/${bank.skill}/${bank.module}/quiz`, { waitUntil: "networkidle" });
   await page.getByRole("heading", { level: 2 }).waitFor();
 
   await page.getByRole("button", { name: /不知道，跳过/ }).click();

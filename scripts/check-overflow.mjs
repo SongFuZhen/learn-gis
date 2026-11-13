@@ -4,20 +4,35 @@ import path from "node:path";
 import { chromium } from "playwright-core";
 
 const BASE = process.env.BASE_URL ?? "http://localhost:25000";
-const CONTENT_DIR = path.resolve(process.cwd(), "content/gis");
+const SKILL_FILTER = process.env.SKILL ?? null;
+const CONTENT_ROOT = path.resolve(process.cwd(), "content");
 
-const modules = readdirSync(CONTENT_DIR)
-  .filter((f) => f.endsWith(".questions.json"))
-  .map((f) => JSON.parse(readFileSync(path.join(CONTENT_DIR, f), "utf8")).module)
+// 枚举 content/ 下全部含题库的技能目录；SKILL=<id> 可限定单门课
+const skillDirs = readdirSync(CONTENT_ROOT, { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .map((d) => d.name)
+  .filter((dir) => {
+    if (SKILL_FILTER && dir !== SKILL_FILTER) return false;
+    return readdirSync(path.join(CONTENT_ROOT, dir)).some((f) =>
+      f.endsWith(".questions.json"),
+    );
+  })
   .sort();
 
-const PAGES = [
-  "/",
-  "/s/gis",
-  "/review",
-  "/progress",
-  ...modules.flatMap((m) => [`/s/gis/${m}`, `/s/gis/${m}/quiz`]),
-];
+const skillPages = skillDirs.flatMap((skill) => {
+  const modules = readdirSync(path.join(CONTENT_ROOT, skill))
+    .filter((f) => f.endsWith(".questions.json"))
+    .map((f) =>
+      JSON.parse(readFileSync(path.join(CONTENT_ROOT, skill, f), "utf8")).module,
+    )
+    .sort();
+  return [
+    `/s/${skill}`,
+    ...modules.flatMap((m) => [`/s/${skill}/${m}`, `/s/${skill}/${m}/quiz`]),
+  ];
+});
+
+const PAGES = ["/", "/learn", "/review", "/progress", ...skillPages];
 const WIDTHS = [320, 375, 390];
 
 const browser = await chromium.launch({ channel: "chrome", headless: true });
