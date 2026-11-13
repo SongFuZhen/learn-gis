@@ -278,6 +278,59 @@
         { "key": "D", "text": "只把阴影 mapSize 提高到最大值" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "three-03-011",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "SpotLight 的照射方向由光源位置指向哪个场景节点？（写光源的属性名）",
+      "explanation": "SpotLight 通过 target 决定照射方向，方向由光源位置指向 target 的位置。移动 target 后还要确保它已加入场景并更新世界矩阵。",
+      "refs": [
+        {
+          "title": "three.js SpotLight.target",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight.target"
+        }
+      ],
+      "type": "short",
+      "accepted": ["target", "spot.target", "spotlight.target"],
+      "placeholder": "例如：target"
+    },
+    {
+      "id": "three-03-012",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "为了让 PBR 材质获得来自各方向的环境反射，可把预滤波环境纹理赋给 Scene 的哪个属性？",
+      "explanation": "scene.environment 为 PBR 材质提供基于图像的环境照明，包含漫反射和镜面反射贡献。它不能自动生成物体之间的投影阴影，主光与阴影仍需单独配置。",
+      "refs": [
+        {
+          "title": "three.js Scene.environment",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene.environment"
+        }
+      ],
+      "type": "short",
+      "accepted": ["environment", "scene.environment"],
+      "placeholder": "例如：environment"
+    },
+    {
+      "id": "three-03-013",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "阴影贴图 mapSize 从 1024×1024 提升到 2048×2048，像素总数变为原来的多少倍？",
+      "explanation": "边长都扩大为 2 倍，像素数按面积扩大：2048×2048 ÷（1024×1024）=4。因此提高阴影分辨率也会显著增加显存与渲染成本。",
+      "refs": [
+        {
+          "title": "three.js LightShadow.mapSize",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/LightShadow.mapSize"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "倍",
+      "placeholder": "只填数值"
     }
   ]
 }

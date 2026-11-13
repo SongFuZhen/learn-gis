@@ -258,6 +258,59 @@
         { "key": "D", "text": "报几何体未定义异常" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "three-00-011",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "每帧把 scene 与 camera 交给渲染器绘制时，应调用 WebGLRenderer 的哪个方法？（只写方法名）",
+      "explanation": "renderer.render(scene, camera) 会按指定相机把场景绘制到画布。three 不会因属性变化自动重绘，因此动画循环中每帧都要执行这次渲染。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.render",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer.render"
+        }
+      ],
+      "type": "short",
+      "accepted": ["render", "renderer.render", "renderer.render(scene, camera)", "renderer.render(scene,camera)"],
+      "placeholder": "例如：render"
+    },
+    {
+      "id": "three-00-012",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Scene、Group 和 Mesh 都能作为场景图节点，它们共同继承自哪个基础类？（写类名）",
+      "explanation": "Object3D 是 three 场景图节点的基类，提供 children、parent、position、rotation、scale 与矩阵等通用能力；Scene、Group、Mesh 和相机都建立在这套节点模型上。",
+      "refs": [
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "short",
+      "accepted": ["Object3D", "THREE.Object3D"],
+      "placeholder": "例如：Object3D"
+    },
+    {
+      "id": "three-00-013",
+      "skill": "three",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "画布 CSS 尺寸为 800×450，执行 renderer.setPixelRatio(2) 后，绘制缓冲区共有多少像素？",
+      "explanation": "像素比同时作用于宽和高：缓冲区宽为 800×2=1600，高为 450×2=900，总像素数为 1600×900=1,440,000。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.setPixelRatio",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setPixelRatio"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1440000,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "只填数值"
     }
   ]
 }

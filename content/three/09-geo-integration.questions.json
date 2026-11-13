@@ -176,6 +176,63 @@
         { "key": "D", "text": "删除 modelMatrix，仅保留一个固定屏幕像素位置" }
       ],
       "answer": ["A"]
+    },
+    {
+      "id": "three-09-011",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "共享 MapLibre canvas 时，为防止 three 清掉已经绘制的底图，应将 renderer 的哪个属性设为 false？",
+      "explanation": "renderer.autoClear=false 禁止 three 在 render 前自动清理颜色、深度等缓冲，从而保留 MapLibre 已绘制的底图。共享上下文时还要正确处理 GL 状态边界。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.autoClear",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer.autoClear"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["autoClear", "renderer.autoClear"],
+      "placeholder": "例如：autoClear"
+    },
+    {
+      "id": "three-09-012",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "共享 WebGL context 时，three 绘制前应调用 WebGLRenderer 的哪个方法重置自身缓存的 GL 状态，以适配 MapLibre 的状态改动？（只写方法名）",
+      "explanation": "renderer.resetState() 会使 three 的 GL 状态缓存与真实上下文重新同步。MapLibre 与 three 共用上下文时，不能假设另一方保持了自己上次设置的全部状态。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.resetState",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer.resetState"
+        }
+      ],
+      "type": "short",
+      "accepted": ["resetState", "renderer.resetState", "resetState()", "renderer.resetState()"],
+      "placeholder": "例如：resetState"
+    },
+    {
+      "id": "three-09-013",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "某落点的 meterInMercatorCoordinateUnits() 返回 0.000002，一个 40 米边长应换算为多少 MercatorCoordinate 单位？",
+      "explanation": "米制尺寸必须乘该落点的 Mercator 单位比例：40×0.000002=0.00008。该比例随纬度变化，不能把经纬度角度直接当成模型米制尺寸。",
+      "refs": [
+        {
+          "title": "MapLibre MercatorCoordinate.meterInMercatorCoordinateUnits",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/MercatorCoordinate/#meterinmercatorcoordinateunits"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.00008,
+      "tolerance": 0.00000001,
+      "unit": "MercatorCoordinate 单位",
+      "placeholder": "只填数值"
     }
   ]
 }

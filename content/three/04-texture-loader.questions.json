@@ -282,6 +282,59 @@
         { "key": "D", "text": "把所有纹理改成 sRGB 即可避免共享冲突" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "three-04-011",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "normalMap、roughnessMap 等数据贴图应保持哪种颜色空间，避免 sRGB 解码改变数值？（写 three 常量）",
+      "explanation": "数据贴图保存的是法线方向或物理参数，不是显示颜色，应保持 NoColorSpace。若误设为 SRGBColorSpace，采样前的转换会改变原始数值。",
+      "refs": [
+        {
+          "title": "three.js Texture.colorSpace",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture.colorSpace"
+        }
+      ],
+      "type": "short",
+      "accepted": ["NoColorSpace", "THREE.NoColorSpace"],
+      "placeholder": "例如：NoColorSpace"
+    },
+    {
+      "id": "three-04-012",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "加载 DRACO 压缩模型前，GLTFLoader 应调用哪个方法配置已设置解码器路径的 DRACOLoader？（只写方法名）",
+      "explanation": "gltfLoader.setDRACOLoader(draco) 把压缩几何解码器接入模型加载流程；DRACOLoader 本身还需通过 setDecoderPath 指向部署后可访问的解码文件。",
+      "refs": [
+        {
+          "title": "three.js GLTFLoader.setDRACOLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader.setDRACOLoader"
+        }
+      ],
+      "type": "short",
+      "accepted": ["setDRACOLoader", "gltfLoader.setDRACOLoader", "setDRACOLoader()", "gltfLoader.setDRACOLoader(draco)"],
+      "placeholder": "例如：setDRACOLoader"
+    },
+    {
+      "id": "three-04-013",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "LoadingManager.onProgress 回调中 loaded=18、total=24，按 Math.round(loaded/total×100) 计算，进度条应显示百分之多少？",
+      "explanation": "18/24×100=75，因此显示 75%。模型解析可能发现新的依赖并使 total 增长，所以实际 UI 不应假定百分比始终单调增加。",
+      "refs": [
+        {
+          "title": "three.js LoadingManager.onProgress",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager.onProgress"
+        }
+      ],
+      "type": "numeric",
+      "answer": 75,
+      "tolerance": 0,
+      "unit": "%",
+      "placeholder": "只填数值"
     }
   ]
 }

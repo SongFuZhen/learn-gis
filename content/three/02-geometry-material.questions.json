@@ -270,6 +270,59 @@
         { "key": "D", "text": "删除父 Group，子节点世界位置就会自动正确" }
       ],
       "answer": ["C"]
+    },
+    {
+      "id": "three-02-011",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "运行时通过 position.setY 修改顶点坐标后，必须把 BufferAttribute 的哪个标志设为 true，通知 renderer 重新上传数据？",
+      "explanation": "BufferAttribute.needsUpdate=true 表示 CPU 侧缓冲已经变化，渲染器需要重新上传。只修改数组或调用 setY 而不设置此标志，GPU 可能继续使用旧数据。",
+      "refs": [
+        {
+          "title": "three.js BufferAttribute.needsUpdate",
+          "url": "https://threejs.org/docs/#api/en/core/BufferAttribute.needsUpdate"
+        }
+      ],
+      "type": "short",
+      "accepted": ["needsUpdate", "position.needsUpdate", "needsUpdate = true", "needsUpdate=true", "position.needsUpdate = true", "position.needsUpdate=true"],
+      "placeholder": "例如：needsUpdate"
+    },
+    {
+      "id": "three-02-012",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "要把索引几何展开为不共享顶点的非索引几何，以便为硬边分别计算法线，应调用 BufferGeometry 的哪个方法？（只写方法名）",
+      "explanation": "toNonIndexed() 会按索引展开顶点并返回非索引几何，原先共享的顶点变为独立项，之后可计算各自的面法线；代价是顶点数量和显存占用增加。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.toNonIndexed",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry.toNonIndexed"
+        }
+      ],
+      "type": "short",
+      "accepted": ["toNonIndexed", "geometry.toNonIndexed", "toNonIndexed()", "geometry.toNonIndexed()"],
+      "placeholder": "例如：toNonIndexed"
+    },
+    {
+      "id": "three-02-013",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "一个四边形由索引 [0,1,2,0,2,3] 组织成两个三角形。若展开成非索引几何，position 的 itemSize 为 3，则 position 数组至少包含多少个浮点数？",
+      "explanation": "索引展开后两个三角形共有 6 个顶点，不再复用第 0、2 个顶点。每个顶点含 x、y、z 三个浮点数，所以总数为 6×3=18。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry index 与 position",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "numeric",
+      "answer": 18,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
     }
   ]
 }

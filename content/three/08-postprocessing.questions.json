@@ -169,6 +169,59 @@
         { "key": "D", "text": "它会把 WebGL 自动切换为服务端渲染" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "three-08-011",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "ShaderPass 会把上一阶段的输入纹理自动交给哪个 uniform？（写变量名）",
+      "explanation": "ShaderPass 按约定把输入纹理设置到 tDiffuse，自定义片元着色器可用 texture2D(tDiffuse,vUv) 采样上一阶段结果，再输出处理后的颜色。",
+      "refs": [
+        {
+          "title": "three.js ShaderPass",
+          "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass"
+        }
+      ],
+      "type": "short",
+      "accepted": ["tDiffuse", "uniforms.tDiffuse"],
+      "placeholder": "例如：tDiffuse"
+    },
+    {
+      "id": "three-08-012",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "ShaderPass 构造时会克隆传入 shader 的 uniforms；动态调参应修改 Pass 实例上的哪个属性，而不是原始 shader 对象？",
+      "explanation": "应修改 vignettePass.uniforms 中对应项的 value，例如 vignettePass.uniforms.strength.value=0.6。构造函数已经克隆 uniforms，只改原始 VignetteShader.uniforms 不会更新 Pass。",
+      "refs": [
+        {
+          "title": "three.js ShaderPass.uniforms",
+          "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass.uniforms"
+        }
+      ],
+      "type": "short",
+      "accepted": ["uniforms", "pass.uniforms", "vignettePass.uniforms", "shaderPass.uniforms"],
+      "placeholder": "例如：uniforms"
+    },
+    {
+      "id": "three-08-013",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "EffectComposer 的 CSS 尺寸为 1280×720，pixelRatio=1.5。不计额外子 Pass，单个全屏 Pass 每帧约处理多少个物理片元？",
+      "explanation": "物理宽为 1280×1.5=1920，物理高为 720×1.5=1080，因此单个全屏 Pass 的片元量约为 1920×1080=2,073,600。",
+      "refs": [
+        {
+          "title": "three.js EffectComposer.setPixelRatio",
+          "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer.setPixelRatio"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2073600,
+      "tolerance": 0,
+      "unit": "片元",
+      "placeholder": "只填数值"
     }
   ]
 }

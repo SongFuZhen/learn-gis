@@ -175,6 +175,63 @@
         { "key": "D", "text": "把 Clock 换成 Date，再分别取两次 delta" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "three-06-011",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "clipAction(clip).play() 后，每帧必须调用 AnimationMixer 的哪个方法并传入 delta，动画时间才会推进？（只写方法名）",
+      "explanation": "play() 只启动动作，并不会创建独立时钟。渲染循环中必须执行 mixer.update(delta)，让 mixer 按本帧秒数推进并求值动画轨道。",
+      "refs": [
+        {
+          "title": "three.js AnimationMixer.update",
+          "url": "https://threejs.org/docs/#api/en/animation/AnimationMixer.update"
+        }
+      ],
+      "type": "short",
+      "accepted": ["update", "mixer.update", "update()", "mixer.update(delta)"],
+      "placeholder": "例如：update"
+    },
+    {
+      "id": "three-06-012",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "要从 gltf.animations 数组中按名称取出 AnimationClip，可使用 AnimationClip 的哪个静态方法？（只写方法名）",
+      "explanation": "THREE.AnimationClip.findByName(gltf.animations, \"Idle\") 会查找名为 Idle 的动画片段。找到后仍需创建 mixer、播放 action，并在每帧更新 mixer。",
+      "refs": [
+        {
+          "title": "three.js AnimationClip.findByName",
+          "url": "https://threejs.org/docs/#api/en/animation/AnimationClip.findByName"
+        }
+      ],
+      "type": "short",
+      "accepted": ["findByName", "AnimationClip.findByName", "THREE.AnimationClip.findByName"],
+      "placeholder": "例如：findByName"
+    },
+    {
+      "id": "three-06-013",
+      "skill": "three",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "粒子系统 count=1500，使用 positions=new Float32Array(count×3) 保存每个顶点的 x、y、z，positions 数组长度是多少？",
+      "explanation": "每个粒子占 3 个浮点位置分量，因此数组长度为 1500×3=4500。更新完位置后应统一设置 position attribute 的 needsUpdate，而不是每帧新建数组。",
+      "refs": [
+        {
+          "title": "three.js Points",
+          "url": "https://threejs.org/docs/#api/en/objects/Points"
+        },
+        {
+          "title": "three.js BufferAttribute",
+          "url": "https://threejs.org/docs/#api/en/core/BufferAttribute"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4500,
+      "tolerance": 0,
+      "unit": "个浮点数",
+      "placeholder": "只填数值"
     }
   ]
 }

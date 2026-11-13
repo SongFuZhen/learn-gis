@@ -266,6 +266,58 @@
         { "key": "D", "text": "每秒多调用几次 updateProjectionMatrix 即可根治" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "three-01-011",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "修改 PerspectiveCamera 的 fov、aspect、near 或 far 后，应调用哪个方法重建投影矩阵？（只写方法名）",
+      "explanation": "这些构造参数不会自动重写已经生成的投影矩阵。修改后必须调用 updateProjectionMatrix()，否则后续渲染仍可能使用旧投影。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.updateProjectionMatrix",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera.updateProjectionMatrix"
+        }
+      ],
+      "type": "short",
+      "accepted": ["updateProjectionMatrix", "camera.updateProjectionMatrix", "updateProjectionMatrix()", "camera.updateProjectionMatrix()"],
+      "placeholder": "例如：updateProjectionMatrix"
+    },
+    {
+      "id": "three-01-012",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "add/remove 只改变节点挂载关系；确认不再使用一个 BufferGeometry 后，应调用哪个方法释放其 GPU 资源？（只写方法名）",
+      "explanation": "从场景树移除节点不会销毁几何数据。BufferGeometry.dispose() 会通知渲染器释放该几何对应的 GPU 资源；材质和纹理仍需按各自所有权分别处理。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.dispose",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry.dispose"
+        }
+      ],
+      "type": "short",
+      "accepted": ["dispose", "geometry.dispose", "dispose()", "geometry.dispose()"],
+      "placeholder": "例如：dispose"
+    },
+    {
+      "id": "three-01-013",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "画布容器的 clientWidth 为 1200、clientHeight 为 600，PerspectiveCamera 的 aspect 应设为多少？",
+      "explanation": "aspect 定义为画布宽度除以高度，因此 aspect=1200/600=2。容器尺寸变化后还要调用 updateProjectionMatrix() 重建投影矩阵。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.aspect",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera.aspect"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "placeholder": "只填数值"
     }
   ]
 }

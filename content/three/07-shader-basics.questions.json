@@ -169,6 +169,62 @@
         { "key": "D", "text": "把 camera.position 改成原点即可" }
       ],
       "answer": ["A"]
+    },
+    {
+      "id": "three-07-011",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在 ShaderMaterial 中每帧更新 uTime 时，应修改 material.uniforms.uTime 的哪个字段？",
+      "explanation": "每个 uniform 以带 value 字段的对象传给材质，因此应写 material.uniforms.uTime.value=新值。只替换外层字段而不更新 value，着色器拿不到预期参数。",
+      "refs": [
+        {
+          "title": "three.js ShaderMaterial.uniforms",
+          "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial.uniforms"
+        }
+      ],
+      "type": "short",
+      "accepted": ["value", ".value", "uniforms.uTime.value", "material.uniforms.uTime.value"],
+      "placeholder": "例如：value"
+    },
+    {
+      "id": "three-07-012",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "顶点着色器必须把顶点的裁剪空间位置写入哪个 GLSL 内置变量，供后续图元装配与光栅化使用？",
+      "explanation": "gl_Position 是顶点着色器的内置输出，类型为 vec4。常见计算是 projectionMatrix×modelViewMatrix×vec4(position,1.0)，其结果进入裁剪和光栅化阶段。",
+      "refs": [
+        {
+          "title": "Khronos OpenGL Shading Language",
+          "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language"
+        },
+        {
+          "title": "three.js ShaderMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial"
+        }
+      ],
+      "type": "short",
+      "accepted": ["gl_Position"],
+      "placeholder": "例如：gl_Position"
+    },
+    {
+      "id": "three-07-013",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "顶点着色器在 uTime=0 时计算 p.z=sin(p.x×3.0)×0.15+cos(p.y×4.0)×0.08。若 p.x=π/6、p.y=0，p.z 为多少？",
+      "explanation": "p.x×3=π/2，所以 sin(π/2)=1；p.y×4=0，所以 cos(0)=1。p.z=1×0.15+1×0.08=0.23。",
+      "refs": [
+        {
+          "title": "three.js ShaderMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.23,
+      "tolerance": 0.000001,
+      "placeholder": "只填数值"
     }
   ]
 }

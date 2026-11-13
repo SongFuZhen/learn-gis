@@ -282,6 +282,66 @@
         { "key": "D", "text": "关闭递归拾取，再把所有命中都强制当成 Scene" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "three-05-011",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "完成指针 NDC 换算后，Raycaster 应调用哪个方法根据 NDC 与当前相机生成拾取射线？（只写方法名）",
+      "explanation": "raycaster.setFromCamera(pointer, camera) 会使用归一化设备坐标和相机状态设置射线原点与方向，之后才能对 pickables 执行 intersectObjects。",
+      "refs": [
+        {
+          "title": "three.js Raycaster.setFromCamera",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster.setFromCamera"
+        }
+      ],
+      "type": "short",
+      "accepted": ["setFromCamera", "raycaster.setFromCamera", "setFromCamera()", "raycaster.setFromCamera(pointer, camera)", "raycaster.setFromCamera(pointer,camera)"],
+      "placeholder": "例如：setFromCamera"
+    },
+    {
+      "id": "three-05-012",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "递归拾取 glTF 命中深层子 Mesh 后，可沿对象的哪个属性逐级向上查找带业务 ID 的模型根节点？",
+      "explanation": "Intersection.object 是实际命中的子 Mesh。沿 object.parent 向上遍历场景图，可找到设置了 selectable 或业务 ID 的根节点；不能假定命中对象就是外层 Group。",
+      "refs": [
+        {
+          "title": "three.js Object3D.parent",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D.parent"
+        },
+        {
+          "title": "three.js Raycaster.intersectObjects",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster.intersectObjects"
+        }
+      ],
+      "type": "short",
+      "accepted": ["parent", "object.parent", ".parent"],
+      "placeholder": "例如：parent"
+    },
+    {
+      "id": "three-05-013",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "canvas 的 rect.left=100、rect.width=400，指针 event.clientX=400。按 pointer.x=((clientX-rect.left)/rect.width)×2-1 计算，NDC 的 x 是多少？",
+      "explanation": "指针在画布内的横坐标为 400-100=300，因此 pointer.x=(300/400)×2-1=0.5。必须先扣除画布偏移，不能直接用视口宽度计算。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.5,
+      "tolerance": 0.000001,
+      "placeholder": "只填数值"
     }
   ]
 }
