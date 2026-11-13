@@ -2,7 +2,7 @@
 
 > 以问答驱动的 GIS 学习应用：讲义 → 刷题 → 即时讲解 → 间隔复习，从零建立地理信息系统的知识体系。
 
-> 全站共 5 门课程、57 章讲义、2530 道校验题库。
+> 全站共 5 门课程、57 章讲义、2614 道校验题库。
 
 ## GIS 基础 [gis] · 地理空间轨
 
@@ -34,54 +34,54 @@
 - [相机与坐标系：经纬度变成三维坐标](https://gis.ason.top/s/cesium/01)：把 GIS 课的经纬度翻译成 Cesium 的 Cartesian3 笛卡尔坐标，相机六大操作，heading/pitch/roll 怎么读怎么用。（12 题）
 - [影像图层：瓦片金字塔与多图层叠加](https://gis.ason.top/s/cesium/02)：ImageryProvider 家族与瓦片金字塔（衔接 GIS 课的瓦片章节），多图层叠加、透明度与层级，UrlTemplateImageryProvider 接自定义瓦片服务。（12 题）
 - [地形：影像之外的第二层](https://gis.ason.top/s/cesium/03)：影像和地形为什么是两层东西，EllipsoidTerrainProvider 的默认平地行为，quantized-mesh 概念与真实地形数据的来路。（12 题）
-- [Entity 可视化与 GeoJSON](https://gis.ason.top/s/cesium/04)：Entity 体系与三件套标注（点/文字/图标）、线面的贴地与拉伸、GeoJSON 整包加载与逐要素染色、CallbackProperty 最简动画——把 GIS 课的矢量数据立起来。（12 题）
-- [CZML 与时间动态](https://gis.ason.top/s/cesium/05)：CZML 文档结构、Clock 时间遥控器、SampledPositionProperty 轨迹插值与 VelocityOrientation 自动转向——卫星过境与车辆回放的声明式解法。（12 题）
-- [3D Tiles：三维瓦片与城市](https://gis.ason.top/s/cesium/06)：3D Tiles 开放标准的瓦片树与 LOD、Cesium3DTileset 挂载、Cesium3DTileStyle 按属性染色；OSM Buildings 需 token 的边界与自托管 token-free 路径。（11 题）
-- [拾取与交互事件](https://gis.ason.top/s/cesium/07)：ScreenSpaceEventHandler 两段式事件模型、pick 与 drillPick 的分工、Entity 与 3D Tiles 要素两类拾取结果、悬停高亮与点击面板的经典闭环。（11 题）
-- [空间量算：距离、面积与贴地线](https://gis.ason.top/s/cesium/08)：弦长/大圆/贴地三种距离的适用边界、切平面投影法算面积、点击取点 + CallbackProperty 预览的完整量算交互闭环。（10 题）
-- [性能优化与实战收官](https://gis.ason.top/s/cesium/09)：requestRenderMode 按需渲染、SSE 精度总闸、Entity/Collection/Primitive 选型递进；收官实战：把全课程拼成 GIS 数据三维看板。（11 题）
-- [粒子系统：火焰、雨雪与天气特效](https://gis.ason.top/s/cesium/10)：Emitter/生命周期/updateCallback 三件套、modelMatrix 落地定位、bursts 爆发脉冲与四种发射器；用 updateCallback 写雨雪物理，并算清粒子性能账。（12 题）
-- [后处理与视觉特效：给渲染结果加滤镜](https://gis.ason.top/s/cesium/11)：postProcessStages 滤镜链、内置 fxaa/bloom/环境光遮蔽、自定义 shader 三约定（colorTexture/v_textureCoordinates/out_FragColor）、selected 选中高亮与全屏 pass 性能账。（12 题）
+- [Entity 可视化与 GeoJSON](https://gis.ason.top/s/cesium/04)：Entity 体系与三件套标注（点/文字/图标）、线面的贴地与拉伸、GeoJSON 整包加载与逐要素染色、CallbackProperty 最简动画——把 GIS 课的矢量数据立起来。（13 题）
+- [CZML 与时间动态](https://gis.ason.top/s/cesium/05)：CZML 文档结构、Clock 时间遥控器、SampledPositionProperty 轨迹插值与 VelocityOrientation 自动转向——卫星过境与车辆回放的声明式解法。（13 题）
+- [3D Tiles：三维瓦片与城市](https://gis.ason.top/s/cesium/06)：3D Tiles 开放标准的瓦片树与 LOD、Cesium3DTileset 挂载、Cesium3DTileStyle 按属性染色；OSM Buildings 需 token 的边界与自托管 token-free 路径。（12 题）
+- [拾取与交互事件](https://gis.ason.top/s/cesium/07)：ScreenSpaceEventHandler 两段式事件模型、pick 与 drillPick 的分工、Entity 与 3D Tiles 要素两类拾取结果、悬停高亮与点击面板的经典闭环。（12 题）
+- [空间量算：距离、面积与贴地线](https://gis.ason.top/s/cesium/08)：弦长/大圆/贴地三种距离的适用边界、切平面投影法算面积、点击取点 + CallbackProperty 预览的完整量算交互闭环。（11 题）
+- [性能优化与实战收官](https://gis.ason.top/s/cesium/09)：requestRenderMode 按需渲染、SSE 精度总闸、Entity/Collection/Primitive 选型递进；收官实战：把全课程拼成 GIS 数据三维看板。（12 题）
+- [粒子系统：火焰、雨雪与天气特效](https://gis.ason.top/s/cesium/10)：Emitter/生命周期/updateCallback 三件套、modelMatrix 落地定位、bursts 爆发脉冲与四种发射器；用 updateCallback 写雨雪物理，并算清粒子性能账。（13 题）
+- [后处理与视觉特效：给渲染结果加滤镜](https://gis.ason.top/s/cesium/11)：postProcessStages 滤镜链、内置 fxaa/bloom/环境光遮蔽、自定义 shader 三约定（colorTexture/v_textureCoordinates/out_FragColor）、selected 选中高亮与全屏 pass 性能账。（13 题）
 
 ## Turf.js 二维空间运算 [turf] · 地理空间轨
 
 跑在浏览器与 Node 里的几何引擎：量测、缓冲、叠置、点面分析、聚合与插值，GeoJSON 进 GeoJSON 出，配合 Leaflet/MapLibre 完成二维地图应用。（前置课程：gis）
 
-- [初见 Turf：浏览器里的几何引擎](https://gis.ason.top/s/turf/00)：Turf 是什么、与 GIS 理论课和 Cesium 的分工，GeoJSON 作为唯一输入输出，Vite/CDN 两种接入方式，第一个 area 面积计算。（10 题）
-- [量测全家桶：距离、长度、面积与沿线取点](https://gis.ason.top/s/turf/01)：distance、length、area、along、pointToLineDistance 的单位与适用面，对比 Cesium 的弦长/大圆/贴地三种三维量算。（10 题）
-- [方位角与目的地：在椭球面上推演坐标](https://gis.ason.top/s/turf/02)：bearing 与 rhumbBearing 的区别、destination 反解目的地、中点与圆心计算，对比 Cesium Ellipsoid 经纬网 API。（10 题）
-- [缓冲与变换：buffer、circle 与仿射操作](https://gis.ason.top/s/turf/03)：buffer 缓冲区分割线/面的差异、circle 离散圆、transformRotate/transformScale/transformTranslate 与 bbox 系列工具。（10 题）
-- [空间判断与叠置：boolean 系列与交并差](https://gis.ason.top/s/turf/04)：booleanPointInPolygon、booleanContains/Within/Overlap 的语义边界，intersect/union/difference 叠置运算与 Multi 几何处理。（10 题）
-- [点面分析实战：归属判断、等值面与泰森多边形](https://gis.ason.top/s/turf/05)：批量点归属到行政区、isobands 等值面生成、voronoi 泰森多边形的 Delaunay 底子与业务用法（服务区/邻域）。（10 题）
-- [聚合统计：collect、聚类与网格计数](https://gis.ason.top/s/turf/06)：collect 属性收集、clustersDbscan/clustersKmeans 两种聚类、hexGrid/rectangleGrid 网格 + pointCount 热力底表。（10 题）
-- [插值与采样：interpolate、随机数据与 sample](https://gis.ason.top/s/turf/07)：interpolate 线性插值做分段渲染、randomPoint/randomLine/randomPolygon 测试数据生成、sample 沿线采样的工程用途。（10 题）
-- [接入地图框架：Leaflet / MapLibre 里跑 Turf](https://gis.ason.top/s/turf/08)：GeoJSON 在 Turf 与地图库之间的双向流、鼠标绘制 + 实时 buffer 闭环、MapLibre GL 数据源与 Turf 结果的更新模式。（10 题）
-- [数据工程与性能：清洗、拍平与 Web Worker](https://gis.ason.top/s/turf/09)：flatten/explode/combine、rewind 环方向、cleanCoords 修坐标，大数组 benchmark 方法论与 Web Worker 卸载主线程。（10 题）
+- [初见 Turf：浏览器里的几何引擎](https://gis.ason.top/s/turf/00)：Turf 是什么、与 GIS 理论课和 Cesium 的分工，GeoJSON 作为唯一输入输出，Vite/CDN 两种接入方式，第一个 area 面积计算。（13 题）
+- [量测全家桶：距离、长度、面积与沿线取点](https://gis.ason.top/s/turf/01)：distance、length、area、along、pointToLineDistance 的单位与适用面，对比 Cesium 的弦长/大圆/贴地三种三维量算。（13 题）
+- [方位角与目的地：在椭球面上推演坐标](https://gis.ason.top/s/turf/02)：bearing 与 rhumbBearing 的区别、destination 反解目的地、中点与圆心计算，对比 Cesium Ellipsoid 经纬网 API。（13 题）
+- [缓冲与变换：buffer、circle 与仿射操作](https://gis.ason.top/s/turf/03)：buffer 缓冲区分割线/面的差异、circle 离散圆、transformRotate/transformScale/transformTranslate 与 bbox 系列工具。（13 题）
+- [空间判断与叠置：boolean 系列与交并差](https://gis.ason.top/s/turf/04)：booleanPointInPolygon、booleanContains/Within/Overlap 的语义边界，intersect/union/difference 叠置运算与 Multi 几何处理。（13 题）
+- [点面分析实战：归属判断、等值面与泰森多边形](https://gis.ason.top/s/turf/05)：批量点归属到行政区、isobands 等值面生成、voronoi 泰森多边形的 Delaunay 底子与业务用法（服务区/邻域）。（13 题）
+- [聚合统计：collect、聚类与网格计数](https://gis.ason.top/s/turf/06)：collect 属性收集、clustersDbscan/clustersKmeans 两种聚类、hexGrid/rectangleGrid 网格 + pointCount 热力底表。（13 题）
+- [插值与采样：interpolate、随机数据与 sample](https://gis.ason.top/s/turf/07)：interpolate 线性插值做分段渲染、randomPoint/randomLine/randomPolygon 测试数据生成、sample 沿线采样的工程用途。（13 题）
+- [接入地图框架：Leaflet / MapLibre 里跑 Turf](https://gis.ason.top/s/turf/08)：GeoJSON 在 Turf 与地图库之间的双向流、鼠标绘制 + 实时 buffer 闭环、MapLibre GL 数据源与 Turf 结果的更新模式。（13 题）
+- [数据工程与性能：清洗、拍平与 Web Worker](https://gis.ason.top/s/turf/09)：flatten/explode/combine、rewind 环方向、cleanCoords 修坐标，大数组 benchmark 方法论与 Web Worker 卸载主线程。（13 题）
 
 ## three.js 图形渲染 [three] · 图形渲染轨
 
 通用 WebGL 三维渲染：场景图、相机与渲染循环、几何材质、光照阴影、glTF、拾取、粒子、GLSL 着色器与后处理，最后把 three 场景叠回地理地图。（无前置课程）
 
-- [初见 three.js：从原生 WebGL 到场景图](https://gis.ason.top/s/three/00)：原生 WebGL 的痛点与 three 的定位、场景图思想，与 Cesium（同为 WebGL 渲染器但内置地球/时间/地理坐标）的分工，Vite 起步第一个立方体。（10 题）
-- [Scene / Camera / Renderer 三件套与渲染循环](https://gis.ason.top/s/three/01)：场景树、透视相机视锥参数、WebGLRenderer 配置、resize 适配、requestAnimationFrame 渲染循环与帧率概念。（10 题）
-- [几何与材质：BufferGeometry、Mesh 与层级](https://gis.ason.top/s/three/02)：Geometry 与 BufferGeometry 的数据底子（position/normal/uv）、MeshStandardMaterial 关键参数、网格法线、Group 层级与局部/世界变换。（10 题）
-- [光照与阴影：光源家族与 PBR 材质](https://gis.ason.top/s/three/03)：环境光/平行光/点光/聚光的适用面、阴影贴图原理与 shadow camera 调参、PBR 金属度粗糙度工作流。（10 题）
-- [纹理、UV 与 glTF 模型加载](https://gis.ason.top/s/three/04)：TextureLoader 与 UV 映射、颜色空间与各向异性、GLTFLoader 加载 glTF/GLB、DRACO 压缩解码与加载管理器。（10 题）
-- [OrbitControls 与 Raycaster 拾取](https://gis.ason.top/s/three/05)：轨道控制器阻尼与限制、Raycaster 射线拾取原理，对比 Cesium ScreenSpaceEventHandler/pick 两段式事件模型。（10 题）
-- [动画、时钟与粒子系统](https://gis.ason.top/s/three/06)：Clock delta 时间、关键帧与 GSAP 补间、morph 变形、Points 粒子与 PointsMaterial，对比 Cesium ParticleSystem。（10 题）
-- [ShaderMaterial 入门：GLSL 最小着色器](https://gis.ason.top/s/three/07)：attribute/uniform/varying 三件套、顶点与片元着色器管线、最简 GLSL 模板，对比 Cesium 自定义后处理三约定。（10 题）
-- [EffectComposer 后处理链](https://gis.ason.top/s/three/08)：RenderPass/通道链、UnrealBloomPass 泛光、着色器 Pass 写法，对比 Cesium postProcessStages 的滤镜图。（10 题）
-- [地理融合收官：three 场景叠到地图](https://gis.ason.top/s/three/09)：MapLibre custom layer 承载 three 场景、经纬度到平面投影换算、与 Cesium 三维地球方案的选型结论，拼成收官示例。（10 题）
+- [初见 three.js：从原生 WebGL 到场景图](https://gis.ason.top/s/three/00)：原生 WebGL 的痛点与 three 的定位、场景图思想，与 Cesium（同为 WebGL 渲染器但内置地球/时间/地理坐标）的分工，Vite 起步第一个立方体。（13 题）
+- [Scene / Camera / Renderer 三件套与渲染循环](https://gis.ason.top/s/three/01)：场景树、透视相机视锥参数、WebGLRenderer 配置、resize 适配、requestAnimationFrame 渲染循环与帧率概念。（13 题）
+- [几何与材质：BufferGeometry、Mesh 与层级](https://gis.ason.top/s/three/02)：Geometry 与 BufferGeometry 的数据底子（position/normal/uv）、MeshStandardMaterial 关键参数、网格法线、Group 层级与局部/世界变换。（13 题）
+- [光照与阴影：光源家族与 PBR 材质](https://gis.ason.top/s/three/03)：环境光/平行光/点光/聚光的适用面、阴影贴图原理与 shadow camera 调参、PBR 金属度粗糙度工作流。（13 题）
+- [纹理、UV 与 glTF 模型加载](https://gis.ason.top/s/three/04)：TextureLoader 与 UV 映射、颜色空间与各向异性、GLTFLoader 加载 glTF/GLB、DRACO 压缩解码与加载管理器。（13 题）
+- [OrbitControls 与 Raycaster 拾取](https://gis.ason.top/s/three/05)：轨道控制器阻尼与限制、Raycaster 射线拾取原理，对比 Cesium ScreenSpaceEventHandler/pick 两段式事件模型。（13 题）
+- [动画、时钟与粒子系统](https://gis.ason.top/s/three/06)：Clock delta 时间、关键帧与 GSAP 补间、morph 变形、Points 粒子与 PointsMaterial，对比 Cesium ParticleSystem。（13 题）
+- [ShaderMaterial 入门：GLSL 最小着色器](https://gis.ason.top/s/three/07)：attribute/uniform/varying 三件套、顶点与片元着色器管线、最简 GLSL 模板，对比 Cesium 自定义后处理三约定。（13 题）
+- [EffectComposer 后处理链](https://gis.ason.top/s/three/08)：RenderPass/通道链、UnrealBloomPass 泛光、着色器 Pass 写法，对比 Cesium postProcessStages 的滤镜图。（13 题）
+- [地理融合收官：three 场景叠到地图](https://gis.ason.top/s/three/09)：MapLibre custom layer 承载 three 场景、经纬度到平面投影换算、与 Cesium 三维地球方案的选型结论，拼成收官示例。（13 题）
 
 ## HarmonyOS / ArkTS 应用开发 [harmony] · 平台开发轨
 
 React 视角学鸿蒙：Stage 模型与工程结构、ArkUI 声明式 UI、状态管理 V1/V2、Navigation 路由、网络与并发、持久化与生命周期、性能安全与综合实战。（无前置课程）
 
-- [认知地图：鸿蒙生态、Stage 模型与 ArkTS](https://gis.ason.top/s/harmony/00)：HarmonyOS 技术栈全貌、ArkTS 作为 TypeScript 严格子集的约束、Stage 模型与 ArkUI/ArkData 全景，建立 React 视角的概念映射。（12 题）
-- [环境与工程结构：DevEco Studio 与 Stage 工程](https://gis.ason.top/s/harmony/01)：DevEco Studio 起步、AppScope/app.json5 与 module.json5 职责、entry 模块目录、hvigor 构建与 ohpm 包管理、资源目录与权限声明。（12 题）
-- [ArkUI 声明式 UI：组件、布局与构建函数](https://gis.ason.top/s/harmony/02)：@Component struct 与 build()、Column/Row/Stack 布局、基础组件与事件、ForEach/List 列表渲染、@Builder 构建函数，与 React/Compose 类比。（12 题）
-- [状态管理 V1/V2：装饰器与不刷新排查](https://gis.ason.top/s/harmony/03)：@State/@Prop/@Link/@Provide/@Consume 与 AppStorage，V2 的 @Local/@Param/@Event/@ObservedV2/@Trace，状态不刷新高频坑与排查路径。（12 题）
-- [页面路由 Navigation：NavPathStack 与转场](https://gis.ason.top/s/harmony/04)：Navigation + NavDestination 架构、NavPathStack 栈操作与参数传递、路由转场动画、组件/页面生命周期，router 已不推荐的原因。（12 题）
-- [网络与异步：HTTP、WebSocket 与 TaskPool](https://gis.ason.top/s/harmony/05)：@ohos.net.http 请求与权限声明、WebSocket 长连接、Promise/async 约定、TaskPool 与 Worker 并发选型、超时与取消。（12 题）
-- [数据持久化与 UIAbility 生命周期](https://gis.ason.top/s/harmony/06)：Preferences 键值存储、RDB 关系型数据库选型与事务、UIAbility 生命周期回调、上下文 Context、PersistenceV2 与状态持久化。（12 题）
-- [性能、安全、动画、测试与综合实战](https://gis.ason.top/s/harmony/07)：LazyForEach 长列表、动画与媒体、安全实践（证书校验/权限最小化）、测试体系、九大高频坑复盘，综合闯关 App 架构蓝图。（12 题）
+- [认知地图：鸿蒙生态、Stage 模型与 ArkTS](https://gis.ason.top/s/harmony/00)：HarmonyOS 技术栈全貌、ArkTS 作为 TypeScript 严格子集的约束、Stage 模型与 ArkUI/ArkData 全景，建立 React 视角的概念映射。（14 题）
+- [环境与工程结构：DevEco Studio 与 Stage 工程](https://gis.ason.top/s/harmony/01)：DevEco Studio 起步、AppScope/app.json5 与 module.json5 职责、entry 模块目录、hvigor 构建与 ohpm 包管理、资源目录与权限声明。（14 题）
+- [ArkUI 声明式 UI：组件、布局与构建函数](https://gis.ason.top/s/harmony/02)：@Component struct 与 build()、Column/Row/Stack 布局、基础组件与事件、ForEach/List 列表渲染、@Builder 构建函数，与 React/Compose 类比。（14 题）
+- [状态管理 V1/V2：装饰器与不刷新排查](https://gis.ason.top/s/harmony/03)：@State/@Prop/@Link/@Provide/@Consume 与 AppStorage，V2 的 @Local/@Param/@Event/@ObservedV2/@Trace，状态不刷新高频坑与排查路径。（14 题）
+- [页面路由 Navigation：NavPathStack 与转场](https://gis.ason.top/s/harmony/04)：Navigation + NavDestination 架构、NavPathStack 栈操作与参数传递、路由转场动画、组件/页面生命周期，router 已不推荐的原因。（14 题）
+- [网络与异步：HTTP、WebSocket 与 TaskPool](https://gis.ason.top/s/harmony/05)：@ohos.net.http 请求与权限声明、WebSocket 长连接、Promise/async 约定、TaskPool 与 Worker 并发选型、超时与取消。（14 题）
+- [数据持久化与 UIAbility 生命周期](https://gis.ason.top/s/harmony/06)：Preferences 键值存储、RDB 关系型数据库选型与事务、UIAbility 生命周期回调、上下文 Context、PersistenceV2 与状态持久化。（14 题）
+- [性能、安全、动画、测试与综合实战](https://gis.ason.top/s/harmony/07)：LazyForEach 长列表、动画与媒体、安全实践（证书校验/权限最小化）、测试体系、九大高频坑复盘，综合闯关 App 架构蓝图。（14 题）

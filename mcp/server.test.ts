@@ -50,7 +50,7 @@ describe("mcp server tools", () => {
 
   it("get_quiz 默认隐去答案与解析，withAnswers 才返回", () => {
     const hidden = getQuiz("three", "00");
-    expect(hidden.count).toBe(10);
+    expect(hidden.count).toBe(13);
     expect(hidden.withAnswers).toBe(false);
     const first = hidden.questions[0]!;
     expect(first).not.toHaveProperty("answer");
