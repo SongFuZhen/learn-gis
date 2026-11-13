@@ -368,6 +368,28 @@
         "D",
         "E"
       ]
+    },
+    {
+      "id": "cesium-07-012",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "ScreenSpaceEventHandler 拾取时为什么常分「先 pick 拿对象、再判断对象类型」两步，而不是在回调里直接操作？",
+      "explanation": "pick 只返回屏幕坐标下的最上层图形及位置，可能是 Entity、3D Tiles 要素或空区域；先取结果再按 id/primitive 分流，才能避免对空拾取或错误对象执行后续逻辑。",
+      "refs": [
+        {
+          "title": "Scene#pick",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "pick 结果可能为空或多种类型需分流",
+        "先取对象再按类型判断避免空拾取",
+        "两步区分 Entity/瓦片/空区域",
+        "先拾取再类型分流"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }

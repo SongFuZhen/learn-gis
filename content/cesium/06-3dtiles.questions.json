@@ -355,6 +355,28 @@
       "answer": [
         "B"
       ]
+    },
+    {
+      "id": "cesium-06-012",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "3D Tiles 为什么要把大规模三维场景切成 tileset 并按层次细节（LOD）按需加载？",
+      "explanation": "分层包围体与几何误差让视锥外、远处的瓦片不加载或用低精度替代，浏览器只需传输和渲染当前视角所需几何，从而支撑城市级海量模型的流畅浏览与内存可控。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "按 LOD 按需加载控制内存与带宽",
+        "几何误差驱动层次细节调度",
+        "只加载视锥内所需精度的瓦片",
+        "LOD 按需调度"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }

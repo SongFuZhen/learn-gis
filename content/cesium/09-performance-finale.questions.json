@@ -355,6 +355,28 @@
       "answer": [
         "D"
       ]
+    },
+    {
+      "id": "cesium-09-012",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "优化 Cesium 大场景性能时，减少 draw call 与控制瓦片加载分别解决哪一类瓶颈？",
+      "explanation": "合并几何、复用材质、实例化减少 draw call 缓解 CPU 提交与 GPU 状态切换瓶颈；限制 maximumScreenSpaceError、缓存与视锥裁剪控制瓦片加载，缓解网络带宽、显存与解析瓶颈。",
+      "refs": [
+        {
+          "title": "Scene",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "draw call 治 CPU/GPU 提交，瓦片加载治带宽显存",
+        "前者减渲染提交，后者控内存与网络",
+        "分别对应渲染瓶颈和资源加载瓶颈",
+        "渲染提交与资源加载两类瓶颈"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }

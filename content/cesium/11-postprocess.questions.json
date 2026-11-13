@@ -355,6 +355,28 @@
       ],
       "type": "truefalse",
       "answer": true
+    },
+    {
+      "id": "cesium-11-013",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "PostProcessStage 后处理与普通场景渲染的区别是什么，为什么辉光这类效果必须放在后处理阶段？",
+      "explanation": "普通渲染先把场景画到纹理，后处理以整帧缓冲为输入用着色器做屏幕空间计算；辉光需要提取高亮区域并对整幅图像做模糊混合，无法在单个物体绘制时获得全屏邻域信息，故必须在后处理完成。",
+      "refs": [
+        {
+          "title": "PostProcessStage",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/PostProcessStage.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "后处理对整帧缓冲做屏幕空间着色",
+        "需要全屏邻域信息只能在帧后处理",
+        "场景先入纹理再由着色器统一处理",
+        "全屏帧缓冲着色"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }

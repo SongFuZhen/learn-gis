@@ -367,6 +367,28 @@
       "answer": [
         "B"
       ]
+    },
+    {
+      "id": "cesium-10-013",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "ParticleSystem 模拟烟、火等效果时，emitter 和 updateCallback（或粒子生命周期属性）各自控制什么？",
+      "explanation": "emitter 决定粒子从什么形状、位置、初始速度发射；生命周期属性（颜色、尺寸、速度随时间变化）与回调决定每个粒子在存活期内如何演化，二者共同形成动态粒子效果。",
+      "refs": [
+        {
+          "title": "ParticleSystem",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "emitter 管发射形状与初速度，生命周期管演化",
+        "发射源决定出生，回调/属性决定存活变化",
+        "分别控制发射方式与粒子随时间变化",
+        "发射与生命周期演化"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }

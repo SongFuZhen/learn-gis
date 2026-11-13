@@ -400,6 +400,28 @@
       ],
       "type": "truefalse",
       "answer": true
+    },
+    {
+      "id": "cesium-04-013",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "Cesium 中用 Entity API 描述一个空间对象时，position 与 geometry（如 point、polygon）分别承担什么职责？",
+      "explanation": "position 给出实体锚点的三维世界坐标（Cartesian3），geometry 决定实体在该位置如何被绘制（点、面、线、模型等外观形态）；二者分离，同一位置可挂多种几何。",
+      "refs": [
+        {
+          "title": "Cesium Entity",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Entity.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "position 定坐标、geometry 定外观形态",
+        "position 负责位置，geometry 负责绘制形态",
+        "锚点坐标与几何外观分离",
+        "坐标与几何形态"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }

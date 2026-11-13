@@ -305,6 +305,28 @@
       "answer": [
         "A"
       ]
+    },
+    {
+      "id": "cesium-08-011",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "在三维地球上量算两点距离时，为什么不能直接用屏幕像素差或简单二维经纬度勾股，而要在 Cartesian3 空间或椭球面上计算？",
+      "explanation": "经纬度是角度不是长度，且投影到屏幕有透视变形；Cartesian3 是地心地固直角坐标，配合 Ellipsoid 求弦长或大地线，才能得到真实米制距离与贴地路径。",
+      "refs": [
+        {
+          "title": "Cartesian3",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cartesian3.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "经纬度是角度需在椭球面或直角坐标换算",
+        "透视变形使屏幕距离失真",
+        "用 Cartesian3/椭球求真实米制距离",
+        "角度需转椭球距离"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }

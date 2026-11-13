@@ -383,6 +383,28 @@
       "answer": [
         "B"
       ]
+    },
+    {
+      "id": "cesium-05-013",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "CZML 文档为什么能用一个 JSON 数据流描述随时间变化的场景，而不是只存某一帧的状态？",
+      "explanation": "CZML 用 interval 时间区间和 sampled 属性给每个属性打上时间维度，客户端按 clock 在时间轴上插值求值，因此单份文档即可表达动态实体的完整时间序列。",
+      "refs": [
+        {
+          "title": "Cesium CzmlDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/CzmlDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "属性带 interval 时间区间并按时间插值",
+        "用时间区间和采样属性描述动态变化",
+        "clock 驱动属性在时间轴插值",
+        "时间维度的采样属性"
+      ],
+      "placeholder": "用自己的话简要作答"
     }
   ]
 }
