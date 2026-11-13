@@ -14,7 +14,8 @@ const MP3_ROOT = process.env.MP3_ROOT || join(ROOT, 'public', 'audio');
 const MANIFEST_ROOT = process.env.MANIFEST_ROOT || join(ROOT, 'public', 'audio');
 const CONCURRENCY = Math.max(1, Number(process.env.CONCURRENCY) || 4);
 const CHANNEL = process.env.UPLOAD_CHANNEL || 'cfr2';
-const FOLDER = 'gis';
+// 图床目标文件夹按课程隔离：SKILL=turf 时上传到 turf/ 目录（默认 gis，兼容旧调用）
+const FOLDER = process.env.SKILL || 'gis';
 const { IMGBED_URL, IMGBED_API_TOKEN } = process.env;
 if (!IMGBED_URL || !IMGBED_API_TOKEN) {
   console.error('缺 IMGBED_URL / IMGBED_API_TOKEN 环境变量');
