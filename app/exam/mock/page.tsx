@@ -36,7 +36,7 @@ export default function MockExamPage() {
       context={`${EXAM_PLAN.mock.label} · ${questions.length} 题`}
       eyebrow="考试结果"
       passedHint={`达到通过线（${PASS_LINE}%）——整体掌握得不错。`}
-      resultLinks={[{ href: "/s/gis", label: "章节列表" }]}
+      resultLinks={[{ href: "/learn", label: "课程列表" }]}
     />
   );
 }

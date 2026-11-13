@@ -49,7 +49,6 @@ function countManifests(dirName: string): number {
 
 export default function AudioPage() {
   const totalSegments = countSegments();
-  const cesiumReady = countManifests("cesium");
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
@@ -74,12 +73,11 @@ export default function AudioPage() {
         {/* 按课程分组列出章节卡片 */}
         {SKILL_REGISTRY.map((reg) => {
           const manifests = countManifests(reg.id);
-          const pending =
-            reg.id === "cesium" && manifests < reg.modules.length;
+          const pending = manifests < reg.modules.length;
           return (
             <section key={reg.id} className="mt-6 first:mt-6">
               <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-[15px] font-medium">{reg.id === "gis" ? "GIS 基础" : "CesiumJS 三维地球"}</h2>
+                <h2 className="text-[15px] font-medium">{reg.title}</h2>
                 <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[11px] tabular text-foreground-tertiary">
                   {reg.modules.length} 章
                 </span>

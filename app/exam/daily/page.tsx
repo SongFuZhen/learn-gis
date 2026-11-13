@@ -37,7 +37,7 @@ export default function DailyExamPage() {
       context={`${EXAM_PLAN.daily.label} · ${questions.length} 题`}
       eyebrow="考试结果"
       passedHint={`达到通过线（${PASS_LINE}%）——今天这一卷收工。`}
-      resultLinks={[{ href: "/s/gis", label: "章节列表" }]}
+      resultLinks={[{ href: "/learn", label: "课程列表" }]}
     />
   );
 }

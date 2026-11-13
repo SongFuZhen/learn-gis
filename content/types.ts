@@ -8,3 +8,12 @@ export type ModuleMeta = {
   title: string;
   summary: string;
 };
+
+/** 课程轨道：/learn 页按轨道分组 */
+export type SkillTrack = "geospatial" | "graphics" | "platform";
+
+export const TRACK_LABEL: Record<SkillTrack, string> = {
+  geospatial: "地理空间",
+  graphics: "图形渲染",
+  platform: "平台开发",
+};

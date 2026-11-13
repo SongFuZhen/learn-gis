@@ -7,6 +7,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 import MobileTabBar from "@/components/MobileTabBar";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { SKILL_REGISTRY } from "@/content/registry";
 import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
@@ -16,7 +17,15 @@ export const metadata: Metadata = {
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  keywords: ["GIS", "地理信息系统", "EPSG", "GeoJSON", "Web Mercator", "PostGIS"],
+  keywords: [
+    "GIS",
+    "地理信息系统",
+    "EPSG",
+    "GeoJSON",
+    "Web Mercator",
+    "PostGIS",
+    ...SKILL_REGISTRY.map((r) => r.title),
+  ],
   alternates: { canonical: SITE_URL },
   openGraph: {
     type: "website",

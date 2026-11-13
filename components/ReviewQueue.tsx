@@ -48,7 +48,7 @@ export default function ReviewQueue() {
           递增；答错则重置为明天，连续答对 3 次即毕业出队。去做一章测验，攒点复习材料吧。
         </p>
         <Link
-          href="/s/gis/00/quiz"
+          href="/learn"
           className="mt-5 inline-flex h-11 items-center justify-center rounded-sm bg-brand-gradient px-5 text-sm font-medium text-white shadow-brand transition-opacity hover:opacity-95"
         >
           去做一章测验
@@ -71,7 +71,7 @@ export default function ReviewQueue() {
         backLabel="← 复习队列"
         passedHint="这批到期题已复习完，明天再回来巩固。"
         resultLinks={[
-          { href: "/s/gis", label: "去刷题" },
+          { href: "/learn", label: "去刷题" },
           { href: "/progress", label: "查看进度" },
         ]}
       />

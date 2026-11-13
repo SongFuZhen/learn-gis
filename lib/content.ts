@@ -7,7 +7,7 @@ import {
 import { getSkillRegistration, SKILL_REGISTRY } from "@/content/registry";
 import { loadLesson as loadGisLesson } from "@/content/gis/lessons";
 import { loadLesson as loadCesiumLesson } from "@/content/cesium/lessons";
-import type { ModuleMeta } from "@/content/types";
+import type { ModuleMeta, SkillTrack } from "@/content/types";
 
 /**
  * 内容载入 + 构建期校验（技能数据驱动）。
@@ -19,22 +19,16 @@ export type Skill = {
   id: string;
   title: string;
   description: string;
+  track: SkillTrack;
 };
 
-export const SKILLS: Skill[] = [
-  {
-    id: "gis",
-    title: "GIS 基础",
-    description:
-      "从坐标与经纬度的数学打底讲起：基准面、投影、数据模型、格式、OGC 服务、空间运算与 PostGIS。",
-  },
-  {
-    id: "cesium",
-    title: "CesiumJS 三维地球",
-    description:
-      "从零到一学会 CesiumJS：Viewer、相机与坐标系、影像与地形、Entity 与 CZML、3D Tiles、拾取交互、空间量算与性能优化，全程免 ion token 示例。",
-  },
-];
+/** 展示元数据统一由 registry 派生，避免两处维护 */
+export const SKILLS: Skill[] = SKILL_REGISTRY.map((r) => ({
+  id: r.id,
+  title: r.title,
+  description: r.description,
+  track: r.track,
+}));
 
 export function getSkill(skillId: string): Skill | null {
   return SKILLS.find((s) => s.id === skillId) ?? null;

@@ -3,13 +3,12 @@ import {
   ArrowRight,
   CalendarCheck,
   CircleCheck,
-  Globe,
   Map,
   Play,
   RotateCcw,
 } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import { SKILL_REGISTRY } from "@/content/registry";
+import { getSkillIcon } from "@/content/icons";
 import { SKILLS, chapterNo, getModules, getQuestionFile } from "@/lib/content";
 import { PASS_LINE } from "@/lib/quiz/exam";
 import { getHomeData } from "@/lib/progress/home";
@@ -21,12 +20,6 @@ export default async function HomePage() {
   const data = await getHomeData();
   return data ? <Dashboard data={data} /> : <Intro />;
 }
-
-/** 课程展示图标（与 /learn 中转页一致；新增技能补一行） */
-const SKILL_ICONS: Record<string, LucideIcon> = {
-  gis: Map,
-  cesium: Globe,
-};
 
 /** 每门课的章节/题量统计 */
 function skillStat(id: string) {
@@ -63,7 +56,7 @@ function Intro() {
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      {/* Hero：两门课的总览 */}
+      {/* Hero：全部课程的总览 */}
       <section className="relative overflow-hidden rounded-lg border border-border bg-card px-5 py-6 shadow-card sm:px-7 sm:py-8">
         <div
           aria-hidden="true"
@@ -71,16 +64,16 @@ function Intro() {
         />
         <div className="relative">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
-            Skill pack · GIS + CesiumJS
+            Skill pack · {SKILLS.map((s) => s.title).join(" / ")}
           </p>
           <h1 className="mt-2.5 text-[26px] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[32px]">
             问答式学
-            <span className="text-brand-gradient"> GIS 与三维地球</span>
+            <span className="text-brand-gradient"> 地理空间与图形编程</span>
           </h1>
           <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-foreground-secondary sm:text-[15px]">
-            两门课、一个学习闭环：GIS
-            基础从坐标与经纬度的数学打底讲起，一路到空间运算与 PostGIS；CesiumJS
-            三维地球从第一个 Viewer 讲到粒子特效，全程免 ion token
+            {SKILLS.length} 门课、一个学习闭环：从 GIS
+            坐标与投影的数学打底，到 Turf 二维空间运算、CesiumJS
+            三维地球，再到 three.js 图形渲染与鸿蒙开发，全程免 token
             示例。讲义 → 刷题 → 间隔复习，答错先讲清为什么错。
           </p>
 
@@ -120,11 +113,12 @@ function Intro() {
         </div>
       </section>
 
-      {/* 课程双卡：两门课各一张，带独立统计 */}
-      <section className="mt-3 grid gap-3 sm:grid-cols-2">
+      {/* 课程卡片：每门课一张，带独立统计 */}
+      <section className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {SKILLS.map((skill) => {
           const stat = skillStat(skill.id);
-          const Icon = SKILL_ICONS[skill.id] ?? Map;
+          const reg = SKILL_REGISTRY.find((r) => r.id === skill.id);
+          const Icon = reg ? getSkillIcon(reg.icon) : Map;
           return (
             <Link
               key={skill.id}
@@ -191,10 +185,10 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
           (m) => m.slug === data.continueSlug,
         ) ?? null
       : null;
-  // 下一步：有最近章节就继续它（跨技能），否则从头开始 GIS
+  // 下一步：有最近章节就继续它（跨技能），否则回到课程选择页
   const nextHref = continueModule
     ? `/s/${data.continueSkill}/${continueModule.slug}`
-    : `/s/gis/${SKILL_REGISTRY[0]?.modules[0]?.slug ?? ""}`;
+    : "/learn";
   const nextLabel = continueModule
     ? `继续《${continueModule.title}》`
     : "开始学习";
@@ -227,7 +221,7 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
         />
         <div className="relative">
           <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
-            Skill pack · GIS + CesiumJS
+            Skill pack · {SKILLS.map((s) => s.title).join(" / ")}
           </p>
           <h1 className="mt-2.5 text-[26px] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[32px]">
             今天接着学
@@ -365,7 +359,7 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
         </div>
       </section>
 
-      {/* 各章掌握度：按课程分组（两门课章节号各自从 01 起） */}
+      {/* 各章掌握度：按课程分组（每门课章节号各自从 01 起） */}
       <section className="mt-3 rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
         <div className="flex items-center justify-between gap-3">
           <h2 className="text-[13px] font-medium sm:text-sm">各章掌握度</h2>

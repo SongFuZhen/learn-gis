@@ -95,10 +95,10 @@ export default function ExamPage() {
         <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
           每章学完就地做 10~15 题，用来随学随测；
           <Link
-            href="/s/gis"
+            href="/learn"
             className="mx-1 text-brand underline decoration-brand/30 underline-offset-2 hover:decoration-brand"
           >
-            从章节列表
+            从课程列表
           </Link>
           进入即可。考试这一页只管跨章节的随机卷。
         </p>

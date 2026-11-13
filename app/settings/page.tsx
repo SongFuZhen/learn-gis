@@ -20,7 +20,7 @@ const ROWS = [
     desc: "各章掌握度与测验成绩",
   },
   {
-    href: "/s/gis",
+    href: "/learn",
     label: "课程章节",
     desc: "讲义目录，按顺序读或跳着读",
   },
