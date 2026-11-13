@@ -169,6 +169,44 @@
         { "key": "D", "text": "缓冲区单位错误导致经纬度交换，只需换 units" }
       ],
       "answer": ["A"]
+    },
+    {
+      "id": "turf-08-011",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "MapLibre 已有一个 GeoJSON source，Turf 结果变化时应调用哪个方法替换数据并复用该 source？",
+      "explanation": "对已有 GeoJSON source 调用 setData(data) 即可更新数据，引用它的样式层无需拆建；频繁 removeSource/addSource 会增加状态管理和渲染开销。",
+      "refs": [{ "title": "MapLibre GL JS GeoJSON Source", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "short",
+      "accepted": ["setData", "setData()", "source.setData", "source.setData()"],
+      "placeholder": "写出方法名"
+    },
+    {
+      "id": "turf-08-012",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Leaflet 矢量图层要交回 Turf 分析，应调用哪个公开方法导出标准 GeoJSON？",
+      "explanation": "layer.toGeoJSON() 把 Leaflet 矢量图层转换为标准 GeoJSON，之后才能作为 Turf 的输入；Turf 不直接消费 L.Polygon 等渲染实例。",
+      "refs": [{ "title": "Leaflet Layer toGeoJSON", "url": "https://leafletjs.com/reference.html" }],
+      "type": "short",
+      "accepted": ["toGeoJSON", "toGeoJSON()", "layer.toGeoJSON", "layer.toGeoJSON()"],
+      "placeholder": "写出方法名"
+    },
+    {
+      "id": "turf-08-013",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "地图每秒触发 120 次 mousemove，应用在每帧只处理最新坐标，且 requestAnimationFrame 稳定为每秒 60 帧。忽略其他任务时，每秒最多执行多少次缓冲重算？",
+      "explanation": "合帧后每个动画帧最多重算一次，同一帧内的多次 mousemove 只保留最新坐标，所以上限由 60 帧/秒决定，即每秒 60 次，而不是原始事件的 120 次。",
+      "refs": [{ "title": "MDN requestAnimationFrame", "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame" }],
+      "type": "numeric",
+      "answer": 60,
+      "tolerance": 0,
+      "unit": "次/秒",
+      "placeholder": "只填数值"
     }
   ]
 }

@@ -163,6 +163,44 @@
         { "key": "D", "text": "只调用 randomPoint，不读取任何已知高程" }
       ],
       "answer": ["A"]
+    },
+    {
+      "id": "turf-07-011",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "interpolate 中，哪个选项控制反距离权重的距离幂次？",
+      "explanation": "weight 是反距离权重的距离幂次。数值越大，近处观测点的主导作用越明显，远点权重衰减越快；property 则负责指定待估计的属性字段。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "short",
+      "accepted": ["weight"],
+      "placeholder": "写出选项名"
+    },
+    {
+      "id": "turf-07-012",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "tin 已生成带顶点数值的三角形后，要用单个三角面的平面方程估计目标点的值，应调用哪个函数？",
+      "explanation": "planepoint(target, triangle) 根据三角形三个顶点的数值建立局部平面并求目标点的值；使用前应确认目标点位于三角形内，避免把外推当作可靠观测估计。",
+      "refs": [{ "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" }],
+      "type": "short",
+      "accepted": ["planepoint", "turf.planepoint"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-07-013",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "用 weight = 2 的反距离权重估计某点数值。两个已知点到目标点的距离分别为 1 和 3，观测值分别为 10 和 20；权重取 1 / distance²。估计值是多少？",
+      "explanation": "两个权重分别为 1 / 1² = 1 和 1 / 3² = 1/9，所以估计值为 (10 × 1 + 20 × 1/9) ÷ (1 + 1/9) = 11。这里使用题设的确定性权重公式，不依赖随机采样。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "numeric",
+      "answer": 11,
+      "tolerance": 0.000001,
+      "unit": "观测值单位",
+      "placeholder": "只填数值"
     }
   ]
 }

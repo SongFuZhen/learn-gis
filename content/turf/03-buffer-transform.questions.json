@@ -170,6 +170,44 @@
         { "key": "D", "text": "先调用 bbox，bbox 会自动冻结所有后续变换" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "turf-03-011",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "transformRotate 中，要用一个固定门店位置作为旋转中心，应设置哪个选项？",
+      "explanation": "pivot 指定旋转枢轴，例如 transformRotate(area, 30, { pivot: shop })；省略时使用几何自身的默认中心，旋转后的整体位置可能不同。",
+      "refs": [{ "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" }],
+      "type": "short",
+      "accepted": ["pivot"],
+      "placeholder": "写出选项名"
+    },
+    {
+      "id": "turf-03-012",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "circle 生成离散圆 Polygon 时，哪个选项控制圆周的离散精细程度？",
+      "explanation": "steps 控制圆周离散的步数，增大后边界通常更平滑，但顶点、数据体积和后续计算成本也会增加；结果始终是有限顶点组成的 Polygon。",
+      "refs": [{ "title": "Turf circle API", "url": "https://turfjs.org/docs/api/circle" }],
+      "type": "short",
+      "accepted": ["steps"],
+      "placeholder": "写出选项名"
+    },
+    {
+      "id": "turf-03-013",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某 bbox 为 [113, 22, 117, 26]。只在本题的经纬度坐标平面上计算，bboxPolygon 的坐标面积是多少平方度？",
+      "explanation": "bbox 顺序是 [minLng, minLat, maxLng, maxLat]，所以经度跨度为 117 - 113 = 4，纬度跨度为 26 - 22 = 4，坐标平面面积为 4 × 4 = 16 平方度；这不是 turf.area 的实地面积。",
+      "refs": [{ "title": "Turf bboxPolygon API", "url": "https://turfjs.org/docs/api/bboxPolygon" }],
+      "type": "numeric",
+      "answer": 16,
+      "tolerance": 0,
+      "unit": "平方度",
+      "placeholder": "只填坐标平面面积数值"
     }
   ]
 }

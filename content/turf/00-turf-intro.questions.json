@@ -272,6 +272,44 @@
         { "key": "D", "text": "每个骑手都发一次 PostGIS 请求再用 Cesium 画点" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "turf-00-011",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在 CesiumJS 中，用哪个数据加载类承接 Turf 计算得到的 GeoJSON？",
+      "explanation": "GeoJsonDataSource 负责把标准 GeoJSON 加载为 Cesium 数据集中的实体；Turf 先完成二维几何计算，Cesium 再承担三维展示，两者通过 GeoJSON 解耦。",
+      "refs": [{ "title": "Cesium GeoJsonDataSource", "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html" }],
+      "type": "short",
+      "accepted": ["GeoJsonDataSource", "Cesium.GeoJsonDataSource"],
+      "placeholder": "写出类名"
+    },
+    {
+      "id": "turf-00-012",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Turf 点坐标 [116.404, 39.915] 的两个分量按什么顺序解释？",
+      "explanation": "GeoJSON Position 按 x、y 排列，在经纬度数据中就是 [经度, 纬度]，因此 116.404 是经度、39.915 是纬度，不能套用 Leaflet L.latLng 的先纬后经顺序。",
+      "refs": [{ "title": "RFC 7946 Position 定义", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1" }],
+      "type": "short",
+      "accepted": ["经度,纬度", "经度，纬度", "[经度,纬度]", "[经度，纬度]", "先经度后纬度", "lng,lat", "[lng,lat]"],
+      "placeholder": "例如：[x, y] 对应的地理分量"
+    },
+    {
+      "id": "turf-00-013",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "turf.area 算得某地块面积为 2,350,000 平方米。按 1 公顷 = 10,000 平方米换算，面积是多少公顷？",
+      "explanation": "area 固定返回平方米，换算为公顷要除以 10,000：2,350,000 ÷ 10,000 = 235。这里只做题设面积的单位换算，不需要重新投影。",
+      "refs": [{ "title": "Turf area API", "url": "https://turfjs.org/docs/api/area" }],
+      "type": "numeric",
+      "answer": 235,
+      "tolerance": 0,
+      "unit": "公顷",
+      "placeholder": "只填数值"
     }
   ]
 }

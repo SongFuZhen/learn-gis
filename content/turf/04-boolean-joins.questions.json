@@ -168,6 +168,44 @@
         { "key": "D", "text": "改用 Cesium scene.pick，像素结果会自动解决行政区归属" }
       ],
       "answer": ["C"]
+    },
+    {
+      "id": "turf-04-011",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "Turf v7 中，两个输入面没有公共面积时，intersect 返回什么值？",
+      "explanation": "没有交集时 intersect 返回 null，这是正常的空结果语义。调用方必须先判空，再读取 geometry、coordinates 或继续做面积统计。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "short",
+      "accepted": ["null", "NULL", "Null"],
+      "placeholder": "写出返回值"
+    },
+    {
+      "id": "turf-04-012",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "difference(featureCollection([a, b])) 中，哪个输入面是被后续面剪除并保留剩余部分的主体？",
+      "explanation": "首项 a 是差集主体，结果表示 a 去掉 b 覆盖范围后的剩余部分；交换为 [b, a] 就会变成 b 减 a，因此输入顺序是业务语义的一部分。",
+      "refs": [{ "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }],
+      "type": "short",
+      "accepted": ["a", "A", "第一个面", "首项", "第一个要素", "首个面"],
+      "placeholder": "写出 a 或 b"
+    },
+    {
+      "id": "turf-04-013",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "在边长单位为千米的理想平面练习中，矩形 A 的 bbox 为 [0, 0, 4, 4]，矩形 B 为 [2, 1, 6, 3]。它们交集的面积是多少平方千米？",
+      "explanation": "交集 bbox 为 [max(0,2), max(0,1), min(4,6), min(4,3)] = [2, 1, 4, 3]，宽 2 千米、高 2 千米，所以面积是 2 × 2 = 4 平方千米。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "平方千米",
+      "placeholder": "只填数值"
     }
   ]
 }

@@ -160,6 +160,44 @@
         { "key": "D", "text": "只创建 pointGrid，不读取订单位置" }
       ],
       "answer": ["A"]
+    },
+    {
+      "id": "turf-06-011",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "clustersDbscan 中，哪个选项用于设置形成密度核心所需的邻域最小点数？",
+      "explanation": "minPoints 控制密度核心的最小邻域点数，与 maxDistance 共同决定簇的扩展和噪声判定；提高 minPoints 通常会让稀疏点更容易成为噪声。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "short",
+      "accepted": ["minPoints"],
+      "placeholder": "写出选项名"
+    },
+    {
+      "id": "turf-06-012",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "clustersKmeans 中，哪个选项用于预先指定期望的簇数量？",
+      "explanation": "numberOfClusters 指定 KMeans 的 K 值，例如 { numberOfClusters: 8 }。这与 DBSCAN 根据距离和密度自然形成簇、无需预设簇数的方式不同。",
+      "refs": [{ "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }],
+      "type": "short",
+      "accepted": ["numberOfClusters"],
+      "placeholder": "写出选项名"
+    },
+    {
+      "id": "turf-06-013",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "某区执行 collect 后得到 amounts = [32, 28, 45]（单位：元）。对数组求和，该区订单总额是多少元？",
+      "explanation": "collect 只把落入面内的点属性收集成数组，不自动求和。调用方继续执行 32 + 28 + 45 = 105，得到该区订单总额 105 元。",
+      "refs": [{ "title": "Turf collect API", "url": "https://turfjs.org/docs/api/collect" }],
+      "type": "numeric",
+      "answer": 105,
+      "tolerance": 0,
+      "unit": "元",
+      "placeholder": "只填数值"
     }
   ]
 }

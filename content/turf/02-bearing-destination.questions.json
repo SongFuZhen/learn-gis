@@ -169,6 +169,44 @@
         { "key": "D", "text": "center(position) 再把经度增加 30" }
       ],
       "answer": ["C"]
+    },
+    {
+      "id": "turf-02-011",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "要计算两个 Point 之间大圆路径的球面中点，应使用哪个 Turf 函数？",
+      "explanation": "midpoint(point1, point2) 沿两点的大圆路径取中点，不是对经度和纬度分别做算术平均；center 则处理整组几何的包围盒中心。",
+      "refs": [{ "title": "Turf midpoint API", "url": "https://turfjs.org/docs/api/midpoint" }],
+      "type": "short",
+      "accepted": ["midpoint", "turf.midpoint"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-012",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "已知起点、固定罗盘航向和航程，要按恒向线模型推演终点，应使用哪个 Turf 函数？",
+      "explanation": "rhumbDestination 按恒向线和恒定航向推演位置，应与 rhumbBearing 配套；destination 使用的是大圆初始方位，不能保证全程航向恒定。",
+      "refs": [{ "title": "Turf rhumbDestination API", "url": "https://turfjs.org/docs/api/rhumbDestination" }],
+      "type": "short",
+      "accepted": ["rhumbDestination", "turf.rhumbDestination"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-013",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "bearing 得到的正西方向为 -90°。用 (angle + 360) % 360 将其归一化到 [0, 360) 后是多少度？",
+      "explanation": "将 -90 代入公式得到 (-90 + 360) % 360 = 270。因而 -90° 与 270° 都表示正西，只是角度区间约定不同。",
+      "refs": [{ "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" }],
+      "type": "numeric",
+      "answer": 270,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
     }
   ]
 }

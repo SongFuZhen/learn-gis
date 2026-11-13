@@ -166,6 +166,44 @@
         { "key": "D", "text": "认定放进 Worker 后算法复杂度会自动降低" }
       ],
       "answer": ["A"]
+    },
+    {
+      "id": "turf-09-011",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "把 Turf 计算迁入 Web Worker 后，Worker 仍不能直接操作页面的哪个文档对象模型？（写常用缩写）",
+      "explanation": "Worker 运行在与页面不同的全局上下文中，不能直接访问或修改 DOM。它应通过 postMessage 回传纯 GeoJSON 结果，再由主线程更新 Leaflet、MapLibre 或其他界面。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "short",
+      "accepted": ["DOM", "dom"],
+      "placeholder": "写出三个字母的缩写"
+    },
+    {
+      "id": "turf-09-012",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "rewind 使用默认选项时，会把 GeoJSON Polygon 的外环规范为哪个方向？",
+      "explanation": "默认 rewind 遵循 RFC 7946 右手规则，外环为逆时针、孔洞环为顺时针；reverse: true 才采用相反方向。该操作只调整顶点顺序，不修复自相交。",
+      "refs": [{ "title": "Turf rewind API", "url": "https://turfjs.org/docs/api/rewind" }, { "title": "RFC 7946 Polygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }],
+      "type": "short",
+      "accepted": ["逆时针", "逆时针方向", "counterclockwise", "counter-clockwise", "CCW", "ccw"],
+      "placeholder": "写出环方向"
+    },
+    {
+      "id": "turf-09-013",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "一个 FeatureCollection 含有一个具有 3 个成员的 MultiPolygon，以及一个普通 Polygon。flatten 后总共得到多少个 Polygon Feature？",
+      "explanation": "flatten 把 MultiPolygon 的 3 个成员分别拆成独立 Polygon Feature，普通 Polygon 仍保留为 1 个 Feature，因此输出总数为 3 + 1 = 4；它不会进一步把面拆成顶点。",
+      "refs": [{ "title": "Turf flatten API", "url": "https://turfjs.org/docs/api/flatten" }],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填 Feature 数量"
     }
   ]
 }

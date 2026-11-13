@@ -166,6 +166,44 @@
         { "key": "D", "text": "因为增加一个重复门店就能计算道路拥堵" }
       ],
       "answer": ["A"]
+    },
+    {
+      "id": "turf-05-011",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "isobands 的 zProperty 选项用于从每个采样点读取哪一类属性？",
+      "explanation": "zProperty 指定承载采样数值的属性字段，例如 value 或 temperature。isobands 根据这些数值与 breaks 生成等值区间面，而不是读取颜色或业务名称。",
+      "refs": [{ "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }],
+      "type": "short",
+      "accepted": ["数值属性", "采样数值属性", "数值字段", "采样值字段", "采样值属性"],
+      "placeholder": "写出属性类型"
+    },
+    {
+      "id": "turf-05-012",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "Voronoi 图与哪一种以站点外接圆性质为特征的三角剖分结构互为对偶？",
+      "explanation": "Delaunay 三角剖分与 Voronoi 图互为对偶。重复站点、全部共线等退化输入会破坏正常三角剖分，也会直接影响 Voronoi 单元的生成质量。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "short",
+      "accepted": ["Delaunay", "delaunay", "Delaunay 三角剖分", "德洛内三角剖分", "德-洛-内三角剖分"],
+      "placeholder": "写出三角剖分名称"
+    },
+    {
+      "id": "turf-05-013",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "isobands 的 breaks 设为 [0, 5, 10, 15, 20] 时，相邻断点最多定义多少个数值区间？",
+      "explanation": "相邻断点两两组成区间：0–5、5–10、10–15、15–20，共 4 个。一般 n 个有序断点定义 n - 1 个区间；这里问的是区间定义数，不保证每个区间在实际数据中都有输出面。",
+      "refs": [{ "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填区间数量"
     }
   ]
 }

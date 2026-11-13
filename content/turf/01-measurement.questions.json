@@ -258,6 +258,44 @@
         { "key": "D", "text": "比较定位点与路线各顶点的 distance，取最小值代替垂距" }
       ],
       "answer": ["B"]
+    },
+    {
+      "id": "turf-01-011",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "要在一条 LineString 上取得距起点 12 千米处的插值点，应调用哪个 Turf 函数？",
+      "explanation": "along(line, 12, { units: \"kilometers\" }) 会沿折线累计各段长度并返回指定里程处的 Point；length 只返回总长度，distance 只计算两点间距离。",
+      "refs": [{ "title": "Turf along API", "url": "https://turfjs.org/docs/api/along" }],
+      "type": "short",
+      "accepted": ["along", "turf.along"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-01-012",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "要计算定位点到一条折线各线段的最短球面距离，并取其中的最小值，应使用哪个 Turf 函数？",
+      "explanation": "pointToLineDistance 逐段求点到线段的最短距离再取最小值，落足点可位于线段内部；它不等同于只比较定位点到折线顶点的 distance。",
+      "refs": [{ "title": "Turf pointToLineDistance API", "url": "https://turfjs.org/docs/api/pointToLineDistance" }],
+      "type": "short",
+      "accepted": ["pointToLineDistance", "turf.pointToLineDistance"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-01-013",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "一条路线分为三段，分别长 1.2 千米、800 米和 2 千米。按 turf.length 的分段求和语义，总长是多少千米？",
+      "explanation": "先统一单位，800 米等于 0.8 千米，再把三段相加：1.2 + 0.8 + 2 = 4 千米。length 正是对相邻顶点组成的各段距离求和。",
+      "refs": [{ "title": "Turf length API", "url": "https://turfjs.org/docs/api/length" }],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填数值，单位千米"
     }
   ]
 }
