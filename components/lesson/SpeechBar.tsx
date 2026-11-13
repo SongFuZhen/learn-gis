@@ -23,10 +23,35 @@ export default function SpeechBar({
     listRef.current?.children[current]?.scrollIntoView({ block: 'nearest' });
   }, [current]);
 
+  const shellMinHeight = compact
+    ? 'min-h-[15.5rem] sm:min-h-[13rem]'
+    : 'min-h-[30.125rem] sm:min-h-[27.5rem]';
+
   if (status === 'loading') {
     return (
-      <div className='mt-4 rounded-md border border-border bg-card px-4 py-3 text-sm text-foreground-tertiary'>
-        语音加载中…
+      <div
+        aria-busy='true'
+        className={`mt-4 animate-pulse rounded-lg border border-border bg-card p-4 shadow-card ${shellMinHeight}`}
+      >
+        <div className='flex h-[5.125rem] flex-wrap items-center gap-2.5 sm:h-10'>
+          <div className='h-10 w-10 shrink-0 rounded-full bg-background-muted' />
+          <div className='h-9 w-9 shrink-0 rounded-full border border-border bg-background-muted' />
+          <div className='h-9 w-9 shrink-0 rounded-full border border-border bg-background-muted' />
+          <div className='h-4 w-12 rounded bg-background-muted' />
+          <div className='ml-auto flex h-8 items-center gap-1'>
+            {RATES.map((rate) => (
+              <div key={rate} className='h-8 w-10 rounded-full border border-border bg-background-muted' />
+            ))}
+          </div>
+        </div>
+        <div className='mt-3.5 h-1.5 rounded-full bg-background-muted' />
+        <div className='mt-3 min-h-[2.75em] rounded-sm bg-background-muted px-3 py-2' />
+        <div className='mt-3 flex h-8 items-center gap-2'>
+          <div className='h-8 w-8 shrink-0 rounded-full bg-background-muted' />
+          <div className='h-1.5 min-w-0 flex-1 rounded-full bg-background-muted' />
+          <div className='h-4 w-[5.5rem] shrink-0 rounded bg-background-muted' />
+        </div>
+        {!compact && <div className='mt-2 h-56 rounded-sm bg-background-muted' />}
       </div>
     );
   }
@@ -65,8 +90,26 @@ export default function SpeechBar({
     jump(Math.max(0, Math.min(total - 1, Math.floor(ratio * total))));
   };
 
+  const seekByKeyboard = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const index = current < 0 ? -1 : current;
+    if (e.key === 'Home') {
+      e.preventDefault();
+      jump(0);
+      return;
+    }
+    if (e.key === 'End') {
+      e.preventDefault();
+      jump(total - 1);
+      return;
+    }
+    if (!['ArrowLeft', 'ArrowDown', 'ArrowRight', 'ArrowUp'].includes(e.key)) return;
+    e.preventDefault();
+    const direction = e.key === 'ArrowRight' || e.key === 'ArrowUp' ? 1 : -1;
+    jump(Math.max(0, Math.min(total - 1, index + direction)));
+  };
+
   return (
-    <div className='mt-4 rounded-lg border border-border bg-card p-4 shadow-card'>
+    <div className={`mt-4 rounded-lg border border-border bg-card p-4 shadow-card ${shellMinHeight}`}>
       {/* 控制行：播放 / 上下段 / 进度计数 / 倍速 */}
       <div className='flex flex-wrap items-center gap-2.5'>
         <button
@@ -125,10 +168,12 @@ export default function SpeechBar({
         aria-label='播放进度'
         aria-valuemin={1}
         aria-valuemax={total}
-        aria-valuenow={current + 1}
+        aria-valuenow={Math.max(1, current + 1)}
+        aria-valuetext={current < 0 ? `未播放，共 ${total} 段` : `第 ${current + 1} 段，共 ${total} 段`}
         tabIndex={0}
         onClick={seekByRatio}
-        className='mt-3.5 h-1.5 cursor-pointer rounded-full bg-background-subtle'
+        onKeyDown={seekByKeyboard}
+        className='mt-3.5 h-1.5 cursor-pointer rounded-full bg-background-subtle focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring'
       >
         <div
           className='h-full rounded-full bg-brand-gradient transition-[width] duration-300'

@@ -31,7 +31,7 @@ export default function AnswerFeedback({
   return (
     <div
       className={cn(
-        "mt-4 rounded-sm border p-4",
+        "mt-4 min-w-0 rounded-sm border p-4 [overflow-wrap:anywhere]",
         correct
           ? "border-success/30 bg-success-light"
           : "border-destructive/30 bg-destructive-light",

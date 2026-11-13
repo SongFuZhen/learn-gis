@@ -1,6 +1,6 @@
 # 讲义语音阅读（TTS）方案 v2
 
-> 状态：TTS 服务、抽取器、预生成脚本、播放器、校验器均已落地；17 章 / 1391 段音频已全部生成并校验通过（OK=17 / ERROR=0）；mp3 由用户自行上传图床，manifest 入库随代码发布；部署发布方案见 §7
+> 状态：TTS 服务、抽取器、预生成脚本、播放器、校验器均已落地；GIS 17 章与 Cesium 12 章音频已生成，Turf / three / Harmony 共 28 章正在批量生成；mp3 由用户自行上传图床，manifest 入库随代码发布；部署发布方案见 §7
 > 一句话：**本地部署 Fish Speech 模型作独立 TTS 服务**；构建/批处理阶段把每章讲义净化文本送服务合成音频，落盘为静态文件；前端直接播放预生成音频，并保留段落高亮、点击跳播、调速。
 
 ---
@@ -73,7 +73,7 @@
 - 兜底：带 data-no-speech 或 aria-hidden 的块跳过；新增 MDX 组件显式声明即可，无需改抽取器。
 
 ### 3.3 边界
-默认规则覆盖当前 17 章内容形态（Callout / Exercise / 表格 / 注音）；新类型靠 data-no-speech 扩展。不做 NLP/LLM 语义判断。
+默认规则覆盖当前 5 个技能的内容形态（Callout / Exercise / 表格 / 注音）；新类型靠 data-no-speech 扩展。不做 NLP/LLM 语义判断。
 
 ---
 
@@ -81,7 +81,7 @@
 
 1. 部署 TTS 服务（已完成）：Fish Speech 1.5 运行环境（v3 venv + torch 2.8 cu128）已就绪，中文权重已下到 `f:/Codes/fish-tts/fs15/checkpoints/fish-speech-1.5`，服务 `start_server_15.cmd` 起在 `127.0.0.1:18080`，已验证 `POST /v1/tts` 中文出声。
 2. 文本抽取器 `lib/speech/extract.ts`（已完成）：用 unified + remark-parse/mdx/gfm 解析 MDX，按 §3 规则跳过代码块/表格/IPA/交互组件，输出段落数组（heading / paragraph / list-item / callout / 表格占位）。
-3. 预生成脚本 `scripts/gen-audio.ts`（已完成）：遍历 `content/gis/*.mdx` -> 调 `/v1/tts` -> 落盘 `public/audio/<slug>/segNN.mp3` + 同目录 `manifest.json`（含文本 hash，支持增量重跑）。
+3. 预生成脚本 `scripts/gen-audio.ts`（已完成）：通过 `SKILL=<skill>` 遍历 `content/<skill>/*.mdx` -> 调 `/v1/tts` -> 落盘 `public/audio/<slug>/segNN.mp3` + 同目录 `manifest.json`（含文本 hash，支持增量重跑）。
 4. 前端播放器 `components/lesson/SpeechBar.tsx` + `lib/speech/useSpeech.ts`（已完成）：读 manifest 逐段播放、当前段高亮、上一段/下一段、点击任意段跳播、`playbackRate` 0.75–1.5x 调速。
 5. npm script `gen:audio`（已完成）：`npm run gen:audio [slug]` 可选单章；不挂 prebuild（需本地服务在线，建议手动 / CI 生成）。
 6. 校验 `audio:validate`（已完成）：`npm run audio:validate` 校验各章 `manifest.json` 覆盖（段数/index/hash/与 MDX 现抽段数比对）、MP3 帧头与孤立文件，输出完成/待生成/错误统计。
@@ -138,7 +138,7 @@ public/audio/<slug>/manifest.json# 章节->段落->音频映射（slug = 章节�
 
 **结论**：架构仍成立（mp3 外置、manifest 入库），但上传脚本要改成走 ImgBed API 并解决批量，不是简单的 `huggingface_hub.upload_folder()`。
 
-本地现状：17 章 / 1391 段 mp3 已全部生成（113.9 MB，单段中位 ~70 KB、最大 473 KB），`audio:validate` 校验 `OK=17 / ERROR=0`、全量解码 1391/1391 通过；mp3 被 `.gitignore` 忽略，17 份 `manifest.json` 已入库。前端 `useSpeech.ts` 用 `fetch` 读同源 manifest、`<audio src>` 逐段播本地文件；上传图床后需按 §7.3 回写 `publicUrl` 并切换前端 URL。
+本地现状：GIS 17 章的逐段 `manifest.json` 已入库，mp3 被 `.gitignore` 忽略；其中 11 章当前校验通过，6 章因后续 MDX 改动出现段数差异，需在当前 Turf / three / Harmony 批次结束后增量重跑。Cesium 12 章采用 `chapter.mp3` 合并模式，`audio:validate` 已确认 505 段、12 章全部通过。前端 `useSpeech.ts` 用 `fetch` 读同源 manifest；逐段模式播放 `segments[].publicUrl`，合并模式播放 `merged.publicUrl` 并按段级 `start/duration` seek。
 
 ### 7.2 推荐架构：大文件外置，小文件入库
 
@@ -214,10 +214,10 @@ KV 免费版限制的是**写次数**（每文件一次）而非大小——505 
 - 结论：git 只兜底文本与代码；mp3 无论大小都等 `audio:upload` 幂等续传（ImgBed KV 配额恢复后剩余 160 段自动补齐）
 - 若未来急需线上可用而图床不可用，可再评估 GitHub Release 资产或 Vercel Blob（需 token）
 
-### 7.7 发布前检查### 7.7 发布前检查
+### 7.7 发布前检查
 
-- `npm run audio:validate` → `OK=17 / ERROR=0`
-- `git ls-files public/audio` 应只有 17 个 `manifest.json`，无 mp3
+- `SKILL=<skill> npm run audio:validate` → 目标技能 `ERROR=0`；合并模式下 `chapter.mp3` 由 manifest 的 `merged.audio` 引用，不算孤立文件
+- `git ls-files public/audio` 应只有 `manifest.json`，无 mp3
 - 上传后确认各章 manifest 的 `publicUrl` 均非空、指向 ImgBed `/file/{id}`
 - 打开任一章：`SpeechBar` 显示「朗读本节」而非「音频尚未生成」，抽查一段能出声
 - `git ls-files public/audio` 中 `manifest.json` 已提交（含回写的 `publicUrl`）

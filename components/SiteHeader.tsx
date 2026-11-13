@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ThemeToggle from "@/components/ThemeToggle";
+import SiteSearch from "@/components/SiteSearch";
 import { SKILLS, getModule } from "@/lib/content";
 import logoMark from "@/public/brand/logo.png";
 
@@ -66,6 +67,7 @@ export default function SiteHeader() {
         >
           {title}
         </h1>
+        <SiteSearch variant="mobile" />
         <ThemeToggle />
       </div>
     </header>

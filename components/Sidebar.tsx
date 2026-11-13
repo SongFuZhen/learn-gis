@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ICONS, NAV_ITEMS, isActive } from "@/components/nav";
 import ThemeToggle from "@/components/ThemeToggle";
+import SiteSearch from "@/components/SiteSearch";
 import { SKILLS, getModules } from "@/lib/content";
 import { ALL_QUESTIONS } from "@/content/all-questions";
 import { cn } from "@/lib/utils";
@@ -23,7 +24,11 @@ export default function Sidebar() {
         </span>
       </Link>
 
-      <nav className="mt-7 flex flex-col gap-1" aria-label="主导航">
+      <div className="mt-6">
+        <SiteSearch variant="sidebar" />
+      </div>
+
+      <nav className="mt-6 flex flex-col gap-1" aria-label="主导航">
         {NAV_ITEMS.map((item) => {
           const active = isActive(pathname, item);
           const Icon = NAV_ICONS[item.key];

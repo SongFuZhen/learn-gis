@@ -94,11 +94,39 @@ function checkChapter(slug: string): Check {
     }
   }
 
+  let mergedBytes = 0;
+  if (m.merged?.audio) {
+    referenced.add(m.merged.audio);
+    const mergedPath = join(dir, m.merged.audio);
+    if (!existsSync(mergedPath)) {
+      issues.push('缺合并音频文件 ' + m.merged.audio);
+    } else {
+      mergedBytes = statSync(mergedPath).size;
+      if (mergedBytes < MIN_MP3_BYTES) {
+        issues.push(m.merged.audio + ' 过小 (' + mergedBytes + 'B)');
+      } else {
+        const buf = Buffer.alloc(4);
+        const fd = openSync(mergedPath, 'r');
+        readSync(fd, buf, 0, 4, 0);
+        closeSync(fd);
+        if (!isMp3FrameSync(buf)) issues.push(m.merged.audio + ' MP3 帧头非法: ' + buf.toString('hex'));
+      }
+    }
+  }
+
   // 孤立 mp3（未被 manifest 引用）
   const orphans = readdirSync(dir).filter((f) => f.endsWith('.mp3') && !referenced.has(f));
   if (orphans.length) issues.push('孤立 mp3: ' + orphans.join(', '));
 
-  return { slug, est, segs, mp3: validMp3, bytes, status: issues.length ? 'ERROR' : 'OK', issues };
+  return {
+    slug,
+    est,
+    segs,
+    mp3: validMp3,
+    bytes: mergedBytes > 0 ? mergedBytes : bytes,
+    status: issues.length ? 'ERROR' : 'OK',
+    issues,
+  };
 }
 
 function main() {

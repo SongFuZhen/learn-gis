@@ -30,14 +30,14 @@ export default function ChoiceList({
           const isRightAnswer = revealed && isAnswer;
 
           return (
-            <li key={option.key}>
+            <li key={option.key} className="min-w-0">
               <button
                 type="button"
                 disabled={disabled}
                 aria-pressed={active}
                 onClick={() => onToggle(option.key)}
                 className={cn(
-                  "flex min-h-[3rem] w-full items-start gap-3 rounded-sm border bg-card px-3.5 py-3 text-left text-[15px] leading-relaxed transition-colors",
+                  "flex min-h-[3rem] w-full min-w-0 items-start gap-3 rounded-sm border bg-card px-3.5 py-3 text-left text-[15px] leading-relaxed transition-colors",
                   "border-border",
                   !disabled && "hover:border-brand/50 hover:bg-background-subtle active:bg-background-hover",
                   active && !revealed && "border-brand bg-brand-soft",
@@ -58,7 +58,7 @@ export default function ChoiceList({
                 >
                   {option.key}
                 </span>
-                <span className="flex-1">{option.text}</span>
+                <span className="min-w-0 flex-1 [overflow-wrap:anywhere]">{option.text}</span>
                 {isRightAnswer && (
                   <Check
                     className="mt-1 h-4 w-4 shrink-0 text-success"

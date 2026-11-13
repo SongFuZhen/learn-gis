@@ -111,7 +111,7 @@
 ```bash
 npm run build            # 全静态
 npm run check:overflow   # 320/375/390 无横向溢出（表格内部滚动不算）
-npm run smoke:quiz       # 真实 Chrome，7 章 100 题全对，零 console 错误
+npm run smoke:quiz       # 真实 Chrome，按 SKILL/MODULE 跑章节测验与考试，零 console 错误
 ```
 
 M5 目标：Lighthouse ≥ 95、暗色模式对比度 ≥ 4.5:1、键盘全流程可达（数字键选、Enter 提交/继续）。

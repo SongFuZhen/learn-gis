@@ -120,7 +120,7 @@ exam_sessions    (id, user_id, mode, size, correct, mastery, date_key, created_a
 - `schedule(card, correct)`：SM-2 简化（对 q=4 / 错 q=2），间隔 1 → 6 → interval×ease，答错重置 1 天，ease 下限 1.3。
 - `isDue(dueAt, now)`：复习到期判断，非法时间按到期处理。
 
-全部由 Vitest 覆盖（54 个用例，含内容注册表与题库 schema）。
+全部由 Vitest 覆盖（182 个用例，含内容注册表、题库 schema、复习、考试、标注、音频流与 MCP 服务）。
 
 ---
 
@@ -132,7 +132,7 @@ exam_sessions    (id, user_id, mode, size, correct, mastery, date_key, created_a
 | `/s/[skill]` | SSG (`generateStaticParams`) | 章节列表 + 题量 |
 | `/s/[skill]/[module]` | SSG | MDX 讲义（RSC 直出）+ "开始测验" |
 | `/s/[skill]/[module]/quiz` | SSG + client 交互 | 单题一屏，键盘 1-4 / Enter，判卷在浏览器内 |
-| `/exam` | static | 考试入口：按章选卷 + 综合卷占位 |
+| `/exam` | static | 考试入口：每日一考与综合模拟卷，均从全题库随机抽题 |
 | `/review` | static（M3 接队列） | 今日到期题 |
 | `/progress` | static（M3 接数据） | 各章掌握度 |
 | `/settings` | static | 外观主题 + 次级入口（复习 / 进度 / 章节） |

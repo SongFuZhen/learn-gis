@@ -53,10 +53,10 @@ export default async function SkillPage({
         {modules.map((moduleMeta) => {
           const count = getQuestionFile(skillId, moduleMeta.slug).questions.length;
           return (
-            <li key={moduleMeta.slug}>
+            <li key={moduleMeta.slug} className="min-w-0">
               <Link
                 href={`/s/${skillId}/${moduleMeta.slug}`}
-                className="flex h-full items-start gap-4 rounded-md border border-border bg-card p-5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
+                className="flex h-full min-w-0 items-start gap-4 rounded-md border border-border bg-card p-5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
               >
                 <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-brand-soft font-mono text-xs text-brand-ink">
                   {chapterNo(moduleMeta.slug)}
@@ -68,7 +68,7 @@ export default async function SkillPage({
                       {count} 题
                     </span>
                   </span>
-                  <span className="mt-1.5 block text-[13px] leading-relaxed text-foreground-tertiary">
+                  <span className="mt-1.5 block min-w-0 text-[13px] leading-relaxed text-foreground-tertiary [overflow-wrap:anywhere]">
                     {moduleMeta.summary}
                   </span>
                 </span>

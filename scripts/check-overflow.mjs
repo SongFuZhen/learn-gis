@@ -41,7 +41,7 @@ let bad = 0;
 for (const width of WIDTHS) {
   const page = await browser.newPage({ viewport: { width, height: 800 } });
   for (const p of PAGES) {
-    await page.goto(`${BASE}${p}`, { waitUntil: "networkidle" });
+    await page.goto(`${BASE}${p}`, { waitUntil: "load" });
     const { scrollWidth, innerWidth } = await page.evaluate(() => ({
       scrollWidth: document.documentElement.scrollWidth,
       innerWidth: window.innerWidth,

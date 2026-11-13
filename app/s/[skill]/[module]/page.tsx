@@ -65,7 +65,7 @@ export default async function ModulePage({
   return (
     <div className="w-full px-4 py-5 sm:px-6 sm:py-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-12 lg:px-8 lg:py-10">
       <div className="min-w-0">
-        <nav className="truncate text-[12px] text-foreground-muted">
+        <nav className="min-w-0 max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[12px] text-foreground-muted">
           <Link href={`/s/${skillId}`} className="hover:text-brand">
             {skill.title}
           </Link>
@@ -77,11 +77,11 @@ export default async function ModulePage({
           <span className="text-foreground-tertiary">{moduleMeta.title}</span>
         </nav>
 
-        <header className="mt-3 max-w-3xl lg:max-w-none">
-          <h1 className="text-[24px] font-semibold leading-snug tracking-[-0.02em] sm:text-[30px] lg:text-[32px]">
+        <header className="mt-3 min-w-0 max-w-3xl [overflow-wrap:anywhere] lg:max-w-none">
+          <h1 className="min-w-0 text-[24px] font-semibold leading-snug tracking-[-0.02em] sm:text-[30px] lg:text-[32px]">
             {moduleMeta.title}
           </h1>
-          <p className="mt-2 text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
+          <p className="mt-2 min-w-0 text-sm leading-relaxed text-foreground-secondary [overflow-wrap:anywhere] sm:text-[15px]">
             {moduleMeta.summary}
           </p>
           <div className="mt-5 flex flex-wrap items-center gap-3">

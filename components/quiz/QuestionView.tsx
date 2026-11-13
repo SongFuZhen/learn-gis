@@ -187,8 +187,8 @@ export default function QuestionView({
       : selected;
 
   return (
-    <div className="flex flex-1 flex-col">
-      <section className="mt-4 rounded-md border border-border bg-card p-5 shadow-card sm:p-6">
+    <div className="flex min-w-0 flex-1 flex-col">
+      <section className="mt-4 min-w-0 rounded-md border border-border bg-card p-5 shadow-card sm:p-6">
         <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[11px] text-foreground-tertiary">
           <span className="rounded-sm bg-surface-muted px-1.5 py-0.5 font-mono text-foreground-tertiary">
             {question.id}
@@ -217,7 +217,7 @@ export default function QuestionView({
           </span>
         </div>
 
-        <h2 className="mt-3 text-[17px] font-semibold leading-relaxed tracking-[-0.01em] sm:text-[19px]">
+        <h2 className="mt-3 min-w-0 text-[17px] font-semibold leading-relaxed tracking-[-0.01em] [overflow-wrap:anywhere] sm:text-[19px]">
           {question.stem}
         </h2>
 
