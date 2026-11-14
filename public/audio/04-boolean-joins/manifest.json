@@ -1,0 +1,357 @@
+{
+  "slug": "04-boolean-joins",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T18:09:11.797Z",
+  "segmentCount": 43,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.56
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：「点在不在围栏里」「两块地是否重叠」「从 A 里剪掉 B 还剩多少」都需要明确的拓扑语义，而不是靠肉眼。拓扑 topology关心几何之间如何相接、包含与相交。 一句话心智模型 ： boolean 只回答 true/false， intersect、union、difference 则真正生成新几何；前者是判断题，后者是剪刀与胶水。 常见坑 ：",
+      "hash": "f2ad9141c375dc0e",
+      "audio": "seg01.mp3",
+      "start": 2.56,
+      "duration": 21.473
+    },
+    {
+      "index": 2,
+      "text": "忘记边界规则——点恰好压在外环上时， booleanPointInPolygon 默认算内部。",
+      "hash": "daac1b4d4a2c2c0d",
+      "audio": "seg02.mp3",
+      "start": 24.033,
+      "duration": 6.896
+    },
+    {
+      "index": 3,
+      "text": "把「有接触」都当重叠——只碰一条边的两个面并不满足 booleanOverlap 。",
+      "hash": "556e72e34e511ab4",
+      "audio": "seg03.mp3",
+      "start": 30.929,
+      "duration": 6.191
+    },
+    {
+      "index": 4,
+      "text": "沿用旧版 intersect(a, b) 两参数写法——Turf v7 叠置入口使用 FeatureCollection。 必记 3 条 ：",
+      "hash": "de6ac0ef68a4081e",
+      "audio": "seg04.mp3",
+      "start": 37.12,
+      "duration": 12.565
+    },
+    {
+      "index": 5,
+      "text": "点面默认包含边界， ignoreBoundary: true 才把边界排除。",
+      "hash": "851ab053f16fa29c",
+      "audio": "seg05.mp3",
+      "start": 49.685,
+      "duration": 7.079
+    },
+    {
+      "index": 6,
+      "text": "Contains、Within 看包含， Overlap 看同维度部分重叠， Disjoint 看是否完全无公共点。",
+      "hash": "cb45c36a9a4590c6",
+      "audio": "seg06.mp3",
+      "start": 56.764,
+      "duration": 14.655
+    },
+    {
+      "index": 7,
+      "text": "交并差输入面几何、输出可能为 null，Multi 几何与空结果都要显式处理。",
+      "hash": "a6649e202b7d6ba5",
+      "audio": "seg07.mp3",
+      "start": 71.419,
+      "duration": 5.773
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 77.192,
+      "duration": 2.064
+    },
+    {
+      "index": 9,
+      "text": "常用空间谓词的语义边界，压线点为什么会被重复归属，Turf v7 的交并差调用方式，以及 MultiPolygon、孔洞和无效几何进入生产流程时的注意事项。",
+      "hash": "407ff055ea821b84",
+      "audio": "seg09.mp3",
+      "start": 79.256,
+      "duration": 14.184
+    },
+    {
+      "index": 10,
+      "text": "1. booleanPointInPolygon：先决定边界算不算内部",
+      "hash": "96a6f1433576e6c5",
+      "audio": "seg10.mp3",
+      "start": 93.44,
+      "duration": 7.314
+    },
+    {
+      "index": 11,
+      "text": "空间谓词 predicate是一种只返回布尔值的关系判断。 booleanPointInPolygon(point, polygon) 支持 Polygon 与 MultiPolygon，默认把外环或孔洞边界上的点也视为在面内。",
+      "hash": "c69eb620c595a929",
+      "audio": "seg11.mp3",
+      "start": 100.754,
+      "duration": 16.353
+    },
+    {
+      "index": 12,
+      "text": "ignoreBoundary: true 不是「更精确」的通用开关，而是另一种业务定义：只认严格内部。若两个相邻行政区共享边，默认规则可能让压线点同时命中两个区；全部排除边界又可能让压线点一个区都进不了。必须提前约定归属策略。",
+      "hash": "a46184e50ca7b617",
+      "audio": "seg12.mp3",
+      "start": 117.107,
+      "duration": 18.547
+    },
+    {
+      "index": 13,
+      "text": "2. Contains、Within、Overlap、Disjoint 不要混用",
+      "hash": "1bf602cef7e87be5",
+      "audio": "seg13.mp3",
+      "start": 135.654,
+      "duration": 13.113
+    },
+    {
+      "index": 14,
+      "text": "这几个函数读法相似，但观察方向与判定条件不同：",
+      "hash": "67bd614619ec53c9",
+      "audio": "seg14.mp3",
+      "start": 148.767,
+      "duration": 4.336
+    },
+    {
+      "index": 15,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg15.mp3",
+      "start": 153.104,
+      "duration": 2.534
+    },
+    {
+      "index": 16,
+      "text": "Overlap 不是「有一点接触就算」。两个面只在边或角上相碰，没有公共面积，应视为接触而非部分重叠；两个点或点与面的关系，也应优先选择更合适的专用谓词。",
+      "hash": "5f422f2145757cd2",
+      "audio": "seg16.mp3",
+      "start": 155.638,
+      "duration": 25.835
+    },
+    {
+      "index": 17,
+      "text": "3. intersect：保留共同部分",
+      "hash": "80cfd90378a7c04d",
+      "audio": "seg17.mp3",
+      "start": 181.473,
+      "duration": 2.299
+    },
+    {
+      "index": 18,
+      "text": "叠置分析 overlay会生成新面。 intersect 保留各输入面的公共区域；没有公共面积时返回 null，而不是制造一个可随意读取坐标的面。",
+      "hash": "1c5c496f04791a57",
+      "audio": "seg18.mp3",
+      "start": 183.771,
+      "duration": 8.829
+    },
+    {
+      "index": 19,
+      "text": "交集可能由多个互不相连的碎片组成，所以返回类型可能是 MultiPolygon。调用方不能只按单一外环处理；若要做面积统计，应让 area 直接消费整个结果。",
+      "hash": "a6b4d8436207d4f1",
+      "audio": "seg19.mp3",
+      "start": 192.601,
+      "duration": 13.166
+    },
+    {
+      "index": 20,
+      "text": "4. union 与 difference：合并和剪除",
+      "hash": "8018a18e82d9d9d6",
+      "audio": "seg20.mp3",
+      "start": 205.767,
+      "duration": 4.624
+    },
+    {
+      "index": 21,
+      "text": "union 把输入面合并并消解内部共享边； difference 用第一个面减去后续面的覆盖范围。两者同样采用 FeatureCollection 入口。",
+      "hash": "2bc0e51fa374b0d1",
+      "audio": "seg21.mp3",
+      "start": 210.39,
+      "duration": 9.404
+    },
+    {
+      "index": 22,
+      "text": "difference 的输入顺序决定谁被保留：把 B 放首项，语义就变成「B 减 A」。若首项被后续面完全覆盖，结果会是 null；合并结果也可能因为存在分离区域而成为 MultiPolygon。",
+      "hash": "8d089f03d98cc844",
+      "audio": "seg22.mp3",
+      "start": 219.794,
+      "duration": 17.998
+    },
+    {
+      "index": 23,
+      "text": "Turf v7 的 intersect 、 union 、 difference 使用 featureCollection([a, b]) 组织输入，不要照抄旧教程的两个独立面参数。叠置后哪些 properties 保留、由 options 如何指定，应以对应函数文档为准；关键业务字段最好显式重建，不要依赖输入属性会自动合并。",
+      "hash": "8a8b1bbf3ee4e058",
+      "audio": "seg23.mp3",
+      "start": 237.793,
+      "duration": 28.944
+    },
+    {
+      "index": 24,
+      "text": "5. Multi 几何与无效输入：结果正确的前提",
+      "hash": "58e3411241a553bb",
+      "audio": "seg24.mp3",
+      "start": 266.736,
+      "duration": 2.952
+    },
+    {
+      "index": 25,
+      "text": "MultiPolygon 不是「多个 Polygon 的简单数组外壳」那么轻松：它可能有孔洞、分离岛屿和复杂边界。交并差会保留这些结构，因此下游遍历几何前先确认类型。",
+      "hash": "c5d2981e19dc0e11",
+      "audio": "seg25.mp3",
+      "start": 269.688,
+      "duration": 11.572
+    },
+    {
+      "index": 26,
+      "text": "自相交外环、重复到无法成面的环、错误孔洞关系都会让叠置结果不稳定。不要靠 try、catch 掩盖脏数据，应在入口做 GeoJSON 校验与清洗，再用小样本确认结果。",
+      "hash": "5e75cf58ec2c8b28",
+      "audio": "seg26.mp3",
+      "start": 281.26,
+      "duration": 12.931
+    },
+    {
+      "index": 27,
+      "text": "Cesium 的 scene.pick 回答「这个屏幕像素拾到了哪个对象」，受相机、遮挡和渲染状态影响；Turf 的 booleanPointInPolygon 回答「坐标与 GeoJSON 面是什么空间关系」，不需要场景或相机。可对照 Cesium 拾取章 ：先用 Cesium 拾取业务对象，再交给 Turf 做二维拓扑判断，才是可靠分工。",
+      "hash": "98f50c679f4066a7",
+      "audio": "seg27.mp3",
+      "start": 294.191,
+      "duration": 33.176
+    },
+    {
+      "index": 28,
+      "text": "压线点默认在面内；唯一归属需要业务规则，不是换一个参数就万事大吉。",
+      "hash": "e90c4c58864e8508",
+      "audio": "seg28.mp3",
+      "start": 327.367,
+      "duration": 5.355
+    },
+    {
+      "index": 29,
+      "text": "Overlap 排除完全包含和仅边界接触， Disjoint 连边界接触也不允许。",
+      "hash": "2327fb73c27167cd",
+      "audio": "seg29.mp3",
+      "start": 332.722,
+      "duration": 8.986
+    },
+    {
+      "index": 30,
+      "text": "v7 交并差传 FeatureCollection，返回 Polygon、MultiPolygon 或 null，属性和空结果都要显式处理。",
+      "hash": "c64ef247fe6419eb",
+      "audio": "seg30.mp3",
+      "start": 341.708,
+      "duration": 7.497
+    },
+    {
+      "index": 31,
+      "text": "构造两个共享一条竖边的正方形围栏 A、B，再构造一个正好落在共享边中点的告警 Point。①分别测试该点对 A、B 的默认点面判断；②加上 ignoreBoundary: true 再测试；③用两个有部分公共面积的 Polygon 运行 intersect、union、difference；④把无交集的一组输入也跑一遍，验证空结果分支。",
+      "hash": "f7d7231e88b2866b",
+      "audio": "seg31.mp3",
+      "start": 349.205,
+      "duration": 24.033
+    },
+    {
+      "index": 32,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg32.mp3",
+      "start": 373.238,
+      "duration": 1.698
+    },
+    {
+      "index": 33,
+      "text": "点面判断首先是边界政策问题，其次才是循环写法。",
+      "hash": "44c30b1983c1317b",
+      "audio": "seg33.mp3",
+      "start": 374.936,
+      "duration": 4.702
+    },
+    {
+      "index": 34,
+      "text": "Contains/Within 方向相反，Overlap 与 Disjoint 不能当作随意的「相交」别名。",
+      "hash": "12af31bc66aec322",
+      "audio": "seg34.mp3",
+      "start": 379.638,
+      "duration": 11.99
+    },
+    {
+      "index": 35,
+      "text": "intersect、union、difference 分别负责取公共、合并、剪除，v7 使用 FeatureCollection。",
+      "hash": "9c008542f6adf16b",
+      "audio": "seg35.mp3",
+      "start": 391.628,
+      "duration": 10.188
+    },
+    {
+      "index": 36,
+      "text": "MultiPolygon、孔洞、null 和脏几何是生产代码必须正面处理的分支。",
+      "hash": "640e9238cb4ab64a",
+      "audio": "seg36.mp3",
+      "start": 401.816,
+      "duration": 6.844
+    },
+    {
+      "index": 37,
+      "text": "下一章把点面判断扩展到批量归属，并用等值面和泰森多边形解决真实业务分区问题。",
+      "hash": "6a5e29634a16d3c9",
+      "audio": "seg37.mp3",
+      "start": 408.66,
+      "duration": 7.367
+    },
+    {
+      "index": 38,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg38.mp3",
+      "start": 416.026,
+      "duration": 1.306
+    },
+    {
+      "index": 39,
+      "text": "点面与谓词： booleanPointInPolygon 、 booleanContains 、 booleanOverlap",
+      "hash": "4d5ba8078949abcd",
+      "audio": "seg39.mp3",
+      "start": 417.332,
+      "duration": 47.569
+    },
+    {
+      "index": 40,
+      "text": "接触与包含： booleanWithin 、 booleanDisjoint",
+      "hash": "12363baef1703a31",
+      "audio": "seg40.mp3",
+      "start": 464.901,
+      "duration": 11.311
+    },
+    {
+      "index": 41,
+      "text": "交并差： intersect 、 union 、 difference",
+      "hash": "14e4a21cf7a17798",
+      "audio": "seg41.mp3",
+      "start": 476.212,
+      "duration": 4.153
+    },
+    {
+      "index": 42,
+      "text": "GeoJSON 几何规范： RFC 7946",
+      "hash": "5d2dd1f43f3bdea3",
+      "audio": "seg42.mp3",
+      "start": 480.366,
+      "duration": 5.486
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611739369_04-boolean-joins-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.805Z"
+}

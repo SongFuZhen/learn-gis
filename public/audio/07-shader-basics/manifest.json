@@ -1,0 +1,373 @@
+{
+  "slug": "07-shader-basics",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T01:07:23.489Z",
+  "segmentCount": 45,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 3.265
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：内置材质像自动挡汽车，够用却不让你改发动机；ShaderMaterial 允许你直接告诉 GPU「每个顶点放哪里、每个像素涂什么色」。着色器程序用 GLSL编写。 一句话经验 ：顶点着色器负责 glPosition ，片元（fragment）着色器负责颜色；JS 通过 uniform 递参数，顶点通过 varying 给片元捎话。 常见坑 ：",
+      "hash": "d60b54f42ba139bb",
+      "audio": "seg01.mp3",
+      "start": 3.265,
+      "duration": 21.002
+    },
+    {
+      "index": 2,
+      "text": "在 ShaderMaterial 里又声明一遍 position 、 uv 、 projectionMatrix ，导致重复定义；这些是 three 自动注入的。",
+      "hash": "08c5c9f905d15548",
+      "audio": "seg02.mp3",
+      "start": 24.268,
+      "duration": 7.576
+    },
+    {
+      "index": 3,
+      "text": "把「每个顶点不同」的数据塞进 uniform，结果所有顶点只能拿到同一个值；逐顶点数据应使用 attribute。",
+      "hash": "c51d9f439971c9b4",
+      "audio": "seg03.mp3",
+      "start": 31.843,
+      "duration": 7.732
+    },
+    {
+      "index": 4,
+      "text": "JS 改了 material.uniforms.uTime 整个对象，却不改它的 .value ，着色器拿不到预期数字。",
+      "hash": "67403767a5dbcad6",
+      "audio": "seg04.mp3",
+      "start": 39.576,
+      "duration": 8.385
+    },
+    {
+      "index": 5,
+      "text": "把 Cesium 后处理的 outFragColor 、 colorTexture 原样搬进 three 材质模板，忘了两套框架的注入约定不同。 必记 3 条 ：",
+      "hash": "1f3c539c27ad64ed",
+      "audio": "seg05.mp3",
+      "start": 47.961,
+      "duration": 10.475
+    },
+    {
+      "index": 6,
+      "text": "管线顺序：顶点 到 图元装配 到 光栅化 到 片元；varying 会在三角形内部插值。",
+      "hash": "d6d4ab3aa037f42a",
+      "audio": "seg06.mp3",
+      "start": 58.436,
+      "duration": 11.442
+    },
+    {
+      "index": 7,
+      "text": "入门选 ShaderMaterial：内置矩阵和 position/normal/uv 已备好，不要重复声明。",
+      "hash": "58e5b3bc6bc1b551",
+      "audio": "seg07.mp3",
+      "start": 69.878,
+      "duration": 7.21
+    },
+    {
+      "index": 8,
+      "text": "每帧动画只更新 uniforms.xxx.value ，不要每帧重建材质或编译着色器。",
+      "hash": "62b8aebc4e5dd9a2",
+      "audio": "seg08.mp3",
+      "start": 77.087,
+      "duration": 6.531
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 83.618,
+      "duration": 1.411
+    },
+    {
+      "index": 10,
+      "text": "WebGL 渲染管线各阶段的职责，RawShaderMaterial 与 ShaderMaterial 的差别，attribute、uniform、varying 三件套，以及 GLSL 的基本类型和输入输出。最后用一个顶点位移加颜色渐变的波浪平面，把 JS 与 GLSL 接起来。",
+      "hash": "daff228d646597bf",
+      "audio": "seg10.mp3",
+      "start": 85.029,
+      "duration": 20.872
+    },
+    {
+      "index": 11,
+      "text": "1. 从顶点到像素：渲染管线回顾",
+      "hash": "09a065b0504aebdb",
+      "audio": "seg11.mp3",
+      "start": 105.9,
+      "duration": 4.336
+    },
+    {
+      "index": 12,
+      "text": "GPU 不是「拿到一个 Mesh 就画完」，而是按阶段加工数据：",
+      "hash": "e62ac2bf1c0511fa",
+      "audio": "seg12.mp3",
+      "start": 110.237,
+      "duration": 5.721
+    },
+    {
+      "index": 13,
+      "text": "顶点着色器的输入是一份顶点数据，输出是 裁剪空间 位置；光栅化把矢量三角形变成屏幕上的片元候选，并对 varying 做插值。因此一个三角形只需要三个顶点各写一次颜色，内部像素就能得到平滑渐变。片元着色器执行后仍可能因深度测试失败而被丢弃，所以「候选片元」不等于最终像素。",
+      "hash": "aedccaaf1a61469d",
+      "audio": "seg13.mp3",
+      "start": 115.958,
+      "duration": 25.234
+    },
+    {
+      "index": 14,
+      "text": "让几何真正起伏、顶点左右摆动 到 顶点着色器；只改贴图、渐变色、透明度和发光颜色 到 片元着色器。若只想在屏幕上做整幅滤镜，则更适合第 08 章的后处理 Pass。",
+      "hash": "9d6b14b16c927c23",
+      "audio": "seg14.mp3",
+      "start": 141.192,
+      "duration": 17.58
+    },
+    {
+      "index": 15,
+      "text": "2. ShaderMaterial 与 RawShaderMaterial",
+      "hash": "4ae62280e17e3914",
+      "audio": "seg15.mp3",
+      "start": 158.772,
+      "duration": 8.464
+    },
+    {
+      "index": 16,
+      "text": "两者都允许自定义 GLSL，差别在 three 帮你准备了多少「开场白」。",
+      "hash": "6dbf52f141845ab1",
+      "audio": "seg16.mp3",
+      "start": 167.236,
+      "duration": 5.904
+    },
+    {
+      "index": 17,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg17.mp3",
+      "start": 173.14,
+      "duration": 2.9
+    },
+    {
+      "index": 18,
+      "text": "modelViewMatrix = viewMatrix × modelMatrix ，把局部坐标变到相机空间； projectionMatrix 再变到裁剪空间； normalMatrix 是用于变换法线的 3×3 矩阵。ShaderMaterial 已经声明这些名字，直接使用即可。",
+      "hash": "b8b493f884bf5f72",
+      "audio": "seg18.mp3",
+      "start": 176.039,
+      "duration": 21.603
+    },
+    {
+      "index": 19,
+      "text": "RawShaderMaterial 并不会让 GPU 绕过必要步骤，它只是少注入模板，不等于天然更快。",
+      "hash": "ce158202e3db0616",
+      "audio": "seg19.mp3",
+      "start": 197.642,
+      "duration": 6.975
+    },
+    {
+      "index": 20,
+      "text": "3. attribute / uniform / varying 三件套",
+      "hash": "799e57995017392a",
+      "audio": "seg20.mp3",
+      "start": 204.617,
+      "duration": 5.407
+    },
+    {
+      "index": 21,
+      "text": "attribute ：逐顶点输入，在顶点着色器里只读。position、normal、uv 是内置项；自定义项要先 geometry.setAttribute() ，再在 GLSL 声明。",
+      "hash": "0f0265ff27f0c9c2",
+      "audio": "seg21.mp3",
+      "start": 210.024,
+      "duration": 15.987
+    },
+    {
+      "index": 22,
+      "text": "uniform ：一次绘制中保持不变的全局参数，顶点和片元都能读，例如时间、颜色、纹理。",
+      "hash": "59aa2050ed717eb2",
+      "audio": "seg22.mp3",
+      "start": 226.011,
+      "duration": 6.896
+    },
+    {
+      "index": 23,
+      "text": "varying ：顶点着色器写、片元着色器读，光栅化阶段自动插值；两边的名字与类型必须一致。",
+      "hash": "0a126c27cb7c0ded",
+      "audio": "seg23.mp3",
+      "start": 232.908,
+      "duration": 9.639
+    },
+    {
+      "index": 24,
+      "text": "常用 GLSL 类型有 float 、 int 、 bool 、 vec2/3/4 、 mat3/4 、 sampler2D 。向量可用 color.rgb 、 p.xy 访问分量； vec3(1.0) 会把三个分量都设为 1。浮点常量写 1.0 ，矩阵在向量左侧相乘，别照搬 JS 的 let 、模板字符串或数组方法。",
+      "hash": "78f35e7bf85498e1",
+      "audio": "seg24.mp3",
+      "start": 242.547,
+      "duration": 26.619
+    },
+    {
+      "index": 25,
+      "text": "4. 可运行模板：波浪顶点 + 渐变片元",
+      "hash": "99190d32f0a83f35",
+      "audio": "seg25.mp3",
+      "start": 269.166,
+      "duration": 5.407
+    },
+    {
+      "index": 26,
+      "text": "下面用 PlaneGeometry 提供细分顶点，顶点着色器改变局部 z，片元着色器混合 UV 与高度两种渐变。无需灯光，因为颜色完全由自定义 shader 给出。",
+      "hash": "92647db5147a113a",
+      "audio": "seg26.mp3",
+      "start": 274.573,
+      "duration": 12.225
+    },
+    {
+      "index": 27,
+      "text": "glPosition 必须是 vec4 ，最后的 1.0 表示位置而不是方向。 glFragColor 是 three 当前默认 GLSL 兼容写法的片元输出；若自行指定 glslVersion: THREE.GLSL3 ，则应使用 in、out 与自定义片元输出变量，不要混用两套语法。",
+      "hash": "fbe43887b4c81751",
+      "audio": "seg27.mp3",
+      "start": 286.798,
+      "duration": 22.622
+    },
+    {
+      "index": 28,
+      "text": "5. uniform 更新与 Cesium 后处理约定",
+      "hash": "0b4a3671376e732f",
+      "audio": "seg28.mp3",
+      "start": 309.42,
+      "duration": 6.792
+    },
+    {
+      "index": 29,
+      "text": "更新已有 uniform 不会触发重新编译；适合每帧做。新增 define、改变 shader 源码或切换某些材质结构才需要 material.needsUpdate = true ，不要在动画循环里滥用。",
+      "hash": "a690117cdf59d9cc",
+      "audio": "seg29.mp3",
+      "start": 316.212,
+      "duration": 12.225
+    },
+    {
+      "index": 30,
+      "text": "Cesium 后处理章 的 PostProcessStage 只写整屏片元阶段：用 uniform sampler2D colorTexture 读上一阶段，用 in vec2 vtextureCoordinates 采样，并写 outFragColor ；JS 的 uniforms 可以是值或每帧求值函数。three ShaderMaterial 则处理自己的几何，既可写顶点又可写片元，JS 侧采用 uniforms: { uTime: { value: 0 } } 。两者都要让 GLSL 声明与 JS 参数名一致，但 框架注入的输入输出名不能互抄 。",
+      "hash": "fe0ea8907c51c750",
+      "audio": "seg30.mp3",
+      "start": 328.438,
+      "duration": 50.442
+    },
+    {
+      "index": 31,
+      "text": "three 会打印带行号的 shader 编译日志。优先检查：是否重复声明内置 attribute/uniform、varying 两端类型是否一致、float 是否误写成 int、分号与括号是否遗漏。黑屏不一定是矩阵错，也可能是编译失败后材质没有正常输出。",
+      "hash": "9d56f1309e2962d2",
+      "audio": "seg31.mp3",
+      "start": 378.88,
+      "duration": 22.857
+    },
+    {
+      "index": 32,
+      "text": "新增 uAmplitude uniform，把两个正弦位移之和整体乘上它，初始值 0.2；把 uTime 的推进改成 delta 累加。再新增 uHotColor 替代片元里硬编码的橙色，点击画布时在蓝色与紫色两套配色间切换，不重建 material。",
+      "hash": "c1c22d6b76dcd910",
+      "audio": "seg32.mp3",
+      "start": 401.737,
+      "duration": 19.853
+    },
+    {
+      "index": 33,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg33.mp3",
+      "start": 421.59,
+      "duration": 2.482
+    },
+    {
+      "index": 34,
+      "text": "顶点决定位置，图元装配与光栅化生成片元，片元着色器决定候选颜色。",
+      "hash": "0937ac21655d18f5",
+      "audio": "seg34.mp3",
+      "start": 424.072,
+      "duration": 5.695
+    },
+    {
+      "index": 35,
+      "text": "ShaderMaterial 自动注入矩阵和 position/normal/uv；RawShaderMaterial 要自行声明。",
+      "hash": "4b587d213fabc3d6",
+      "audio": "seg35.mp3",
+      "start": 429.767,
+      "duration": 8.62
+    },
+    {
+      "index": 36,
+      "text": "attribute 逐顶点、uniform 一次绘制共享、varying 跨阶段插值。",
+      "hash": "e7cc9b4560da9a7f",
+      "audio": "seg36.mp3",
+      "start": 438.387,
+      "duration": 7.549
+    },
+    {
+      "index": 37,
+      "text": "每帧只改 uniform.value；GLSL3 与默认兼容语法不要混写。",
+      "hash": "bd7f2451c563cec8",
+      "audio": "seg37.mp3",
+      "start": 445.936,
+      "duration": 6.74
+    },
+    {
+      "index": 38,
+      "text": "下一章把「给一个材质写 shader」扩展到「给整屏画面加滤镜」：EffectComposer 与后处理链。",
+      "hash": "19ee13d947ea868c",
+      "audio": "seg38.mp3",
+      "start": 452.676,
+      "duration": 9.639
+    },
+    {
+      "index": 39,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg39.mp3",
+      "start": 462.315,
+      "duration": 1.228
+    },
+    {
+      "index": 40,
+      "text": "自定义材质： ShaderMaterial 、 RawShaderMaterial",
+      "hash": "bb3b61634af94497",
+      "audio": "seg40.mp3",
+      "start": 463.543,
+      "duration": 5.904
+    },
+    {
+      "index": 41,
+      "text": "着色器官方示例： three.js shader examples",
+      "hash": "1cc23879a998c49b",
+      "audio": "seg41.mp3",
+      "start": 469.447,
+      "duration": 7.314
+    },
+    {
+      "index": 42,
+      "text": "WebGL 渲染基础： MDN WebGL API",
+      "hash": "92f590b6fcee8799",
+      "audio": "seg42.mp3",
+      "start": 476.761,
+      "duration": 4.206
+    },
+    {
+      "index": 43,
+      "text": "GLSL 规范入口： Khronos OpenGL Wiki",
+      "hash": "c8927d543831b5ad",
+      "audio": "seg43.mp3",
+      "start": 480.967,
+      "duration": 4.049
+    },
+    {
+      "index": 44,
+      "text": "Cesium 对照： 自定义后处理课程",
+      "hash": "833f8e0aa61e8e7a",
+      "audio": "seg44.mp3",
+      "start": 485.016,
+      "duration": 3.553
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628964786_07-shader-basics-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.932Z"
+}

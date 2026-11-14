@@ -1,0 +1,565 @@
+{
+  "slug": "07-polish-practice",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T03:04:30.607Z",
+  "segmentCount": 69,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.959
+    },
+    {
+      "index": 1,
+      "text": "解决什么问题 ：功能能跑只是起点。长列表不能卡，动画不能乱，联网不能“为了方便”关安全校验，核心规则要有测试托底；最后还要把这些能力装回同一个闯关 App。",
+      "hash": "77b6490977321332",
+      "audio": "seg01.mp3",
+      "start": 1.959,
+      "duration": 16.875
+    },
+    {
+      "index": 2,
+      "text": "一句话经验 ：长列表懒加载，动画少触发布局，安全底线不让步，测试盯住真实业务规则。",
+      "hash": "281a29c6254235af",
+      "audio": "seg02.mp3",
+      "start": 18.834,
+      "duration": 7.027
+    },
+    {
+      "index": 3,
+      "text": "常见坑 1 ：几百项仍裸用 ForEach ，首屏一次创建全部组件。",
+      "hash": "2031992810fad4be",
+      "audio": "seg03.mp3",
+      "start": 25.861,
+      "duration": 5.355
+    },
+    {
+      "index": 4,
+      "text": "常见坑 2 ： LazyForEach 的 key 用数组下标，删除一项后内容和状态错位。",
+      "hash": "65657a10db50398f",
+      "audio": "seg04.mp3",
+      "start": 31.216,
+      "duration": 8.098
+    },
+    {
+      "index": 5,
+      "text": "常见坑 3 ：以为 cachedCount 越大越流畅，结果内存和首屏成本一起上升。",
+      "hash": "2d2353ac9036c16c",
+      "audio": "seg05.mp3",
+      "start": 39.314,
+      "duration": 6.478
+    },
+    {
+      "index": 6,
+      "text": "常见坑 4 ：在 build() 中启动动画或改状态，造成重复执行和刷新循环。",
+      "hash": "5b0e5dbbe12fbc31",
+      "audio": "seg06.mp3",
+      "start": 45.793,
+      "duration": 6.609
+    },
+    {
+      "index": 7,
+      "text": "常见坑 5 ：为了抓包关闭 HTTPS 证书校验，把调试后门带进正式包。",
+      "hash": "0f68f868703c3ee0",
+      "audio": "seg07.mp3",
+      "start": 52.402,
+      "duration": 6.139
+    },
+    {
+      "index": 8,
+      "text": "必记 1 ：长列表 = List + LazyForEach + IDataSource + 稳定唯一 key 。",
+      "hash": "ba4f4bd5b36223b7",
+      "audio": "seg08.mp3",
+      "start": 58.54,
+      "duration": 6.949
+    },
+    {
+      "index": 9,
+      "text": "必记 2 ：动画优先 opacity、translate、scale、rotate ，时长用毫秒。",
+      "hash": "22f73a3c403697cc",
+      "audio": "seg09.mp3",
+      "start": 65.489,
+      "duration": 6.975
+    },
+    {
+      "index": 10,
+      "text": "必记 3 ：Hypium 测试正常、边界和异常；证书校验永远不能为了省事关闭。",
+      "hash": "2be28a75a63e979b",
+      "audio": "seg10.mp3",
+      "start": 72.464,
+      "duration": 5.904
+    },
+    {
+      "index": 11,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg11.mp3",
+      "start": 78.367,
+      "duration": 1.411
+    },
+    {
+      "index": 12,
+      "text": "用 LazyForEach 和 IDataSource 构建可回收长列表。",
+      "hash": "8e33b1f67dc93935",
+      "audio": "seg12.mp3",
+      "start": 79.778,
+      "duration": 5.224
+    },
+    {
+      "index": 13,
+      "text": "用 animateTo 做低成本、可取消干扰少的动画。",
+      "hash": "0202db454a1bd46b",
+      "audio": "seg13.mp3",
+      "start": 85.002,
+      "duration": 4.702
+    },
+    {
+      "index": 14,
+      "text": "落实证书校验、最小权限与敏感数据保护。",
+      "hash": "4f447d32c72d2310",
+      "audio": "seg14.mp3",
+      "start": 89.704,
+      "duration": 5.695
+    },
+    {
+      "index": 15,
+      "text": "用 Hypium 为判分与进度规则写单元测试。",
+      "hash": "596356374715d780",
+      "audio": "seg15.mp3",
+      "start": 95.399,
+      "duration": 3.788
+    },
+    {
+      "index": 16,
+      "text": "复盘九大高频坑，并拼出完整闯关 App 架构。",
+      "hash": "f0b4414b09c62030",
+      "audio": "seg16.mp3",
+      "start": 99.187,
+      "duration": 4.153
+    },
+    {
+      "index": 17,
+      "text": "1. 长列表：只创建看得见的部分",
+      "hash": "4618051b3f49e3f0",
+      "audio": "seg17.mp3",
+      "start": 103.34,
+      "duration": 5.172
+    },
+    {
+      "index": 18,
+      "text": "ForEach 适合少量、稳定集合；大量数据应使用 LazyForEach。它通过 IDataSource提供总数、按索引取项和变更通知。",
+      "hash": "03e13b44573224b1",
+      "audio": "seg18.mp3",
+      "start": 108.513,
+      "duration": 12.931
+    },
+    {
+      "index": 19,
+      "text": "将数据源作为组件的稳定成员，不要在每次 build() 都重新 new 一份：",
+      "hash": "9aa2d791242ca054",
+      "audio": "seg19.mp3",
+      "start": 121.443,
+      "duration": 5.721
+    },
+    {
+      "index": 20,
+      "text": "key 使用不变的 id ，不要用数组下标。局部新增、删除应发送对应的数据变更通知；整组替换才 onDataReloaded 。 cachedCount 从较小值开始，根据滚动测量调整。",
+      "hash": "4df59c3b2983f510",
+      "audio": "seg20.mp3",
+      "start": 127.164,
+      "duration": 16.144
+    },
+    {
+      "index": 21,
+      "text": "2. 动画：状态改变，动画表达过程",
+      "hash": "e32984d86d3c510f",
+      "audio": "seg21.mp3",
+      "start": 143.308,
+      "duration": 5.695
+    },
+    {
+      "index": 22,
+      "text": "animateTo 在闭包内执行状态变化，由框架按指定曲线插值。动画由事件或合适的生命周期触发，不在 build() 里启动。",
+      "hash": "5789642ba66c9ece",
+      "audio": "seg22.mp3",
+      "start": 149.002,
+      "duration": 12.46
+    },
+    {
+      "index": 23,
+      "text": "duration: 220 表示 220 毫秒，不是 220 秒。动画结束后若需回到原状态，可再用明确状态变化恢复，避免在 build() 中偷偷重置。",
+      "hash": "e9e95801bbdf213c",
+      "audio": "seg23.mp3",
+      "start": 161.463,
+      "duration": 16.509
+    },
+    {
+      "index": 24,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg24.mp3",
+      "start": 177.972,
+      "duration": 2.299
+    },
+    {
+      "index": 25,
+      "text": "3. 安全：性能优化不能碰底线",
+      "hash": "d300978b9cdcdc31",
+      "audio": "seg25.mp3",
+      "start": 180.271,
+      "duration": 4.284
+    },
+    {
+      "index": 26,
+      "text": "HTTPS 与证书",
+      "hash": "ffddef7336b43b8d",
+      "audio": "seg26.mp3",
+      "start": 184.555,
+      "duration": 3.082
+    },
+    {
+      "index": 27,
+      "text": "严禁关闭证书校验，也不要在 SSL 错误回调里默认继续加载。 调试抓包使用开发环境受信代理证书，正式构建移除调试配置；不能让“任意证书都接受”进入生产代码。",
+      "hash": "eabdb940c89654b2",
+      "audio": "seg27.mp3",
+      "start": 187.638,
+      "duration": 10.971
+    },
+    {
+      "index": 28,
+      "text": "权限与数据",
+      "hash": "c6a869258de46a4f",
+      "audio": "seg28.mp3",
+      "start": 198.609,
+      "duration": 1.306
+    },
+    {
+      "index": 29,
+      "text": "只申请当前功能实际需要的权限，在使用前向用户解释用途。",
+      "hash": "76cea3dfeb3baaa7",
+      "audio": "seg29.mp3",
+      "start": 199.915,
+      "duration": 5.068
+    },
+    {
+      "index": 30,
+      "text": "网络权限不授予读取相册、通讯录等额外能力。",
+      "hash": "813ecb92b1069ba5",
+      "audio": "seg30.mp3",
+      "start": 204.983,
+      "duration": 6.191
+    },
+    {
+      "index": 31,
+      "text": "日志不输出完整令牌、隐私数据和认证请求头。",
+      "hash": "c477046c2532e2f9",
+      "audio": "seg31.mp3",
+      "start": 211.174,
+      "duration": 4.232
+    },
+    {
+      "index": 32,
+      "text": "普通 Preferences 不明文保存密码、长期令牌；选用系统安全能力并缩短敏感数据生命周期。",
+      "hash": "2908d895ceb7c565",
+      "audio": "seg32.mp3",
+      "start": 215.406,
+      "duration": 7.314
+    },
+    {
+      "index": 33,
+      "text": "Web 内容需要限制来源和 JavaScript 桥暴露范围，不能收到任意 SSL 错误都继续。",
+      "hash": "6bd1c8f61e703074",
+      "audio": "seg33.mp3",
+      "start": 222.72,
+      "duration": 6.531
+    },
+    {
+      "index": 34,
+      "text": "关闭证书校验会让中间人能够伪造服务器，用户看到的 HTTPS 也不再可信。只在受控开发环境配置受信代理证书，绝不用跳过验证替代正确配置。",
+      "hash": "4450ea0539e9a320",
+      "audio": "seg34.mp3",
+      "start": 229.251,
+      "duration": 11.207
+    },
+    {
+      "index": 35,
+      "text": "4. Hypium：让核心规则可重复验证",
+      "hash": "49f0134bf22ad04e",
+      "audio": "seg35.mp3",
+      "start": 240.457,
+      "duration": 4.284
+    },
+    {
+      "index": 36,
+      "text": "Hypium测试使用 describe 分组、 it 描述行为、 expect 做断言。优先测试纯函数：判分、通关阈值、下一关解锁和数据迁移。",
+      "hash": "4a624365d40115c7",
+      "audio": "seg36.mp3",
+      "start": 244.741,
+      "duration": 10.736
+    },
+    {
+      "index": 37,
+      "text": "异步测试要让框架等待 Promise 完成，不能请求未结束就退出用例。UI 自动化测试补充关键点击路径，但不代替纯逻辑单元测试。覆盖率是线索，不是目标：空数组、重复提交、损坏数据、断网和异常才是高风险边界。",
+      "hash": "5b5c6b713f44960c",
+      "audio": "seg37.mp3",
+      "start": 255.478,
+      "duration": 21.055
+    },
+    {
+      "index": 38,
+      "text": "5. 九大高频坑复盘",
+      "hash": "7ee134205062e61d",
+      "audio": "seg38.mp3",
+      "start": 276.532,
+      "duration": 8.647
+    },
+    {
+      "index": 39,
+      "text": "下表完整保留路线图第 7 关的九类问题，按“症状—正确姿势”排查。",
+      "hash": "0e939073d34b2bfe",
+      "audio": "seg39.mp3",
+      "start": 285.179,
+      "duration": 5.172
+    },
+    {
+      "index": 40,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg40.mp3",
+      "start": 290.351,
+      "duration": 2.247
+    },
+    {
+      "index": 41,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg41.mp3",
+      "start": 292.598,
+      "duration": 2.299
+    },
+    {
+      "index": 42,
+      "text": "6. 综合实战：闯关 App 架构蓝图",
+      "hash": "9dabfa8fdcdc9886",
+      "audio": "seg42.mp3",
+      "start": 294.896,
+      "duration": 6.06
+    },
+    {
+      "index": 43,
+      "text": "把前七章能力装进同一条业务流，而不是堆在一个超大页面：",
+      "hash": "39d5ed0fb372ae7e",
+      "audio": "seg43.mp3",
+      "start": 300.957,
+      "duration": 3.866
+    },
+    {
+      "index": 44,
+      "text": "EntryAbility 到 Index ：Navigation 加首页、考试、我的三个 Tab；首页用 rawfile 索引和三态关卡卡片。",
+      "hash": "750057370997636c",
+      "audio": "seg44.mp3",
+      "start": 304.823,
+      "duration": 10.71
+    },
+    {
+      "index": 45,
+      "text": "QuizPage、WrongBookPage、AboutPage ：分别负责答题结算、错题重练、版本与隐私说明。",
+      "hash": "347217b201a6a6c5",
+      "audio": "seg45.mp3",
+      "start": 315.533,
+      "duration": 8.464
+    },
+    {
+      "index": 46,
+      "text": "BankLoader、Grader ：读取并校验 rawfile JSON，以纯函数完成判分。",
+      "hash": "fcbbdba26f2cce57",
+      "audio": "seg46.mp3",
+      "start": 323.997,
+      "duration": 6.426
+    },
+    {
+      "index": 47,
+      "text": "ProgressStore、QuizResume ：整组替换进度并持久化，保存题号与作答快照。 首页只展示当前视口附近的卡片；点击可挑战关卡后，通过 NavPathStack 传 levelId ，而不是复制整个题库。 答题页把“当前题、是否已提交、是否答对”拆成明确状态。提交后显示解析，答错可进入错题本；达到通关阈值才解锁下一关，快速重复点击不能重复记分。",
+      "hash": "8200032f91b09166",
+      "audio": "seg47.mp3",
+      "start": 330.423,
+      "duration": 28.578
+    },
+    {
+      "index": 48,
+      "text": "一条可验证的主流程",
+      "hash": "0b5b935665af9e59",
+      "audio": "seg48.mp3",
+      "start": 359.001,
+      "duration": 2.482
+    },
+    {
+      "index": 49,
+      "text": "启动时读取题库索引并校验，不让损坏 JSON 直接进入渲染。",
+      "hash": "500fad169f55b03b",
+      "audio": "seg49.mp3",
+      "start": 361.482,
+      "duration": 10.789
+    },
+    {
+      "index": 50,
+      "text": "读回进度和断点；无效关卡 ID、越界题号回退到安全默认值。",
+      "hash": "314a60b7d4985410",
+      "audio": "seg50.mp3",
+      "start": 372.271,
+      "duration": 4.702
+    },
+    {
+      "index": 51,
+      "text": "点击关卡，Navigation 传入 ID；答题页异步加载并处理失败重试。",
+      "hash": "a767467534e50d07",
+      "audio": "seg51.mp3",
+      "start": 376.973,
+      "duration": 6.243
+    },
+    {
+      "index": 52,
+      "text": "提交答案，Grader 纯函数判分；状态整组替换触发 UI 更新。",
+      "hash": "59beab2f1f149d6b",
+      "audio": "seg52.mp3",
+      "start": 383.216,
+      "duration": 5.303
+    },
+    {
+      "index": 53,
+      "text": "显示解析并保存断点；结算时更新通关进度，重复提交保持幂等。",
+      "hash": "6a9f0d17c9cdb7b6",
+      "audio": "seg53.mp3",
+      "start": 388.519,
+      "duration": 5.695
+    },
+    {
+      "index": 54,
+      "text": "返回列表，卡片立即显示新三态；离开页面清理定时器与监听。",
+      "hash": "5c9f8c2c8416ec3c",
+      "audio": "seg54.mp3",
+      "start": 394.214,
+      "duration": 5.773
+    },
+    {
+      "index": 55,
+      "text": "Hypium 覆盖阈值、重复提交、空题库和解锁规则。",
+      "hash": "845698e64333df93",
+      "audio": "seg55.mp3",
+      "start": 399.987,
+      "duration": 6.478
+    },
+    {
+      "index": 56,
+      "text": "现有规则：总题数大于 0，且答对比例至少 60% 才算通关。用 Hypium 写出“刚好 60% 通过”和“空题库不通过”两个断言；再说明 500 个关卡卡片应使用什么渲染组合。",
+      "hash": "7a6c57f7ed7ce80d",
+      "audio": "seg56.mp3",
+      "start": 406.465,
+      "duration": 20.741
+    },
+    {
+      "index": 57,
+      "text": "本章小结",
+      "hash": "59955b2934432bfc",
+      "audio": "seg57.mp3",
+      "start": 427.207,
+      "duration": 1.045
+    },
+    {
+      "index": 58,
+      "text": "LazyForEach 的数据源、稳定 key 和适量缓存缺一不可。",
+      "hash": "fe1a2ce81efb93dd",
+      "audio": "seg58.mp3",
+      "start": 428.251,
+      "duration": 4.754
+    },
+    {
+      "index": 59,
+      "text": "动画在事件中触发，优先合成友好的属性，离开页面停止无效工作。",
+      "hash": "cf790bd218fff815",
+      "audio": "seg59.mp3",
+      "start": 433.006,
+      "duration": 5.721
+    },
+    {
+      "index": 60,
+      "text": "HTTPS 证书校验、最小权限和敏感数据保护是发布底线。",
+      "hash": "209267153c69209d",
+      "audio": "seg60.mp3",
+      "start": 438.727,
+      "duration": 5.773
+    },
+    {
+      "index": 61,
+      "text": "Hypium 先测纯业务规则，再补异步和 UI 路径；边界比覆盖率数字更重要。",
+      "hash": "f8756e9f2e531faa",
+      "audio": "seg61.mp3",
+      "start": 444.5,
+      "duration": 7.027
+    },
+    {
+      "index": 62,
+      "text": "综合 App 按页面、数据源、纯逻辑和存储分层，九大坑进入每次提交前检查表。",
+      "hash": "2d53b0f7b910c087",
+      "audio": "seg62.mp3",
+      "start": 451.527,
+      "duration": 6.296
+    },
+    {
+      "index": 63,
+      "text": "懒加载保流畅，状态驱动保正确，证书校验保安全，自动化测试保重构。",
+      "hash": "cd738d7ecec52e51",
+      "audio": "seg63.mp3",
+      "start": 457.822,
+      "duration": 6.191
+    },
+    {
+      "index": 64,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg64.mp3",
+      "start": 464.013,
+      "duration": 1.411
+    },
+    {
+      "index": 65,
+      "text": "状态变量不刷新的常见排查",
+      "hash": "3045f1323caae9da",
+      "audio": "seg65.mp3",
+      "start": 465.424,
+      "duration": 5.042
+    },
+    {
+      "index": 66,
+      "text": "HTTP 数据请求",
+      "hash": "bb0ffec31d884924",
+      "audio": "seg66.mp3",
+      "start": 470.465,
+      "duration": 1.698
+    },
+    {
+      "index": 67,
+      "text": "Navigation 导航架构",
+      "hash": "edf066a841aba907",
+      "audio": "seg67.mp3",
+      "start": 472.163,
+      "duration": 1.463
+    },
+    {
+      "index": 68,
+      "text": "Stage 模型入门",
+      "hash": "4a8a4dbc13afb57d",
+      "audio": "seg68.mp3",
+      "start": 473.626,
+      "duration": 1.228
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/harmony/1794628993709_07-polish-practice-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:03:18.804Z"
+}

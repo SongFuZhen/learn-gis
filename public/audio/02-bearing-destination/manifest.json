@@ -1,0 +1,365 @@
+{
+  "slug": "02-bearing-destination",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T14:35:46.793Z",
+  "segmentCount": 44,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.011
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：上一章回答「有多远」，本章回答「朝哪走、会走到哪里」。从北京看上海是什么方向？沿正东飞 100 公里会到哪里？两座城市的中点在哪？ 一句话心智模型 ：方位角 bearing是「从正北顺时针转多少度」， destination 则拿起点、距离和方向反算终点； midpoint 找两点中途， center 找一组几何的包围盒中心。 常见坑 ：",
+      "hash": "d9e5f0a4809ef036",
+      "audio": "seg01.mp3",
+      "start": 2.011,
+      "duration": 28.63
+    },
+    {
+      "index": 2,
+      "text": "把角度当成数学坐标系里的「从正东逆时针」——Turf 方位角从正北起算、顺时针为正，返回值通常在 [-180, 180] 。",
+      "hash": "4b959c084ef4d7c8",
+      "audio": "seg02.mp3",
+      "start": 30.642,
+      "duration": 10.423
+    },
+    {
+      "index": 3,
+      "text": "混用大圆航线与恒向线：短距离差别不明显，跨洋航行会走出完全不同的路径。",
+      "hash": "e7a5808e78cc9603",
+      "audio": "seg03.mp3",
+      "start": 41.064,
+      "duration": 7.993
+    },
+    {
+      "index": 4,
+      "text": "把 center 当质心——它算的是包围盒中心，不保证落在多边形内部。 必记 3 条 ：",
+      "hash": "88eff7ab36da7c2e",
+      "audio": "seg04.mp3",
+      "start": 49.058,
+      "duration": 6.06
+    },
+    {
+      "index": 5,
+      "text": "bearing 求大圆初始方向， rhumbBearing 求恒向线方向。",
+      "hash": "1fb4b1e24e3c9b9f",
+      "audio": "seg05.mp3",
+      "start": 55.118,
+      "duration": 5.068
+    },
+    {
+      "index": 6,
+      "text": "destination(起点, 距离, 方位角) 默认按千米推演新坐标。",
+      "hash": "245cbcf9773bb649",
+      "audio": "seg06.mp3",
+      "start": 60.186,
+      "duration": 9.665
+    },
+    {
+      "index": 7,
+      "text": "midpoint 是两点球面中点， center 是整体包围盒中心，二者不是一回事。",
+      "hash": "b566390914db19bb",
+      "audio": "seg07.mp3",
+      "start": 69.851,
+      "duration": 6.296
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 76.147,
+      "duration": 2.377
+    },
+    {
+      "index": 9,
+      "text": "方位角的零方向、正负号与首末方向， bearing 和 rhumbBearing 的航线差异，如何用 destination 做位置推演，以及 midpoint 、 center 各自适合的业务。最后会把这些二维结果与 Cesium 的椭球大地线计算对齐。",
+      "hash": "629b72f8df38cfc7",
+      "audio": "seg09.mp3",
+      "start": 78.524,
+      "duration": 15.804
+    },
+    {
+      "index": 10,
+      "text": "1. bearing：从正北顺时针读方向",
+      "hash": "8064e3a6c97a18a2",
+      "audio": "seg10.mp3",
+      "start": 94.328,
+      "duration": 4.101
+    },
+    {
+      "index": 11,
+      "text": "bearing(start, end) 返回起点朝向终点的大圆初始方位角：正北为 0°，正东为 90°，正南为 正负180°，正西为 -90°。如果业务界面只显示 0–360° ，做一次归一化即可。",
+      "hash": "1e887f37cdecb1b5",
+      "audio": "seg11.mp3",
+      "start": 98.429,
+      "duration": 27.847
+    },
+    {
+      "index": 12,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg12.mp3",
+      "start": 126.276,
+      "duration": 3.082
+    },
+    {
+      "index": 13,
+      "text": "大圆航线在长途飞行中会不断改变航向，因此 Turf 默认给的是 起点初始方向 。传 { final: true } 则求到达终点时的方向，它不是简单把初始方向加 180°。",
+      "hash": "3b530122f7dfbd17",
+      "audio": "seg13.mp3",
+      "start": 129.358,
+      "duration": 14.602
+    },
+    {
+      "index": 14,
+      "text": "2. rhumbBearing：罗盘指向始终不变",
+      "hash": "4a372c49719e7115",
+      "audio": "seg14.mp3",
+      "start": 143.961,
+      "duration": 4.023
+    },
+    {
+      "index": 15,
+      "text": "恒向线（rhumb line）是以固定角度穿过所有经线的航线。它的导航操作简单：设好一个罗盘方向后一直走；代价是通常不是最短路径。",
+      "hash": "d114d2e02ff38c5f",
+      "audio": "seg15.mp3",
+      "start": 147.984,
+      "duration": 12.513
+    },
+    {
+      "index": 16,
+      "text": "大圆（great-circle）航线适合求最短距离，恒向线适合固定航向导航。城市内部短距离可先观察两者差异，跨洲路径则必须明确业务选择。",
+      "hash": "11b80f5f91436e79",
+      "audio": "seg16.mp3",
+      "start": 160.496,
+      "duration": 12.513
+    },
+    {
+      "index": 17,
+      "text": "destination 按大圆初始方位前进，不要拿 rhumbBearing 的结果直接喂给它，再声称走出了恒向线。恒向线推演应使用 rhumbDestination 。两条航线语义不同，即使起终点相同，中间经过的位置也不同。",
+      "hash": "18e7fd75a4fc9a8d",
+      "audio": "seg17.mp3",
+      "start": 173.009,
+      "duration": 15.256
+    },
+    {
+      "index": 18,
+      "text": "3. destination：从起点向外推演坐标",
+      "hash": "f6985d6b7bd5a100",
+      "audio": "seg18.mp3",
+      "start": 188.264,
+      "duration": 3.736
+    },
+    {
+      "index": 19,
+      "text": "知道起点、距离和方向，就能反求目的地。它非常适合绘制雷达扇区顶点、推算船只位置、生成某方向的虚拟采样点。",
+      "hash": "7c95c9df35161c54",
+      "audio": "seg19.mp3",
+      "start": 192,
+      "duration": 10.083
+    },
+    {
+      "index": 20,
+      "text": "这里 90° 表示从起点出发时朝正东，并不表示终点的经度只增加一个固定数值。地球曲率会让大圆路径逐渐改变局部方向，纬度越高越不能套平面公式。",
+      "hash": "73bd1bae0491d04d",
+      "audio": "seg20.mp3",
+      "start": 202.083,
+      "duration": 16.17
+    },
+    {
+      "index": 21,
+      "text": "默认单位是 kilometers ；米级无人机或园区应用要写 { units: \"meters\" } 。 destination 只处理二维位置，第三个高程坐标不会替你计算三维落点。",
+      "hash": "27f62b7a2ef32d82",
+      "audio": "seg21.mp3",
+      "start": 218.253,
+      "duration": 13.427
+    },
+    {
+      "index": 22,
+      "text": "4. midpoint：两点的球面中点",
+      "hash": "d821fa9c130d625f",
+      "audio": "seg22.mp3",
+      "start": 231.68,
+      "duration": 5.773
+    },
+    {
+      "index": 23,
+      "text": "midpoint(point1, point2) 取两点大圆路径的中点，相当于「走一半距离时在哪里」。不要直接把两个经度、两个纬度分别求平均，尤其在跨东西半球或反经线附近。",
+      "hash": "3dab5a1612667ce9",
+      "audio": "seg23.mp3",
+      "start": 237.453,
+      "duration": 13.427
+    },
+    {
+      "index": 24,
+      "text": "对北京与上海这样相近的点，经纬度算术平均看似接近答案；跨越反经线后，一个在东经、一个在西经，简单平均却可能把中点放到地球另一侧。 midpoint 的球面计算正是为了避免这类问题。",
+      "hash": "7961397d82995032",
+      "audio": "seg24.mp3",
+      "start": 250.88,
+      "duration": 14.237
+    },
+    {
+      "index": 25,
+      "text": "5. center：整组几何的包围盒中心",
+      "hash": "2b6fcfa04b5c8d78",
+      "audio": "seg25.mp3",
+      "start": 265.117,
+      "duration": 3.5
+    },
+    {
+      "index": 26,
+      "text": "center(geojson) 先求所有坐标的外包矩形，再返回矩形中心。它可以给标签找一个快速锚点，也能为地图视野提供初始中心。",
+      "hash": "7671fe912f482ec6",
+      "audio": "seg26.mp3",
+      "start": 268.617,
+      "duration": 12.278
+    },
+    {
+      "index": 27,
+      "text": "它不是折线首末点的 midpoint ，也不是考虑形状质量分布的 centerOfMass 。对凹多边形、月牙形或多岛区域，包围盒中心可能落在区域外；需要「面内标签点」时应另选 pointOnFeature 。",
+      "hash": "e02e02f3f0104961",
+      "audio": "seg27.mp3",
+      "start": 280.895,
+      "duration": 15.151
+    },
+    {
+      "index": 28,
+      "text": "Turf 的方位与目的地采用球面公式、忽略高程，适合二维业务快速推演；Cesium 的 EllipsoidGeodesic 在 WGS84 椭球上表达大地线，还能与三维位置和相机场景协作。可回顾 Cesium 量算章 的大圆距离：两个库结果接近不代表模型完全相同，精密测量要注明基准与算法。",
+      "hash": "694205e8e553ddd5",
+      "audio": "seg28.mp3",
+      "start": 296.046,
+      "duration": 28.108
+    },
+    {
+      "index": 29,
+      "text": "方位角从正北顺时针； final: true 求终点方向。",
+      "hash": "902ec0ee44299e76",
+      "audio": "seg29.mp3",
+      "start": 324.153,
+      "duration": 6.139
+    },
+    {
+      "index": 30,
+      "text": "大圆用 bearing + destination ，恒向线用 rhumbBearing + rhumbDestination 。",
+      "hash": "5594f15f28d4af8c",
+      "audio": "seg30.mp3",
+      "start": 330.292,
+      "duration": 7.158
+    },
+    {
+      "index": 31,
+      "text": "midpoint 属于两点的路径， center 属于整组坐标的包围盒，不保证在面内。",
+      "hash": "b9a23f7e56af88b7",
+      "audio": "seg31.mp3",
+      "start": 337.45,
+      "duration": 7.393
+    },
+    {
+      "index": 32,
+      "text": "给定青岛附近起点 [120.383, 36.067] 与一艘船的位置 [122.100, 36.900] ：①求起点到船只的大圆初始方位；②求两点球面中点；③从中点沿正东推演 20 海里作为备用会合点；④把四个关键位置组成 FeatureCollection，并求其 center 。观察这个 center 与两点 midpoint 为什么不重合。",
+      "hash": "7fcc1a5fda73a1fa",
+      "audio": "seg32.mp3",
+      "start": 344.842,
+      "duration": 24.999
+    },
+    {
+      "index": 33,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg33.mp3",
+      "start": 369.842,
+      "duration": 3.187
+    },
+    {
+      "index": 34,
+      "text": "bearing 求大圆初始或末尾方向，输出角度默认带正负号。",
+      "hash": "c6cd1fce6b03e287",
+      "audio": "seg34.mp3",
+      "start": 373.029,
+      "duration": 5.355
+    },
+    {
+      "index": 35,
+      "text": "rhumbBearing 表达固定航向，不能与大圆推演函数混搭。",
+      "hash": "b9bdf9f535623d8e",
+      "audio": "seg35.mp3",
+      "start": 378.384,
+      "duration": 4.441
+    },
+    {
+      "index": 36,
+      "text": "destination 由起点、距离、方向反算位置，单位要显式指定。",
+      "hash": "68cca1b313fe4830",
+      "audio": "seg36.mp3",
+      "start": 382.824,
+      "duration": 6.844
+    },
+    {
+      "index": 37,
+      "text": "midpoint 与 center 一个面向路径、一个面向包围盒，标签放置时要留意面外风险。",
+      "hash": "7a5b217211d335fb",
+      "audio": "seg37.mp3",
+      "start": 389.669,
+      "duration": 6.74
+    },
+    {
+      "index": 38,
+      "text": "下一章用缓冲区把「距离范围」变成真正的面，并对 GeoJSON 做旋转、缩放和平移。",
+      "hash": "2c642dc9040b9ae8",
+      "audio": "seg38.mp3",
+      "start": 396.408,
+      "duration": 7.549
+    },
+    {
+      "index": 39,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg39.mp3",
+      "start": 403.958,
+      "duration": 1.881
+    },
+    {
+      "index": 40,
+      "text": "Turf 方位与推演： bearing 、 destination",
+      "hash": "0f49caaa6db6cf49",
+      "audio": "seg40.mp3",
+      "start": 405.838,
+      "duration": 7.393
+    },
+    {
+      "index": 41,
+      "text": "恒向线函数： rhumbBearing 、 rhumbDestination",
+      "hash": "d8fc901ce7cff52f",
+      "audio": "seg41.mp3",
+      "start": 413.231,
+      "duration": 3.918
+    },
+    {
+      "index": 42,
+      "text": "中点与中心： midpoint 、 center",
+      "hash": "54bd583df935bbe3",
+      "audio": "seg42.mp3",
+      "start": 417.149,
+      "duration": 2.978
+    },
+    {
+      "index": 43,
+      "text": "Cesium 椭球大地线： EllipsoidGeodesic",
+      "hash": "dd2e902eeee3b299",
+      "audio": "seg43.mp3",
+      "start": 420.127,
+      "duration": 7.21
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611731932_02-bearing-destination-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.800Z"
+}

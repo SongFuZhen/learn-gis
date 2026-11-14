@@ -1,0 +1,349 @@
+{
+  "slug": "04-texture-loader",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T00:27:17.499Z",
+  "segmentCount": 42,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.776
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：白模像没装修的房，纹理是墙面与地板，glTF 模型则是连家具一起搬来的整装方案。但图片贴上去会发灰、拉伸、斜看模糊，模型还可能卡在解码器路径或加载进度上。 一句话经验 ：先确认 UV 把图片坐标指对了，再分清「颜色图要转线性、数据图别乱转」，最后管好加载与释放。 常见坑 ：",
+      "hash": "c122df08a8175795",
+      "audio": "seg01.mp3",
+      "start": 1.776,
+      "duration": 30.067
+    },
+    {
+      "index": 2,
+      "text": "所有贴图一律设 SRGBColorSpace ，法线图和粗糙度图因此出现错误数值。",
+      "hash": "1188e7fd9ddce5e9",
+      "audio": "seg02.mp3",
+      "start": 31.843,
+      "duration": 6.06
+    },
+    {
+      "index": 3,
+      "text": "repeat.set(4, 2) 写了，却没把 wrapS、wrapT 设为重复包裹，图片边缘被钳制。",
+      "hash": "ceb2b52e0b1c3366",
+      "audio": "seg03.mp3",
+      "start": 37.904,
+      "duration": 9.718
+    },
+    {
+      "index": 4,
+      "text": "GLB 下载成功，DRACO 解码器却 404；生产环境路径和本地路径不一致。",
+      "hash": "813ee252288279c8",
+      "audio": "seg04.mp3",
+      "start": 47.621,
+      "duration": 10.553
+    },
+    {
+      "index": 5,
+      "text": "把模型从 Scene 移除就当释放完成，纹理与几何仍占着显存。 必记 3 条 ：",
+      "hash": "2e881a45072f69b2",
+      "audio": "seg05.mp3",
+      "start": 58.175,
+      "duration": 6.557
+    },
+    {
+      "index": 6,
+      "text": "颜色贴图设 sRGB；normal、roughness、metalness 等数据贴图保持无颜色空间。",
+      "hash": "67512cbbc9319084",
+      "audio": "seg06.mp3",
+      "start": 64.731,
+      "duration": 7.079
+    },
+    {
+      "index": 7,
+      "text": "重复平铺 = RepeatWrapping + repeat；斜角清晰度再看 anisotropy。",
+      "hash": "8831b4a4e8dba95e",
+      "audio": "seg07.mp3",
+      "start": 71.811,
+      "duration": 8.803
+    },
+    {
+      "index": 8,
+      "text": "GLTFLoader 负责模型结构，DRACOLoader 只负责压缩几何解码；remove 不代替 dispose。",
+      "hash": "670ddb1b169c76f2",
+      "audio": "seg08.mp3",
+      "start": 80.614,
+      "duration": 8.202
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 88.816,
+      "duration": 1.515
+    },
+    {
+      "index": 10,
+      "text": "UV 坐标如何把图片映射到三角形、TextureLoader 的颜色空间与采样配置、LoadingManager 的进度统计、glTF/GLB 和 DRACO 的加载方式，以及不再使用的模型资源怎样正确销毁。",
+      "hash": "2397333a5f505708",
+      "audio": "seg10.mp3",
+      "start": 90.331,
+      "duration": 16.353
+    },
+    {
+      "index": 11,
+      "text": "1. UV 与 TextureLoader：把图片坐标贴到顶点上",
+      "hash": "41d79e1596fa667b",
+      "audio": "seg11.mp3",
+      "start": 106.684,
+      "duration": 4.336
+    },
+    {
+      "index": 12,
+      "text": "UV 映射（UV mapping）用二维坐标指定每个顶点应读取图片的哪个位置。U 沿图片横向，V 沿纵向，常见范围是 0～1；顶点之间由光栅化插值，三角形内部便得到连续图像。",
+      "hash": "16c56c052bc5f681",
+      "audio": "seg12.mp3",
+      "start": 111.02,
+      "duration": 17.006
+    },
+    {
+      "index": 13,
+      "text": "map 存的是颜色，sRGB 图片要先解码到线性工作空间，才能正确参与光照；粗糙度图的像素是数值，不是给人看的颜色。normalMap、metalnessMap、aoMap 同理，都不应标成 sRGB。",
+      "hash": "c0310c73386c06eb",
+      "audio": "seg13.mp3",
+      "start": 128.026,
+      "duration": 18.913
+    },
+    {
+      "index": 14,
+      "text": "颜色图漏设 SRGBColorSpace ，常导致光照后颜色偏差；把数据图误设成 sRGB，则会让法线方向或粗糙度数值被错误转换。现代 three 的 renderer 输出通常是 sRGB，但这不等于所有输入纹理都使用同一种颜色空间。",
+      "hash": "4cc65ae0016b8b32",
+      "audio": "seg14.mp3",
+      "start": 146.939,
+      "duration": 17.11
+    },
+    {
+      "index": 15,
+      "text": "2. 平铺与各向异性：解决重复和斜看模糊",
+      "hash": "73437a473a42bab4",
+      "audio": "seg15.mp3",
+      "start": 164.049,
+      "duration": 6.296
+    },
+    {
+      "index": 16,
+      "text": "wrapS、wrapT 决定 UV 超出 0～1 后如何处理： ClampToEdgeWrapping 钳住边缘， RepeatWrapping 重复， MirroredRepeatWrapping 镜像重复。只改 repeat 而保持默认钳制，不会得到连续平铺。",
+      "hash": "4400802236a668d0",
+      "audio": "seg16.mp3",
+      "start": 170.344,
+      "duration": 18.024
+    },
+    {
+      "index": 17,
+      "text": "各向异性（anisotropy）改善地面、道路等纹理在斜视角下的清晰度。数值不是越高越好，应结合设备上限和视觉收益选择。",
+      "hash": "c124887456f6ec38",
+      "audio": "seg17.mp3",
+      "start": 188.369,
+      "duration": 11.311
+    },
+    {
+      "index": 18,
+      "text": "3. LoadingManager：把多个加载任务汇成一个进度条",
+      "hash": "944d3bf89bee20fd",
+      "audio": "seg18.mp3",
+      "start": 199.68,
+      "duration": 3.971
+    },
+    {
+      "index": 19,
+      "text": "同一个 manager 可传给 TextureLoader、GLTFLoader 等加载器，统一统计本批资源。模型解析中还可能发现新的纹理和缓冲，所以 total 会增长，进度百分比不一定严格单调；UI 应允许这种变化，并同时处理 onError 。",
+      "hash": "0b66c57589b85db9",
+      "audio": "seg19.mp3",
+      "start": 203.651,
+      "duration": 18.024
+    },
+    {
+      "index": 20,
+      "text": "4. GLTFLoader 与 DRACOLoader：加载整装模型",
+      "hash": "75aef1b4ce73df36",
+      "audio": "seg20.mp3",
+      "start": 221.675,
+      "duration": 7.993
+    },
+    {
+      "index": 21,
+      "text": "glTF是开放的三维场景传输格式，通常由 JSON、几何缓冲与纹理组成；GLB 把这些内容打包成二进制单文件。GLTFLoader 两者都能读，返回的不只是 Mesh，还可能包含场景树、材质、相机和动画。",
+      "hash": "2d107d63659439de",
+      "audio": "seg21.mp3",
+      "start": 229.669,
+      "duration": 19.853
+    },
+    {
+      "index": 22,
+      "text": "DRACO 是几何压缩方案：模型更小时，需要对应 WebAssembly 解码器在浏览器中还原。Vite 项目可把 nodemodules/three/examples/jsm/libs/draco/gltf/ 下的解码文件复制到 public/draco/ ，再用下面的 /draco/ 路径。",
+      "hash": "301d5b7f3b691fcd",
+      "audio": "seg22.mp3",
+      "start": 249.522,
+      "duration": 19.096
+    },
+    {
+      "index": 23,
+      "text": "未压缩 glTF 不必配置 DRACOLoader；压缩模型则必须保证解码器文件可从部署站点访问。加载完成不等于业务初始化完成，还要检查模型尺度、朝向、材质与资源所有权。",
+      "hash": "5e2c5fe11c90d3ec",
+      "audio": "seg23.mp3",
+      "start": 268.617,
+      "duration": 18.495
+    },
+    {
+      "index": 24,
+      "text": "Cesium 第 06 章 的 3D Tiles 面向城市级空间数据流式调度，glTF 常作为瓦片内部模型内容；three 的 GLTFLoader 面向单个模型或场景，不自带地理坐标、层级瓦片和地球LOD调度。都是 glTF，不等于加载后自动拥有同一套地理能力。",
+      "hash": "20bf1df7c33cacba",
+      "audio": "seg24.mp3",
+      "start": 287.112,
+      "duration": 24.163
+    },
+    {
+      "index": 25,
+      "text": "5. dispose：摘掉模型只是第一步",
+      "hash": "b3a6af2d19616757",
+      "audio": "seg25.mp3",
+      "start": 311.275,
+      "duration": 2.978
+    },
+    {
+      "index": 26,
+      "text": "Geometry、Material、Texture 都可能持有 GPU 资源，需要分别 dispose() 。同一模型的多个 Mesh 常共享材质与纹理，所以先收集去重，再统一释放。",
+      "hash": "201448454c1f73e2",
+      "audio": "seg26.mp3",
+      "start": 314.253,
+      "duration": 11.964
+    },
+    {
+      "index": 27,
+      "text": "若两个模型共享同一张纹理，其中一个卸载就 dispose，另一个也会受影响。只释放在当前资源边界内独占的 geometry/material/texture；共享资源应由缓存或资源管理器按引用统一回收。DRACOLoader 也要等本批压缩模型全部完成后才 dispose。",
+      "hash": "1512d8d9ee6dada8",
+      "audio": "seg27.mp3",
+      "start": 326.217,
+      "duration": 23.798
+    },
+    {
+      "index": 28,
+      "text": "把砖墙颜色贴图设置为横向重复 6 次、纵向重复 3 次，并使用设备支持、最高不超过 8 的各向异性。再说明 roughnessMap 为什么不能照抄颜色贴图的 sRGB 设置。",
+      "hash": "8b44af305cdc0728",
+      "audio": "seg28.mp3",
+      "start": 350.015,
+      "duration": 17.162
+    },
+    {
+      "index": 29,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg29.mp3",
+      "start": 367.177,
+      "duration": 2.56
+    },
+    {
+      "index": 30,
+      "text": "UV 将顶点与纹理坐标对应，颜色图与数据图必须按用途设置颜色空间。",
+      "hash": "f01ee829e705a4d7",
+      "audio": "seg30.mp3",
+      "start": 369.737,
+      "duration": 7.732
+    },
+    {
+      "index": 31,
+      "text": "平铺需要 RepeatWrapping 配合 repeat；anisotropy 用于改善斜视角采样。",
+      "hash": "209ca0a5af8cb1c3",
+      "audio": "seg31.mp3",
+      "start": 377.469,
+      "duration": 4.754
+    },
+    {
+      "index": 32,
+      "text": "LoadingManager 可汇总多个加载器的进度，但模型依赖发现会让 total 动态变化。",
+      "hash": "5cc70e600e993def",
+      "audio": "seg32.mp3",
+      "start": 382.224,
+      "duration": 6.374
+    },
+    {
+      "index": 33,
+      "text": "GLTFLoader 读取 glTF/GLB，DRACOLoader 提供压缩几何解码，解码路径必须可部署访问。",
+      "hash": "52a493b1e47e7191",
+      "audio": "seg33.mp3",
+      "start": 388.598,
+      "duration": 9.874
+    },
+    {
+      "index": 34,
+      "text": "remove 只脱离场景；独占的 Geometry、Material、Texture 要去重后分别 dispose。",
+      "hash": "eb626605db950398",
+      "audio": "seg34.mp3",
+      "start": 398.472,
+      "duration": 9.352
+    },
+    {
+      "index": 35,
+      "text": "下一章让模型真正可交互：OrbitControls 的轨道约束，以及 Raycaster 的悬停高亮和点击选中。",
+      "hash": "7662d651a8d012ce",
+      "audio": "seg35.mp3",
+      "start": 407.824,
+      "duration": 9.77
+    },
+    {
+      "index": 36,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg36.mp3",
+      "start": 417.593,
+      "duration": 1.463
+    },
+    {
+      "index": 37,
+      "text": "纹理与加载： Texture 、 TextureLoader",
+      "hash": "9a39d7fa403e8160",
+      "audio": "seg37.mp3",
+      "start": 419.056,
+      "duration": 8.882
+    },
+    {
+      "index": 38,
+      "text": "批量进度： LoadingManager",
+      "hash": "88c46692e53a0dcc",
+      "audio": "seg38.mp3",
+      "start": 427.938,
+      "duration": 4.754
+    },
+    {
+      "index": 39,
+      "text": "模型加载手册： Loading 3D models",
+      "hash": "9b3d11f276127ed3",
+      "audio": "seg39.mp3",
+      "start": 432.692,
+      "duration": 3.135
+    },
+    {
+      "index": 40,
+      "text": "加载器 API： GLTFLoader 、 DRACOLoader",
+      "hash": "c8a8897cc2298811",
+      "audio": "seg40.mp3",
+      "start": 435.827,
+      "duration": 3.971
+    },
+    {
+      "index": 41,
+      "text": "格式规范： Khronos glTF",
+      "hash": "a04f60e34c55362c",
+      "audio": "seg41.mp3",
+      "start": 439.798,
+      "duration": 8.385
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628962228_04-texture-loader-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.927Z"
+}

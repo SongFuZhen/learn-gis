@@ -1,0 +1,381 @@
+{
+  "slug": "02-geometry-material",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T00:05:03.769Z",
+  "segmentCount": 46,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.482
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ： Mesh 看起来是一个物体，拆开后其实是「顶点表格 + 表面说明书」。 BufferGeometry 回答长什么样， Material 回答光照上来是什么颜色、亮不亮、透不透， Group 再回答零件怎么一起动。 一句话经验 ：几何管数据，材质管外观，层级管变换；改错层，越调越乱。 常见坑 ：",
+      "hash": "5b50e8e825fcbc92",
+      "audio": "seg01.mp3",
+      "start": 2.482,
+      "duration": 27.037
+    },
+    {
+      "index": 2,
+      "text": "position 数组写得很热闹，却漏了索引或法线，结果面不显示、受光也不对。",
+      "hash": "c3ecbdae02781873",
+      "audio": "seg02.mp3",
+      "start": 29.518,
+      "duration": 6.478
+    },
+    {
+      "index": 3,
+      "text": "修改顶点坐标后直接等画面变化，忘了把 Attribute 标记为需要更新。",
+      "hash": "0b773489abeae63f",
+      "audio": "seg03.mp3",
+      "start": 35.997,
+      "duration": 6.531
+    },
+    {
+      "index": 4,
+      "text": "设了 opacity: 0.5 却不设 transparent: true ，材质依旧完全不透明。",
+      "hash": "920a37a04675c9bc",
+      "audio": "seg04.mp3",
+      "start": 42.527,
+      "duration": 5.042
+    },
+    {
+      "index": 5,
+      "text": "改完父子位置马上读取世界坐标，拿到上一帧旧矩阵。 必记 3 条 ：",
+      "hash": "99556180fd5692a4",
+      "audio": "seg05.mp3",
+      "start": 47.569,
+      "duration": 8.516
+    },
+    {
+      "index": 6,
+      "text": "三大 Attribute： position 每顶点 3 个数， normal 3 个， uv 2 个。",
+      "hash": "5048429d7a19e33c",
+      "audio": "seg06.mp3",
+      "start": 56.085,
+      "duration": 8.385
+    },
+    {
+      "index": 7,
+      "text": "computeVertexNormals() 会按共享顶点求法线；硬边与平滑面的差别就在顶点是否共享。",
+      "hash": "eb846fd4fb8d7b93",
+      "audio": "seg07.mp3",
+      "start": 64.47,
+      "duration": 14.002
+    },
+    {
+      "index": 8,
+      "text": "子节点局部矩阵只描述相对父级的变换，世界矩阵还要乘上完整父级链。",
+      "hash": "490e104b5f50dee8",
+      "audio": "seg08.mp3",
+      "start": 78.472,
+      "duration": 6.06
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 84.532,
+      "duration": 2.978
+    },
+    {
+      "index": 10,
+      "text": "手工构造 BufferGeometry 、理解索引与法线、选用内置几何体、调整 MeshStandardMaterial 的关键参数，并用 Group 搭建可级联运动的父子结构。",
+      "hash": "1b536fdb5d9e3734",
+      "audio": "seg10.mp3",
+      "start": 87.51,
+      "duration": 11.807
+    },
+    {
+      "index": 11,
+      "text": "1. BufferGeometry：几何就是几张顶点表",
+      "hash": "bbca88fcdebbc186",
+      "audio": "seg11.mp3",
+      "start": 99.318,
+      "duration": 5.46
+    },
+    {
+      "index": 12,
+      "text": "顶点（vertex）不只是位置点。渲染器按相同顶点序号读取多张表： position 给三维坐标， normal 给光照方向， uv 给纹理采样位置。它们的 count 必须一致，只是每项长度不同。",
+      "hash": "25b9c86d84467196",
+      "audio": "seg12.mp3",
+      "start": 104.777,
+      "duration": 12.382
+    },
+    {
+      "index": 13,
+      "text": "索引（index）则告诉 GPU「哪三个顶点组成一个三角形」。两个三角形拼四边形只需四个顶点，不必重复写六个位置。",
+      "hash": "ceca7f40e4b67d65",
+      "audio": "seg13.mp3",
+      "start": 117.159,
+      "duration": 9.639
+    },
+    {
+      "index": 14,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg14.mp3",
+      "start": 126.798,
+      "duration": 2.664
+    },
+    {
+      "index": 15,
+      "text": "没有索引时，渲染器按 position 的顺序每三个顶点画一个三角形；有索引时，三角形可以复用顶点。法线若缺失， MeshStandardMaterial 无法得到正常的明暗。",
+      "hash": "e2c8dd0b6be79dc9",
+      "audio": "seg15.mp3",
+      "start": 129.463,
+      "duration": 14.08
+    },
+    {
+      "index": 16,
+      "text": "2. 内置 Geometry：常用形状不必手搓",
+      "hash": "391201a8225ba980",
+      "audio": "seg16.mp3",
+      "start": 143.543,
+      "duration": 4.206
+    },
+    {
+      "index": 17,
+      "text": "BoxGeometry ：盒子，分段越多，后续做顶点位移越细。",
+      "hash": "8f86752bc5f7eb75",
+      "audio": "seg17.mp3",
+      "start": 147.749,
+      "duration": 6.06
+    },
+    {
+      "index": 18,
+      "text": "SphereGeometry ：经纬分段球，水平、垂直分段决定平滑度。",
+      "hash": "526b929af15f93e7",
+      "audio": "seg18.mp3",
+      "start": 153.809,
+      "duration": 6.975
+    },
+    {
+      "index": 19,
+      "text": "PlaneGeometry ：平面，默认位于 XY 平面，做地面常绕 X 轴转 -90°。",
+      "hash": "dc4eea07efa78b04",
+      "audio": "seg19.mp3",
+      "start": 160.784,
+      "duration": 8.229
+    },
+    {
+      "index": 20,
+      "text": "TorusGeometry ：圆环，分别控制圆环半径、管道半径与两方向分段。",
+      "hash": "95245d686baab4ac",
+      "audio": "seg20.mp3",
+      "start": 169.012,
+      "duration": 5.355
+    },
+    {
+      "index": 21,
+      "text": "内置几何体已经带好 position、normal、uv 和合适的索引。分段不是越高越好：三角形增加会抬高显存与绘制成本，应以视觉收益为准。",
+      "hash": "947932ec44740aae",
+      "audio": "seg21.mp3",
+      "start": 174.367,
+      "duration": 10.501
+    },
+    {
+      "index": 22,
+      "text": "3. 法线与顶点更新：形状变了，派生数据也要变",
+      "hash": "e9dca6c293e45f79",
+      "audio": "seg22.mp3",
+      "start": 184.869,
+      "duration": 5.486
+    },
+    {
+      "index": 23,
+      "text": "computeVertexNormals() 会为索引几何平均相邻三角形的法线，共享顶点因此看起来平滑。若要每个面各有独立法线，可先 toNonIndexed() 展开顶点再计算，代价是顶点数增加；简单材质也可使用 flatShading: true 。",
+      "hash": "94c1415666bc2622",
+      "audio": "seg23.mp3",
+      "start": 190.354,
+      "duration": 24.033
+    },
+    {
+      "index": 24,
+      "text": "直接改 position.array 或调用 setX、setY、setZ 后，都要设置 position.needsUpdate = true 。只改 CPU 数组不标脏，画面可能保持原样；修改形状后还要检查法线、包围球与包围盒是否仍适用。",
+      "hash": "de88aa1746a9796d",
+      "audio": "seg24.mp3",
+      "start": 214.387,
+      "duration": 19.853
+    },
+    {
+      "index": 25,
+      "text": "4. MeshStandardMaterial：表面外观的关键旋钮",
+      "hash": "d1bbd8243a42f98f",
+      "audio": "seg25.mp3",
+      "start": 234.24,
+      "duration": 6.74
+    },
+    {
+      "index": 26,
+      "text": "color 是表面基础色； roughness 控制反射扩散程度； metalness 描述金属导电反射特征，真实材质通常靠近 0 或 1。 side 可选正面、背面或双面，双面会增加绘制与透明排序负担，不该成为「面朝向错了」的万能补丁。",
+      "hash": "498c71c234af4e57",
+      "audio": "seg26.mp3",
+      "start": 240.98,
+      "duration": 23.745
+    },
+    {
+      "index": 27,
+      "text": "透明材质还涉及排序与深度写入，复杂交叠时可能穿帮。调试几何可暂时开 wireframe ，排查光照则应恢复正常网格。",
+      "hash": "a98ef504a2be329b",
+      "audio": "seg27.mp3",
+      "start": 264.725,
+      "duration": 7.863
+    },
+    {
+      "index": 28,
+      "text": "5. Group：局部变换如何合成世界变换",
+      "hash": "36706b1c111edc75",
+      "audio": "seg28.mp3",
+      "start": 272.588,
+      "duration": 3.918
+    },
+    {
+      "index": 29,
+      "text": "Group 本身不画东西，但能作为父节点统一移动零件。每个 Object3D 都有描述自身相对父级的 matrix ，以及包含父级链结果的 matrixWorld 。",
+      "hash": "539813ca5ff08d1f",
+      "audio": "seg29.mp3",
+      "start": 276.506,
+      "duration": 13.349
+    },
+    {
+      "index": 30,
+      "text": "世界矩阵（world matrix）由父级矩阵一路乘到当前节点。renderer 通常会在渲染前自动更新矩阵；但你在渲染前手动读取世界位置时，应先 updateMatrixWorld(true) ，不要依赖上一帧结果。",
+      "hash": "11ff2de11048c2a0",
+      "audio": "seg30.mp3",
+      "start": 289.855,
+      "duration": 14.054
+    },
+    {
+      "index": 31,
+      "text": "Cesium 第 01 章 常把业务点直接转换为地心 Cartesian3 ；three 的模型零件更常先写局部坐标，再由 Group 合成世界坐标。前者带地理语义，后者只是通用矩阵层级。两边都要区分「数据给的是局部还是世界」，否则就会重复叠加父级位移。",
+      "hash": "f39a6f7177cb8abc",
+      "audio": "seg31.mp3",
+      "start": 303.909,
+      "duration": 29.362
+    },
+    {
+      "index": 32,
+      "text": "面不显示：索引和三角形绕序对吗？受光不对：法线对吗？透明无效：transparent 开了吗？子物体位置不对：读的是局部坐标还是世界坐标？按这四问定位，比同时乱改几何、材质和 Group 更快。",
+      "hash": "91e665499c7fb6ce",
+      "audio": "seg32.mp3",
+      "start": 333.27,
+      "duration": 14.785
+    },
+    {
+      "index": 33,
+      "text": "创建一个位于原点的地球，以及距离地球 3 单位的月球。要求月球随地球所在 Group 一起绕原点公转，同时保留自己的局部偏移；随后输出月球的世界坐标，验证它不是简单的 (3, 0, 0) 。",
+      "hash": "5828c7e83a72f894",
+      "audio": "seg33.mp3",
+      "start": 348.056,
+      "duration": 17.058
+    },
+    {
+      "index": 34,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg34.mp3",
+      "start": 365.113,
+      "duration": 3.187
+    },
+    {
+      "index": 35,
+      "text": "BufferGeometry 用 position、normal、uv 描述顶点，用 index 组织三角形并复用数据。",
+      "hash": "0914b0a8fb60ae18",
+      "audio": "seg35.mp3",
+      "start": 368.3,
+      "duration": 7.967
+    },
+    {
+      "index": 36,
+      "text": "内置几何适合常规形状，分段数要在平滑度与性能之间取舍。",
+      "hash": "4bbf74454611040f",
+      "audio": "seg36.mp3",
+      "start": 376.268,
+      "duration": 5.068
+    },
+    {
+      "index": 37,
+      "text": "修改顶点后标记 Attribute 更新，并按需重算法线和包围体。",
+      "hash": "10d613d197a5497b",
+      "audio": "seg37.mp3",
+      "start": 381.336,
+      "duration": 6.322
+    },
+    {
+      "index": 38,
+      "text": "StandardMaterial 的 roughness、metalness 管物理外观，透明必须显式开启。",
+      "hash": "325caab0de870610",
+      "audio": "seg38.mp3",
+      "start": 387.657,
+      "duration": 9.953
+    },
+    {
+      "index": 39,
+      "text": "Group 负责变换级联；局部位置、局部矩阵与世界矩阵不是同一层数据。",
+      "hash": "5b39ae9b9870fe11",
+      "audio": "seg39.mp3",
+      "start": 397.61,
+      "duration": 6.975
+    },
+    {
+      "index": 40,
+      "text": "下一章给材质真正的工作环境：五类光源、阴影贴图、PBR 参数与环境照明。",
+      "hash": "bfa53fd903f3cfdf",
+      "audio": "seg40.mp3",
+      "start": 404.584,
+      "duration": 7.863
+    },
+    {
+      "index": 41,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg41.mp3",
+      "start": 412.447,
+      "duration": 1.776
+    },
+    {
+      "index": 42,
+      "text": "几何数据： BufferGeometry 、 BufferAttribute",
+      "hash": "16664d3e2e6c0aa6",
+      "audio": "seg42.mp3",
+      "start": 414.224,
+      "duration": 5.172
+    },
+    {
+      "index": 43,
+      "text": "网格与材质： Mesh 、 MeshStandardMaterial",
+      "hash": "07614089db0f3b14",
+      "audio": "seg43.mp3",
+      "start": 419.396,
+      "duration": 6.374
+    },
+    {
+      "index": 44,
+      "text": "层级与矩阵： Group 、 Object3D",
+      "hash": "28e085cac36e2964",
+      "audio": "seg44.mp3",
+      "start": 425.77,
+      "duration": 4.101
+    },
+    {
+      "index": 45,
+      "text": "内置几何入口： Geometries",
+      "hash": "42aee3b6cc22f1ba",
+      "audio": "seg45.mp3",
+      "start": 429.871,
+      "duration": 3.03
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628956534_02-geometry-material-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.915Z"
+}

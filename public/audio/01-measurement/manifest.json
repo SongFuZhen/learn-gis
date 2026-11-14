@@ -1,0 +1,341 @@
+{
+  "slug": "01-measurement",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T13:48:35.676Z",
+  "segmentCount": 41,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.776
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：地图上最常见的问题就是「多远、多大、多长」。两个点之间多远（distance）、一条轨迹多长（length）、一块地多大（area，上章见过）、走到线上某点还有多远（pointToLineDistance）、沿线 500 米处是哪个坐标（along）。 Turf 的量测哲学一句话 ：输入永远是 GeoJSON，距离单位由 units 参数显式声明，绝不偷偷按平面直角坐标算。 和 Cesium 的关键差异 ：Cesium 量距离有弦长（chord，「扣德」，两点直线穿地球）、大圆（great-circle，贴椭球面）、贴地（沿地形起伏）三种语义（见 Cesium 量算章 ）；Turf 只有「球面大圆」这一种二维语义，没有地形概念。 常见坑 ：",
+      "hash": "4d1e93eb599708b4",
+      "audio": "seg01.mp3",
+      "start": 1.776,
+      "duration": 50.834
+    },
+    {
+      "index": 2,
+      "text": "把经纬度当平面坐标自己用勾股算距离——经度一度的实际长度随纬度变化，直接算误差能到 50%。",
+      "hash": "adf26eb394c10686",
+      "audio": "seg02.mp3",
+      "start": 52.611,
+      "duration": 7.314
+    },
+    {
+      "index": 3,
+      "text": "units 不写时默认是千米（ kilometers ），团队代码里建议永远写明。",
+      "hash": "fd01024a5009b389",
+      "audio": "seg03.mp3",
+      "start": 59.925,
+      "duration": 6.74
+    },
+    {
+      "index": 4,
+      "text": "length 喂 Point 会报错，它只吃 LineString/MultiLineString。 必记 3 条 ：",
+      "hash": "40a48250e7559b0b",
+      "audio": "seg04.mp3",
+      "start": 66.664,
+      "duration": 7.576
+    },
+    {
+      "index": 5,
+      "text": "distance 算点到点、 length 算线总长、 area 算面面积、 along 沿线取点、 pointToLineDistance 算点到线的垂距。",
+      "hash": "f60bc1708b866351",
+      "audio": "seg05.mp3",
+      "start": 74.24,
+      "duration": 14.733
+    },
+    {
+      "index": 6,
+      "text": "全部基于球面/椭球公式，经纬度直接喂，不需要投影。",
+      "hash": "bff0ef0477115e57",
+      "audio": "seg06.mp3",
+      "start": 88.973,
+      "duration": 4.754
+    },
+    {
+      "index": 7,
+      "text": "单位参数 units 显式写： \"kilometers\" | \"meters\" | \"miles\" | \"degrees\" 。",
+      "hash": "d4daa258e63eff07",
+      "audio": "seg07.mp3",
+      "start": 93.727,
+      "duration": 9.9
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 103.628,
+      "duration": 3.5
+    },
+    {
+      "index": 9,
+      "text": "五个量测函数的签名、适用几何与单位体系，线段是怎么被「大圆弧段」处理的，以及如何用这些原语拼一个「点击地图量路线长度」的交互——第 8 章接入地图框架时会直接复用。",
+      "hash": "b76eac3c028cc660",
+      "audio": "seg09.mp3",
+      "start": 107.128,
+      "duration": 12.042
+    },
+    {
+      "index": 10,
+      "text": "1. distance：点到点的大圆距离",
+      "hash": "1d8855b27e2464fc",
+      "audio": "seg10.mp3",
+      "start": 119.171,
+      "duration": 13.061
+    },
+    {
+      "index": 11,
+      "text": "distance(from, to, options) 吃两个 Point Feature，返回大圆弧长：",
+      "hash": "dd8a39c13b1169f7",
+      "audio": "seg11.mp3",
+      "start": 132.232,
+      "duration": 7.262
+    },
+    {
+      "index": 12,
+      "text": "底层是 haversine（「哈沃森」，半正矢）类球面公式，把地球当半径约 6371km 的球。GIS 课讲过的大地测量学里这叫大圆距离：球面上两点的最短路径是大圆弧，不是墨卡托地图上画的直线。",
+      "hash": "353f07286b78a28e",
+      "audio": "seg12.mp3",
+      "start": 139.494,
+      "duration": 14.838
+    },
+    {
+      "index": 13,
+      "text": "投影到平面（如 Web 墨卡托）后用欧氏距离算，图上是直线，地理上却是错的——墨卡托在高纬度拉伸严重。Turf 直接在球面模型上算，免投影、全球一致，代价是它不考虑地形起伏（那是 Cesium 贴地量算的领域）。",
+      "hash": "7598b720c315004c",
+      "audio": "seg13.mp3",
+      "start": 154.331,
+      "duration": 15.621
+    },
+    {
+      "index": 14,
+      "text": "2. length 与 area：线长与面面积",
+      "hash": "a42358bada03133e",
+      "audio": "seg14.mp3",
+      "start": 169.953,
+      "duration": 6.661
+    },
+    {
+      "index": 15,
+      "text": "length 的实现就是逐顶点调球面距离再求和——所以折线顶点越密，越贴近真实弯曲路径。 area 对 MultiPolygon 也成立，返回所有外环面积减内环孔洞后的总和。",
+      "hash": "14c78d0c9a8b78ae",
+      "audio": "seg15.mp3",
+      "start": 176.614,
+      "duration": 12.513
+    },
+    {
+      "index": 16,
+      "text": "3. along：沿一条线走出指定距离",
+      "hash": "a68c9cb034bde52d",
+      "audio": "seg16.mp3",
+      "start": 189.127,
+      "duration": 4.807
+    },
+    {
+      "index": 17,
+      "text": "along(line, distance, options) 返回线上「走了这么远」所在的点 Feature。里程桩、沿途播报、「前方 2 公里」标记全靠它：",
+      "hash": "15e4f70221db58c9",
+      "audio": "seg17.mp3",
+      "start": 193.933,
+      "duration": 9.352
+    },
+    {
+      "index": 18,
+      "text": "如果给定距离超过线总长，Turf 返回线的终点而不是报错——调用方要自己判断业务语义。",
+      "hash": "f8e284d52614961c",
+      "audio": "seg18.mp3",
+      "start": 203.285,
+      "duration": 6.426
+    },
+    {
+      "index": 19,
+      "text": "4. pointToLineDistance：点到线的最近距离",
+      "hash": "ad98a192e8c44daf",
+      "audio": "seg19.mp3",
+      "start": 209.711,
+      "duration": 3.918
+    },
+    {
+      "index": 20,
+      "text": "这是工程里最高频的量测之一：车辆偏航检测、「离我最近的路」、噪声点清洗。它返回点到线段集合的 最短球面距离 ：",
+      "hash": "04bc18d16fee6b16",
+      "audio": "seg20.mp3",
+      "start": 213.629,
+      "duration": 8.15
+    },
+    {
+      "index": 21,
+      "text": "注意它比较的是点到每一段的距离再取最小值，不是点到某个顶点的距离。",
+      "hash": "e09afcb918c5a576",
+      "audio": "seg21.mp3",
+      "start": 221.78,
+      "duration": 7.784
+    },
+    {
+      "index": 22,
+      "text": "distance/length 默认单位是 kilometers，pointToLineDistance 的默认单位同样是 kilometers。做围栏、偏航这类米级逻辑时务必显式传 { units: \"meters\" } ，否则 100 会被当成 100 公里。",
+      "hash": "fd27900d5cacc007",
+      "audio": "seg22.mp3",
+      "start": 229.564,
+      "duration": 19.278
+    },
+    {
+      "index": 23,
+      "text": "5. 与 Cesium 三种距离的正面对比",
+      "hash": "8d39e16c5fae85ff",
+      "audio": "seg23.mp3",
+      "start": 248.842,
+      "duration": 3.683
+    },
+    {
+      "index": 24,
+      "text": "Cesium 量算章 讲过三种距离，放到一起对照：",
+      "hash": "0d2ce97da69c69d7",
+      "audio": "seg24.mp3",
+      "start": 252.526,
+      "duration": 5.303
+    },
+    {
+      "index": 25,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg25.mp3",
+      "start": 257.829,
+      "duration": 3.187
+    },
+    {
+      "index": 26,
+      "text": "协作模式：二维业务（配送范围、网格统计）全程 Turf；同一个项目里三维可视分析需要贴地里程时，把相同坐标搬给 Cesium 算，两套结果在文档里注明语义，不要混用。",
+      "hash": "4c58cd545942c1ab",
+      "audio": "seg26.mp3",
+      "start": 261.016,
+      "duration": 16.744
+    },
+    {
+      "index": 27,
+      "text": "五点函数分工：distance 点、length 线、area 面、along 沿线取点、pointToLineDistance 点线垂距。",
+      "hash": "4c8080219a03077f",
+      "audio": "seg27.mp3",
+      "start": 277.76,
+      "duration": 8.62
+    },
+    {
+      "index": 28,
+      "text": "球面计算免投影，但没有地形语义；贴地里程只能找 Cesium。",
+      "hash": "8b15b00b268dfb51",
+      "audio": "seg28.mp3",
+      "start": 286.38,
+      "duration": 5.695
+    },
+    {
+      "index": 29,
+      "text": "units 显式传，米级业务用 \"meters\" 。",
+      "hash": "29c30601c3ac55f4",
+      "audio": "seg29.mp3",
+      "start": 292.075,
+      "duration": 5.695
+    },
+    {
+      "index": 30,
+      "text": "给定一条含 20 个顶点的骑行 GeoJSON LineString：①用 length 算总里程（千米，保留两位小数）；②用 along 每 1 公里取一个里程桩点，输出 FeatureCollection；③随机造一个偏离路线的点，用 pointToLineDistance 算它离轨迹多远。把里程桩 FeatureCollection 丢进 geojson.io 查看分布。",
+      "hash": "917401ab208275ba",
+      "audio": "seg30.mp3",
+      "start": 297.77,
+      "duration": 24.085
+    },
+    {
+      "index": 31,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg31.mp3",
+      "start": 321.855,
+      "duration": 5.59
+    },
+    {
+      "index": 32,
+      "text": "Turf 量测全在球面模型上：distance、length、area、along、pointToLineDistance 覆盖 90% 的二维量算需求。",
+      "hash": "c01178fb0a57b29f",
+      "audio": "seg32.mp3",
+      "start": 327.445,
+      "duration": 12.042
+    },
+    {
+      "index": 33,
+      "text": "折线长度 = 分段大圆距离之和，顶点密度决定贴合度。",
+      "hash": "59b6a671dc1f8a2b",
+      "audio": "seg33.mp3",
+      "start": 339.487,
+      "duration": 5.068
+    },
+    {
+      "index": 34,
+      "text": "与 Cesium 互补：Turf 给大圆距离，Cesium 额外提供弦长与贴地距离。",
+      "hash": "2cfff8a219086b41",
+      "audio": "seg34.mp3",
+      "start": 344.555,
+      "duration": 8.699
+    },
+    {
+      "index": 35,
+      "text": "单位永远显式声明，是这套 API 最便宜的防错手段。",
+      "hash": "42735fb0602e10aa",
+      "audio": "seg35.mp3",
+      "start": 353.254,
+      "duration": 4.754
+    },
+    {
+      "index": 36,
+      "text": "下一章：方位角与目的地——不只是量「多远」，还要算「朝哪走、走到哪」。",
+      "hash": "019ff1d22b9ac3a1",
+      "audio": "seg36.mp3",
+      "start": 358.008,
+      "duration": 5.355
+    },
+    {
+      "index": 37,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg37.mp3",
+      "start": 363.363,
+      "duration": 1.306
+    },
+    {
+      "index": 38,
+      "text": "Turf 量测函数索引： turfjs.org/docs （distance / length / area / along / point-to-line-distance）",
+      "hash": "bb9b02efb2812f36",
+      "audio": "seg38.mp3",
+      "start": 364.669,
+      "duration": 8.829
+    },
+    {
+      "index": 39,
+      "text": "大圆距离原理： Haversine formula（Wikipedia）",
+      "hash": "2e49425f0cf6342d",
+      "audio": "seg39.mp3",
+      "start": 373.499,
+      "duration": 5.825
+    },
+    {
+      "index": 40,
+      "text": "Cesium 大地线 API： EllipsoidGeodesic",
+      "hash": "d8b0b62457c4761d",
+      "audio": "seg40.mp3",
+      "start": 379.324,
+      "duration": 4.153
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611736333_01-measurement-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.798Z"
+}

@@ -1,0 +1,341 @@
+{
+  "slug": "00-three-intro",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T23:26:24.134Z",
+  "segmentCount": 41,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.411
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：浏览器要画三维，底层只有 WebGL（浏览器的三维绘图标准）。原生 WebGL 是一堆「绑缓冲、编译着色器、配状态机」的底层指令，画个三角形要上百行。 three.js 把这些脏活包成「场景里放物体、相机对着拍、渲染器出画面」的直觉模型。 一句话经验 ：three 是 通用三维渲染器 ，不懂地球、不懂经纬度； Cesium 课 里的 Cesium 也是 WebGL 渲染器，但它内置了椭球、影像、地形与时钟——两者是「通用引擎」与「地理专用引擎」的关系，不是替代关系。 常见坑 ：",
+      "hash": "d58ddd1d7d7c5431",
+      "audio": "seg01.mp3",
+      "start": 1.411,
+      "duration": 37.486
+    },
+    {
+      "index": 2,
+      "text": "装完直接 new WebGLRenderer() 挂到不存在的 DOM——和 Cesium 一样，容器必须先渲染出来，框架项目里要在 mount 之后初始化。",
+      "hash": "6719fc7b64b61b6e",
+      "audio": "seg02.mp3",
+      "start": 38.896,
+      "duration": 13.845
+    },
+    {
+      "index": 3,
+      "text": "相机放在原点、物体也在原点，画面一片黑——相机在盒子内部，先学会把相机后撤。",
+      "hash": "2d0e646771f30e46",
+      "audio": "seg03.mp3",
+      "start": 52.741,
+      "duration": 5.878
+    },
+    {
+      "index": 4,
+      "text": "忘了 requestAnimationFrame 渲染循环，改了属性画面不动——three 不会自动重绘。 必记 3 条 ：",
+      "hash": "166bab57b5b0f9eb",
+      "audio": "seg04.mp3",
+      "start": 58.619,
+      "duration": 9.456
+    },
+    {
+      "index": 5,
+      "text": "三件套： Scene （场景图容器）、 PerspectiveCamera （相机）、 WebGLRenderer （渲染器）。",
+      "hash": "c7edc7267bb69414",
+      "audio": "seg05.mp3",
+      "start": 68.075,
+      "duration": 8.934
+    },
+    {
+      "index": 6,
+      "text": "可见物体 = Geometry （形状数据）+ Material （外观）组成的 Mesh ，加进 Scene。",
+      "hash": "b05bc3ca7190ddb7",
+      "audio": "seg06.mp3",
+      "start": 77.009,
+      "duration": 7.576
+    },
+    {
+      "index": 7,
+      "text": "每帧调 renderer.render(scene, camera) ，循环靠 requestAnimationFrame 。",
+      "hash": "6d9f66e91003cf18",
+      "audio": "seg07.mp3",
+      "start": 84.584,
+      "duration": 8.411
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 92.996,
+      "duration": 2.064
+    },
+    {
+      "index": 9,
+      "text": "原生 WebGL 难在哪、场景图（scene graph）思想是什么、three 与 Cesium 的技术分工、Vite 最小工程，以及让第一个立方体转起来。学完你会有一个可交互的 3D 页面，并能说清什么时候该用 three、什么时候该用 Cesium。",
+      "hash": "89bc08b5f4be358b",
+      "audio": "seg09.mp3",
+      "start": 95.06,
+      "duration": 14.916
+    },
+    {
+      "index": 10,
+      "text": "1. 原生 WebGL 的痛点",
+      "hash": "f97405d2a94a9382",
+      "audio": "seg10.mp3",
+      "start": 109.976,
+      "duration": 7.131
+    },
+    {
+      "index": 11,
+      "text": "WebGL 是浏览器对接 GPU 的 API，它的工作单位是：顶点缓冲、片元、着色器程序、全局状态机。画一个旋转立方体，原生写法要自己处理：编译链接着色器、上传顶点/法线/索引缓冲、维护模型视图投影三个矩阵、每帧重设几十种 GL 状态。GIS 课讲的是空间数据模型，而 WebGL 讲的是「怎么让 GPU 把三角形画出来」——中间缺一层工程抽象。",
+      "hash": "1ffc555534ed117c",
+      "audio": "seg11.mp3",
+      "start": 117.107,
+      "duration": 33.646
+    },
+    {
+      "index": 12,
+      "text": "three.js 补的就是这层抽象：",
+      "hash": "95e68debd8bcea17",
+      "audio": "seg12.mp3",
+      "start": 150.753,
+      "duration": 5.068
+    },
+    {
+      "index": 13,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg13.mp3",
+      "start": 155.82,
+      "duration": 2.612
+    },
+    {
+      "index": 14,
+      "text": "three 底层默认走 WebGL2（WebGL1 已淘汰）。新版本同时实验性支持 WebGPU（下一代浏览器图形 API），但本课程代码全部基于成熟的 WebGLRenderer，概念在两个后端间通用。",
+      "hash": "c45e79620e5e26f1",
+      "audio": "seg14.mp3",
+      "start": 158.433,
+      "duration": 16.588
+    },
+    {
+      "index": 15,
+      "text": "2. 场景图：three 的核心思想",
+      "hash": "9deb6f07d0764b48",
+      "audio": "seg15.mp3",
+      "start": 175.02,
+      "duration": 5.12
+    },
+    {
+      "index": 16,
+      "text": "场景图是一棵对象树：根是 Scene ，树上每个节点都是 Object3D ，可以挂子节点。父节点的位移/旋转/缩放会级联给所有子节点——这和 Cesium 的 Entity 层级、前端 DOM 的嵌套是同构思想。",
+      "hash": "304a0cc990488f53",
+      "audio": "seg16.mp3",
+      "start": 180.14,
+      "duration": 16.144
+    },
+    {
+      "index": 17,
+      "text": "对比 Cesium：Cesium 的场景图服务于「地球 + 实体 + 瓦片集」，相机默认绑定椭球；three 的场景图是裸的笛卡尔空间，单位是你自己定义的「1 个单位」——可以是米、厘米，也可以是光年，引擎不关心。",
+      "hash": "093c0ac039df365f",
+      "audio": "seg17.mp3",
+      "start": 196.284,
+      "duration": 15.909
+    },
+    {
+      "index": 18,
+      "text": "3. three 与 Cesium 的分工",
+      "hash": "1fae4b3da094b626",
+      "audio": "seg18.mp3",
+      "start": 212.193,
+      "duration": 6.191
+    },
+    {
+      "index": 19,
+      "text": "Cesium 第 0 章 说过「Leaflet 看地图，Cesium 进入地图」。three 站在更通用的位置：",
+      "hash": "fbaaf58caac1ec6d",
+      "audio": "seg19.mp3",
+      "start": 218.384,
+      "duration": 8.882
+    },
+    {
+      "index": 20,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg20.mp3",
+      "start": 227.265,
+      "duration": 2.717
+    },
+    {
+      "index": 21,
+      "text": "关键判断： 数据本身是地理数据（经纬度、瓦片、地形）到 Cesium；数据是任意三维模型、要做产品级渲染特效 到 three 。第 9 章会演示二者的桥梁——把 three 场景作为 MapLibre 的 custom layer 叠到地图上。",
+      "hash": "b06ee3198b7655d6",
+      "audio": "seg21.mp3",
+      "start": 229.982,
+      "duration": 20.767
+    },
+    {
+      "index": 22,
+      "text": "4. Vite 最小工程",
+      "hash": "c01ba6238733eeba",
+      "audio": "seg22.mp3",
+      "start": 250.749,
+      "duration": 2.534
+    },
+    {
+      "index": 23,
+      "text": "three 是纯 ESM 包，按需导入即可，没有 Cesium 那套静态资源拷贝问题（Workers/Assets 只在用到特定加载器时才需配置，第 4 章会讲）。",
+      "hash": "097d324f20ce6b13",
+      "audio": "seg23.mp3",
+      "start": 253.283,
+      "duration": 14.367
+    },
+    {
+      "index": 24,
+      "text": "5. 第一个旋转立方体",
+      "hash": "feb3d19598e346a3",
+      "audio": "seg24.mp3",
+      "start": 267.651,
+      "duration": 5.538
+    },
+    {
+      "index": 25,
+      "text": "① 用了 MeshStandardMaterial 却不加任何光源，画面纯黑——它是基于物理的材质（PBR），没有光就没有反射。调试期可先用不受光照影响的 MeshBasicMaterial 确认几何位置。② resize 后只改 renderer 尺寸不调 camera.updateProjectionMatrix() ，画面会被拉伸变形。",
+      "hash": "8d5dc5fce581bd21",
+      "audio": "seg25.mp3",
+      "start": 273.189,
+      "duration": 21.603
+    },
+    {
+      "index": 26,
+      "text": "three = Scene + Camera + Renderer 三件套，Mesh = Geometry + Material。",
+      "hash": "21ca4aa0549d65b4",
+      "audio": "seg26.mp3",
+      "start": 294.792,
+      "duration": 5.172
+    },
+    {
+      "index": 27,
+      "text": "three 是通用笛卡尔空间，无地理语义；地理三维找 Cesium，通用渲染找 three。",
+      "hash": "3d5bfb0af4605b54",
+      "audio": "seg27.mp3",
+      "start": 299.964,
+      "duration": 9.221
+    },
+    {
+      "index": 28,
+      "text": "渲染循环必须手动 requestAnimationFrame；PBR 材质必须配光。",
+      "hash": "91b6b2137e16a939",
+      "audio": "seg28.mp3",
+      "start": 309.185,
+      "duration": 5.825
+    },
+    {
+      "index": 29,
+      "text": "把 BoxGeometry 换成 SphereGeometry(0.7, 32, 16) ，再 new 一个 Mesh（TorusGeometry 圆环）用 position.set(-2, 0, 0) 放到左边并加入同一个 scene。在 tick 里只让球自转、圆环不动。观察：两个物体互不影响，因为它们是场景图上的兄弟节点。",
+      "hash": "ac673ef7972995a5",
+      "audio": "seg29.mp3",
+      "start": 315.011,
+      "duration": 24.346
+    },
+    {
+      "index": 30,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg30.mp3",
+      "start": 339.357,
+      "duration": 1.881
+    },
+    {
+      "index": 31,
+      "text": "WebGL 是 GPU 状态机，three 用场景图把它抽象成对象树。",
+      "hash": "9d0ec650c14622aa",
+      "audio": "seg31.mp3",
+      "start": 341.238,
+      "duration": 6.557
+    },
+    {
+      "index": 32,
+      "text": "three 通用、Cesium 地理专用；选型看数据有没有地理语义。",
+      "hash": "3a0578be8fd41237",
+      "audio": "seg32.mp3",
+      "start": 347.794,
+      "duration": 6.661
+    },
+    {
+      "index": 33,
+      "text": "最小程序六步：renderer 到 scene/camera 到 mesh 到 light 到 循环 到 resize。",
+      "hash": "fea7a4031f72026a",
+      "audio": "seg33.mp3",
+      "start": 354.456,
+      "duration": 9.247
+    },
+    {
+      "index": 34,
+      "text": "黑屏先查两件事：相机位置、有没有光。",
+      "hash": "858145f3ae94f882",
+      "audio": "seg34.mp3",
+      "start": 363.703,
+      "duration": 5.303
+    },
+    {
+      "index": 35,
+      "text": "下一章拆开三件套：透视相机的视锥参数、场景树的变换级联与渲染循环的时间步进。",
+      "hash": "982dfb3a067774a1",
+      "audio": "seg35.mp3",
+      "start": 369.006,
+      "duration": 7.68
+    },
+    {
+      "index": 36,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg36.mp3",
+      "start": 376.686,
+      "duration": 1.28
+    },
+    {
+      "index": 37,
+      "text": "官方文档与手册： three.js Manual",
+      "hash": "019a098cb6ac139c",
+      "audio": "seg37.mp3",
+      "start": 377.966,
+      "duration": 3.37
+    },
+    {
+      "index": 38,
+      "text": "官方示例库（最好的 API 草稿本）： three.js examples",
+      "hash": "3c8db549951c7f02",
+      "audio": "seg38.mp3",
+      "start": 381.336,
+      "duration": 8.829
+    },
+    {
+      "index": 39,
+      "text": "WebGL 基础概念（MDN）： WebGL API",
+      "hash": "90f56fb620f5cbde",
+      "audio": "seg39.mp3",
+      "start": 390.165,
+      "duration": 3.788
+    },
+    {
+      "index": 40,
+      "text": "Cesium 定位对照： CesiumJS 文档",
+      "hash": "2f617c8b43aea7bf",
+      "audio": "seg40.mp3",
+      "start": 393.953,
+      "duration": 5.303
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628956236_00-three-intro-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.922Z"
+}

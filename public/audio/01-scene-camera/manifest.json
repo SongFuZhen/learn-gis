@@ -1,0 +1,357 @@
+{
+  "slug": "01-scene-camera",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T23:49:40.342Z",
+  "segmentCount": 43,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.959
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：上一章把立方体画出来了，但场景像仓库、相机像眼睛、渲染器像投影仪，三者到底怎么配合？ 一句话经验 ：先把物体挂进 Scene 树，再让相机视锥罩住它，最后用渲染器按帧拍照；黑屏就沿这条链排查。 常见坑 ：",
+      "hash": "4ab05dd3acc2497c",
+      "audio": "seg01.mp3",
+      "start": 1.959,
+      "duration": 19.67
+    },
+    {
+      "index": 2,
+      "text": "把物体 add 到了错误父节点，或 remove 后还以为它会自动销毁——前者是层级问题，后者只是摘下来，GPU 资源仍在。",
+      "hash": "1f5fe3e9fc2b9efa",
+      "audio": "seg02.mp3",
+      "start": 21.629,
+      "duration": 10.475
+    },
+    {
+      "index": 3,
+      "text": "near 写成 0、 far 随手写一百万，结果深度精度浪费，远处表面互相穿插。",
+      "hash": "467878a7416c78a3",
+      "audio": "seg03.mp3",
+      "start": 32.104,
+      "duration": 5.59
+    },
+    {
+      "index": 4,
+      "text": "用「每帧转 0.01」做动画，高刷屏转得飞快，低帧率机器像慢放。",
+      "hash": "94d4ff453b4181dc",
+      "audio": "seg04.mp3",
+      "start": 37.695,
+      "duration": 6.113
+    },
+    {
+      "index": 5,
+      "text": "resize 只改画布，不改相机宽高比和投影矩阵，模型立刻变胖。 必记 3 条 ：",
+      "hash": "dc99627cea8e6a40",
+      "audio": "seg05.mp3",
+      "start": 43.807,
+      "duration": 9.221
+    },
+    {
+      "index": 6,
+      "text": "Scene.children 是直属子节点， add、remove 管的是挂载关系，不等于资源创建与销毁。",
+      "hash": "817d250c22722fad",
+      "audio": "seg06.mp3",
+      "start": 53.029,
+      "duration": 8.882
+    },
+    {
+      "index": 7,
+      "text": "透视相机四参数是 fov、aspect、near、far ，分别管纵向视野、宽高比和可见深度范围。",
+      "hash": "bb522107e41634d8",
+      "audio": "seg07.mp3",
+      "start": 61.91,
+      "duration": 8.803
+    },
+    {
+      "index": 8,
+      "text": "动画位移乘 delta ，resize 做齐 aspect 到 updateProjectionMatrix 到 setSize 三件套。",
+      "hash": "e9bdadb49c2baab7",
+      "audio": "seg08.mp3",
+      "start": 70.713,
+      "duration": 10.188
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 80.901,
+      "duration": 1.829
+    },
+    {
+      "index": 10,
+      "text": "场景树的挂载与卸载、透视与正交相机的差别、渲染器关键初始化项、基于时间的动画循环，以及窗口变化时的完整适配流程。学完后，你能解释「物体明明存在，为什么画面里没有」。",
+      "hash": "f322934502fb2e64",
+      "audio": "seg10.mp3",
+      "start": 82.73,
+      "duration": 12.931
+    },
+    {
+      "index": 11,
+      "text": "1. Scene：先理清父子关系",
+      "hash": "76875ed3c94a38d3",
+      "audio": "seg11.mp3",
+      "start": 95.66,
+      "duration": 8.385
+    },
+    {
+      "index": 12,
+      "text": "Scene 是场景树根，网格、灯光、相机和 Group 都是 Object3D 节点。 children 只列直属子节点，不包含孙节点； add 会把节点从旧父级移到新父级，同一个节点不会同时有两个父亲。",
+      "hash": "a4170cc08d6bfe23",
+      "audio": "seg12.mp3",
+      "start": 104.046,
+      "duration": 16.274
+    },
+    {
+      "index": 13,
+      "text": "父节点变换会传给子节点，所以转动 robot 会带动仍挂在它下面的 body 。 remove 后若确定不再使用，还要按第 4 章的方法释放资源。",
+      "hash": "8ac07df328f8ad44",
+      "audio": "seg13.mp3",
+      "start": 120.32,
+      "duration": 12.095
+    },
+    {
+      "index": 14,
+      "text": "2. Camera：视锥决定谁能入镜",
+      "hash": "1a26878ea626f6f6",
+      "audio": "seg14.mp3",
+      "start": 132.415,
+      "duration": 5.355
+    },
+    {
+      "index": 15,
+      "text": "透视相机的可见区域叫视锥（frustum），像从眼睛向前张开的四棱锥。四个参数缺一不可：",
+      "hash": "1089503514cb881f",
+      "audio": "seg15.mp3",
+      "start": 137.77,
+      "duration": 8.098
+    },
+    {
+      "index": 16,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg16.mp3",
+      "start": 145.868,
+      "duration": 2.377
+    },
+    {
+      "index": 17,
+      "text": "正交投影（orthographic projection）适合工程图、轴测视图和编辑器；产品展示、漫游通常用透视投影。",
+      "hash": "1868abeb7d0b4915",
+      "audio": "seg17.mp3",
+      "start": 148.245,
+      "duration": 7.628
+    },
+    {
+      "index": 18,
+      "text": "Cesium 第 01 章 的 setView、flyTo、lookAt 操作的是地心坐标中的地球相机；three 相机只在普通笛卡尔空间工作，没有经纬度入口。两者都有视锥、近平面和远平面，但在 three 里你要直接管理投影参数，不会有一个 Globe 替你决定观察对象。",
+      "hash": "578d6e8a709dcbbd",
+      "audio": "seg18.mp3",
+      "start": 155.873,
+      "duration": 24.764
+    },
+    {
+      "index": 19,
+      "text": "3. WebGLRenderer：把场景拍到画布上",
+      "hash": "1d2cf02848eac640",
+      "audio": "seg19.mp3",
+      "start": 180.637,
+      "duration": 5.878
+    },
+    {
+      "index": 20,
+      "text": "渲染器创建时就要决定是否抗锯齿；像素比则建议封顶，避免高分屏把片元工作量放大数倍。现代 three 默认输出 sRGB，这里显式写出，方便团队统一约定。",
+      "hash": "2144abb0b24ac392",
+      "audio": "seg20.mp3",
+      "start": 186.514,
+      "duration": 10.24
+    },
+    {
+      "index": 21,
+      "text": "antialias 是构造参数，之后改 renderer.antialias 没有用。 setPixelRatio 与 setSize 也不同：前者决定内部渲染像素密度，后者设置画布显示尺寸与绘制缓冲区尺寸。",
+      "hash": "ca19811805e4f2da",
+      "audio": "seg21.mp3",
+      "start": 196.754,
+      "duration": 18.651
+    },
+    {
+      "index": 22,
+      "text": "4. 渲染循环：按时间走，不按帧数走",
+      "hash": "cf5a225714a14f62",
+      "audio": "seg22.mp3",
+      "start": 215.406,
+      "duration": 5.042
+    },
+    {
+      "index": 23,
+      "text": "requestAnimationFrame 的回调频率跟随屏幕刷新，60 Hz 与 120 Hz 屏幕每秒回调次数不同。时间步长（delta time，「德尔塔 泰姆」）表示距上一帧过了多少秒，角速度乘它才能保证「每秒转多少」不随帧率变化。",
+      "hash": "d52311f2356c39e9",
+      "audio": "seg23.mp3",
+      "start": 220.447,
+      "duration": 19.148
+    },
+    {
+      "index": 24,
+      "text": "把 delta 上限截到 0.05 秒，可以避免切回后台标签页后物体突然跳过一大段。浏览器通常暂停后台页面的动画帧，因此不要用回调次数推算真实经过时间。",
+      "hash": "278c480934889790",
+      "audio": "seg24.mp3",
+      "start": 239.595,
+      "duration": 15.438
+    },
+    {
+      "index": 25,
+      "text": "透视相机要求 near > 0 且 far > near 。深度缓冲精度在近平面附近最密集， near 极小、 far、near 比例过大，会让远处共面或相近表面出现闪烁穿插（z-fighting）。按场景尺度收紧范围，比盲目扩大视锥更有效。",
+      "hash": "3390e23901956bb8",
+      "audio": "seg25.mp3",
+      "start": 255.033,
+      "duration": 21.525
+    },
+    {
+      "index": 26,
+      "text": "5. resize：相机和画布一起改",
+      "hash": "7d60f99b10f6b2f9",
+      "audio": "seg26.mp3",
+      "start": 276.558,
+      "duration": 3.082
+    },
+    {
+      "index": 27,
+      "text": "窗口变化后必须按顺序完成三件套：更新宽高比、重建投影矩阵、重设渲染尺寸。漏掉中间一步，相机仍会使用旧投影。",
+      "hash": "c801a37055bf1630",
+      "audio": "seg27.mp3",
+      "start": 279.641,
+      "duration": 7.68
+    },
+    {
+      "index": 28,
+      "text": "如果画布只在页面某个容器里，应读取容器的 clientWidth、clientHeight ，而不是无条件使用 window 尺寸。",
+      "hash": "ac8d8654fc4371ad",
+      "audio": "seg28.mp3",
+      "start": 287.321,
+      "duration": 9.587
+    },
+    {
+      "index": 29,
+      "text": "物体在场景树里 到 父级变换没把它移走 到 目标位于相机视锥内 到 材质有合适光照 到 渲染循环仍在执行。黑屏不要先乱调材质，沿这条链从结构查到像素，效率最高。",
+      "hash": "c2e9c08a4e0771d5",
+      "audio": "seg29.mp3",
+      "start": 296.908,
+      "duration": 15.935
+    },
+    {
+      "index": 30,
+      "text": "在机器人场景里再给 head 挂回 robot ，让 robot 每秒转 30°、 head 相对父级每秒反向转 60°。要求动画在 60 Hz 和 120 Hz 下速度一致，并说明 scene.children.length 会不会随每帧旋转改变。",
+      "hash": "ff5599db65ff563a",
+      "audio": "seg30.mp3",
+      "start": 312.842,
+      "duration": 18.416
+    },
+    {
+      "index": 31,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg31.mp3",
+      "start": 331.259,
+      "duration": 1.593
+    },
+    {
+      "index": 32,
+      "text": "Scene 管层级， children 只看直属子节点； remove 不等于释放 GPU 资源。",
+      "hash": "b738ffcf7b130366",
+      "audio": "seg32.mp3",
+      "start": 332.852,
+      "duration": 7.21
+    },
+    {
+      "index": 33,
+      "text": "透视相机用 fov、aspect、near、far 定义视锥，正交相机没有近大远小。",
+      "hash": "c7606463ae84106c",
+      "audio": "seg33.mp3",
+      "start": 340.062,
+      "duration": 4.937
+    },
+    {
+      "index": 34,
+      "text": "渲染器抗锯齿在构造时决定，像素比应设上限，输出颜色空间保持 sRGB。",
+      "hash": "5af824f9bcb0a2e0",
+      "audio": "seg34.mp3",
+      "start": 344.999,
+      "duration": 6.896
+    },
+    {
+      "index": 35,
+      "text": "动画使用秒为单位的 delta ，不要假定帧率固定。",
+      "hash": "21ff552261bca2b9",
+      "audio": "seg35.mp3",
+      "start": 351.896,
+      "duration": 4.153
+    },
+    {
+      "index": 36,
+      "text": "resize 三件套：改 aspect 、更新投影矩阵、重设 renderer 尺寸。",
+      "hash": "87cade88b1079a25",
+      "audio": "seg36.mp3",
+      "start": 356.049,
+      "duration": 5.486
+    },
+    {
+      "index": 37,
+      "text": "下一章进入网格内部：顶点、法线、UV、索引与材质，再看父子矩阵如何合成世界位置。",
+      "hash": "91414ae495e0af00",
+      "audio": "seg37.mp3",
+      "start": 361.535,
+      "duration": 7.393
+    },
+    {
+      "index": 38,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg38.mp3",
+      "start": 368.927,
+      "duration": 1.411
+    },
+    {
+      "index": 39,
+      "text": "场景与节点基类： Scene 、 Object3D",
+      "hash": "5178031dde0c4716",
+      "audio": "seg39.mp3",
+      "start": 370.338,
+      "duration": 3.814
+    },
+    {
+      "index": 40,
+      "text": "相机参数与投影： PerspectiveCamera 、 OrthographicCamera",
+      "hash": "6d1729dfa40021b7",
+      "audio": "seg40.mp3",
+      "start": 374.152,
+      "duration": 5.042
+    },
+    {
+      "index": 41,
+      "text": "渲染器配置： WebGLRenderer",
+      "hash": "359871fbac79f034",
+      "audio": "seg41.mp3",
+      "start": 379.193,
+      "duration": 2.717
+    },
+    {
+      "index": 42,
+      "text": "浏览器动画帧： MDN requestAnimationFrame",
+      "hash": "5160330ef810fe42",
+      "audio": "seg42.mp3",
+      "start": 381.91,
+      "duration": 8.229
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628969377_01-scene-camera-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.930Z"
+}

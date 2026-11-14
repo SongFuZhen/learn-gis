@@ -1,0 +1,341 @@
+{
+  "slug": "06-animation",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T00:53:20.675Z",
+  "segmentCount": 41,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.593
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：让物体动起来，最容易写成 rotation.y += 0.01 ——60 Hz 屏幕转得正常，144 Hz 屏幕就像开了二倍速。动画的第一原则不是「每帧走多少」，而是「每秒走多少」。 一句话经验 ： Clock 量出两帧隔了多久，位移 = 速度 × 时间；GSAP 管「从 A 平滑到 B」，AnimationMixer 管「模型自带的关键帧」，Points 管「一大群小点」。 常见坑 ：",
+      "hash": "04717db90b31905e",
+      "audio": "seg01.mp3",
+      "start": 1.593,
+      "duration": 41.535
+    },
+    {
+      "index": 2,
+      "text": "在 rAF 里用固定增量，动画速度被刷新率绑架；正确单位是「弧度/秒」「米/秒」。",
+      "hash": "bce874973602e8ec",
+      "audio": "seg02.mp3",
+      "start": 43.128,
+      "duration": 7.811
+    },
+    {
+      "index": 3,
+      "text": "同时用 GSAP 自己的 ticker 和另一个 rAF 改同一个属性，两边互相覆盖；统一时钟，别抢方向盘。",
+      "hash": "8c46ac3f35442cec",
+      "audio": "seg03.mp3",
+      "start": 50.939,
+      "duration": 8.046
+    },
+    {
+      "index": 4,
+      "text": "glTF 动画已经加载却静止：只创建 mixer 不够，每帧还要 mixer.update(delta) 。",
+      "hash": "cb2ce79b1f4ecc1f",
+      "audio": "seg04.mp3",
+      "start": 58.984,
+      "duration": 13.166
+    },
+    {
+      "index": 5,
+      "text": "粒子透明贴图边缘出现黑块：常常是没设 transparent 、 depthWrite: false ，或混合方式不合适。 必记 3 条 ：",
+      "hash": "c2c0425d8d6cf2d9",
+      "audio": "seg05.mp3",
+      "start": 72.15,
+      "duration": 10.475
+    },
+    {
+      "index": 6,
+      "text": "连续动画用 delta，补间用时间轴，模型动画用 mixer——三者不要混成固定帧增量。",
+      "hash": "bdefee64c57bf3c3",
+      "audio": "seg06.mp3",
+      "start": 82.625,
+      "duration": 7.628
+    },
+    {
+      "index": 7,
+      "text": "粒子 = BufferGeometry 的位置数据 + PointsMaterial 的外观 + Points 一次绘制。",
+      "hash": "eff23ae0a5232a6e",
+      "audio": "seg07.mp3",
+      "start": 90.253,
+      "duration": 9.038
+    },
+    {
+      "index": 8,
+      "text": "动画系统退出时要停 rAF、杀补间、释放几何和材质，不能只管创建。",
+      "hash": "f1e87bd789363d9c",
+      "audio": "seg08.mp3",
+      "start": 99.291,
+      "duration": 7.079
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 106.371,
+      "duration": 2.142
+    },
+    {
+      "index": 10,
+      "text": "用 THREE.Clock 写帧率无关动画，用 GSAP 3 组织补间与时间轴，用 KeyframeTrack、AnimationClip、AnimationMixer 播放关键帧和 glTF 动画，修改 morph target 做变形，并用 Points 写一个会上升的粒子喷泉。最后对照 Cesium 的声明式粒子系统。",
+      "hash": "3c710267e97b0677",
+      "audio": "seg10.mp3",
+      "start": 108.513,
+      "duration": 22.178
+    },
+    {
+      "index": 11,
+      "text": "1. Clock 与 delta：动画不能按帧计工资",
+      "hash": "3568dd9c9f80d717",
+      "audio": "seg11.mp3",
+      "start": 130.691,
+      "duration": 7.079
+    },
+    {
+      "index": 12,
+      "text": "THREE.Clock 的 getDelta() 返回距上次调用的秒数， elapsedTime 返回累计秒数。浏览器掉帧时 delta 变大，这一帧就多走一点；高刷屏 delta 变小，每一帧就少走一点。这样不同设备上的 实际速度一致 。",
+      "hash": "7bc9189991e77e03",
+      "audio": "seg12.mp3",
+      "start": 137.77,
+      "duration": 19.2
+    },
+    {
+      "index": 13,
+      "text": "Math.sin(elapsed) 适合周期运动，delta 适合速度积分。物理模拟常把过大的 delta 再切成固定小步长；普通展示动画先做上限保护即可。",
+      "hash": "ec48bb73e8a43649",
+      "audio": "seg13.mp3",
+      "start": 156.97,
+      "duration": 14.132
+    },
+    {
+      "index": 14,
+      "text": "2. GSAP 3：声明「去哪里」，不必手写插值",
+      "hash": "696dcec71939cefd",
+      "audio": "seg14.mp3",
+      "start": 171.102,
+      "duration": 5.355
+    },
+    {
+      "index": 15,
+      "text": "GSAP（GreenSock Animation Platform）擅长一次性的状态过渡：点击后相机飞近、面板展开、物体弹跳。它默认有自己的 ticker，可以直接驱动 gsap.to ；three 的 rAF 只负责渲染。",
+      "hash": "7d90ce92a76aefb5",
+      "audio": "seg15.mp3",
+      "start": 176.457,
+      "duration": 13.531
+    },
+    {
+      "index": 16,
+      "text": "上例先演示默认协作，再展示手动模式的代码；实际项目 选择一种启动方式 。默认模式最省事；已有统一时间系统（例如录制、回放）时，才把 GSAP 的根时钟交给 rAF。",
+      "hash": "0c16be4e5f74c50d",
+      "audio": "seg16.mp3",
+      "start": 189.989,
+      "duration": 17.11
+    },
+    {
+      "index": 17,
+      "text": "若页面已经在运行第 1 节的 tick() ，不要再调用 manualTick() 。默认 GSAP 模式下保留原 tick 即可；手动模式下先停止旧 rAF，并用同一枚 Clock 重新计时。",
+      "hash": "1a45b0eea36d8d04",
+      "audio": "seg17.mp3",
+      "start": 207.099,
+      "duration": 12.408
+    },
+    {
+      "index": 18,
+      "text": "3. KeyframeTrack 到 AnimationClip 到 AnimationMixer",
+      "hash": "657c684b6bc186ed",
+      "audio": "seg18.mp3",
+      "start": 219.507,
+      "duration": 5.46
+    },
+    {
+      "index": 19,
+      "text": "three 的原生动画数据按「轨道」组织：一条关键帧轨道（keyframe track）记录某属性在若干时刻的值，对应类是 KeyframeTrack；多条轨道组成 AnimationClip；AnimationMixer 是播放器，把 clip 应用到具体对象。",
+      "hash": "5df88f945cf71bc5",
+      "audio": "seg19.mp3",
+      "start": 224.967,
+      "duration": 20.088
+    },
+    {
+      "index": 20,
+      "text": "轨道名 .position 作用于 mixer 根对象；也可以定位子节点，如 \"Armature.position\" 。要循环播放用 action.setLoop(THREE.LoopRepeat, Infinity) ，只播一次则 THREE.LoopOnce 配合 action.clampWhenFinished = true 。",
+      "hash": "0d7ffb420426c362",
+      "audio": "seg20.mp3",
+      "start": 245.055,
+      "duration": 21.891
+    },
+    {
+      "index": 21,
+      "text": "4. glTF 动画与 morph targets",
+      "hash": "da9ed30969a1c769",
+      "audio": "seg21.mp3",
+      "start": 266.945,
+      "duration": 5.825
+    },
+    {
+      "index": 22,
+      "text": "GLTFLoader 返回的 gltf.animations 是 AnimationClip 数组。模型、相机和灯光在 gltf.scene ，动画另存在数组里，别漏掉。",
+      "hash": "952488c900ba565f",
+      "audio": "seg22.mp3",
+      "start": 272.771,
+      "duration": 18.86
+    },
+    {
+      "index": 23,
+      "text": "关键帧动画常驱动骨骼、位置与旋转；morph target直接插值顶点，适合表情、嘴唇和柔和形变。取第一个 mesh 只用于演示，实际项目应通过模型里已知的节点名找到目标网格。",
+      "hash": "dce375f3d33012b7",
+      "audio": "seg23.mp3",
+      "start": 291.631,
+      "duration": 16.327
+    },
+    {
+      "index": 24,
+      "text": "5. Points：一份顶点数据画出整群粒子",
+      "hash": "b976833070ec4112",
+      "audio": "seg24.mp3",
+      "start": 307.958,
+      "duration": 4.284
+    },
+    {
+      "index": 25,
+      "text": "three 没有替你管理出生、寿命和重力的通用 ParticleSystem；最基础的粒子是 THREE.Points ：每个 position 顶点在屏幕上画一个点。下面用 CPU 更新位置，几千个点足够直观。",
+      "hash": "2956453b17fbb3c2",
+      "audio": "seg25.mp3",
+      "start": 312.242,
+      "duration": 12.408
+    },
+    {
+      "index": 26,
+      "text": "map 应是带透明通道的小贴图；加法混合适合发光火星，普通烟雾通常用默认 NormalBlending。动态修改 attribute 后必须置 needsUpdate ，并且不要每帧 new 新数组。",
+      "hash": "9fe70e9f3e077782",
+      "audio": "seg26.mp3",
+      "start": 324.65,
+      "duration": 16.091
+    },
+    {
+      "index": 27,
+      "text": "Cesium 粒子章 的 ParticleSystem 是声明式系统：ConeEmitter 等 CPU 发射器负责出生， updateCallback(particle, dt) 可加重力， modelMatrix 把系统落到地球局部坐标。three 的 Points 只负责 高效绘制 ，出生、回收与力由你写；自由度更高，也意味着生命周期和性能账都归你管。两者都不是「每个粒子一个 Mesh/Entity」。",
+      "hash": "d624bc2d2452a7ce",
+      "audio": "seg27.mp3",
+      "start": 340.741,
+      "duration": 31.321
+    },
+    {
+      "index": 28,
+      "text": "把第 5 节的恒速上升改成竖直速度 vy ：每帧执行 vy[i] -= 2 delta 、 y += vy[i] delta ；粒子超过高度 3 时回到 y = 0 并把 vy 重置为 2～4 的随机值。再把粒子数量从 1500 提到 15000，观察 draw call 是否随之等倍增加。",
+      "hash": "26c29b43defd286e",
+      "audio": "seg28.mp3",
+      "start": 372.062,
+      "duration": 24.451
+    },
+    {
+      "index": 29,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg29.mp3",
+      "start": 396.513,
+      "duration": 2.847
+    },
+    {
+      "index": 30,
+      "text": "delta 把动画从「每帧增量」改成「每秒速度」，elapsed 适合正弦周期运动。",
+      "hash": "686583586862862a",
+      "audio": "seg30.mp3",
+      "start": 399.36,
+      "duration": 5.825
+    },
+    {
+      "index": 31,
+      "text": "GSAP 默认 ticker 与 three rAF 可以分工；手动接管根时钟时只保留一条更新路径。",
+      "hash": "230122147443e164",
+      "audio": "seg31.mp3",
+      "start": 405.185,
+      "duration": 6.322
+    },
+    {
+      "index": 32,
+      "text": "AnimationMixer 播放 KeyframeTrack/AnimationClip，也播放 glTF 动画；每帧必须 update。",
+      "hash": "6152f61b851c2672",
+      "audio": "seg32.mp3",
+      "start": 411.507,
+      "duration": 7.732
+    },
+    {
+      "index": 33,
+      "text": "morph target 改顶点形变权重；Points 用一份 BufferGeometry 批量绘制粒子。",
+      "hash": "e7a4a6f29a5bdb77",
+      "audio": "seg33.mp3",
+      "start": 419.239,
+      "duration": 7.027
+    },
+    {
+      "index": 34,
+      "text": "下一章进入 GPU：用 ShaderMaterial 把顶点和颜色的计算写进 GLSL。",
+      "hash": "6d7783035d0da83d",
+      "audio": "seg34.mp3",
+      "start": 426.266,
+      "duration": 6.661
+    },
+    {
+      "index": 35,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg35.mp3",
+      "start": 432.927,
+      "duration": 2.795
+    },
+    {
+      "index": 36,
+      "text": "时钟与动画： THREE.Clock 、 AnimationMixer",
+      "hash": "a376b5c26e95fcc6",
+      "audio": "seg36.mp3",
+      "start": 435.722,
+      "duration": 6.06
+    },
+    {
+      "index": 37,
+      "text": "关键帧数据： KeyframeTrack 、 AnimationClip",
+      "hash": "d6719221bd65fd30",
+      "audio": "seg37.mp3",
+      "start": 441.783,
+      "duration": 5.303
+    },
+    {
+      "index": 38,
+      "text": "粒子绘制： THREE.Points 、 PointsMaterial",
+      "hash": "f4133b68e5b7c5bb",
+      "audio": "seg38.mp3",
+      "start": 447.086,
+      "duration": 8.229
+    },
+    {
+      "index": 39,
+      "text": "GSAP 3 官方文档： GSAP Docs",
+      "hash": "d1f7d8b78c50e3c4",
+      "audio": "seg39.mp3",
+      "start": 455.314,
+      "duration": 4.389
+    },
+    {
+      "index": 40,
+      "text": "Cesium 对照： ParticleSystem 课程",
+      "hash": "9f4a4e5d42514f0d",
+      "audio": "seg40.mp3",
+      "start": 459.703,
+      "duration": 3.971
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628964918_06-animation-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.929Z"
+}

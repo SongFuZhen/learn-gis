@@ -1,0 +1,349 @@
+{
+  "slug": "03-light-shadow",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T00:15:37.901Z",
+  "segmentCount": 42,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.978
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：同一个立方体，为什么有时像金属、有时像塑料，有时全黑、有时平得没有体积？答案不只在材质，还在光从哪里来、表面怎么反射、阴影有没有把空间关系交代清楚。 一句话经验 ：环境光负责「看得见」，主光负责「有体积」，阴影负责「站得住」，环境贴图负责「反射有内容」。 常见坑 ：",
+      "hash": "63b3a2ab9b989ff6",
+      "audio": "seg01.mp3",
+      "start": 2.978,
+      "duration": 24.451
+    },
+    {
+      "index": 2,
+      "text": "只加 AmbientLight，所有面都一样亮，物体像一张平面剪纸。",
+      "hash": "f6fc4b0b78332a11",
+      "audio": "seg02.mp3",
+      "start": 27.429,
+      "duration": 6.74
+    },
+    {
+      "index": 3,
+      "text": "开了 castShadow 却漏了 renderer.shadowMap.enabled 或地面的 receiveShadow 。",
+      "hash": "31abdeb40e185e18",
+      "audio": "seg03.mp3",
+      "start": 34.168,
+      "duration": 6.191
+    },
+    {
+      "index": 4,
+      "text": "平行光阴影模糊、残缺，只调大贴图，不检查 light.shadow.camera 是否罩住场景。",
+      "hash": "2bebde900aa89069",
+      "audio": "seg04.mp3",
+      "start": 40.359,
+      "duration": 8.882
+    },
+    {
+      "index": 5,
+      "text": "把 metalness 当「亮度」用，结果材质发黑又缺少环境反射。 必记 3 条 ：",
+      "hash": "d8be9a9da9796e85",
+      "audio": "seg05.mp3",
+      "start": 49.241,
+      "duration": 6.113
+    },
+    {
+      "index": 6,
+      "text": "平行光模拟太阳，点光模拟灯泡，聚光模拟手电，环境与半球光负责补光。",
+      "hash": "3ba78b60175e3acb",
+      "audio": "seg06.mp3",
+      "start": 55.353,
+      "duration": 6.426
+    },
+    {
+      "index": 7,
+      "text": "阴影要同时满足 renderer 开启、光源投射、物体投射、接收面接收。",
+      "hash": "6457e8dcae991b40",
+      "audio": "seg07.mp3",
+      "start": 61.78,
+      "duration": 6.478
+    },
+    {
+      "index": 8,
+      "text": "PBR 调粗糙度与金属度；IBL 提供环境反射，但不会自动替代投影主光。",
+      "hash": "f7f91793f6c05e59",
+      "audio": "seg08.mp3",
+      "start": 68.258,
+      "duration": 6.844
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 75.102,
+      "duration": 2.612
+    },
+    {
+      "index": 10,
+      "text": "五类光源的适用面、阴影贴图的生成与调参、PBR 金属度粗糙度工作流，以及用预滤波环境贴图快速获得可信反射。重点是建立一套可复用的产品展示布光思路。",
+      "hash": "541ab5ae7fdb1368",
+      "audio": "seg10.mp3",
+      "start": 77.714,
+      "duration": 13.819
+    },
+    {
+      "index": 11,
+      "text": "1. 五类光源：先选角色，再调强度",
+      "hash": "203c38b0a56b388e",
+      "audio": "seg11.mp3",
+      "start": 91.533,
+      "duration": 3.213
+    },
+    {
+      "index": 12,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg12.mp3",
+      "start": 94.746,
+      "duration": 2.612
+    },
+    {
+      "index": 13,
+      "text": "点光与聚光默认按物理距离衰减， distance 可限制影响范围。SpotLight 的照射方向由自身位置指向 target ；目标也是场景节点，移动目标后记得把它加入场景并参与矩阵更新。",
+      "hash": "1650c072b65de45b",
+      "audio": "seg13.mp3",
+      "start": 97.358,
+      "duration": 16.274
+    },
+    {
+      "index": 14,
+      "text": "2. 阴影贴图：先从光源方向画一张深度图",
+      "hash": "d059ba7ec5cca408",
+      "audio": "seg14.mp3",
+      "start": 113.633,
+      "duration": 4.206
+    },
+    {
+      "index": 15,
+      "text": "阴影贴图（shadow map）的原理是：先从光源视角渲染场景深度，再从正常相机渲染时比较「当前片元到光源的距离」与「深度图中最近距离」。更远就说明前面有遮挡物，该片元落入阴影。",
+      "hash": "e3a7a80e0cfd74c6",
+      "audio": "seg15.mp3",
+      "start": 117.838,
+      "duration": 14.472
+    },
+    {
+      "index": 16,
+      "text": "四个开关各司其职：renderer 允许阴影流程，光源生成阴影图，物体写入遮挡深度，接收面执行阴影比较。默认材质不因为场景有光就自动显示阴影。",
+      "hash": "03b97af45089470e",
+      "audio": "seg16.mp3",
+      "start": 132.31,
+      "duration": 14.472
+    },
+    {
+      "index": 17,
+      "text": "3. 阴影相机与 bias：清晰、完整和不悬浮的平衡",
+      "hash": "84a715637bfef025",
+      "audio": "seg17.mp3",
+      "start": 146.782,
+      "duration": 6.296
+    },
+    {
+      "index": 18,
+      "text": "DirectionalLight 使用正交阴影相机。它的覆盖范围应刚好包住「会投影 + 会接收」的区域：范围越大，每像素对应的世界面积越大，阴影越粗糙。",
+      "hash": "af55cb65cf2070ca",
+      "audio": "seg18.mp3",
+      "start": 153.078,
+      "duration": 12.095
+    },
+    {
+      "index": 19,
+      "text": "阴影表面的条纹常叫自遮挡， bias、normalBias 可缓解；偏移过大又会让影子与物体接触点分离，出现「悬浮」。 mapSize 翻倍会把阴影图边长翻倍、像素量变成四倍，不能代替合理覆盖范围。点光阴影需要从六个方向渲染，成本尤其高。",
+      "hash": "50563302148457e7",
+      "audio": "seg19.mp3",
+      "start": 165.172,
+      "duration": 14.916
+    },
+    {
+      "index": 20,
+      "text": "SpotLight 的 target 必须在场景树中，方向才按预期更新；阴影还要分别检查 spot.castShadow 、物体 castShadow 、接收面 receiveShadow 。若物体在阴影相机 near/far 或聚光锥之外，同样不会出现预期影子。",
+      "hash": "0f807d2f20c59050",
+      "audio": "seg20.mp3",
+      "start": 180.088,
+      "duration": 17.894
+    },
+    {
+      "index": 21,
+      "text": "4. PBR：金属度与粗糙度不是亮度滑块",
+      "hash": "468316d09ba68c67",
+      "audio": "seg21.mp3",
+      "start": 197.982,
+      "duration": 7.549
+    },
+    {
+      "index": 22,
+      "text": "基于物理的渲染（PBR）用能量守恒近似表面反射。 MeshStandardMaterial 采用金属度—粗糙度工作流：",
+      "hash": "151c2b9ba2464c06",
+      "audio": "seg22.mp3",
+      "start": 205.531,
+      "duration": 9.587
+    },
+    {
+      "index": 23,
+      "text": "非金属通常 metalness = 0 ，反射高光多呈浅色；金属通常接近 1，反射颜色更受基础色影响。 roughness 越低，反射越锐利；越高，高光越散。中间金属度适合表现混合层或艺术效果，但真实单一材质通常靠近两端。",
+      "hash": "79460c3281dfadc7",
+      "audio": "seg23.mp3",
+      "start": 215.118,
+      "duration": 17.894
+    },
+    {
+      "index": 24,
+      "text": "5. IBL：让金属「有东西可反射」",
+      "hash": "a74be18f761982b0",
+      "audio": "seg24.mp3",
+      "start": 233.012,
+      "duration": 6.792
+    },
+    {
+      "index": 25,
+      "text": "基于图像的光照（IBL）用环境贴图提供来自各方向的漫反射与镜面反射。没有环境时，高金属度材质在直射光之外容易发黑，这不是把 light 强度继续拉满就能自然解决的。",
+      "hash": "9c9a9b6a42940839",
+      "audio": "seg25.mp3",
+      "start": 239.804,
+      "duration": 15.256
+    },
+    {
+      "index": 26,
+      "text": "PMREMGenerator 会把环境预滤波成适合不同粗糙度采样的数据，通常只生成一次。 scene.environment 给 PBR 材质提供环境照明，但不会自动生成物体之间的投影阴影；仍需要 DirectionalLight 或 SpotLight 承担主光与接触阴影。",
+      "hash": "7c50816baf8a124c",
+      "audio": "seg26.mp3",
+      "start": 255.06,
+      "duration": 21.42
+    },
+    {
+      "index": 27,
+      "text": "Cesium 第 06 章 中的 3D Tiles / glTF 模型同样会使用 PBR 材质与场景环境光照；Cesium 还多了一层地球、太阳方向和地理时间语境。three 的 Light 则只是普通场景节点，位置、目标、阴影范围都由你定义，不会因为模型来自 glTF 就自动获得太阳光。",
+      "hash": "f88f8a3aabf4edb7",
+      "audio": "seg27.mp3",
+      "start": 276.48,
+      "duration": 23.562
+    },
+    {
+      "index": 28,
+      "text": "先用主光确定体积与阴影，再用 Hemisphere/Ambient 轻补暗部，随后调 metalness/roughness，最后加 IBL 丰富反射。不要一开始就叠很多高强度灯；光源越多，明暗关系越难判断，阴影成本也越高。",
+      "hash": "67f1ddb5fe4b380f",
+      "audio": "seg28.mp3",
+      "start": 300.042,
+      "duration": 17.894
+    },
+    {
+      "index": 29,
+      "text": "放一个半径 0.7 的金属球，球底恰好接触 y = 0 的平面。使用一盏平行光产生阴影，再给球添加环境反射；要求阴影相机只覆盖 6×6 的地面核心区域，并说明为什么仅加 AmbientLight 不够。",
+      "hash": "1b0746d73b53d183",
+      "audio": "seg29.mp3",
+      "start": 317.936,
+      "duration": 19.801
+    },
+    {
+      "index": 30,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg30.mp3",
+      "start": 337.737,
+      "duration": 2.56
+    },
+    {
+      "index": 31,
+      "text": "Ambient/Hemisphere 适合补光，Directional/Point/Spot 负责有方向的局部或主照明。",
+      "hash": "377255a4b8a55f3e",
+      "audio": "seg31.mp3",
+      "start": 340.297,
+      "duration": 6.557
+    },
+    {
+      "index": 32,
+      "text": "阴影来自光源视角深度比较，需要 renderer、光源、投射物和接收面共同开启。",
+      "hash": "38c4f5853029840a",
+      "audio": "seg32.mp3",
+      "start": 346.854,
+      "duration": 6.06
+    },
+    {
+      "index": 33,
+      "text": "阴影清晰度优先收紧阴影相机，再考虑贴图尺寸；bias 过大会让接触影悬浮。",
+      "hash": "0469417da5fcb5fc",
+      "audio": "seg33.mp3",
+      "start": 352.914,
+      "duration": 6.557
+    },
+    {
+      "index": 34,
+      "text": "metalness 描述金属属性，roughness 描述反射粗糙程度，都不等同于亮度。",
+      "hash": "9c57b3d98fd77702",
+      "audio": "seg34.mp3",
+      "start": 359.471,
+      "duration": 8.333
+    },
+    {
+      "index": 35,
+      "text": "IBL 提供环境反射与柔和照明，主光阴影仍需单独设计。",
+      "hash": "64e06ced570f022f",
+      "audio": "seg35.mp3",
+      "start": 367.804,
+      "duration": 4.754
+    },
+    {
+      "index": 36,
+      "text": "下一章把图片贴到 UV 上，并用 GLTFLoader、DRACOLoader 和 LoadingManager 加载完整模型。",
+      "hash": "ad179c677dd86d47",
+      "audio": "seg36.mp3",
+      "start": 372.558,
+      "duration": 8.699
+    },
+    {
+      "index": 37,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg37.mp3",
+      "start": 381.257,
+      "duration": 1.28
+    },
+    {
+      "index": 38,
+      "text": "光源家族： AmbientLight 、 DirectionalLight 、 SpotLight",
+      "hash": "86ca9199360d7089",
+      "audio": "seg38.mp3",
+      "start": 382.537,
+      "duration": 4.467
+    },
+    {
+      "index": 39,
+      "text": "阴影参数： LightShadow 、 DirectionalLightShadow",
+      "hash": "649858214793a06f",
+      "audio": "seg39.mp3",
+      "start": 387.004,
+      "duration": 4.023
+    },
+    {
+      "index": 40,
+      "text": "材质与环境： MeshStandardMaterial 、 PMREMGenerator",
+      "hash": "71c82b1a858a158a",
+      "audio": "seg40.mp3",
+      "start": 391.027,
+      "duration": 10.475
+    },
+    {
+      "index": 41,
+      "text": "可复用室内环境： RoomEnvironment",
+      "hash": "0d55a35aecbd62f7",
+      "audio": "seg41.mp3",
+      "start": 401.502,
+      "duration": 5.172
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628949221_03-light-shadow-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.924Z"
+}

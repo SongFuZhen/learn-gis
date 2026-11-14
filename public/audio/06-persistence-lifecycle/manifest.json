@@ -1,0 +1,437 @@
+{
+  "slug": "06-persistence-lifecycle",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T02:52:21.344Z",
+  "segmentCount": 53,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.664
+    },
+    {
+      "index": 1,
+      "text": "解决什么问题 ：用户设置的主题、答到第几题、已经通过哪些关，关掉应用后不能凭空消失。持久化负责“下次还在”，生命周期负责“什么时候加载、保存和释放”。",
+      "hash": "a84a68b8b4e051fd",
+      "audio": "seg01.mp3",
+      "start": 2.664,
+      "duration": 13.218
+    },
+    {
+      "index": 2,
+      "text": "一句话经验 ：少量设置用 Preferences，结构化查询用 RDB，UI 小状态可用 PersistenceV2；进入后台先保存关键状态，不靠 onDestroy 救命。",
+      "hash": "a34ae3582fa33c71",
+      "audio": "seg02.mp3",
+      "start": 15.882,
+      "duration": 13.166
+    },
+    {
+      "index": 3,
+      "text": "常见坑 1 ：调用 put() 后忘记 flush() ，内存已经变了，磁盘却未必落盘。",
+      "hash": "128de3e37093d849",
+      "audio": "seg03.mp3",
+      "start": 29.048,
+      "duration": 7.784
+    },
+    {
+      "index": 4,
+      "text": "常见坑 2 ：把需要条件查询和关联统计的海量题目硬塞成一个 Preferences 字符串。",
+      "hash": "f17419883087d11e",
+      "audio": "seg04.mp3",
+      "start": 36.833,
+      "duration": 7.21
+    },
+    {
+      "index": 5,
+      "text": "常见坑 3 ：RDB 查询后忘了关闭 ResultSet，批量循环中越用越耗资源。",
+      "hash": "965cfc0da79fb0f0",
+      "audio": "seg05.mp3",
+      "start": 44.042,
+      "duration": 8.229
+    },
+    {
+      "index": 6,
+      "text": "常见坑 4 ：认为进入后台马上会执行 onDestroy() ，把唯一一次保存拖到进程销毁。",
+      "hash": "a5d2974964c75fd6",
+      "audio": "seg06.mp3",
+      "start": 52.271,
+      "duration": 7.732
+    },
+    {
+      "index": 7,
+      "text": "常见坑 5 ：把全局 Context 当成随处可用的静态对象，不区分 Ability 与应用上下文。",
+      "hash": "58e0a2296d0bb9dd",
+      "audio": "seg07.mp3",
+      "start": 60.003,
+      "duration": 6.191
+    },
+    {
+      "index": 8,
+      "text": "必记 1 ：Preferences 写后 flush ；RDB 多步写用事务。",
+      "hash": "86870cabeab0e4ee",
+      "audio": "seg08.mp3",
+      "start": 66.194,
+      "duration": 6.478
+    },
+    {
+      "index": 9,
+      "text": "必记 2 ：冷启动常见顺序是 onCreate 到 onWindowStageCreate 到 onForeground 。",
+      "hash": "1490b5eafedb451d",
+      "audio": "seg09.mp3",
+      "start": 72.673,
+      "duration": 11.442
+    },
+    {
+      "index": 10,
+      "text": "必记 3 ：后台不等于销毁；敏感数据不能明文塞进普通键值存储。",
+      "hash": "f4892644ce97a80f",
+      "audio": "seg10.mp3",
+      "start": 84.114,
+      "duration": 6.713
+    },
+    {
+      "index": 11,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg11.mp3",
+      "start": 90.828,
+      "duration": 1.776
+    },
+    {
+      "index": 12,
+      "text": "Preferences 的创建、读取、写入与落盘。",
+      "hash": "831f1eec70e6e5ba",
+      "audio": "seg12.mp3",
+      "start": 92.604,
+      "duration": 5.825
+    },
+    {
+      "index": 13,
+      "text": "RDB、SQLite、RdbPredicates、ResultSet 和事务的关系。",
+      "hash": "8ed4b2833751e119",
+      "audio": "seg13.mp3",
+      "start": 98.429,
+      "duration": 9.064
+    },
+    {
+      "index": 14,
+      "text": "根据数据规模与查询方式选择持久化方案。",
+      "hash": "607e91c0741b7d0d",
+      "audio": "seg14.mp3",
+      "start": 107.494,
+      "duration": 3.866
+    },
+    {
+      "index": 15,
+      "text": "UIAbility 生命周期和 Context 的职责。",
+      "hash": "c89e5edc7b9b7ca9",
+      "audio": "seg15.mp3",
+      "start": 111.36,
+      "duration": 4.206
+    },
+    {
+      "index": 16,
+      "text": "PersistenceV2 适合保存什么，以及它不能替代什么。",
+      "hash": "11064e2ce206c72d",
+      "audio": "seg16.mp3",
+      "start": 115.566,
+      "duration": 6.191
+    },
+    {
+      "index": 17,
+      "text": "1. 先按数据形状选仓库",
+      "hash": "4d37f7255af23d35",
+      "audio": "seg17.mp3",
+      "start": 121.757,
+      "duration": 2.795
+    },
+    {
+      "index": 18,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg18.mp3",
+      "start": 124.552,
+      "duration": 2.717
+    },
+    {
+      "index": 19,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg19.mp3",
+      "start": 127.269,
+      "duration": 3.37
+    },
+    {
+      "index": 20,
+      "text": "2. Preferences：put 只是开始",
+      "hash": "141275516ba8d6bf",
+      "audio": "seg20.mp3",
+      "start": 130.638,
+      "duration": 5.355
+    },
+    {
+      "index": 21,
+      "text": "Preferences以键值形式保存轻量数据。同步 API 简单，但不应在 UI 热路径反复读写大内容。",
+      "hash": "45dca8fc5fc07fbe",
+      "audio": "seg21.mp3",
+      "start": 135.993,
+      "duration": 7.549
+    },
+    {
+      "index": 22,
+      "text": "getPreferences 获取指定名称的存储实例， put 修改键值， flush 将修改写入持久化文件。只有 flush 成功，才把这次保存当作可靠完成。 真实闯关项目可在仓库层缓存 Preferences 实例，例如 ProgressStore 统一负责读回、整组替换状态以及 flush 失败日志；组件不直接散落存储键名。",
+      "hash": "d77db939577b1fc0",
+      "audio": "seg22.mp3",
+      "start": 143.543,
+      "duration": 25.757
+    },
+    {
+      "index": 23,
+      "text": "Preferences 中存设置和小快照，不存网络连接、组件实例或无限增长的日志。数组更新采用“新数组替换旧数组”，再序列化需要保存的纯数据；密钥和敏感令牌改用安全存储。",
+      "hash": "3e3a45b9a1eecf4b",
+      "audio": "seg23.mp3",
+      "start": 169.3,
+      "duration": 13.662
+    },
+    {
+      "index": 24,
+      "text": "3. RDB：查询用谓词，批量写用事务",
+      "hash": "3f6188c00d2794f6",
+      "audio": "seg24.mp3",
+      "start": 182.962,
+      "duration": 4.467
+    },
+    {
+      "index": 25,
+      "text": "下面表结构只保存答题记录。SQL 建表语句可以固定，业务查询尽量通过 RdbPredicates 表达。",
+      "hash": "94e8f66fca20db54",
+      "audio": "seg25.mp3",
+      "start": 187.429,
+      "duration": 8.098
+    },
+    {
+      "index": 26,
+      "text": "ResultSet 是游标，不是普通数组：读取列之前按当前行取数据，用完立即 close() 。生产实现还应检查 goToFirstRow() 等游标操作结果，而不是假设必有记录。",
+      "hash": "6c35ba9b28767242",
+      "audio": "seg26.mp3",
+      "start": 195.527,
+      "duration": 13.949
+    },
+    {
+      "index": 27,
+      "text": "事务保证“一起成功或一起失败”",
+      "hash": "62480d9847d6964f",
+      "audio": "seg27.mp3",
+      "start": 209.476,
+      "duration": 4.571
+    },
+    {
+      "index": 28,
+      "text": "通关可能同时修改用户进度和写入答题统计，两次写入不能只做一半：",
+      "hash": "bee9f7ad01a42fd4",
+      "audio": "seg28.mp3",
+      "start": 214.047,
+      "duration": 5.773
+    },
+    {
+      "index": 29,
+      "text": "示例省略建表细节，但事务边界完整。提交或回滚也要在明确路径执行；不能让异常留下一个永远未结束的事务。",
+      "hash": "7a14b884d04d5933",
+      "audio": "seg29.mp3",
+      "start": 219.82,
+      "duration": 7.732
+    },
+    {
+      "index": 30,
+      "text": "4. UIAbility：从创建到前后台",
+      "hash": "53d410906a1effbd",
+      "audio": "seg30.mp3",
+      "start": 227.553,
+      "duration": 47.569
+    },
+    {
+      "index": 31,
+      "text": "UIAbility 是有界面的能力实例，EntryAbility 是应用入口。一次常见冷启动：",
+      "hash": "10f5f9465be39f0d",
+      "audio": "seg31.mp3",
+      "start": 275.122,
+      "duration": 10.736
+    },
+    {
+      "index": 32,
+      "text": "组件的 aboutToAppear、aboutToDisappear 管组件，UIAbility 的回调管能力实例。不要把两者按名字猜成同一层级。",
+      "hash": "eed8c397ae170892",
+      "audio": "seg32.mp3",
+      "start": 285.858,
+      "duration": 12.748
+    },
+    {
+      "index": 33,
+      "text": "5. Context：拿能力，也要拿对范围",
+      "hash": "b7f959959145e5a1",
+      "audio": "seg33.mp3",
+      "start": 298.606,
+      "duration": 3.448
+    },
+    {
+      "index": 34,
+      "text": "UIAbilityContext ：当前 UIAbility 的环境，可启动 Ability、访问其资源与存储路径。",
+      "hash": "a3c4b492fb461c59",
+      "audio": "seg34.mp3",
+      "start": 302.054,
+      "duration": 7.576
+    },
+    {
+      "index": 35,
+      "text": "ApplicationContext ：应用级环境，可设置应用颜色模式等，不绑定某个页面。",
+      "hash": "c3aa51426acd51ed",
+      "audio": "seg35.mp3",
+      "start": 309.629,
+      "duration": 4.571
+    },
+    {
+      "index": 36,
+      "text": "getContext(this) ：组件里取得上下文后按需转换，不要把 as 当作运行时校验。",
+      "hash": "66f3ed22253e6e12",
+      "audio": "seg36.mp3",
+      "start": 314.201,
+      "duration": 8.411
+    },
+    {
+      "index": 37,
+      "text": "仓库函数显式接收 Context，比让模块偷偷捕获某个页面的 Context 更容易测试和释放。",
+      "hash": "6733b2883166ac96",
+      "audio": "seg37.mp3",
+      "start": 322.612,
+      "duration": 5.303
+    },
+    {
+      "index": 38,
+      "text": "6. PersistenceV2：少量状态自动接持久化",
+      "hash": "e76a4c54d5b7305a",
+      "audio": "seg38.mp3",
+      "start": 327.915,
+      "duration": 6.531
+    },
+    {
+      "index": 39,
+      "text": "PersistenceV2 面向状态管理 V2，可把指定状态键连接到持久化，适合“当前 Tab”“少量界面恢复状态”。对 @ObservedV2 的 QuizDraft 调用 PersistenceV2.connect(QuizDraft, 'quizdraft', () => new QuizDraft()) 创建连接。 使用前要确认目标 API 版本、存储键和读回策略；读回的数据仍需校验。它不是把任意类、任意大型嵌套对象都安全序列化的魔法，也不提供 RDB 的复杂查询、索引和事务。",
+      "hash": "24a0d6f0b8f9566e",
+      "audio": "seg39.mp3",
+      "start": 334.446,
+      "duration": 40.411
+    },
+    {
+      "index": 40,
+      "text": "实现 saveTheme ：取得名为 settingsstore 的 Preferences，写入 thememode ，确保落盘；失败时继续抛出异常。再回答：十万条带条件筛选的答题记录为什么不放 Preferences？",
+      "hash": "5cdbce53d74b976b",
+      "audio": "seg40.mp3",
+      "start": 374.857,
+      "duration": 18.364
+    },
+    {
+      "index": 41,
+      "text": "本章小结",
+      "hash": "59955b2934432bfc",
+      "audio": "seg41.mp3",
+      "start": 393.221,
+      "duration": 1.881
+    },
+    {
+      "index": 42,
+      "text": "少量键值用 Preferences，写入后确认 flush 成功。",
+      "hash": "4b3be96a04c3fd33",
+      "audio": "seg42.mp3",
+      "start": 395.102,
+      "duration": 4.467
+    },
+    {
+      "index": 43,
+      "text": "结构化数据用 RDB，查询关闭 ResultSet，多步写入用事务。",
+      "hash": "f26de6f0b682d85a",
+      "audio": "seg43.mp3",
+      "start": 399.569,
+      "duration": 3.605
+    },
+    {
+      "index": 44,
+      "text": "冷启动先创建 Ability，再创建 WindowStage 并加载页面，随后进入前台。",
+      "hash": "604d60f2692a0199",
+      "audio": "seg44.mp3",
+      "start": 403.174,
+      "duration": 8.202
+    },
+    {
+      "index": 45,
+      "text": "后台不是销毁；关键进度应在状态变化时或进入后台时及时保存。",
+      "hash": "cf848f931c4c5121",
+      "audio": "seg45.mp3",
+      "start": 411.376,
+      "duration": 4.467
+    },
+    {
+      "index": 46,
+      "text": "PersistenceV2 连接少量 UI 状态与持久化，不能代替数据库和安全存储。",
+      "hash": "5b3056a0055f85ff",
+      "audio": "seg46.mp3",
+      "start": 415.843,
+      "duration": 8.986
+    },
+    {
+      "index": 47,
+      "text": "轻量 KV 记得 flush，结构化数据记得事务与 close，生命周期记得“后台未死、销毁太晚”。",
+      "hash": "b85fede156f7b8a0",
+      "audio": "seg47.mp3",
+      "start": 424.829,
+      "duration": 8.411
+    },
+    {
+      "index": 48,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg48.mp3",
+      "start": 433.241,
+      "duration": 1.28
+    },
+    {
+      "index": 49,
+      "text": "通过用户首选项实现数据持久化",
+      "hash": "ab1457098e067241",
+      "audio": "seg49.mp3",
+      "start": 434.521,
+      "duration": 3.396
+    },
+    {
+      "index": 50,
+      "text": "通过关系型数据库实现数据持久化",
+      "hash": "0aadbbe962ec2447",
+      "audio": "seg50.mp3",
+      "start": 437.917,
+      "duration": 3.265
+    },
+    {
+      "index": 51,
+      "text": "Stage 模型入门",
+      "hash": "4a8a4dbc13afb57d",
+      "audio": "seg51.mp3",
+      "start": 441.182,
+      "duration": 1.646
+    },
+    {
+      "index": 52,
+      "text": "状态变量不刷新排查",
+      "hash": "fa8776ef798d188c",
+      "audio": "seg52.mp3",
+      "start": 442.828,
+      "duration": 2.769
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/harmony/1794628999554_06-persistence-lifecycle-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:03:18.802Z"
+}

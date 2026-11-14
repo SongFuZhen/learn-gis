@@ -1,0 +1,365 @@
+{
+  "slug": "05-orbit-raycast",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T00:39:50.190Z",
+  "segmentCount": 44,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.952
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：模型能看之后，用户马上会想拖着转、滚轮缩放、悬停看反馈、点击查属性。OrbitControls 管「相机怎么绕」，Raycaster 管「这个像素打中了谁」，两者共享画布事件，却不能混成一件事。 一句话经验 ：先把指针像素位置换成 NDC，再从相机发出一条射线；命中列表取最近项，状态更新遵循「恢复旧高亮，再设置新高亮」。 常见坑 ：",
+      "hash": "85c21c8340c9dd33",
+      "audio": "seg01.mp3",
+      "start": 2.952,
+      "duration": 24.633
+    },
+    {
+      "index": 2,
+      "text": "开了阻尼却不在每帧调用 controls.update() ，惯性像没开。",
+      "hash": "e66d0b4370ca77eb",
+      "audio": "seg02.mp3",
+      "start": 27.585,
+      "duration": 5.172
+    },
+    {
+      "index": 3,
+      "text": "用 window.innerWidth/Height 换算指针，画布只占页面一角时拾取整体偏移。",
+      "hash": "451a398bc877ccd0",
+      "audio": "seg03.mp3",
+      "start": 32.758,
+      "duration": 9.665
+    },
+    {
+      "index": 4,
+      "text": "intersectObjects 命中的是 Group 内部的子 Mesh，业务却按外层模型 ID 查属性。",
+      "hash": "fdf701b37e0d3b61",
+      "audio": "seg04.mp3",
+      "start": 42.423,
+      "duration": 6.975
+    },
+    {
+      "index": 5,
+      "text": "多个 Mesh 共享材质，只高亮一个却整批变色；拖完相机还触发一次点击选中。 必记 3 条 ：",
+      "hash": "55d1c1ff8f90fc3f",
+      "audio": "seg05.mp3",
+      "start": 49.398,
+      "duration": 8.046
+    },
+    {
+      "index": 6,
+      "text": "阻尼开启后每帧 controls.update() ，再 renderer.render(scene, camera) 。",
+      "hash": "08ab8669fbd1adab",
+      "audio": "seg06.mp3",
+      "start": 57.443,
+      "duration": 6.426
+    },
+    {
+      "index": 7,
+      "text": "NDC 要用 canvas 的 bounding rect 计算，x 映射到 [-1,1]，y 方向相反。",
+      "hash": "7b19cfd6da5ac975",
+      "audio": "seg07.mp3",
+      "start": 63.869,
+      "duration": 9.3
+    },
+    {
+      "index": 8,
+      "text": "命中结果按距离从近到远排序；hover 是临时态，click 是持久选中态。",
+      "hash": "e2ce04d869ee20a9",
+      "audio": "seg08.mp3",
+      "start": 73.169,
+      "duration": 7.21
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 80.379,
+      "duration": 1.776
+    },
+    {
+      "index": 10,
+      "text": "OrbitControls 的阻尼、距离与俯仰限制，指针事件的 NDC 坐标换算，Raycaster 的射线求交与结果排序，以及一套不会互相覆盖状态的悬停高亮 + 点击选中实现。",
+      "hash": "40282aee07d78630",
+      "audio": "seg10.mp3",
+      "start": 82.155,
+      "duration": 14.733
+    },
+    {
+      "index": 11,
+      "text": "1. OrbitControls：相机围着 target 转",
+      "hash": "1b37a4b2b6ebbca6",
+      "audio": "seg11.mp3",
+      "start": 96.888,
+      "duration": 4.885
+    },
+    {
+      "index": 12,
+      "text": "轨道控制器把左键拖动、滚轮和触摸手势转换为相机绕目标点的运动。阻尼（damping）是在松手后继续衰减的惯性，不是降低旋转速度的简单系数。",
+      "hash": "4b7a53819b05a28b",
+      "audio": "seg12.mp3",
+      "start": 101.773,
+      "duration": 11.494
+    },
+    {
+      "index": 13,
+      "text": "target 是轨道中心，修改后调用 update() 才会同步视角。 minDistance、maxDistance 限制相机到目标的距离； maxPolarAngle 是从正 Y 轴向下计算的极角，单位是弧度，限制为略小于 90° 可避免相机绕到目标水平面以下。",
+      "hash": "b3bbed7c92b317f3",
+      "audio": "seg13.mp3",
+      "start": 113.267,
+      "duration": 25.469
+    },
+    {
+      "index": 14,
+      "text": "2. pointer 到 NDC：先扣除画布偏移",
+      "hash": "559e33c361728046",
+      "audio": "seg14.mp3",
+      "start": 138.736,
+      "duration": 7.131
+    },
+    {
+      "index": 15,
+      "text": "浏览器 PointerEvent 给的 clientX、clientY 是视口像素坐标，而 Raycaster 需要归一化设备坐标（NDC）：画布左下为 (-1,-1) ，右上为 (1,1) 。",
+      "hash": "76d89e23d09d4a96",
+      "audio": "seg15.mp3",
+      "start": 145.868,
+      "duration": 16.562
+    },
+    {
+      "index": 16,
+      "text": "公式先用 client - rect.left/top 得到画布内像素，再除以画布 CSS 尺寸归一化。Y 前加负号，是因为浏览器像素坐标向下增长，而 NDC 向上增长。这里不要用 canvas 内部 drawing buffer 像素尺寸替换 rect，也不必额外乘 devicePixelRatio。",
+      "hash": "4677f13d0be34d80",
+      "audio": "seg16.mp3",
+      "start": 162.429,
+      "duration": 21.603
+    },
+    {
+      "index": 17,
+      "text": "画布不在页面左上角、有 CSS 边框或被滚动容器包裹时，直接使用 clientX / window.innerWidth 会偏。调试时观察指针位于画布中心和四角时的 NDC：中心应接近 (0,0) ，四角应接近 正负1 。",
+      "hash": "c3662e7b23a98c87",
+      "audio": "seg17.mp3",
+      "start": 184.033,
+      "duration": 17.424
+    },
+    {
+      "index": 18,
+      "text": "3. Raycaster：一个像素对应三维中的一条线",
+      "hash": "7f4fcecdfc4a03e5",
+      "audio": "seg18.mp3",
+      "start": 201.456,
+      "duration": 4.153
+    },
+    {
+      "index": 19,
+      "text": "射线（ray，「瑞」）从相机出发，穿过指针在成像平面上的位置并向场景延伸。射线与三角形求交后，就可能得到命中对象、交点、距离、面和 UV 等信息。",
+      "hash": "04a8c386ed22fea2",
+      "audio": "seg19.mp3",
+      "start": 205.61,
+      "duration": 16.562
+    },
+    {
+      "index": 20,
+      "text": "intersectObjects(objects, true) 的第二个参数表示递归检查子节点。返回数组按 distance 从近到远排序，所以普通单选取 hits[0] ；没有命中时是空数组，不是 null 。Intersection 中的 object 是实际被射线打中的 Mesh，未必等于你传入的外层 Group。",
+      "hash": "96f66a0d399c8ea2",
+      "audio": "seg20.mp3",
+      "start": 222.171,
+      "duration": 26.619
+    },
+    {
+      "index": 21,
+      "text": "Cesium 第 07 章 用 ScreenSpaceEventHandler 接收屏幕像素事件，再用 scene.pick 取最上层对象、 drillPick 取穿透结果。three 则直接监听浏览器 pointer 事件，自己完成 NDC 换算，再由 Raycaster 返回按距离排序的数组。形式不同，核心都是「屏幕事件 到 三维求交」两段式。",
+      "hash": "6ee785c61f6f642b",
+      "audio": "seg21.mp3",
+      "start": 248.79,
+      "duration": 28.682
+    },
+    {
+      "index": 22,
+      "text": "4. hover + click：临时反馈与持久选中分开存",
+      "hash": "56a5ad3030890f33",
+      "audio": "seg22.mp3",
+      "start": 277.473,
+      "duration": 6.949
+    },
+    {
+      "index": 23,
+      "text": "下面的三个盒子各自拥有独立材质，避免共享材质导致一起变色。 hovered 随指针移动， selected 只在点击时改变；统一重算高亮可让选中态优先于悬停态。",
+      "hash": "25af6e268b3c72ab",
+      "audio": "seg23.mp3",
+      "start": 284.421,
+      "duration": 13.636
+    },
+    {
+      "index": 24,
+      "text": "点击时再写入持久选中态，并用按下与抬起的位移过滤轨道拖拽：",
+      "hash": "68d1e8df14e4ff37",
+      "audio": "seg24.mp3",
+      "start": 298.057,
+      "duration": 5.956
+    },
+    {
+      "index": 25,
+      "text": "若拾取 glTF，命中对象常是深层子 Mesh。可以在模型根节点设置 userData.selectable = true ，命中后沿 object.parent 向上找到该根节点，再读写业务 ID。若材质共享，需要按目标克隆材质，或把高亮放到独立轮廓层，不能直接改共享颜色。",
+      "hash": "6121b0f4a55de796",
+      "audio": "seg25.mp3",
+      "start": 304.013,
+      "duration": 15.752
+    },
+    {
+      "index": 26,
+      "text": "5. 性能与维护：少算、只算需要拾取的对象",
+      "hash": "99f1ef219ef7e43c",
+      "audio": "seg26.mp3",
+      "start": 319.765,
+      "duration": 5.695
+    },
+    {
+      "index": 27,
+      "text": "不要把所有灯光、地面、装饰物都无条件丢进射线检测。维护明确的 pickables ，能递归解决时就不要遍历无关场景；大量 Mesh 的 hover 可把最新指针坐标存下来，每个动画帧最多求交一次，而不是每个 pointermove 都算。",
+      "hash": "56acfe10c5e9ebc9",
+      "audio": "seg27.mp3",
+      "start": 325.46,
+      "duration": 15.203
+    },
+    {
+      "index": 28,
+      "text": "对象刚移动、尚未经过下一次 render 时，若需要立即拾取，应先更新相关世界矩阵。业务销毁时还要移除事件监听并 controls.dispose() ，避免重复初始化和闭包引用造成泄漏。",
+      "hash": "db62cd52421257e4",
+      "audio": "seg28.mp3",
+      "start": 340.663,
+      "duration": 11.154
+    },
+    {
+      "index": 29,
+      "text": "读取事件并换算 NDC 到 setFromCamera 到 对 pickables 求交并取最近项 到 分别更新 hover/selected 后统一刷新视觉。点空白要允许取消，拖拽要过滤，子 Mesh 要映射回业务根节点。",
+      "hash": "7d234146cc7f286f",
+      "audio": "seg29.mp3",
+      "start": 351.817,
+      "duration": 18.364
+    },
+    {
+      "index": 30,
+      "text": "把观察目标设为 (0,1,0) ，缩放距离限制为 3～12，极角不得超过 80°。点击空白时取消选中，拖动超过 5 像素后释放不得触发选中；说明为什么这些限制不会阻止 hover 高亮。",
+      "hash": "06a8083b0c6b84f0",
+      "audio": "seg30.mp3",
+      "start": 370.181,
+      "duration": 14.681
+    },
+    {
+      "index": 31,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg31.mp3",
+      "start": 384.862,
+      "duration": 2.847
+    },
+    {
+      "index": 32,
+      "text": "OrbitControls 围绕 target 工作，阻尼需要每帧 update，距离与极角限制单位要分清。",
+      "hash": "ac672ac406273bb6",
+      "audio": "seg32.mp3",
+      "start": 387.709,
+      "duration": 6.008
+    },
+    {
+      "index": 33,
+      "text": "PointerEvent 是视口像素坐标，必须结合 canvas rect 换算为 NDC，Y 轴要翻转。",
+      "hash": "32dce52e279c76cc",
+      "audio": "seg33.mp3",
+      "start": 393.718,
+      "duration": 7.367
+    },
+    {
+      "index": 34,
+      "text": "Raycaster 返回按距离升序的命中数组，首项是最近命中，空数组表示未命中。",
+      "hash": "babae8f6586461f4",
+      "audio": "seg34.mp3",
+      "start": 401.084,
+      "duration": 6.896
+    },
+    {
+      "index": 35,
+      "text": "hover 与 selected 分开管理；共享材质、子 Mesh 根节点和拖拽点击是最常见的业务坑。",
+      "hash": "8efe61364d96e897",
+      "audio": "seg35.mp3",
+      "start": 407.98,
+      "duration": 9.822
+    },
+    {
+      "index": 36,
+      "text": "大型场景限制拾取集合并控制求交频率，销毁时移除监听并释放控制器。",
+      "hash": "ed98a5fddfdcd4a6",
+      "audio": "seg36.mp3",
+      "start": 417.802,
+      "duration": 5.642
+    },
+    {
+      "index": 37,
+      "text": "下一章进入时间驱动内容：Clock、关键帧与补间动画，以及 Points 粒子系统。",
+      "hash": "77f2e5075703ead8",
+      "audio": "seg37.mp3",
+      "start": 423.445,
+      "duration": 5.825
+    },
+    {
+      "index": 38,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg38.mp3",
+      "start": 429.27,
+      "duration": 1.411
+    },
+    {
+      "index": 39,
+      "text": "控制器： OrbitControls",
+      "hash": "381a25cef2b1e1c1",
+      "audio": "seg39.mp3",
+      "start": 430.681,
+      "duration": 5.12
+    },
+    {
+      "index": 40,
+      "text": "射线求交： Raycaster 、 Vector2",
+      "hash": "156a26affbbaa180",
+      "audio": "seg40.mp3",
+      "start": 435.801,
+      "duration": 4.153
+    },
+    {
+      "index": 41,
+      "text": "指针事件： MDN Pointer events",
+      "hash": "810192bdcdd0603f",
+      "audio": "seg41.mp3",
+      "start": 439.954,
+      "duration": 2.978
+    },
+    {
+      "index": 42,
+      "text": "画布位置读取： MDN getBoundingClientRect",
+      "hash": "2c66673cc78dccc9",
+      "audio": "seg42.mp3",
+      "start": 442.932,
+      "duration": 5.224
+    },
+    {
+      "index": 43,
+      "text": "Cesium 对照： CesiumJS 文档",
+      "hash": "ada572660e9d7db3",
+      "audio": "seg43.mp3",
+      "start": 448.157,
+      "duration": 3.683
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628962691_05-orbit-raycast-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.925Z"
+}

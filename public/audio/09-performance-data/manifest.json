@@ -1,0 +1,397 @@
+{
+  "slug": "09-performance-data",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T20:18:54.995Z",
+  "segmentCount": 48,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.664
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：真实 GeoJSON 常带 Multi 几何、重复点、反向环和奇怪属性；数据一大，主线程又卡住，地图点击都没有反馈。 一句话心智模型 ：先把数据整理成算法需要的形状，再用可复现的基准测试（Benchmark）找到瓶颈，最后才把重计算移出主线程。 常见坑 ：",
+      "hash": "c947b8f250826c68",
+      "audio": "seg01.mp3",
+      "start": 2.664,
+      "duration": 21.656
+    },
+    {
+      "index": 2,
+      "text": "把 flatten 、 explode 、 combine 当成同义词：它们分别拆多几何、抽顶点、合并同类几何。",
+      "hash": "4910f5c746b2df91",
+      "audio": "seg02.mp3",
+      "start": 24.32,
+      "duration": 8.751
+    },
+    {
+      "index": 3,
+      "text": "以为 rewind 能修复所有坏面：它只规范环方向，不负责修自相交。",
+      "hash": "2948595a509c946f",
+      "audio": "seg03.mp3",
+      "start": 33.071,
+      "duration": 5.303
+    },
+    {
+      "index": 4,
+      "text": "把 Web Worker当免费加速：消息复制与序列化也有成本。 必记 3 条 ：",
+      "hash": "427a546e53c0c5a1",
+      "audio": "seg04.mp3",
+      "start": 38.374,
+      "duration": 5.355
+    },
+    {
+      "index": 5,
+      "text": "flatten 拆 Multi， explode 取所有顶点， combine 把同类单几何合成 Multi。",
+      "hash": "e77a774630da665c",
+      "audio": "seg05.mp3",
+      "start": 43.729,
+      "duration": 6.426
+    },
+    {
+      "index": 6,
+      "text": "rewind 默认按右手规则（Right-Hand Rule）调整环， cleanCoords 清理冗余坐标。",
+      "hash": "346c3e59f7a54a85",
+      "audio": "seg06.mp3",
+      "start": 50.155,
+      "duration": 10.71
+    },
+    {
+      "index": 7,
+      "text": "计时先预热、固定输入、多轮取统计量；Worker 消息里的 GeoJSON 会经过结构化克隆。",
+      "hash": "0a32af5524f29faf",
+      "audio": "seg07.mp3",
+      "start": 60.865,
+      "duration": 5.695
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 66.56,
+      "duration": 2.9
+    },
+    {
+      "index": 9,
+      "text": "搭建一条可测试的数据清洗管线，理解多几何与顶点之间的转换，正确解释 RFC 7946 环方向；使用 performance.now 与 console.time 做大数组基准测试，并用模块化 Worker 卸载 Turf 聚类计算。",
+      "hash": "0825e04b72f2b925",
+      "audio": "seg09.mp3",
+      "start": 69.46,
+      "duration": 13.166
+    },
+    {
+      "index": 10,
+      "text": "1. 先设计管线，再调用函数",
+      "hash": "271c7204b21e9401",
+      "audio": "seg10.mp3",
+      "start": 82.625,
+      "duration": 4.101
+    },
+    {
+      "index": 11,
+      "text": "真实项目可按以下顺序组织，但每一步都要由数据问题驱动，而不是无脑全跑：",
+      "hash": "9aaa158a217c3c0b",
+      "audio": "seg11.mp3",
+      "start": 86.727,
+      "duration": 5.904
+    },
+    {
+      "index": 12,
+      "text": "解析与校验 ：确认 Feature、Geometry、properties 结构以及经纬度范围。",
+      "hash": "6fece8207f120a2e",
+      "audio": "seg12.mp3",
+      "start": 92.63,
+      "duration": 6.557
+    },
+    {
+      "index": 13,
+      "text": "清洗与规范化 ： cleanCoords 去冗余， rewind 统一环方向。",
+      "hash": "5e629aa02a5ba418",
+      "audio": "seg13.mp3",
+      "start": 99.187,
+      "duration": 6.531
+    },
+    {
+      "index": 14,
+      "text": "形状转换 ：算法只收单几何时 flatten ，需要逐顶点时 explode ，需要打包输出时 combine 。",
+      "hash": "474dbda2aeb12f7f",
+      "audio": "seg14.mp3",
+      "start": 105.718,
+      "duration": 7.158
+    },
+    {
+      "index": 15,
+      "text": "空间计算与输出 ：保留原始属性，记录输入规模、参数和耗时。",
+      "hash": "c55df201939b1a42",
+      "audio": "seg15.mp3",
+      "start": 112.875,
+      "duration": 6.008
+    },
+    {
+      "index": 16,
+      "text": "性能优化 ：先测量，再决定降采样、空间索引、缓存或 Worker。",
+      "hash": "a440db9e2de550b6",
+      "audio": "seg16.mp3",
+      "start": 118.883,
+      "duration": 5.695
+    },
+    {
+      "index": 17,
+      "text": "每次转换都可能改变几何数量、属性承载方式或拓扑含义。保留原始输入，为关键步骤写小样本回归测试；不要为了让校验「通过」而静默删除大面积几何或业务字段。",
+      "hash": "0851ef95e14405fd",
+      "audio": "seg17.mp3",
+      "start": 124.578,
+      "duration": 13.166
+    },
+    {
+      "index": 18,
+      "text": "2. flatten、explode、combine：三种形状转换",
+      "hash": "819f59c7a89f4849",
+      "audio": "seg18.mp3",
+      "start": 137.744,
+      "duration": 5.59
+    },
+    {
+      "index": 19,
+      "text": "flatten 把 MultiPoint、MultiLineString、MultiPolygon 等多几何拆成单几何 FeatureCollection，并保留要素属性，方便逐条处理。 explode 则进一步把输入几何的顶点抽成 Point 集合。 combine 反向把同类点、线、面分别组合成 Multi 几何。",
+      "hash": "1f79e11449303976",
+      "audio": "seg19.mp3",
+      "start": 143.334,
+      "duration": 27.376
+    },
+    {
+      "index": 20,
+      "text": "若输入是 MultiPolygon， flatten 输出的是多个 Polygon，而不是把每个面的顶点变成点；后者才需要 explode 。闭合线的首尾坐标、重复顶点可能让 explode 结果含重复位置，需要按业务另行去重。 combine 也不是几何合并或 dissolve：它组合坐标结构，不自动消除重叠边界。",
+      "hash": "53c7d32c6def4c8a",
+      "audio": "seg20.mp3",
+      "start": 170.71,
+      "duration": 22.909
+    },
+    {
+      "index": 21,
+      "text": "3. rewind 与 cleanCoords：环方向和冗余坐标",
+      "hash": "8debd9101862b721",
+      "audio": "seg21.mp3",
+      "start": 193.62,
+      "duration": 5.172
+    },
+    {
+      "index": 22,
+      "text": "RFC 7946 为兼容性规定多边形外环按逆时针、孔洞环按顺时针，这符合右手规则。 rewind(geojson) 默认按这个方向重排坐标；传入 { reverse: true } 则使用相反方向。它改变的是顶点顺序，不应改变环所覆盖的区域。",
+      "hash": "f1a3326414e0b52a",
+      "audio": "seg22.mp3",
+      "start": 198.792,
+      "duration": 20.349
+    },
+    {
+      "index": 23,
+      "text": "cleanCoords(geojson) 按 Turf 的规则移除冗余坐标，适合清理重复点或不必要的共线点。两者可以组合，但职责不同：",
+      "hash": "1b258c84a10b24a4",
+      "audio": "seg23.mp3",
+      "start": 219.141,
+      "duration": 12.931
+    },
+    {
+      "index": 24,
+      "text": "RFC 7946 同时强调解析器不应仅因旧数据环方向不同就拒绝处理，因此 rewind 更适合作为 对外输出与跨系统互操作的规范化步骤 ，不是判断数据能否使用的唯一门槛。自相交、未闭合、孔洞越界等问题需要专门校验和修复，不能指望这两个函数包办。",
+      "hash": "c23f5e498a6f01bb",
+      "audio": "seg24.mp3",
+      "start": 232.072,
+      "duration": 23.85
+    },
+    {
+      "index": 25,
+      "text": "4. 大数组基准测试：测得准比跑得快更优先",
+      "hash": "ea3e99295e2cee2e",
+      "audio": "seg25.mp3",
+      "start": 255.922,
+      "duration": 5.407
+    },
+    {
+      "index": 26,
+      "text": "console.time/timeEnd 适合快速定位， performance.now 适合保存多轮样本并计算统计量。下面输入生成在计时外，先预热，再重复 7 轮取中位数和近似第 95 百分位：",
+      "hash": "1bb9e26be2480ab8",
+      "audio": "seg26.mp3",
+      "start": 261.329,
+      "duration": 20.167
+    },
+    {
+      "index": 27,
+      "text": "测试时固定输入数据、参数、浏览器与构建模式，分开报告不同 n ，不要在计时区里生成随机数据或打印几万条日志。平均值会掩盖偶发卡顿，至少同时看中位数与尾部分位数。若评估端到端 Worker 方案，还要把消息复制与结果回传计入，而不是只测 Worker 内部函数。",
+      "hash": "059594fd8ef7525d",
+      "audio": "seg27.mp3",
+      "start": 281.496,
+      "duration": 23.38
+    },
+    {
+      "index": 28,
+      "text": "Turf 常见瓶颈是大量 GeoJSON 的几何遍历、分配与主线程阻塞；Cesium 还涉及 WebGL 绘制调用、Entity 变化、图元批处理、3D Tiles 调度与显存。两者都需要先测量再优化，但指标不同，见 Cesium 性能收官章 。把 Turf 计算放进 Worker 能减轻主线程压力，却不会自动降低 Cesium 的渲染成本。",
+      "hash": "94fbdf35a8326bfc",
+      "audio": "seg28.mp3",
+      "start": 304.875,
+      "duration": 28.578
+    },
+    {
+      "index": 29,
+      "text": "5. Web Worker：把重计算移出主线程",
+      "hash": "fb0edf8cc165aa66",
+      "audio": "seg29.mp3",
+      "start": 333.453,
+      "duration": 3.03
+    },
+    {
+      "index": 30,
+      "text": "Worker 与页面通过消息通信。结构化克隆（Structured Clone）可以复制普通 GeoJSON 对象，但不能复制 DOM、地图实例、函数或 Cesium Entity 等行为对象。因此消息里应只放纯数据与参数。",
+      "hash": "480d29fa888bed9c",
+      "audio": "seg30.mp3",
+      "start": 336.483,
+      "duration": 13.636
+    },
+    {
+      "index": 31,
+      "text": "主线程创建模块 Worker，发送输入，并用请求编号对应结果：",
+      "hash": "6b8350e4c21cc653",
+      "audio": "seg31.mp3",
+      "start": 350.119,
+      "duration": 5.904
+    },
+    {
+      "index": 32,
+      "text": "turf.worker.js 内运行同样的 Turf ESM 代码，不访问 DOM：",
+      "hash": "cbdecd4c5015f004",
+      "audio": "seg32.mp3",
+      "start": 356.023,
+      "duration": 6.426
+    },
+    {
+      "index": 33,
+      "text": "普通 GeoJSON 通常是嵌套对象与数组，会复制而不是零成本共享。输入输出很大时，复制本身可能成为瓶颈；可通过减少字段、分批、缓存任务或改为可转移的二进制表示优化。并发任务还要带 id ，因为后发的短任务可能先返回；组件销毁后应终止 Worker 并忽略过期结果。",
+      "hash": "e13cccc2e2713a2f",
+      "audio": "seg33.mp3",
+      "start": 362.449,
+      "duration": 22.491
+    },
+    {
+      "index": 34,
+      "text": "同一个算法在 Worker 里不会自动少做一次点面判断。它的主要收益是避免阻塞页面交互。若算法本身复杂度不合适，仍需先减少输入、建立索引、换算法或缓存结果。",
+      "hash": "559afa0059b40402",
+      "audio": "seg34.mp3",
+      "start": 384.94,
+      "duration": 12.591
+    },
+    {
+      "index": 35,
+      "text": "准备一组含 MultiPoint、重复坐标与环方向不规范的样本：先把 Multi 几何拍平，再对适合的面执行 cleanCoords 与 rewind，记录每步 Feature 数量。另生成十万点，用 7 轮中位数比较主线程 KMeans 与 Worker 端到端耗时，Worker 计时必须包含消息发送和结果回传。",
+      "hash": "a6a25f7f855dac24",
+      "audio": "seg35.mp3",
+      "start": 397.531,
+      "duration": 20.741
+    },
+    {
+      "index": 36,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg36.mp3",
+      "start": 418.273,
+      "duration": 2.795
+    },
+    {
+      "index": 37,
+      "text": "flatten 拆多几何、 explode 抽顶点、 combine 组合同类几何，三者语义不可互换。",
+      "hash": "547ce2729fdff8a6",
+      "audio": "seg37.mp3",
+      "start": 421.068,
+      "duration": 8.385
+    },
+    {
+      "index": 38,
+      "text": "rewind 规范环方向， cleanCoords 清理冗余坐标；它们都不是通用拓扑修复器。",
+      "hash": "e8c3dddd11697972",
+      "audio": "seg38.mp3",
+      "start": 429.453,
+      "duration": 8.464
+    },
+    {
+      "index": 39,
+      "text": "大数组测试要固定输入、预热、多轮统计，并把端到端成本纳入结论。",
+      "hash": "2678a0453279f2fa",
+      "audio": "seg39.mp3",
+      "start": 437.917,
+      "duration": 5.407
+    },
+    {
+      "index": 40,
+      "text": "Worker 通过结构化克隆传递纯 GeoJSON，可释放主线程，却不能消除复制与算法本身的开销。",
+      "hash": "28e2de74416a899e",
+      "audio": "seg40.mp3",
+      "start": 443.324,
+      "duration": 8.046
+    },
+    {
+      "index": 41,
+      "text": "至此完成 Turf 二维分析主线：从几何原语、空间判断与聚合，到地图交互、数据工程和性能验证。",
+      "hash": "3ec53e25ddebc218",
+      "audio": "seg41.mp3",
+      "start": 451.37,
+      "duration": 7.314
+    },
+    {
+      "index": 42,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg42.mp3",
+      "start": 458.684,
+      "duration": 2.56
+    },
+    {
+      "index": 43,
+      "text": "Turf flatten 、 explode 与 combine",
+      "hash": "48dac759037931cd",
+      "audio": "seg43.mp3",
+      "start": 461.244,
+      "duration": 4.467
+    },
+    {
+      "index": 44,
+      "text": "Turf rewind 与 cleanCoords",
+      "hash": "158e5db7071d4b45",
+      "audio": "seg44.mp3",
+      "start": 465.711,
+      "duration": 2.011
+    },
+    {
+      "index": 45,
+      "text": "GeoJSON RFC 7946：Polygon 与环方向",
+      "hash": "e0ec9771f0a55e8b",
+      "audio": "seg45.mp3",
+      "start": 467.722,
+      "duration": 5.46
+    },
+    {
+      "index": 46,
+      "text": "MDN Web Worker",
+      "hash": "4de106eb9bc0e11e",
+      "audio": "seg46.mp3",
+      "start": 473.182,
+      "duration": 3.37
+    },
+    {
+      "index": 47,
+      "text": "MDN performance.now",
+      "hash": "ee4a50f73ffee01a",
+      "audio": "seg47.mp3",
+      "start": 476.552,
+      "duration": 3.971
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611746108_09-performance-data-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.816Z"
+}

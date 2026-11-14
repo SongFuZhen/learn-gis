@@ -1,0 +1,341 @@
+{
+  "slug": "08-postprocessing",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T01:22:24.421Z",
+  "segmentCount": 41,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 3.553
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：直接把场景画到屏幕，就像照片拍完立刻冲印；后处理允许先把画面存成纹理，再叠加泛光、暗角、颜色调整等效果。 一句话经验 ：EffectComposer 是流水线，RenderPass 负责「拍原片」，ShaderPass 负责「修图」，OutputPass 负责最后的色调映射与色彩空间转换。每个渲染通道（pass，/pæs/，「帕斯」）都有成本，顺序也会改变结果。 常见坑 ：",
+      "hash": "76a55d1a929e680c",
+      "audio": "seg01.mp3",
+      "start": 3.553,
+      "duration": 27.742
+    },
+    {
+      "index": 2,
+      "text": "还在用 renderer.render(scene, camera) ，却纳闷 composer 上的效果为何没出现；接入后应由 composer.render() 出图。",
+      "hash": "1a0aa3cb7eb8fad6",
+      "audio": "seg02.mp3",
+      "start": 31.295,
+      "duration": 7.367
+    },
+    {
+      "index": 3,
+      "text": "把 OutputPass 放在最前或漏掉它，导致色调映射、输出色彩空间不对。",
+      "hash": "6ee14228383b4617",
+      "audio": "seg03.mp3",
+      "start": 38.661,
+      "duration": 5.407
+    },
+    {
+      "index": 4,
+      "text": "只调用 renderer.setSize() ，忘了同步 composer.setSize() ，画面模糊、错位或尺寸不匹配。",
+      "hash": "b2e3712327823a96",
+      "audio": "seg04.mp3",
+      "start": 44.069,
+      "duration": 9.3
+    },
+    {
+      "index": 5,
+      "text": "以为 UnrealBloomPass 就是一次全屏绘制；它内部还有多级模糊与多个渲染目标。 必记 3 条 ：",
+      "hash": "618b24b5ea6158f4",
+      "audio": "seg05.mp3",
+      "start": 53.368,
+      "duration": 8.046
+    },
+    {
+      "index": 6,
+      "text": "基础链：RenderPass 到 效果 Pass 到 OutputPass，最后有效 Pass 才输出到屏幕。",
+      "hash": "c7d54a2c6d127e59",
+      "audio": "seg06.mp3",
+      "start": 61.414,
+      "duration": 9.953
+    },
+    {
+      "index": 7,
+      "text": "UnrealBloomPass 三参数：threshold 选亮区、strength 调强度、radius 调扩散。",
+      "hash": "0d5e3073bd379a0d",
+      "audio": "seg07.mp3",
+      "start": 71.367,
+      "duration": 8.464
+    },
+    {
+      "index": 8,
+      "text": "resize 同时更新相机、renderer、composer；性能按物理像素和实际子 Pass 数算账。",
+      "hash": "8b9d2b29e5016e9b",
+      "audio": "seg08.mp3",
+      "start": 79.83,
+      "duration": 8.098
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 87.928,
+      "duration": 2.299
+    },
+    {
+      "index": 10,
+      "text": "EffectComposer 的离屏渲染与 ping-pong 缓冲思想，RenderPass 和 Pass 链顺序，UnrealBloomPass 的三个核心参数，OutputPass 的收尾职责，以及用 ShaderPass 编写自定义暗角。最后处理 resize、DPR 和性能，并对照 Cesium 的 postProcessStages。",
+      "hash": "d2bb9e42b0af7c8f",
+      "audio": "seg10.mp3",
+      "start": 90.227,
+      "duration": 17.763
+    },
+    {
+      "index": 11,
+      "text": "1. 心智模型：场景先画进纹理，再逐道加工",
+      "hash": "84aef471f5f83e35",
+      "audio": "seg11.mp3",
+      "start": 107.99,
+      "duration": 5.695
+    },
+    {
+      "index": 12,
+      "text": "直接渲染时，终点是 canvas 的默认 framebuffer。使用 composer 后，场景先进入 WebGLRenderTarget；后续 Pass 把上一张纹理当输入，处理后写到另一张纹理。EffectComposer 用 readBuffer/writeBuffer 来回交换，这就是常说的 ping-pong 。",
+      "hash": "f422369ad6d04fb5",
+      "audio": "seg12.mp3",
+      "start": 113.685,
+      "duration": 15.856
+    },
+    {
+      "index": 13,
+      "text": "EffectComposer 构造时可以传自定义 renderTarget；不传时会按 renderer 尺寸创建内部目标。大多数效果只关心屏幕像素，不关心这个像素来自哪个 Mesh，因此同一套滤镜可以作用于整个场景。",
+      "hash": "94ce59cbc0734932",
+      "audio": "seg13.mp3",
+      "start": 129.541,
+      "duration": 16.692
+    },
+    {
+      "index": 14,
+      "text": "composer 会把链上最后一个启用的 Pass 设为 renderToScreen，其余 Pass 在离屏目标间传递。不要把每个 Pass 的 renderToScreen 都手动设为 true，否则中间结果会提前覆盖屏幕。",
+      "hash": "d50654468c901169",
+      "audio": "seg14.mp3",
+      "start": 146.233,
+      "duration": 13.244
+    },
+    {
+      "index": 15,
+      "text": "2. 最小完整链：RenderPass 到 Bloom 到 OutputPass",
+      "hash": "bcedd579da9d7ab9",
+      "audio": "seg15.mp3",
+      "start": 159.478,
+      "duration": 4.989
+    },
+    {
+      "index": 16,
+      "text": "下面是一个可运行的 Vite/ESM 示例。自发光材质提供亮区，UnrealBloomPass 制造泛光（bloom，「布卢姆」），OutputPass 完成最终显示转换。",
+      "hash": "35fad65896296bc6",
+      "audio": "seg16.mp3",
+      "start": 164.467,
+      "duration": 11.807
+    },
+    {
+      "index": 17,
+      "text": "RenderPass 是场景进入链的入口，换相机时更新它的 camera 或替换这个 Pass。 OutputPass 会读取 renderer 的色调映射设置；ACES 色调映射（tone mapping）把 HDR 亮度压进可显示范围，再做输出颜色空间转换。",
+      "hash": "2a066aa7eb1e1b2b",
+      "audio": "seg17.mp3",
+      "start": 176.274,
+      "duration": 18.024
+    },
+    {
+      "index": 18,
+      "text": "3. UnrealBloomPass：先选亮区，再把光晕扩散回去",
+      "hash": "bcdd2b067457a3ef",
+      "audio": "seg18.mp3",
+      "start": 194.299,
+      "duration": 5.172
+    },
+    {
+      "index": 19,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg19.mp3",
+      "start": 199.471,
+      "duration": 2.795
+    },
+    {
+      "index": 20,
+      "text": "泛光不等于把所有物体整体提亮。若画面完全没有光晕，先确认亮区亮度是否超过 threshold，再检查 OutputPass 是否位于链尾。使用 LDR 颜色且 threshold 很高时，可能根本没有像素被选中；自发光强度和光照可以产生超过 1 的 HDR 颜色。",
+      "hash": "739a764c104a0327",
+      "audio": "seg20.mp3",
+      "start": 202.266,
+      "duration": 22.439
+    },
+    {
+      "index": 21,
+      "text": "4. ShaderPass：自定义整屏暗角",
+      "hash": "8fdf993816c4f9c5",
+      "audio": "seg21.mp3",
+      "start": 224.705,
+      "duration": 7.68
+    },
+    {
+      "index": 22,
+      "text": "ShaderPass 会把这个 Pass 的输入纹理自动交给 tDiffuse uniform。下面的顶点模板绘制全屏几何，片元 shader 采样上一阶段，再让画面四周变暗。",
+      "hash": "481bf215cc7b7325",
+      "audio": "seg22.mp3",
+      "start": 232.385,
+      "duration": 11.128
+    },
+    {
+      "index": 23,
+      "text": "ShaderPass 构造函数会克隆传入 shader 的 uniforms，所以调参应改 vignettePass.uniforms ，不要只改原始的 VignetteShader.uniforms 。新增此 Pass 后的顺序是 RenderPass 到 Bloom 到 Vignette 到 OutputPass。",
+      "hash": "bd66684f816d41a9",
+      "audio": "seg23.mp3",
+      "start": 243.513,
+      "duration": 95.086
+    },
+    {
+      "index": 24,
+      "text": "5. resize、DPR 与性能账本",
+      "hash": "25ce46eb9c0a5f2b",
+      "audio": "seg24.mp3",
+      "start": 338.599,
+      "duration": 5.277
+    },
+    {
+      "index": 25,
+      "text": "setSize 接收 CSS 像素尺寸，composer 内部再乘自己的 pixelRatio；不要先把宽度乘 DPR 又调用 setPixelRatio(DPR) ，否则像素数会重复放大。每个全屏 Pass 的片元工作量近似为 宽 × 高 × DPR² ，而 Bloom 内部包含多个模糊子阶段与渲染目标，不能只按「链上有一个 Bloom」估成一次绘制。",
+      "hash": "5f0e617907d96e6f",
+      "audio": "seg25.mp3",
+      "start": 343.876,
+      "duration": 22.021
+    },
+    {
+      "index": 26,
+      "text": "Cesium 后处理章 把 scene.postProcessStages 当作滤镜图： fxaa 、 bloom 可直接 enabled，自定义 PostProcessStage 使用 colorTexture + vtextureCoordinates 到 outFragColor 。three 的 EffectComposer 则显式组织 RenderPass、ShaderPass 和 OutputPass，能插入场景渲染、自定义 renderTarget 等更多节点。两者共同点是 顺序有意义、每个全屏阶段都耗带宽 ，但 GLSL 输入输出约定不能直接互换。",
+      "hash": "ff0a669ee5732aa4",
+      "audio": "seg26.mp3",
+      "start": 365.897,
+      "duration": 39.445
+    },
+    {
+      "index": 27,
+      "text": "WebGLRenderer 的 antialias: true 作用于默认 framebuffer，不保证 composer 的离屏目标也有同样的 MSAA。边缘变锯齿时可评估支持 MSAA 的 renderTarget 或 SMAA/FXAA Pass，同时把额外显存与全屏开销一起计入。",
+      "hash": "014d1f37aa7c2c73",
+      "audio": "seg27.mp3",
+      "start": 405.342,
+      "duration": 21.055
+    },
+    {
+      "index": 28,
+      "text": "让暗角 strength 在 0.25～0.55 之间随时间正弦变化；把窗口resize处理补全，确保 DPR = 2 时 composer 仍按 CSS 尺寸设置。再把 bloomPass.enabled 切换为 false，观察链上其他效果是否仍然工作。",
+      "hash": "8f8465b95056ffdd",
+      "audio": "seg28.mp3",
+      "start": 426.397,
+      "duration": 17.345
+    },
+    {
+      "index": 29,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg29.mp3",
+      "start": 443.742,
+      "duration": 3.553
+    },
+    {
+      "index": 30,
+      "text": "EffectComposer 在离屏 renderTarget 间组织 Pass，最后一个启用 Pass 输出到屏幕。",
+      "hash": "f801b6c32d927cc3",
+      "audio": "seg30.mp3",
+      "start": 447.295,
+      "duration": 6.139
+    },
+    {
+      "index": 31,
+      "text": "RenderPass 提供场景图像，效果 Pass 依次处理，OutputPass 负责色调映射与颜色空间收尾。",
+      "hash": "09c27f8ee6716d90",
+      "audio": "seg31.mp3",
+      "start": 453.433,
+      "duration": 6.975
+    },
+    {
+      "index": 32,
+      "text": "Bloom 用 threshold、strength、radius 控制亮区、强度和扩散，内部不止一个绘制阶段。",
+      "hash": "10ba4b89ebe6ac32",
+      "audio": "seg32.mp3",
+      "start": 460.408,
+      "duration": 11.572
+    },
+    {
+      "index": 33,
+      "text": "ShaderPass 从 tDiffuse 读输入；resize 要同步 composer，性能按 DPR² 和实际子 Pass 数估算。",
+      "hash": "d3e3680661859ae8",
+      "audio": "seg33.mp3",
+      "start": 471.98,
+      "duration": 14.602
+    },
+    {
+      "index": 34,
+      "text": "下一章收官：把 three 场景接入 MapLibre 的 WebGL 地图，让通用三维效果拥有经纬度落点。",
+      "hash": "56bfcd524e09d3c4",
+      "audio": "seg34.mp3",
+      "start": 486.583,
+      "duration": 7.732
+    },
+    {
+      "index": 35,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg35.mp3",
+      "start": 494.315,
+      "duration": 1.593
+    },
+    {
+      "index": 36,
+      "text": "后处理核心： EffectComposer 、 Pass",
+      "hash": "731cf3f3cd379f76",
+      "audio": "seg36.mp3",
+      "start": 495.909,
+      "duration": 7.393
+    },
+    {
+      "index": 37,
+      "text": "场景与泛光： RenderPass 、 UnrealBloomPass",
+      "hash": "75e67063c531cbad",
+      "audio": "seg37.mp3",
+      "start": 503.301,
+      "duration": 4.467
+    },
+    {
+      "index": 38,
+      "text": "自定义与输出： ShaderPass 、 OutputPass",
+      "hash": "902a193b8b7cc233",
+      "audio": "seg38.mp3",
+      "start": 507.768,
+      "duration": 3.866
+    },
+    {
+      "index": 39,
+      "text": "官方后处理示例： three.js postprocessing examples",
+      "hash": "335dfdca7821b1e6",
+      "audio": "seg39.mp3",
+      "start": 511.634,
+      "duration": 5.303
+    },
+    {
+      "index": 40,
+      "text": "Cesium 对照： postProcessStages 课程",
+      "hash": "e684adc9097692c2",
+      "audio": "seg40.mp3",
+      "start": 516.937,
+      "duration": 3.5
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628968694_08-postprocessing-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.934Z"
+}

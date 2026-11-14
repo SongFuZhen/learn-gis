@@ -1,0 +1,341 @@
+{
+  "slug": "07-interpolation-random",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T19:25:49.555Z",
+  "segmentCount": 41,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.482
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：气象站只有 20 个，却想铺满整张温度图；新功能没有真实数据，却要先造 1000 个点、线和面做测试；三角网已经搭好，还想估算网内某点高度。 一句话心智模型 ：空间插值是「由已知点估计未知位置」，随机函数是「为测试造输入」，采样是「从已有集合挑代表」，三者不要混为一谈。 常见坑 ：",
+      "hash": "c3cb7d02183f3f5b",
+      "audio": "seg01.mp3",
+      "start": 2.482,
+      "duration": 27.847
+    },
+    {
+      "index": 2,
+      "text": "把 Turf interpolate 当普通线性插值：它做的是反距离权重（Inverse Distance Weighting）空间插值。",
+      "hash": "821249afadc4056e",
+      "audio": "seg02.mp3",
+      "start": 30.328,
+      "duration": 7.158
+    },
+    {
+      "index": 3,
+      "text": "把分段设色里的线性插值（Linear Interpolation）和空间插值混为一谈：前者映射数值与颜色，后者估计地理空间属性。",
+      "hash": "1bc4c9e9c1fbfd9f",
+      "audio": "seg03.mp3",
+      "start": 37.486,
+      "duration": 8.803
+    },
+    {
+      "index": 4,
+      "text": "把 sample 当成沿线等距取点；它实际上从 FeatureCollection 随机抽取要素。 必记 3 条 ：",
+      "hash": "ee97807112293adc",
+      "audio": "seg04.mp3",
+      "start": 46.289,
+      "duration": 7.576
+    },
+    {
+      "index": 5,
+      "text": "interpolate 根据散点属性生成规则网格， weight 控制距离衰减。",
+      "hash": "3fd8be7a209b29f0",
+      "audio": "seg05.mp3",
+      "start": 53.864,
+      "duration": 6.792
+    },
+    {
+      "index": 6,
+      "text": "randomPoint、randomLine、randomPolygon 的包围盒顺序都是 [minX, minY, maxX, maxY] 。",
+      "hash": "469d30da4eccc1c6",
+      "audio": "seg06.mp3",
+      "start": 60.656,
+      "duration": 8.62
+    },
+    {
+      "index": 7,
+      "text": "tin 建不规则三角网， planepoint 用某个三角面的平面方程估计点值。",
+      "hash": "aebe328957ef9db1",
+      "audio": "seg07.mp3",
+      "start": 69.277,
+      "duration": 6.975
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 76.251,
+      "duration": 2.011
+    },
+    {
+      "index": 9,
+      "text": "从离散站点生成属性网格，再写一个不依赖空间库的数值—颜色线性插值器；用随机函数批量构造测试 GeoJSON，正确区分随机抽样与沿线等距采样；最后用 tin 和 planepoint 完成局部平面估计。",
+      "hash": "91f316e926346f6d",
+      "audio": "seg09.mp3",
+      "start": 78.263,
+      "duration": 13.244
+    },
+    {
+      "index": 10,
+      "text": "1. interpolate：由散点估计规则网格",
+      "hash": "70f8fec250d6799c",
+      "audio": "seg10.mp3",
+      "start": 91.507,
+      "duration": 9.404
+    },
+    {
+      "index": 11,
+      "text": "interpolate(points, cellWidth, options) 对每个网格单元，根据周围已知点的属性值与距离计算估计值。距离越近通常影响越大， weight 是距离幂次；数值越大，近点主导越明显，远点影响衰减越快。",
+      "hash": "a0867280855752f8",
+      "audio": "seg11.mp3",
+      "start": 100.911,
+      "duration": 20.167
+    },
+    {
+      "index": 12,
+      "text": "property 指定要估计的数值字段， cellWidth 决定输出网格分辨率。格子越小不一定越真实：它只增加输出单元数量，不会创造新的观测信息。站点稀疏、分布不均或存在异常值时，结果都可能误导。",
+      "hash": "b378570319613f99",
+      "audio": "seg12.mp3",
+      "start": 121.078,
+      "duration": 15.02
+    },
+    {
+      "index": 13,
+      "text": "interpolate 的输入是带数值属性的地理点，输出是带估计属性的地理网格；普通线性插值只是在两个数或两种颜色之间按比例取值。把二者混用，会导致「颜色看起来平滑，却被误当成有观测依据的空间预测」。",
+      "hash": "ee3198c5c2d25554",
+      "audio": "seg13.mp3",
+      "start": 136.098,
+      "duration": 17.763
+    },
+    {
+      "index": 14,
+      "text": "2. 线性插值：服务分段设色，而不是伪造观测",
+      "hash": "16f0d4e795572f73",
+      "audio": "seg14.mp3",
+      "start": 153.861,
+      "duration": 7.314
+    },
+    {
+      "index": 15,
+      "text": "有了网格属性后，可以把数值映射为颜色。下面 lerp 完成一维线性插值， colorAt 在两个色标之间混合 RGB 通道；它和 Turf 的空间插值互相独立，也可以直接用于第 6 章的 count 。",
+      "hash": "90ad4129e0cf0b94",
+      "audio": "seg15.mp3",
+      "start": 161.176,
+      "duration": 14.002
+    },
+    {
+      "index": 16,
+      "text": "真正分段设色时，可准备多个色标并先找到数值所在区间。务必处理 value 缺失、非有限数与色标上下界；空间估计值是否可信，仍要回到站点分布和插值模型判断。",
+      "hash": "681433a5b4544712",
+      "audio": "seg16.mp3",
+      "start": 175.177,
+      "duration": 12.696
+    },
+    {
+      "index": 17,
+      "text": "3. randomPoint、randomLine、randomPolygon：批量造测试数据",
+      "hash": "0c01514d7e524c19",
+      "audio": "seg17.mp3",
+      "start": 187.873,
+      "duration": 7.079
+    },
+    {
+      "index": 18,
+      "text": "随机函数适合压测、演示和边界回归，不需要先连接数据库。三个函数第一个参数都是生成数量， bbox 限定经度与纬度范围。",
+      "hash": "87122e0e3d027e5d",
+      "audio": "seg18.mp3",
+      "start": 194.952,
+      "duration": 10.057
+    },
+    {
+      "index": 19,
+      "text": "每次调用通常得到不同结果，因此不要直接断言某个随机坐标值。测试应断言数量、几何类型、坐标是否在范围内等不变量；需要稳定复现失败样本时，把当次输出保存为固定 GeoJSON 后再写回归测试。",
+      "hash": "95f6b96d063a7043",
+      "audio": "seg19.mp3",
+      "start": 205.009,
+      "duration": 16.927
+    },
+    {
+      "index": 20,
+      "text": "随机包围盒数据只能证明程序能运行，不能证明模型适合真实业务。性能测试还应准备密集城区、稀疏郊区、极长线和带孔面等偏态样本，避免结果被过于均匀的合成数据美化。",
+      "hash": "153c53459038655a",
+      "audio": "seg20.mp3",
+      "start": 221.936,
+      "duration": 12.565
+    },
+    {
+      "index": 21,
+      "text": "4. sample 与 along：随机抽样不是沿线等距采样",
+      "hash": "0dc402ecc4386157",
+      "audio": "seg21.mp3",
+      "start": 234.501,
+      "duration": 4.441
+    },
+    {
+      "index": 22,
+      "text": "sample(featureCollection, num) 从集合中随机选出指定数量的要素，适合从大样本抽测试子集：",
+      "hash": "a2db39050a20faff",
+      "audio": "seg22.mp3",
+      "start": 238.942,
+      "duration": 9.482
+    },
+    {
+      "index": 23,
+      "text": "如果需求是「沿路线每 1 千米放一个里程桩」，应使用第 1 章的 length 与 along ，而不是 sample ：",
+      "hash": "2481ecc137b4df10",
+      "audio": "seg23.mp3",
+      "start": 248.424,
+      "duration": 9.169
+    },
+    {
+      "index": 24,
+      "text": "一个是「从已有要素中随机挑」，另一个是「沿线几何按距离生成新点」，输入、输出与业务语义完全不同。",
+      "hash": "835fce010c1b5419",
+      "audio": "seg24.mp3",
+      "start": 257.593,
+      "duration": 8.411
+    },
+    {
+      "index": 25,
+      "text": "5. tin 与 planepoint：在三角面上估计数值",
+      "hash": "28f17619cb1846da",
+      "audio": "seg25.mp3",
+      "start": 266.005,
+      "duration": 7.314
+    },
+    {
+      "index": 26,
+      "text": "不规则三角网 TIN把散点连接成一组三角形。 tin(points, z) 读取指定属性，输出三角形顶点对应的 a 、 b 、 c 值； planepoint(point, triangle) 再利用三点定义的平面求目标位置的值。",
+      "hash": "bca144e2cda853bc",
+      "audio": "seg26.mp3",
+      "start": 273.319,
+      "duration": 23.014
+    },
+    {
+      "index": 27,
+      "text": "planepoint 使用的是 一个三角面的平面方程 。目标点超出该三角形时，数学上可能只是外推；工程中应先确认点面关系，并决定无覆盖区域返回空值还是采用其他模型。它不是地形光线求交，也不会自动采样 Cesium 地形。",
+      "hash": "4f608de538d57082",
+      "audio": "seg27.mp3",
+      "start": 296.333,
+      "duration": 21.473
+    },
+    {
+      "index": 28,
+      "text": "Turf 这里估计的是二维位置上的属性；Cesium 的 SampledProperty 常按时间插值动态对象状态，sampleTerrain 则查询地形高度，三者问题不同。时间动画见 Cesium CZML 时间章 ，地形高度见 Cesium 地形章 。可以把 Turf 估计网格转成交给 Cesium 的 GeoJSON，但不要把属性插值结果当成椭球或地形高程。",
+      "hash": "c1f6a5a211307875",
+      "audio": "seg28.mp3",
+      "start": 317.806,
+      "duration": 28.682
+    },
+    {
+      "index": 29,
+      "text": "在固定包围盒中生成 40 个随机点，为每点写入 15–25 的模拟 temperature ，用 interpolate 生成 2 千米方形网格，再用 colorAt 输出每格 RGB。随后随机抽取 8 个站点作为验证集，并用 length + along 给一条路线每千米布点，说明它为何不能用 sample 替代。",
+      "hash": "28e65841af239a13",
+      "audio": "seg29.mp3",
+      "start": 346.488,
+      "duration": 30.537
+    },
+    {
+      "index": 30,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg30.mp3",
+      "start": 377.025,
+      "duration": 2.116
+    },
+    {
+      "index": 31,
+      "text": "interpolate 是反距离权重空间插值；数值与颜色之间的线性插值是另一层工具。",
+      "hash": "a75958722f9a4829",
+      "audio": "seg31.mp3",
+      "start": 379.141,
+      "duration": 6.609
+    },
+    {
+      "index": 32,
+      "text": "随机点、线、面适合构造测试输入，断言不变量并保存失败样本，别断言随机坐标。",
+      "hash": "3609e85ce48deaf3",
+      "audio": "seg32.mp3",
+      "start": 385.75,
+      "duration": 7.628
+    },
+    {
+      "index": 33,
+      "text": "sample 随机抽集合要素；沿线等距布点使用 length + along 。",
+      "hash": "a2d83b09db5fa079",
+      "audio": "seg33.mp3",
+      "start": 393.378,
+      "duration": 4.807
+    },
+    {
+      "index": 34,
+      "text": "tin + planepoint 提供局部平面估计；Cesium 的时间插值和地形采样属于不同语义。",
+      "hash": "27625c1ee27276b1",
+      "audio": "seg34.mp3",
+      "start": 398.184,
+      "duration": 9.247
+    },
+    {
+      "index": 35,
+      "text": "下一章把这些计算结果接入 Leaflet 与 MapLibre GL，让「鼠标输入—Turf 计算—地图更新」形成闭环。",
+      "hash": "d1e1ca1007cec561",
+      "audio": "seg35.mp3",
+      "start": 407.432,
+      "duration": 7.497
+    },
+    {
+      "index": 36,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg36.mp3",
+      "start": 414.929,
+      "duration": 1.228
+    },
+    {
+      "index": 37,
+      "text": "Turf interpolate",
+      "hash": "f693c0959e0e2eb1",
+      "audio": "seg37.mp3",
+      "start": 416.157,
+      "duration": 2.351
+    },
+    {
+      "index": 38,
+      "text": "Turf randomPoint 、 randomLine 与 randomPolygon",
+      "hash": "dd653fbeb45d9cc2",
+      "audio": "seg38.mp3",
+      "start": 418.508,
+      "duration": 5.695
+    },
+    {
+      "index": 39,
+      "text": "Turf sample 与 along",
+      "hash": "6349e0c7ced09088",
+      "audio": "seg39.mp3",
+      "start": 424.202,
+      "duration": 2.429
+    },
+    {
+      "index": 40,
+      "text": "Turf tin 与 planepoint",
+      "hash": "4bb5873cffbd09c8",
+      "audio": "seg40.mp3",
+      "start": 426.632,
+      "duration": 4.023
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611749810_07-interpolation-random-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.813Z"
+}

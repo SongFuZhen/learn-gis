@@ -1,0 +1,365 @@
+{
+  "slug": "08-leaflet-maplibre",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T19:52:25.122Z",
+  "segmentCount": 44,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.534
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：前面算出的缓冲区、网格和聚类还只是内存对象，用户需要在地图上看到它们，也需要点击、画线来驱动下一次计算。 一句话心智模型 ：GeoJSON 是 Turf 与二维地图库之间的数据总线；地图事件负责产生坐标，Turf 负责产生新几何，图层或数据源负责展示。 常见坑 ：",
+      "hash": "e76ce9a27dbb078b",
+      "audio": "seg01.mp3",
+      "start": 2.534,
+      "duration": 25.757
+    },
+    {
+      "index": 2,
+      "text": "Leaflet的 L.latLng 是 [纬度, 经度] ，GeoJSON 与 Turf 坐标仍是 [经度, 纬度] 。",
+      "hash": "07c991824792870c",
+      "audio": "seg02.mp3",
+      "start": 28.291,
+      "duration": 13.662
+    },
+    {
+      "index": 3,
+      "text": "每次鼠标移动都删除并重建地图、数据源和图层，造成闪烁与内存抖动。",
+      "hash": "d146320123d16bb3",
+      "audio": "seg03.mp3",
+      "start": 41.953,
+      "duration": 5.224
+    },
+    {
+      "index": 4,
+      "text": "用地图内部对象当唯一数据源，结果无法可靠复现分析；应保留一份独立的原始 GeoJSON。 必记 3 条 ：",
+      "hash": "09fd89cf8f5c8084",
+      "audio": "seg04.mp3",
+      "start": 47.177,
+      "duration": 8.411
+    },
+    {
+      "index": 5,
+      "text": "事件转 Turf：显式构造 [lng, lat] ；Turf 结果回地图：直接作为 GeoJSON 加载。",
+      "hash": "fa7b8d54ceb19684",
+      "audio": "seg05.mp3",
+      "start": 55.589,
+      "duration": 5.12
+    },
+    {
+      "index": 6,
+      "text": "Leaflet 用 L.geoJSON 管理结果，反向可用 layer.toGeoJSON() 。",
+      "hash": "2ea4983c62846ab4",
+      "audio": "seg06.mp3",
+      "start": 60.709,
+      "duration": 9.404
+    },
+    {
+      "index": 7,
+      "text": "MapLibre GL在加载后创建一次 source/layer，后续调用 setData 更新。",
+      "hash": "d4f325bfbc3d9be2",
+      "audio": "seg07.mp3",
+      "start": 70.113,
+      "duration": 5.59
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 75.703,
+      "duration": 1.724
+    },
+    {
+      "index": 9,
+      "text": "Turf 与 Leaflet、MapLibre GL 的双向数据流，点击绘线并实时计算缓冲区的完整闭环，以及 MapLibre addSource 、 addLayer 、 setData 的稳定更新模式。最后会与 CesiumJS 的屏幕拾取和 GeoJSON 加载路径对照。",
+      "hash": "1d329bd6622b4111",
+      "audio": "seg09.mp3",
+      "start": 77.427,
+      "duration": 19.67
+    },
+    {
+      "index": 10,
+      "text": "1. 先定数据契约：地图是视图，GeoJSON 是事实源",
+      "hash": "ac844978e624a91c",
+      "audio": "seg10.mp3",
+      "start": 97.097,
+      "duration": 9.404
+    },
+    {
+      "index": 11,
+      "text": "无论使用哪个地图库，都建议把分析状态保存在普通 JavaScript 变量里：原始输入、参数和 Turf 输出都不依赖地图对象。这样切换底图、重建图层或放进 Web Worker 时，计算链不必重写。",
+      "hash": "35628b1dcdd18b25",
+      "audio": "seg11.mp3",
+      "start": 106.501,
+      "duration": 12.748
+    },
+    {
+      "index": 12,
+      "text": "坐标顺序容易混淆，是因为同一个库里有不同 API 约定：Leaflet 的 L.latLng(39.904, 116.407) 先纬后经，但传给 L.geoJSON 的标准 GeoJSON 仍然先经后纬。 L.geoJSON 会在内部完成经纬度对象转换，不需要你先把 GeoJSON 数组倒过来。",
+      "hash": "d51c2e667ffe697e",
+      "audio": "seg12.mp3",
+      "start": 119.249,
+      "duration": 33.959
+    },
+    {
+      "index": 13,
+      "text": "推荐在地图事件回调里立刻生成标准 Turf Point，此后分析链全部使用 GeoJSON。不要在每个函数里反复交换经纬度；转换点越多，越难判断某次错误来自数据还是渲染。",
+      "hash": "186516caa7c003a7",
+      "audio": "seg13.mp3",
+      "start": 153.208,
+      "duration": 14.42
+    },
+    {
+      "index": 14,
+      "text": "2. Leaflet：L.geoJSON 双向连接 Turf",
+      "hash": "0a9609894b00bba6",
+      "audio": "seg14.mp3",
+      "start": 167.628,
+      "duration": 7.497
+    },
+    {
+      "index": 15,
+      "text": "下面先创建地图与一个空 GeoJSON 图层。 render 只清理这个分析图层，不碰底图与地图实例； addData 可直接接收 Turf 的 Feature 或 FeatureCollection。",
+      "hash": "a084477166b0f811",
+      "audio": "seg15.mp3",
+      "start": 175.125,
+      "duration": 14.263
+    },
+    {
+      "index": 16,
+      "text": "反向流程也很直接：Leaflet 矢量图层可导出 GeoJSON，再交给 Turf。地图只负责提供几何与属性，不需要把 L.Marker 、 L.Polygon 等实例硬塞给 Turf。",
+      "hash": "b225952f7a9d1b5e",
+      "audio": "seg16.mp3",
+      "start": 189.388,
+      "duration": 13.531
+    },
+    {
+      "index": 17,
+      "text": "3. 鼠标绘线 + 实时 buffer：最小交互闭环",
+      "hash": "4f3256f9daaa22c4",
+      "audio": "seg17.mp3",
+      "start": 202.919,
+      "duration": 4.336
+    },
+    {
+      "index": 18,
+      "text": "把点击点累积为标准坐标数组，点数达到两个后构造 LineString，再计算 150 米缓冲区。每次输入都走同一条「清理旧分析结果 到 添加新线 到 添加新面」路径：",
+      "hash": "972c873df02af18e",
+      "audio": "seg18.mp3",
+      "start": 207.256,
+      "duration": 17.659
+    },
+    {
+      "index": 19,
+      "text": "这就是交互闭环： 地图事件 到 标准化坐标 到 Turf 计算 到 图层更新 。若改为 mousemove 连续预览，应通过 requestAnimationFrame 合并同一帧的多次事件，并对大数据降频；否则几何计算和图层重建会争抢主线程。提供「完成、撤销、清空」操作时，要同时重置 draft 和分析图层，避免状态不一致。",
+      "hash": "db0d83c824633bef",
+      "audio": "seg19.mp3",
+      "start": 224.914,
+      "duration": 29.048
+    },
+    {
+      "index": 20,
+      "text": "Leaflet 与 MapLibre 的点击事件直接给二维经纬度；Cesium 通常先用 ScreenSpaceEventHandler 取得屏幕位置，再通过 pickEllipsoid、pickPosition 等 API 转成场景坐标，细节见 Cesium 拾取事件章 。两者都能转成 GeoJSON 交给 Turf 做二维分析；Turf 结果也可按 Cesium GeoJSON 章 加载，但高程与贴地展示仍由 Cesium 负责。",
+      "hash": "4a7c3be6fd877903",
+      "audio": "seg20.mp3",
+      "start": 253.962,
+      "duration": 29.283
+    },
+    {
+      "index": 21,
+      "text": "4. MapLibre GL：固定 source，setData 更新",
+      "hash": "bcfc0bfa338149f8",
+      "audio": "seg21.mp3",
+      "start": 283.246,
+      "duration": 9.064
+    },
+    {
+      "index": 22,
+      "text": "MapLibre 的数据源与样式层分离。推荐在 load 后创建一次 GeoJSON source 和引用它的 layer，后续只替换 source 数据。下面点击地图即可更新 Turf 缓冲区：",
+      "hash": "8be424253aa7d237",
+      "audio": "seg22.mp3",
+      "start": 292.31,
+      "duration": 15.02
+    },
+    {
+      "index": 23,
+      "text": "map.getSource 取得的是已注册数据源， setData 接受新的 GeoJSON 对象或数据地址。若点击发生在 load 前，数据源可能尚未创建，所以示例做了存在性检查；正式应用也可以在加载完成前暂存输入，加载后统一刷新。",
+      "hash": "3a52ae3534a3724e",
+      "audio": "seg23.mp3",
+      "start": 307.331,
+      "duration": 22.962
+    },
+    {
+      "index": 24,
+      "text": "5. 数据源更新模式：别让渲染对象吞掉原始数据",
+      "hash": "36602e389bfa43c3",
+      "audio": "seg24.mp3",
+      "start": 330.292,
+      "duration": 8.202
+    },
+    {
+      "index": 25,
+      "text": "稳定的更新策略包含四点：",
+      "hash": "0cfb607efe58438f",
+      "audio": "seg25.mp3",
+      "start": 338.495,
+      "duration": 2.56
+    },
+    {
+      "index": 26,
+      "text": "source 一次创建 ：保持 id 不变，样式层持续引用它。",
+      "hash": "8cc7a3c46b848f61",
+      "audio": "seg26.mp3",
+      "start": 341.055,
+      "duration": 7.68
+    },
+    {
+      "index": 27,
+      "text": "layer 一次创建 ：只改数据时，不必反复 removeLayer、addLayer 。",
+      "hash": "f32a05ad63f99d76",
+      "audio": "seg27.mp3",
+      "start": 348.735,
+      "duration": 6.374
+    },
+    {
+      "index": 28,
+      "text": "输入独立保存 ：原始绘线、参数与最新结果放在地图外；需要撤销、重算或切换框架时仍可使用。",
+      "hash": "c2d6a9c9d1ff304a",
+      "audio": "seg28.mp3",
+      "start": 355.109,
+      "duration": 8.464
+    },
+    {
+      "index": 29,
+      "text": "高频更新合帧 ：连续鼠标事件先保留最新坐标，在动画帧里计算并 setData ；大任务再考虑第 9 章 Worker。",
+      "hash": "f893246faabdb44f",
+      "audio": "seg29.mp3",
+      "start": 363.572,
+      "duration": 10.136
+    },
+    {
+      "index": 30,
+      "text": "从地图要素回到 Turf 时，优先读取这份标准状态。若从第三方绘制控件取结果，则使用控件公开的 GeoJSON 导出接口，不要依赖私有字段；渲染查询返回的要素还可能被切片、抽稀或裁剪，不一定等于原始输入。",
+      "hash": "9f234d889bbcdb02",
+      "audio": "seg30.mp3",
+      "start": 373.708,
+      "duration": 17.006
+    },
+    {
+      "index": 31,
+      "text": "MapLibre 的 paint 、 layout 表达式可以按 properties 改颜色与宽度，却不应被当成空间分析引擎。计数、缓冲、聚类先在 Turf 中完成，再把明确字段交给样式层，计算逻辑才容易测试和复用。",
+      "hash": "ae2d289537dfe80b",
+      "audio": "seg31.mp3",
+      "start": 390.713,
+      "duration": 19.566
+    },
+    {
+      "index": 32,
+      "text": "任选 Leaflet 或 MapLibre：依次点击三个位置形成折线，实时生成 200 米缓冲区；第四次点击前提供清空按钮。要求地图只创建一次图层或数据源，并把最新 LineString 与 buffer 结果保存在独立 state 中，再计算缓冲区面积。",
+      "hash": "f9a328b37c66a425",
+      "audio": "seg32.mp3",
+      "start": 410.279,
+      "duration": 19.069
+    },
+    {
+      "index": 33,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg33.mp3",
+      "start": 429.349,
+      "duration": 2.952
+    },
+    {
+      "index": 34,
+      "text": "Turf 与地图库通过标准 GeoJSON 解耦，原始输入和结果应独立于地图实例保存。",
+      "hash": "0c0d195ec043430a",
+      "audio": "seg34.mp3",
+      "start": 432.3,
+      "duration": 5.407
+    },
+    {
+      "index": 35,
+      "text": "Leaflet 事件需显式转成 [lng, lat] ， L.geoJSON 展示结果， toGeoJSON 支持反向输出。",
+      "hash": "34e4e48a4ee0f193",
+      "audio": "seg35.mp3",
+      "start": 437.708,
+      "duration": 10.083
+    },
+    {
+      "index": 36,
+      "text": "MapLibre 在 load 后固定创建 source/layer，更新几何调用 setData ，不要频繁拆建。",
+      "hash": "50e283ffb902da9c",
+      "audio": "seg36.mp3",
+      "start": 447.791,
+      "duration": 7.863
+    },
+    {
+      "index": 37,
+      "text": "Cesium 的屏幕拾取与三维展示属于另一条渲染链，但二维分析仍可复用同一 Turf 结果。",
+      "hash": "e948f58fcf3a87b5",
+      "audio": "seg37.mp3",
+      "start": 455.654,
+      "duration": 6.74
+    },
+    {
+      "index": 38,
+      "text": "下一章处理真实数据的清洗、拍平、环方向与大规模计算，把交互原型升级为可靠的工程管线。",
+      "hash": "929ca4f02352e20b",
+      "audio": "seg38.mp3",
+      "start": 462.393,
+      "duration": 8.15
+    },
+    {
+      "index": 39,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg39.mp3",
+      "start": 470.544,
+      "duration": 1.045
+    },
+    {
+      "index": 40,
+      "text": "Leaflet API 参考：L.geoJSON 与图层",
+      "hash": "97276b73a382769d",
+      "audio": "seg40.mp3",
+      "start": 471.589,
+      "duration": 3.866
+    },
+    {
+      "index": 41,
+      "text": "MapLibre GL JS 文档：Map 与 GeoJSON Source",
+      "hash": "048d1b7e000c769d",
+      "audio": "seg41.mp3",
+      "start": 475.455,
+      "duration": 4.467
+    },
+    {
+      "index": 42,
+      "text": "Turf buffer",
+      "hash": "c0c11268b9dcf08b",
+      "audio": "seg42.mp3",
+      "start": 479.922,
+      "duration": 1.306
+    },
+    {
+      "index": 43,
+      "text": "GeoJSON RFC 7946",
+      "hash": "9e75861126780081",
+      "audio": "seg43.mp3",
+      "start": 481.228,
+      "duration": 1.646
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611743735_08-leaflet-maplibre-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.811Z"
+}

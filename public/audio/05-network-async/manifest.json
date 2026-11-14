@@ -1,0 +1,381 @@
+{
+  "slug": "05-network-async",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T02:40:58.048Z",
+  "segmentCount": 46,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.482
+    },
+    {
+      "index": 1,
+      "text": "解决什么问题 ：题目在服务器、进度要同步、消息要实时到达，都离不开网络。 async、await 只是让等待写起来顺，不会把慢网络变快，也不会自动取消旧请求。",
+      "hash": "2d093ccdee05e8b0",
+      "audio": "seg01.mp3",
+      "start": 2.482,
+      "duration": 11.311
+    },
+    {
+      "index": 2,
+      "text": "一句话经验 ：权限先声明，响应先检查，连接要释放；旧请求要失效，重计算才交给其他线程。",
+      "hash": "2c455eae3ac66880",
+      "audio": "seg02.mp3",
+      "start": 13.793,
+      "duration": 9.535
+    },
+    {
+      "index": 3,
+      "text": "常见坑 1 ：忘记在 module.json5 声明 ohos.permission.INTERNET ，代码正确也发不出请求。",
+      "hash": "ba89837ee6ce39de",
+      "audio": "seg03.mp3",
+      "start": 23.327,
+      "duration": 11.389
+    },
+    {
+      "index": 4,
+      "text": "常见坑 2 ：只看 Promise 是否成功，不检查 HTTP 状态码，把 404 的错误页当 JSON 解析。",
+      "hash": "3e200b2406211c31",
+      "audio": "seg04.mp3",
+      "start": 34.717,
+      "duration": 8.803
+    },
+    {
+      "index": 5,
+      "text": "常见坑 3 ：每次请求创建 HTTP 对象却不 destroy() ，WebSocket 离开页面也不 close、off 。",
+      "hash": "94fdd031687b4bce",
+      "audio": "seg05.mp3",
+      "start": 43.52,
+      "duration": 10.553
+    },
+    {
+      "index": 6,
+      "text": "常见坑 4 ：快速切换关卡时，较慢的旧请求最后返回，覆盖新关卡状态。",
+      "hash": "dd8d43d27e990793",
+      "audio": "seg06.mp3",
+      "start": 54.073,
+      "duration": 5.904
+    },
+    {
+      "index": 7,
+      "text": "常见坑 5 ：把 JSON 解析或批量计算全塞给 UI 线程，页面滑动开始掉帧。",
+      "hash": "f5135eb48cc57d63",
+      "audio": "seg07.mp3",
+      "start": 59.977,
+      "duration": 7.576
+    },
+    {
+      "index": 8,
+      "text": "必记 1 ： await 不阻塞 UI 线程，但 build() 不能写成异步函数。",
+      "hash": "abdf3fcddead1887",
+      "audio": "seg08.mp3",
+      "start": 67.553,
+      "duration": 6.949
+    },
+    {
+      "index": 9,
+      "text": "必记 2 ：HTTP 请求要检查状态码、设置超时并释放。",
+      "hash": "b92dc0f8d410a37a",
+      "audio": "seg09.mp3",
+      "start": 74.501,
+      "duration": 9.404
+    },
+    {
+      "index": 10,
+      "text": "必记 3 ：TaskPool适合独立短任务，Worker适合可控的长驻任务；两者都不直接操作 UI。",
+      "hash": "11ccafbb3a305afa",
+      "audio": "seg10.mp3",
+      "start": 83.905,
+      "duration": 7.784
+    },
+    {
+      "index": 11,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg11.mp3",
+      "start": 91.69,
+      "duration": 1.829
+    },
+    {
+      "index": 12,
+      "text": "配置网络权限并写出可释放、可超时的 HTTP 请求。",
+      "hash": "12ed21bfae4eede9",
+      "audio": "seg12.mp3",
+      "start": 93.518,
+      "duration": 5.878
+    },
+    {
+      "index": 13,
+      "text": "管理 WebSocket 的打开、消息、关闭和异常事件。",
+      "hash": "573eb1bfeb8c34af",
+      "audio": "seg13.mp3",
+      "start": 99.396,
+      "duration": 5.486
+    },
+    {
+      "index": 14,
+      "text": "用 Promise 与 async、await 组织页面加载。",
+      "hash": "d8bb6b3bc09a6f50",
+      "audio": "seg14.mp3",
+      "start": 104.882,
+      "duration": 4.754
+    },
+    {
+      "index": 15,
+      "text": "处理超时、取消和旧响应竞态。",
+      "hash": "18f61604538105ff",
+      "audio": "seg15.mp3",
+      "start": 109.636,
+      "duration": 5.303
+    },
+    {
+      "index": 16,
+      "text": "根据任务形态选择 TaskPool 或 Worker。",
+      "hash": "41392b4953156296",
+      "audio": "seg16.mp3",
+      "start": 114.939,
+      "duration": 3.736
+    },
+    {
+      "index": 17,
+      "text": "1. 权限与异步边界",
+      "hash": "dc93e5e1d3b020fe",
+      "audio": "seg17.mp3",
+      "start": 118.674,
+      "duration": 2.664
+    },
+    {
+      "index": 18,
+      "text": "网络访问先在 entry/src/main/module.json5 声明权限：",
+      "hash": "62ac7a535a94ee99",
+      "audio": "seg18.mp3",
+      "start": 121.339,
+      "duration": 5.12
+    },
+    {
+      "index": 19,
+      "text": "这条权限允许联网，不代表服务器一定成功，也不代表可以跳过 HTTPS 校验。",
+      "hash": "841b833e04b83932",
+      "audio": "seg19.mp3",
+      "start": 126.459,
+      "duration": 5.486
+    },
+    {
+      "index": 20,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg20.mp3",
+      "start": 131.944,
+      "duration": 5.355
+    },
+    {
+      "index": 21,
+      "text": "build() 只描述当前状态。启动请求放在 aboutToAppear 或用户事件中，完成后再更新 @State 。",
+      "hash": "73f81eafd3cfb2aa",
+      "audio": "seg21.mp3",
+      "start": 137.3,
+      "duration": 11.076
+    },
+    {
+      "index": 22,
+      "text": "2. HTTP：完整请求不只是一行 await",
+      "hash": "ae0018cdbf742f11",
+      "audio": "seg22.mp3",
+      "start": 148.376,
+      "duration": 4.624
+    },
+    {
+      "index": 23,
+      "text": "这里有三道保险：超时以毫秒限制等待；仅成功响应进入 JSON 解析，真实项目还要校验字段； finally 保证所有路径释放请求对象。POST 数据放在 extraData ，按服务端约定设置请求头，不把令牌拼进 URL 或日志。",
+      "hash": "68f67dd20102334b",
+      "audio": "seg23.mp3",
+      "start": 152.999,
+      "duration": 20.637
+    },
+    {
+      "index": 24,
+      "text": "断网会 reject，但 404/500 也可能正常返回一个 HTTP 响应。检查 responseCode 后再处理 result ，并为空响应、错误 JSON 和服务端业务错误准备界面状态。",
+      "hash": "7068961b55de928a",
+      "audio": "seg24.mp3",
+      "start": 173.636,
+      "duration": 17.607
+    },
+    {
+      "index": 25,
+      "text": "3. 页面加载：启动与渲染分开",
+      "hash": "2942bd4e5032b5b7",
+      "audio": "seg25.mp3",
+      "start": 191.242,
+      "duration": 2.847
+    },
+    {
+      "index": 26,
+      "text": "session 是失效令牌：每次新请求递增，旧响应回来时不再匹配；组件销毁后递增也能避免晚到更新。超时限制“等多久”，序号保护解决“回来后还要不要用”。两者不是同一件事。若所用请求能力支持取消，还应在切换任务时主动取消旧请求，节省流量。",
+      "hash": "7e7852b191934a5e",
+      "audio": "seg26.mp3",
+      "start": 194.09,
+      "duration": 20.741
+    },
+    {
+      "index": 27,
+      "text": "4. WebSocket：连接也是资源",
+      "hash": "cf5ecd973793641b",
+      "audio": "seg27.mp3",
+      "start": 214.831,
+      "duration": 4.702
+    },
+    {
+      "index": 28,
+      "text": "WebSocket适合服务端主动推送和持续双向通信。一次短请求取题库用 HTTP 即可，不必为了“高级”而保持长连接。",
+      "hash": "c3e4002f34e5ba7e",
+      "audio": "seg28.mp3",
+      "start": 219.533,
+      "duration": 9.665
+    },
+    {
+      "index": 29,
+      "text": "文本消息与 ArrayBuffer 要分别处理。心跳用于发现假连接；重连要指数退避并设上限；用户主动退出后停止重连。重复订阅同一事件可能让一条消息处理多次，所以连接生命周期应由一个对象统一管理。",
+      "hash": "8c080912a12b9d95",
+      "audio": "seg29.mp3",
+      "start": 229.198,
+      "duration": 16.744
+    },
+    {
+      "index": 30,
+      "text": "5. Promise 组合与错误归属",
+      "hash": "1929755044f620e7",
+      "audio": "seg30.mp3",
+      "start": 245.943,
+      "duration": 3.683
+    },
+    {
+      "index": 31,
+      "text": "互不依赖的请求用 Promise.all 并行，有先后依赖则顺序 await ；失败时进入可重试状态，不吞错让 UI 永远“加载中”。日志不记录敏感信息。",
+      "hash": "a2ada6652dec147c",
+      "audio": "seg31.mp3",
+      "start": 249.626,
+      "duration": 12.8
+    },
+    {
+      "index": 32,
+      "text": "6. TaskPool 与 Worker：让计算离开 UI 线程",
+      "hash": "6c7351fb5d597d2e",
+      "audio": "seg32.mp3",
+      "start": 262.426,
+      "duration": 5.042
+    },
+    {
+      "index": 33,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg33.mp3",
+      "start": 267.468,
+      "duration": 2.142
+    },
+    {
+      "index": 34,
+      "text": "写一个 loadLevelSafe ：GET 请求、连接和读取超时各 5 秒，只接受 200，返回解析后的 LevelDto ，任何路径都释放 HTTP 对象。再列出防止旧请求覆盖新页面的一个办法。",
+      "hash": "d8cbeddd43705891",
+      "audio": "seg34.mp3",
+      "start": 269.61,
+      "duration": 19.566
+    },
+    {
+      "index": 35,
+      "text": "本章小结",
+      "hash": "59955b2934432bfc",
+      "audio": "seg35.mp3",
+      "start": 289.176,
+      "duration": 1.306
+    },
+    {
+      "index": 36,
+      "text": "先声明 INTERNET 权限，再处理状态码、数据格式、超时与释放。",
+      "hash": "adcfa940edb71263",
+      "audio": "seg36.mp3",
+      "start": 290.482,
+      "duration": 6.243
+    },
+    {
+      "index": 37,
+      "text": "异步代码在事件或生命周期启动，结果通过状态驱动 UI。",
+      "hash": "1d6ed2f66f8f6f58",
+      "audio": "seg37.mp3",
+      "start": 296.725,
+      "duration": 5.224
+    },
+    {
+      "index": 38,
+      "text": "请求取消和响应失效共同解决竞态，不能只依赖加载顺序。",
+      "hash": "71c75829ebb63742",
+      "audio": "seg38.mp3",
+      "start": 301.949,
+      "duration": 4.624
+    },
+    {
+      "index": 39,
+      "text": "WebSocket 要管理订阅、关闭、心跳和有限退避重连。",
+      "hash": "6501222e5e9e4717",
+      "audio": "seg39.mp3",
+      "start": 306.573,
+      "duration": 5.642
+    },
+    {
+      "index": 40,
+      "text": "独立短计算选 TaskPool，长驻通信选 Worker，UI 更新回到 UI 线程。",
+      "hash": "b2df47ab1ca10084",
+      "audio": "seg40.mp3",
+      "start": 312.216,
+      "duration": 6.296
+    },
+    {
+      "index": 41,
+      "text": "请求四件套：状态码、超时、异常、释放；异步两条线：取消旧任务、拒绝旧结果。",
+      "hash": "dc2a0abc17bdd04e",
+      "audio": "seg41.mp3",
+      "start": 318.511,
+      "duration": 6.113
+    },
+    {
+      "index": 42,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg42.mp3",
+      "start": 324.624,
+      "duration": 1.463
+    },
+    {
+      "index": 43,
+      "text": "HTTP 数据请求",
+      "hash": "bb0ffec31d884924",
+      "audio": "seg43.mp3",
+      "start": 326.087,
+      "duration": 2.064
+    },
+    {
+      "index": 44,
+      "text": "WebSocket 接口参考",
+      "hash": "7da13b1e5d6978ab",
+      "audio": "seg44.mp3",
+      "start": 328.15,
+      "duration": 1.541
+    },
+    {
+      "index": 45,
+      "text": "Stage 模型入门",
+      "hash": "4a8a4dbc13afb57d",
+      "audio": "seg45.mp3",
+      "start": 329.691,
+      "duration": 2.116
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/harmony/1794628993072_05-network-async-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:03:18.801Z"
+}

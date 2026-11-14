@@ -1,0 +1,365 @@
+{
+  "slug": "00-cognitive-map",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T01:48:57.001Z",
+  "segmentCount": 44,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.776
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：会 React/TypeScript，不等于打开鸿蒙工程就知道每层在干什么。HarmonyOS把语言、UI、应用壳、数据和构建工具拆成不同层，先认清地图，后面才不会把配置文件、组件和生命周期搅在一起。 一句话经验 ：ArkTS不是「换个后缀的 TS」，而是为静态检查和运行性能收紧了规则的 TypeScript 严格子集。 常见坑 ：",
+      "hash": "0847422909c52fc6",
+      "audio": "seg01.mp3",
+      "start": 1.776,
+      "duration": 29.309
+    },
+    {
+      "index": 2,
+      "text": "把 ArkTS 当成 TS 超集，照搬 any 、解构和运行时增删属性，结果编译期直接被拦下。",
+      "hash": "d3c91da2c2dd0589",
+      "audio": "seg02.mp3",
+      "start": 31.086,
+      "duration": 8.829
+    },
+    {
+      "index": 3,
+      "text": "把 ArkUI 当成网页 DOM 操作库，到处找 document ；这里应当描述 UI，并让状态驱动更新。",
+      "hash": "ee41c4c744a6cb0e",
+      "audio": "seg03.mp3",
+      "start": 39.915,
+      "duration": 8.281
+    },
+    {
+      "index": 4,
+      "text": "把 Stage 模型、UIAbility、页面组件当成同一个东西；它们分别管应用模型、有界面的应用实例和具体 UI。",
+      "hash": "dab2f986bf77800d",
+      "audio": "seg04.mp3",
+      "start": 48.196,
+      "duration": 8.934
+    },
+    {
+      "index": 5,
+      "text": "把 oh-package.json5 当模块清单；依赖、模块声明、应用信息各有自己的文件。 必记 3 条 ：",
+      "hash": "e79a83e5a228bc2c",
+      "audio": "seg05.mp3",
+      "start": 57.13,
+      "duration": 10.553
+    },
+    {
+      "index": 6,
+      "text": "ArkTS 管语言，ArkUI 管声明式界面，Stage 模型管应用与 Ability 的组织方式。",
+      "hash": "05a8e02e2e7260f8",
+      "audio": "seg06.mp3",
+      "start": 67.683,
+      "duration": 9.77
+    },
+    {
+      "index": 7,
+      "text": "ArkTS 强调明确类型和固定对象形态，许多动态 TS 写法要提前改掉。",
+      "hash": "d126334816c72aa5",
+      "audio": "seg07.mp3",
+      "start": 77.453,
+      "duration": 7.131
+    },
+    {
+      "index": 8,
+      "text": "UIAbility 是有界面的应用入口之一，页面组件则由窗口舞台加载，二者不是同一层。",
+      "hash": "b327016933e4dac6",
+      "audio": "seg08.mp3",
+      "start": 84.584,
+      "duration": 6.557
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 91.141,
+      "duration": 2.795
+    },
+    {
+      "index": 10,
+      "text": "技术栈各层的分工、React 概念如何迁移、ArkTS 的关键语言约束，以及从 UIAbility 到页面组件的启动路径。读完应能解释「这段代码属于哪一层」，并写出一个类型明确的最小 ArkUI 组件。",
+      "hash": "a7bf6997cc40fd22",
+      "audio": "seg10.mp3",
+      "start": 93.936,
+      "duration": 15.151
+    },
+    {
+      "index": 11,
+      "text": "1. 先建立技术栈地图",
+      "hash": "9db7cfc3be70a860",
+      "audio": "seg11.mp3",
+      "start": 109.087,
+      "duration": 2.769
+    },
+    {
+      "index": 12,
+      "text": "鸿蒙应用不是单个框架包，而是一组协同工作的层。学习时先按职责归类，比死记缩写有效。",
+      "hash": "34029a108b91a2d9",
+      "audio": "seg12.mp3",
+      "start": 111.856,
+      "duration": 7.863
+    },
+    {
+      "index": 13,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg13.mp3",
+      "start": 119.719,
+      "duration": 2.482
+    },
+    {
+      "index": 14,
+      "text": "ArkUI和 React 都是「UI 是状态的表达」，但 ArkUI 没有浏览器 DOM、JSX 和 npm 生态。类比帮助定位概念，不意味着 API 可以逐字翻译。",
+      "hash": "52cb5688c54885f6",
+      "audio": "seg14.mp3",
+      "start": 122.201,
+      "duration": 17.58
+    },
+    {
+      "index": 15,
+      "text": "2. ArkTS：不是 TS 的超集",
+      "hash": "0363d2b6269eebf2",
+      "audio": "seg15.mp3",
+      "start": 139.781,
+      "duration": 3.631
+    },
+    {
+      "index": 16,
+      "text": "TypeScript 允许很多动态写法；ArkTS 为了提前发现问题并支撑静态优化，把其中一部分直接排除。因此，「TS 能写」不能推出「ArkTS 能编译」。",
+      "hash": "8d8c6580097e9cd7",
+      "audio": "seg16.mp3",
+      "start": 143.412,
+      "duration": 12.8
+    },
+    {
+      "index": 17,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg17.mp3",
+      "start": 156.212,
+      "duration": 2.482
+    },
+    {
+      "index": 18,
+      "text": "下面是一个符合固定结构思路的 ArkTS 数据模型。字段在类中写清，实例通过构造函数创建，不靠 any 或临时加字段。",
+      "hash": "0426b97250160037",
+      "audio": "seg18.mp3",
+      "start": 158.694,
+      "duration": 10.292
+    },
+    {
+      "index": 19,
+      "text": "动态写法在 ArkTS 中往往会在编译期失败，这是语言约束在起作用，不是 DevEco Studio「误报」。优先把数据形状改成明确类或接口；对象展开、参数解构等熟悉写法也要逐项核对迁移规则。",
+      "hash": "41e0288019e1dfd8",
+      "audio": "seg19.mp3",
+      "start": 168.986,
+      "duration": 14.237
+    },
+    {
+      "index": 20,
+      "text": "3. Stage 模型：应用壳与页面分开看",
+      "hash": "f9dd1eba125ae2df",
+      "audio": "seg20.mp3",
+      "start": 183.223,
+      "duration": 4.389
+    },
+    {
+      "index": 21,
+      "text": "Stage 模型中， UIAbility 处理带界面的应用实例生命周期， WindowStage 管理它对应的窗口舞台，具体 ArkUI 页面再通过 loadContent 加载。",
+      "hash": "c56ae25c8190a602",
+      "audio": "seg21.mp3",
+      "start": 187.611,
+      "duration": 12.408
+    },
+    {
+      "index": 22,
+      "text": "这张链路能解释两个常见误会：",
+      "hash": "9dd29956123fa129",
+      "audio": "seg22.mp3",
+      "start": 200.02,
+      "duration": 2.612
+    },
+    {
+      "index": 23,
+      "text": "EntryAbility.ets 不是首页组件，它负责把窗口与首页连接起来。",
+      "hash": "c0d2a641ac488975",
+      "audio": "seg23.mp3",
+      "start": 202.632,
+      "duration": 4.702
+    },
+    {
+      "index": 24,
+      "text": "Index.ets 不是应用进程入口，它是被加载的页面；页面里写 @Component struct ，不是再继承一次 UIAbility 。",
+      "hash": "05080504a6f35e0d",
+      "audio": "seg24.mp3",
+      "start": 207.334,
+      "duration": 10.841
+    },
+    {
+      "index": 25,
+      "text": "后台扩展场景由不同的 ExtensionAbility 承担，不要为了让普通页面显示而滥用扩展入口。第 1 章会展开完整骨架，本章先认位置。",
+      "hash": "ffc5117e6374c4e2",
+      "audio": "seg25.mp3",
+      "start": 218.175,
+      "duration": 11.076
+    },
+    {
+      "index": 26,
+      "text": "4. 声明式 UI 的最小心智模型",
+      "hash": "003347a84976352e",
+      "audio": "seg26.mp3",
+      "start": 229.251,
+      "duration": 5.956
+    },
+    {
+      "index": 27,
+      "text": "ArkUI 组件用 @Component 装饰 struct ，在 build() 中描述界面；事件修改被观察的状态，框架再更新依赖它的 UI。下面代码来自计数器模式，暂时没有涉及任何 DOM 操作。",
+      "hash": "0df2ac1c89c96178",
+      "audio": "seg27.mp3",
+      "start": 235.207,
+      "duration": 15.673
+    },
+    {
+      "index": 28,
+      "text": "这里的 @Entry 标记页面入口， @Component 声明自定义组件， @State 声明组件内可观察状态， Column 是纵向容器， Text 与 Button 是内置组件。第 2、3 章会分别拆 UI 语法与状态观察规则。",
+      "hash": "5cad6e61d44da716",
+      "audio": "seg28.mp3",
+      "start": 250.88,
+      "duration": 15.856
+    },
+    {
+      "index": 29,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg29.mp3",
+      "start": 266.736,
+      "duration": 3.187
+    },
+    {
+      "index": 30,
+      "text": "5. 工具链各自站在哪一步",
+      "hash": "5237cefd296ca797",
+      "audio": "seg30.mp3",
+      "start": 269.923,
+      "duration": 4.389
+    },
+    {
+      "index": 31,
+      "text": "写代码前由 DevEco Studio 生成 Stage 工程；依赖声明在 oh-package.json5 ，由 ohpm 安装；hvigor 执行构建；最终的 HAP 部署到设备。Previewer 适合看 UI，但不能替代真机验证权限、传感器和完整系统交互。",
+      "hash": "d43bb1519a1e5006",
+      "audio": "seg31.mp3",
+      "start": 274.312,
+      "duration": 18.73
+    },
+    {
+      "index": 32,
+      "text": "ArkTS 是 TypeScript 的严格子集，不是所有 TS 代码都能直接迁移。",
+      "hash": "2205600de91d0c74",
+      "audio": "seg32.mp3",
+      "start": 293.042,
+      "duration": 7.576
+    },
+    {
+      "index": 33,
+      "text": "ArkUI 负责状态驱动的声明式 UI；Stage/UIAbility 负责应用壳与生命周期。",
+      "hash": "e42c3dffffdae959",
+      "audio": "seg33.mp3",
+      "start": 300.617,
+      "duration": 6.374
+    },
+    {
+      "index": 34,
+      "text": "DevEco Studio 管工程全流程，hvigor 管构建，ohpm 管依赖，三者不要混称。",
+      "hash": "bbf44299e89c24ee",
+      "audio": "seg34.mp3",
+      "start": 306.991,
+      "duration": 7.027
+    },
+    {
+      "index": 35,
+      "text": "定义一个 StudyProgress 类，固定包含 lessonName: string 与 done: boolean 两个字段；再用 @Component struct 展示课程名和完成状态，点击按钮后把状态改为完成。要求不用 any 、解构或动态新增属性。",
+      "hash": "957e955888fe7c49",
+      "audio": "seg35.mp3",
+      "start": 314.018,
+      "duration": 18.495
+    },
+    {
+      "index": 36,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg36.mp3",
+      "start": 332.513,
+      "duration": 1.881
+    },
+    {
+      "index": 37,
+      "text": "技术栈按语言、UI、应用模型、数据、工具链分层理解，不要把名字相似的概念混为一谈。",
+      "hash": "7dcb18e86ba183b1",
+      "audio": "seg37.mp3",
+      "start": 334.393,
+      "duration": 6.949
+    },
+    {
+      "index": 38,
+      "text": "ArkTS 收紧了 TS 的动态能力，明确类型与固定对象结构是迁移起点。",
+      "hash": "0cdf8950d5935b98",
+      "audio": "seg38.mp3",
+      "start": 341.342,
+      "duration": 6.896
+    },
+    {
+      "index": 39,
+      "text": "UIAbility 通过 WindowStage 加载 ArkUI 页面；页面组件用 build() 描述 UI。",
+      "hash": "8fe37e53d1800d9b",
+      "audio": "seg39.mp3",
+      "start": 348.238,
+      "duration": 8.098
+    },
+    {
+      "index": 40,
+      "text": "React 类比适合建立心智模型，真正编码仍要遵守 ArkTS/ArkUI 自己的约束。",
+      "hash": "f5a1672c5da948b6",
+      "audio": "seg40.mp3",
+      "start": 356.336,
+      "duration": 8.62
+    },
+    {
+      "index": 41,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg41.mp3",
+      "start": 364.957,
+      "duration": 1.593
+    },
+    {
+      "index": 42,
+      "text": "ArkTS 开发入门",
+      "hash": "473636eaf600318a",
+      "audio": "seg42.mp3",
+      "start": 366.55,
+      "duration": 2.247
+    },
+    {
+      "index": 43,
+      "text": "从 TypeScript 到 ArkTS 的适配规则",
+      "hash": "62a3ab7085a8f08f",
+      "audio": "seg43.mp3",
+      "start": 368.797,
+      "duration": 2.9
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/harmony/1794628990726_00-cognitive-map-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:03:18.789Z"
+}

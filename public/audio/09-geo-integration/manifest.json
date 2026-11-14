@@ -1,0 +1,381 @@
+{
+  "slug": "09-geo-integration",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T01:39:22.362Z",
+  "segmentCount": 46,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 1.698
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：three 会画模型，却不懂「东经 116.397° 在哪里」；MapLibre 会画地图，却不是通用三维引擎。桥梁是 MapLibre 的自定义图层（custom layer）：地图每帧把 WebGL 上下文（context）和相机矩阵交给你，你在同一张画布上补画 three 场景。 一句话经验 ：经纬度先变 MercatorCoordinate，模型米制尺寸再变 Mercator 单位，最后每帧用地图主矩阵乘模型矩阵；相机跟着地图走，模型才不会「滑出地球」。 常见坑 ：",
+      "hash": "2911d9e030518d33",
+      "audio": "seg01.mp3",
+      "start": 1.698,
+      "duration": 34.612
+    },
+    {
+      "index": 2,
+      "text": "另建一个 canvas 盖在地图上，却忘记同步缩放、旋转和俯仰，模型像一张漂浮截图。",
+      "hash": "bb21122290ddb6b1",
+      "audio": "seg02.mp3",
+      "start": 36.31,
+      "duration": 7.811
+    },
+    {
+      "index": 3,
+      "text": "共享画布时让 three 自动清屏，底图整片被擦掉；必须 renderer.autoClear = false 。",
+      "hash": "a028c1a7855662af",
+      "audio": "seg03.mp3",
+      "start": 44.121,
+      "duration": 7.21
+    },
+    {
+      "index": 4,
+      "text": "把经纬度直接塞进 Vector3(lng, lat, 0) ；角度不是地图的归一化 Mercator 坐标。",
+      "hash": "64d52c61eda0d736",
+      "audio": "seg04.mp3",
+      "start": 51.331,
+      "duration": 10.318
+    },
+    {
+      "index": 5,
+      "text": "只在 onAdd 设置一次相机矩阵，首次对齐、拖动后错位。 必记 3 条 ：",
+      "hash": "69e8d1e23d5ab052",
+      "audio": "seg05.mp3",
+      "start": 61.649,
+      "duration": 7.863
+    },
+    {
+      "index": 6,
+      "text": "共享 map.getCanvas() 与 onAdd 的 gl，渲染前后尊重 MapLibre 的 GL 状态。",
+      "hash": "9cd5b93229cb51a6",
+      "audio": "seg06.mp3",
+      "start": 69.512,
+      "duration": 7.915
+    },
+    {
+      "index": 7,
+      "text": "fromLngLat 管位置， meterInMercatorCoordinateUnits() 管米到地图单位的比例。",
+      "hash": "926842ad2e848c28",
+      "audio": "seg07.mp3",
+      "start": 77.427,
+      "duration": 8.281
+    },
+    {
+      "index": 8,
+      "text": "render 每次重取 args.defaultProjectionData.mainMatrix ，不要缓存地图相机矩阵。",
+      "hash": "f6323c3a7fc2b4ca",
+      "audio": "seg08.mp3",
+      "start": 85.708,
+      "duration": 41.77
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 127.478,
+      "duration": 1.829
+    },
+    {
+      "index": 10,
+      "text": "MapLibre custom layer 的 onAdd/render/onRemove 生命周期，共享 WebGL context 与独立 renderer 两条路线，Web Mercator 的归一化坐标和米制缩放，以及 three 相机矩阵的逐帧同步。最后用完整立方体图层收官，并给出 three、MapLibre、Cesium 的选型结论。",
+      "hash": "1bee455754db9887",
+      "audio": "seg10.mp3",
+      "start": 129.306,
+      "duration": 26.54
+    },
+    {
+      "index": 11,
+      "text": "1. custom layer：地图给舞台，three 负责演员",
+      "hash": "ac8a88e6ccd46ba7",
+      "audio": "seg11.mp3",
+      "start": 155.847,
+      "duration": 8.464
+    },
+    {
+      "index": 12,
+      "text": "MapLibre 的 CustomLayerInterface 要求 id 、 type: \"custom\" 、 render ，可选 renderingMode 、 onAdd 、 onRemove 。本章使用 MapLibre GL JS 6.x 的回调形式：",
+      "hash": "f747075a9da7cd54",
+      "audio": "seg12.mp3",
+      "start": 164.31,
+      "duration": 17.842
+    },
+    {
+      "index": 13,
+      "text": "renderingMode: \"3d\" 让自定义层进入地图的三维深度关系； \"2d\" 则适合不涉及深度共享的覆盖绘制。MapLibre 调用 custom layer 前只保证部分混合与深度状态，three 也会缓存 GL 状态，所以共享上下文时要显式处理边界。",
+      "hash": "7b750b68ca15b6b8",
+      "audio": "seg13.mp3",
+      "start": 182.152,
+      "duration": 19.749
+    },
+    {
+      "index": 14,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg14.mp3",
+      "start": 201.9,
+      "duration": 2.795
+    },
+    {
+      "index": 15,
+      "text": "custom layer 推荐第一条 。第二条适合独立覆盖层，但没有共享深度，纹理、 framebuffer 等资源也不能直接跨 context 共用；只监听 move 往往不够，缩放、旋转、俯仰和 resize 都要驱动同步。",
+      "hash": "cdcdc704eb1f7745",
+      "audio": "seg15.mp3",
+      "start": 204.696,
+      "duration": 16.927
+    },
+    {
+      "index": 16,
+      "text": "MapLibre 拥有 canvas 尺寸与绘制调度。custom layer 中不要另开一套 rAF、不要随意 renderer.setSize() ，而是在 render 中画完后用 map.triggerRepaint() 请求下一帧。静态场景不必永久触发重绘，只有交互或模型变化时请求即可。",
+      "hash": "823e55a03be7abf4",
+      "audio": "seg16.mp3",
+      "start": 221.623,
+      "duration": 21.577
+    },
+    {
+      "index": 17,
+      "text": "2. 经纬度 到 MercatorCoordinate 到 米制模型变换",
+      "hash": "037d9f3948fa80c7",
+      "audio": "seg17.mp3",
+      "start": 243.2,
+      "duration": 6.322
+    },
+    {
+      "index": 18,
+      "text": "Web Mercator投影之后，MapLibre 把整个投影世界归一化为 1×1：西北角约为 (0, 0) ，东南角约为 (1, 1) ，z 保存与高度对应的投影单位。这个坐标既不是经纬度角度，也不是 ECEF 米。",
+      "hash": "93a96a0b4af8176c",
+      "audio": "seg18.mp3",
+      "start": 249.522,
+      "duration": 21.76
+    },
+    {
+      "index": 19,
+      "text": "meterInMercatorCoordinateUnits() 与该点纬度有关，因为 Web Mercator 的实际地面尺度会随纬度变化。模型矩阵按列向量从右向左理解：先转模型轴，再把米缩放为 Mercator 单位，最后平移到地理落点。",
+      "hash": "f55a878acff1b88c",
+      "audio": "seg19.mp3",
+      "start": 271.282,
+      "duration": 17.842
+    },
+    {
+      "index": 20,
+      "text": "这里 y 取负是因为 three 局部 y 与 Mercator 屏幕式 y 方向相反；绕 x 转 90° 是把本章「局部 y 向上」的模型变成「Mercator z 向上」。不同 glTF 的建模轴向不同，旋转应据模型调整，不是永恒常数。",
+      "hash": "5be7b0628dda4db2",
+      "audio": "seg20.mp3",
+      "start": 289.123,
+      "duration": 20.349
+    },
+    {
+      "index": 21,
+      "text": "3. 相机矩阵：每帧把地图视角接给 three",
+      "hash": "1035018c3b9c3f3d",
+      "audio": "seg21.mp3",
+      "start": 309.473,
+      "duration": 6.557
+    },
+    {
+      "index": 22,
+      "text": "矩阵（matrix）同步的核心只有一行思想：",
+      "hash": "830d40a62023f872",
+      "audio": "seg22.mp3",
+      "start": 316.029,
+      "duration": 4.441
+    },
+    {
+      "index": 23,
+      "text": "mapMainMatrix 已包含 MapLibre 当前的观察与投影状态； modelMatrix 把局部米制模型放到 Mercator 世界。地图每次缩放、平移、旋转或俯仰都会给出新主矩阵，所以要在 render 内 重取并相乘。这里使用普通 THREE.Camera ，不再另设 PerspectiveCamera 的 fov/aspect，避免两套投影互相打架。",
+      "hash": "1fb050cde33dfb66",
+      "audio": "seg23.mp3",
+      "start": 320.47,
+      "duration": 37.878
+    },
+    {
+      "index": 24,
+      "text": "Cesium 相机坐标章 用 Cartesian3.fromDegrees(lon, lat, height) 进入以米计的地心固连系，地球、地形和相机由同一引擎管理；本章进入的是 MapLibre 归一化 Mercator 平面，桥接者必须同步矩阵。 Cesium 拾取章 的 ScreenSpaceEventHandler + scene.pick 能统一拾取场景对象；MapLibre queryRenderedFeatures 只认识地图样式要素，不会自动命中 three Mesh，后者要另用 Raycaster 并构造与地图一致的射线。",
+      "hash": "ec469dbdb2d5af3b",
+      "audio": "seg24.mp3",
+      "start": 358.348,
+      "duration": 79.752
+    },
+    {
+      "index": 25,
+      "text": "4. 完整骨架：随地图贴合的旋转立方体",
+      "hash": "07ca28c1889ae564",
+      "audio": "seg25.mp3",
+      "start": 438.1,
+      "duration": 4.519
+    },
+    {
+      "index": 26,
+      "text": "安装依赖，并在 HTML 放置 <div id=\"map\"></div> ，让 html、body、#map 的高度均为 100%。",
+      "hash": "305c65200e997a02",
+      "audio": "seg26.mp3",
+      "start": 442.619,
+      "duration": 11.207
+    },
+    {
+      "index": 27,
+      "text": "地图拖动时不需要另写 cube.position = ... ：位置由 modelMatrix 固定，视角由地图主矩阵逐帧更新，两者共同保持贴合。此骨架针对默认 Mercator 投影；启用地球投影、地形 draping 或特殊投影过渡时，要按对应 MapLibre 示例选择模型矩阵接口。生产项目还应处理 webglcontextlost、restored ，透明模型则要遵守 custom layer 的预乘 alpha 混合约定。",
+      "hash": "a70e813fca101a7d",
+      "audio": "seg27.mp3",
+      "start": 453.825,
+      "duration": 28.944
+    },
+    {
+      "index": 28,
+      "text": "5. 收官选型：不是谁更强，而是谁懂你的数据",
+      "hash": "ac318802974bfb3d",
+      "audio": "seg28.mp3",
+      "start": 482.769,
+      "duration": 5.46
+    },
+    {
+      "index": 29,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg29.mp3",
+      "start": 488.229,
+      "duration": 3.213
+    },
+    {
+      "index": 30,
+      "text": "共享 canvas/context 时：autoClear = false、resetState、onRemove 释放资源。",
+      "hash": "f9bf7419d5cf6305",
+      "audio": "seg30.mp3",
+      "start": 491.442,
+      "duration": 10.606
+    },
+    {
+      "index": 31,
+      "text": "fromLngLat 定位置、meterInMercatorCoordinateUnits 定米制比例、render 每帧同步主矩阵。",
+      "hash": "a0bc0895cd8702da",
+      "audio": "seg31.mp3",
+      "start": 502.047,
+      "duration": 8.046
+    },
+    {
+      "index": 32,
+      "text": "地球/地形/3D Tiles 选 Cesium；平面地图通用 3D 选 three + MapLibre；无地理语义选纯 three。",
+      "hash": "03be0751e323feaa",
+      "audio": "seg32.mp3",
+      "start": 510.093,
+      "duration": 8.333
+    },
+    {
+      "index": 33,
+      "text": "用 GLTFLoader 加载 /models/product.glb ，在 onAdd 中把模型加入 scene，按已知模型轴向调整旋转；删除本章立方体的逐帧自转。加载完成、模型变化或地图交互时才触发重绘，并补全 glTF 纹理释放。",
+      "hash": "9afa193ca173f49f",
+      "audio": "seg33.mp3",
+      "start": 518.426,
+      "duration": 18.181
+    },
+    {
+      "index": 34,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg34.mp3",
+      "start": 536.607,
+      "duration": 2.769
+    },
+    {
+      "index": 35,
+      "text": "custom layer 在 MapLibre 的渲染循环里承载 three；onAdd 建资源、render 同步并绘制、onRemove 清理。",
+      "hash": "202a5edad77a24c8",
+      "audio": "seg35.mp3",
+      "start": 539.376,
+      "duration": 9.665
+    },
+    {
+      "index": 36,
+      "text": "MercatorCoordinate 是归一化地图坐标，米制模型必须乘纬度相关的单位比例。",
+      "hash": "901a7bd8da24135d",
+      "audio": "seg36.mp3",
+      "start": 549.042,
+      "duration": 6.478
+    },
+    {
+      "index": 37,
+      "text": "projectionMatrix = mainMatrix × modelMatrix 每帧计算，缩放旋转才不会错位。",
+      "hash": "69337dc94da53468",
+      "audio": "seg37.mp3",
+      "start": 555.52,
+      "duration": 7.158
+    },
+    {
+      "index": 38,
+      "text": "最终选型看地理语义与平台能力，不把 three 与 Cesium 当成同赛道的替代品。",
+      "hash": "0d51a71765ac8796",
+      "audio": "seg38.mp3",
+      "start": 562.678,
+      "duration": 5.825
+    },
+    {
+      "index": 39,
+      "text": "课程到这里完成：从场景图、几何材质、动画和 shader，到后处理与地图融合。下一步用一个真实小项目，把性能预算和资源生命周期也纳入交付。",
+      "hash": "fefeb2c6609efe63",
+      "audio": "seg39.mp3",
+      "start": 568.503,
+      "duration": 11.912
+    },
+    {
+      "index": 40,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg40.mp3",
+      "start": 580.415,
+      "duration": 2.194
+    },
+    {
+      "index": 41,
+      "text": "自定义层接口： MapLibre CustomLayerInterface",
+      "hash": "13a213667d437e34",
+      "audio": "seg41.mp3",
+      "start": 582.609,
+      "duration": 5.642
+    },
+    {
+      "index": 42,
+      "text": "坐标转换： MapLibre MercatorCoordinate",
+      "hash": "2a8543c471d9a47a",
+      "audio": "seg42.mp3",
+      "start": 588.251,
+      "duration": 4.989
+    },
+    {
+      "index": 43,
+      "text": "当前 render 参数示例： Add acustom style layer",
+      "hash": "3823d9c131d54d3d",
+      "audio": "seg43.mp3",
+      "start": 593.241,
+      "duration": 7.628
+    },
+    {
+      "index": 44,
+      "text": "共享渲染器与矩阵： THREE.WebGLRenderer 、 THREE.Matrix4",
+      "hash": "f0694800fd5d2d8e",
+      "audio": "seg44.mp3",
+      "start": 600.869,
+      "duration": 6.975
+    },
+    {
+      "index": 45,
+      "text": "地理三维对照： CesiumJS 官方文档",
+      "hash": "8a44cec56153c412",
+      "audio": "seg45.mp3",
+      "start": 607.843,
+      "duration": 5.773
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/three/1794628967794_09-geo-integration-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:02:48.933Z"
+}

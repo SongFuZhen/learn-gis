@@ -1,0 +1,421 @@
+{
+  "slug": "01-env-project",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T02:00:57.871Z",
+  "segmentCount": 51,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.534
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：会用 DevEco Studio点出模板，不等于知道每个目录和配置文件的职责。Stage（「斯泰吉」）工程把应用级信息、模块级能力、依赖和构建配置分开存放，改错位置常表现为「代码没错，工程却跑不起来」。 一句话经验 ：先沿 AppScope 到 entry 到 UIAbility 到 WindowStage 到 pages/Index 找启动链路，再按配置归属改文件。 常见坑 ：",
+      "hash": "d7e83f0e2ff8b9de",
+      "audio": "seg01.mp3",
+      "start": 2.534,
+      "duration": 27.089
+    },
+    {
+      "index": 2,
+      "text": "把 bundleName 写进 module.json5 ，或把 Ability 声明写进 AppScope/app.json5 。",
+      "hash": "cc4b2cd8a818792a",
+      "audio": "seg02.mp3",
+      "start": 29.623,
+      "duration": 7.393
+    },
+    {
+      "index": 3,
+      "text": "在页面组件里继承 UIAbility ，把应用实例入口与 ArkUI 页面混为一层。",
+      "hash": "3bd9ceb6de31c0cc",
+      "audio": "seg03.mp3",
+      "start": 37.016,
+      "duration": 7.314
+    },
+    {
+      "index": 4,
+      "text": "手动修改 ohmodules ，或把构建产物当成应当维护的源码。",
+      "hash": "7ad1b7311dd93d8d",
+      "audio": "seg04.mp3",
+      "start": 44.33,
+      "duration": 6.949
+    },
+    {
+      "index": 5,
+      "text": "只依赖 Previewer 验证权限、后台行为和完整设备能力。 必记 3 条 ：",
+      "hash": "5e2538a8462247c9",
+      "audio": "seg05.mp3",
+      "start": 51.278,
+      "duration": 5.642
+    },
+    {
+      "index": 6,
+      "text": "AppScope/app.json5 管应用级信息， module.json5 管模块、Ability 与权限。",
+      "hash": "116174fb3ad0d0d8",
+      "audio": "seg06.mp3",
+      "start": 56.921,
+      "duration": 10.24
+    },
+    {
+      "index": 7,
+      "text": "UIAbility 在 onWindowStageCreate 中通过 loadContent 加载页面。",
+      "hash": "0a25d3b1ba0a6bce",
+      "audio": "seg07.mp3",
+      "start": 67.161,
+      "duration": 8.934
+    },
+    {
+      "index": 8,
+      "text": "hvigor 管构建，ohpm 管依赖；预览器不能替代真机验证。",
+      "hash": "a8ece450f62392c5",
+      "audio": "seg08.mp3",
+      "start": 76.095,
+      "duration": 8.464
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 84.558,
+      "duration": 1.515
+    },
+    {
+      "index": 10,
+      "text": "从模板创建 Stage 工程，辨认核心目录和配置文件，读懂 UIAbility 的启动骨架，并正确放置资源与权限声明。读完应能独立解释首页为何显示，以及新增依赖、图片或网络权限时应修改哪里。",
+      "hash": "d2489f0f30e71487",
+      "audio": "seg10.mp3",
+      "start": 86.073,
+      "duration": 16.588
+    },
+    {
+      "index": 11,
+      "text": "1. 从 Empty Ability 建立可运行基线",
+      "hash": "e5e9c9063df5d231",
+      "audio": "seg11.mp3",
+      "start": 102.661,
+      "duration": 13.427
+    },
+    {
+      "index": 12,
+      "text": "安装稳定版 DevEco Studio 后，新建 Application 工程并选择 Empty Ability 模板，应用模型选 Stage、语言选 ArkTS。先保持模板结构运行一次，再逐步改代码；这样出问题时能区分环境、配置和业务代码。",
+      "hash": "11588671b31c7309",
+      "audio": "seg12.mp3",
+      "start": 116.088,
+      "duration": 19.148
+    },
+    {
+      "index": 13,
+      "text": "创建时重点核对三项：",
+      "hash": "89c2d82766a98fc0",
+      "audio": "seg13.mp3",
+      "start": 135.236,
+      "duration": 2.116
+    },
+    {
+      "index": 14,
+      "text": "bundleName ：应用唯一标识，使用反向域名风格，发布后不要随意更改。",
+      "hash": "20a516b7b81d678c",
+      "audio": "seg14.mp3",
+      "start": 137.352,
+      "duration": 5.486
+    },
+    {
+      "index": 15,
+      "text": "模块与设备类型： entry 是主入口模块，手机、平板等设备支持要在模块配置中声明。",
+      "hash": "99ebcf09da86c588",
+      "audio": "seg15.mp3",
+      "start": 142.838,
+      "duration": 6.74
+    },
+    {
+      "index": 16,
+      "text": "SDK 与签名：真机运行前确认 SDK 可用，并按 DevEco Studio 提示完成签名配置。",
+      "hash": "732f7210bd15961f",
+      "audio": "seg16.mp3",
+      "start": 149.577,
+      "duration": 7.628
+    },
+    {
+      "index": 17,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg17.mp3",
+      "start": 157.205,
+      "duration": 2.978
+    },
+    {
+      "index": 18,
+      "text": "src 、构建脚本和包管理的职责仍然相似，但 Stage 工程多了应用模型与 Ability 配置。React 的入口组件不能直接类比为 UIAbility：前者描述 UI，后者是有界面应用实例的生命周期入口。",
+      "hash": "52333e8ee26c0fdc",
+      "audio": "seg18.mp3",
+      "start": 160.183,
+      "duration": 19.383
+    },
+    {
+      "index": 19,
+      "text": "2. 先认目录，再改配置",
+      "hash": "472417d4f4b9606f",
+      "audio": "seg19.mp3",
+      "start": 179.566,
+      "duration": 4.023
+    },
+    {
+      "index": 20,
+      "text": "一个典型 Stage 工程可以先收缩成下面这张地图：",
+      "hash": "ce597bab9451d3fa",
+      "audio": "seg20.mp3",
+      "start": 183.589,
+      "duration": 4.023
+    },
+    {
+      "index": 21,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg21.mp3",
+      "start": 187.611,
+      "duration": 3.082
+    },
+    {
+      "index": 22,
+      "text": "resources、base 是默认资源，限定词目录可承接深色模式、语言、屏幕规格等差异。代码通过 $r('app.color.primary') 、 $r('app.media.startIcon') 引用资源，不为每种模式复制一套组件。",
+      "hash": "cb67d2638e188671",
+      "audio": "seg22.mp3",
+      "start": 190.694,
+      "duration": 18.678
+    },
+    {
+      "index": 23,
+      "text": "3. UIAbility 怎样把首页加载出来",
+      "hash": "4bb1005fbc960f7b",
+      "audio": "seg23.mp3",
+      "start": 209.371,
+      "duration": 5.904
+    },
+    {
+      "index": 24,
+      "text": "EntryAbility 是 UIAbility 子类，负责应用实例与窗口生命周期。下面的骨架保留主要回调，并在窗口舞台创建后加载 pages、Index 。",
+      "hash": "b56ae072d748e283",
+      "audio": "seg24.mp3",
+      "start": 215.275,
+      "duration": 15.935
+    },
+    {
+      "index": 25,
+      "text": "onCreate 适合初始化应用实例需要的数据； onWindowStageCreate 才拿到窗口舞台；前后台切换分别进入 onForeground 与 onBackground 。不要在 build() 中替代这些回调管理应用级资源。",
+      "hash": "1cad12b83d832ae8",
+      "audio": "seg25.mp3",
+      "start": 231.21,
+      "duration": 17.763
+    },
+    {
+      "index": 26,
+      "text": "被加载的 pages/Index.ets 仍是普通 ArkUI 页面组件：",
+      "hash": "f52259766cfc41d5",
+      "audio": "seg26.mp3",
+      "start": 248.973,
+      "duration": 5.46
+    },
+    {
+      "index": 27,
+      "text": "启动链路可记为： EntryAbility.onCreate 到 onWindowStageCreate 到 loadContent 到 @Entry 页面 到 build() 。 onForeground 描述 Ability 前后台状态，不等于组件的 aboutToAppear 。",
+      "hash": "6580d169b57b55ca",
+      "audio": "seg27.mp3",
+      "start": 254.433,
+      "duration": 27.925
+    },
+    {
+      "index": 28,
+      "text": "4. 资源与权限各有入口",
+      "hash": "41e40c8332885f98",
+      "audio": "seg28.mp3",
+      "start": 282.358,
+      "duration": 3.187
+    },
+    {
+      "index": 29,
+      "text": "文本、颜色和图片优先资源化管理，模块需要的系统能力则在 module.json5 中声明。例如网络权限片段：",
+      "hash": "f1bf4678c07a9637",
+      "audio": "seg29.mp3",
+      "start": 285.544,
+      "duration": 9.404
+    },
+    {
+      "index": 30,
+      "text": "reason 指向向用户解释的字符串资源，不是随手写的备注。不同权限还可能有授权方式、使用场景与额外配置要求，声明存在不代表所有权限都会自动获批。",
+      "hash": "e2b8827c93a2bd5e",
+      "audio": "seg30.mp3",
+      "start": 294.949,
+      "duration": 13.897
+    },
+    {
+      "index": 31,
+      "text": "先确认能力所需权限及其等级，再处理运行时申请、拒绝和设置页跳转等场景。不要为省事申请无关权限，也不要仅凭 Previewer 中可用就认定真机行为已经验证。",
+      "hash": "57637286522d74b1",
+      "audio": "seg31.mp3",
+      "start": 308.846,
+      "duration": 13.166
+    },
+    {
+      "index": 32,
+      "text": "5. hvigor、ohpm 与验证边界",
+      "hash": "275ba41a38b7bb6f",
+      "audio": "seg32.mp3",
+      "start": 322.011,
+      "duration": 14.838
+    },
+    {
+      "index": 33,
+      "text": "hvigor读取构建配置并执行编译、打包等任务；ohpm根据 oh-package.json5 管理依赖。DevEco Studio 将创建工程、编辑、预览、调试、签名和构建串在一起，但三个名字不能互换。",
+      "hash": "662f21ce10a5f795",
+      "audio": "seg33.mp3",
+      "start": 336.849,
+      "duration": 17.711
+    },
+    {
+      "index": 34,
+      "text": "修改工程后按顺序排查：",
+      "hash": "3f490aa0e1539cb6",
+      "audio": "seg34.mp3",
+      "start": 354.56,
+      "duration": 2.429
+    },
+    {
+      "index": 35,
+      "text": "配置归属是否正确，JSON5 是否可解析。",
+      "hash": "0e3e4ea01c9a7f7e",
+      "audio": "seg35.mp3",
+      "start": 356.989,
+      "duration": 4.023
+    },
+    {
+      "index": 36,
+      "text": "依赖是否声明并安装，是否误改了 ohmodules 。",
+      "hash": "29e93e47a823293e",
+      "audio": "seg36.mp3",
+      "start": 361.012,
+      "duration": 4.937
+    },
+    {
+      "index": 37,
+      "text": "构建日志中的首个错误是什么，不要只看最后一行摘要。",
+      "hash": "43f332536f50bb82",
+      "audio": "seg37.mp3",
+      "start": 365.949,
+      "duration": 3.918
+    },
+    {
+      "index": 38,
+      "text": "Previewer 能否复现；涉及权限、传感器、后台任务时转到真机验证。",
+      "hash": "89f5761bc5211ffd",
+      "audio": "seg38.mp3",
+      "start": 369.868,
+      "duration": 7.314
+    },
+    {
+      "index": 39,
+      "text": "应用级配置放 AppScope/app.json5 ，模块、Ability 与权限放 module.json5 。",
+      "hash": "f0ebd8160421a4a4",
+      "audio": "seg39.mp3",
+      "start": 377.182,
+      "duration": 8.62
+    },
+    {
+      "index": 40,
+      "text": "启动主链路是 UIAbility 创建 WindowStage，再由 loadContent 加载 @Entry 页面。",
+      "hash": "2b90687a6de3cb0d",
+      "audio": "seg40.mp3",
+      "start": 385.802,
+      "duration": 5.355
+    },
+    {
+      "index": 41,
+      "text": "DevEco Studio 管工程流程，hvigor 管构建，ohpm 管依赖，设备能力最终看真机。",
+      "hash": "1da8aa7d2543be25",
+      "audio": "seg41.mp3",
+      "start": 391.158,
+      "duration": 10.606
+    },
+    {
+      "index": 42,
+      "text": "在模板的 EntryAbility.ets 中保留 onCreate 、 onWindowStageCreate 和前后台回调，通过 loadContent('pages/Index') 加载页面。首页显示一句学习状态，点击按钮后改为「已完成工程结构练习」。要求页面使用 @Entry @Component struct ，不继承 UIAbility 。",
+      "hash": "46bc588583debaf9",
+      "audio": "seg42.mp3",
+      "start": 401.763,
+      "duration": 24.581
+    },
+    {
+      "index": 43,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg43.mp3",
+      "start": 426.344,
+      "duration": 1.959
+    },
+    {
+      "index": 44,
+      "text": "Stage 工程按应用、模块、页面和构建工具分层，先认职责再改配置。",
+      "hash": "063a48deb84407fb",
+      "audio": "seg44.mp3",
+      "start": 428.304,
+      "duration": 7.131
+    },
+    {
+      "index": 45,
+      "text": "AppScope/app.json5 与 module.json5 分别承接应用级和模块级信息。",
+      "hash": "2ddf25c31c76561c",
+      "audio": "seg45.mp3",
+      "start": 435.435,
+      "duration": 9.038
+    },
+    {
+      "index": 46,
+      "text": "UIAbility 通过 WindowStage 加载 ArkUI 页面，Ability 生命周期不等于组件生命周期。",
+      "hash": "0bb5bc52128bfe1d",
+      "audio": "seg46.mp3",
+      "start": 444.473,
+      "duration": 8.882
+    },
+    {
+      "index": 47,
+      "text": "资源使用 $r 引用，权限声明与授权流程分开处理；预览与真机验证不能互相替代。",
+      "hash": "5cd76650196fb960",
+      "audio": "seg47.mp3",
+      "start": 453.355,
+      "duration": 6.557
+    },
+    {
+      "index": 48,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg48.mp3",
+      "start": 459.912,
+      "duration": 1.515
+    },
+    {
+      "index": 49,
+      "text": "构建第一个 HarmonyOS 应用（ArkTS）",
+      "hash": "0f1681d3de45e6c8",
+      "audio": "seg49.mp3",
+      "start": 461.427,
+      "duration": 3.788
+    },
+    {
+      "index": 50,
+      "text": "ArkUI 基本语法概述",
+      "hash": "6aef2be7b83a2ef5",
+      "audio": "seg50.mp3",
+      "start": 465.215,
+      "duration": 2.978
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/harmony/1794628989359_01-env-project-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:03:18.796Z"
+}

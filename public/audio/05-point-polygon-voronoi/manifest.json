@@ -1,0 +1,365 @@
+{
+  "slug": "05-point-polygon-voronoi",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T18:34:18.926Z",
+  "segmentCount": 44,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.9
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：你有几千个订单点和几十个行政区，要知道订单归谁；有规则网格上的温度采样，要生成温度区间面；有若干门店，要按「离哪家最近」划分服务范围。 一句话心智模型 ：批量归属是反复做点面判断，等值面 isoband把采样数值连成区间，泰森多边形 Voronoi把平面切成最近站点区域。 常见坑 ：",
+      "hash": "1edc387a489b8e9b",
+      "audio": "seg01.mp3",
+      "start": 2.9,
+      "duration": 28.944
+    },
+    {
+      "index": 2,
+      "text": "批量点面忽略压线点与未命中点，导致重复计数或悄悄漏单。",
+      "hash": "3afa32d07fec4866",
+      "audio": "seg02.mp3",
+      "start": 31.843,
+      "duration": 5.12
+    },
+    {
+      "index": 3,
+      "text": "把 isobands 当插值魔法——输入采样稀疏、断裂或 breaks 不覆盖值域，输出再漂亮也不可靠。",
+      "hash": "4bd62456ed5c9e77",
+      "audio": "seg03.mp3",
+      "start": 36.963,
+      "duration": 9.456
+    },
+    {
+      "index": 4,
+      "text": "voronoi 不裁范围、输入含重复点，或把最近欧氏距离区域解释为真实驾车服务区。 必记 3 条 ：",
+      "hash": "c517210d4543cd72",
+      "audio": "seg04.mp3",
+      "start": 46.42,
+      "duration": 9.953
+    },
+    {
+      "index": 5,
+      "text": "批量归属必须定义边界、未命中和重复命中的处理政策。",
+      "hash": "a6be86e7245685b9",
+      "audio": "seg05.mp3",
+      "start": 56.372,
+      "duration": 4.389
+    },
+    {
+      "index": 6,
+      "text": "isobands 吃带数值属性的规则点网格， breaks 决定分段区间。",
+      "hash": "27fa44710c460311",
+      "audio": "seg06.mp3",
+      "start": 60.761,
+      "duration": 6.661
+    },
+    {
+      "index": 7,
+      "text": "Voronoi 的底子是 Delaunay 对偶，输出要用业务 bbox 裁剪，且不等于交通时空服务区。",
+      "hash": "88861df70e4ef3d6",
+      "audio": "seg07.mp3",
+      "start": 67.422,
+      "duration": 9.953
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 77.375,
+      "duration": 1.358
+    },
+    {
+      "index": 9,
+      "text": "用 booleanPointInPolygon 构建批量归属管道，用 pointGrid + isobands 生成等值区间面，用 voronoi 划分最近站点区域，并识别三类业务中常见的数据质量与解释风险。",
+      "hash": "f17ac31d392f6304",
+      "audio": "seg09.mp3",
+      "start": 78.733,
+      "duration": 15.203
+    },
+    {
+      "index": 10,
+      "text": "1. 批量点面归属：把每个点写进业务分区",
+      "hash": "30ca0de6c2fbff2e",
+      "audio": "seg10.mp3",
+      "start": 93.936,
+      "duration": 8.464
+    },
+    {
+      "index": 11,
+      "text": "上一章解决单个点，本章把区域放外层、点放内层，找到第一个命中面后写入属性。默认边界仍算内部，所以示例点先避开共享边；真实数据必须单独处理压线情况。",
+      "hash": "7feb7a425c448f4d",
+      "audio": "seg11.mp3",
+      "start": 102.4,
+      "duration": 12.042
+    },
+    {
+      "index": 12,
+      "text": "这是 区域数 × 点数 的候选判断。数据量大时，可先用 bbox 或空间索引筛掉不可能命中的区域，再对候选区域做精确点面判断；索引只负责减少候选，不能替代最终拓扑计算。",
+      "hash": "836acf9e56956148",
+      "audio": "seg12.mp3",
+      "start": 114.442,
+      "duration": 13.949
+    },
+    {
+      "index": 13,
+      "text": "区域重叠或点压共享边时，默认规则可能命中多个面， find 只是按数组顺序取一个。若业务要求唯一归属，应记录全部命中，再用明确优先级裁决；若允许多归属，则不能遇到第一个就停止。无论哪种政策，都要保留未命中列表供审计。",
+      "hash": "8804b2c10240dd77",
+      "audio": "seg13.mp3",
+      "start": 128.392,
+      "duration": 16.771
+    },
+    {
+      "index": 14,
+      "text": "2. isobands：从规则采样点生成等值区间面",
+      "hash": "14813b4520c3b987",
+      "audio": "seg14.mp3",
+      "start": 145.162,
+      "duration": 6.792
+    },
+    {
+      "index": 15,
+      "text": "等值面把连续数值划成多个区间，例如 0–5℃、5–10℃。Turf 的 isobands 需要规则点网格，每个 Point 的属性中带有采样值；它不会替你从任意散乱业务点自动补全可靠采样。",
+      "hash": "48682e1a942b8c0e",
+      "audio": "seg15.mp3",
+      "start": 151.954,
+      "duration": 19.513
+    },
+    {
+      "index": 16,
+      "text": "这里用「距中心距离」模拟观测值，便于运行后看到环状区间。真实业务可把 value 换成温度、噪声或降雨。 breaks 要覆盖关心的值域，采样间距则决定细节上限：5 公里网格不可能可靠表达几十米宽的热岛。",
+      "hash": "dcaff2e8e70b1d2b",
+      "audio": "seg16.mp3",
+      "start": 171.468,
+      "duration": 16.64
+    },
+    {
+      "index": 17,
+      "text": "等值面的视觉平滑不等于测量精度。输入缺测、网格太稀或断裂区间都会改变结果，发布前应保留采样数据与 breaks 元数据。",
+      "hash": "af793d75943f6f12",
+      "audio": "seg17.mp3",
+      "start": 188.108,
+      "duration": 9.953
+    },
+    {
+      "index": 18,
+      "text": "3. voronoi：按最近站点切分平面",
+      "hash": "e2f0d5e27e04d81d",
+      "audio": "seg18.mp3",
+      "start": 198.06,
+      "duration": 7.732
+    },
+    {
+      "index": 19,
+      "text": "voronoi(points, options) 返回一组 Polygon，使每个单元内部的位置相对其他站点更接近该单元对应站点。实际使用应传业务 bbox ，否则默认世界范围会让单元过大、坐标也不适合局部地图。",
+      "hash": "4c5a2b1c1c9c0378",
+      "audio": "seg19.mp3",
+      "start": 205.793,
+      "duration": 21.368
+    },
+    {
+      "index": 20,
+      "text": "bbox 是裁切范围，不是新的站点，也不应比站点分布范围还小。输出 cell 不应被假定为自动携带输入点的全部业务 properties；要建立明确的站点 ID 映射，再把单元用于归属统计。",
+      "hash": "fba335cabf5fa3c4",
+      "audio": "seg20.mp3",
+      "start": 227.161,
+      "duration": 15.909
+    },
+    {
+      "index": 21,
+      "text": "重复站点、全部共线或过少站点会产生退化情况。进入 Voronoi 前先去重、检查站点数与分布，结果生成后检查空单元和异常坐标。",
+      "hash": "5bc5811fcb8e09b5",
+      "audio": "seg21.mp3",
+      "start": 243.069,
+      "duration": 10.789
+    },
+    {
+      "index": 22,
+      "text": "4. Delaunay：Voronoi 背后的三角网",
+      "hash": "30d168c020e0b0d7",
+      "audio": "seg22.mp3",
+      "start": 253.858,
+      "duration": 5.904
+    },
+    {
+      "index": 23,
+      "text": "Delaunay三角剖分把站点连接成三角形，其三角形外接圆内不包含其他站点；连接相邻三角形外心等关系可形成 Voronoi 单元，二者构成对偶关系。",
+      "hash": "644facdfd9344726",
+      "audio": "seg23.mp3",
+      "start": 259.762,
+      "duration": 11.494
+    },
+    {
+      "index": 24,
+      "text": "这也解释了为什么输入质量重要：重复点让「最近站点」不唯一，共线点没有正常三角剖分，密集或几乎共圆的站点会放大数值误差。业务侧不需要手写三角网，但必须理解它不是随机分区，而是由站点几何唯一驱动的结构。",
+      "hash": "a87e3357253b97d6",
+      "audio": "seg24.mp3",
+      "start": 271.256,
+      "duration": 16.692
+    },
+    {
+      "index": 25,
+      "text": "Voronoi 使用平面坐标关系划分最近区域，经度一度与纬度一度的实际地面长度又不相同。小范围业务可把它当快速近似，大范围或精密应用应评估投影与距离模型。",
+      "hash": "61f7c45723d58e21",
+      "audio": "seg25.mp3",
+      "start": 287.948,
+      "duration": 14.655
+    },
+    {
+      "index": 26,
+      "text": "5. 三种方法怎样服务真实业务",
+      "hash": "47e9d949866da196",
+      "audio": "seg26.mp3",
+      "start": 302.602,
+      "duration": 4.467
+    },
+    {
+      "index": 27,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg27.mp3",
+      "start": 307.069,
+      "duration": 2.377
+    },
+    {
+      "index": 28,
+      "text": "Turf 生成的归属点、等值面和 Voronoi cells 都能交给 Cesium GeoJsonDataSource 渲染；Cesium 的地形、建筑遮挡和三维拾取不会反向改变这些二维计算结果。可对照 Cesium 拾取章 ：屏幕选中一个三维对象，与在 GeoJSON 平面上求最近站点是两类问题，业务结论应注明所用模型。",
+      "hash": "6791c1bd5690a396",
+      "audio": "seg28.mp3",
+      "start": 309.447,
+      "duration": 26.488
+    },
+    {
+      "index": 29,
+      "text": "批量归属要保留全部命中或未命中信息，不能用数组顺序冒充管辖规则。",
+      "hash": "8f7080deb51ea2b1",
+      "audio": "seg29.mp3",
+      "start": 335.935,
+      "duration": 5.695
+    },
+    {
+      "index": 30,
+      "text": "等值面的可信度由采样与 breaks 决定，不由颜色是否平滑决定。",
+      "hash": "6bd03e16f83ee44d",
+      "audio": "seg30.mp3",
+      "start": 341.629,
+      "duration": 5.068
+    },
+    {
+      "index": 31,
+      "text": "Voronoi = 最近站点的平面近似分区；先清洗站点、设置 bbox，再映射业务属性。",
+      "hash": "e868cd64873f3b3b",
+      "audio": "seg31.mp3",
+      "start": 346.697,
+      "duration": 7.314
+    },
+    {
+      "index": 32,
+      "text": "用 4 个门店 Point 和 20 个订单 Point 构造 FeatureCollection：①在包含所有站点的局部 bbox 内生成 Voronoi cells；②建立 cell 与 storeId 的明确映射；③逐个订单做 booleanPointInPolygon ，统计每个门店邻域订单数；④列出未命中订单；⑤任选一个压线订单，观察默认边界规则是否造成重复归属。",
+      "hash": "3639885afb33d1f5",
+      "audio": "seg32.mp3",
+      "start": 354.011,
+      "duration": 45.401
+    },
+    {
+      "index": 33,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg33.mp3",
+      "start": 399.412,
+      "duration": 1.176
+    },
+    {
+      "index": 34,
+      "text": "批量点面归属是完整数据管道：候选筛选、精确判断、边界政策、未命中审计缺一不可。",
+      "hash": "448f1d331d56df1c",
+      "audio": "seg34.mp3",
+      "start": 400.588,
+      "duration": 7.027
+    },
+    {
+      "index": 35,
+      "text": "pointGrid + isobands 适合规则采样数值的区间面生成，结果质量受采样密度约束。",
+      "hash": "f7b1a0decc68546b",
+      "audio": "seg35.mp3",
+      "start": 407.615,
+      "duration": 9.169
+    },
+    {
+      "index": 36,
+      "text": "Voronoi 借助 Delaunay 对偶形成最近站点分区，bbox、重复点和共线点都要处理。",
+      "hash": "71769aaccbf88acc",
+      "audio": "seg36.mp3",
+      "start": 416.784,
+      "duration": 7.393
+    },
+    {
+      "index": 37,
+      "text": "三类结果都能进入地图或 Cesium 展示，但二维几何结论不能自动升级为三维或交通结论。",
+      "hash": "856efd4e38429bb4",
+      "audio": "seg37.mp3",
+      "start": 424.176,
+      "duration": 6.609
+    },
+    {
+      "index": 38,
+      "text": "下一章进入聚合统计，用收集、聚类和网格计数把离散点变成可比较的统计单元。",
+      "hash": "4505633b09df13c6",
+      "audio": "seg38.mp3",
+      "start": 430.785,
+      "duration": 6.609
+    },
+    {
+      "index": 39,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg39.mp3",
+      "start": 437.394,
+      "duration": 1.776
+    },
+    {
+      "index": 40,
+      "text": "批量判断与网格： booleanPointInPolygon 、 pointGrid",
+      "hash": "232fb08ac3385ba4",
+      "audio": "seg40.mp3",
+      "start": 439.171,
+      "duration": 4.754
+    },
+    {
+      "index": 41,
+      "text": "等值面： isobands",
+      "hash": "a9063e398e4c4a12",
+      "audio": "seg41.mp3",
+      "start": 443.925,
+      "duration": 2.978
+    },
+    {
+      "index": 42,
+      "text": "泰森多边形： voronoi",
+      "hash": "2f799a7888c321b9",
+      "audio": "seg42.mp3",
+      "start": 446.903,
+      "duration": 2.717
+    },
+    {
+      "index": 43,
+      "text": "Cesium GeoJSON 加载： GeoJsonDataSource",
+      "hash": "f396dae502729ba4",
+      "audio": "seg43.mp3",
+      "start": 449.62,
+      "duration": 3.082
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611747082_05-point-polygon-voronoi-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.809Z"
+}

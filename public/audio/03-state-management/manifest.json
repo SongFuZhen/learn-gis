@@ -1,0 +1,357 @@
+{
+  "slug": "03-state-management",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-14T02:21:47.999Z",
+  "segmentCount": 43,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 3.265
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：HarmonyOS页面「变量确实变了，Text 却没变」通常不是 Text 出错，而是状态所有权、观察层级或 V1/V2 用法不匹配。ArkUI只更新它能观察到的依赖。 一句话经验 ：先确定谁拥有状态，再选父子传递方式，最后检查数组和对象属性是否落在观察范围内。 常见坑 ：",
+      "hash": "2bb9a62e6bfcc1dc",
+      "audio": "seg01.mp3",
+      "start": 3.265,
+      "duration": 23.144
+    },
+    {
+      "index": 2,
+      "text": "@State 数组原地 push 后丢响应：改用 this.arr = [...this.arr, item] 替换数组引用。",
+      "hash": "d7f2e167696766b2",
+      "audio": "seg02.mp3",
+      "start": 26.41,
+      "duration": 16.457
+    },
+    {
+      "index": 3,
+      "text": "对象深层属性修改后不刷新：V1 用 @Observed + @ObjectLink ，V2 用 @ObservedV2 + @Trace 。",
+      "hash": "9ed32272baf36426",
+      "audio": "seg03.mp3",
+      "start": 42.867,
+      "duration": 9.9
+    },
+    {
+      "index": 4,
+      "text": "同一数据流混用 V1/V2 装饰器：同一数据流只选一套，不让 @State 与 @Param 等混着接力。",
+      "hash": "317c3448a3d87f0a",
+      "audio": "seg04.mp3",
+      "start": 52.767,
+      "duration": 11.154
+    },
+    {
+      "index": 5,
+      "text": "把 @Prop 当成双向绑定，或给 @Link 传普通字面量。 必记 3 条 ：",
+      "hash": "bbd623da9b52bf81",
+      "audio": "seg05.mp3",
+      "start": 63.922,
+      "duration": 8.699
+    },
+    {
+      "index": 6,
+      "text": "V1 组件内状态用 @State ，V2 用 @Local ；父传子与事件上传要分清。",
+      "hash": "f59ca8dc66fba634",
+      "audio": "seg06.mp3",
+      "start": 72.62,
+      "duration": 7.784
+    },
+    {
+      "index": 7,
+      "text": "数组优先不可变替换，嵌套对象必须补齐对应版本的属性观察机制。",
+      "hash": "bf879e3818739fc8",
+      "audio": "seg07.mp3",
+      "start": 80.405,
+      "duration": 6.191
+    },
+    {
+      "index": 8,
+      "text": "AppStorage 管跨组件共享状态，不等于磁盘持久化。",
+      "hash": "023036a668dcc0df",
+      "audio": "seg08.mp3",
+      "start": 86.596,
+      "duration": 4.754
+    },
+    {
+      "index": 9,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg09.mp3",
+      "start": 91.35,
+      "duration": 1.959
+    },
+    {
+      "index": 10,
+      "text": "V1 的 @State/@Prop/@Link/@Provide/@Consume 、嵌套对象的 @Observed/@ObjectLink ，以及 V2 的 @Local/@Param/@Event/@ObservedV2/@Trace 。读完应能为一条数据流选定一套装饰器，并按「引用、层级、版本」排查状态不刷新。",
+      "hash": "899b57cfe6d640c4",
+      "audio": "seg10.mp3",
+      "start": 93.309,
+      "duration": 32.157
+    },
+    {
+      "index": 11,
+      "text": "1. 先确定状态归谁，再决定怎么传",
+      "hash": "8d53e9f3f976a3c4",
+      "audio": "seg11.mp3",
+      "start": 125.466,
+      "duration": 4.232
+    },
+    {
+      "index": 12,
+      "text": "组件自己拥有并修改的状态，与父组件借给子组件的状态，不应使用同一种装饰器。V1 与 V2 可以在工程中分别使用，但同一条数据流不要混用两套规则。",
+      "hash": "5d03e740678071e8",
+      "audio": "seg12.mp3",
+      "start": 129.698,
+      "duration": 13.819
+    },
+    {
+      "index": 13,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg13.mp3",
+      "start": 143.517,
+      "duration": 2.377
+    },
+    {
+      "index": 14,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg14.mp3",
+      "start": 145.894,
+      "duration": 2.717
+    },
+    {
+      "index": 15,
+      "text": "@Param 表达父组件传入的数据， @Event 表达子组件发出的变更意图，父组件再修改自己的 @Local 。这比双向引用更容易追踪数据来源，但仍须遵守 ArkUI 的装饰器规则。",
+      "hash": "2d4c5a4edbb1094e",
+      "audio": "seg15.mp3",
+      "start": 148.611,
+      "duration": 17.293
+    },
+    {
+      "index": 16,
+      "text": "2. V1：@Prop 单向，@Link 双向",
+      "hash": "fae3e66ed68a53db",
+      "audio": "seg16.mp3",
+      "start": 165.904,
+      "duration": 6.426
+    },
+    {
+      "index": 17,
+      "text": "@Prop 会从父组件同步源值，子组件的本地修改不会反向写回； @Link 则与父组件状态建立双向同步。 @Link 不能本地初始化，父组件传参使用 this.$score ，不是 this.score 或字面量。",
+      "hash": "bca0ec220b0e97f7",
+      "audio": "seg17.mp3",
+      "start": 172.33,
+      "duration": 18.024
+    },
+    {
+      "index": 18,
+      "text": "跨多层共享可在祖先写 @Provide('studyScore') score: number = 60 ，后代写 @Consume('studyScore') score: number 。二者名称和类型要匹配， @Consume 不使用本地默认值兜底；只传一两层时，不必把每个值都提升为共享状态。",
+      "hash": "6dfa2b6ddd4be86b",
+      "audio": "seg18.mp3",
+      "start": 190.354,
+      "duration": 27.089
+    },
+    {
+      "index": 19,
+      "text": "3. 嵌套对象：V1 与 V2 各补各的观察能力",
+      "hash": "4b4662472ea3db7e",
+      "audio": "seg19.mp3",
+      "start": 217.443,
+      "duration": 6.191
+    },
+    {
+      "index": 20,
+      "text": "V1 中， @State 持有对象不等于所有深层属性都自动进入观察链路。需要子组件直接观察并修改类实例属性时，给类加 @Observed ，子组件用 @ObjectLink 接收，且不要本地初始化它。",
+      "hash": "2384989567c08371",
+      "audio": "seg20.mp3",
+      "start": 223.634,
+      "duration": 17.946
+    },
+    {
+      "index": 21,
+      "text": "V2 改用 @ObservedV2 标记类、 @Trace 标记需要观察的属性。子组件通过 @Param 读取实例，修改 @Trace 属性即可驱动关联 UI；不要给 @Param 本身重新赋值。",
+      "hash": "834464daa0647bad",
+      "audio": "seg21.mp3",
+      "start": 241.58,
+      "duration": 21.577
+    },
+    {
+      "index": 22,
+      "text": "4. 三类不刷新，按固定顺序排查",
+      "hash": "796b01faf2b38339",
+      "audio": "seg22.mp3",
+      "start": 263.158,
+      "duration": 4.153
+    },
+    {
+      "index": 23,
+      "text": "第一类：数组原地修改。 高频症状是 @State 数组执行 push 后 UI 没响应。统一采用不可变替换，让状态引用变化清晰可见：",
+      "hash": "1a1033f3e755b1d7",
+      "audio": "seg23.mp3",
+      "start": 267.311,
+      "duration": 12.513
+    },
+    {
+      "index": 24,
+      "text": "第二类：深层属性越过观察边界。 先确认修改的是对象本身、第一层字段还是更深字段，再补齐 V1 的 @Observed/@ObjectLink 或 V2 的 @ObservedV2/@Trace 。无差别重建整个对象可能掩盖所有权错误，也增加不必要更新。",
+      "hash": "37dbab3185726130",
+      "audio": "seg24.mp3",
+      "start": 279.824,
+      "duration": 21.76
+    },
+    {
+      "index": 25,
+      "text": "第三类：同一数据流混用版本。 例如父组件用 @State 持有值，子组件却按 V2 的 @Param/@Event 规则期待同步。应把这条链路整体改成 V1 或 V2，而不是继续叠装饰器试错。",
+      "hash": "a6dc7eb43a25396c",
+      "audio": "seg25.mp3",
+      "start": 301.584,
+      "duration": 17.11
+    },
+    {
+      "index": 26,
+      "text": "先打印更新前后的引用与字段值，再检查装饰器版本、父子传参和观察层级。延迟刷新、随机 key、销毁重建页面都没有修复状态链路，还会引入新的时序问题。",
+      "hash": "d7ff4a304eeaac68",
+      "audio": "seg26.mp3",
+      "start": 318.694,
+      "duration": 11.311
+    },
+    {
+      "index": 27,
+      "text": "5. 共享状态不等于持久化",
+      "hash": "f127675ebb089559",
+      "audio": "seg27.mp3",
+      "start": 330.005,
+      "duration": 4.284
+    },
+    {
+      "index": 28,
+      "text": "AppStorage 与 AppStorageV2 适合进程内跨组件共享，例如登录态或全局配置。它们不是把任意状态自动写入磁盘的替代品；首选项、关系型数据与状态持久化应按后续持久化方案处理。保存高频变化状态时，也要控制订阅范围，避免全局更新放大成整页刷新。",
+      "hash": "7557184a673c47a5",
+      "audio": "seg28.mp3",
+      "start": 334.289,
+      "duration": 23.275
+    },
+    {
+      "index": 29,
+      "text": "先定所有权：V1 用 @State/@Prop/@Link ，V2 用 @Local/@Param/@Event ，同一数据流不混版。",
+      "hash": "cc33db2699e8a423",
+      "audio": "seg29.mp3",
+      "start": 357.564,
+      "duration": 14.184
+    },
+    {
+      "index": 30,
+      "text": "数组用 arr = [...arr, item] 等不可变更新；深层属性按版本补 @ObjectLink 或 @Trace 。",
+      "hash": "740dd567ed763ed7",
+      "audio": "seg30.mp3",
+      "start": 371.749,
+      "duration": 10.658
+    },
+    {
+      "index": 31,
+      "text": "排查顺序固定为「值和引用是否变化 到 观察层级是否覆盖 到 数据流是否混用 V1/V2」。",
+      "hash": "5254c4d8c48f0309",
+      "audio": "seg31.mp3",
+      "start": 382.407,
+      "duration": 9.822
+    },
+    {
+      "index": 32,
+      "text": "定义 @ObservedV2 的 StudyTask ，包含 id 、 title 和被 @Trace 观察的 done 。用 @ComponentV2 + @Local 渲染任务列表，子组件通过 @Param 切换完成状态；点击追加按钮时用新数组添加任务，全程不使用 V1 装饰器。",
+      "hash": "a1e337fb648e47e8",
+      "audio": "seg32.mp3",
+      "start": 392.229,
+      "duration": 18.86
+    },
+    {
+      "index": 33,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg33.mp3",
+      "start": 411.089,
+      "duration": 2.064
+    },
+    {
+      "index": 34,
+      "text": "状态装饰器由数据所有权和传递方向决定，不是看到变量就加 @State 。",
+      "hash": "73edd1cbbbe46429",
+      "audio": "seg34.mp3",
+      "start": 413.153,
+      "duration": 5.642
+    },
+    {
+      "index": 35,
+      "text": "V1 与 V2 都有完整的父子、跨层和嵌套观察方案，同一数据流只选一套。",
+      "hash": "f729b8f4c606b39d",
+      "audio": "seg35.mp3",
+      "start": 418.795,
+      "duration": 7.967
+    },
+    {
+      "index": 36,
+      "text": "数组不可变替换、嵌套属性观察、版本一致性，是状态不刷新的三条核心排查线。",
+      "hash": "d58d671d09494042",
+      "audio": "seg36.mp3",
+      "start": 426.762,
+      "duration": 6.191
+    },
+    {
+      "index": 37,
+      "text": "应用级内存共享与持久化是不同问题，不能指望 AppStorage 自动保存到磁盘。",
+      "hash": "1b7e7d3ad3442ef0",
+      "audio": "seg37.mp3",
+      "start": 432.953,
+      "duration": 6.975
+    },
+    {
+      "index": 38,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg38.mp3",
+      "start": 439.928,
+      "duration": 1.593
+    },
+    {
+      "index": 39,
+      "text": "状态管理概述",
+      "hash": "f3f8e402afb4fefe",
+      "audio": "seg39.mp3",
+      "start": 441.522,
+      "duration": 2.299
+    },
+    {
+      "index": 40,
+      "text": "@State：组件内状态",
+      "hash": "2942084391769251",
+      "audio": "seg40.mp3",
+      "start": 443.82,
+      "duration": 4.284
+    },
+    {
+      "index": 41,
+      "text": "@Provide 与 @Consume",
+      "hash": "0f102215a96e3e0c",
+      "audio": "seg41.mp3",
+      "start": 448.104,
+      "duration": 2.247
+    },
+    {
+      "index": 42,
+      "text": "状态变量不刷新的常见排查",
+      "hash": "3045f1323caae9da",
+      "audio": "seg42.mp3",
+      "start": 450.351,
+      "duration": 3.553
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/harmony/1794628991455_03-state-management-merged.mp3"
+  },
+  "publishedAt": "2026-11-14T04:03:18.797Z"
+}

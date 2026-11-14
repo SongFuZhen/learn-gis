@@ -1,0 +1,333 @@
+{
+  "slug": "06-aggregation",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T19:02:05.498Z",
+  "segmentCount": 40,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 4.754
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：几万个订单点直接撒到地图上，只会得到一片杂乱的针毯。业务真正想问的是「每个行政区卖了多少」「订单自然形成哪些热点」「每个六边形格子里有多少单」。 一句话心智模型 ：聚合就是把一堆点变成有业务含义的组、面或数字；Turf 负责算出 GeoJSON底表，地图库负责上色。 常见坑 ：",
+      "hash": "88ab856e13332d64",
+      "audio": "seg01.mp3",
+      "start": 4.754,
+      "duration": 26.07
+    },
+    {
+      "index": 2,
+      "text": "把 DBSCAN和 KMeans当成同一算法：前者看密度并能识别噪声，后者按指定簇数寻找质心。",
+      "hash": "097c4537cf1937dd",
+      "audio": "seg02.mp3",
+      "start": 30.824,
+      "duration": 7.367
+    },
+    {
+      "index": 3,
+      "text": "以为 hexGrid 会顺便统计点数：网格函数只生成几何，计数要自己做。",
+      "hash": "7be4c07d63af9503",
+      "audio": "seg03.mp3",
+      "start": 38.191,
+      "duration": 5.172
+    },
+    {
+      "index": 4,
+      "text": "忘记 maxDistance 、 cellSide 的单位，结果把 500 米写成 500 千米。 必记 3 条 ：",
+      "hash": "f9cc43624b04f011",
+      "audio": "seg04.mp3",
+      "start": 43.363,
+      "duration": 6.792
+    },
+    {
+      "index": 5,
+      "text": "collect 按面收集点的属性值，输出仍是一组面。",
+      "hash": "75035a3f626229b6",
+      "audio": "seg05.mp3",
+      "start": 50.155,
+      "duration": 5.695
+    },
+    {
+      "index": 6,
+      "text": "DBSCAN 不用预先给簇数；KMeans 要指定 numberOfClusters ，且不负责识别噪声。",
+      "hash": "758e1a99deba7d7f",
+      "audio": "seg06.mp3",
+      "start": 55.85,
+      "duration": 7.314
+    },
+    {
+      "index": 7,
+      "text": "网格 + 点面计数 = 热力图底表；颜色分级是渲染层的事。",
+      "hash": "52845d96da5bed40",
+      "audio": "seg07.mp3",
+      "start": 63.164,
+      "duration": 7.628
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 70.792,
+      "duration": 1.646
+    },
+    {
+      "index": 9,
+      "text": "用 collect 做行政区属性汇总，用 clustersDbscan 与 clustersKmeans 发现订单簇，再生成六边形、矩形与点网格，封装一个 pointCount 得到可直接上色的计数面。最后会比较这些结果与 CesiumJS 的屏幕聚合有什么本质区别。",
+      "hash": "8062f524a7778e2e",
+      "audio": "seg09.mp3",
+      "start": 72.438,
+      "duration": 19.148
+    },
+    {
+      "index": 10,
+      "text": "1. collect：把点属性收进所属面",
+      "hash": "0dc71cba445a7b87",
+      "audio": "seg10.mp3",
+      "start": 91.585,
+      "duration": 2.717
+    },
+    {
+      "index": 11,
+      "text": "collect(polygons, points, inProperty, outProperty) 对每个面寻找内部点，把点的 inProperty 属性组成数组，写到该面的 outProperty 上。它不是求和器，而是 属性收集器 ；求和、平均、最大最小值可以在结果上继续算。",
+      "hash": "d5d9897a1fb2e1ee",
+      "audio": "seg11.mp3",
+      "start": 94.302,
+      "duration": 21.525
+    },
+    {
+      "index": 12,
+      "text": "没有命中点时，对应数组为空。 collect 的答案取决于点面包含关系，因此错误坐标、未闭合环或跨面边界点都应先检查；需要严格控制边界语义时，可先读第 4 章的空间判断。",
+      "hash": "99f2c3dcafd8da2e",
+      "audio": "seg12.mp3",
+      "start": 115.827,
+      "duration": 17.241
+    },
+    {
+      "index": 13,
+      "text": "2. clustersDbscan：按密度找簇，也允许噪声",
+      "hash": "10c7d2f930e21f52",
+      "audio": "seg13.mp3",
+      "start": 133.068,
+      "duration": 7.915
+    },
+    {
+      "index": 14,
+      "text": "DBSCAN 的核心概念是：一个点附近在 maxDistance 内至少有 minPoints 个点，它就可能成为密度核心；彼此可达的核心及其邻接点扩展成簇，远离所有稠密区的点被标为噪声。簇数由数据与阈值共同决定，不需要提前猜。",
+      "hash": "651a015151cb4086",
+      "audio": "seg14.mp3",
+      "start": 140.983,
+      "duration": 18.86
+    },
+    {
+      "index": 15,
+      "text": "返回点会附加 dbscan 与聚类相关属性。 maxDistance 是地理距离，不是屏幕像素；缩放地图不会改变结果。 minPoints 越大、距离越小，越容易产生噪声。调参时应结合业务尺度，例如骑手驻店热点可用百米级，城市间站点聚类则用千米级。",
+      "hash": "1ece1c5155b2758c",
+      "audio": "seg15.mp3",
+      "start": 159.843,
+      "duration": 24.764
+    },
+    {
+      "index": 16,
+      "text": "Cesium 的 EntityCluster 主要把屏幕上靠得太近的 Entity 合并显示，相机缩放后簇会变化；Turf 的 DBSCAN 与 KMeans 按地理坐标计算，结果是可保存、可统计的 GeoJSON。可以先用 Turf 算地理簇，再按 Cesium GeoJSON 章 的方式加载展示，但不要拿屏幕聚合结果冒充空间分析。",
+      "hash": "a4abf6324f7bbb71",
+      "audio": "seg16.mp3",
+      "start": 184.607,
+      "duration": 60.343
+    },
+    {
+      "index": 17,
+      "text": "3. clustersKmeans：给定簇数，围绕质心分组",
+      "hash": "092bd7ae09037b19",
+      "audio": "seg17.mp3",
+      "start": 244.95,
+      "duration": 5.303
+    },
+    {
+      "index": 18,
+      "text": "KMeans 先确定要分成几组，再迭代调整质心，使各点尽量靠近所属质心。它适合「全城划定 8 个运营片区」这类有明确组数的任务，不适合自动判断异常点或发现任意形状的密度簇。",
+      "hash": "dc2c46fd71b7ffd3",
+      "audio": "seg18.mp3",
+      "start": 250.253,
+      "duration": 15.386
+    },
+    {
+      "index": 19,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg19.mp3",
+      "start": 265.639,
+      "duration": 2.351
+    },
+    {
+      "index": 20,
+      "text": "两种算法都受参数与输入分布影响。先用地图检查点是否落在合理位置，再做阈值敏感性对比；跨经纬度大范围数据尤其要理解距离与投影语义。簇编号只是标签，编号 0 并不天然比编号 1 更重要。",
+      "hash": "a5d4991d56083058",
+      "audio": "seg20.mp3",
+      "start": 267.99,
+      "duration": 15.151
+    },
+    {
+      "index": 21,
+      "text": "4. 三种网格：hexGrid、rectangleGrid、pointGrid",
+      "hash": "4b5329636dc463a0",
+      "audio": "seg21.mp3",
+      "start": 283.141,
+      "duration": 3.553
+    },
+    {
+      "index": 22,
+      "text": "三种函数都接收 [minX, minY, maxX, maxY] 顺序的包围盒与 cellSide ，并通过 units 控制格元尺度。前两者返回面网格，适合做统计单元； pointGrid 返回规则点集，适合采样或做格网中心标记。",
+      "hash": "56bf8e8af5eeda43",
+      "audio": "seg22.mp3",
+      "start": 286.694,
+      "duration": 18.364
+    },
+    {
+      "index": 23,
+      "text": "六边形邻居关系均匀、视觉上较少方向偏好，常用于城市热力；矩形便于行列索引和与服务端表格对齐；点网格没有面边界，不能直接拿本章的面计数函数统计。 mask 选项可保留与指定面相交的网格，从而减少研究区外的无效单元。",
+      "hash": "31fb54bce8821ff4",
+      "audio": "seg23.mp3",
+      "start": 305.058,
+      "duration": 15.856
+    },
+    {
+      "index": 24,
+      "text": "5. 自定义 pointCount：生成热力底表",
+      "hash": "ec7e036cd3929031",
+      "audio": "seg24.mp3",
+      "start": 320.914,
+      "duration": 4.989
+    },
+    {
+      "index": 25,
+      "text": "Turf 的网格函数只造格子，官方 API 没有一个通用的 pointCount 来替业务完成全部统计。下面用这个直观名字封装本章函数：遍历每个面格，数出内部点，并把 count 写回 properties。",
+      "hash": "c4676e94224dad19",
+      "audio": "seg25.mp3",
+      "start": 325.904,
+      "duration": 16.875
+    },
+    {
+      "index": 26,
+      "text": "这份结果已经是热力图底表：每个 Polygon 都带一个可分级设色的 count 。小数据可以直接这样写；大网格乘大点集会产生 格数 × 点数 的重复判断，应使用空间索引、先按包围盒分桶，或交给 Web Worker，具体见第 9 章。",
+      "hash": "311af9fe406f17f7",
+      "audio": "seg26.mp3",
+      "start": 342.779,
+      "duration": 16.327
+    },
+    {
+      "index": 27,
+      "text": "先过滤 count === 0 的格子，再按分位数设置颜色与透明度，通常比线性套色更耐离群值。不要在高倍缩放时仍沿用城市级格元：格元尺寸应和观察尺度一起设计。",
+      "hash": "6ee71f89ad0436fc",
+      "audio": "seg27.mp3",
+      "start": 359.105,
+      "duration": 14.733
+    },
+    {
+      "index": 28,
+      "text": "用第 7 章将学到的 randomPoint 在上面的包围盒内生成 500 个模拟订单，以 1 千米六边形生成网格，再用本章 pointCount 统计每格订单数。输出非空格子的最大、最小和中位计数，并分别尝试 DBSCAN 与 KMeans，解释为什么二者簇数不同。",
+      "hash": "8062c7cb9a650e87",
+      "audio": "seg28.mp3",
+      "start": 373.838,
+      "duration": 25.652
+    },
+    {
+      "index": 29,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg29.mp3",
+      "start": 399.491,
+      "duration": 2.064
+    },
+    {
+      "index": 30,
+      "text": "collect 输出带属性数组的面，不是自动汇总后的数字。",
+      "hash": "3e8d320817c701b5",
+      "audio": "seg30.mp3",
+      "start": 401.554,
+      "duration": 5.068
+    },
+    {
+      "index": 31,
+      "text": "DBSCAN 看密度并识别噪声；KMeans 按指定簇数围绕质心分组。",
+      "hash": "0711b918314f70f0",
+      "audio": "seg31.mp3",
+      "start": 406.622,
+      "duration": 6.296
+    },
+    {
+      "index": 32,
+      "text": "hexGrid 、 rectangleGrid 生成面， pointGrid 生成点；包围盒顺序始终是 [minX, minY, maxX, maxY] 。",
+      "hash": "37f4624fb4f448f2",
+      "audio": "seg32.mp3",
+      "start": 412.918,
+      "duration": 11.207
+    },
+    {
+      "index": 33,
+      "text": "网格计数生成的是与渲染无关的 GeoJSON 底表，可交给 Leaflet、MapLibre 或 CesiumJS 展示。",
+      "hash": "fa8deab90144948d",
+      "audio": "seg33.mp3",
+      "start": 424.124,
+      "duration": 8.411
+    },
+    {
+      "index": 34,
+      "text": "下一章学习空间插值与随机测试数据，让网格从「计数容器」变成「连续现象估计」。",
+      "hash": "8bd13d237a4d522c",
+      "audio": "seg34.mp3",
+      "start": 432.536,
+      "duration": 5.904
+    },
+    {
+      "index": 35,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg35.mp3",
+      "start": 438.439,
+      "duration": 1.698
+    },
+    {
+      "index": 36,
+      "text": "Turf collect",
+      "hash": "72caceead21dc2a3",
+      "audio": "seg36.mp3",
+      "start": 440.137,
+      "duration": 1.176
+    },
+    {
+      "index": 37,
+      "text": "Turf clustersDbscan 与 clustersKmeans",
+      "hash": "2f614400d0af2665",
+      "audio": "seg37.mp3",
+      "start": 441.313,
+      "duration": 6.139
+    },
+    {
+      "index": 38,
+      "text": "Turf hexGrid 、 rectangleGrid 与 pointGrid",
+      "hash": "13c37681e498b3ab",
+      "audio": "seg38.mp3",
+      "start": 447.451,
+      "duration": 6.191
+    },
+    {
+      "index": 39,
+      "text": "GeoJSON RFC 7946",
+      "hash": "9e75861126780081",
+      "audio": "seg39.mp3",
+      "start": 453.642,
+      "duration": 2.534
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611740092_06-aggregation-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.807Z"
+}

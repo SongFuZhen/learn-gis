@@ -1,0 +1,373 @@
+{
+  "slug": "00-turf-intro",
+  "model": "fish-speech-1.5",
+  "generatedAt": "2026-11-13T20:43:19.787Z",
+  "segmentCount": 45,
+  "segments": [
+    {
+      "index": 0,
+      "text": "白话版（先看这个）",
+      "hash": "6977374ca2a45355",
+      "audio": "seg00.mp3",
+      "start": 0,
+      "duration": 2.534
+    },
+    {
+      "index": 1,
+      "text": "这章解决什么问题 ：你在 GIS 理论课 里学了一堆空间概念（缓冲区、叠加分析、泰森多边形），在 Cesium 课 里学会了把数据放到三维地球上——但「算一个多边形面积」「判断点在不在围栏里」这种纯几何活儿，难道还要把数据发到 PostGIS 服务器？ Turf.js （浏览器端几何引擎）就是在前端把这些活儿就地干了的库： GeoJSON 进，GeoJSON 出 ，不依赖服务器、不依赖地图库。 一句话经验 ：Turf 不画地图、不发请求、不管瓦片，它只做几何计算；画地图交给 Leaflet/MapLibre，三维交给 Cesium，Turf 是它们背后的「计算器」。 常见坑 ：",
+      "hash": "505c1dcfb4b9f6b8",
+      "audio": "seg01.mp3",
+      "start": 2.534,
+      "duration": 45.427
+    },
+    {
+      "index": 2,
+      "text": "把 Turf 当地图库用——它没有地图、没有 DOM、没有底图， import as turf 之后你拿不到任何 map 对象。",
+      "hash": "5e77669422fa89ac",
+      "audio": "seg02.mp3",
+      "start": 47.961,
+      "duration": 10.292
+    },
+    {
+      "index": 3,
+      "text": "坐标顺序写反——Turf 全程遵循 GeoJSON 规范 [经度, 纬度] （lng, lat），和 Cesium 一致，和 Leaflet 的 L.latLng(lat, lng) 相反。",
+      "hash": "a8c8f0d99fb05d02",
+      "audio": "seg03.mp3",
+      "start": 58.253,
+      "duration": 19.383
+    },
+    {
+      "index": 4,
+      "text": "拿 Turf 算三维——它是纯二维库，几何里的第三个坐标会被大多数函数忽略。 必记 3 条 ：",
+      "hash": "4f03637b58d2973b",
+      "audio": "seg04.mp3",
+      "start": 77.636,
+      "duration": 7.732
+    },
+    {
+      "index": 5,
+      "text": "Turf 的输入输出统一是 GeoJSON（Feature / FeatureCollection / Geometry）。",
+      "hash": "3e2b6849c2cb2444",
+      "audio": "seg05.mp3",
+      "start": 85.368,
+      "duration": 10.475
+    },
+    {
+      "index": 6,
+      "text": "角度用十进制度，距离面积默认单位由函数参数 units 控制（ kilometers 最常用）。",
+      "hash": "660d865821e57d37",
+      "audio": "seg06.mp3",
+      "start": 95.843,
+      "duration": 7.131
+    },
+    {
+      "index": 7,
+      "text": "纯函数、无副作用：同样的输入永远得到同样的输出，方便测试与组合。",
+      "hash": "913fb5ca06f2cf31",
+      "audio": "seg07.mp3",
+      "start": 102.975,
+      "duration": 7.21
+    },
+    {
+      "index": 8,
+      "text": "本章你会学到",
+      "hash": "2d47d26230218cbb",
+      "audio": "seg08.mp3",
+      "start": 110.184,
+      "duration": 1.411
+    },
+    {
+      "index": 9,
+      "text": "Turf 在整个技术栈里的定位、两种接入方式（npm 与 CDN）、GeoJSON 几何类型速览，以及用 area 完成第一个真实计算。学完你能回答：什么活该交给 Turf，什么活该交给 Cesium 或后端。",
+      "hash": "c2f084ab031abf98",
+      "audio": "seg09.mp3",
+      "start": 111.595,
+      "duration": 17.58
+    },
+    {
+      "index": 10,
+      "text": "1. Turf 是什么：技术栈里的几何引擎",
+      "hash": "233484dd616a9227",
+      "audio": "seg10.mp3",
+      "start": 129.176,
+      "duration": 5.355
+    },
+    {
+      "index": 11,
+      "text": "GIS 课讲过一个完整的 GIS 栈：数据存储（PostGIS）到 服务（OGC API）到 客户端渲染（Leaflet/Cesium）。Turf 补的是客户端这一层的 分析能力 ：",
+      "hash": "0015902ba019bb1b",
+      "audio": "seg11.mp3",
+      "start": 134.531,
+      "duration": 12.748
+    },
+    {
+      "index": 12,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg12.mp3",
+      "start": 147.278,
+      "duration": 3.396
+    },
+    {
+      "index": 13,
+      "text": "典型场景：用户在地图上画了一条路线，你想立刻告诉他「总长 3.2 公里」；画了一个围栏，想立刻判断 100 个外卖小哥谁在围栏内。数据根本不用出浏览器，Turf 毫秒级算完。",
+      "hash": "9aacf09fa65a52dc",
+      "audio": "seg13.mp3",
+      "start": 150.674,
+      "duration": 15.569
+    },
+    {
+      "index": 14,
+      "text": "Turf 不是一个单体大包，而是 @turf/helpers 、 @turf/buffer 、 @turf/area 等几十个小包的集合， @turf/turf 是把它们打包在一起的总入口。现代项目推荐按函数装小包（tree-shaking 更友好），学习阶段直接用总入口最省心。",
+      "hash": "c2e3399312474454",
+      "audio": "seg14.mp3",
+      "start": 166.243,
+      "duration": 25.704
+    },
+    {
+      "index": 15,
+      "text": "2. 与 Cesium 的分工：二维计算 vs 三维世界",
+      "hash": "c6c583ec56e59152",
+      "audio": "seg15.mp3",
+      "start": 191.948,
+      "duration": 7.262
+    },
+    {
+      "index": 16,
+      "text": "这门课每章都会和 Cesium 对比，先建立总览：",
+      "hash": "53d7aef880abfe7e",
+      "audio": "seg16.mp3",
+      "start": 199.21,
+      "duration": 3.866
+    },
+    {
+      "index": 17,
+      "text": "（本节含表格，建议查看原文）",
+      "hash": "c6f7ee60d35a4684",
+      "audio": "seg17.mp3",
+      "start": 203.076,
+      "duration": 1.933
+    },
+    {
+      "index": 18,
+      "text": "协作模式很常见： Turf 算好 GeoJSON 结果 到 丢给 Cesium 的 GeoJsonDataSource.load() 上球 。比如 Turf 生成 5 公里缓冲区，Cesium 负责把这个多边形贴地画出来。反过来，Cesium 拾取到的 Entity 坐标也能转回 GeoJSON 给 Turf 分析。",
+      "hash": "f0fd30909a39fdeb",
+      "audio": "seg18.mp3",
+      "start": 205.009,
+      "duration": 25.94
+    },
+    {
+      "index": 19,
+      "text": "3. 两种接入方式",
+      "hash": "9b4a641eb6d44d09",
+      "audio": "seg19.mp3",
+      "start": 230.949,
+      "duration": 2.064
+    },
+    {
+      "index": 20,
+      "text": "npm + Vite（本课程主线）",
+      "hash": "ab0ec38542b2f1d0",
+      "audio": "seg20.mp3",
+      "start": 233.012,
+      "duration": 2.9
+    },
+    {
+      "index": 21,
+      "text": "按需安装的写法（工程推荐）：",
+      "hash": "115635b31dba1196",
+      "audio": "seg21.mp3",
+      "start": 235.912,
+      "duration": 3.082
+    },
+    {
+      "index": 22,
+      "text": "CDN 零构建（适合原型与文档页）",
+      "hash": "6bd1d26156f9d798",
+      "audio": "seg22.mp3",
+      "start": 238.994,
+      "duration": 2.978
+    },
+    {
+      "index": 23,
+      "text": "本课程基于 Turf v7 。v6到v7 的主要变化是全面 ESM、去掉对 CommonJS 的历史包袱，函数签名基本稳定。网上 v5 时代的教程要警惕：部分函数的多几何行为有调整，遇到旧代码先查 v7 文档。",
+      "hash": "7e48b3a88c91e686",
+      "audio": "seg23.mp3",
+      "start": 241.972,
+      "duration": 15.935
+    },
+    {
+      "index": 24,
+      "text": "4. GeoJSON 速览：Turf 的唯一语言",
+      "hash": "c55331c2de43c812",
+      "audio": "seg24.mp3",
+      "start": 257.907,
+      "duration": 4.702
+    },
+    {
+      "index": 25,
+      "text": "Turf 不发明数据格式，只认 RFC 7946 GeoJSON 。七种几何类型： Point 、 MultiPoint 、 LineString 、 MultiLineString 、 Polygon 、 MultiPolygon 、 GeometryCollection ，外面可以包 Feature （带 properties）或 FeatureCollection 。",
+      "hash": "dbec5c5c6f5b038a",
+      "audio": "seg25.mp3",
+      "start": 262.609,
+      "duration": 29.649
+    },
+    {
+      "index": 26,
+      "text": "用 @turf/helpers 创建，比手写对象少出错：",
+      "hash": "904e73b37119e1db",
+      "audio": "seg26.mp3",
+      "start": 292.258,
+      "duration": 4.336
+    },
+    {
+      "index": 27,
+      "text": "注意 Polygon 的环是 坐标数组的数组 （外环 + 可选内环），且首尾点必须相同——这是 GeoJSON 校验高频报错点。",
+      "hash": "8206ba466c7509f8",
+      "audio": "seg27.mp3",
+      "start": 296.594,
+      "duration": 10.736
+    },
+    {
+      "index": 28,
+      "text": "5. 第一个计算：area 面积",
+      "hash": "483b461178ae4e4d",
+      "audio": "seg28.mp3",
+      "start": 307.331,
+      "duration": 4.153
+    },
+    {
+      "index": 29,
+      "text": "area 接收任意 GeoJSON，返回平方米。它内部按球面模型计算，不需要投影，这也是前端空间库相对桌面 GIS 的一大便利：",
+      "hash": "8b5a14b3e8a4265c",
+      "audio": "seg29.mp3",
+      "start": 311.484,
+      "duration": 10.919
+    },
+    {
+      "index": 30,
+      "text": "Turf = 前端几何引擎，GeoJSON 进 GeoJSON 出，不渲染地图。",
+      "hash": "ae49befcc810af0b",
+      "audio": "seg30.mp3",
+      "start": 322.403,
+      "duration": 11.207
+    },
+    {
+      "index": 31,
+      "text": "坐标顺序 [lng, lat] ；多边形环首尾闭合；它是二维库。",
+      "hash": "a2241f34798f91df",
+      "audio": "seg31.mp3",
+      "start": 333.61,
+      "duration": 5.172
+    },
+    {
+      "index": 32,
+      "text": "与 Cesium 的协作：Turf 负责算，Cesium 负责画三维；距离语义上 Turf 只有大圆一类。",
+      "hash": "24f2a59c774b24f3",
+      "audio": "seg32.mp3",
+      "start": 338.782,
+      "duration": 7.367
+    },
+    {
+      "index": 33,
+      "text": "在 geojson.io 上沿你熟悉的一个小区围墙画一个 Polygon，复制它的 GeoJSON，在 Vite 项目里用 area 算出平方米与公顷（1 公顷 = 10000 平方米）。再把同一个 GeoJSON 用 Cesium 的 GeoJsonDataSource.load 加载到三维地球上，观察同一份数据在两个库里的角色差异。",
+      "hash": "e041988daf70cda2",
+      "audio": "seg33.mp3",
+      "start": 346.149,
+      "duration": 26.305
+    },
+    {
+      "index": 34,
+      "text": "6. 本章小结",
+      "hash": "952a4cb932518efd",
+      "audio": "seg34.mp3",
+      "start": 372.454,
+      "duration": 3.448
+    },
+    {
+      "index": 35,
+      "text": "Turf 补齐了客户端 GIS 的分析层：无服务器、无地图、纯函数。",
+      "hash": "210da36eb13ca62c",
+      "audio": "seg35.mp3",
+      "start": 375.902,
+      "duration": 4.336
+    },
+    {
+      "index": 36,
+      "text": "技术栈定位：PostGIS 存储、Leaflet/Cesium 渲染、Turf 计算。",
+      "hash": "9555729a0457bb2e",
+      "audio": "seg36.mp3",
+      "start": 380.238,
+      "duration": 6.975
+    },
+    {
+      "index": 37,
+      "text": "接入走 npm（v7，ESM）或 CDN；helpers 创建 GeoJSON 最稳。",
+      "hash": "2c3af19831c2152e",
+      "audio": "seg37.mp3",
+      "start": 387.213,
+      "duration": 9.038
+    },
+    {
+      "index": 38,
+      "text": "第一个函数 area ：输入任意 GeoJSON，输出平方米，球面计算免投影。",
+      "hash": "3c92ed659f8d4d46",
+      "audio": "seg38.mp3",
+      "start": 396.251,
+      "duration": 5.277
+    },
+    {
+      "index": 39,
+      "text": "下一章进入量测全家桶：距离、线长、沿线取点，并和 Cesium 的三种三维距离正面对比。",
+      "hash": "eac2c42845240d0a",
+      "audio": "seg39.mp3",
+      "start": 401.528,
+      "duration": 6.478
+    },
+    {
+      "index": 40,
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
+      "audio": "seg40.mp3",
+      "start": 408.007,
+      "duration": 1.228
+    },
+    {
+      "index": 41,
+      "text": "官方文档与函数索引： Turf.js 官网",
+      "hash": "6cab0fccc3ba6c9d",
+      "audio": "seg41.mp3",
+      "start": 409.234,
+      "duration": 3.683
+    },
+    {
+      "index": 42,
+      "text": "GeoJSON 规范： RFC 7946",
+      "hash": "8dfe38ab1f5b5289",
+      "audio": "seg42.mp3",
+      "start": 412.918,
+      "duration": 3.396
+    },
+    {
+      "index": 43,
+      "text": "在线画 GeoJSON 的草稿本： geojson.io",
+      "hash": "550112945e349e09",
+      "audio": "seg43.mp3",
+      "start": 416.313,
+      "duration": 4.284
+    },
+    {
+      "index": 44,
+      "text": "v7 发布说明与 ESM 迁移： Turf GitHub Releases",
+      "hash": "7b1b31e5ff488d12",
+      "audio": "seg44.mp3",
+      "start": 420.598,
+      "duration": 8.464
+    }
+  ],
+  "merged": {
+    "audio": "chapter.mp3",
+    "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/turf/1794611733352_00-turf-intro-merged.mp3"
+  },
+  "publishedAt": "2026-11-13T23:15:46.790Z"
+}
