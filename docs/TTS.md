@@ -1,6 +1,6 @@
 # 讲义语音阅读（TTS）方案 v2
 
-> 状态：TTS 服务、抽取器、预生成脚本、播放器、校验器均已落地；GIS 17 章与 Cesium 12 章音频已生成，Turf / three / Harmony 共 28 章正在批量生成；mp3 由用户自行上传图床，manifest 入库随代码发布；部署发布方案见 §7
+> 状态：TTS 服务、抽取器、预生成脚本、播放器、校验器均已落地；五门课 57 章音频全部生成并发布：GIS 17 章保持逐段模式，Cesium / Turf / three / Harmony 共 40 章采用整章合并模式；mp3 外置到图床，manifest 入库随代码发布；部署发布方案见 §7
 > 一句话：**本地部署 Fish Speech 模型作独立 TTS 服务**；构建/批处理阶段把每章讲义净化文本送服务合成音频，落盘为静态文件；前端直接播放预生成音频，并保留段落高亮、点击跳播、调速。
 
 ---
@@ -117,13 +117,13 @@ public/audio/<slug>/manifest.json# 章节->段落->音频映射（slug = 章节�
 
 ### 7.1 复用资源与硬约束（实测 2026-11-04）
 
-**复用 `assert-ai` 项目的图床**：它用自部署的 **CloudFlare ImgBed**（开源 MarSeventh/CloudFlare-ImgBed），上传渠道 `huggingface` → 底层落到 HF Dataset 仓库；读取走自建网关，不直接访问 `huggingface.co`。
+**复用 `assert-ai` 项目的图床**：它用自部署的 **CloudFlare ImgBed**（开源 MarSeventh/CloudFlare-ImgBed）。早期评估过 `huggingface` 渠道（底层落到 HF Dataset 仓库），但受 HF commit 限速影响；当前上传脚本默认改用 `cfr2` 渠道，读取仍走自建网关，不直接访问 `huggingface.co`。
 
 | 项 | 实测值 |
 |---|---|
 | 图床站点 | `https://cloudflare-imgbed-91r.pages.dev`（配置见 `assert-ai/.env.local` 的 `IMGBED_URL`） |
 | 读取格式 | `https://cloudflare-imgbed-91r.pages.dev/file/{id}`（**扁平纯 id，无目录层级**） |
-| 上传端点 | `POST /upload?uploadChannel=huggingface`，`multipart/form-data` 字段 `file`，`Authorization: Bearer <IMGBED_API_TOKEN>` |
+| 上传端点 | `POST /upload?uploadChannel=cfr2&uploadFolder=<skill>`，`multipart/form-data` 字段 `file`，`Authorization: Bearer <IMGBED_API_TOKEN>` |
 | 可达性 | **HTTP 200 / 1.9s**（对比 `huggingface.co` 直连 8s 超时）✅ |
 | CORS | `/upload` 返回 `Access-Control-Allow-Origin: *` ✅ |
 | 可抄实现 | `assert-ai/src/lib/upload/host.ts` 的 `uploadToHost()`、`config.ts` 的 `imgbedUrl()` |
@@ -133,12 +133,12 @@ public/audio/<slug>/manifest.json# 章节->段落->音频映射（slug = 章节�
 **但有三个新障碍（来自 assert-ai 实战）**：
 
 1. **HF commit 限速 128 次/小时** —— `assert-ai/src/lib/upload/rate-limit.ts` 专门为此设了 ≈28.1s 最小提交间隔 + 滑动窗口，且注明「仅 `channel=huggingface` 时启用，其它渠道（cfr2/s3/telegram）不受限」。我们有 **1391 个碎 mp3**，逐段上传 ≈ 11 小时且必然 429。**不能一段一次**。
-2. **`/file/{id}` 是扁平 id** —— 不支持 `<slug>/segNN.mp3` 层级。需靠 `uploadFolder` 参数建目录（assert-ai 未用过、待验证），或把 slug 编进文件名。上传后须把返回的 `publicUrl` **回写进 manifest**，不能沿用相对文件名。
-3. **ImgBed 是否接受 `.mp3` / `audio/mpeg` 未经实测**（assert-ai 只传图片）；文件名需 ASCII 规范化（我们 `segNN.mp3` 已合规）。
+2. **`/file/{id}` 是扁平 id** —— 不支持 `<slug>/segNN.mp3` 层级。已通过 `uploadFolder=<skill>` 建课程目录，并把 slug 编进文件名；上传后把返回 URL **回写进 manifest**，不沿用相对文件名。
+3. **ImgBed 已接受 `.mp3` / `audio/mpeg`**（2026-11-14 实测）；文件名需 ASCII 规范化（`segNN.mp3`、`<slug>-merged.mp3` 已合规）。
 
-**结论**：架构仍成立（mp3 外置、manifest 入库），但上传脚本要改成走 ImgBed API 并解决批量，不是简单的 `huggingface_hub.upload_folder()`。
+**结论**：架构成立（mp3 外置、manifest 入库）。GIS 逐段上传；其余课程先帧级合并成整章，再走 ImgBed cfr2 API 上传，避开 HF 限速。
 
-本地现状：GIS 17 章的逐段 `manifest.json` 已入库，mp3 被 `.gitignore` 忽略；其中 11 章当前校验通过，6 章因后续 MDX 改动出现段数差异，需在当前 Turf / three / Harmony 批次结束后增量重跑。Cesium 12 章采用 `chapter.mp3` 合并模式，`audio:validate` 已确认 505 段、12 章全部通过。前端 `useSpeech.ts` 用 `fetch` 读同源 manifest；逐段模式播放 `segments[].publicUrl`，合并模式播放 `merged.publicUrl` 并按段级 `start/duration` seek。
+本地现状：五门课 57 章 `manifest.json` 均已入库，mp3 被 `.gitignore` 忽略；GIS 17 章保持逐段模式（1391 个段级 publicUrl），Cesium / Turf / three / Harmony 共 40 章采用 `chapter.mp3` 合并模式并回写 `merged.publicUrl`，`audio:validate` 全部通过。前端 `useSpeech.ts` 用 `fetch` 读同源 manifest；逐段模式播放 `segments[].publicUrl`，合并模式播放 `merged.publicUrl` 并按段级 `start/duration` seek。
 
 ### 7.2 推荐架构：大文件外置，小文件入库
 
@@ -149,8 +149,8 @@ git 仓库（随代码发布）
     由 npm run gen:audio 生成 -> npm run audio:upload 回写 -> 提交进 git
 
 CloudFlare ImgBed /file/{id}（不进 git）
-  1391 个 mp3，~130 MB，HF Dataset 仓库兜底存储
-    POST /upload?uploadChannel=huggingface
+  GIS 1391 个逐段 mp3；其余 40 章为整章 chapter.mp3，CloudFlare ImgBed cfr2 渠道存储
+    POST /upload?uploadChannel=cfr2&uploadFolder=<skill>
 
 浏览器
   fetch 同源 manifest（本地，无 CORS 问题）
@@ -166,25 +166,25 @@ CloudFlare ImgBed /file/{id}（不进 git）
 | `lib/speech/manifest.ts` | `SpeechSegmentManifest` 增加可选 `publicUrl?: string`（图床返回的绝对地址）；`segmentUrl(seg)` 优先取 `publicUrl`，否则回退本地 `/audio/<slug>/<audio>`。保留 `chapterManifestUrl()` 同源。 |
 | `lib/speech/useSpeech.ts` | 第 78 行 manifest 仍同源 `chapterManifestUrl(slug)`；第 87 行段音频改用 `segmentUrl(x)`。 |
 | `scripts/gen-audio.ts` | 仅写 `audio: 'segNN.mp3'` 与 `text/hash`，**不写域名**；`publicUrl` 留给上传脚本回写。 |
-| `scripts/upload-audio-imgbed.mjs`（新增） | 抄 `assert-ai/src/lib/upload/host.ts`：`POST {IMGBED_URL}/upload?uploadChannel=huggingface`，`FormData` 带 `file` + `Bearer ${IMGBED_API_TOKEN}`，解析响应的 `publicUrl`/`src`，**回写进各章 manifest.json**；跳过已带 `publicUrl` 的段（幂等，支持断点续传）。 |
+| `scripts/upload-audio-imgbed.mjs`（新增） | 抄 `assert-ai/src/lib/upload/host.ts`：默认 `POST {IMGBED_URL}/upload?uploadChannel=cfr2&uploadFolder=<SKILL>`，`FormData` 带 `file` + `Bearer ${IMGBED_API_TOKEN}`，解析响应的 `src` 并拼成绝对 URL，**回写进各章 manifest.json**；逐段模式跳过已带 `publicUrl` 的段，合并模式只回写 `merged.publicUrl`（幂等，支持断点续传）。 |
 | `package.json` | 新增 `'audio:upload': 'node scripts/upload-audio-imgbed.mjs'`。 |
 | `.gitignore` | `public/audio/` → `public/audio/**/*.mp3`，让 `manifest.json` 可提交。 |
-| `.env.example` | 新增 `IMGBED_URL`（填 `https://cloudflare-imgbed-91r.pages.dev`）、`IMGBED_API_TOKEN`（需 `upload` 权限，不落盘）。 |
+| 凭据来源 | `IMGBED_URL` 与 `IMGBED_API_TOKEN` 不写入本仓库；当前从外部 `assert-ai/.env.local` 读取后注入上传命令，Token 需具备 `upload` 权限且不得落盘。 |
 
 **上传脚本必须解决的两个问题**（否则会踩 §7.1 的坑）：
 
 1. **批量而非逐段**：优先试 `/upload` 的 `uploadFolder` 参数或一次 multipart 多文件，把 HF commit 次数压到 128/小时以内；否则改走 `uploadChannel=cfr2|s3|telegram`（`rate-limit.ts` 注明这些渠道不受 HF 限速）。
 2. **扁平 id**：`publicUrl` 是 `.../file/{id}`，不是 `<slug>/segNN.mp3`；manifest 存回写的绝对 URL，前端不拼路径。文件名用 ASCII（可加 slug 前缀避免重名，如 `01-math-notation-seg00.mp3`）。
 
-### 7.4 已确认与待验证
+### 7.4 已确认与验证结果
 
-**已确认（参考 `assert-ai` 项目，实测 2026-11-04）**：资源类型 = CloudFlare ImgBed + `huggingface` 渠道（底层 HF Dataset 仓库）；真实域名 `https://cloudflare-imgbed-91r.pages.dev`；读取格式 `/file/{id}`；站点可达（200 / 1.9s）、CORS `*`；上传实现可直接抄 `assert-ai/src/lib/upload/host.ts`。原先「域名不可达 / CORS / 上传通道」三项顾虑均已解除。
+**已确认（参考 `assert-ai` 项目，实测 2026-11-04；上传渠道于 2026-11-14 切换到 cfr2）**：资源类型 = CloudFlare ImgBed；真实域名 `https://cloudflare-imgbed-91r.pages.dev`；读取格式 `/file/{id}`；站点可达、CORS `*`；上传实现可直接抄 `assert-ai/src/lib/upload/host.ts`。原先「域名不可达 / CORS / 上传通道 / mp3 兼容性」顾虑均已解除。
 
-**仍需实测验证（动手前）**：
+**已验证（2026-11-14，turf / three / harmony 共 28 个整章 mp3）**：
 
-1. **`.mp3` 是否被 ImgBed 接受** —— assert-ai 只传过图片，需用一段真实 mp3 试传 `POST /upload?uploadChannel=huggingface`，确认返回 `publicUrl` 且 `Content-Type: audio/mpeg` 可直链播放。
-2. **批量上传可行性** —— 试 `uploadFolder` 参数或单次 multipart 多文件，确认 HF commit 不会按文件数逐次累加；若不行，改走 `uploadChannel=cfr2|s3|telegram`（不受 HF 128 次/小时限速）。
-3. **Token** —— `IMGBED_API_TOKEN` 需具备 `upload` 权限，在 ImgBed 管理界面生成，仅存环境变量。
+1. **`.mp3` 被 ImgBed 接受** —— 真实 mp3 上传后返回可访问 URL，`Content-Type: audio/mpeg`，直链返回 HTTP 206 并支持 Range。
+2. **批量策略可行** —— 合并模式把一章压成一个 `chapter.mp3`，配合 `uploadChannel=cfr2&uploadFolder=<skill>`，绕开 HF 128 次/小时 commit 限速；28 次上传全部成功、0 失败。
+3. **Token 管理** —— `IMGBED_API_TOKEN` 需具备 `upload` 权限，仅从外部环境注入，不写入本仓库或 manifest。
 
 ### 7.5 备选方案（若 HF 不可行）
 
@@ -196,15 +196,15 @@ CloudFlare ImgBed /file/{id}（不进 git）
 | D. 其他对象存储 / CDN | S3 / 火山 TOS / Vercel Blob | 改动点同 §7.3，只换上传脚本与前缀；国内可达、CORS 可控，最稳 |
 | E. git-lfs | `git lfs track 'public/audio/**/*.mp3'` | 配额/带宽成本、clone 变重、二进制 diff 无意义；不推荐 |
 
-### 7.6 整章合并模式（Cesium 课程，KV 写次数优化）
+### 7.6 整章合并模式（Cesium / Turf / three / Harmony，KV 写次数优化）
 
-KV 免费版限制的是**写次数**（每文件一次）而非大小——505 个分段文件一天内必撞配额。对策（`npm run audio:merge`）：
+KV 免费版限制的是**写次数**（每文件一次）而非大小——数百个分段文件一天内必撞配额。对策（`npm run audio:merge`）：
 
-- **一章一文件**：`scripts/merge-audio.py` 把各章 `segNN.mp3` 帧级拼接为 `chapter.mp3`（12 章 ≈ 47MB），manifest 加 `merged` 字段 + 段级 `start/duration` 秒偏移
+- **一章一文件**：`scripts/merge-audio.py` 把各章 `segNN.mp3` 帧级拼接为 `chapter.mp3`，manifest 加 `merged` 字段 + 段级 `start/duration` 秒偏移；当前共 40 章采用该模式
 - **拼接正确性关键**：只剥段间 ID3v2/ID3v1 标签，**保留全部帧**（含各段的 Xing/Info 头帧）——帧字节流连续是对齐的根本；剥离 Xing 帧反而会因帧长计算误差破坏对齐。libsndfile 的 `sf.info` 会被首段 Xing 头骗到（只报首段时长），**验证时长必须用帧遍历**（脚本内置 `walk_frames`）
 - **段时长口径**：用帧遍历测（含 Xing 帧），与拼接后的字节时间线严格一致（最坏偏差 0.003s）；用 `sf.info` 会累计漂移 ~2.5s/章
 - **前端**：`useSpeech` 检测 `merged` 字段 → 整章单文件播放，段切换按 `start` seek（`loadedmetadata` 应用挂起 seek）、`timeupdate` 越界推进段落、无缝衔接不回跳
-- **上传**：`audio:upload` 自动识别 `merged` 模式——一章一文件回写 `merged.publicUrl`（12 次写 vs 505 次）
+- **上传**：`audio:upload` 自动识别 `merged` 模式——一章一文件回写 `merged.publicUrl`（40 次写替代上千次分段写）
 - **管线顺序**：`gen:audio`（逐段生成/增量）→ `audio:merge`（合并+偏移）→ `audio:upload`（整章上传）
 - GIS 17 章保持逐段模式不动（已发布 1391 个 publicUrl，合并会使其作废）
 
