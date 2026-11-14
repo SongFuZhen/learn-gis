@@ -1,8 +1,8 @@
 {
   "slug": "13-spatial-db",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-05T03:57:36.893Z",
-  "segmentCount": 80,
+  "generatedAt": "2026-11-14T07:52:32.197Z",
+  "segmentCount": 81,
   "segments": [
     {
       "index": 0,
@@ -531,39 +531,46 @@
     },
     {
       "index": 75,
-      "text": "延伸阅读",
-      "hash": "e558bd3b8ec12c95",
+      "text": "大圆距离与切平面面积在三维引擎里的落地实现——见 CesiumJS 课第 9 章 乘 空间量算 。",
+      "hash": "982f57b5ff3d729b",
       "audio": "seg75.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946223381_13-spatial-db-seg75.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794643539546_13-spatial-db-seg75.mp3"
     },
     {
       "index": 76,
-      "text": "PostGIS 函数索引： postgis.net/docs",
-      "hash": "31c5c32f4605f1e9",
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
       "audio": "seg76.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946259791_13-spatial-db-seg76.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946223381_13-spatial-db-seg75.mp3"
     },
     {
       "index": 77,
-      "text": "STDWithin： postgis.net/docs/STDWithin",
-      "hash": "0664c7de8f8b247f",
+      "text": "PostGIS 函数索引： postgis.net/docs",
+      "hash": "31c5c32f4605f1e9",
       "audio": "seg77.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946257533_13-spatial-db-seg77.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946259791_13-spatial-db-seg76.mp3"
     },
     {
       "index": 78,
-      "text": "STDistance： postgis.net/docs/STDistance",
-      "hash": "4e5f82df2d72f812",
+      "text": "STDWithin： postgis.net/docs/STDWithin",
+      "hash": "0664c7de8f8b247f",
       "audio": "seg78.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946253464_13-spatial-db-seg78.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946257533_13-spatial-db-seg77.mp3"
     },
     {
       "index": 79,
+      "text": "STDistance： postgis.net/docs/STDistance",
+      "hash": "4e5f82df2d72f812",
+      "audio": "seg79.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946253464_13-spatial-db-seg78.mp3"
+    },
+    {
+      "index": 80,
       "text": "Turf.js buffer： turfjs.org/docs/api/buffer",
       "hash": "7677c8f91d140934",
-      "audio": "seg79.mp3",
+      "audio": "seg80.mp3",
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946258931_13-spatial-db-seg79.mp3"
     }
   ],
-  "publishedAt": "2026-11-06T06:39:38.637Z"
+  "publishedAt": "2026-11-14T08:05:38.536Z"
 }

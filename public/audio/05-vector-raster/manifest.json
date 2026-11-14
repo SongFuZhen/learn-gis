@@ -1,8 +1,8 @@
 {
   "slug": "05-vector-raster",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-05T02:03:42.908Z",
-  "segmentCount": 82,
+  "generatedAt": "2026-11-14T07:52:26.709Z",
+  "segmentCount": 83,
   "segments": [
     {
       "index": 0,
@@ -128,7 +128,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg17.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893246742_05-vector-raster-seg17.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893357794_05-vector-raster-seg61.mp3"
     },
     {
       "index": 18,
@@ -149,7 +149,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg20.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893242742_05-vector-raster-seg20.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893357794_05-vector-raster-seg61.mp3"
     },
     {
       "index": 21,
@@ -205,7 +205,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg28.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893258956_05-vector-raster-seg28.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893357794_05-vector-raster-seg61.mp3"
     },
     {
       "index": 29,
@@ -552,32 +552,39 @@
     },
     {
       "index": 78,
-      "text": "延伸阅读",
-      "hash": "e558bd3b8ec12c95",
+      "text": "本章的点线面不仅活在二维地图上。开源三维地球引擎 CesiumJS 能把 GeoJSON 要素「立」在真实椭球上：点变发光标记、线变贴地弧线、面变立体多边形，还有随时间移动的轨迹。《CesiumJS 三维地球》课程的「Entity 可视化与 GeoJSON」一章专讲这个（即将上线），课程入口见 CesiumJS 三维地球 。",
+      "hash": "a2be565899967d8d",
       "audio": "seg78.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945177901_05-vector-raster-seg78.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794643532374_05-vector-raster-seg78.mp3"
     },
     {
       "index": 79,
-      "text": "OGC Simple Features： OGC SFA 标准",
-      "hash": "b3f35145be1a2c2c",
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
       "audio": "seg79.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893396610_05-vector-raster-seg79.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945177901_05-vector-raster-seg78.mp3"
     },
     {
       "index": 80,
-      "text": "GeoJSON 环方向（RFC 7946 §3.1.6）： rfc7946",
-      "hash": "2d931cc6dd838406",
+      "text": "OGC Simple Features： OGC SFA 标准",
+      "hash": "b3f35145be1a2c2c",
       "audio": "seg80.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893397702_05-vector-raster-seg80.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893396610_05-vector-raster-seg79.mp3"
     },
     {
       "index": 81,
+      "text": "GeoJSON 环方向（RFC 7946 §3.1.6）： rfc7946",
+      "hash": "2d931cc6dd838406",
+      "audio": "seg81.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793893397702_05-vector-raster-seg80.mp3"
+    },
+    {
+      "index": 82,
       "text": "GDAL 栅格数据模型： gdal.org/user/rasterdatamodel",
       "hash": "aeb8f085fef8c653",
-      "audio": "seg81.mp3",
+      "audio": "seg82.mp3",
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945178406_05-vector-raster-seg81.mp3"
     }
   ],
-  "publishedAt": "2026-11-06T06:39:38.629Z"
+  "publishedAt": "2026-11-14T08:05:38.535Z"
 }

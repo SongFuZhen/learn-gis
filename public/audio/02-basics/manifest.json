@@ -1,8 +1,8 @@
 {
   "slug": "02-basics",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-05T01:17:11.759Z",
-  "segmentCount": 87,
+  "generatedAt": "2026-11-14T07:52:24.793Z",
+  "segmentCount": 88,
   "segments": [
     {
       "index": 0,
@@ -254,7 +254,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg35.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892737207_02-basics-seg35.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892820489_02-basics-seg77.mp3"
     },
     {
       "index": 36,
@@ -366,7 +366,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg51.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892761064_02-basics-seg51.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892820489_02-basics-seg77.mp3"
     },
     {
       "index": 52,
@@ -429,7 +429,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg60.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892778585_02-basics-seg60.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892820489_02-basics-seg77.mp3"
     },
     {
       "index": 61,
@@ -594,25 +594,32 @@
     },
     {
       "index": 84,
-      "text": "延伸阅读",
-      "hash": "e558bd3b8ec12c95",
+      "text": "本章的椭球与基准面在三维引擎里直接可用：椭球坐标如何变成 Cartesian3 、相机怎么沿椭球飞行——见 CesiumJS 课第 2 章 乘 相机与坐标系 。",
+      "hash": "67dcf47bb9877b98",
       "audio": "seg84.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892825564_02-basics-seg84.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794643538129_02-basics-seg84.mp3"
     },
     {
       "index": 85,
-      "text": "EPSG 代码与基准面查询： epsg.io",
-      "hash": "6e70c7e7d09386ec",
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
       "audio": "seg85.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892832318_02-basics-seg85.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892825564_02-basics-seg84.mp3"
     },
     {
       "index": 86,
+      "text": "EPSG 代码与基准面查询： epsg.io",
+      "hash": "6e70c7e7d09386ec",
+      "audio": "seg86.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892832318_02-basics-seg85.mp3"
+    },
+    {
+      "index": 87,
       "text": "美国地质调查局《Map Projections — A Working Manual》： pubs.usgs.gov/publication/pp1395",
       "hash": "ad976dd3654bd273",
-      "audio": "seg86.mp3",
+      "audio": "seg87.mp3",
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793892833056_02-basics-seg86.mp3"
     }
   ],
-  "publishedAt": "2026-11-05T16:52:00.561Z"
+  "publishedAt": "2026-11-14T08:05:38.533Z"
 }

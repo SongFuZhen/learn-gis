@@ -1,8 +1,8 @@
 {
   "slug": "14-webgis",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-05T04:18:53.397Z",
-  "segmentCount": 93,
+  "generatedAt": "2026-11-14T07:52:33.961Z",
+  "segmentCount": 94,
   "segments": [
     {
       "index": 0,
@@ -114,7 +114,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg15.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946282937_14-webgis-seg15.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946392638_14-webgis-seg54.mp3"
     },
     {
       "index": 16,
@@ -615,46 +615,53 @@
     },
     {
       "index": 87,
-      "text": "延伸阅读",
-      "hash": "e558bd3b8ec12c95",
+      "text": "从二维瓦片库到三维地球引擎的选型判断：什么时候该上 3D——见 CesiumJS 课第 1 章 乘 初见 CesiumJS 。",
+      "hash": "aff3a9383ee52472",
       "audio": "seg87.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946464664_14-webgis-seg87.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794643538602_14-webgis-seg87.mp3"
     },
     {
       "index": 88,
-      "text": "OGC 标准总览： ogc.org/standards",
-      "hash": "9fb4ca4ba5484cb6",
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
       "audio": "seg88.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946463928_14-webgis-seg88.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946464664_14-webgis-seg87.mp3"
     },
     {
       "index": 89,
-      "text": "WMS 1.3.0 规范： OGC WMS",
-      "hash": "a88d47b2e229e39d",
+      "text": "OGC 标准总览： ogc.org/standards",
+      "hash": "9fb4ca4ba5484cb6",
       "audio": "seg89.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946461507_14-webgis-seg89.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946463928_14-webgis-seg88.mp3"
     },
     {
       "index": 90,
-      "text": "OGC API - Features： ogc.org/standards/ogcapi-features",
-      "hash": "738164d9cd98d4c2",
+      "text": "WMS 1.3.0 规范： OGC WMS",
+      "hash": "a88d47b2e229e39d",
       "audio": "seg90.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946501864_14-webgis-seg90.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946461507_14-webgis-seg89.mp3"
     },
     {
       "index": 91,
-      "text": "Leaflet 文档： leafletjs.com",
-      "hash": "7d326a105c291a48",
+      "text": "OGC API - Features： ogc.org/standards/ogcapi-features",
+      "hash": "738164d9cd98d4c2",
       "audio": "seg91.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946471077_14-webgis-seg91.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946501864_14-webgis-seg90.mp3"
     },
     {
       "index": 92,
+      "text": "Leaflet 文档： leafletjs.com",
+      "hash": "7d326a105c291a48",
+      "audio": "seg92.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946471077_14-webgis-seg91.mp3"
+    },
+    {
+      "index": 93,
       "text": "MapLibre Style Spec： maplibre.org/maplibre-style-spec",
       "hash": "9ff1f4b820dc64bc",
-      "audio": "seg92.mp3",
+      "audio": "seg93.mp3",
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793946467081_14-webgis-seg92.mp3"
     }
   ],
-  "publishedAt": "2026-11-07T11:04:00.879Z"
+  "publishedAt": "2026-11-14T08:05:38.539Z"
 }

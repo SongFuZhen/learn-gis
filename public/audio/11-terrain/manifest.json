@@ -1,8 +1,8 @@
 {
   "slug": "11-terrain",
   "model": "fish-speech-1.5",
-  "generatedAt": "2026-11-05T03:32:22.985Z",
-  "segmentCount": 85,
+  "generatedAt": "2026-11-14T07:52:30.664Z",
+  "segmentCount": 86,
   "segments": [
     {
       "index": 0,
@@ -149,7 +149,7 @@
       "text": "（本节含表格，建议查看原文）",
       "hash": "c6f7ee60d35a4684",
       "audio": "seg20.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945785995_11-terrain-seg20.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945795268_11-terrain-seg28.mp3"
     },
     {
       "index": 21,
@@ -573,32 +573,39 @@
     },
     {
       "index": 81,
-      "text": "延伸阅读",
-      "hash": "e558bd3b8ec12c95",
+      "text": "DEM 在三维引擎里是独立的「地形层」：影像/地形双层模型与贴地渲染——见 CesiumJS 课第 4 章 乘 地形 。",
+      "hash": "8db1d7621942ea17",
       "audio": "seg81.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945918795_11-terrain-seg81.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1794643538457_11-terrain-seg81.mp3"
     },
     {
       "index": 82,
-      "text": "QGIS 地形分析文档： docs.qgis.org",
-      "hash": "033b808c179a0e22",
+      "text": "延伸阅读",
+      "hash": "e558bd3b8ec12c95",
       "audio": "seg82.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945913422_11-terrain-seg82.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945918795_11-terrain-seg81.mp3"
     },
     {
       "index": 83,
-      "text": "GDAL DEM 工具（gdaldem）： gdal.org/programs/gdaldem",
-      "hash": "7ad7203f31aee683",
+      "text": "QGIS 地形分析文档： docs.qgis.org",
+      "hash": "033b808c179a0e22",
       "audio": "seg83.mp3",
-      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945922931_11-terrain-seg83.mp3"
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945913422_11-terrain-seg82.mp3"
     },
     {
       "index": 84,
+      "text": "GDAL DEM 工具（gdaldem）： gdal.org/programs/gdaldem",
+      "hash": "7ad7203f31aee683",
+      "audio": "seg84.mp3",
+      "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945922931_11-terrain-seg83.mp3"
+    },
+    {
+      "index": 85,
       "text": "Burrough《Principles of Geographical Information Systems》地形分析章节",
       "hash": "7ab3ce96bbdfc042",
-      "audio": "seg84.mp3",
+      "audio": "seg85.mp3",
       "publicUrl": "https://cloudflare-imgbed-91r.pages.dev/file/gis/1793945944985_11-terrain-seg84.mp3"
     }
   ],
-  "publishedAt": "2026-11-06T06:39:38.635Z"
+  "publishedAt": "2026-11-14T08:05:38.530Z"
 }
