@@ -6,6 +6,8 @@ import {
   real,
   timestamp,
   unique,
+  uniqueIndex,
+  boolean,
   jsonb,
   index,
 } from "drizzle-orm/pg-core";
@@ -13,12 +15,41 @@ import {
 // 所有表统一放在 gis schema 下（同 ../ink_template 的 ink schema 做法）
 export const gis = pgSchema("gis");
 
-/** 用户表：当前为访客制（cookie 里的匿名 id），后续接登录再扩展 */
-export const users = gis.table("users", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  lastSeenAt: timestamp("last_seen_at").notNull().defaultNow(),
-});
+/**
+ * 用户表：匿名访客行（username/passwordHash 为 null）与注册账号共存。
+ * 注册 = 给当前匿名行就地补上账号字段，不新建行，业务表外键天然不变。
+ */
+export const users = gis.table(
+  "users",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+    lastSeenAt: timestamp("last_seen_at").notNull().defaultNow(),
+    /** 登录名，统一存小写；匿名行为 null（PG 唯一索引允许多个 null） */
+    username: text("username"),
+    /** scrypt 串：scrypt$N$r$p$saltHex$hashHex */
+    passwordHash: text("password_hash"),
+  },
+  (table) => [uniqueIndex("uq_users_username").on(table.username)],
+);
+
+/** 认证尝试：限流计数 + 安全审计（注册/登录都记，失败也落库） */
+export const authAttempts = gis.table(
+  "auth_attempts",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    ip: text("ip").notNull(),
+    /** 尝试的用户名（登录失败也记，用于账号级锁定） */
+    username: text("username"),
+    kind: text("kind", { enum: ["register", "login"] }).notNull(),
+    success: boolean("success").notNull(),
+    createdAt: timestamp("created_at").notNull().defaultNow(),
+  },
+  (table) => [
+    index("idx_auth_ip_time").on(table.ip, table.createdAt),
+    index("idx_auth_user_time").on(table.username, table.createdAt),
+  ],
+);
 
 /** 章节进度：每章的掌握度、答题量、错题量 */
 export const moduleProgress = gis.table("module_progress", {
@@ -114,4 +145,19 @@ export const annotations = gis.table("annotations", {
 }, (table) => [
   // 按用户 + 章节拉取本章全部标注
   index("idx_annot_user_module").on(table.userId, table.skill, table.moduleSlug),
+]);
+
+/** 签到记录：当天首次提交测验/考试自动写入，一人一天一行 */
+export const checkIns = gis.table("check_ins", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  /** 本地时区日期 YYYY-MM-DD，复用 lib/quiz/exam 的 dateKey() */
+  dateKey: text("date_key").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  // 一人一天唯一，冲突即代表今天已签到
+  unique("uq_checkin_user_date").on(table.userId, table.dateKey),
+  index("idx_checkin_user_day").on(table.userId, table.dateKey),
 ]);

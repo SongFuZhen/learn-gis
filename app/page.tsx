@@ -3,169 +3,124 @@ import {
   ArrowRight,
   CalendarCheck,
   CircleCheck,
-  Map,
   Play,
   RotateCcw,
 } from "lucide-react";
 import { SKILL_REGISTRY } from "@/content/registry";
-import { getSkillIcon } from "@/content/icons";
-import { SKILLS, chapterNo, getModules, getQuestionFile } from "@/lib/content";
+import { SKILLS } from "@/lib/content";
 import { PASS_LINE } from "@/lib/quiz/exam";
-import { getHomeData } from "@/lib/progress/home";
+import { getHomeData, type HomeData } from "@/lib/progress/home";
+import {
+  getSkillProgressMap,
+  getSkillStats,
+  type SkillProgress,
+  type SkillStats,
+} from "@/lib/course-stats";
+import HomeHero, { type HeroStat } from "@/components/home/HomeHero";
+import CourseRail from "@/components/home/CourseRail";
+import CheckinCard from "@/components/home/CheckinCard";
+import RankPreview from "@/components/home/RankPreview";
 import MasteryDonut from "@/components/home/MasteryDonut";
 import ExamBars from "@/components/home/ExamBars";
 import QuestionMix from "@/components/home/QuestionMix";
+import { getCheckinSummary } from "@/lib/engagement/checkin";
+import { getLeaderboard } from "@/lib/engagement/leaderboard";
+import { resolveUserId } from "@/lib/api/user";
+import LearningPath from "@/components/course/LearningPath";
+import CourseCard from "@/components/course/CourseCard";
 
 export default async function HomePage() {
   const data = await getHomeData();
-  return data ? <Dashboard data={data} /> : <Intro />;
-}
-
-/** 每门课的章节/题量统计 */
-function skillStat(id: string) {
-  const modules = getModules(id);
-  const questions = modules.reduce(
-    (acc, m) => acc + getQuestionFile(id, m.slug).questions.length,
-    0,
+  if (!data) return <Intro />;
+  const userId = await resolveUserId();
+  const [progressMap, checkin, board] = await Promise.all([
+    getSkillProgressMap(data),
+    userId ? getCheckinSummary(userId) : Promise.resolve(null),
+    getLeaderboard(userId),
+  ]);
+  return (
+    <Dashboard
+      data={data}
+      progressMap={progressMap}
+      checkin={checkin}
+      board={board}
+      currentUserId={userId}
+    />
   );
-  return { chapters: modules.length, questions };
 }
 
-/** 新访客版：介绍 + 课程卡 + 题库统计 + 快捷入口 */
+/** 五门课的构建期内容统计，首页两个版本共用 */
+function getCourseItems() {
+  return SKILL_REGISTRY.map((registration) => ({
+    registration,
+    stats: getSkillStats(registration.id),
+  }));
+}
+
+function totalStats(): { chapters: number; questions: number } {
+  return getCourseItems().reduce(
+    (acc, { stats }) => ({
+      chapters: acc.chapters + stats.chapters,
+      questions: acc.questions + stats.questions,
+    }),
+    { chapters: 0, questions: 0 },
+  );
+}
+
+/** 新访客版：深色 Hero + 课程轨道 + 学习路径 + 题库构成 */
 function Intro() {
-  const chapterCount = SKILLS.reduce(
-    (sum, s) => sum + getModules(s.id).length,
-    0,
-  );
-  const questionCount = SKILLS.reduce(
-    (sum, s) =>
-      sum +
-      getModules(s.id).reduce(
-        (acc, m) => acc + getQuestionFile(s.id, m.slug).questions.length,
-        0,
-      ),
-    0,
-  );
+  const items = getCourseItems();
+  const totals = totalStats();
 
-  const stats = [
+  const stats: HeroStat[] = [
     { value: SKILLS.length, unit: "门", label: "在学课程" },
-    { value: chapterCount, unit: "章", label: "讲义章节" },
-    { value: questionCount, unit: "题", label: "题库总量" },
+    { value: totals.chapters, unit: "章", label: "讲义章节" },
+    { value: totals.questions, unit: "题", label: "题库总量" },
     { value: PASS_LINE, unit: "%", label: "单卷通过线" },
   ];
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      {/* Hero：全部课程的总览 */}
-      <section className="relative overflow-hidden rounded-lg border border-border bg-card px-5 py-6 shadow-card sm:px-7 sm:py-8">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-16 -top-24 h-56 w-56 rounded-full bg-brand-gradient opacity-[0.14] blur-2xl"
-        />
-        <div className="relative">
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
-            Skill pack · {SKILLS.map((s) => s.title).join(" / ")}
-          </p>
-          <h1 className="mt-2.5 text-[26px] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[32px]">
+      <HomeHero
+        eyebrow={`Skill pack · ${SKILLS.map((s) => s.title).join(" / ")}`}
+        title={
+          <>
             问答式学
-            <span className="text-brand-gradient"> 地理空间与图形编程</span>
-          </h1>
-          <p className="mt-3 max-w-2xl text-[14px] leading-relaxed text-foreground-secondary sm:text-[15px]">
-            {SKILLS.length} 门课、一个学习闭环：从 GIS
-            坐标与投影的数学打底，到 Turf 二维空间运算、CesiumJS
-            三维地球，再到 three.js 图形渲染与鸿蒙开发，全程免 token
-            示例。讲义 → 刷题 → 间隔复习，答错先讲清为什么错。
-          </p>
-
-          <div className="mt-5 flex flex-col gap-2 sm:flex-row sm:items-center">
+            <span className="text-white"> 地理空间与图形编程</span>
+          </>
+        }
+        description={`${SKILLS.length} 门课、一个学习闭环：从 GIS 坐标与投影的数学打底，到 Turf 二维空间运算、CesiumJS 三维地球，再到 three.js 图形渲染与鸿蒙开发，全程免 token 示例。讲义 → 刷题 → 间隔复习，答错先讲清为什么错。`}
+        actions={
+          <>
             <Link
               href="/learn"
-              className="flex h-12 items-center justify-center gap-2 rounded-sm bg-brand-gradient px-6 text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:h-11 sm:text-sm"
+              className="flex h-11 items-center justify-center gap-2 rounded-sm bg-white px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
             >
               开始学习
               <ArrowRight className="h-4 w-4" strokeWidth={2} />
             </Link>
             <Link
               href="/exam"
-              className="flex h-12 items-center justify-center rounded-sm border border-border-strong bg-card px-6 text-[15px] font-medium text-foreground transition-colors hover:bg-background-hover sm:h-11 sm:text-sm"
+              className="flex h-11 items-center justify-center rounded-sm border border-white/25 bg-white/10 px-6 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/20"
             >
               开始考试
             </Link>
-          </div>
+          </>
+        }
+        stats={stats}
+      />
 
-          <dl className="mt-6 grid grid-cols-2 gap-3 border-t border-border-subtle pt-5 sm:grid-cols-4">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col-reverse">
-                <dt className="mt-0.5 text-[11px] text-foreground-muted sm:text-[12px]">
-                  {s.label}
-                </dt>
-                <dd className="flex items-baseline gap-1 font-semibold tracking-tight">
-                  <span className="tabular text-[22px] sm:text-[26px]">
-                    {s.value}
-                  </span>
-                  <span className="text-[12px] font-medium text-foreground-tertiary">
-                    {s.unit}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+      <div className="mt-6">
+        <CourseRail items={items} />
+      </div>
 
-      {/* 课程卡片：每门课一张，带独立统计 */}
-      <section className="mt-3 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {SKILLS.map((skill) => {
-          const stat = skillStat(skill.id);
-          const reg = SKILL_REGISTRY.find((r) => r.id === skill.id);
-          const Icon = reg ? getSkillIcon(reg.icon) : Map;
-          return (
-            <Link
-              key={skill.id}
-              href={`/s/${skill.id}`}
-              className="group relative flex h-full flex-col overflow-hidden rounded-md border border-border bg-card p-5 shadow-card transition-colors hover:border-brand/40"
-            >
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-10 -top-14 h-32 w-32 rounded-full bg-brand-gradient opacity-[0.12] blur-2xl"
-              />
-              <div className="relative flex items-center gap-3">
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-brand-soft text-brand-ink">
-                  <Icon className="h-5 w-5" strokeWidth={1.7} />
-                </span>
-                <h2 className="min-w-0 text-[15px] font-medium leading-snug">
-                  {skill.title}
-                </h2>
-              </div>
-              <p className="relative mt-3 flex-1 text-[13px] leading-relaxed text-foreground-secondary">
-                {skill.description}
-              </p>
-              <div className="relative mt-3.5 flex items-center justify-between gap-2">
-                <p className="flex items-center gap-1.5 text-[12px] tabular text-foreground-tertiary">
-                  <span className="rounded-full bg-surface-muted px-2 py-0.5">
-                    {stat.chapters} 章
-                  </span>
-                  <span className="rounded-full bg-surface-muted px-2 py-0.5">
-                    {stat.questions} 题
-                  </span>
-                </p>
-                <span className="inline-flex items-center gap-1 text-[13px] font-medium text-brand">
-                  进入课程
-                  <ArrowRight
-                    className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-                    strokeWidth={2}
-                  />
-                </span>
-              </div>
-            </Link>
-          );
-        })}
-      </section>
+      <div className="mt-6">
+        <LearningPath />
+      </div>
 
-      {/* 题库构成：题型 + 难度分布（跨课程汇总） */}
-      <section className="mt-3 rounded-md border border-border bg-card px-5 py-4 shadow-card sm:px-7 sm:py-5">
-        <h2 className="text-[13px] font-medium sm:text-sm">题库构成</h2>
-        <div className="mt-3">
+      <section className="mt-6 rounded-lg border border-border bg-card px-5 py-5 shadow-card sm:px-7">
+        <h2 className="text-[15px] font-medium">题库构成</h2>
+        <div className="mt-4">
           <QuestionMix />
         </div>
       </section>
@@ -177,8 +132,20 @@ function Intro() {
   );
 }
 
-/** 回访用户版：今日任务 + 继续学习 + 各章掌握度（按课程分组） */
-function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHomeData>>> }) {
+/** 回访用户版：个性化深色 Hero + 今日任务 + 课程进度 + 学习概览 */
+function Dashboard({
+  data,
+  progressMap,
+  checkin,
+  board,
+  currentUserId,
+}: {
+  data: HomeData;
+  progressMap: Record<string, SkillProgress> | null;
+  checkin: Awaited<ReturnType<typeof getCheckinSummary>> | null;
+  board: Awaited<ReturnType<typeof getLeaderboard>>;
+  currentUserId: string | null;
+}) {
   const continueModule =
     data.continueSlug && data.continueSkill
       ? SKILL_REGISTRY.find((r) => r.id === data.continueSkill)?.modules.find(
@@ -193,11 +160,11 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
     ? `继续《${continueModule.title}》`
     : "开始学习";
 
-  const stats = [
+  const stats: HeroStat[] = [
     { value: data.answeredTotal, unit: "题", label: "累计作答" },
     {
       value: data.avgMastery === null ? "—" : Math.round(data.avgMastery),
-      unit: data.avgMastery === null ? "" : "%",
+      unit: data.avgMastery === null ? undefined : "%",
       label: "平均掌握度",
     },
     { value: data.examCount, unit: "次", label: "参加考试" },
@@ -212,59 +179,46 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
   const notStartedChapters =
     data.chapters.length - passedChapters - learningChapters;
 
+  const items = getCourseItems();
+  const statsById = new Map<string, SkillStats>(
+    items.map((item) => [item.registration.id, item.stats]),
+  );
+
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      <section className="relative overflow-hidden rounded-lg border border-border bg-card px-5 py-6 shadow-card sm:px-7 sm:py-8">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-16 -top-24 h-56 w-56 rounded-full bg-brand-gradient opacity-[0.14] blur-2xl"
-        />
-        <div className="relative">
-          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
-            Skill pack · {SKILLS.map((s) => s.title).join(" / ")}
-          </p>
-          <h1 className="mt-2.5 text-[26px] font-semibold leading-[1.25] tracking-[-0.02em] sm:text-[32px]">
-            今天接着学
-          </h1>
-
-          <div className="mt-5">
-            <Link
-              href={nextHref}
-              className="inline-flex h-12 items-center justify-center gap-2 rounded-sm bg-brand-gradient px-6 text-[15px] font-medium text-white shadow-brand transition-opacity hover:opacity-95 sm:h-11 sm:text-sm"
-            >
-              <Play className="h-4 w-4" strokeWidth={2} />
-              {nextLabel}
-            </Link>
-          </div>
-
-          <dl className="mt-6 grid grid-cols-3 gap-3 border-t border-border-subtle pt-5">
-            {stats.map((s) => (
-              <div key={s.label} className="flex flex-col-reverse">
-                <dt className="mt-0.5 text-[11px] text-foreground-muted sm:text-[12px]">
-                  {s.label}
-                </dt>
-                <dd className="flex items-baseline gap-1 font-semibold tracking-tight">
-                  <span className="tabular text-[22px] sm:text-[26px]">
-                    {s.value}
-                  </span>
-                  <span className="text-[12px] font-medium text-foreground-tertiary">
-                    {s.unit}
-                  </span>
-                </dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-      </section>
+      <HomeHero
+        eyebrow={`Skill pack · ${SKILLS.map((s) => s.title).join(" / ")}`}
+        title="今天接着学"
+        description={
+          continueModule
+            ? `上次学到《${continueModule.title}》，从这里接着往下走。`
+            : "选一门课开始，讲义、刷题与复习会自动排进你的学习面板。"
+        }
+        actions={
+          <Link
+            href={nextHref}
+            className="flex h-11 items-center justify-center gap-2 rounded-sm bg-white px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
+          >
+            <Play className="h-4 w-4" strokeWidth={2} />
+            {nextLabel}
+          </Link>
+        }
+        stats={stats}
+      />
 
       {/* 今日任务 */}
-      <section className="mt-3">
-        <h2 className="sr-only">今日任务</h2>
-        <ul className="grid grid-cols-2 gap-2 sm:gap-3">
+      <section className="mt-6">
+        <h2 className="text-[15px] font-medium">今日任务</h2>
+        <ul className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-3">
+          {checkin && (
+            <li className="col-span-2 lg:col-span-1">
+              <CheckinCard summary={checkin} />
+            </li>
+          )}
           <li>
             <Link
               href="/review"
-              className="flex h-full items-center gap-3 rounded-md border border-border bg-card p-3.5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle sm:p-4"
+              className="flex h-full items-center gap-3 rounded-lg border border-border bg-card p-4 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
             >
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-brand-soft text-brand">
                 <RotateCcw className="h-[18px] w-[18px]" strokeWidth={1.7} />
@@ -282,13 +236,16 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
           <li>
             <Link
               href={data.dailyDoneToday ? "/exam" : "/exam/daily"}
-              className="flex h-full items-center gap-3 rounded-md border border-border bg-card p-3.5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle sm:p-4"
+              className="flex h-full items-center gap-3 rounded-lg border border-border bg-card p-4 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
             >
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-brand-soft text-brand">
                 {data.dailyDoneToday ? (
                   <CircleCheck className="h-[18px] w-[18px]" strokeWidth={1.7} />
                 ) : (
-                  <CalendarCheck className="h-[18px] w-[18px]" strokeWidth={1.7} />
+                  <CalendarCheck
+                    className="h-[18px] w-[18px]"
+                    strokeWidth={1.7}
+                  />
                 )}
               </span>
               <span className="min-w-0">
@@ -308,11 +265,33 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
         </ul>
       </section>
 
+      {/* 我的课程：与 /learn 同款 CourseCard，带通关进度 */}
+      <section className="mt-7">
+        <h2 className="text-[15px] font-medium">我的课程</h2>
+        <ul className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2">
+          {SKILL_REGISTRY.map((registration) => (
+            <li key={registration.id}>
+              <CourseCard
+                registration={registration}
+                stats={
+                  statsById.get(registration.id) ?? {
+                    chapters: 0,
+                    questions: 0,
+                    audioChapters: 0,
+                  }
+                }
+                progress={progressMap?.[registration.id] ?? null}
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+
       {/* 学习概览：通关环图 + 成绩柱状图 */}
-      <section className="mt-3 grid gap-3 sm:grid-cols-2">
-        <div className="rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
-          <h2 className="text-[13px] font-medium sm:text-sm">章节通关</h2>
-          <div className="mt-3">
+      <section className="mt-7 grid gap-4 sm:grid-cols-2">
+        <div className="flex h-full flex-col rounded-lg border border-border bg-card p-5 shadow-card">
+          <h2 className="text-[15px] font-medium">章节通关</h2>
+          <div className="mt-3 flex flex-1 items-center">
             <MasteryDonut
               segments={[
                 {
@@ -332,16 +311,23 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
                 },
               ]}
               centerValue={
-                data.avgMastery === null ? "—" : `${Math.round(data.avgMastery)}%`
+                data.avgMastery === null
+                  ? "—"
+                  : `${Math.round(data.avgMastery)}%`
               }
               centerLabel="平均掌握度"
             />
           </div>
+          {data.avgMastery === null && (
+            <p className="mt-3 text-[11px] leading-relaxed text-foreground-tertiary">
+              完成任意章节测验后，自动统计通关分布与平均掌握度。
+            </p>
+          )}
         </div>
 
-        <div className="rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
+        <div className="flex h-full flex-col rounded-lg border border-border bg-card p-5 shadow-card">
           <div className="flex items-center justify-between gap-3">
-            <h2 className="text-[13px] font-medium sm:text-sm">最近考试</h2>
+            <h2 className="text-[15px] font-medium">最近考试</h2>
             <span className="text-[11px] tabular text-foreground-tertiary">
               {data.bestExamMastery !== null
                 ? `最好 ${Math.round(data.bestExamMastery)}%`
@@ -350,72 +336,38 @@ function Dashboard({ data }: { data: NonNullable<Awaited<ReturnType<typeof getHo
               近 7 天 {data.examsLast7d} 次
             </span>
           </div>
-          <div className="mt-3">
+          <div className="mt-3 flex flex-1 items-center">
             <ExamBars exams={data.recentExams} />
           </div>
-          <p className="mt-2 text-right text-[10px] text-foreground-tertiary">
-            虚线为 {PASS_LINE}% 通过线
-          </p>
+          {data.recentExams.length > 0 && (
+            <p className="mt-2 text-right text-[10px] text-foreground-tertiary">
+              虚线为 {PASS_LINE}% 通过线
+            </p>
+          )}
         </div>
       </section>
 
-      {/* 各章掌握度：按课程分组（每门课章节号各自从 01 起） */}
-      <section className="mt-3 rounded-md border border-border bg-card p-4 shadow-card sm:p-5">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-[13px] font-medium sm:text-sm">各章掌握度</h2>
-          <Link
-            href="/progress"
-            className="inline-flex min-h-8 items-center gap-1 text-[12px] text-foreground-muted hover:text-brand"
-          >
-            详情
-            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
-          </Link>
+      {/* 积分榜摘要：完整榜单在 /rank */}
+      {board.length > 0 && (
+        <div className="mt-7">
+          <RankPreview entries={board} currentUserId={currentUserId} />
         </div>
-        {SKILL_REGISTRY.map((reg) => {
-          const chapters = data.chapters.filter((c) => c.skill === reg.id);
-          if (chapters.length === 0) return null;
-          const skillTitle =
-            SKILLS.find((s) => s.id === reg.id)?.title ?? reg.id;
-          return (
-            <div key={reg.id} className="mt-4 first:mt-3">
-              <p className="flex items-center gap-2 text-[11px] font-medium text-foreground-tertiary">
-                {skillTitle}
-                <span className="tabular">· {chapters.length} 章</span>
-              </p>
-              <ul className="mt-2 space-y-2.5">
-                {chapters.map((c) => (
-                  <li key={`${c.skill}:${c.slug}`}>
-                    <Link
-                      href={`/s/${c.skill}/${c.slug}`}
-                      className="group flex items-center gap-3"
-                    >
-                      <span className="w-7 shrink-0 font-mono text-[11px] text-foreground-muted">
-                        {chapterNo(c.slug)}
-                      </span>
-                      <span className="min-w-0 flex-1 truncate text-[13px] group-hover:text-brand sm:text-sm">
-                        {c.title}
-                      </span>
-                      <span
-                        className="h-1.5 w-20 shrink-0 overflow-hidden rounded-full bg-brand-soft sm:w-28"
-                        role="img"
-                        aria-label={`掌握度 ${Math.round(c.mastery)}%`}
-                      >
-                        <span
-                          className="block h-full rounded-full bg-brand-gradient"
-                          style={{ width: `${Math.min(100, c.mastery)}%` }}
-                        />
-                      </span>
-                      <span className="w-10 shrink-0 text-right text-[11px] tabular text-foreground-tertiary">
-                        {c.quizCount > 0 ? `${Math.round(c.mastery)}%` : "—"}
-                      </span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          );
-        })}
-      </section>
+      )}
+
+      {/* 完整进度入口：逐章掌握度长表收在 /progress */}
+      <Link
+        href="/progress"
+        className="group mt-4 flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-5 py-4 shadow-card transition-colors hover:border-brand/40"
+      >
+        <span className="text-[14px] font-medium">查看完整学习进度</span>
+        <span className="inline-flex items-center gap-1 text-[13px] font-medium text-brand">
+          各章掌握度与测验成绩
+          <ArrowRight
+            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+            strokeWidth={2}
+          />
+        </span>
+      </Link>
 
       <p className="mt-4 text-[11px] leading-relaxed text-foreground-tertiary">
         进度与错题保存在云端数据库，同一浏览器自动同步。

@@ -91,13 +91,13 @@ const config: Config = {
         content: "1200px",
       },
       width: {
-        sidebar: "224px",
+        sidebar: "248px",
       },
       borderRadius: {
         sm: "8px",
-        md: "14px",
-        lg: "20px",
-        xl: "20px",
+        md: "9px",
+        lg: "14px",
+        xl: "14px",
       },
       boxShadow: {
         card: "var(--shadow-card)",

@@ -6,6 +6,7 @@ import { examSessions, moduleProgress, wrongAnswers } from "@/db/schema";
 import { getOrCreateUserId } from "@/lib/api/user";
 import { INITIAL_CARD, schedule, type CardState } from "@/lib/quiz/schedule";
 import { withRetry } from "@/lib/db-retry";
+import { ensureCheckin } from "@/lib/engagement/checkin";
 
 export const dynamic = "force-dynamic";
 
@@ -169,6 +170,8 @@ export async function POST(request: Request) {
   const body = parsed.data;
 
   const userId = await getOrCreateUserId();
+  // 任何学习写入都视为当日活跃：自动签到，内部吞错不影响答题响应
+  await ensureCheckin(userId);
 
   if (body.type === "submit-answer") {
     const { skill, moduleSlug, questionId, skipped } = body;

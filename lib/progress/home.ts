@@ -1,8 +1,8 @@
-import { cookies } from "next/headers";
 import { and, desc, eq, isNull, sql } from "drizzle-orm";
 import { db } from "@/db";
 import { examSessions, moduleProgress, wrongAnswers } from "@/db/schema";
 import { SKILL_REGISTRY } from "@/content/registry";
+import { resolveUserId } from "@/lib/api/user";
 import { dateKey } from "@/lib/quiz/exam";
 
 export type ChapterProgress = {
@@ -52,8 +52,7 @@ export type HomeData = {
  * 页面回落到静态介绍版 —— 首页任何时候都不能 500。
  */
 export async function getHomeData(): Promise<HomeData | null> {
-  const cookieStore = await cookies();
-  const userId = cookieStore.get("user_id")?.value;
+  const userId = await resolveUserId();
   if (!userId) return null;
 
   try {

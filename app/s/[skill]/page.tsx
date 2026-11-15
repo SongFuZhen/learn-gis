@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowRight, Check, Clock, Headphones, Play } from "lucide-react";
 import {
   chapterNo,
   getModules,
@@ -8,6 +9,10 @@ import {
   SKILLS,
 } from "@/lib/content";
 import { SKILL_REGISTRY } from "@/content/registry";
+import { getHomeData } from "@/lib/progress/home";
+import { getContinueSlug, getSkillStats } from "@/lib/course-stats";
+import CourseCover from "@/components/course/CourseCover";
+import ChapterTimeline from "@/components/course/ChapterTimeline";
 
 export function generateStaticParams() {
   return SKILLS.map((skill) => ({ skill: skill.id }));
@@ -36,59 +41,141 @@ export default async function SkillPage({
   const modules = getModules(skillId);
   const registration = SKILL_REGISTRY.find((r) => r.id === skillId);
   const plannedModules = registration?.plannedModules ?? [];
+  const stats = getSkillStats(skillId);
+
+  const home = await getHomeData();
+  const skillChapters =
+    home?.chapters.filter((c) => c.skill === skillId) ?? [];
+  const chapterMap = new Map(skillChapters.map((c) => [c.slug, c]));
+
+  const continueSlug = getContinueSlug(skillId, skillChapters);
+  const hasProgress = skillChapters.some((c) => c.quizCount > 0);
+
+  const questionCounts: Record<string, number> = {};
+  for (const m of modules) {
+    questionCounts[m.slug] = getQuestionFile(skillId, m.slug).questions.length;
+  }
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-brand-ink">
-        Skill pack · {skillId}
-      </p>
-      <h1 className="mt-2 text-[26px] font-semibold tracking-[-0.02em] sm:text-[32px] lg:text-[36px]">
-        {skill.title}
-      </h1>
-      <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
-        {skill.description}
-      </p>
+      {/* 封面横幅 */}
+      <section className="relative overflow-hidden rounded-lg border border-border shadow-card">
+        {registration && (
+          <CourseCover
+            skillId={skillId}
+            icon={registration.icon}
+            size="banner"
+            className="absolute inset-0 h-full"
+          />
+        )}
+        <div className="relative p-5 sm:p-8">
+          <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-white/75">
+            Skill pack · {skillId}
+          </p>
+          <h1 className="mt-2 text-[26px] font-semibold tracking-[-0.02em] text-white sm:text-[32px] lg:text-[36px]">
+            {skill.title}
+          </h1>
+          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/85 sm:text-[15px]">
+            {skill.description}
+          </p>
 
-      <ol className="mt-7 grid gap-3 md:grid-cols-2 xl:grid-cols-3">
-        {modules.map((moduleMeta) => {
-          const count = getQuestionFile(skillId, moduleMeta.slug).questions.length;
-          return (
-            <li key={moduleMeta.slug} className="min-w-0">
-              <Link
-                href={`/s/${skillId}/${moduleMeta.slug}`}
-                className="flex h-full min-w-0 items-start gap-4 rounded-md border border-border bg-card p-5 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
-              >
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-brand-soft font-mono text-xs text-brand-ink">
-                  {chapterNo(moduleMeta.slug)}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="flex items-center justify-between gap-2">
-                    <span className="text-[15px] font-medium">{moduleMeta.title}</span>
-                    <span className="shrink-0 rounded-sm bg-surface-muted px-1.5 py-0.5 text-[11px] tabular text-foreground-tertiary">
-                      {count} 题
-                    </span>
-                  </span>
-                  <span className="mt-1.5 block min-w-0 text-[13px] leading-relaxed text-foreground-tertiary [overflow-wrap:anywhere]">
-                    {moduleMeta.summary}
-                  </span>
-                </span>
-              </Link>
-            </li>
-          );
-        })}
-        {plannedModules.map((m) => (
-          <li
-            key={m.slug}
-            className="flex items-center gap-3 rounded-md border border-dashed border-border px-4 py-3 text-[13px] text-foreground-tertiary"
-          >
-            <span className="font-mono text-[11px] text-foreground-muted">
-              {chapterNo(m.slug)}
+          <div className="mt-4 flex flex-wrap items-center gap-1.5 text-[12px] tabular text-white/90">
+            <span className="rounded-full bg-white/15 px-2.5 py-1 backdrop-blur-sm">
+              {stats.chapters} 章
             </span>
-            {m.title}
-            <span className="ml-auto text-[11px]">即将上线</span>
-          </li>
-        ))}
-      </ol>
+            <span className="rounded-full bg-white/15 px-2.5 py-1 backdrop-blur-sm">
+              {stats.questions} 题
+            </span>
+            {stats.audioChapters > 0 && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 backdrop-blur-sm">
+                <Headphones className="h-3 w-3" strokeWidth={1.7} />
+                音频 {stats.audioChapters} 章
+              </span>
+            )}
+            {registration && (
+              <>
+                <span className="rounded-full bg-white/15 px-2.5 py-1 backdrop-blur-sm">
+                  {registration.difficulty}
+                </span>
+                <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2.5 py-1 backdrop-blur-sm">
+                  <Clock className="h-3 w-3" strokeWidth={1.7} />
+                  约 {registration.estimatedHours}h
+                </span>
+              </>
+            )}
+          </div>
+
+          {continueSlug && (
+            <Link
+              href={`/s/${skillId}/${continueSlug}`}
+              className="mt-5 inline-flex h-11 items-center justify-center gap-2 rounded-sm bg-white px-6 text-sm font-medium text-foreground shadow-brand transition-opacity hover:opacity-90"
+            >
+              <Play className="h-4 w-4" strokeWidth={2} />
+              {hasProgress ? "继续学习" : "开始学习"}
+            </Link>
+          )}
+        </div>
+      </section>
+
+      {/* 学习目标 */}
+      {registration && registration.objectives.length > 0 && (
+        <section className="mt-5 rounded-lg border border-border bg-card p-5 shadow-card sm:p-6">
+          <h2 className="text-[15px] font-medium">你将学会</h2>
+          <ul className="mt-3 grid gap-2.5 sm:grid-cols-2">
+            {registration.objectives.map((objective) => (
+              <li
+                key={objective}
+                className="flex items-start gap-2 text-[13px] leading-relaxed text-foreground-secondary"
+              >
+                <Check
+                  className="mt-0.5 h-4 w-4 shrink-0 text-success"
+                  strokeWidth={2}
+                />
+                {objective}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {/* 课程大纲 */}
+      <section className="mt-5">
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-[15px] font-medium">课程大纲</h2>
+          <Link
+            href="/learn"
+            className="inline-flex min-h-8 items-center gap-1 text-[12px] text-foreground-muted hover:text-brand"
+          >
+            全部课程
+            <ArrowRight className="h-3.5 w-3.5" strokeWidth={2} />
+          </Link>
+        </div>
+        <div className="mt-3">
+          <ChapterTimeline
+            skillId={skillId}
+            modules={modules}
+            chapters={chapterMap}
+            questionCounts={questionCounts}
+          />
+        </div>
+
+        {plannedModules.length > 0 && (
+          <ul className="mt-3 space-y-2">
+            {plannedModules.map((m) => (
+              <li
+                key={m.slug}
+                className="flex items-center gap-3 rounded-md border border-dashed border-border bg-card/50 px-4 py-3 text-[13px] text-foreground-tertiary"
+              >
+                <span className="font-mono text-[11px] text-foreground-muted">
+                  {chapterNo(m.slug)}
+                </span>
+                {m.title}
+                <span className="ml-auto text-[11px]">即将上线</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
     </div>
   );
 }

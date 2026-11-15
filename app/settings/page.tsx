@@ -1,6 +1,11 @@
 import Link from "next/link";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, LogIn, UserPlus } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import LogoutButton from "@/components/auth/LogoutButton";
+import { getSession } from "@/lib/auth";
+import { db } from "@/db";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata = {
@@ -26,7 +31,16 @@ const ROWS = [
   },
 ];
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const session = await getSession();
+  const [accountRow] = session
+    ? await db
+        .select({ username: users.username })
+        .from(users)
+        .where(eq(users.id, session.userId))
+        .limit(1)
+    : [null];
+
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <h1 className="text-[26px] font-semibold tracking-[-0.02em] sm:text-[32px] lg:text-[36px]">
@@ -35,6 +49,48 @@ export default function SettingsPage() {
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
         外观与学习数据都在这一页；导航只保留四个入口，其余收在这里。
       </p>
+
+      {/* 账号 */}
+      <section className="mt-6 rounded-md border border-border bg-card shadow-card">
+        <div className="flex items-center justify-between gap-4 px-5 py-4">
+          <div className="min-w-0">
+            <p className="text-[15px] font-medium">账号</p>
+            {accountRow?.username ? (
+              <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
+                已登录为
+                <span className="ml-1 font-medium text-foreground">
+                  {accountRow.username}
+                </span>
+                ，学习进度随账号跨设备同步。
+              </p>
+            ) : (
+              <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
+                当前为匿名访客，进度只存在本浏览器。注册或登录后可跨设备同步。
+              </p>
+            )}
+          </div>
+          {accountRow?.username ? (
+            <LogoutButton />
+          ) : (
+            <div className="flex shrink-0 items-center gap-2">
+              <Link
+                href="/?auth=login"
+                className="inline-flex h-9 items-center gap-1.5 rounded-md border border-border-strong px-3 text-[13px] font-medium transition-colors hover:bg-surface-hover"
+              >
+                <LogIn className="h-4 w-4" strokeWidth={1.7} />
+                登录
+              </Link>
+              <Link
+                href="/?auth=register"
+                className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-[13px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+              >
+                <UserPlus className="h-4 w-4" strokeWidth={1.7} />
+                注册
+              </Link>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* 外观 */}
       <section className="mt-6 rounded-md border border-border bg-card shadow-card">
@@ -86,9 +142,9 @@ export default function SettingsPage() {
       </h2>
       <div className="mt-2 rounded-md border border-border bg-card p-5 shadow-card">
         <p className="text-[13px] leading-relaxed text-foreground-tertiary">
-          学习进度与错题记录保存在 Neon 数据库，按浏览器 cookie（匿名身份）区分，
-          无需注册登录。换设备或清除浏览器数据后进度不共享；首页的「继续学习」、
-          上方的今日复习与学习进度页都基于这份数据。
+          学习进度与错题记录保存在 Neon 数据库。未注册时按浏览器匿名 cookie 区分；
+          注册账号会把当前进度就地归入账号，在其他设备登录后自动合并同步。
+          首页的「继续学习」、今日复习与学习进度页都基于这份数据。
         </p>
         <p className="mt-2 text-[13px] leading-relaxed text-foreground-tertiary">
           内容以仓库内 MDX / JSON 为准，引用来源见 docs/RESOURCES.md，欢迎 PR 纠错。

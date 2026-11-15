@@ -42,6 +42,12 @@ export type SkillRegistration = {
   track: SkillTrack;
   /** lucide 图标名，映射见 content/icons.ts */
   icon: SkillIconName;
+  /** 难度档位（课程目录/落地页展示） */
+  difficulty: "入门" | "进阶" | "实战";
+  /** 预计学时（小时，按章节内容估算） */
+  estimatedHours: number;
+  /** 课程落地页「你将学会」条目，3~5 条 */
+  objectives: string[];
   /** 已上线章节 */
   modules: ModuleMeta[];
   /** 已规划未上线章节 */
@@ -59,6 +65,14 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
       "从坐标与经纬度的数学打底讲起：基准面、投影、数据模型、格式、OGC 服务、空间运算与 PostGIS。",
     track: "geospatial",
     icon: "Map",
+    difficulty: "入门",
+    estimatedHours: 12,
+    objectives: [
+      "坐标系、基准面与地图投影的数学原理",
+      "矢量与栅格数据模型、GeoJSON 等常见格式",
+      "EPSG 空间参考与 OGC 地图服务",
+      "PostGIS 空间查询与常用空间运算",
+    ],
     modules: GIS_MODULES,
     plannedModules: GIS_PLANNED,
     rawQuestionsFor: gisRawQuestions,
@@ -71,6 +85,14 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
       "从零到一学会 CesiumJS：Viewer、相机与坐标系、影像与地形、Entity 与 CZML、3D Tiles、拾取交互、空间量算与性能优化，全程免 ion token 示例。",
     track: "geospatial",
     icon: "Globe",
+    difficulty: "进阶",
+    estimatedHours: 12,
+    objectives: [
+      "Viewer、相机与 Cesium 坐标系基础",
+      "免 ion token 加载影像与地形",
+      "Entity、CZML 与 3D Tiles 数据表达",
+      "拾取交互、空间量算与渲染性能优化",
+    ],
     modules: CESIUM_MODULES,
     plannedModules: CESIUM_PLANNED,
     rawQuestionsFor: cesiumRawQuestions,
@@ -83,6 +105,14 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
       "跑在浏览器与 Node 里的几何引擎：量测、缓冲、叠置、点面分析、聚合与插值，GeoJSON 进 GeoJSON 出，配合 Leaflet/MapLibre 完成二维地图应用。",
     track: "geospatial",
     icon: "Boxes",
+    difficulty: "进阶",
+    estimatedHours: 10,
+    objectives: [
+      "GeoJSON 几何模型与 Turf 运算范式",
+      "量测、缓冲、叠置与点面分析",
+      "空间聚合与插值",
+      "配合 Leaflet/MapLibre 落地二维地图应用",
+    ],
     modules: TURF_MODULES,
     plannedModules: TURF_PLANNED,
     rawQuestionsFor: turfRawQuestions,
@@ -95,6 +125,14 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
       "通用 WebGL 三维渲染：场景图、相机与渲染循环、几何材质、光照阴影、glTF、拾取、粒子、GLSL 着色器与后处理，最后把 three 场景叠回地理地图。",
     track: "graphics",
     icon: "Box",
+    difficulty: "进阶",
+    estimatedHours: 14,
+    objectives: [
+      "场景图、相机与渲染循环",
+      "几何、材质、光照阴影与 glTF 加载",
+      "拾取、粒子、GLSL 着色器与后处理",
+      "把 three 三维场景叠回地理地图",
+    ],
     modules: THREE_MODULES,
     plannedModules: THREE_PLANNED,
     rawQuestionsFor: threeRawQuestions,
@@ -107,6 +145,14 @@ export const SKILL_REGISTRY: SkillRegistration[] = [
       "React 视角学鸿蒙：Stage 模型与工程结构、ArkUI 声明式 UI、状态管理 V1/V2、Navigation 路由、网络与并发、持久化与生命周期、性能安全与综合实战。",
     track: "platform",
     icon: "Smartphone",
+    difficulty: "实战",
+    estimatedHours: 16,
+    objectives: [
+      "Stage 模型与 ArkTS 工程结构",
+      "ArkUI 声明式 UI 与状态管理 V1/V2",
+      "Navigation 路由、网络、并发与持久化",
+      "性能、安全与综合实战",
+    ],
     modules: HARMONY_MODULES,
     plannedModules: HARMONY_PLANNED,
     rawQuestionsFor: harmonyRawQuestions,

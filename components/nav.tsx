@@ -4,13 +4,14 @@ import {
   Headphones,
   House,
   Settings,
+  Trophy,
   type LucideIcon,
 } from "lucide-react";
 
 export type NavItem = {
   href: string;
   label: string;
-  key: "home" | "learn" | "audio" | "exam" | "settings";
+  key: "home" | "learn" | "audio" | "exam" | "rank" | "settings";
   /** 是否只在精确匹配时高亮 */
   exact: boolean;
 };
@@ -22,6 +23,7 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/audio", label: "音频", key: "audio", exact: true },
   // 考试入口：每日一考 / 综合考试（章节测验在讲义末尾，不在这里列）
   { href: "/exam", label: "考试", key: "exam", exact: false },
+  { href: "/rank", label: "排行", key: "rank", exact: false },
   { href: "/settings", label: "设置", key: "settings", exact: false },
 ];
 
@@ -32,6 +34,7 @@ export const NAV_ICONS: Record<NavItem["key"], LucideIcon> = {
   audio: Headphones,
   // 主操作「考试」用学位帽：比剪贴板/试卷板更像“考试”，且与书本、齿轮形状拉开
   exam: GraduationCap,
+  rank: Trophy,
   settings: Settings,
 };
 

@@ -8,7 +8,13 @@ import SiteFooter from "@/components/SiteFooter";
 import MobileTabBar from "@/components/MobileTabBar";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { SKILL_REGISTRY } from "@/content/registry";
+import { getSession } from "@/lib/auth";
+import { db } from "@/db";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { Analytics } from "@vercel/analytics/react";
+import { Suspense } from "react";
+import AuthModal from "@/components/auth/AuthModal";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -58,11 +64,27 @@ const jsonLd = {
   ],
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  // 侧边栏账号入口：DB 异常时静默回落未登录态，整站不可因此 500
+  let account: { username: string } | null = null;
+  try {
+    const session = await getSession();
+    if (session) {
+      const [row] = await db
+        .select({ username: users.username })
+        .from(users)
+        .where(eq(users.id, session.userId))
+        .limit(1);
+      if (row?.username) account = { username: row.username };
+    }
+  } catch {
+    account = null;
+  }
+
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body className="min-h-screen overflow-x-hidden antialiased">
@@ -83,8 +105,8 @@ export default function RootLayout({
             跳到主要内容
           </a>
           <div className="flex min-h-screen">
-            <Sidebar />
-            <div className="flex min-w-0 flex-1 flex-col lg:pl-56">
+            <Sidebar account={account} />
+            <div className="flex min-w-0 flex-1 flex-col lg:pl-[248px]">
               <SiteHeader />
               <main id="main" tabIndex={-1} className="flex-1 outline-none">
                 {children}
@@ -93,6 +115,10 @@ export default function RootLayout({
               <MobileTabBar />
             </div>
           </div>
+          {/* useSearchParams 需要 Suspense 边界 */}
+          <Suspense fallback={null}>
+            <AuthModal />
+          </Suspense>
         </ThemeProvider>
         {/* 本地 `next start` 没有 Vercel Insights 端点，仅在 Vercel 环境挂载 */}
         {process.env.VERCEL ? <Analytics /> : null}

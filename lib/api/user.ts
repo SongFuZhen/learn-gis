@@ -3,9 +3,22 @@ import { eq } from "drizzle-orm";
 import { z } from "zod";
 import { db } from "@/db";
 import { users } from "@/db/schema";
+import { getSession } from "@/lib/auth";
 
 /** 校验 cookie 里的 user_id 是否为合法 uuid（防止伪造串导致 pg 类型错误） */
 const uuidSchema = z.uuid();
+
+/**
+ * 只读解析当前身份 id（不创建用户）：会话 cookie 优先，其次匿名 user_id。
+ * 供页面/首页等「无身份就回落静态渲染」的场景使用。
+ */
+export async function resolveUserId(): Promise<string | null> {
+  const session = await getSession();
+  if (session) return session.userId;
+  const cookieStore = await cookies();
+  const raw = cookieStore.get("user_id")?.value ?? null;
+  return z.uuid().safeParse(raw).success ? raw : null;
+}
 
 /**
  * 从 cookie 取访客用户：
@@ -13,6 +26,10 @@ const uuidSchema = z.uuid();
  * - 否则只刷新 lastSeenAt 后复用，绝不直接信任客户端传入的 id 作为外键。
  */
 export async function getOrCreateUserId(): Promise<string> {
+  // 已登录：会话 cookie 优先，业务 API 零改动即挂到账号 id
+  const session = await getSession();
+  if (session) return session.userId;
+
   const cookieStore = await cookies();
   const raw = cookieStore.get("user_id")?.value;
 

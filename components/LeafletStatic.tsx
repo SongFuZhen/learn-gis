@@ -21,7 +21,7 @@ function CoordReadout({ lat, lng }: { lat: number; lng: number }) {
 
 const icon = L.divIcon({
   className: "",
-  html: '<div style="width:14px;height:14px;border-radius:9999px;background:#6d5efc;border:2px solid #fff;box-shadow:0 0 0 2px #6d5efc"></div>',
+  html: '<div style="width:14px;height:14px;border-radius:9999px;background:#126b59;border:2px solid #fff;box-shadow:0 0 0 2px #126b59"></div>',
 });
 
 export default function LeafletStatic({

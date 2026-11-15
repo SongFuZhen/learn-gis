@@ -6,21 +6,62 @@ import { usePathname } from "next/navigation";
 import { NAV_ICONS, NAV_ITEMS, isActive } from "@/components/nav";
 import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
-import { SKILLS, getModules } from "@/lib/content";
-import { ALL_QUESTIONS } from "@/content/all-questions";
 import { cn } from "@/lib/utils";
 import logoMark from "@/public/brand/logo.png";
 
-/** 桌面主导航：224px 固定侧栏（token: 侧边栏宽度 224px） */
-export default function Sidebar() {
+/** 桌面主导航：248px 固定侧栏（token: width.sidebar），带品牌色几何背景 */
+export default function Sidebar({
+  account,
+}: {
+  account: { username: string } | null;
+}) {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 hidden h-dvh w-sidebar flex-col border-r border-border bg-card px-3 py-5 lg:flex">
+    <aside className="fixed inset-y-0 left-0 z-30 hidden h-dvh w-sidebar flex-col overflow-hidden border-r border-border bg-card px-3 py-5 lg:flex">
+      {/* 背景装饰：顶部品牌光晕 + 几何线稿，纯装饰不参与交互 */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-20 left-1/2 h-48 w-72 -translate-x-1/2 rounded-full bg-[hsl(var(--brand-primary)/0.09)] blur-3xl dark:bg-[hsl(var(--brand-primary)/0.16)]" />
+        <svg
+          className="absolute inset-x-0 top-0 h-64 w-full"
+          viewBox="0 0 256 256"
+          preserveAspectRatio="xMidYMin slice"
+          focusable="false"
+        >
+          <g
+            fill="none"
+            stroke="hsl(var(--brand-primary))"
+            strokeWidth="1"
+          >
+            <circle cx="200" cy="40" r="56" strokeOpacity="0.14" />
+            <circle cx="200" cy="40" r="30" strokeOpacity="0.10" />
+            <ellipse
+              cx="200"
+              cy="40"
+              rx="84"
+              ry="24"
+              transform="rotate(-18 200 40)"
+              strokeOpacity="0.10"
+            />
+            {Array.from({ length: 5 }, (_, i) => (
+              <line
+                key={i}
+                x1={i * 64}
+                y1="0"
+                x2={i * 64}
+                y2="256"
+                strokeOpacity="0.06"
+              />
+            ))}
+          </g>
+        </svg>
+      </div>
+
+      <div className="relative flex h-full flex-col">
       <Link href="/" className="flex items-center gap-2.5 px-2">
         <Image src={logoMark} alt="" priority className="h-9 w-9" />
         <span className="text-[15px] font-semibold tracking-tight">
-          learn-gis
+          ASoN 学社
         </span>
       </Link>
 
@@ -53,19 +94,43 @@ export default function Sidebar() {
       </nav>
 
       <div className="mt-auto flex flex-col gap-3">
-        <div className="rounded-md bg-brand-soft p-3">
-          <p className="text-[12px] font-medium text-foreground">
-            {SKILLS.map((s) => s.title.split(" ")[0]).join(" + ")} ·{" "}
-            {SKILLS.reduce((n, s) => n + getModules(s.id).length, 0)} 章
-          </p>
-          <p className="mt-1 text-[12px] leading-relaxed text-foreground-muted">
-            讲义 → 做题 → 复习，题库共 {ALL_QUESTIONS.length} 题。
-          </p>
-        </div>
+        <Link
+          href={account ? "/settings" : "/?auth=login"}
+          className="flex items-center gap-2.5 rounded-md px-2 py-1.5 transition-colors hover:bg-background-hover"
+        >
+          {account ? (
+            <>
+              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-[13px] font-medium uppercase text-white">
+                {account.username.charAt(0)}
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block truncate text-[13px] font-medium">
+                  {account.username}
+                </span>
+                <span className="block text-[11px] text-foreground-muted">
+                  账号已同步
+                </span>
+              </span>
+            </>
+          ) : (
+            <>
+              <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-soft text-[13px] font-medium text-brand-ink">
+                客
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-[13px] font-medium">登录 / 注册</span>
+                <span className="block text-[11px] text-foreground-muted">
+                  跨设备同步进度
+                </span>
+              </span>
+            </>
+          )}
+        </Link>
         <div className="flex items-center justify-between px-1">
           <span className="text-[12px] text-foreground-muted">外观</span>
           <ThemeToggle />
         </div>
+      </div>
       </div>
     </aside>
   );

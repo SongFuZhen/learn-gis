@@ -57,7 +57,7 @@ export default function MapPicker({
           <CircleMarker
             center={[selected.lat, selected.lng]}
             radius={7}
-            pathOptions={{ color: "#6d5efc", fillColor: "#6d5efc", fillOpacity: 0.6 }}
+            pathOptions={{ color: "#126b59", fillColor: "#126b59", fillOpacity: 0.6 }}
           />
         )}
       </MapContainer>
