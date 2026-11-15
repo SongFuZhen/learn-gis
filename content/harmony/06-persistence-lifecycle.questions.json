@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "06",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-06-001",
@@ -284,6 +284,739 @@
       "type": "short",
       "accepted": ["PersistenceV2.connect", "PersistenceV2.connect()", "connect", "connect()"],
       "placeholder": "例如：PersistenceV2.connect"
+    },
+    {
+      "id": "harmony-06-015",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "readTheme 中 store.getSync(THEME_KEY, 'system') 的第二个参数有什么作用？",
+      "explanation": "getSync 的第二个参数是默认值。存储中还没有 theme_mode 时返回 system，使首次启动也能得到可读的回退主题；已有主题时则读取已保存的值。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "指定 Preferences 文件名" },
+        { "key": "B", "text": "键不存在时使用的默认返回值", "hint": "示例用 system 作为未保存主题时的回退值" },
+        { "key": "C", "text": "指定 UIAbilityContext" },
+        { "key": "D", "text": "设置 flush 的重试次数" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-06-016",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "saveTheme 中根据 Context 和 { name: STORE_NAME } 异步获取 Preferences 实例，应调用哪个接口？",
+      "explanation": "preferences.getPreferences 按上下文和名称异步取得存储实例，因此示例在调用前使用 await，取得实例后再执行 put 与 flush。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "short",
+      "accepted": ["preferences.getPreferences", "preferences.getPreferences()", "getPreferences", "getPreferences()"],
+      "placeholder": "例如：preferences.getPreferences"
+    },
+    {
+      "id": "harmony-06-017",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "按照讲义对 Preferences 使用边界的约定，哪些内容不应直接存入 Preferences？",
+      "explanation": "Preferences 面向轻量纯数据，不适合保存网络连接、组件实例或无限增长的日志。主题字符串和少量可序列化快照才符合其使用范围。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "网络连接", "hint": "运行时连接不是轻量纯数据" },
+        { "key": "B", "text": "当前主题字符串" },
+        { "key": "C", "text": "组件实例", "hint": "组件实例属于运行时对象" },
+        { "key": "D", "text": "无限增长的日志", "hint": "持续增长的数据不应塞入轻量键值存储" },
+        { "key": "E", "text": "少量可序列化的答题快照" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-06-018",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "依次向 Preferences 写入 theme_mode、auto_next、current_level 三个键，每个键调用一次 put，最后统一调用一次 flush。写相关 API 共调用多少次？",
+      "explanation": "三个键各调用一次 put，共 3 次；最后统一落盘再调用 1 次 flush，所以总数为 3+1=4 次。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "次",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-06-019",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "闯关应用要保存大量题目配图和音视频，同时还需按题目查询这些资源，推荐怎样组织持久化？",
+      "explanation": "大二进制媒体适合放在文件存储中，RDB 则保存资源路径等元数据和题目关联字段。这样既避免把媒体塞入键值项，也保留了结构化查询能力。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "媒体本体用文件存储，RDB 保存元数据与关联字段", "hint": "文件承载大二进制，数据库负责组织与查询" },
+        { "key": "B", "text": "全部媒体放进一个 Preferences 字符串" },
+        { "key": "C", "text": "只保存在组件实例的临时属性中" },
+        { "key": "D", "text": "每个媒体都注册成一个 UIAbility" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-06-020",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "密码和长期令牌需要持久化时，最符合讲义安全边界的选择是？",
+      "explanation": "普通键值存储和一般界面状态持久化都不以满足密码保密要求为目标，结构化数据库也不会仅因使用表就自动变成安全存储，因此应选择系统安全存储能力。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "明文写入 Preferences" },
+        { "key": "B", "text": "明文写入普通 RDB 表" },
+        { "key": "C", "text": "作为普通界面状态写入 PersistenceV2" },
+        { "key": "D", "text": "使用系统安全存储能力", "hint": "敏感数据需要专门的保密能力" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "harmony-06-021",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "真实闯关项目的 ProgressStore 仓库层采取哪些做法符合讲义建议？",
+      "explanation": "仓库层可缓存 Preferences 实例，并集中维护键名、整组状态替换和 flush 失败日志。让各组件散落地硬编码键名会破坏统一边界，增加维护与排错成本。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "缓存 Preferences 实例", "hint": "由仓库复用存储实例" },
+        { "key": "B", "text": "统一维护存储键名", "hint": "避免键名散落在组件中" },
+        { "key": "C", "text": "让每个组件各自硬编码同一批键名" },
+        { "key": "D", "text": "统一处理整组替换和 flush 失败日志", "hint": "仓库集中承接状态替换与错误记录" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-06-022",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "Preferences 实例上用于同步读取键值、并可传入默认值的方法名是什么？",
+      "explanation": "readTheme 使用 store.getSync(THEME_KEY, 'system') 同步读取主题，其中第二个参数提供默认值，因此所求实例方法是 getSync。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "short",
+      "accepted": ["getSync", "getSync()", "store.getSync", "store.getSync()"],
+      "placeholder": "例如：getSync"
+    },
+    {
+      "id": "harmony-06-023",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "本章 answer_log 建表语句共声明了多少个列（把 id 也计入）？",
+      "explanation": "CREATE_LOG 依次声明 id、question_id、correct、created_at，共 4 个列；AUTOINCREMENT 和 NOT NULL 是约束，不是额外的列。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-06-024",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "本章 STORE_CONFIG 要打开名为 quiz.db 的关系型数据库，name 字段应配置为？",
+      "explanation": "StoreConfig.name 指定数据库名称，本章明确配置为 quiz.db。answer_log 是其中的表名，settings_store 和 theme_mode 则属于 Preferences 示例。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "settings_store" },
+        { "key": "B", "text": "quiz.db", "hint": "这是 STORE_CONFIG 中的数据库名称" },
+        { "key": "C", "text": "answer_log" },
+        { "key": "D", "text": "theme_mode" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-06-025",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "关于 answer_log 的 CREATE_LOG 定义，哪些描述与讲义代码一致？",
+      "explanation": "id 是自增整数主键，question_id 是非空文本，correct 与 created_at 都是非空整数。correct 并非可缺省的文本列，其类型和约束不能随意改动。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "id 声明为 INTEGER PRIMARY KEY AUTOINCREMENT", "hint": "id 是自增主键" },
+        { "key": "B", "text": "question_id 声明为 TEXT NOT NULL", "hint": "题目标识使用非空文本" },
+        { "key": "C", "text": "correct 声明为 TEXT 且允许缺省" },
+        { "key": "D", "text": "created_at 声明为 INTEGER NOT NULL", "hint": "创建时间字段是非空整数" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-06-026",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "countCorrect 中为什么可以返回 rows.rowCount，而不是先把 ResultSet 转成普通数组再取 length？",
+      "explanation": "ResultSet 的 rowCount 直接给出查询结果的行数，countCorrect 只需要计数，无须先逐行复制成数组。读取结束后仍要在 finally 中关闭游标。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "rowCount 表示匹配查询的结果行数", "hint": "它正好满足计数函数的需求" },
+        { "key": "B", "text": "rowCount 表示数据表的列数" },
+        { "key": "C", "text": "rowCount 表示 Preferences 的键数量" },
+        { "key": "D", "text": "rowCount 会自动提交当前事务" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-06-027",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "countCorrect 的谓词依次筛选 question_id 等于参数值、correct 等于 1，中间用 and 连接。总共设置了几个等值筛选条件？",
+      "explanation": "代码对 question_id 和 correct 各调用一次 equalTo，因此有 2 个等值条件。and 只负责连接这两个条件，不构成第三个筛选条件。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-06-028",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "生产代码要把 ResultSet 移到首行并读取列值，但查询可能没有任何记录。哪种处理最稳妥？",
+      "explanation": "ResultSet 是游标，空查询没有可供读取的当前行。应检查 goToFirstRow 等游标操作的结果，确认行有效后再读列，并确保最终关闭 ResultSet。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "直接读取首行，假定空结果也会返回默认对象" },
+        { "key": "B", "text": "检查 goToFirstRow 等游标操作结果，确认有效行后再读列并关闭 ResultSet", "hint": "先确认游标位置有效，避免空结果误读" },
+        { "key": "C", "text": "把 ResultSet 当作 JSON 数组直接解析" },
+        { "key": "D", "text": "无论查询结果如何都调用 commit" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-06-029",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "RDB 的 query 返回 ResultSet 后，可以把它当作普通数组，直接用下标访问任意行。",
+      "explanation": "该说法错误。ResultSet 是游标而不是普通数组，读取列值前要操作并检查当前行，使用结束后还要关闭，不能用数组下标语义代替。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-06-030",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "openQuizStore 获取 RdbStore 后，用哪个方法执行 CREATE_LOG 这段 SQL 建表语句？",
+      "explanation": "openQuizStore 在 getRdbStore 成功后调用 db.executeSql(CREATE_LOG)，执行固定的建表 SQL，随后才返回可供查询和写入的数据库实例。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "short",
+      "accepted": ["executeSql", "executeSql()", "db.executeSql", "db.executeSql()", "db.executeSql(CREATE_LOG)"],
+      "placeholder": "例如：executeSql"
+    },
+    {
+      "id": "harmony-06-031",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "阅读 savePassed 的事务代码，哪些路径处理正确？",
+      "explanation": "事务在写入前开始，只有两次 insert 都完成后才 commit。任一步抛异常都要在 catch 中 rollBack 并继续抛出，既避免半截数据，也不向调用方隐瞒失败。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "两次 insert 前调用 beginTransaction", "hint": "先明确事务起点" },
+        { "key": "B", "text": "第一次 insert 成功后就可以提前 commit" },
+        { "key": "C", "text": "两次 insert 都完成后调用 commit", "hint": "完整成功才提交" },
+        { "key": "D", "text": "任一 insert 抛异常时在 catch 中 rollBack 并继续抛出", "hint": "失败路径要回滚且保留错误传播" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-06-032",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "savePassed 中 progress 这个 ValuesBucket 表示的是哪组数据？",
+      "explanation": "progress 包含 level_id 为 04、passed 为 1，用于写入 level_progress。question_id、correct 和 created_at 则属于另一个名为 stat 的 ValuesBucket。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "level_id 为 04、passed 为 1", "hint": "这是关卡进度记录" },
+        { "key": "B", "text": "question_id 为 harmony-04-001、correct 为 1" },
+        { "key": "C", "text": "theme_mode 为 system" },
+        { "key": "D", "text": "name 为 quiz.db、securityLevel 为 S1" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-06-033",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "数千道题及其答题记录需要按字段筛选并建立索引，应优先选择哪种持久化方案？",
+      "explanation": "RDB 面向结构化字段、索引、查询和事务，适合这种规模与查询方式。Preferences 和 PersistenceV2 更偏向轻量数据，普通组件状态则不负责持久化。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Preferences" },
+        { "key": "B", "text": "PersistenceV2" },
+        { "key": "C", "text": "RDB", "hint": "结构化查询与索引是关系型数据库的强项" },
+        { "key": "D", "text": "普通组件临时状态" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-06-034",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "与轻量键值存储相比，RDB 更适合承担哪些能力？",
+      "explanation": "RDB 的关系数据模型支持结构化字段查询、索引和事务，适合复杂答题记录。它本身并不因为使用数据表就自动替代密码等敏感数据所需的安全存储。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "按结构化字段进行条件查询", "hint": "关系模型适合表达字段条件" },
+        { "key": "B", "text": "使用索引辅助数据筛选", "hint": "索引是选择 RDB 的重要理由之一" },
+        { "key": "C", "text": "自动把任何密码变成安全密文" },
+        { "key": "D", "text": "用事务组织多步相关写入", "hint": "事务维护多步写入的一致性" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-06-035",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "在 relationalStore 中，用于构造 answer_log 查询条件的是哪个类？",
+      "explanation": "示例通过 new relationalStore.RdbPredicates('answer_log') 创建谓词，再链式调用 equalTo 与 and 表达查询条件，因此类名是 RdbPredicates。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "short",
+      "accepted": ["RdbPredicates", "relationalStore.RdbPredicates", "new relationalStore.RdbPredicates('answer_log')"],
+      "placeholder": "例如：RdbPredicates"
+    },
+    {
+      "id": "harmony-06-036",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "savePassed 一次执行会创建 progress 和 stat 两个 ValuesBucket。前者有 level_id、passed 两个键，后者有 question_id、correct、created_at 三个键，合计多少个键？",
+      "explanation": "progress 贡献 2 个键，stat 贡献 3 个键，因此两个 ValuesBucket 合计 2+3=5 个键，与插入的表数量不是同一个计数维度。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-06-037",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "本章 EntryAbility 在 Stage 模型中扮演什么角色？",
+      "explanation": "UIAbility 是有界面的能力实例，EntryAbility 则是应用入口。本章通过继承 UIAbility 编写 EntryAbility，并在其中接收窗口、前后台与销毁等生命周期回调。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "作为应用入口的 UIAbility，承载界面与生命周期回调", "hint": "EntryAbility 是入口能力实例" },
+        { "key": "B", "text": "作为 RDB 查询结果的游标" },
+        { "key": "C", "text": "作为 Preferences 的存储键名" },
+        { "key": "D", "text": "作为 ResultSet 中的一列" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-06-038",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "关于 UIAbility 各阶段的资源与任务处理，哪些做法符合讲义？",
+      "explanation": "onForeground 只恢复必要的轻量任务并避免重复注册监听；onCreate 可初始化不依赖窗口的应用级服务；窗口相关资源则在 onWindowStageDestroy 阶段释放。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "在 onForeground 恢复必要的轻量任务", "hint": "回到前台时恢复必要工作" },
+        { "key": "B", "text": "每次 onForeground 都不做防重检查，重复注册同一监听" },
+        { "key": "C", "text": "在 onWindowStageDestroy 释放窗口相关资源", "hint": "窗口资源与 WindowStage 生命周期对应" },
+        { "key": "D", "text": "在 onCreate 初始化不依赖窗口的应用级服务", "hint": "创建阶段先处理非窗口初始化" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-06-039",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "onWindowStageCreate 中通过 WindowStage 加载 pages/Index 页面，应调用哪个方法？",
+      "explanation": "示例使用 stage.loadContent('pages/Index', callback) 加载首页内容，并在回调中检查 err.code，因此所求 WindowStage 方法是 loadContent。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["loadContent", "loadContent()", "stage.loadContent", "stage.loadContent()", "stage.loadContent('pages/Index')"],
+      "placeholder": "例如：loadContent"
+    },
+    {
+      "id": "harmony-06-040",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "一次常见冷启动从创建 UIAbility 到首次进入前台，依次执行 onCreate、onWindowStageCreate、onForeground。这里共经历几个 UIAbility 生命周期回调？",
+      "explanation": "题设依次列出 onCreate、onWindowStageCreate、onForeground，共 3 个回调。loadContent 是窗口加载方法，不应另算成一个 UIAbility 生命周期回调。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-06-041",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "组件的 aboutToAppear/aboutToDisappear 与 UIAbility 的 onCreate/onDestroy 有何关系？",
+      "explanation": "aboutToAppear 和 aboutToDisappear 管组件生命周期，onCreate 和 onDestroy 管 UIAbility 能力实例。两组回调作用对象不同，不能仅凭名字把它们视为同一层级。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "前者管组件，后者管能力实例，二者不属于同一层级", "hint": "先区分组件与 UIAbility 的作用范围" },
+        { "key": "B", "text": "两组回调完全相同，可以任意互换" },
+        { "key": "C", "text": "前者专门负责提交 RDB 事务" },
+        { "key": "D", "text": "后者只负责控制 Preferences 键名" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-06-042",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "为了让持久化仓库函数易测试、易释放，哪些 Context 使用方式符合讲义？",
+      "explanation": "仓库函数应显式接收所需 Context，并区分 UIAbilityContext 与 ApplicationContext 的范围。隐式捕获页面 Context 或把上下文当全局静态对象，会让依赖关系和资源释放难以管理。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "显式把 Context 作为参数传入仓库函数", "hint": "显式依赖更便于测试与释放" },
+        { "key": "B", "text": "让模块偷偷捕获某个页面的 Context 并长期持有" },
+        { "key": "C", "text": "区分 UIAbilityContext 与 ApplicationContext 的职责范围", "hint": "按当前环境选择正确范围的上下文" },
+        { "key": "D", "text": "把 getContext(this) 当成随处可用的全局静态对象" }
+      ],
+      "answer": ["A", "C"]
+    },
+    {
+      "id": "harmony-06-043",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "需要设置整个应用的颜色模式，而不是操作某个页面时，应优先考虑哪种 Context？",
+      "explanation": "ApplicationContext 是应用级环境，不绑定某个页面，可承担设置应用颜色模式等任务。UIAbilityContext 则对应当前 UIAbility 的环境与能力。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "UIAbilityContext" },
+        { "key": "B", "text": "ApplicationContext", "hint": "应用级设置应对应应用级上下文" },
+        { "key": "C", "text": "ResultSet" },
+        { "key": "D", "text": "RdbPredicates" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-06-044",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "在组件中获取当前上下文、之后再按需转换类型，讲义使用的是哪个调用？",
+      "explanation": "组件中通过 getContext(this) 取得当前上下文，再按需要转换类型。as 只改变静态类型表达，并不会替开发者完成运行时校验。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["getContext(this)", "getContext"],
+      "placeholder": "例如：getContext(this)"
+    },
+    {
+      "id": "harmony-06-045",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "下面哪项最适合用 PersistenceV2 持久化？",
+      "explanation": "PersistenceV2 适合当前 Tab 和少量界面恢复状态。大量条件查询记录应选 RDB，音视频本体应选文件存储，长期令牌则需要系统安全存储能力。",
+      "refs": [
+        {
+          "title": "PersistenceV2：持久化存储 UI 状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-new-persistencev2"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "当前 Tab 和少量界面恢复状态", "hint": "小规模 UI 状态正适合连接持久化" },
+        { "key": "B", "text": "十万条需要条件筛选的答题记录" },
+        { "key": "C", "text": "大量音视频文件本体" },
+        { "key": "D", "text": "需要保密存储的长期令牌" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-06-046",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "本章 PersistenceV2.connect(QuizDraft, 'quiz_draft', () => new QuizDraft()) 调用包含哪些要素？",
+      "explanation": "该调用传入状态类 QuizDraft、存储键 quiz_draft 和创建默认实例的工厂函数。RdbPredicates 属于 RDB 条件查询，不参与 PersistenceV2 的状态连接。",
+      "refs": [
+        {
+          "title": "PersistenceV2：持久化存储 UI 状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-new-persistencev2"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "状态类 QuizDraft", "hint": "指定要连接的状态对象类型" },
+        { "key": "B", "text": "存储键 quiz_draft", "hint": "用于标识对应的持久化状态" },
+        { "key": "C", "text": "创建默认实例的工厂函数", "hint": "示例通过工厂返回新的 QuizDraft" },
+        { "key": "D", "text": "用于关系查询的 RdbPredicates" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-06-047",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "应用冷启动后先进入一次前台，随后完整经历两轮「进入后台 → 回到前台」。整个过程中 onForeground 共回调多少次？",
+      "explanation": "冷启动后的首次前台触发 1 次 onForeground，两轮回到前台各再触发 1 次，因此总数为 1+2=3 次；onBackground 不计入所问回调。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "次",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-06-048",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "使用 PersistenceV2 恢复 QuizDraft 时，哪种做法最可靠？",
+      "explanation": "PersistenceV2 不是任意对象都能安全序列化的魔法。使用前要确认目标 API 版本、存储键与读回策略，并校验读回数据；复杂查询、索引和事务仍应交给 RDB。",
+      "refs": [
+        {
+          "title": "PersistenceV2：持久化存储 UI 状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-new-persistencev2"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "认定任意大型嵌套对象都会被安全序列化" },
+        { "key": "B", "text": "只确认存储键，读回内容无需校验" },
+        { "key": "C", "text": "确认目标 API 版本、存储键与读回策略，并校验读回数据", "hint": "持久化连接之外仍需版本与数据校验" },
+        { "key": "D", "text": "用它代替 RDB 完成索引和事务" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-06-049",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "CREATE TABLE IF NOT EXISTS 中的 IF NOT EXISTS 可以避免在目标表已存在时重复创建同名表。",
+      "explanation": "该说法正确。IF NOT EXISTS 让建表语句先考虑目标表是否已存在，适合作为数据库初始化步骤；它不改变后续查询、游标关闭和事务处理的要求。",
+      "refs": [
+        {
+          "title": "通过关系型数据库实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-06-050",
+      "skill": "harmony",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "saveTheme 中 put 已 awaited，但 flush 因失败 reject。仓库层应怎样处理才符合可靠保存语义？",
+      "explanation": "只有 flush 成功才能把保存视为可靠完成。捕获失败后应记录 BusinessError.code 等信息并继续抛出，让调用方知道落盘失败，而不是仅因 put 已完成就报告成功。",
+      "refs": [
+        {
+          "title": "通过用户首选项实现数据持久化",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "忽略错误，仍向调用方报告保存成功" },
+        { "key": "B", "text": "只更新界面主题，然后把错误删除" },
+        { "key": "C", "text": "记录 BusinessError.code 等失败信息并继续抛出，让调用方知道未可靠落盘", "hint": "失败要可观察且继续传播，不能伪装成功" },
+        { "key": "D", "text": "把失败当成数据表已存在，并提交 RDB 事务" }
+      ],
+      "answer": ["C"]
     }
   ]
 }

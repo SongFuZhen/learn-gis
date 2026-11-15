@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "01",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-01-001",
@@ -296,6 +296,869 @@
       "tolerance": 0,
       "unit": "千米",
       "placeholder": "只填数值，单位千米"
+    },
+    {
+      "id": "turf-01-014",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "按照本章 distance(from, to, options) 的签名，from 和 to 应该传入什么？",
+      "explanation": "distance 的两个位置参数都应是 Point Feature，本章先用 point([lng, lat]) 构造北京和天津端点。它不能直接拿 LineString 或 Polygon 代替点要素。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "两个 Point Feature",
+          "hint": "point 辅助函数负责构造这两个端点"
+        },
+        { "key": "B", "text": "两个 LineString Feature" },
+        { "key": "C", "text": "两个 Polygon Feature" },
+        { "key": "D", "text": "两个只含纬度数值的数组" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-01-015",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "本章从 @turf/helpers 导入的构造函数与几何用途，对应关系正确的有哪些？",
+      "explanation": "示例分别用 point 创建点、lineString 创建折线、polygon 创建面，再把它们交给量测函数。area 是量测函数，不是创建 Point 的几何辅助函数。",
+      "refs": [
+        {
+          "title": "Turf 量测函数索引",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "point 用于创建 Point Feature",
+          "hint": "北京和天津端点就是这样构造的"
+        },
+        {
+          "key": "B",
+          "text": "lineString 用于创建折线",
+          "hint": "trail 是本章的 LineString 示例"
+        },
+        {
+          "key": "C",
+          "text": "polygon 用于创建面",
+          "hint": "plot 是本章的 Polygon 示例"
+        },
+        { "key": "D", "text": "area 用于创建 Point Feature" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-01-016",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "along 返回的里程桩可以落在线段内部，不一定与原 LineString 的某个顶点重合。",
+      "explanation": "对。along 按累计里程在线上插值，指定距离处未必恰好有原始顶点。讲义练习也要求利用这一点区分「线上插值点」与「找最近顶点」。",
+      "refs": [
+        {
+          "title": "Turf along API",
+          "url": "https://turfjs.org/docs/api/along"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-01-017",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "要计算一个 Polygon 的球面面积并直接得到平方米，应调用哪个 Turf 函数？",
+      "explanation": "area 接收 Polygon 或 MultiPolygon，直接返回平方米数值。distance 和 length 返回距离，along 则返回线上的点，都不承担面积量算。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "short",
+      "accepted": ["area", "turf.area"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-01-018",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "在赤道上，两点坐标分别为 [0, 0] 与 [2, 0]。按赤道经度 1°≈111.32 千米估算，turf.distance 的大圆距离是多少千米？",
+      "explanation": "两点的纬度都为 0°，经度相差 2°。赤道经度每度约 111.32 千米，所以大圆距离约为 2×111.32=222.64 千米。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 222.64,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填数值，单位千米"
+    },
+    {
+      "id": "turf-01-019",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章 distance 示例以北京和天津为端点。请在地图上点出 point([116.407, 39.904]) 对应的北京端点。",
+      "explanation": "北京位于华北平原北部，示例坐标约为北纬 39.904°、东经 116.407°。GeoJSON 数组先写经度再写纬度，该点是北京到天津大圆距离示例的起点。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.904,
+        "lng": 116.407
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-01-020",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "直接调用 turf.area(plot) 时，返回数值采用什么单位？",
+      "explanation": "area 的原始返回值统一为平方米，本章示例没有给它传 units。若要展示平方千米，需要把平方米数值除以 1,000,000，而不能把面积单位与长度单位混用。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "平方千米" },
+        { "key": "B", "text": "千米" },
+        {
+          "key": "C",
+          "text": "平方米",
+          "hint": "area 示例直接输出平方米"
+        },
+        { "key": "D", "text": "经纬度度数" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-01-021",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "本章列出的距离 units 参数取值中，哪些属于讲义明确给出的单位？",
+      "explanation": "讲义明确列出 kilometers、meters、miles 和 degrees，团队代码应显式选择所需单位。pixels 是屏幕像素，不属于这里列出的地理距离单位。",
+      "refs": [
+        {
+          "title": "Turf 量测函数索引",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "kilometers",
+          "hint": "千米，也是本章强调显式声明的单位之一"
+        },
+        {
+          "key": "B",
+          "text": "meters",
+          "hint": "米级业务应显式使用它"
+        },
+        {
+          "key": "C",
+          "text": "miles",
+          "hint": "英里在本章单位列表中"
+        },
+        {
+          "key": "D",
+          "text": "degrees",
+          "hint": "度数在本章单位列表中"
+        },
+        { "key": "E", "text": "pixels" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "turf-01-022",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "pointToLineDistance 的返回值是距离最近的线段端点所组成的 Point Feature。",
+      "explanation": "错。pointToLineDistance 返回最短距离的数值，单位由 units 决定；它不返回最近点或最近端点的 Point Feature。along 才返回 Point Feature。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-01-023",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "已知两个 Point Feature，要直接求它们之间的大圆弧长，应写出哪个 Turf 函数名？",
+      "explanation": "distance(from, to, options) 专门计算两个 Point Feature 之间的大圆距离。length 面向线，area 面向面，pointToLineDistance 面向点与线的组合。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "short",
+      "accepted": ["distance", "turf.distance"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-01-024",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "赤道上一条 LineString 的顶点依次为 [0, 0]、[1, 0]、[3, 0]。按经度 1°≈111.32 千米估算，turf.length 返回多少千米？",
+      "explanation": "length 逐段求和。第一段跨 1°，约 111.32 千米；第二段跨 2°，约 222.64 千米。总长为 111.32+222.64=333.96 千米。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "numeric",
+      "answer": 333.96,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填数值，单位千米"
+    },
+    {
+      "id": "turf-01-025",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "请在地图上点出本章 distance 示例中 point([117.201, 39.084]) 对应的天津端点。",
+      "explanation": "天津位于华北平原东北部、渤海湾西岸，示例坐标约为北纬 39.084°、东经 117.201°。它与北京端点共同组成本章城市间大圆距离的量算场景。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.084,
+        "lng": 117.201
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-01-026",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "一条闭合骑行路线的起点与终点是同一个 Point。distance(start, end) 与 length(route) 应呈现哪种关系？",
+      "explanation": "起点和终点重合时，两点大圆距离为 0；但骑行过程经过了一段真实路线，length 会把沿途各段累加，所以总长大于 0。这区分了首尾点距离与路径里程。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        },
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "distance 与 length 都必然为 0" },
+        { "key": "B", "text": "distance 大于 0，length 等于 0" },
+        { "key": "C", "text": "distance 与 length 都必然等于路线总长" },
+        {
+          "key": "D",
+          "text": "distance 等于 0，length 大于 0",
+          "hint": "首尾重合不代表没有经过路径"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "turf-01-027",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "把多条独立步道合并为一个 MultiLineString 后，要核算整个步道网络的里程。下列判断哪些符合 length 的语义？",
+      "explanation": "length 接受 MultiLineString，可把整个线集合作为输入；各成员内部仍按相邻顶点逐段计算大圆距离，再累计成总长度。它不会只算首条支线，也不要求把线转成 Polygon。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "MultiLineString 是 length 适用的输入几何",
+          "hint": "讲义明确列出 LineString/MultiLineString"
+        },
+        {
+          "key": "B",
+          "text": "汇总结果包含网络中各条支线的长度",
+          "hint": "目标是整个线集合的总里程"
+        },
+        {
+          "key": "C",
+          "text": "每条支线内部仍按相邻顶点分段计算大圆距离",
+          "hint": "length 的基础实现是逐段求和"
+        },
+        { "key": "D", "text": "函数只返回第一条支线的长度" },
+        { "key": "E", "text": "必须先把所有支线转换成 Polygon" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-01-028",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "Web 墨卡托在高纬度会拉伸，因此在该投影平面上直接算欧氏距离，可能与地理大圆距离产生明显偏差。",
+      "explanation": "对。讲义特别指出 Web 墨卡托的高纬度拉伸会让图上直线距离偏离地理距离。Turf 直接用经纬度做球面计算，避免把这种投影变形带入量测。",
+      "refs": [
+        {
+          "title": "Haversine formula（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Haversine_formula"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-01-029",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章指出 distance 底层使用哪一类以「半正矢」命名的球面公式？（写英文名称）",
+      "explanation": "讲义写的是 haversine 类球面公式，并把地球近似为半径约 6371 千米的球。该公式用于求球面两点间的大圆弧长，而不是平面勾股距离。",
+      "refs": [
+        {
+          "title": "Haversine formula（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Haversine_formula"
+        }
+      ],
+      "type": "short",
+      "accepted": ["haversine", "Haversine", "haversine formula", "Haversine formula"],
+      "placeholder": "例如：haversine"
+    },
+    {
+      "id": "turf-01-030",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "某 Polygon 调 turf.area 得到 1,250,000 平方米。换算成平方千米是多少？",
+      "explanation": "1 平方千米等于 1,000,000 平方米，因此 1,250,000÷1,000,000=1.25 平方千米。这里只换算面积单位，不改变 area 已算出的地块大小。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.25,
+      "tolerance": 0,
+      "unit": "平方千米",
+      "placeholder": "只填数值，单位平方千米"
+    },
+    {
+      "id": "turf-01-031",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "本章 pointToLineDistance 示例把骑手放在 point([116.46, 39.93])。请在地图上点出这个用于计算偏航垂距的定位点。",
+      "explanation": "该定位点约为北纬 39.93°、东经 116.46°，位于北京城区北部附近。示例把它与 trail 的各线段比较，求骑手到轨迹的最短球面距离。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.93,
+        "lng": 116.46
+      },
+      "toleranceKm": 200
+    },
+    {
+      "id": "turf-01-032",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "某下游数组约定为 [lat, lng]，而 along 返回的 coordinates 为 [116.55, 40.0]。交接时正确的处理是什么？",
+      "explanation": "Turf 使用 GeoJSON 的 [lng, lat] 顺序，所以 116.55 是经度、40.0 是纬度。若下游明确约定 [lat, lng]，就应转换为 [40.0, 116.55]，不能原样传入。",
+      "refs": [
+        {
+          "title": "Turf along API",
+          "url": "https://turfjs.org/docs/api/along"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "原样传 [116.55, 40.0]，两种顺序完全等价" },
+        {
+          "key": "B",
+          "text": "转换为 [40.0, 116.55]",
+          "hint": "把纬度放到下游约定的第一位"
+        },
+        { "key": "C", "text": "把两个坐标都除以 1000 后原样传入" },
+        { "key": "D", "text": "删除纬度，只保留 116.55" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-01-033",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "一个 MultiPolygon 由两块不相邻地块组成。开发者汇总 turf.area 结果时，哪些理解符合本章语义？",
+      "explanation": "area 支持 MultiPolygon，并把各成员面的面积累加，原始结果单位为平方米。它不会只保留第一块地，也没有通过长度单位 kilometers 直接改报平方千米面积的约定。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "MultiPolygon 可以作为 area 的输入",
+          "hint": "讲义明确说明 area 对 MultiPolygon 成立"
+        },
+        {
+          "key": "B",
+          "text": "返回的是各成员地块面积的总和",
+          "hint": "多块地需要累计而不是只取第一块"
+        },
+        {
+          "key": "C",
+          "text": "原始返回数值以平方米表示",
+          "hint": "面积展示单位可再由开发者换算"
+        },
+        { "key": "D", "text": "只计算第一块地，其余成员自动忽略" },
+        { "key": "E", "text": "传入 units: \"kilometers\" 就会直接返回平方千米面积" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-01-034",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "定位点恰好落在某条线段内部时，pointToLineDistance 可以返回 0，并不要求该点与某个顶点重合。",
+      "explanation": "对。该函数逐线段求最短距离，最近位置可以在线段内部。点已经在线段上时垂距为 0，不需要刚好命中折线的原始顶点。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-01-035",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "为了避免团队代码依赖默认单位，本章建议在量测调用中显式写出哪个 options 参数名？",
+      "explanation": "参数名是 units，例如 { units: \"kilometers\" } 或 { units: \"meters\" }。显式声明能让调用者与审阅者直接确认返回数值的单位。",
+      "refs": [
+        {
+          "title": "Turf 量测函数索引",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["units", "options.units"],
+      "placeholder": "例如：units"
+    },
+    {
+      "id": "turf-01-036",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "一条骑行路线总长 8.5 千米，按练习中的 for (let d = 1; d < total; d++) 每 1 千米设置一个里程桩。共生成多少个桩点？",
+      "explanation": "循环中的 d 依次取 1、2、3、4、5、6、7、8，下一次 d=9 已大于 total=8.5，所以停止。共生成 8 个桩点，即总里程向下取整。",
+      "refs": [
+        {
+          "title": "Turf along API",
+          "url": "https://turfjs.org/docs/api/along"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填桩点数量"
+    },
+    {
+      "id": "turf-01-037",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "本章 trail 示例的终点为 [116.55, 40.0]，length 与 along 都围绕这条轨迹工作。请在地图上点出该终点。",
+      "explanation": "该坐标表示北纬 40.0°、东经 116.55°，位于北京示例起点的东北方向。它是三节坐标折线的最后顶点，length 会累计到这一端点。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40,
+        "lng": 116.55
+      },
+      "toleranceKm": 200
+    },
+    {
+      "id": "turf-01-038",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "在不改变折线几何的前提下，把原有大圆弧段细分并增加中间顶点，pointToLineDistance 的理论结果会怎样？",
+      "explanation": "若新增顶点严格落在原大圆弧段上，线的几何形状没有改变，理论最短距离基本不变。pointToLineDistance 比较的是点到各线段的距离，不是按顶点数量决定结果。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "必然随顶点数量等比例增大" },
+        { "key": "B", "text": "只要增加顶点就必然变为 0" },
+        {
+          "key": "C",
+          "text": "基本不变，因为各段组成的几何没有改变",
+          "hint": "细分线段不等于移动或弯曲路线"
+        },
+        { "key": "D", "text": "函数会自动退化为只计算到最近顶点的距离" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-01-039",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "实现讲义练习中的「每 1 千米里程桩 FeatureCollection」时，下列哪些做法符合给出的方案？",
+      "explanation": "先用 length 求千米总长，再让 d 从 1 开始且满足 d<total，逐次调用 along 并压入 stakes.features。桩点应落在原线上；distance 算的是两点间弧长，不能替代沿线累计里程。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        },
+        {
+          "title": "Turf along API",
+          "url": "https://turfjs.org/docs/api/along"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "用 length(trail, { units: \"kilometers\" }) 求 total",
+          "hint": "总里程应与里程桩使用同一单位"
+        },
+        {
+          "key": "B",
+          "text": "使用 for (let d = 1; d < total; d++) 遍历整千米刻度",
+          "hint": "这是讲义练习给出的循环条件"
+        },
+        {
+          "key": "C",
+          "text": "把 along(trail, d, { units: \"kilometers\" }) 压入 stakes.features",
+          "hint": "along 负责生成每个线上插值点"
+        },
+        { "key": "D", "text": "用起点到当前位置的 distance 完全替代沿线累计里程" },
+        {
+          "key": "E",
+          "text": "在 geojson.io 中检查桩点是否落在原线上",
+          "hint": "这是讲义给出的空间验证方法"
+        }
+      ],
+      "answer": ["A", "B", "C", "E"]
+    },
+    {
+      "id": "turf-01-040",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "两条 LineString 的经纬度顶点完全相同，即使实际地形起伏不同，turf.length 也不会把高程起伏计入里程。",
+      "explanation": "对。Turf 在这里只有二维球面大圆语义，没有地形概念；相同经纬度折线得到的是同一套分段大圆距离。贴地里程需要交给 Cesium 结合地形重新计算。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        },
+        {
+          "title": "Cesium EllipsoidGeodesic",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-01-041",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "练习要求把多个里程桩 Point Feature 组织成哪种 GeoJSON 集合类型？（写类型名）",
+      "explanation": "多个 Feature 应放入 FeatureCollection，练习中的 stakes.features 正是这个集合的要素数组。它不是单个 Point，也不是用来表达连续路径的 LineString。",
+      "refs": [
+        {
+          "title": "RFC 7946 GeoJSON",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "short",
+      "accepted": ["FeatureCollection", "featureCollection", "GeoJSON FeatureCollection"],
+      "placeholder": "例如：FeatureCollection"
+    },
+    {
+      "id": "turf-01-042",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "偏航点调用 pointToLineDistance(..., { units: \"kilometers\" }) 返回 0.75，业务阈值为 500 米。当前垂距超出阈值多少米？",
+      "explanation": "先统一为米：0.75 千米×1000=750 米。再减去 500 米阈值，得到 750-500=250 米，所以当前垂距超出阈值 250 米。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "numeric",
+      "answer": 250,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "只填数值，单位米"
+    },
+    {
+      "id": "turf-01-043",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "数据管道把 20 个轨迹坐标分别包装成独立的 Point Feature，随后逐点调用 length 导致失败。最根本的修复是什么？",
+      "explanation": "length 需要线几何，不接受孤立 Point。应按轨迹原有顺序把坐标组织成一个 lineString，再对整条线调用一次 length；逐点算 area 或只算首尾 distance 都得不到完整路线里程。",
+      "refs": [
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "按原顺序构造一个 lineString，再调用一次 length",
+          "hint": "先修复输入几何类型，再计算线总长"
+        },
+        { "key": "B", "text": "继续逐点调用 length，并把每次报错当作 0" },
+        { "key": "C", "text": "对每个 Point 改调 area，再累加结果" },
+        { "key": "D", "text": "只计算第一个点到最后一个点的 distance，用它代替任意轨迹总长" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-01-044",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "将 pointToLineDistance 同时用于噪声点清洗与「离我最近的路」检索时，哪些设计符合本章语义？",
+      "explanation": "噪声清洗可按点线垂距与业务阈值筛选；最近道路检索则要对每条候选路线分别求垂距，再比较标量结果，距离最小者最近。函数返回距离数值，不会自动附带道路标识等属性。",
+      "refs": [
+        {
+          "title": "Turf pointToLineDistance API",
+          "url": "https://turfjs.org/docs/api/pointToLineDistance"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "噪声点清洗可把离轨迹过远的点标记出来",
+          "hint": "讲义把噪声点清洗列为高频应用"
+        },
+        {
+          "key": "B",
+          "text": "对每条候选道路分别求距离后再比较",
+          "hint": "检索范围是多条候选线，而非只有一条线"
+        },
+        {
+          "key": "C",
+          "text": "返回距离最小的候选道路就是检索意义上的最近道路",
+          "hint": "比较的是点线最短距离数值"
+        },
+        { "key": "D", "text": "函数会自动返回道路标识，无需调用方保留候选道路信息" },
+        { "key": "E", "text": "改用 area 比较道路面积即可得到相同的最近道路结果" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-01-045",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "turf.area 必须先接收投影后的平面坐标，直接传入经纬度 Polygon 无法计算。",
+      "explanation": "错。本章 plot 直接用经纬度构造 Polygon 并交给 area，Turf 会按球面模型求面积。开发者不需要先做平面投影，返回值为平方米。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-01-046",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "本章代码用 @turf/helpers 中哪个函数把有序坐标数组构造成 LineString？",
+      "explanation": "lineString 接收按路径顺序排列的坐标数组，构造可供 length、along 等函数使用的 LineString Feature。point 只创建单点，polygon 则创建面。",
+      "refs": [
+        {
+          "title": "Turf 量测函数索引",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["lineString", "turf.lineString", "helpers.lineString"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-01-047",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "along 返回的「距起点 2 千米」点，与起点之间的 distance 必然也等于 2 千米。",
+      "explanation": "错。along 的 2 千米是沿折线各段累计的路径里程，distance 是起点与所得点之间的最短路弧长。路线弯曲时，两种距离一般不相等，只有特定直线路径等情形才可能一致。",
+      "refs": [
+        {
+          "title": "Turf along API",
+          "url": "https://turfjs.org/docs/api/along"
+        },
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-01-048",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "同一项目同时使用 Turf 与 Cesium 时，哪些协作方式能避免把不同距离语义混为一谈？",
+      "explanation": "二维业务可继续使用 Turf；需要沿地形起伏的里程时，应把相同坐标交给 Cesium 结合地形重算，并在文档中注明结果语义。不能把 Turf 的大圆里程直接改名为贴地里程。",
+      "refs": [
+        {
+          "title": "Turf 量测函数索引",
+          "url": "https://turfjs.org/docs/"
+        },
+        {
+          "title": "Cesium EllipsoidGeodesic",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "配送范围等二维业务使用 Turf 量测",
+          "hint": "这是讲义建议的 Turf 主要职责"
+        },
+        {
+          "key": "B",
+          "text": "贴地里程在 Cesium 侧结合地形重新计算",
+          "hint": "不能把二维大圆结果当作地形里程"
+        },
+        {
+          "key": "C",
+          "text": "在项目文档中明确标注每组结果的距离语义",
+          "hint": "显式记录语义可避免团队误用数值"
+        },
+        { "key": "D", "text": "直接把 turf.length 的结果标成贴地里程，无需重算" },
+        { "key": "E", "text": "只要输入坐标相同，不同距离语义的结果就必然完全相同" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-01-049",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章 polygon 示例的外环没有重复起点坐标，最后一个顶点与第一个顶点不同。",
+      "explanation": "错。示例外环以 [116.4, 39.9] 开始，也以同一坐标结束，用重复起点形成闭合环。阅读 GeoJSON Polygon 时应留意外环和内环的这一结构。",
+      "refs": [
+        {
+          "title": "RFC 7946 Polygon",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-01-050",
+      "skill": "turf",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "业务只应在剩余路线足够长时显示「前方 2 公里」标记。考虑到 along 超程会返回终点，调用方应怎样避免误导？",
+      "explanation": "先用 length 求路线总长或剩余里程，确认至少为 2 千米后再调用 along；不足 2 千米时不显示该标记。若直接接受 along 的超程返回值，终点会被误当成正常的 2 千米里程桩。",
+      "refs": [
+        {
+          "title": "Turf along API",
+          "url": "https://turfjs.org/docs/api/along"
+        },
+        {
+          "title": "Turf length API",
+          "url": "https://turfjs.org/docs/api/length"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "任何路线都直接显示 along 返回的终点，并标注已行走 2 千米" },
+        { "key": "B", "text": "把 units 改成 meters，超程行为就会自动变成报错" },
+        { "key": "C", "text": "改用 area 计算路线面积，面积大于 2 就显示" },
+        {
+          "key": "D",
+          "text": "先用 length 判断里程是否至少为 2 千米，不足时不显示标记",
+          "hint": "超程后的业务语义需要调用方主动处理"
+        }
+      ],
+      "answer": ["D"]
     }
   ]
 }

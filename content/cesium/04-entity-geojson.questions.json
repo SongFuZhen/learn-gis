@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "04",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-04-001",
@@ -422,6 +422,1000 @@
         "坐标与几何形态"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-04-014",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "将一份 GeoJSON 整体加载为 Cesium 数据源，应使用哪个 API？",
+      "explanation": "GeoJsonDataSource.load 是本章的整包加载入口，既可接收 URL，也可接收已解析的 JavaScript GeoJSON 对象；加载结果是 Promise，需要等待完成。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.GeoJsonDataSource.load",
+          "hint": "这是 GeoJSON 的整包加载通道"
+        },
+        {
+          "key": "B",
+          "text": "viewer.entities.getById"
+        },
+        {
+          "key": "C",
+          "text": "new Cesium.CallbackProperty"
+        },
+        {
+          "key": "D",
+          "text": "viewer.entities.removeAll"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-04-015",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "使用 GeoJsonDataSource.load 加载不含 z 的线面数据时，哪些加载选项与作用对应正确？",
+      "explanation": "stroke 控制线及面轮廓颜色，fill 控制面填充，strokeWidth 控制线宽，clampToGround 控制贴地。markerSymbol 服务于 Point 的大头针符号，不负责设置面透明度。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "stroke 设置线颜色，也包括面的轮廓颜色"
+        },
+        {
+          "key": "B",
+          "text": "fill 设置面的填充颜色"
+        },
+        {
+          "key": "C",
+          "text": "strokeWidth 设置线宽"
+        },
+        {
+          "key": "D",
+          "text": "clampToGround 控制整包要素是否贴地"
+        },
+        {
+          "key": "E",
+          "text": "markerSymbol 设置多边形填充透明度",
+          "hint": "markerSymbol 用于点的大头针符号"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-016",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "GeoJsonDataSource.load 会同步返回 DataSource，因此调用后无需等待即可保证加载完成。",
+      "explanation": "该方法是异步加载，返回 Promise<DataSource>。应使用 await 或 Promise 流程等待完成，在加载尚未结束时，场景中可能还没有任何要素。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-04-017",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "已 await GeoJsonDataSource.load 得到 ds，接下来用哪条调用把 ds 加入 viewer？",
+      "explanation": "加载得到数据源后，还要执行 await viewer.dataSources.add(ds)，数据源中的实体才会进入 viewer 的数据源集合并参与场景展示。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "await viewer.dataSources.add(ds)",
+        "viewer.dataSources.add(ds)",
+        "viewer.dataSources.add",
+        "dataSources.add(ds)",
+        "dataSources.add"
+      ],
+      "placeholder": "写出方法名或完整调用"
+    },
+    {
+      "id": "cesium-04-018",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "GeoJSON Point 使用默认大头针且 markerSize 取默认值时，尺寸是多少像素？",
+      "explanation": "讲义列出的 Point 默认大头针尺寸为 48px，因此直接取 48。另有 small 对应 24px、large 对应 64px，但本题问的是默认值。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 48,
+      "tolerance": 0,
+      "unit": "px",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "cesium-04-019",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "讲义 GeoJSON Point 示例将 name 设为「天安门」。请在地图上点击天安门。",
+      "explanation": "天安门位于北京中心区域、故宫南侧。示例 coordinates 为 [116.397, 39.909]，即东经 116.397°、北纬 39.909°；本题采用 300 公里的城市级容差。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        },
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.909,
+        "lng": 116.397
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-04-020",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "某 feature 的 properties 同时含 title: \"北京天安门\" 与 name: \"天安门\"，自动得到的 entity.name 是什么？",
+      "explanation": "自动命名按 title、name、其他含 title 或 name 的键依次查找，并且键名匹配不区分大小写。因此 title 存在时优先取「北京天安门」，而不是 name。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "北京天安门",
+          "hint": "title 的优先级高于 name"
+        },
+        {
+          "key": "B",
+          "text": "天安门"
+        },
+        {
+          "key": "C",
+          "text": "beijing-point"
+        },
+        {
+          "key": "D",
+          "text": "始终为 undefined"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-04-021",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "关于 GeoJSON Point 要素的默认大头针，哪些说法正确？",
+      "explanation": "Point 默认生成 billboard 大头针，图标由 PinBuilder 生成，默认颜色为 ROYALBLUE、尺寸为 48px。markerSymbol 传 Maki 图标 id 时会选用图标库，而非把 id 当普通文字显示。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "默认以 billboard 大头针呈现"
+        },
+        {
+          "key": "B",
+          "text": "默认图标由 PinBuilder 生成"
+        },
+        {
+          "key": "C",
+          "text": "markerColor 默认为 ROYALBLUE"
+        },
+        {
+          "key": "D",
+          "text": "markerSize 默认为 48px"
+        },
+        {
+          "key": "E",
+          "text": "markerSymbol 传 Maki 图标 id 时只显示该 id 字符串"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-022",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "只要 properties 同时含 title 与 name，自动命名仍优先采用 name。",
+      "explanation": "优先级恰好相反：title 先于 name。只有未找到 title 时才继续读取 name，之后再检查其他含 title 或 name 的属性键。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-04-023",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "加载并把 ds 加入 viewer 后，调用哪个 viewer 方法让相机自动缩放到数据范围？",
+      "explanation": "viewer.flyTo(ds) 会依据数据源范围调整相机，适合加载后把视野带到数据所在区域。讲义示例使用 await viewer.flyTo(ds) 等待飞行完成。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "await viewer.flyTo(ds)",
+        "viewer.flyTo(ds)",
+        "flyTo(ds)",
+        "viewer.flyTo",
+        "flyTo"
+      ],
+      "placeholder": "填方法名或完整调用"
+    },
+    {
+      "id": "cesium-04-024",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "某 FeatureCollection 含 3 个 Point 和 2 个 Polygon，加载后 ds.entities.values 中共有多少个 Entity？",
+      "explanation": "每个 GeoJSON feature 会转换为一个 Entity，与几何类型是 Point 还是 Polygon 无关。因此实体总数为 3 + 2 = 5 个。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填实体数量"
+    },
+    {
+      "id": "cesium-04-025",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "本章链接的 GeoJSON 前置示例使用 coordinates: [120.15, 30.25] 表示西湖。请点击杭州西湖。",
+      "explanation": "西湖位于浙江省杭州市，是中国著名的城市湖泊景观。GeoJSON 坐标经度在前、纬度在后，所以目标为东经 120.15°、北纬 30.25°，容差为 300 公里。",
+      "refs": [
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        },
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.25,
+        "lng": 120.15
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-04-026",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "GeoJSON 坐标 [116.397, 39.909, 80] 中三个数的含义依次是什么？",
+      "explanation": "GeoJSON 位置采用 [lng, lat, z?] 顺序：前两个数依次是经度和纬度，可选第三个数 z 表示高度。因此本例是东经 116.397°、北纬 39.909°、高度 80。",
+      "refs": [
+        {
+          "title": "GeoJSON RFC 7946",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "纬度、经度、高度"
+        },
+        {
+          "key": "B",
+          "text": "经度、纬度、高度",
+          "hint": "GeoJSON 始终是经度在前"
+        },
+        {
+          "key": "C",
+          "text": "经度、高度、纬度"
+        },
+        {
+          "key": "D",
+          "text": "高度、经度、纬度"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-027",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于带 z 的 GeoJSON 与贴地行为，哪些说法符合讲义？",
+      "explanation": "clampToGround 的自动贴地逻辑只针对不带 z 的要素；带 z 的面会走 perPositionHeight。地面数据可先去 z，而飞行航迹等数据需要保留真实高度，不能一律贴地。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "clampToGround 的自动贴地只对不带 z 的要素生效"
+        },
+        {
+          "key": "B",
+          "text": "带 z 的面会改用 perPositionHeight 表达逐点高度"
+        },
+        {
+          "key": "C",
+          "text": "带 z 的地面数据可先删除 z，再按二维要素贴地"
+        },
+        {
+          "key": "D",
+          "text": "飞行航迹通常应保留 z，而不是盲目贴地"
+        },
+        {
+          "key": "E",
+          "text": "带 z 的 Point 仍会自动添加 HeightReference.CLAMP_TO_GROUND"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-028",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "不带 z 的 GeoJSON Point 在 clampToGround: true 下会采用 HeightReference.CLAMP_TO_GROUND。",
+      "explanation": "二维 Point 的坐标长度为 2，满足自动贴地分支的条件，因此会设置 HeightReference.CLAMP_TO_GROUND。带 z 的三维 Point 不进入这一自动处理分支。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-04-029",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "把不含高度的经纬度平铺数组转换为 polygon.hierarchy 所需的 Cartesian3 数组，应调用哪个方法？",
+      "explanation": "Cesium.Cartesian3.fromDegreesArray 接收 [lon, lat, lon, lat, ...] 并返回 Cartesian3 数组。若输入含逐点高度，才改用 fromDegreesArrayHeights。",
+      "refs": [
+        {
+          "title": "Cesium Entity",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Entity.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.Cartesian3.fromDegreesArray",
+        "Cartesian3.fromDegreesArray",
+        "fromDegreesArray"
+      ],
+      "placeholder": "填方法名"
+    },
+    {
+      "id": "cesium-04-030",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "用 fromDegreesArrayHeights 构造 4 个带高度的顶点，输入平铺数组一共需要多少个数字？",
+      "explanation": "带高度输入按 [lon, lat, height] 三个数一组排列。4 个顶点需要 4 × 3 = 12 个数字，顺序不能写成不带高度的两数一组。",
+      "refs": [
+        {
+          "title": "Cesium Entity",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Entity.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数字总个数"
+    },
+    {
+      "id": "cesium-04-031",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "讲义 polygon.hierarchy 示例的四边形覆盖北京中心区域。请点击该区域内的故宫。",
+      "explanation": "故宫位于北京中轴线中心、天安门北侧，目标约为北纬 39.9163°、东经 116.3972°。它落在讲义四边形的经纬度范围内，本题采用 300 公里城市级容差。",
+      "refs": [
+        {
+          "title": "CesiumJS Visualizing Spatial Data 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9163,
+        "lng": 116.3972
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-04-032",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "某 polygon 设置 height: 20、extrudedHeight: 120，拉伸体的顶面高度是多少？",
+      "explanation": "extrudedHeight 表示拉伸的目标高度，而不是在底面之上再增加的长度。因此底面 height 为 20，顶面为 120；120 不应再与 20 相加。",
+      "refs": [
+        {
+          "title": "Cesium Entity",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Entity.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "20 米"
+        },
+        {
+          "key": "B",
+          "text": "120 米",
+          "hint": "extrudedHeight 是顶面的目标高度"
+        },
+        {
+          "key": "C",
+          "text": "140 米"
+        },
+        {
+          "key": "D",
+          "text": "240 米"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-033",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "GeoJSON 加载后场景看不到预期要素，哪些检查符合本章所述原因或流程？",
+      "explanation": "排查应覆盖异步加载是否完成、数据源是否加入 viewer、带 z 坐标是否悬浮或埋入地下，以及当前视角是否对准数据。flyTo(ds) 可把相机移到数据范围，但不能替代前面的数据检查。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "确认已经 await GeoJsonDataSource.load，加载 Promise 已完成"
+        },
+        {
+          "key": "B",
+          "text": "确认 ds 已通过 viewer.dataSources.add(ds) 加入 viewer"
+        },
+        {
+          "key": "C",
+          "text": "检查带 z 的要素是否浮在空中或埋入地下"
+        },
+        {
+          "key": "D",
+          "text": "使用 viewer.flyTo(ds) 缩放到数据范围，排查视角问题"
+        },
+        {
+          "key": "E",
+          "text": "只要给任意 Entity 增加 point，就能修复所有 Polygon 的显示"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-034",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "数万个线面 Entity 全部开启 clampToGround 不会增加渲染开销，因此无需考虑性能。",
+      "explanation": "贴地渲染有额外开销，海量线面全部贴地会明显影响帧率。批量场景应权衡是否贴地，必要时采用 Primitive 等面向性能的方案。",
+      "refs": [
+        {
+          "title": "CesiumJS Visualizing Spatial Data 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-04-035",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "要一次清空 viewer.entities 中的所有实体，应写出哪条调用？",
+      "explanation": "viewer.entities.removeAll() 清空整个实体集合；viewer.entities.remove(entity) 只删除传入的单个实体。两者作用范围不同，批量清理应选 removeAll。",
+      "refs": [
+        {
+          "title": "Cesium Entity",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Entity.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "viewer.entities.removeAll()",
+        "entities.removeAll()",
+        "viewer.entities.removeAll",
+        "removeAll"
+      ],
+      "placeholder": "写出方法名或完整调用"
+    },
+    {
+      "id": "cesium-04-036",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "某 feature 的 properties 为 { name: \"天安门\", population: 21893095, kind: \"poi\" }，getValue() 返回的对象包含几个属性字段？",
+      "explanation": "properties 对象中列出的字段为 name、population、kind，共 3 个。GeoJsonDataSource 挂载这些字段时不会把 population 的数值大小计入字段数量。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填属性字段数"
+    },
+    {
+      "id": "cesium-04-037",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "讲义 polyline 示例终点 [116.42, 39.905] 位于北京站附近。请在地图上点击北京站。",
+      "explanation": "北京站位于北京市东城区、天安门广场东侧，是重要的铁路客运站，目标约为北纬 39.9028°、东经 116.427°。讲义线示例终点在其附近，本题容差为 300 公里。",
+      "refs": [
+        {
+          "title": "CesiumJS Visualizing Spatial Data 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9028,
+        "lng": 116.427
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-04-038",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "需要在场景中展示数万个点，哪种方案更符合讲义的性能建议？",
+      "explanation": "Entity 适合日常业务对象，但数万个点继续逐一使用 billboard 和动态属性会增加开销。讲义建议上万级点使用点的集合或 Primitive，把渲染性能放在优先位置。",
+      "refs": [
+        {
+          "title": "CesiumJS Visualizing Spatial Data 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每个点都同时挂 billboard、label 和 CallbackProperty"
+        },
+        {
+          "key": "B",
+          "text": "使用点的集合或 Primitive",
+          "hint": "海量点应转向面向渲染性能的方案"
+        },
+        {
+          "key": "C",
+          "text": "每帧为所有点重新加载整份 GeoJSON"
+        },
+        {
+          "key": "D",
+          "text": "给每个点都添加永久不被遮挡的文字"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-04-039",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于讲义中的 CallbackProperty 呼吸点与生长线代码，哪些理解正确？",
+      "explanation": "performance.now() 的差值以毫秒计，除以 1000 得到秒；正弦函数产生周期变化；Math.min 将 ratio 上限限制为 1；slice(0, n) 截取前 n 个位置。isConstant 为 false 恰恰表示持续求值。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "performance.now() 的差值除以 1000 可得到秒数"
+        },
+        {
+          "key": "B",
+          "text": "正弦函数可让 pixelSize 随时间周期变化"
+        },
+        {
+          "key": "C",
+          "text": "Math.min(1, ratio + 0.002) 把增长比例的上限控制为 1"
+        },
+        {
+          "key": "D",
+          "text": "fullLine.slice(0, n) 返回完整轨迹的前 n 个位置"
+        },
+        {
+          "key": "E",
+          "text": "CallbackProperty 第二参数为 false 表示回调只执行一次"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-040",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "生长线回调通过逐渐增加 n，并返回 fullLine.slice(0, n)，让已绘制部分逐帧增长。",
+      "explanation": "ratio 每帧增加，n 随之增大，slice(0, n) 返回的轨迹前缀就越来越长。Math.max(2, ...) 保证初期至少有两个位置，从而能够形成线。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-04-041",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "要让 Entity 的样式字段在每帧重新求值，应使用本章介绍的哪个类？",
+      "explanation": "CallbackProperty 把属性值包装为回调结果，第二个参数传 false 时表示非常量，会在每帧调用回调。它适合呼吸点和生长线等动态效果。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.CallbackProperty",
+        "CallbackProperty",
+        "new Cesium.CallbackProperty",
+        "new CallbackProperty"
+      ],
+      "placeholder": "填类名"
+    },
+    {
+      "id": "cesium-04-042",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "呼吸点回调返回 10 + 4 * Math.sin(t * 3)，按该公式计算，pixelSize 的最小值是多少像素？",
+      "explanation": "正弦函数的最小值为 -1，所以最小像素尺寸为 10 + 4 × (-1) = 6px；当正弦值为 1 时则达到最大值 14px。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "px",
+      "placeholder": "只填最小像素数"
+    },
+    {
+      "id": "cesium-04-043",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "关于讲义中北京文字标注的 label 配置，哪些说法正确？",
+      "explanation": "font、fillColor、pixelOffset、verticalOrigin 分别控制字体、填充色、屏幕像素偏移与锚点。Cartesian2(0, -20) 表示向上移动 20px，而 outlineColor 只控制文字轮廓颜色，不改变 position。",
+      "refs": [
+        {
+          "title": "CesiumJS Visualizing Spatial Data 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-visualizing-spatial-data/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "font 用于设置文字字体"
+        },
+        {
+          "key": "B",
+          "text": "fillColor 用于设置文字填充颜色"
+        },
+        {
+          "key": "C",
+          "text": "pixelOffset 为 new Cesium.Cartesian2(0, -20) 时向上偏移 20px"
+        },
+        {
+          "key": "D",
+          "text": "verticalOrigin 为 Cesium.VerticalOrigin.BOTTOM 时以文字底部为锚点"
+        },
+        {
+          "key": "E",
+          "text": "outlineColor 用于改变实体的 position"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-044",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "练习中需要根据鼠标点击位置拾取场景对象，应调用哪个方法？",
+      "explanation": "viewer.scene.pick(movement.position) 按屏幕位置返回拾取结果，练习再通过 picked.id 取得对应 Entity。其他选项分别负责数据源管理、相机飞行或按 id 查询。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.dataSources.add(ds)"
+        },
+        {
+          "key": "B",
+          "text": "viewer.flyTo(ds)"
+        },
+        {
+          "key": "C",
+          "text": "viewer.scene.pick(movement.position)",
+          "hint": "pick 按屏幕坐标获取场景对象"
+        },
+        {
+          "key": "D",
+          "text": "viewer.entities.getById(\"beijing-point\")"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-04-045",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "GeoJSON Point 默认大头针的图标由讲义提到的哪个类生成？",
+      "explanation": "GeoJsonDataSource 默认把 Point 要素转为大头针 billboard，其图标由 PinBuilder 生成。markerColor、markerSize 与 markerSymbol 可进一步控制针的颜色、尺寸和符号。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.PinBuilder",
+        "PinBuilder"
+      ],
+      "placeholder": "填类名"
+    },
+    {
+      "id": "cesium-04-046",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "GeoJsonDataSource.load 只能接受 URL，不能直接传已经解析的 JavaScript GeoJSON 对象。",
+      "explanation": "该方法既支持加载 URL，也支持直接传入本地已经解析的 GeoJSON 对象。内存中已有数据时不必为了加载而再构造一个文件地址。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-04-047",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "生长线的 fullLine.length 为 200，某帧 ratio 已为 0.1，执行 Math.max(2, Math.floor(fullLine.length * ratio)) 后 n 是多少？",
+      "explanation": "先计算 fullLine.length × ratio = 200 × 0.1 = 20，Math.floor(20) 仍为 20；再与最小值 2 比较，Math.max(2, 20) 得 20。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 20,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填 n 的数值"
+    },
+    {
+      "id": "cesium-04-048",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "把 GeoJSON POI 的默认大头针改造成可拾取的「呼吸点 + 文字标注」，哪些步骤符合练习实现？",
+      "explanation": "先清除默认 billboard，再设置由 CallbackProperty 驱动的 point 与带回退文字的 label；拾取则由 ScreenSpaceEventHandler 注册左键事件并调用 scene.pick。每帧重载整份数据既无必要也会浪费性能。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        },
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "设置 entity.billboard = undefined，显式清除默认大头针"
+        },
+        {
+          "key": "B",
+          "text": "用 CallbackProperty 驱动 entity.point.pixelSize"
+        },
+        {
+          "key": "C",
+          "text": "设置 entity.label.text 为 entity.name ?? \"未命名\""
+        },
+        {
+          "key": "D",
+          "text": "用 ScreenSpaceEventHandler 注册 LEFT_CLICK，并调用 scene.pick"
+        },
+        {
+          "key": "E",
+          "text": "每帧重新加载整份 GeoJSON，以刷新一次呼吸效果"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-04-049",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "对于需要明确贴地的点图形，HeightReference 中应使用哪个枚举值？（填完整枚举名）",
+      "explanation": "HeightReference.CLAMP_TO_GROUND 表示相对地面贴附。二维 GeoJSON Point 在 clampToGround 下会自动采用它；带 z 数据则需按场景先去 z 或明确处理高度引用。",
+      "refs": [
+        {
+          "title": "Cesium.GeoJsonDataSource API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.GeoJsonDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.HeightReference.CLAMP_TO_GROUND",
+        "HeightReference.CLAMP_TO_GROUND",
+        "CLAMP_TO_GROUND"
+      ],
+      "placeholder": "填 HeightReference 枚举值"
+    },
+    {
+      "id": "cesium-04-050",
+      "skill": "cesium",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "为了让静态场景足够灵活，应给所有实体的静态颜色都加 CallbackProperty，并执行耗时同步计算。",
+      "explanation": "CallbackProperty 会每帧执行回调，不必要的动态包装和耗时计算会浪费主线程时间并降低帧率。能静态就静态，只为确实随时间变化的属性使用回调。",
+      "refs": [
+        {
+          "title": "Cesium.CallbackProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.CallbackProperty.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
     }
   ]
 }

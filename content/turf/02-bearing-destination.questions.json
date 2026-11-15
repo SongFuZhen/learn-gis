@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "02",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-02-001",
@@ -207,6 +207,572 @@
       "tolerance": 0,
       "unit": "度",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-02-014",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "起点 Point 带有第三个高程坐标时，destination 会如何处理三维落点？",
+      "explanation": "destination 只按二维位置做球面推演，第三个高程坐标不会参与三维落点计算；需要椭球与三维场景协作时应使用相应的 Cesium 模型。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把距离自动拆成水平位移与垂直升高" },
+        { "key": "B", "text": "自动改用 WGS84 椭球计算三维大地线" },
+        { "key": "C", "text": "把第三个高程坐标当成目的地海拔" },
+        { "key": "D", "text": "只处理二维位置，不据高程计算三维落点", "hint": "高程坐标不会替你把二维推演升级为三维计算" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "turf-02-015",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "恒向线以固定角度穿过所有经线，因此可以保持同一个罗盘航向前进。",
+      "explanation": "正确。固定穿越经线的角度正是恒向线的定义特征，导航时可保持同一罗盘方向；它换取操作简单的代价是通常不是最短路径。",
+      "refs": [{ "title": "Turf rhumbBearing API", "url": "https://turfjs.org/docs/api/rhumbBearing" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-02-016",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "下列哪些业务适合使用 destination 根据起点、距离和方位生成位置？",
+      "explanation": "destination 适合从已知位置向外推演坐标，因此可生成雷达扇区顶点、船只推算位置和指定方向的虚拟采样点。行政区质量中心属于 centerOfMass 的职责，不是位置推演。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "生成雷达扇区的远端顶点", "hint": "扇区顶点可由圆心、半径和方向推演" },
+        { "key": "B", "text": "按航程与航向推算船只位置", "hint": "起点、航程和航向正是 destination 的输入" },
+        { "key": "C", "text": "求行政区考虑形状质量分布的中心" },
+        { "key": "D", "text": "生成某方向上的虚拟采样点", "hint": "给定采样距离和方向即可反求采样坐标" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-02-017",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "调用 destination 时，若出发方向为正北，采用 0–360° 方位角应填多少度？",
+      "explanation": "导航方位角以正北为零方向，正北就是 0°，所以 destination 的第三个参数应填 0；90° 则会把出发方向设为正东。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "numeric",
+      "answer": 0,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-02-018",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "已知起点与终点，要求起点朝向终点的大圆初始方位角，应使用哪个 Turf 函数？",
+      "explanation": "bearing(start, end) 默认返回起点的大圆初始方位角；destination 是由方向反求位置，方向与位置的求解关系不要颠倒。",
+      "refs": [{ "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" }],
+      "type": "short",
+      "accepted": ["bearing", "turf.bearing"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-019",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "从北京 [116.407, 39.904] 出发，按大圆初始方位约 102° 推演约 461 千米。在地图上点出终点附近的城市。",
+      "explanation": "102° 是从正北顺时针东偏南的方向。按球面大圆推演约 461 千米会到达辽东半岛南端附近，对应大连；大连坐标约为北纬 38.914°、东经 121.615°，北京到大连的大圆初始方位约 102.16°、距离约 460.7 千米。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 38.914,
+        "lng": 121.615
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-02-020",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "为什么不能用固定的经度增量代替 destination，尤其在高纬度地区推演正东数百千米时？",
+      "explanation": "destination 在球面上按大圆初始方位前进，局部方向会随路径改变；经度一度对应的实地距离还随纬度变化，高纬度下套用固定经度增量或平面公式会产生明显偏差。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "因为所有经度一度在任何纬度都恰好等于 111 千米" },
+        { "key": "B", "text": "因为球面大圆路径与纬度效应使固定平面增量失效", "hint": "既要考虑地球曲率，也要考虑经度实地长度随纬度变化" },
+        { "key": "C", "text": "因为正东推演只会改变纬度而不会改变经度" },
+        { "key": "D", "text": "因为 destination 不接受大于一千米的距离" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-02-021",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "center 与 centerOfMass 都只是求包围盒中心，二者完全不考虑不同的几何含义。",
+      "explanation": "错误。center 只根据所有坐标的包围盒求中心，centerOfMass 则考虑形状的质量分布；把二者等同会在凹多边形或不均匀形状上选错标签锚点。",
+      "refs": [
+        { "title": "Turf center API", "url": "https://turfjs.org/docs/api/center" },
+        { "title": "Turf 官方文档", "url": "https://turfjs.org/docs/" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-02-022",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "将 bearing 的带符号结果转换为界面使用的 0–360° 方位角时，下列说法正确的有哪些？",
+      "explanation": "bearing 的默认结果可带正负号，(b + 360) % 360 可把本章范围内的角度归一化到 [0, 360)。这只是更换同一方向的角度表示，不会旋转方向，且该区间不包含独立的 360°。",
+      "refs": [{ "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "bearing 默认结果可能带负号", "hint": "例如正西可表示为 -90°" },
+        { "key": "B", "text": "可用 (b + 360) % 360 完成本章角度的归一化", "hint": "讲义示例正是用该式得到 compass" },
+        { "key": "C", "text": "归一化会把原来的地理方向旋转 360° 以外的额外角度" },
+        { "key": "D", "text": "归一化区间 [0, 360) 含 0° 而不含独立的 360°", "hint": "360° 与 0° 同向，归一化后统一写为 0°" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-02-023",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "罗盘输入角度为 450°，交给 destination 前用 (angle + 360) % 360 归一化，结果是多少度？",
+      "explanation": "代入公式得到 (450 + 360) % 360 = 810 % 360 = 90。也可先理解 450° 已多转一整圈，剩余方向为 450 - 360 = 90°，即正东。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "numeric",
+      "answer": 90,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-02-024",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "要求两点之间恒向线所对应的固定罗盘方向，应使用哪个 Turf 函数？",
+      "explanation": "rhumbBearing(start, end) 求恒向线方向，表达全程保持不变的罗盘航向；bearing 则给大圆初始方向，两者不可混用。",
+      "refs": [{ "title": "Turf rhumbBearing API", "url": "https://turfjs.org/docs/api/rhumbBearing" }],
+      "type": "short",
+      "accepted": ["rhumbBearing", "turf.rhumbBearing"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-025",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "destination 示例传入 properties: { label: \"正东 100km\" }，可用于给返回点附加业务标记。",
+      "explanation": "正确。properties 用于携带 label 等属性，真正的推演位置仍从 geometry.coordinates 读取；标签文本不会替代距离或方位参数。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-02-026",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "跨洋飞行已用 bearing 得到大圆初始方位，若全程把罗盘锁死在该角度，会得到什么结果？",
+      "explanation": "大圆航线的局部航向会随位置变化，bearing 默认只给起点初始方向；锁死罗盘角实际是在追求恒向线语义，通常不能再保证沿原大圆最短路径。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf rhumbBearing API", "url": "https://turfjs.org/docs/api/rhumbBearing" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "必然沿原大圆飞行，因为初始方位决定全程每个局部方向" },
+        { "key": "B", "text": "自动得到终点方位，无需再设置 final" },
+        { "key": "C", "text": "不再保证沿原大圆，固定角更接近恒向线导航", "hint": "大圆初始方向不等于全程恒定方向" },
+        { "key": "D", "text": "目的地经度必然与起点相同" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-02-027",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "关于 Turf 方位推演与 Cesium 椭球大地线的模型差异，下列说法正确的有哪些？",
+      "explanation": "Turf 用球面公式处理二维业务，Cesium 的 EllipsoidGeodesic 在 WGS84 椭球上表达大地线并可协作三维场景。结果接近不代表模型相同，精密测量必须交代基准与算法。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Cesium EllipsoidGeodesic", "url": "https://cesium.com/learn/cesiumjs/ref-doc/EllipsoidGeodesic.html" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "Turf 的方位与目的地采用球面公式，适合二维业务快速推演", "hint": "这是本章对 Turf 计算模型的明确界定" },
+        { "key": "B", "text": "两个库结果接近就足以证明地球模型与算法完全相同" },
+        { "key": "C", "text": "Cesium 的 EllipsoidGeodesic 在 WGS84 椭球上表达大地线", "hint": "椭球模型是它与本章 Turf 球面公式的重要差异" },
+        { "key": "D", "text": "精密测量应注明所采用的基准与算法", "hint": "只有明确模型，结果才可被正确解释和复核" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "turf-02-028",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "无人机先用 destination 向正东推演 20 千米，再以新终点向正北推演 35 千米，两段累计航程是多少千米？",
+      "explanation": "累计航程等于各段距离相加，即 20 + 35 = 55 千米。这里问的是实际两段航程之和，不是原始起点到最终终点的大圆直线距离。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "numeric",
+      "answer": 55,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-02-029",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "要快速求一组 GeoJSON 几何全部坐标的包围盒中心，应使用哪个 Turf 函数？",
+      "explanation": "center(geojson) 先取整组坐标的外包矩形，再返回矩形中心；它不同于只处理两个端点大圆路径的 midpoint。",
+      "refs": [{ "title": "Turf center API", "url": "https://turfjs.org/docs/api/center" }],
+      "type": "short",
+      "accepted": ["center", "turf.center"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-030",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "center 仅用于设置地图初始视野时，即使它落在凹多边形外，也不必然影响这一用途。",
+      "explanation": "正确。初始视野中心只需要一个整体外包范围的参考位置，并不要求点位于多边形内部；若需求改为面内标签点，才需要另选 pointOnFeature。",
+      "refs": [
+        { "title": "Turf center API", "url": "https://turfjs.org/docs/api/center" },
+        { "title": "Turf 官方文档", "url": "https://turfjs.org/docs/" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-02-031",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "从柏林 [13.405, 52.520] 出发，按大圆初始正东方向推演约 517 千米。在地图上点出终点附近的城市。",
+      "explanation": "正东方位角为 90°。柏林与华沙几乎处在同一纬度带，柏林到华沙的大圆初始方位约 90.55°、距离约 517.15 千米，因此该推演终点对应波兰首都华沙，其坐标约为北纬 52.230°、东经 21.012°。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 52.23,
+        "lng": 21.012
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-02-032",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "按讲义示例读取 destination 返回点的推演坐标，应访问哪个属性路径？",
+      "explanation": "destination 返回一个点 Feature，示例通过 east100km.geometry.coordinates 读取位置；properties.label 保存的是业务标签，不是坐标。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "geometry.coordinates", "hint": "点 Feature 的几何坐标保存在这里" },
+        { "key": "B", "text": "properties.label" },
+        { "key": "C", "text": "center.longitude" },
+        { "key": "D", "text": "bearing.degrees" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-02-033",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "对讲义 district 三角形的坐标调用 center 时，关于其包围盒的判断正确的有哪些？",
+      "explanation": "顶点给出的经度最小值为 116.35、最大值为 116.52，纬度最小值为 39.90、最大值为 40.04，所以中心是 [116.435, 39.97]。闭合环重复起点不会扩大最小最大值范围，center 也不是顶点算术平均。",
+      "refs": [{ "title": "Turf center API", "url": "https://turfjs.org/docs/api/center" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "经度最小值是 116.35", "hint": "比较所有顶点经度即可得到最小值" },
+        { "key": "B", "text": "经度最大值是 116.52", "hint": "116.52 比 116.48 与 116.35 都大" },
+        { "key": "C", "text": "纬度最大值是 39.90" },
+        { "key": "D", "text": "重复闭合起点不会额外扩大包围盒", "hint": "相同坐标不会改变既有的最小值与最大值" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-02-034",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "使用 destination 生成正东方向的采样点时，方位角参数应填多少度？",
+      "explanation": "方位角从正北起算并顺时针增加，正东位于正北之后四分之一圈，即 360° ÷ 4 = 90°，所以方位角参数填 90。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "numeric",
+      "answer": 90,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-02-035",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "米级无人机应用调用 destination 时，应显式写 { units: \"meters\" }，避免距离数值按默认千米处理。",
+      "explanation": "正确。destination 默认单位是 kilometers，米级任务若不显式切换单位，会把同一数值放大一千倍来解释；写 units: \"meters\" 才能匹配业务距离。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-02-036",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "哪个 Turf 函数用于考虑形状质量分布的中心，而不是 center 的包围盒中心？",
+      "explanation": "centerOfMass 用于求考虑形状质量分布的中心；center 只看坐标外包矩形，二者在多边形标签与空间分析中的语义不同。",
+      "refs": [{ "title": "Turf 官方文档", "url": "https://turfjs.org/docs/" }],
+      "type": "short",
+      "accepted": ["centerOfMass", "turf.centerOfMass"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-037",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "海上会合练习要从中点沿大圆初始正东方向推演 20 海里，应怎样调用 destination？",
+      "explanation": "正东对应 90°，题目要求海里就应写 units: \"nauticalmiles\"。练习使用大圆推演，因此调用 destination，而不是改换恒向线语义的 rhumbDestination。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "destination(halfway, 20, 90, { units: \"kilometers\" })" },
+        { "key": "B", "text": "destination(halfway, 20, 180, { units: \"nauticalmiles\" })" },
+        { "key": "C", "text": "rhumbDestination(halfway, 20, 90, { units: \"nauticalmiles\" })" },
+        { "key": "D", "text": "destination(halfway, 20, 90, { units: \"nauticalmiles\" })", "hint": "函数、方位和单位分别匹配大圆、正东与海里" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "turf-02-038",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "即使起点和终点相同，大圆航线与恒向线的中间经过位置仍可能不同。",
+      "explanation": "正确。相同的只是两个端点，大圆追求最短路径，恒向线保持固定角度穿经线，两种路径约束不同，因此中间位置不能默认重合。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf rhumbBearing API", "url": "https://turfjs.org/docs/api/rhumbBearing" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-02-039",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "沿大圆已知起点、距离与初始方位，要推演目的地点，应写出哪个 Turf 函数名？",
+      "explanation": "destination 按起点、距离和大圆初始方位推演目的地点；若要求恒向线才改用 rhumbDestination，本题明确的是大圆模型。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "short",
+      "accepted": ["destination", "turf.destination"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-040",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "比较城市内部短距离与跨洲尺度下的大圆、恒向线选择，下列说法正确的有哪些？",
+      "explanation": "城市内部短距离上两种路径的差异可能不明显，但跨洲路径必须明确模型。大圆适合最短距离问题，恒向线适合固定航向导航；不能因为短距离接近就在长距离随意替换。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf rhumbBearing API", "url": "https://turfjs.org/docs/api/rhumbBearing" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "城市内部短距离上，两种路径的差异可能不明显", "hint": "短距离差异不突出不代表模型相同" },
+        { "key": "B", "text": "跨洲路径无需区分两种模型，可随意交换函数" },
+        { "key": "C", "text": "大圆航线适合求最短距离", "hint": "最短路径是大圆模型的核心用途" },
+        { "key": "D", "text": "恒向线适合固定航向导航，但通常不是最短路径", "hint": "导航简单与距离最短是不同目标" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "turf-02-041",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "从旧金山 [-122.419, 37.775] 出发，沿大圆初始正北方向推演约 861 千米。在地图上点出终点附近的城市。",
+      "explanation": "正北方位角为 0°，沿经线向北会提高纬度。旧金山与波特兰经度非常接近，两点大圆距离约 860.9 千米、初始方位约 358.65°，所以该正北推演终点附近的城市是波特兰，其坐标约为北纬 45.515°、西经 122.679°。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 45.515,
+        "lng": -122.679
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-02-042",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "两艘船约定在彼此大圆路径走一半距离的位置会合，这一业务语义对应哪个计算？",
+      "explanation": "midpoint 的几何含义就是两点大圆路径上走一半距离的位置，适合作为会合点；center 处理整组坐标的包围盒，不能保证位于这条路径的中途。",
+      "refs": [{ "title": "Turf midpoint API", "url": "https://turfjs.org/docs/api/midpoint" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "对两点所在 FeatureCollection 求 center" },
+        { "key": "B", "text": "对两个位置求 midpoint", "hint": "两点大圆路径的一半距离正是球面中点" },
+        { "key": "C", "text": "分别平均经度与纬度，任何情况下都不做球面计算" },
+        { "key": "D", "text": "从起点向正东任意推演一段距离" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-02-043",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "把 destination 的距离从 10 改为 20，同时把 units 从 kilometers 改为 meters，推演距离仍然是原来的两倍。",
+      "explanation": "错误。原距离是 10 千米，即 10000 米；新距离只是 20 米，反而大幅缩短。比较 distance 数值前必须先统一 units，不能直接比较 10 与 20。",
+      "refs": [{ "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-02-044",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "center 的包围盒中心落在凹多边形外，而业务必须取得面内标签点时，应选用哪个 Turf 函数？",
+      "explanation": "pointOnFeature 用于取得要素上的点，适合面内标签点需求；center 仍只给包围盒中心，centerOfMass 也不等同于本讲义推荐的面内取点方案。",
+      "refs": [{ "title": "Turf 官方文档", "url": "https://turfjs.org/docs/" }],
+      "type": "short",
+      "accepted": ["pointOnFeature", "turf.pointOnFeature"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-02-045",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "bearing 对正南方向返回 -180°，用 (angle + 360) % 360 归一化后是多少度？",
+      "explanation": "代入得到 (-180 + 360) % 360 = 180 % 360 = 180。正南在带符号表示中可以写 -180°，归一化到 [0, 360) 后统一显示为 180°。",
+      "refs": [{ "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" }],
+      "type": "numeric",
+      "answer": 180,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-02-046",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "项目要求在 WGS84 椭球上计算大地线，并与三维位置和相机场景协作，最合适的模型选择是什么？",
+      "explanation": "该需求同时指定 WGS84 椭球和三维场景，应使用 Cesium 的 EllipsoidGeodesic；本章 Turf 方位与 destination 采用球面公式并忽略高程，适合二维快速推演而非这一精密三维需求。",
+      "refs": [
+        { "title": "Cesium EllipsoidGeodesic", "url": "https://cesium.com/learn/cesiumjs/ref-doc/EllipsoidGeodesic.html" },
+        { "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "对经纬度直接做平面勾股计算" },
+        { "key": "B", "text": "只给 Turf destination 的起点补一个高程坐标" },
+        { "key": "C", "text": "使用 Cesium 的 EllipsoidGeodesic", "hint": "它同时匹配 WGS84 椭球、大地线与三维场景需求" },
+        { "key": "D", "text": "对整组坐标调用 center" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-02-047",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "正南方向只能用 +180° 表示，bearing 若返回 -180° 就不是合法的正南方位。",
+      "explanation": "错误。正南位于方位角区间的正负交界处，+180° 与 -180° 表示同一方向；归一化到 [0, 360) 时可统一显示为 180°。",
+      "refs": [{ "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-02-048",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "讲义示例得到北京到上海的 compass 约为 117°，这个方向应怎样解释？",
+      "explanation": "117° 位于正东 90° 与正南 180° 之间，因此是东偏南方向。该值由 bearing 的结果归一化得到，不代表从北京向正东或东北前进。",
+      "refs": [{ "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "东偏南方向", "hint": "117° 落在 90° 的正东与 180° 的正南之间" },
+        { "key": "B", "text": "正北方向" },
+        { "key": "C", "text": "西偏北方向" },
+        { "key": "D", "text": "正西方向" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-02-049",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "从上海 [121.474, 31.230] 出发，按大圆初始方位约 192° 推演约 368 千米。在地图上点出终点附近的城市。",
+      "explanation": "192° 比正南 180° 再多 12°，即略偏西的南行方向。上海到温州的大圆初始方位约 191.95°、距离约 367.54 千米，因此终点对应浙江东南沿海的温州，其坐标约为北纬 27.994°、东经 120.699°。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 27.994,
+        "lng": 120.699
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-02-050",
+      "skill": "turf",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "完成讲义「生成海上会合点」练习时，下列操作与结果解释正确的有哪些？",
+      "explanation": "练习先用 bearing 求起点到船只的大圆初始方向，再用 midpoint 求原两点的球面中点，随后以 90° 和 nauticalmiles 推演正东 20 海里的备用点。四点 center 受包围盒影响，而 midpoint 只由原两点决定，二者通常不重合。",
+      "refs": [
+        { "title": "Turf bearing API", "url": "https://turfjs.org/docs/api/bearing" },
+        { "title": "Turf midpoint API", "url": "https://turfjs.org/docs/api/midpoint" },
+        { "title": "Turf destination API", "url": "https://turfjs.org/docs/api/destination" },
+        { "title": "Turf center API", "url": "https://turfjs.org/docs/api/center" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "用 bearing(start, ship) 求起点到船只的大圆初始方位", "hint": "起点与船只方向由 bearing 反求" },
+        { "key": "B", "text": "用 midpoint(start, ship) 求原两点的球面中点", "hint": "中点只由原两点的大圆路径决定" },
+        { "key": "C", "text": "用 destination(halfway, 20, 90, { units: \"nauticalmiles\" }) 求备用点", "hint": "90° 表示正东，nauticalmiles 表示海里" },
+        { "key": "D", "text": "加入备用点后，四点 center 仍必然与原两点 midpoint 重合" }
+      ],
+      "answer": ["A", "B", "C"]
     }
   ]
 }

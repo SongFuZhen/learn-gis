@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "07",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-07-001",
@@ -390,6 +390,1017 @@
         "先拾取再类型分流"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-07-013",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "处理普通的 LEFT_CLICK 回调时，应从 movement 的哪个字段读取当前屏幕像素坐标？",
+      "explanation": "LEFT_CLICK 的回调参数使用 position 表示当前屏幕像素位置；startPosition 与 endPosition 是 MOUSE_MOVE 用来描述移动起止点的字段。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "movement.startPosition"
+        },
+        {
+          "key": "B",
+          "text": "movement.position",
+          "hint": "点击回调通过 position 提供屏幕坐标"
+        },
+        {
+          "key": "C",
+          "text": "movement.endPosition"
+        },
+        {
+          "key": "D",
+          "text": "movement.cartographic"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-014",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "一次 MOUSE_MOVE 的 startPosition 为 {x: 96, y: 72}，endPosition 为 {x: 144, y: 115}。此次移动的水平位移是多少像素？",
+      "explanation": "水平位移只计算 x 坐标之差：144 - 96 = 48，因此鼠标沿水平方向移动了 48 像素；y 坐标不参与这一项计算。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 48,
+      "tolerance": 0,
+      "unit": "px",
+      "placeholder": "输入水平位移的像素数"
+    },
+    {
+      "id": "cesium-07-015",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "setInputAction 的第一个参数是事件回调函数，第二个参数才是 ScreenSpaceEventType。",
+      "explanation": "参数顺序恰好相反：setInputAction 先接收回调函数，再用第二个参数指定 LEFT_CLICK、MOUSE_MOVE 等 ScreenSpaceEventType。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-07-016",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "要监听鼠标左键双击，应向 setInputAction 传入哪个 ScreenSpaceEventType 常量？",
+      "explanation": "双击对应 ScreenSpaceEventType.DOUBLE_CLICK。写成完整常量可避免把双击与两次独立的 LEFT_CLICK 混为一谈。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ScreenSpaceEventType.DOUBLE_CLICK",
+        "Cesium.ScreenSpaceEventType.DOUBLE_CLICK",
+        "DOUBLE_CLICK"
+      ],
+      "placeholder": "输入双击事件常量"
+    },
+    {
+      "id": "cesium-07-017",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "下列哪些常量属于本章明确列出的 ScreenSpaceEventType 事件类型？",
+      "explanation": "LEFT_DOWN、RIGHT_CLICK、LEFT_UP 都在本章事件清单中，分别处理左键按下、右键点击和左键抬起；MOUSE_OVER 与 CLICK_HOLD 不在该清单中。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "LEFT_DOWN"
+        },
+        {
+          "key": "B",
+          "text": "MOUSE_OVER"
+        },
+        {
+          "key": "C",
+          "text": "RIGHT_CLICK"
+        },
+        {
+          "key": "D",
+          "text": "LEFT_UP"
+        },
+        {
+          "key": "E",
+          "text": "CLICK_HOLD"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-07-018",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "城市 POI 标注集中包含北京故宫，请在地图上点击故宫的大致位置。",
+      "explanation": "故宫位于北京市中心、北京中轴线一带，是明清两代皇宫，目标坐标约为 39.9163°N、116.3972°E；城市级点击采用 300 km 容差。",
+      "refs": [
+        {
+          "title": "Forbidden City（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Forbidden_City"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9163,
+        "lng": 116.3972
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-07-019",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "scene.drillPick 返回的命中数组按从上到下排列时，索引 0 的对象代表哪一层？",
+      "explanation": "drillPick 返回同一像素上从上到下的命中序列，因此数组第一个元素就是最上层对象，后续元素依次位于其下方。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.drillPick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#drillPick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "随机一层，顺序没有含义"
+        },
+        {
+          "key": "B",
+          "text": "最下层对象"
+        },
+        {
+          "key": "C",
+          "text": "最上层对象",
+          "hint": "数组顺序与命中序列的上下顺序一致"
+        },
+        {
+          "key": "D",
+          "text": "固定为地形，不可能是其他对象"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-07-020",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "某像素处 drillPick 返回 5 个对象，而同一点 pick 只返回最上层的 1 个对象。前者比后者多返回几个对象？",
+      "explanation": "两种调用的结果数量之差为 5 - 1 = 4。pick 只保留最上层一个命中，drillPick 则保留该像素的完整五层命中。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        },
+        {
+          "title": "Cesium.Scene.drillPick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#drillPick"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "输入对象数量之差"
+    },
+    {
+      "id": "cesium-07-021",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "MOUSE_MOVE 回调中的 startPosition 与 endPosition 都是屏幕像素位置，而不是经纬度坐标。",
+      "explanation": "这两个字段描述鼠标移动轨迹在画布中的起点和终点，坐标单位是屏幕像素；从屏幕位置到三维对象还需交给 scene.pick 处理。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-07-022",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "页面或组件卸载时，应调用 handler 的哪个方法来清理事件监听并防止内存泄漏？",
+      "explanation": "应执行 handler.destroy()。它释放 ScreenSpaceEventHandler 注册的输入监听，避免页面离开后回调仍被保留。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "handler.destroy()",
+        "handler.destroy",
+        "destroy()",
+        "destroy"
+      ],
+      "placeholder": "写出清理事件监听的方法调用"
+    },
+    {
+      "id": "cesium-07-023",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "已确认 picked.id 是 Entity 后，本章示例中哪些取值可交给点击弹窗展示？",
+      "explanation": "Entity 路径可以读取 e.name，也可通过 e.properties?.getValue?.() 取得属性集合；屏幕坐标、相机位置和 primitive 都不能替代这些 Entity 属性。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "e.name"
+        },
+        {
+          "key": "B",
+          "text": "e.properties?.getValue?.()"
+        },
+        {
+          "key": "C",
+          "text": "movement.position.name"
+        },
+        {
+          "key": "D",
+          "text": "camera.positionCartographic.properties"
+        },
+        {
+          "key": "E",
+          "text": "picked.primitive.getValue()，并把它当作 Entity 属性集合"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-024",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "在本章的拾取分支代码中，哪个表达式用于确认 picked.primitive 属于 Cesium3DTileset？",
+      "explanation": "示例使用 picked.primitive instanceof Cesium.Cesium3DTileset 判断 3D Tiles 分支；只有完成类型分流后，才应按锁定版本读取瓦片要素属性。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "picked.id instanceof Cesium.ScreenSpaceEventType"
+        },
+        {
+          "key": "B",
+          "text": "picked.primitive instanceof Cesium.Cesium3DTileset",
+          "hint": "这是讲义 else if 分支中的类型判断"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.defined(movement.position)"
+        },
+        {
+          "key": "D",
+          "text": "viewer.scene.canvas instanceof Cesium.Entity"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-025",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "左键在 {x: 240, y: 160} 按下，在 {x: 247, y: 160} 抬起。LEFT_CLICK 的位移容差为 5 px，本次位移超出容差多少像素？",
+      "explanation": "y 坐标不变，水平位移为 247 - 240 = 7 px；它超过 5 px 容差，超出量为 7 - 5 = 2 px，因此这次操作不应判为点击。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "unit": "px",
+      "placeholder": "输入超出容差的像素数"
+    },
+    {
+      "id": "cesium-07-026",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "城市 POI 标注集中包含上海东方明珠广播电视塔，请在地图上点击它的大致位置。",
+      "explanation": "东方明珠广播电视塔位于上海市浦东新区陆家嘴、黄浦江畔，目标坐标约为 31.2397°N、121.4998°E；城市级点击采用 300 km 容差。",
+      "refs": [
+        {
+          "title": "Oriental Pearl Tower（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Oriental_Pearl_Tower"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 31.2397,
+        "lng": 121.4998
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-07-027",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "只要 picked.id 存在，就不必检查 picked.id.point，便可安全执行点实体的 point.color 高亮逻辑。",
+      "explanation": "picked.id 只说明命中了 Entity，并不保证它具有 point 图形。讲义用 picked.id?.point 限定高亮分支，避免对 billboard 等其他 Entity 读取 point.color。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-07-028",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "为了把点实体改成黄色后还能恢复原色，讲义用哪段表达式读取并保存当前颜色？",
+      "explanation": "在覆盖颜色前执行 lastColor = lastPicked.point.color.getValue()，把当前颜色保存下来；后续恢复时再把 lastColor 赋回 point.color。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "lastColor = lastPicked.point.color.getValue()",
+        "lastPicked.point.color.getValue()",
+        "point.color.getValue()"
+      ],
+      "placeholder": "写出保存原色的表达式"
+    },
+    {
+      "id": "cesium-07-029",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "在本章城市 POI 示例中，命中一个新的 billboard 后，选中与缩放逻辑会执行哪些操作？",
+      "explanation": "代码先用 selected 保存 Entity，再记录 billboard 的原始宽度（缺省为 24），最后把 scale 设为 1.6；billboard 不应走 point.pixelSize 分支。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        },
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "selected = picked.id"
+        },
+        {
+          "key": "B",
+          "text": "originalSize = selected.billboard.width?.getValue?.() ?? 24"
+        },
+        {
+          "key": "C",
+          "text": "selected.billboard.scale = 1.6"
+        },
+        {
+          "key": "D",
+          "text": "selected.point.pixelSize = 1.6，并假定 billboard 一定有 point"
+        },
+        {
+          "key": "E",
+          "text": "不保存任何选中状态，让后续空白点击无法复位"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-07-030",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "若练习中的 GeoJSON 点要素已改为 point 实体，点选放大时应调整哪个属性？",
+      "explanation": "point 实体通过 pixelSize 控制像素大小，因此放大应修改 entity.point.pixelSize；scale 是本章 billboard 大头针采用的缩放属性。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "entity.label.font"
+        },
+        {
+          "key": "B",
+          "text": "scene.maximumScreenSpaceError"
+        },
+        {
+          "key": "C",
+          "text": "entity.point.pixelSize",
+          "hint": "point 图形的大小由 pixelSize 控制"
+        },
+        {
+          "key": "D",
+          "text": "entity.billboard.scale"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-07-031",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "同一 handler 已分别注册 LEFT_CLICK 与 RIGHT_CLICK 回调。用户完成 2 次有效左键点击和 1 次右键点击，两个回调合计执行多少次？",
+      "explanation": "每次有效点击触发与其事件类型对应的一次回调，因此总次数为 2 + 1 = 3 次；一种事件不会重复触发另一种事件的回调。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "次",
+      "placeholder": "输入回调总执行次数"
+    },
+    {
+      "id": "cesium-07-032",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "恢复上一个点实体的高亮后，将 lastPicked 置为 null，可以避免后续再次恢复同一个旧对象。",
+      "explanation": "lastPicked 用来追踪仍需恢复的旧实体。完成恢复并置空后，下一轮 defined(lastPicked) 为 false，不会把已经复原的对象重复处理。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-07-033",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在读取 picked.id 之前，应写出哪个判空表达式来确认 scene.pick 的返回值存在？",
+      "explanation": "使用 Cesium.defined(picked) 判断拾取结果是否有效。只有判空通过后，才继续分辨 picked.id 或 picked.primitive，避免读取 undefined 的字段。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.defined(picked)",
+        "defined(picked)",
+        "Cesium.defined(viewer.scene.pick(movement.position))"
+      ],
+      "placeholder": "写出 picked 的判空表达式"
+    },
+    {
+      "id": "cesium-07-034",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "搭建本章城市 POI 数据层时，下列哪些步骤与讲义代码一致？",
+      "explanation": "示例通过 GeoJsonDataSource.load 加载本地 GeoJSON，设置贴地与青色标记，并 await viewer.dataSources.add(ds) 加入场景；drillPick 不负责加载数据文件。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用 GeoJsonDataSource.load 加载 /data/pois.geojson"
+        },
+        {
+          "key": "B",
+          "text": "加载选项中设置 clampToGround: true"
+        },
+        {
+          "key": "C",
+          "text": "加载选项中设置 markerColor: Cesium.Color.CYAN"
+        },
+        {
+          "key": "D",
+          "text": "执行 await viewer.dataSources.add(ds)"
+        },
+        {
+          "key": "E",
+          "text": "把 GeoJSON 文件路径传给 scene.drillPick 来加载数据"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-07-035",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "城市 POI 标注集中包含广州塔，请在地图上点击广州塔的大致位置。",
+      "explanation": "广州塔位于广东省广州市海珠区、珠江南岸，是广州新中轴线附近的地标，目标坐标约为 23.1066°N、113.3245°E；城市级容差为 300 km。",
+      "refs": [
+        {
+          "title": "Canton Tower（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Canton_Tower"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 23.1066,
+        "lng": 113.3245
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-07-036",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "本章点击弹窗示例中，info 的哪个 DOM 属性被用来写入选中 POI 的名称？",
+      "explanation": "代码把 selected.name ?? \"未命名\" 赋给 info.textContent，因此固定 div 显示的是纯文本名称，而不是修改拾取坐标或 billboard 缩放。",
+      "refs": [
+        {
+          "title": "Node.textContent（MDN）",
+          "url": "https://developer.mozilla.org/zh-CN/docs/Web/API/Node/textContent"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "innerWidth"
+        },
+        {
+          "key": "B",
+          "text": "textContent",
+          "hint": "示例用 info.textContent 写入名称文本"
+        },
+        {
+          "key": "C",
+          "text": "positionCartographic"
+        },
+        {
+          "key": "D",
+          "text": "pixelSize"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-037",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "MOUSE_MOVE 的起点为 {x: 80, y: 60}，本次 x 增加 37、y 减少 18。终点的 endPosition.y 是多少？",
+      "explanation": "只需求终点的 y 坐标：60 - 18 = 42。x 增加 37 只影响 endPosition.x，不改变本题所求的纵坐标。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 42,
+      "tolerance": 0,
+      "unit": "px",
+      "placeholder": "输入终点 y 坐标"
+    },
+    {
+      "id": "cesium-07-038",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在城市 POI 示例中，点击空白处只会清空 selected，不会隐藏已经显示的 poi-info 面板。",
+      "explanation": "复位逻辑不仅清空 selected，还执行 info.style.display = \"none\"。因此点击空白处会同时撤销选中状态并隐藏旧的信息面板。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-07-039",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在 MOUSE_MOVE 回调中，写出用当前鼠标位置调用 scene.pick 的表达式。",
+      "explanation": "鼠标移动的当前位置保存在 movement.endPosition，所以应调用 viewer.scene.pick(movement.endPosition)，而不是使用点击事件才有的 movement.position。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "viewer.scene.pick(movement.endPosition)",
+        "scene.pick(movement.endPosition)",
+        "const picked = viewer.scene.pick(movement.endPosition)"
+      ],
+      "placeholder": "写出 scene.pick 调用"
+    },
+    {
+      "id": "cesium-07-040",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "遍历 hits = viewer.scene.drillPick(position) 的结果时，哪些写法符合本章的 Entity 输出示例？",
+      "explanation": "hits 是数组，需要逐项遍历；每项若存在 hit.id 就属于 Entity 路径，示例再用 hit.id.id 输出实体标识，不能直接把数组当作单个命中对象。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.drillPick API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#drillPick"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用 for (const hit of hits) 逐项遍历"
+        },
+        {
+          "key": "B",
+          "text": "使用 if (hit.id) 判断 Entity 分支"
+        },
+        {
+          "key": "C",
+          "text": "在 Entity 分支中输出 hit.id.id"
+        },
+        {
+          "key": "D",
+          "text": "不遍历数组，统一读取 hits.id.id"
+        },
+        {
+          "key": "E",
+          "text": "假定每个 hit 都必定具有 Entity 的 id"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-07-041",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "lastPicked 当前指向黄色的实体 A，鼠标直接移到实体 B。哪套处理顺序能让 A 复原且让 B 正确高亮？",
+      "explanation": "应先用 lastColor 恢复 A 并清空旧状态，再处理 B 的新命中，保存 B 的原色后设为黄色，最后更新光标；否则 A 会残留高亮或 B 的原色被覆盖。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "先把 B 设为黄色，再保存 B 的当前颜色，A 保持不变"
+        },
+        {
+          "key": "B",
+          "text": "先恢复 A 的原色，再处理 B 的命中，保存 B 原色后设黄并更新光标",
+          "hint": "遵循恢复旧状态、判定新状态、改样式的顺序"
+        },
+        {
+          "key": "C",
+          "text": "只修改容器光标，不处理 A 和 B 的颜色"
+        },
+        {
+          "key": "D",
+          "text": "每次移动都执行 drillPick，且不保存任何原始颜色"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-07-042",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "某 POI 的经度为 116.39°，数据更新后向东增加 0.02°，纬度不变。更新后的经度数值是多少？",
+      "explanation": "经度向东增加表示东经数值增大，直接计算 116.39 + 0.02 = 116.41，因此更新后的经度是 116.41°。",
+      "refs": [
+        {
+          "title": "EPSG:4326",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "numeric",
+      "answer": 116.41,
+      "tolerance": 0,
+      "unit": "°",
+      "placeholder": "输入更新后的经度数值"
+    },
+    {
+      "id": "cesium-07-043",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "城市 POI 标注集中包含成都天府广场，请在地图上点击它的大致位置。",
+      "explanation": "天府广场位于四川省成都市中心，是成都重要的城市公共广场与交通节点，目标坐标约为 30.6570°N、104.0658°E；城市级容差为 300 km。",
+      "refs": [
+        {
+          "title": "Tianfu Square（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Tianfu_Square"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.657,
+        "lng": 104.0658
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-07-044",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "ScreenSpaceEventType.RIGHT_CLICK 表示鼠标左键双击事件。",
+      "explanation": "RIGHT_CLICK 表示鼠标右键点击；左键双击应使用 DOUBLE_CLICK，两者是不同的事件类型，不能互换注册。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-07-045",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "鼠标没有悬停在可交互点实体上时，写出把 viewer 容器光标恢复为默认样式的赋值语句。",
+      "explanation": "在未命中的 else 分支执行 viewer.container.style.cursor = \"default\"，可撤销之前的 pointer 手型，让光标状态与当前命中结果保持一致。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "viewer.container.style.cursor = \"default\"",
+        "viewer.container.style.cursor = 'default'",
+        "viewer.container.style.cursor=\"default\"",
+        "viewer.container.style.cursor='default'"
+      ],
+      "placeholder": "写出恢复默认光标的语句"
+    },
+    {
+      "id": "cesium-07-046",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "关于点击与移动事件的回调坐标，下列哪些配对符合本章代码？",
+      "explanation": "LEFT_CLICK 通过 movement.position 给出点击像素；MOUSE_MOVE 同时提供 startPosition 和 endPosition 描述起止像素。它们都不是经纬度，且移动事件并非只有一个 position 字段。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "LEFT_CLICK 使用 movement.position"
+        },
+        {
+          "key": "B",
+          "text": "MOUSE_MOVE 使用 movement.endPosition 表示当前位置"
+        },
+        {
+          "key": "C",
+          "text": "MOUSE_MOVE 使用 movement.startPosition 表示移动起点"
+        },
+        {
+          "key": "D",
+          "text": "LEFT_CLICK 使用 movement.cartographic 直接提供经纬度"
+        },
+        {
+          "key": "E",
+          "text": "MOUSE_MOVE 只有 position，不含 startPosition 与 endPosition"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-07-047",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "当 selected.name 为 undefined 时，本章 POI 弹窗会显示什么备用文字？",
+      "explanation": "表达式 selected.name ?? \"未命名\" 会在名称为 null 或 undefined 时采用右侧备用值，因此弹窗显示“未命名”，而不是直接显示 undefined。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "undefined"
+        },
+        {
+          "key": "B",
+          "text": "null"
+        },
+        {
+          "key": "C",
+          "text": "未命名",
+          "hint": "空值合并表达式提供了这个备用名称"
+        },
+        {
+          "key": "D",
+          "text": "[object Object]"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-07-048",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "LEFT_DOWN 与 LEFT_UP 分别对应鼠标左键按下和左键抬起两个不同阶段。",
+      "explanation": "LEFT_DOWN 在左键按下阶段触发，LEFT_UP 在左键抬起阶段触发；把按下与抬起分开，才能区分点击过程和拖动操作。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-07-049",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "注册本章的悬停高亮时，应使用哪个 ScreenSpaceEventType 常量来持续接收鼠标移动？",
+      "explanation": "悬停高亮依赖鼠标移动，因此注册 ScreenSpaceEventType.MOUSE_MOVE，并在回调中通过 movement.endPosition 取得当前像素。",
+      "refs": [
+        {
+          "title": "Cesium.ScreenSpaceEventHandler API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ScreenSpaceEventHandler.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ScreenSpaceEventType.MOUSE_MOVE",
+        "Cesium.ScreenSpaceEventType.MOUSE_MOVE",
+        "MOUSE_MOVE"
+      ],
+      "placeholder": "输入鼠标移动事件常量"
+    },
+    {
+      "id": "cesium-07-050",
+      "skill": "cesium",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "命中有效 billboard 并写入 POI 名称后，哪条语句能让初始隐藏的 info 面板显示出来？",
+      "explanation": "示例在有效命中后执行 info.style.display = \"block\"，将初始 display: none 的面板切换为显示；空白复位时再设回 none。",
+      "refs": [
+        {
+          "title": "Cesium.Scene.pick API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html#pick"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "info.style.display = \"none\""
+        },
+        {
+          "key": "B",
+          "text": "info.textContent = \"none\""
+        },
+        {
+          "key": "C",
+          "text": "viewer.scene.pick = null"
+        },
+        {
+          "key": "D",
+          "text": "info.style.display = \"block\"",
+          "hint": "block 会覆盖初始的 none，使面板显示"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
     }
   ]
 }

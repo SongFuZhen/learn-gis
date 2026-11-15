@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "08",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-08-001",
@@ -327,6 +327,1086 @@
         "角度需转椭球距离"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-08-012",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "索道两端的高差占主导，需要计算两端之间的空间直线长度，应选择哪个 API？",
+      "explanation": "索道两端的高差必须计入三维欧氏距离，Cartesian3.distance 可直接求空间弦长。EllipsoidGeodesic.surfaceDistance 忽略高度，不适合这个场景。",
+      "refs": [
+        {
+          "title": "Cartesian3",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cartesian3.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.EllipsoidGeodesic.surfaceDistance",
+          "hint": "它按零高程计算椭球面距离"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.Cartesian3.distance(a, b)",
+          "hint": "三维欧氏距离会同时计入水平偏移与高差"
+        },
+        {
+          "key": "C",
+          "text": "切平面上的鞋带公式"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.sampleTerrain"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-013",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "EllipsoidGeodesic.surfaceDistance 会忽略端点高度，按零高程计算椭球面距离。",
+      "explanation": "该属性求的是椭球面上的测地线长度，端点高度不参与计算。若任务要求高差主导的空间直线长度，应改用 Cartesian3.distance。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-08-014",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "在忽略地球扁率、取地球半径 6371000 米的简化模型中，赤道上经度相差 2° 的两点，大圆距离约为多少公里？（四舍五入取整）",
+      "explanation": "同一赤道上，经度差就是圆心角。弧长 s = Rθ = 6371000 × (2 × π / 180) = 222389.853… 米，即 222.389… 公里，取整为 222 公里。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 222,
+      "tolerance": 0,
+      "unit": "km",
+      "placeholder": "例如：222"
+    },
+    {
+      "id": "cesium-08-015",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "camera.pickEllipsoid 返回 Cartesian3，若要按讲义把点存入 Cartographic 数组，应调用哪个转换 API？",
+      "explanation": "Cartographic.fromCartesian 把地心直角坐标转换为包含经度、纬度和高度的 Cartographic，之后才能按讲义的方式读取 longitude 与 latitude。",
+      "refs": [
+        {
+          "title": "Cartesian3",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cartesian3.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.Cartographic.fromCartesian",
+        "Cartographic.fromCartesian",
+        "Cesium.Cartographic.fromCartesian(cartesian)",
+        "Cartographic.fromCartesian(cartesian)"
+      ],
+      "placeholder": "例如：Cesium.Cartographic.fromCartesian(cartesian)"
+    },
+    {
+      "id": "cesium-08-016",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "采用讲义的切平面法计算多边形面积时，下列步骤正确的有哪些？",
+      "explanation": "正确流程是估计多边形中心、建立局部切平面、投影为二维米制坐标，再对相邻顶点的叉积累加取绝对值并除以 2。经纬度是角度，不能直接代入平面面积公式。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "用 BoundingSphere.fromPoints(positions).center 估计多边形中心"
+        },
+        {
+          "key": "B",
+          "text": "用 EllipsoidTangentPlane.fromPoints(positions) 建立切平面"
+        },
+        {
+          "key": "C",
+          "text": "把顶点投影到切平面，取得二维米制坐标"
+        },
+        {
+          "key": "D",
+          "text": "对相邻顶点做叉积累加，面积取 |累加和 / 2|"
+        },
+        {
+          "key": "E",
+          "text": "直接把经度当 x、纬度当 y 代入鞋带公式",
+          "hint": "角度坐标不能直接产生以平方米为单位的面积"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-08-017",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "本章示例代码使用 116.39°E、39.90°N 作为京沪量算起点。请在地图上点击这座城市（北京）。",
+      "explanation": "该坐标对应北京。讲义由此点到上海构造 Cartesian3 与 EllipsoidGeodesic，用于比较空间弦长和椭球面距离；地图点击按目标周围 300 公里容差判定。",
+      "refs": [
+        {
+          "title": "WGS 84 经纬度坐标（EPSG:4326）",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9,
+        "lng": 116.39
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-08-018",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "geodesic.surfaceDistance 为 1250000 米，若界面要显示「1250.00 km」，哪个表达式正确？",
+      "explanation": "1 公里等于 1000 米，所以先做 1250000 / 1000 = 1250，再用 toFixed(2) 格式化为两位小数字符串 1250.00。单位换算与数字格式化是两个步骤。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "(geodesic.surfaceDistance / 1000).toFixed(2)",
+          "hint": "先把米换成公里，再保留两位小数"
+        },
+        {
+          "key": "B",
+          "text": "(geodesic.surfaceDistance * 1000).toFixed(2)"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Math.toDegrees(geodesic.surfaceDistance).toFixed(2)"
+        },
+        {
+          "key": "D",
+          "text": "(geodesic.surfaceDistance / 360).toFixed(2)"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-08-019",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "切平面坐标不变时，反转多边形顶点的绕向只会改变鞋带累加和的符号，取绝对值后面积不变。",
+      "explanation": "鞋带公式中的叉积具有方向性，顺时针与逆时针会得到相反符号的累加和，但绝对值相同，因此最终几何面积不受顶点绕向影响。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-08-020",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "某索道两端投影到同一切平面后的水平距离为 300 米，高差为 400 米。用 Cartesian3.distance 求空间直线距离是多少米？",
+      "explanation": "把水平距离与高差看作直角三角形的两条直角边，三维弦长为 √(300² + 400²) = √250000 = 500 米。这里求的是空间直线，不是地表路径。",
+      "refs": [
+        {
+          "title": "Cartesian3",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cartesian3.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 500,
+      "tolerance": 0,
+      "unit": "m",
+      "placeholder": "例如：500"
+    },
+    {
+      "id": "cesium-08-021",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "用 EllipsoidGeodesic 表示一段测地线后，读取哪个属性可得到以米为单位的椭球面距离？",
+      "explanation": "surfaceDistance 是 EllipsoidGeodesic 实例提供的测地线长度属性，单位为米。它不是把经纬度差直接当成长度的函数。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "surfaceDistance",
+        "geodesic.surfaceDistance",
+        "EllipsoidGeodesic.surfaceDistance",
+        "Cesium.EllipsoidGeodesic.surfaceDistance"
+      ],
+      "placeholder": "例如：geodesic.surfaceDistance"
+    },
+    {
+      "id": "cesium-08-022",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "实现「左键取点、移动预览、双击结束」的量算交互时，下列处理正确的有哪些？",
+      "explanation": "点击与移动分别读取 movement.position 和 movement.endPosition；无效拾取或尚无确认点时不生成悬停预览。双击负责结束，CallbackProperty 则必须动态读取最新数据，不能缓存首帧快照。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "LEFT_CLICK 中取 movement.position 进行拾取"
+        },
+        {
+          "key": "B",
+          "text": "MOUSE_MOVE 中取 movement.endPosition 更新 hover 点"
+        },
+        {
+          "key": "C",
+          "text": "拾取为空或尚无任何确认点时，移动预览直接返回"
+        },
+        {
+          "key": "D",
+          "text": "CallbackProperty 创建时缓存首帧点集，之后不再读取数据",
+          "hint": "这样会让预览线停在首帧"
+        },
+        {
+          "key": "E",
+          "text": "用 DOUBLE_CLICK 触发结束与最终量算"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-08-023",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "本章示例代码使用 121.47°E、31.23°N 作为京沪量算终点。请在地图上点击这座城市（上海）。",
+      "explanation": "该坐标对应上海，位于长江入海口附近。讲义用北京到上海展示跨城市量算，此时椭球面测地线与穿球弦长会出现明显差异；本题容差为 300 公里。",
+      "refs": [
+        {
+          "title": "WGS 84 经纬度坐标（EPSG:4326）",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 31.23,
+        "lng": 121.47
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-08-024",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "切平面投影后的坐标以米为单位，使用鞋带公式求出的多边形面积应采用什么单位？",
+      "explanation": "鞋带公式把两个长度坐标相乘，米乘米得到平方米。因此结果单位是 m²；若要显示平方公里，还需再除以 1000000。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "米（m）"
+        },
+        {
+          "key": "B",
+          "text": "平方米（m²）",
+          "hint": "面积由两个米制坐标相乘得到"
+        },
+        {
+          "key": "C",
+          "text": "公里（km）"
+        },
+        {
+          "key": "D",
+          "text": "平方度（°²）"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-025",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "scene.pickPositionSupported 是可写开关，在不支持深度纹理的设备上把它设为 true 就能启用 pickPosition。",
+      "explanation": "pickPositionSupported 是只读能力探测，不是功能开关。设备不支持深度纹理时，强行赋值不能增加能力，调用 pickPosition 会抛出 DeveloperError。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-08-026",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "在一幅已明确标注局部比例尺为 0.25 米/像素、且无需考虑透视变化的辅助图上，一条线长 800 像素，对应多少米？",
+      "explanation": "已知比例尺时直接相乘：800 像素 × 0.25 米/像素 = 200 米。该换算只适用于给定的局部比例尺，透视三维场景不能直接用屏幕像素差代替真实量算。",
+      "refs": [
+        {
+          "title": "Cartesian3",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cartesian3.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 200,
+      "tolerance": 0,
+      "unit": "m",
+      "placeholder": "例如：200"
+    },
+    {
+      "id": "cesium-08-027",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "讲义通过哪个 Cesium 类在多边形附近建立切平面，以取得米制二维坐标？",
+      "explanation": "EllipsoidTangentPlane 表示与椭球相切的局部平面，可由一组点构造，再把三维顶点投影成平面坐标供鞋带公式使用。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "EllipsoidTangentPlane",
+        "Cesium.EllipsoidTangentPlane",
+        "EllipsoidTangentPlane.fromPoints",
+        "Cesium.EllipsoidTangentPlane.fromPoints",
+        "Cesium.EllipsoidTangentPlane.fromPoints(positions)"
+      ],
+      "placeholder": "例如：Cesium.EllipsoidTangentPlane"
+    },
+    {
+      "id": "cesium-08-028",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "关于 scene.sampleHeight 与地形采样的分工，下列说法正确的有哪些？",
+      "explanation": "sampleHeight 接收 Cartographic，返回以米为单位的场景几何高度，采样当前视野内已渲染的地形与 3D Tiles。它依赖渲染；有地形 Provider 且需要不依赖视野的采样时，应走 sampleTerrain 路线。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "sampleHeight 的 position 参数使用 Cartographic"
+        },
+        {
+          "key": "B",
+          "text": "sampleHeight 返回的场景几何高度以米为单位"
+        },
+        {
+          "key": "C",
+          "text": "它可采样当前视野内已渲染的地形与 3D Tiles"
+        },
+        {
+          "key": "D",
+          "text": "它完全不依赖当前渲染内容，可离线采样任意位置",
+          "hint": "这是它与 sampleTerrain 路线的重要区别"
+        },
+        {
+          "key": "E",
+          "text": "它只采样建筑楼面，不能采样山体地形"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-08-029",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "在本章京沪跨城市量算背景的沿线区域中，请点击北京东南侧、临近渤海湾的天津。",
+      "explanation": "天津约位于 39.0842°N、117.2010°E，是京津冀和京沪通道的重要城市。把它作为沿线节点做跨城市量算时仍应使用测地线；本题容差为 350 公里。",
+      "refs": [
+        {
+          "title": "WGS 84 经纬度坐标（EPSG:4326）",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.0842,
+        "lng": 117.201
+      },
+      "toleranceKm": 350
+    },
+    {
+      "id": "cesium-08-030",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "只关心某 Cartographic 位置当前渲染出的场景高度，不关心命中的是楼还是山，最直接的 API 是什么？",
+      "explanation": "scene.sampleHeight(position) 直接返回该位置的场景几何高度，无须先识别命中对象。它适用于当前渲染场景，并受 3D 模式和深度纹理支持条件约束。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.camera.pickEllipsoid(position)",
+          "hint": "它投向数学椭球面，不返回场景高度"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.Cartesian3.distance(position, position)"
+        },
+        {
+          "key": "C",
+          "text": "viewer.scene.sampleHeight(position)",
+          "hint": "该函数直接采样场景几何高度"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.EllipsoidGeodesic(position, position)"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-08-031",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "scene.sampleHeight 在 2D 和 Columbus View 中也能像在 3D 模式一样直接调用。",
+      "explanation": "sampleHeight 仅支持 3D 模式，在 2D 或 Columbus View 中调用会抛出异常。此外，调用前还应通过 sampleHeightSupported 检查深度纹理能力。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-08-032",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "多边形顶点投影到切平面后依次为 (0,0)、(0,100)、(400,300)、(400,0)，坐标单位为米。按鞋带公式计算面积是多少平方米？",
+      "explanation": "按给定绕向，Σ(xᵢyᵢ₊₁ − xᵢ₊₁yᵢ) = 0 − 40000 − 120000 + 0 = −160000 平方米。面积 = |−160000| / 2 = 80000 平方米，负号只表示绕向。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 80000,
+      "tolerance": 0,
+      "unit": "m²",
+      "placeholder": "例如：80000"
+    },
+    {
+      "id": "cesium-08-033",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "为了让 polyline.positions 随已确认点和 hover 点即时更新，讲义使用哪个动态属性类？",
+      "explanation": "CallbackProperty 在渲染时执行回调，让 positions 每次从最新数据拼装。量算工具只需更新确认点和 hover 点，不必反复删除、新建预览实体。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "CallbackProperty",
+        "Cesium.CallbackProperty",
+        "new Cesium.CallbackProperty",
+        "new CallbackProperty"
+      ],
+      "placeholder": "例如：Cesium.CallbackProperty"
+    },
+    {
+      "id": "cesium-08-034",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "关于本章三类距离及折线累计方式，下列说法正确的有哪些？",
+      "explanation": "Cartesian3.distance 求空间弦长，surfaceDistance 求零高程椭球面距离；多段折线要逐对相邻顶点计算并累加。真实贴地距离需要地形，经纬度角度也不能直接当米制平面坐标。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cartesian3.distance 可求两点的三维空间弦长"
+        },
+        {
+          "key": "B",
+          "text": "EllipsoidGeodesic.surfaceDistance 求椭球面距离且忽略高度"
+        },
+        {
+          "key": "C",
+          "text": "折线累计大圆距离由相邻各段的 surfaceDistance 求和"
+        },
+        {
+          "key": "D",
+          "text": "山地徒步的贴地距离不需要任何地形数据"
+        },
+        {
+          "key": "E",
+          "text": "把经度差和纬度差直接当米做勾股即可得到地表距离"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-08-035",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "在京沪跨城市量算的沿线地理背景中，请点击长江下游、江苏省会南京。",
+      "explanation": "南京约位于 32.0603°N、118.7969°E，是长江下游和京沪通道的重要城市。若把它加入多节点量算，应逐段求测地线长度后累加；本题容差为 300 公里。",
+      "refs": [
+        {
+          "title": "WGS 84 经纬度坐标（EPSG:4326）",
+          "url": "https://epsg.io/4326"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 32.0603,
+        "lng": 118.7969
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-08-036",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "面积投影时若使用 projectPointsOntoPlane，返回点数可能少于输入点数。最合理的处理是什么？",
+      "explanation": "projectPointsOntoPlane 采用从地心出发的径向投影，无法投出的点会被丢弃，残缺顶点会改变多边形。量面积应改用沿平面法线取最近点的 projectPointsToNearestOnPlane，保证结果与输入等长。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把缺失顶点全部当作切平面上的 (0,0) 补回"
+        },
+        {
+          "key": "B",
+          "text": "改用原始经纬度直接计算鞋带公式"
+        },
+        {
+          "key": "C",
+          "text": "把残缺多边形的面积乘以顶点数补齐"
+        },
+        {
+          "key": "D",
+          "text": "量面积改用 projectPointsToNearestOnPlane，避免顶点丢失",
+          "hint": "该方法的投影结果与输入点集等长"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-08-037",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "sampleTerrain 与 sampleHeight 一样，只能采样当前视野内已经渲染的地形。",
+      "explanation": "sampleTerrain 通过地形 Provider 采样，不依赖当前相机视野和渲染结果，可以离线使用。依赖当前已渲染地形与 3D Tiles 的是 scene.sampleHeight。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-08-038",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "测地线计算中需要把 120° 转换为弧度。结果是多少弧度？（四舍五入保留三位小数）",
+      "explanation": "弧度数 = 角度数 × π / 180，因此 120 × π / 180 = 2π / 3 ≈ 2.094395…。按题目要求保留三位小数，结果为 2.094 弧度。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2.094,
+      "tolerance": 0,
+      "unit": "rad",
+      "placeholder": "例如：2.094"
+    },
+    {
+      "id": "cesium-08-039",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "量算需要命中当前渲染出来的山体或 3D Tiles 楼面时，应使用哪个场景取点 API？",
+      "explanation": "scene.pickPosition 从深度缓冲重构真实渲染表面的位置，适合山体、楼面或模型表皮。调用前要检查 scene.pickPositionSupported，不能把 pickEllipsoid 的零高程结果当作这些表面。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "scene.pickPosition",
+        "viewer.scene.pickPosition",
+        "scene.pickPosition(movement.position)",
+        "viewer.scene.pickPosition(movement.position)",
+        "Cesium.Scene.prototype.pickPosition"
+      ],
+      "placeholder": "例如：viewer.scene.pickPosition(movement.position)"
+    },
+    {
+      "id": "cesium-08-040",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "使用 scene.pickPosition 量取真实渲染表面时，下列规则正确的有哪些？",
+      "explanation": "pickPosition 依赖深度纹理，必须先做只读能力探测，不支持时会抛 DeveloperError。它默认穿透半透明表面；需要拾取半透明政区面时可开启 pickTranslucentDepth，但会增加绘制开销。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "调用前读取 scene.pickPositionSupported 做能力探测"
+        },
+        {
+          "key": "B",
+          "text": "设备不支持深度纹理时，调用可能抛出 DeveloperError"
+        },
+        {
+          "key": "C",
+          "text": "默认情况下会基本穿透半透明图元"
+        },
+        {
+          "key": "D",
+          "text": "拾取半透明面可设 scene.pickTranslucentDepth = true，并考虑额外开销"
+        },
+        {
+          "key": "E",
+          "text": "它永远投向数学椭球面，返回点高度恒为 0",
+          "hint": "这是 camera.pickEllipsoid 的特征"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-08-041",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "左键量算取点时，camera.pickEllipsoid 未返回有效 Cartesian3，处理器最合理的做法是什么？",
+      "explanation": "无效拾取不能转换成可靠的量算顶点，应立即 return，保持已确认点集不变。把 undefined 或任意零坐标加入数组会污染后续距离和面积计算。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 undefined 推入 points，等计算时再处理"
+        },
+        {
+          "key": "B",
+          "text": "直接 return，不修改已确认点集",
+          "hint": "讲义示例先检查 if (!cartesian) return"
+        },
+        {
+          "key": "C",
+          "text": "把该点固定当作经纬度 (0,0)"
+        },
+        {
+          "key": "D",
+          "text": "立即销毁整个 viewer"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-042",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "projectPointsToNearestOnPlane 的投影结果与输入点集等长，因此量面积时不会因该投影步骤丢掉顶点。",
+      "explanation": "该方法沿平面法线寻找最近点，每个输入顶点都有对应的输出点，适合必须保持多边形顶点数量的面积量算。径向的 projectPointsOntoPlane 则可能丢弃无法投出的点。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidTangentPlane API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidTangentPlane.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-08-043",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "需要对大量场景位置按最高精度进行异步批量高度采样时，讲义建议调用哪个 API？",
+      "explanation": "scene.sampleHeightMostDetailed 面向异步批量场景高度采样，并按最高精度处理。它与同步、针对当前渲染内容的 sampleHeight 分工不同，适合批量任务。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "sampleHeightMostDetailed",
+        "scene.sampleHeightMostDetailed",
+        "viewer.scene.sampleHeightMostDetailed",
+        "Cesium.Scene.prototype.sampleHeightMostDetailed"
+      ],
+      "placeholder": "例如：viewer.scene.sampleHeightMostDetailed"
+    },
+    {
+      "id": "cesium-08-044",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于橡皮筋预览线的生命周期与结束后的清理，下列做法正确的有哪些？",
+      "explanation": "预览实体只创建一次，CallbackProperty 动态返回确认点与 hover 点的组合。结束后可清空 points 并复位 hoverCarto；反复新增实体或缓存首帧点集都会造成泄漏或预览失效。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "polyline 预览实体只创建一次，后续复用"
+        },
+        {
+          "key": "B",
+          "text": "CallbackProperty 每次即时拼装已确认点与当前 hover 点"
+        },
+        {
+          "key": "C",
+          "text": "每次 MOUSE_MOVE 都调用 viewer.entities.add 新增一条预览线",
+          "hint": "这会不断累积实体"
+        },
+        {
+          "key": "D",
+          "text": "重新开始前可执行 points.length = 0，并把 hoverCarto 设为 null"
+        },
+        {
+          "key": "E",
+          "text": "创建实体时缓存首帧点集，之后拒绝读取最新状态"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-08-045",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "在 depthTestAgainstTerrain = false 时，用 1.107 等 1.118 之前的 CesiumJS 版本量地表，讲义特别提醒什么？",
+      "explanation": "讲义指出，这些版本中 pickPosition 对地球面的拾取曾存在结果不正确的问题，并在 1.118 修复。因此使用旧基线量地表时，要核对版本并验证拾取结果。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "pickPosition 对地球面的拾取曾有不正确的问题，1.118 已修复",
+          "hint": "旧版本量地表需要特别验证该拾取路径"
+        },
+        {
+          "key": "B",
+          "text": "surfaceDistance 从该版本起单位改为公里"
+        },
+        {
+          "key": "C",
+          "text": "sampleHeight 从该版本起支持 2D 模式"
+        },
+        {
+          "key": "D",
+          "text": "CallbackProperty 在 1.118 后被删除"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-08-046",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "scene.pickTranslucentDepth 默认就是 true，而且开启半透明深度拾取没有任何额外绘制开销。",
+      "explanation": "pickTranslucentDepth 默认是 false，所以 pickPosition 默认会基本穿透半透明表面。设为 true 可以拾取半透明面，但官方说明这会带来额外绘制开销。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-08-047",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "已有地形 Provider，想直接进行地形高度采样，可写出哪个 Cesium API 名称？",
+      "explanation": "基础地形采样函数是 sampleTerrain；需要最高精度的批量地形采样时，也可使用 sampleTerrainMostDetailed。它们走地形 Provider 路线，区别于依赖当前渲染场景的 scene.sampleHeight。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考（地形采样）",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "sampleTerrain",
+        "Cesium.sampleTerrain",
+        "sampleTerrainMostDetailed",
+        "Cesium.sampleTerrainMostDetailed"
+      ],
+      "placeholder": "例如：Cesium.sampleTerrainMostDetailed"
+    },
+    {
+      "id": "cesium-08-048",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "实现多段折线的实时累计大圆距离时，下列计算方式正确的有哪些？",
+      "explanation": "累计距离必须遍历每一对相邻顶点并求和；鼠标预览时可临时加入 hover 点。surfaceDistance 的结果是米，显示公里时除以 1000。只算首末点会漏掉中间转折，跨城市也不能换成弦长。",
+      "refs": [
+        {
+          "title": "Cesium.EllipsoidGeodesic API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.EllipsoidGeodesic.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "从索引 1 开始遍历，逐段计算 all[i - 1] 到 all[i] 的 surfaceDistance"
+        },
+        {
+          "key": "B",
+          "text": "预览计算可在 hover 点存在时使用 [...points, hoverCarto]"
+        },
+        {
+          "key": "C",
+          "text": "各段结果先按米累加，显示公里时再将总和除以 1000"
+        },
+        {
+          "key": "D",
+          "text": "跨城市折线可全部改用 Cartesian3.distance，结果与测地线完全相同"
+        },
+        {
+          "key": "E",
+          "text": "无论中间有多少顶点，都只计算首点到末点的一段距离"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-08-049",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "调用 scene.sampleHeight 前，除确认当前为 3D 模式外，还应读取哪个属性探测深度纹理能力？",
+      "explanation": "sampleHeightSupported 专门用于探测 sampleHeight 所需的深度纹理支持。pickPositionSupported 服务于 pickPosition，pickTranslucentDepth 则是半透明拾取设置，三者不能混用。",
+      "refs": [
+        {
+          "title": "Cesium.Scene API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "scene.pickPositionSupported"
+        },
+        {
+          "key": "B",
+          "text": "scene.sampleHeightSupported",
+          "hint": "它对应 sampleHeight 的能力探测"
+        },
+        {
+          "key": "C",
+          "text": "scene.pickTranslucentDepth"
+        },
+        {
+          "key": "D",
+          "text": "viewer.scene.globe.depthTestAgainstTerrain"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-08-050",
+      "skill": "cesium",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "本章量算工具用哪一种 Entity 图形来绘制连接各量算点的辅助预览线？",
+      "explanation": "多点连成线应使用 polyline，并把它的 positions 设置为动态 CallbackProperty。polygon 表示闭合填充面，billboard 是图标，label 则用于文字标注。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · 拾取与交互事件",
+          "url": "https://gis.ason.top/s/cesium/07"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "polyline",
+          "hint": "它的 positions 可绑定动态点集"
+        },
+        {
+          "key": "B",
+          "text": "polygon"
+        },
+        {
+          "key": "C",
+          "text": "billboard"
+        },
+        {
+          "key": "D",
+          "text": "label"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
     }
   ]
 }

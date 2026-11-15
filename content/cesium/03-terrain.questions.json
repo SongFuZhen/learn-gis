@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "03",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-03-001",
@@ -390,6 +390,1008 @@
       ],
       "type": "truefalse",
       "answer": true
+    },
+    {
+      "id": "cesium-03-013",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "在 Cesium 的双层模型中，负责提供地表颜色和纹理的是哪一层？",
+      "explanation": "ImageryLayer 是影像层，负责把瓦片图片贴到地球表面，决定地表看起来是什么颜色和纹理；TerrainProvider 负责高度网格与几何起伏，两者职责不能混淆。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "TerrainProvider"
+        },
+        {
+          "key": "B",
+          "text": "EllipsoidTerrainProvider"
+        },
+        {
+          "key": "C",
+          "text": "ImageryLayer",
+          "hint": "影像瓦片提供颜色和纹理"
+        },
+        {
+          "key": "D",
+          "text": "Cartographic"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-014",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "关于椭球面、地形层与影像层的职责，下列说法正确的有哪些？",
+      "explanation": "WGS84 椭球面提供数学基准，地形层提供高度网格，影像层提供表面纹理。影像本身不包含真实地形起伏，地形也不负责决定影像瓦片的颜色，三层应当分开理解。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "影像层通过瓦片图片提供颜色和纹理"
+        },
+        {
+          "key": "B",
+          "text": "地形层通过高度网格提供几何起伏"
+        },
+        {
+          "key": "C",
+          "text": "WGS84 椭球面是数学基准面"
+        },
+        {
+          "key": "D",
+          "text": "只要有高清影像，就不再需要地形数据来形成真实起伏"
+        },
+        {
+          "key": "E",
+          "text": "地形层负责决定每张影像瓦片的颜色"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-015",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "即使选择「没有地形起伏」，地形层仍然存在一个地形 Provider。",
+      "explanation": "Cesium 的地形层始终通过 Provider 表达。EllipsoidTerrainProvider 不是缺失或关闭 Provider，而是明确选择理想椭球面作为地面，因此地形层模型依然成立。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-03-016",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "查询指定层级下一组 Cartographic 位置地面高度的异步函数叫什么？请写不带参数的 API 名。",
+      "explanation": "这个函数是 sampleTerrain，完整写法为 Cesium.sampleTerrain。它接收地形 Provider、层级和 Cartographic 数组，并异步返回带有高度信息的更新结果。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "sampleTerrain",
+        "Cesium.sampleTerrain"
+      ],
+      "placeholder": "例如：sampleTerrain"
+    },
+    {
+      "id": "cesium-03-017",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "某点原始地形高度为 1200 米，将 Scene.verticalExaggeration 设为 2.5 后，其相对椭球面的显示高度是多少米？",
+      "explanation": "地形夸张按倍数拉伸相对椭球面的高度，因此显示高度为 1200 × 2.5 = 3000 米。这个结果用于视觉展示，不会把原始地形采样值改写成 3000 米。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3000,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "请输入精确数值"
+    },
+    {
+      "id": "cesium-03-018",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "已配置 ion token 后，本章推荐用哪段代码接入资产 id 为 1 的 World Terrain？",
+      "explanation": "本章展示的标准写法是 await Cesium.CesiumTerrainProvider.fromIonAssetId(1)，再把返回的 Provider 赋给 viewer.terrainProvider。资产 id 1 对应 ion World Terrain，调用前仍需有效 token。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "new Cesium.EllipsoidTerrainProvider(1)"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.sampleTerrain(1)"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Ion.defaultAccessToken = 1"
+        },
+        {
+          "key": "D",
+          "text": "await Cesium.CesiumTerrainProvider.fromIonAssetId(1)",
+          "hint": "fromIonAssetId 按 ion 资产 id 创建地形 Provider"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-03-019",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于本章介绍的 Cesium ion 托管体系，下列说法正确的有哪些？",
+      "explanation": "World Terrain 的 ion 资产 id 是 1，OSM Buildings 的资产 id 是 96188，它们都属于 ion 托管体系并需要账号和 token。本章可运行示例坚持 token-free，不会暗中依赖这些 ion 资产。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "World Terrain 的资产 id 是 1"
+        },
+        {
+          "key": "B",
+          "text": "OSM Buildings 的资产 id 是 96188"
+        },
+        {
+          "key": "C",
+          "text": "使用这些 ion 专属能力需要注册并配置 token"
+        },
+        {
+          "key": "D",
+          "text": "本章所有可运行示例都必须先配置 ion token"
+        },
+        {
+          "key": "E",
+          "text": "fromIonAssetId 可以绕过 ion 的身份验证"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-020",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "地形金字塔与影像金字塔必须共用瓦片服务，并且层级编号必须逐级一一相同。",
+      "explanation": "地形与影像各自拥有金字塔 LOD、瓦片服务和 Provider 体系。两类瓦片可以在渲染时组合，但数据来源与层级结构彼此独立，不存在层级编号必须相同的约束。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-03-021",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章介绍的主流真实地形瓦片格式叫什么？请写英文格式名。",
+      "explanation": "答案是 quantized-mesh，中文称量化网格。它把地形切块并压缩块内顶点高度，是 Cesium ion World Terrain 等真实地形服务采用的主流格式。",
+      "refs": [
+        {
+          "title": "quantized-mesh 格式规范",
+          "url": "https://github.com/CesiumGS/quantized-mesh"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "quantized-mesh",
+        "quantized mesh",
+        "Quantized-Mesh",
+        "Quantized Mesh"
+      ],
+      "placeholder": "例如：quantized-mesh"
+    },
+    {
+      "id": "cesium-03-022",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "同一地形 Provider 下，甲点查询高度为 2360 米，乙点为 785 米。甲点比乙点高多少米？",
+      "explanation": "两点高度来自同一高程基准时可直接相减，高度差为 2360 − 785 = 1575 米。这里计算的是两点椭球高之差，无需把高度单位再做换算。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1575,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "请输入精确数值"
+    },
+    {
+      "id": "cesium-03-023",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "在地图上点击本章 sampleTerrain 示例所使用的珠穆朗玛峰附近位置。",
+      "explanation": "示例查询点为北纬 27.988°、东经 86.925°，对应位于中国与尼泊尔边界附近的珠穆朗玛峰。珠峰属于喜马拉雅山脉，是讲义说明真实地形高程查询时采用的山地实例。",
+      "refs": [
+        {
+          "title": "Mount Everest（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Mount_Everest"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 27.988,
+        "lng": 86.925
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-03-024",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "要为东经 86.925°、北纬 27.988° 的珠峰附近位置构造查询点，下列写法正确的是？",
+      "explanation": "Cesium.Cartographic.fromDegrees 的参数顺序是经度在前、纬度在后，因此应写 fromDegrees(86.925, 27.988)。交换顺序会把查询点放到完全不同的位置。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.Cartographic.fromDegrees(86.925, 27.988)",
+          "hint": "经度 longitude 在前，纬度 latitude 在后"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.Cartographic.fromDegrees(27.988, 86.925)"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Cartographic.fromRadians(86.925, 27.988)"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.Cartographic.fromDegrees(27.988, 86.925, 11)"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-03-025",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "在阿尔卑斯山区观察地形与视角的关系时，下列做法或预期正确的有哪些？",
+      "explanation": "垂直俯瞰容易把山地看成一张贴图，压低相机到较小俯角更容易显出山谷和山脊；对照有无真实地形能看清立体感的来源。只提高影像清晰度并不能替代高度网格。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "垂直俯瞰时，地形与平面影像的视觉差异通常较弱"
+        },
+        {
+          "key": "B",
+          "text": "把相机压到 30° 以下有助于观察山谷立体感"
+        },
+        {
+          "key": "C",
+          "text": "不加载地形，只换更清晰影像就能生成真实山脊"
+        },
+        {
+          "key": "D",
+          "text": "对比有无真实地形时，可重点观察山脊和峡谷的起伏"
+        },
+        {
+          "key": "E",
+          "text": "只要相机倾斜，EllipsoidTerrainProvider 就会自动产生真实高度"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-03-026",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "Cesium.createWorldTerrain() 是 1.104 前的老写法，本章已将它标为废弃接口。",
+      "explanation": "本章把 createWorldTerrain() 明确列为 1.104 前使用且已废弃的写法。接入 ion World Terrain 时应认识并使用 CesiumTerrainProvider.fromIonAssetId(1) 的新形式。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-03-027",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "通过 ion 资产 id 创建 CesiumTerrainProvider 的静态方法叫什么？可以写完整调用名。",
+      "explanation": "静态方法名是 fromIonAssetId，完整调用形式为 Cesium.CesiumTerrainProvider.fromIonAssetId(...)。本章用资产 id 1 创建 World Terrain Provider，实际调用还需要有效 ion token。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "fromIonAssetId",
+        "CesiumTerrainProvider.fromIonAssetId",
+        "Cesium.CesiumTerrainProvider.fromIonAssetId"
+      ],
+      "placeholder": "例如：CesiumTerrainProvider.fromIonAssetId"
+    },
+    {
+      "id": "cesium-03-028",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某量化网格瓦片的高度基准值为 640 米，每个整数偏移对应 0.05 米。某顶点偏移为 7320，其还原高度是多少米？",
+      "explanation": "先计算偏移量对应的高度：7320 × 0.05 = 366 米，再加基准值：640 + 366 = 1006 米。因此该顶点的还原高度精确为 1006 米。",
+      "refs": [
+        {
+          "title": "quantized-mesh 格式规范",
+          "url": "https://github.com/CesiumGS/quantized-mesh"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1006,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "请输入精确数值"
+    },
+    {
+      "id": "cesium-03-029",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "相机连续移动时，地形探针如何避免对几乎相同的中心点反复发起 sampleTerrain 请求？",
+      "explanation": "本章建议记录上次实际查询的位置，只有中心点变化超过设定阈值才再次采样。这样能在保持探针读数足够及时的同时减少重复异步请求，单纯提高地形层级并不能降低请求频率。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每次 camera.changed 触发都无条件查询"
+        },
+        {
+          "key": "B",
+          "text": "记录上次查询位置，中心点变化小于阈值时跳过本次查询",
+          "hint": "按位置变化做请求去重"
+        },
+        {
+          "key": "C",
+          "text": "把影像层 maximumLevel 调到最大"
+        },
+        {
+          "key": "D",
+          "text": "把 sampleTerrain 当成同步函数反复调用"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-030",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "实现本章的地形探针时，下列代码理解正确的有哪些？",
+      "explanation": "探针用 camera.changed 注册回调，positionCartographic 的经纬度是弧度，交给 fromDegrees 前要用 Math.toDegrees 转换；sampleTerrain 是异步 API，需要等待返回结果。percentageChanged 控制事件触发，不决定地形高度精度。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "camera.changed.addEventListener 可以注册相机变化回调"
+        },
+        {
+          "key": "B",
+          "text": "positionCartographic 的弧度经纬度可用 Math.toDegrees 转为角度"
+        },
+        {
+          "key": "C",
+          "text": "sampleTerrain 返回 Promise，可用 await 取得更新后的查询点"
+        },
+        {
+          "key": "D",
+          "text": "percentageChanged = 0.05 表示把地形高度精度固定为 5%"
+        },
+        {
+          "key": "E",
+          "text": "updated[0].height 表示相机距离地面的飞行高度"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-031",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "对 sampleTerrain 来说，层级参数越大，所用地形网格就越粗糙。",
+      "explanation": "地形金字塔的层级越高，通常表示数据越精细，而不是越粗糙。sampleTerrain 的层级参数用于选择本次查询所依据的细节级别，增大层级不会自动把精细网格变成粗网格。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-03-032",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "设置 Cesium ion 访问令牌时，需要给哪个静态属性赋值？请写完整属性名。",
+      "explanation": "应设置 Cesium.Ion.defaultAccessToken。讲义先把 token 字符串赋给这个属性，再通过 fromIonAssetId 加载托管地形；只创建 Provider 而没有配置令牌并不满足 ion 的访问要求。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.Ion.defaultAccessToken",
+        "Ion.defaultAccessToken",
+        "defaultAccessToken"
+      ],
+      "placeholder": "例如：Cesium.Ion.defaultAccessToken"
+    },
+    {
+      "id": "cesium-03-033",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "假设某地形金字塔每升高一级，水平采样间距减半。第 11 层间距为 80 米，第 14 层的采样间距是多少米？",
+      "explanation": "从第 11 层到第 14 层共升高 3 级，间距连续减半 3 次，即 80 ÷ 2³ = 80 ÷ 8 = 10 米。因此第 14 层的采样间距为 10 米。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "请输入精确数值"
+    },
+    {
+      "id": "cesium-03-034",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "在地图上点击本章地形对照实验提到的阿尔卑斯山脉大致位置。",
+      "explanation": "阿尔卑斯山脉位于欧洲中南部，横跨法国、瑞士、意大利、奥地利等国，目标点取其中部山区。这里山地起伏显著，适合用同一视角比较平坦椭球与真实地形。",
+      "refs": [
+        {
+          "title": "Alps（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Alps"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 46.5,
+        "lng": 9.8
+      },
+      "toleranceKm": 1200
+    },
+    {
+      "id": "cesium-03-035",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "从 CesiumJS 1.116 起，地形夸张效果应通过哪个属性设置？",
+      "explanation": "地形夸张 API 在 1.116 从 Globe.terrainExaggeration 迁移到 Scene.verticalExaggeration。阅读老教程时需要按这个新属性对照修改，不能把旧属性当成当前推荐写法。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ImageryLayer.verticalExaggeration"
+        },
+        {
+          "key": "B",
+          "text": "Globe.terrainExaggeration"
+        },
+        {
+          "key": "C",
+          "text": "Scene.verticalExaggeration",
+          "hint": "1.116 起夸张属性归入 Scene"
+        },
+        {
+          "key": "D",
+          "text": "Cartographic.terrainExaggeration"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-036",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "设计「无地形与真实地形」对照实验时，下列哪些做法能让结论更可靠？",
+      "explanation": "可靠对照应保持同一地点、同一视角和同一影像，只切换地形 Provider。平地 Provider 下地平线保持椭球圆弧，真实地形下山脊和峡谷出现；差异才能归因于地形层，而不是换底图或换机位。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "两次观察使用相同的阿尔卑斯视角"
+        },
+        {
+          "key": "B",
+          "text": "EllipsoidTerrainProvider 下预期地面无真实起伏"
+        },
+        {
+          "key": "C",
+          "text": "真实地形 Provider 下重点检查山脊与峡谷是否立体"
+        },
+        {
+          "key": "D",
+          "text": "每次切换地形时必须同时换成不同影像底图"
+        },
+        {
+          "key": "E",
+          "text": "保持影像不变，让地形 Provider 成为主要变量"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-03-037",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "个别公开免 token 地形服务可能可用性不稳定，因此本章不建议把它作为生产环境的可靠依赖。",
+      "explanation": "免 token 不等于服务稳定或有长期保障。本章仅把个别公开服务列为替代路径之一，并明确提醒生产项目不要依赖其可用性；重要应用应评估自托管或正式服务。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-03-038",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "1.104 前用于创建 World Terrain、现已在本章标为废弃的老函数叫什么？",
+      "explanation": "老函数是 createWorldTerrain，完整写法为 Cesium.createWorldTerrain()。它用于识别旧教程，不应取代本章展示的 CesiumTerrainProvider.fromIonAssetId(1) 标准接入方式。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "createWorldTerrain",
+        "Cesium.createWorldTerrain"
+      ],
+      "placeholder": "例如：createWorldTerrain"
+    },
+    {
+      "id": "cesium-03-039",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "某地形金字塔按四叉树细分，第 0 层有 1 块瓦片，每升高一级每块分成 4 块。完整加载第 0 至第 4 层共需多少块瓦片？",
+      "explanation": "各层瓦片数依次为 1、4、16、64、256。第 0 至第 4 层包含两端，因此总数为 1 + 4 + 16 + 64 + 256 = 341 块，而不是只计算第 4 层的 256 块。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 341,
+      "tolerance": 0,
+      "unit": "块",
+      "placeholder": "请输入精确瓦片数"
+    },
+    {
+      "id": "cesium-03-040",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "同一真实地形 Provider 下，对同一点分别用层级 8 和层级 12 调用 sampleTerrain，结果高度不完全相同。最合理的解释是？",
+      "explanation": "地形采用金字塔 LOD，不同层级的高度网格精细程度不同，所以同一位置在不同层级上的采样结果可以有差异。较高层级通常更精细，这种差异不表示经纬度或高度单位发生了变化。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "两个层级使用不同精细程度的地形网格，采样结果可以不同",
+          "hint": "sampleTerrain 返回的是指定层级的高程"
+        },
+        {
+          "key": "B",
+          "text": "层级 8 返回米，层级 12 返回千米"
+        },
+        {
+          "key": "C",
+          "text": "层级参数会自动交换查询点的经纬度"
+        },
+        {
+          "key": "D",
+          "text": "层级 12 会自动把椭球高转换为正高"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-03-041",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "在不使用 ion token 的前提下，本章允许或提醒的地形路径有哪些？",
+      "explanation": "课程选择 EllipsoidTerrainProvider 完成概念学习；需要真实地形时可自托管由 DEM 转换的 quantized-mesh；公开免 token 服务可临时尝试但可用性不稳定。高清影像不能代替地形，ion World Terrain 也不能免 token 使用。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用平坦的 EllipsoidTerrainProvider 学完本章概念"
+        },
+        {
+          "key": "B",
+          "text": "用 DEM 转 quantized-mesh 的工具链构建并自托管地形"
+        },
+        {
+          "key": "C",
+          "text": "谨慎评估公开免 token 服务，不把不稳定服务当作生产依赖"
+        },
+        {
+          "key": "D",
+          "text": "不注册账号便直接调用 ion World Terrain 资产 1"
+        },
+        {
+          "key": "E",
+          "text": "用更高分辨率影像彻底替代真实地形网格"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-042",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "viewer.camera.percentageChanged = 0.05 表示相机每次必须固定移动 0.05 米才触发 changed 事件。",
+      "explanation": "percentageChanged 用来控制相机变化达到何种程度时触发 changed 事件，不是以米为单位的固定移动距离，也不是地形采样间距。把它理解为 0.05 米会误判探针的触发逻辑。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-03-043",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "地形探针需要把 positionCartographic 的弧度经度转换成角度，应调用哪个数学函数？",
+      "explanation": "应调用 Cesium.Math.toDegrees。positionCartographic 中经纬度采用弧度，而 Cartographic.fromDegrees 接收角度，所以构造新的中心查询点前必须先做这一单位转换。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "toDegrees",
+        "Math.toDegrees",
+        "Cesium.Math.toDegrees"
+      ],
+      "placeholder": "例如：Cesium.Math.toDegrees"
+    },
+    {
+      "id": "cesium-03-044",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "地形探针在距上次实际查询点至少 150 米时才再次查询。沿直线同向移动四次，位移依次为 35、55、45、30 米，首次触发再次查询时累计移动多少米？",
+      "explanation": "累计位移依次为 35、90、135、165 米。前三次都小于 150 米而跳过请求，第四次达到 165 米，首次满足阈值，所以再次查询时的累计距离是 165 米。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 165,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "请输入精确距离"
+    },
+    {
+      "id": "cesium-03-045",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "在地图上点击喜马拉雅山脉中段的大致位置。",
+      "explanation": "喜马拉雅山脉位于亚洲南部，沿青藏高原南缘延伸，中段大致经过尼泊尔及其周边地区。目标点位于尼泊尔北部山区，用区域级容差覆盖这条宽阔山系的中部。",
+      "refs": [
+        {
+          "title": "Himalayas（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Himalayas"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 28,
+        "lng": 84
+      },
+      "toleranceKm": 1200
+    },
+    {
+      "id": "cesium-03-046",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "quantized-mesh 中顶点高度的量化偏移采用哪种表示方式？",
+      "explanation": "quantized-mesh 将顶点高度相对基准值压缩为 0 到 32767 的整数偏移，而不是在每个顶点上直接保存原始浮点高程。量化压缩减少数据量，是地形瓦片高效传输的重要基础。",
+      "refs": [
+        {
+          "title": "quantized-mesh 格式规范",
+          "url": "https://github.com/CesiumGS/quantized-mesh"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "0 到 255 的颜色通道值"
+        },
+        {
+          "key": "B",
+          "text": "相对基准值的 0 到 32767 整数偏移",
+          "hint": "量化网格用整数偏移压缩顶点高度"
+        },
+        {
+          "key": "C",
+          "text": "每个顶点都保存未经压缩的经纬度文本"
+        },
+        {
+          "key": "D",
+          "text": "只保存瓦片的平均海拔，不保存顶点差异"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-03-047",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章示例中，sampleTerrain 查询得到的地面高度以米为单位。",
+      "explanation": "讲义在 sampleTerrain 示例中明确把返回高程标注为米，探针也用 m 和 toFixed(1) 输出。这里说的是指定层级的椭球高数值，单位是米并不代表它已经成为海拔正高。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-03-048",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "若要为 viewer.camera.changed 事件注册回调，应调用哪个注册方法？可以写完整调用形式。",
+      "explanation": "应使用 addEventListener，完整形式是 viewer.camera.changed.addEventListener(callback)。本章探针通过它响应相机变化，再在回调中异步查询中心点地面高度。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "addEventListener",
+        "changed.addEventListener",
+        "camera.changed.addEventListener",
+        "viewer.camera.changed.addEventListener"
+      ],
+      "placeholder": "例如：viewer.camera.changed.addEventListener"
+    },
+    {
+      "id": "cesium-03-049",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "希望直接按地形 Provider 可用的最精细层级查询位置高度，应优先选择哪个 API？",
+      "explanation": "sampleTerrainMostDetailed 用于按 Provider 可用的最精细层级采样，省去调用者自行选择具体层级。普通 sampleTerrain 则必须明确传入层级，两者都依赖实际地形数据源。",
+      "refs": [
+        {
+          "title": "CesiumJS 地形教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-terrain/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.Cartographic.fromDegrees"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.EllipsoidTerrainProvider"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.sampleTerrainMostDetailed",
+          "hint": "它按 Provider 的最精细可用层级采样"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.Math.toDegrees"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-03-050",
+      "skill": "cesium",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "在地图上点击美国科罗拉多大峡谷，作为练习「地形加倾斜相机」观察峡谷起伏的位置。",
+      "explanation": "科罗拉多大峡谷位于美国亚利桑那州北部，由科罗拉多河长期切割形成，深谷与台地起伏明显。目标点位于大峡谷南缘一带，适合说明低俯角相机如何增强地形的立体感。",
+      "refs": [
+        {
+          "title": "Grand Canyon（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Grand_Canyon"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 36.1069,
+        "lng": -112.1129
+      },
+      "toleranceKm": 800
     }
   ]
 }

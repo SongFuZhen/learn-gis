@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "02",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-02-001",
@@ -383,6 +383,1042 @@
       "answer": [
         "B"
       ]
+    },
+    {
+      "id": "cesium-02-013",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在 CesiumJS 中，ImageryProvider 这一抽象主要回答的问题是什么？",
+      "explanation": "ImageryProvider 抽象的是影像数据来源，也就是一组瓦片从哪里来。图层如何叠放、是否透明则由 ImageryLayer 和 imageryLayers 管理。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "一组影像瓦片从哪里来",
+          "hint": "Provider 的核心职责是提供影像数据"
+        },
+        {
+          "key": "B",
+          "text": "相机当前朝向哪个方向"
+        },
+        {
+          "key": "C",
+          "text": "地形顶点应当有多高"
+        },
+        {
+          "key": "D",
+          "text": "鼠标事件应当交给谁处理"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-02-014",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在 UrlTemplateImageryProvider 的 URL 模板中，下列变量与含义对应正确的有哪些？",
+      "explanation": "{z} 是瓦片层级，{x} 是列号，{y} 是行号。三者共同定位金字塔中的一张瓦片，与图层透明度无关。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        },
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "{z} 表示瓦片层级"
+        },
+        {
+          "key": "B",
+          "text": "{x} 表示瓦片列号"
+        },
+        {
+          "key": "C",
+          "text": "{y} 表示瓦片行号"
+        },
+        {
+          "key": "D",
+          "text": "{y} 表示图层透明度"
+        },
+        {
+          "key": "E",
+          "text": "{z} 表示瓦片子域名"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-02-015",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "XYZ 瓦片规范中，{y} 的行号从北侧顶部开始，向南递增。",
+      "explanation": "XYZ 的全球瓦片原点在西北角，行号由北向南增加；TMS 则相反，由南向北增加。混用两套约定会造成影像上下错位。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-02-016",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "写出本章用于接入 OSM 标准瓦片的 Provider 类名。",
+      "explanation": "OpenStreetMapImageryProvider 专门接入 OSM 标准瓦片。本章推荐通过它的 fromUrl 异步工厂创建实例。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "OpenStreetMapImageryProvider",
+        "Cesium.OpenStreetMapImageryProvider",
+        "OpenStreetMapImageryProvider.fromUrl",
+        "OpenStreetMapImageryProvider.fromUrl()",
+        "Cesium.OpenStreetMapImageryProvider.fromUrl",
+        "Cesium.OpenStreetMapImageryProvider.fromUrl()"
+      ],
+      "placeholder": "例如：UrlTemplateImageryProvider"
+    },
+    {
+      "id": "cesium-02-017",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "某 XYZ 瓦片金字塔在 zoom z=3 时，全球共有多少片瓦片？",
+      "explanation": "第 z 层有 2^z 行、2^z 列，所以瓦片总数为 4^z。代入 z=3：4^3=64，也可验算为 8×8=64 片。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "numeric",
+      "answer": 64,
+      "tolerance": 0,
+      "unit": "片",
+      "placeholder": "请输入整数"
+    },
+    {
+      "id": "cesium-02-018",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在地图上点击讲义所说“从北往南数”中的北极点。",
+      "explanation": "北极点的纬度为 90°N，所有经线在此汇聚，因此目标经度记为 0°。它位于北冰洋区域，代表本章描述瓦片行号方向时的最北端。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 90,
+        "lng": 0
+      },
+      "toleranceKm": 1000
+    },
+    {
+      "id": "cesium-02-019",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "某些瓦片服务的 URL 模板除 {z}/{x}/{y} 外还有 {s}，这个变量表示什么？",
+      "explanation": "{s} 表示可替换的子域名，常用于同一瓦片服务的多个服务子域。它不承担层级、行列号或透明度计算。",
+      "refs": [
+        {
+          "title": "Cesium.UrlTemplateImageryProvider API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.UrlTemplateImageryProvider.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "瓦片服务的子域名",
+          "hint": "{s} 可展开为服务配置中的子域"
+        },
+        {
+          "key": "B",
+          "text": "瓦片的屏幕空间误差"
+        },
+        {
+          "key": "C",
+          "text": "图层的透明度"
+        },
+        {
+          "key": "D",
+          "text": "瓦片的南侧行号"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-02-020",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "下列 Provider 与数据源或典型场景的匹配，正确的有哪些？",
+      "explanation": "OSM 标准瓦片、ArcGIS REST 影像、本地 TMS 目录和单张图片分别对应题目中的四个 Provider。按数据来源选择 Provider，比强行套用一个 URL 模板更可靠。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "OpenStreetMapImageryProvider——OSM 标准瓦片"
+        },
+        {
+          "key": "B",
+          "text": "ArcGisMapServerImageryProvider——ArcGIS REST 影像服务"
+        },
+        {
+          "key": "C",
+          "text": "TileMapServiceImageryProvider——本地 TMS 目录"
+        },
+        {
+          "key": "D",
+          "text": "SingleTileImageryProvider——单张图片覆盖层"
+        },
+        {
+          "key": "E",
+          "text": "SingleTileImageryProvider——包含多个 zoom 层级的 TMS 目录"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-02-021",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "把 layer.show 设为 false 会把该图层从 imageryLayers 中永久删除。",
+      "explanation": "show=false 只隐藏图层，图层对象及其在图层栈中的位置仍然保留。要移除指定图层应调用 imageryLayers.remove(layer)。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-02-022",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "写出本章用于接入 ArcGIS REST 影像服务的 Provider 类名。",
+      "explanation": "ArcGisMapServerImageryProvider 对应 ArcGIS REST 影像服务，讲义用它接入 World_Imagery 卫星影像。注意类名中的拼写是 ArcGis。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ArcGisMapServerImageryProvider",
+        "Cesium.ArcGisMapServerImageryProvider",
+        "ArcGisMapServerImageryProvider.fromUrl",
+        "ArcGisMapServerImageryProvider.fromUrl()",
+        "Cesium.ArcGisMapServerImageryProvider.fromUrl",
+        "Cesium.ArcGisMapServerImageryProvider.fromUrl()"
+      ],
+      "placeholder": "例如：OpenStreetMapImageryProvider"
+    },
+    {
+      "id": "cesium-02-023",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "某 XYZ 瓦片金字塔在 zoom z=4 时，沿东西方向共有多少列瓦片？",
+      "explanation": "第 z 层的列数为 2^z。代入 z=4 得 2^4=16，因此东西方向共有 16 列；同一层的行数也为 16。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "numeric",
+      "answer": 16,
+      "tolerance": 0,
+      "unit": "列",
+      "placeholder": "请输入整数"
+    },
+    {
+      "id": "cesium-02-024",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "在地图上点击 XYZ 全球瓦片金字塔的西北角原点。",
+      "explanation": "XYZ 原点在西北角，即西经 180° 与 Web Mercator 最北纬度约 85.0511°N 的交点，位于北极圈附近。其 {x}=0、{y}=0，行号从这里向南增加。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 85.05112878,
+        "lng": -180
+      },
+      "toleranceKm": 1800
+    },
+    {
+      "id": "cesium-02-025",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "把某个影像图层的 alpha 设为 0，会产生什么显示效果？",
+      "explanation": "alpha 的范围是 0 到 1，0 表示全透明，因此该层的影像不可见，下层影像可以完整显示。图层对象本身并不会因此被移除。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "图层变成完全不透明"
+        },
+        {
+          "key": "B",
+          "text": "图层自动移动到栈顶"
+        },
+        {
+          "key": "C",
+          "text": "图层影像完全透明，但仍保留在图层栈中",
+          "hint": "alpha=0 控制的是透明度，不是移除或调序"
+        },
+        {
+          "key": "D",
+          "text": "整个图层栈被清空"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-02-026",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 ImageryLayer 的调序方法，下列说法正确的有哪些？",
+      "explanation": "raise 和 lower 分别相对上移、下移一层，raiseToTop 直接移到最顶。show 控制显隐，alpha 控制透明度，它们都不会改变图层在数组中的顺序。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "raise() 将图层向上移动一层"
+        },
+        {
+          "key": "B",
+          "text": "lower() 将图层向下移动一层"
+        },
+        {
+          "key": "C",
+          "text": "raiseToTop() 将图层直接移到最顶层"
+        },
+        {
+          "key": "D",
+          "text": "show=false 会把图层向下移动一层"
+        },
+        {
+          "key": "E",
+          "text": "alpha=1 会自动把图层移到最顶"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-02-027",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "SingleTileImageryProvider 适合把一张固定封面图作为极小范围的影像覆盖层。",
+      "explanation": "SingleTileImageryProvider 面向单张图片，不需要多层级瓦片目录。讲义给出的典型用途就是固定封面图或极小范围覆盖层。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-02-028",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "写出本章用于把单张图片做成影像覆盖层的 Provider 类名。",
+      "explanation": "SingleTileImageryProvider 的名称直接表达了单瓦片、单图片的数据形式，适合固定封面图和极小范围覆盖层。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "SingleTileImageryProvider",
+        "Cesium.SingleTileImageryProvider",
+        "SingleTileImageryProvider.fromUrl",
+        "SingleTileImageryProvider.fromUrl()",
+        "Cesium.SingleTileImageryProvider.fromUrl",
+        "Cesium.SingleTileImageryProvider.fromUrl()"
+      ],
+      "placeholder": "例如：TileMapServiceImageryProvider"
+    },
+    {
+      "id": "cesium-02-029",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "在 zoom z=2 的 XYZ 瓦片层中，列号 x 从 0 开始由西向东编号，最东一列的 x 是多少？",
+      "explanation": "第 2 层共有 2^2=4 列，列号依次为 0、1、2、3。最东一列是最后一列，所以 x=4-1=3，而不是列数 4。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "placeholder": "请输入从 0 开始的列号"
+    },
+    {
+      "id": "cesium-02-030",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "在地图上点击 TMS 全球瓦片金字塔的西南角原点。",
+      "explanation": "TMS 原点在西南角，即西经 180° 与 Web Mercator 最南纬度约 85.0511°S 的交点，位于南极区域。其行号由南向北增加，与 XYZ 的北原点方向相反。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -85.05112878,
+        "lng": -180
+      },
+      "toleranceKm": 1800
+    },
+    {
+      "id": "cesium-02-031",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "只想暂时隐藏标注层，之后还要快速恢复显示，最直接的操作是什么？",
+      "explanation": "把 annoLayer.show 设为 false 即可暂时隐藏，恢复时再设为 true。这样不会销毁图层对象，也不需要重新创建 Provider 或请求加入图层栈。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "调用 imageryLayers.removeAll()"
+        },
+        {
+          "key": "B",
+          "text": "把 maximumLevel 改为 0"
+        },
+        {
+          "key": "C",
+          "text": "把 credit 设为空字符串"
+        },
+        {
+          "key": "D",
+          "text": "把 annoLayer.show 设为 false，恢复时再设为 true",
+          "hint": "show 就是为图层开关准备的属性"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-02-032",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于本章采用的 Provider 创建方式与新旧 API，下列说法正确的有哪些？",
+      "explanation": "本章推荐使用 fromUrl 异步工厂，并用 ImageryLayer.fromProviderAsync 包装后交给图层。new OpenStreetMapImageryProvider 和 Viewer 的 imageryProvider 参数分别属于 1.104、1.107 之前的旧写法。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "常用 Provider 推荐通过 fromUrl 异步工厂创建"
+        },
+        {
+          "key": "B",
+          "text": "可用 ImageryLayer.fromProviderAsync 把异步 Provider 包装为图层"
+        },
+        {
+          "key": "C",
+          "text": "new OpenStreetMapImageryProvider({ url }) 是 1.104 之前的旧教程常见写法"
+        },
+        {
+          "key": "D",
+          "text": "Viewer 的 imageryProvider 参数是 1.107 之前的旧写法"
+        },
+        {
+          "key": "E",
+          "text": "当前版本仍必须优先使用 Viewer 的 imageryProvider 参数"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-02-033",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "调用 layer.lower() 会让图层向上移动一层。",
+      "explanation": "lower 的含义是向下移动一层；向上移动一层应调用 raise。若要直接到最顶层，则使用 raiseToTop。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-02-034",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "写出本章用于读取本地 TMS 目录、制作离线底图的 Provider 类名。",
+      "explanation": "TileMapServiceImageryProvider 按 TMS 约定读取瓦片目录，适合本地离线底图，讲义以 NaturalEarthII 样例说明这一用途。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "TileMapServiceImageryProvider",
+        "Cesium.TileMapServiceImageryProvider",
+        "TileMapServiceImageryProvider.fromUrl",
+        "TileMapServiceImageryProvider.fromUrl()",
+        "Cesium.TileMapServiceImageryProvider.fromUrl",
+        "Cesium.TileMapServiceImageryProvider.fromUrl()"
+      ],
+      "placeholder": "例如：SingleTileImageryProvider"
+    },
+    {
+      "id": "cesium-02-035",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "在 zoom z=3 的 XYZ 瓦片层中，行号 y 从 0 开始由北向南编号，最南一行的 y 是多少？",
+      "explanation": "第 3 层共有 2^3=8 行，从 0 开始编号时依次是 0 到 7。最南一行是最后一行，因此 y=8-1=7。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "numeric",
+      "answer": 7,
+      "tolerance": 0,
+      "placeholder": "请输入从 0 开始的行号"
+    },
+    {
+      "id": "cesium-02-036",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在地图上点击赤道上纬度、经度均为 0° 的位置。",
+      "explanation": "该目标是赤道与本初子午线的交点，坐标为 (0°, 0°)，位于非洲以西的几内亚湾。赤道把全球瓦片的南北方向分开，可帮助理解 XYZ 与 TMS 的行号方向。",
+      "refs": [
+        {
+          "title": "Slippy Map Tilenames（OSM Wiki）",
+          "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 0,
+        "lng": 0
+      },
+      "toleranceKm": 1200
+    },
+    {
+      "id": "cesium-02-037",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "图层栈中有 OSM 底图和卫星影像层 satLayer，只想移除卫星层并保留底图，应怎么做？",
+      "explanation": "imageryLayers.remove(satLayer) 只移除传入的指定图层。removeAll 会清空包括 OSM 底图在内的整个图层栈，不符合只移除卫星层的要求。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "调用 imageryLayers.removeAll()"
+        },
+        {
+          "key": "B",
+          "text": "调用 imageryLayers.remove(satLayer)",
+          "hint": "remove 接收要移除的具体图层"
+        },
+        {
+          "key": "C",
+          "text": "把 satLayer.alpha 设为 0.5"
+        },
+        {
+          "key": "D",
+          "text": "调用 satLayer.raise()"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-02-038",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "实现“影像对比开关”，要求卫星层透明度为 0.7、可反复显隐并保持最顶，哪些做法符合本章实战？",
+      "explanation": "保存 satLayer 引用并切换 show 可反复显隐，alpha=0.7 设置半透明，动态图层变化后用 raiseToTop 维护最顶。removeAll 和 maximumLevel 都不是图层开关手段。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "保存 satLayer 引用，在按钮事件中切换 satLayer.show"
+        },
+        {
+          "key": "B",
+          "text": "设置 satLayer.alpha=0.7"
+        },
+        {
+          "key": "C",
+          "text": "其他图层变化后调用 satLayer.raiseToTop()"
+        },
+        {
+          "key": "D",
+          "text": "每次隐藏卫星层都调用 imageryLayers.removeAll()"
+        },
+        {
+          "key": "E",
+          "text": "通过修改 maximumLevel 来控制卫星层显隐"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-02-039",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "本章推荐用 fromUrl 异步工厂创建常用 Provider，再交给影像图层使用。",
+      "explanation": "fromUrl 会异步完成 Provider 的创建，是当前推荐的用法。异步 Provider 可交给 ImageryLayer.fromProviderAsync 包装，或 await 后再添加到 imageryLayers。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-02-040",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "本章创建 OpenStreetMapImageryProvider 等常用 Provider 时，推荐调用哪个异步工厂方法？",
+      "explanation": "统一的异步工厂方法名是 fromUrl。它以服务 URL 为入口创建 Provider，替代老教程中直接 new Provider 的写法。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "fromUrl",
+        "fromUrl()",
+        "Provider.fromUrl",
+        "Provider.fromUrl()",
+        "OpenStreetMapImageryProvider.fromUrl",
+        "OpenStreetMapImageryProvider.fromUrl()",
+        "Cesium.OpenStreetMapImageryProvider.fromUrl",
+        "Cesium.OpenStreetMapImageryProvider.fromUrl()"
+      ],
+      "placeholder": "填写异步工厂方法名"
+    },
+    {
+      "id": "cesium-02-041",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Viewer 已有 1 层 OSM 底图，依次加入卫星、标注、天气 3 层，再调用 remove(weatherLayer) 移除天气层，最后还剩多少层？",
+      "explanation": "初始底图为 1 层，加入三层后是 1+3=4 层；remove(weatherLayer) 只移除天气层，所以最终为 4-1=3 层，分别是底图、卫星和标注。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "层",
+      "placeholder": "请输入最终图层数"
+    },
+    {
+      "id": "cesium-02-042",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "为什么仅靠本章的影像图层不能表现山地等地面的真实起伏？",
+      "explanation": "影像图层只是贴在球上的皮，提供颜色与纹理，本身没有高度信息。地面起伏需要地形数据与 TerrainProvider，属于后续章节的内容。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "因为影像图层不能设置 URL"
+        },
+        {
+          "key": "B",
+          "text": "因为影像图层只能显示单张图片"
+        },
+        {
+          "key": "C",
+          "text": "因为影像只提供贴在球面上的外观，本身没有高度",
+          "hint": "影像与地形是两类不同的数据"
+        },
+        {
+          "key": "D",
+          "text": "因为 alpha 会自动删除所有高度"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-02-043",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "接入一个真实最大层级为 12 的 TMS 服务后，地图上下颠倒且高层级出现 404。下列整改正确的有哪些？",
+      "explanation": "maximumLevel=12 与真实数据一致，可避免请求不存在的更高层级。上下颠倒说明 y 方向不匹配，应换用遵循 TMS 约定的 Provider，或按讲义调整 GeographicTilingScheme；透明度和署名不能修复这两个问题。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 maximumLevel 如实设置为 12"
+        },
+        {
+          "key": "B",
+          "text": "换用遵循 TMS 约定的 TileMapServiceImageryProvider"
+        },
+        {
+          "key": "C",
+          "text": "按讲义将 tilingScheme 调整为 GeographicTilingScheme"
+        },
+        {
+          "key": "D",
+          "text": "把 alpha 调成 0.5 即可修正 y 方向"
+        },
+        {
+          "key": "E",
+          "text": "只补充 credit 即可生成缺失的瓦片"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-02-044",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "只要给瓦片图层设置了 credit，就可以不再遵守该瓦片服务的使用政策。",
+      "explanation": "credit 用于署名数据来源，是遵守服务条款的一部分，而不是豁免条款。接入 OSM、ArcGIS 等服务时仍需遵守各自的访问与使用政策。",
+      "refs": [
+        {
+          "title": "OSM 瓦片使用政策",
+          "url": "https://operations.osmfoundation.org/policies/tiles/"
+        },
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-02-045",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "第 00 章 Viewer 的 baseLayer 可用哪个 ImageryLayer 异步工厂包装 fromUrl 返回的 Provider？写出方法名。",
+      "explanation": "ImageryLayer.fromProviderAsync 接收异步 Provider 并生成可用于 Viewer baseLayer 的影像图层。这正是讲义实战代码中连接 Provider 与 Viewer 的方法。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "fromProviderAsync",
+        "fromProviderAsync()",
+        "ImageryLayer.fromProviderAsync",
+        "ImageryLayer.fromProviderAsync()",
+        "Cesium.ImageryLayer.fromProviderAsync",
+        "Cesium.ImageryLayer.fromProviderAsync()"
+      ],
+      "placeholder": "例如：ImageryLayer.fromProviderAsync"
+    },
+    {
+      "id": "cesium-02-046",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "希望某个影像图层呈现 65% 的透明程度，alpha 应设为多少？",
+      "explanation": "alpha 表示不透明度，1 为完全不透明。透明程度为 65% 时，不透明度为 1-0.65=0.35，因此应设置 alpha=0.35。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.35,
+      "tolerance": 0,
+      "placeholder": "例如：0.5"
+    },
+    {
+      "id": "cesium-02-047",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "按底图 B、标注 A、卫星 S 的顺序加入图层，随后调用 S.lower()，再调用 B.raiseToTop()，最终从上到下是什么顺序？",
+      "explanation": "初始从下到上为 B、A、S。S.lower() 后为 B、S、A；再把 B 移到最顶，从下到上变为 S、A、B，因此最终从上到下是 B、A、S。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "B → A → S",
+          "hint": "先让 S 下移一层，再把 B 显式移到最顶"
+        },
+        {
+          "key": "B",
+          "text": "S → A → B"
+        },
+        {
+          "key": "C",
+          "text": "A → S → B"
+        },
+        {
+          "key": "D",
+          "text": "B → S → A"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-02-048",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "依次执行 satLayer.show=false、satLayer.alpha=0.8、satLayer.raiseToTop() 后不再操作，下列结论正确的有哪些？",
+      "explanation": "show=false 决定当前不可见，alpha=0.8 会保留供恢复显示后混合使用，raiseToTop 只调整顺序而不会改 show。因此图层仍在栈中且位于最顶，但当前隐藏。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星层当前不可见"
+        },
+        {
+          "key": "B",
+          "text": "卫星层位于图层栈最顶"
+        },
+        {
+          "key": "C",
+          "text": "之后把 show 改回 true，会按 alpha=0.8 参与混合"
+        },
+        {
+          "key": "D",
+          "text": "alpha=0.8 会自动把 show 改回 true"
+        },
+        {
+          "key": "E",
+          "text": "raiseToTop() 会把卫星层从栈中移除"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-02-049",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "某图层已被 imageryLayers.remove(layer) 移除，之后只执行 layer.show=true 就能让它重新加入图层栈。",
+      "explanation": "remove 已把图层从 imageryLayers 中移除，修改它自身的 show 属性不会改变栈的成员。要重新显示，必须重新把该图层添加到 imageryLayers。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-02-050",
+      "skill": "cesium",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "用 UrlTemplateImageryProvider 接 TMS 服务时，讲义示例可把 tilingScheme 设为哪个 Cesium 类的新实例？写出类名。",
+      "explanation": "讲义给出的调整方向是 tilingScheme: new Cesium.GeographicTilingScheme()，目的是让瓦片方案与服务约定匹配；也可以改用遵循 TMS 约定的 TileMapServiceImageryProvider。",
+      "refs": [
+        {
+          "title": "CesiumJS 影像图层教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-imagery/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "GeographicTilingScheme",
+        "Cesium.GeographicTilingScheme",
+        "new GeographicTilingScheme",
+        "new GeographicTilingScheme()",
+        "new Cesium.GeographicTilingScheme",
+        "new Cesium.GeographicTilingScheme()"
+      ],
+      "placeholder": "填写 tilingScheme 的类名"
     }
   ]
 }

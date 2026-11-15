@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "11",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-11-001",
@@ -377,6 +377,1052 @@
         "全屏帧缓冲着色"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-11-014",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "已通过 const bw = stages.add(library.createBlackAndWhiteStage()) 加入黑白滤镜，现在只想把 bw 移出滤镜链，应调用什么？",
+      "explanation": "add 会返回已入链的 stage，保存这个返回值后，把它传给 stages.remove(bw) 即可精确移除。把 enabled 设为 false 只是停用效果，并不等同于从链中移除。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "stages.remove(bw)",
+          "hint": "remove 接收要移出链的具体 stage"
+        },
+        {
+          "key": "B",
+          "text": "stages.remove()，不传参数"
+        },
+        {
+          "key": "C",
+          "text": "bw.enabled = false，并认为它已经出链"
+        },
+        {
+          "key": "D",
+          "text": "stages.add(bw)，再添加一次"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-11-015",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "哪些效果可以直接通过 viewer.scene.postProcessStages 上同名属性的 enabled 开关控制？",
+      "explanation": "fxaa、bloom、ambientOcclusion 是 collection 上常驻的内置三件套，可直接切换 enabled。黑白和夜视则由 PostProcessStageLibrary 的工厂函数创建，再用 add 入链。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "fxaa"
+        },
+        {
+          "key": "B",
+          "text": "createBlackAndWhiteStage"
+        },
+        {
+          "key": "C",
+          "text": "bloom"
+        },
+        {
+          "key": "D",
+          "text": "createNightVisionStage"
+        },
+        {
+          "key": "E",
+          "text": "ambientOcclusion"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-11-016",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "下列 PostProcessStageLibrary 工厂函数与其主要视觉效果的对应关系，哪些是正确的？",
+      "explanation": "夜视仪呈现荧光绿，景深让对焦区域清晰而失焦区域模糊，镜头光斑模拟光学眩光。黑白效果负责灰度化，只显示泛光层则是 bloom 的 glowOnly 调试功能。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStageLibrary API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStageLibrary.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "createNightVisionStage——荧光绿夜视画面"
+        },
+        {
+          "key": "B",
+          "text": "createDepthOfFieldStage——对焦清晰、失焦模糊"
+        },
+        {
+          "key": "C",
+          "text": "createLensFlareStage——镜头光斑"
+        },
+        {
+          "key": "D",
+          "text": "createBlackAndWhiteStage——只显示泛光层"
+        },
+        {
+          "key": "E",
+          "text": "createNightVisionStage——给缝隙与角落加阴影"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-11-017",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "调用 PostProcessStageLibrary.createNightVisionStage() 后，夜视 stage 会自动进入滤镜链，无需再调用 add。",
+      "explanation": "该说法错误。效果库的工厂函数只负责创建 stage；要参与渲染，还需 viewer.scene.postProcessStages.add(night) 将其加入滤镜链，不用时可用 remove 移除。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStageLibrary API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStageLibrary.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-11-018",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "想增强建筑缝隙与角落的阴影，让三维看板更有立体感，最直接应开启哪个内置效果？",
+      "explanation": "ambientOcclusion 是常驻的环境光遮蔽 stage，开启后会在缝隙与角落补充遮蔽阴影。FXAA 处理边缘锯齿，bloom 负责亮区光晕，夜视则把画面转成荧光绿。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "stages.fxaa.enabled = true"
+        },
+        {
+          "key": "B",
+          "text": "stages.bloom.enabled = true"
+        },
+        {
+          "key": "C",
+          "text": "stages.ambientOcclusion.enabled = true",
+          "hint": "环境光遮蔽专门增强缝隙与角落阴影"
+        },
+        {
+          "key": "D",
+          "text": "stages.add(library.createNightVisionStage())"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-11-019",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "创建自定义全屏像素滤镜应实例化哪个类？配置项 fragmentShader 表示什么类型的着色器？",
+      "explanation": "自定义后处理使用 Cesium.PostProcessStage，构造参数中的 fragmentShader 是片元着色器代码，也就是 fragment shader；它会对整屏像素执行颜色加工。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium.PostProcessStage；fragment shader（片元着色器）",
+        "PostProcessStage；fragment shader",
+        "PostProcessStage；片元着色器",
+        "new Cesium.PostProcessStage；fragmentShader 是片元着色器",
+        "PostProcessStage，fragmentShader"
+      ],
+      "placeholder": "例如：PostProcessStage；片元着色器"
+    },
+    {
+      "id": "cesium-11-020",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "关于自定义 stage 的 uniforms 配置与动态调参，下列说法哪些正确？",
+      "explanation": "uniforms 既可传常量，也可传每帧求值的函数；JS 配置键必须与 shader 中的 uniform 名一致且不加额外前缀。stage 创建后仍可通过 stage.uniforms.brightness 直接改值。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "shader 声明 brightness 时，JS 的 uniforms 也使用 brightness 键"
+        },
+        {
+          "key": "B",
+          "text": "strength 可以直接设为常量 0.55"
+        },
+        {
+          "key": "C",
+          "text": "brightness 可以设为函数，由每帧返回值驱动变化"
+        },
+        {
+          "key": "D",
+          "text": "创建后可执行 stage.uniforms.brightness = 1.2"
+        },
+        {
+          "key": "E",
+          "text": "shader 叫 brightness 时，JS 键必须改名为 u_brightness"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-11-021",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "要制作讲义所说的「夜景城市亮区泛光」演示，并选用上海外滩沿岸城市景观，请在地图上点击上海的大致位置。",
+      "explanation": "上海位于中国东部、长江入海口附近，目标点取市中心约 31.2304°N、121.4737°E，城市级容差为 300 km。外滩沿岸夜景灯光密集，适合演示 bloom 的亮区光晕。",
+      "refs": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        },
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 31.2304,
+        "lng": 121.4737
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-11-022",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "在新版本 GLSL3 上下文中，自定义 PostProcessStage 的 fragment shader 应把最终颜色写入哪个输出变量？",
+      "explanation": "本章模板的输出变量固定为 out_FragColor。直接沿用旧式 gl_FragColor 是常见运行故障；colorTexture 是输入纹理，v_textureCoordinates 则用于纹理采样。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "colorTexture"
+        },
+        {
+          "key": "B",
+          "text": "v_textureCoordinates"
+        },
+        {
+          "key": "C",
+          "text": "gl_FragColor"
+        },
+        {
+          "key": "D",
+          "text": "out_FragColor",
+          "hint": "新版本模板使用这个输出变量"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-11-023",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "讲义中的反色滤镜使用 vec4(1.0 - color.rgb, color.a)，因此它只反转 RGB，保留原来的 alpha。",
+      "explanation": "该说法正确。1.0 - color.rgb 分别对红、绿、蓝三个分量取反色，而第四个分量直接写入 color.a，所以原始透明度不会被反转。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-11-024",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "关于用 selected 把自定义滤镜限制在选中要素上，下列说法哪些正确？",
+      "explanation": "selected 接收要素数组，拾取结果可写成 [pickedFeature]；自定义 shader 用 czm_selected(v_textureCoordinates) 判断当前像素是否属于选中要素，未选中分支可以原样输出颜色。3D Tiles 要素与 Entity 均可使用。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "selected 必须传 true 或 false"
+        },
+        {
+          "key": "B",
+          "text": "可把拾取结果赋为 selected = [pickedFeature]"
+        },
+        {
+          "key": "C",
+          "text": "shader 可用 czm_selected(v_textureCoordinates) 做分支判断"
+        },
+        {
+          "key": "D",
+          "text": "未选中的像素可在 else 分支原样输出"
+        },
+        {
+          "key": "E",
+          "text": "selected 只支持 Entity，不能用于 3D Tiles 要素"
+        }
+      ],
+      "answer": [
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-11-025",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "一个全屏后处理 stage 的帧缓冲尺寸为 1920×1080，每次全屏 pass 要处理多少个像素？（填数值）",
+      "explanation": "全屏像素数等于帧缓冲宽度乘高度：1920 × 1080 = 2,073,600。每个 stage 都要对这批像素进行一次纹理读写，因此它是一次全屏 pass 的基础开销。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2073600,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "例如：1000000"
+    },
+    {
+      "id": "cesium-11-026",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "createBlackAndWhiteStage() 创建的黑白 stage 中，uniforms.gradations 用来控制什么？",
+      "explanation": "gradations 控制黑白效果的灰阶数，即灰度层次的量化级别。它不是 bloom 的亮度参数，也不负责夜视颜色或 selected 要素数组。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStageLibrary API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStageLibrary.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "泛光效果的亮度阈值"
+        },
+        {
+          "key": "B",
+          "text": "黑白效果的灰阶数",
+          "hint": "gradations 表示灰度层次数量"
+        },
+        {
+          "key": "C",
+          "text": "夜视画面的绿色浓度"
+        },
+        {
+          "key": "D",
+          "text": "轮廓效果的选中要素数组"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-11-027",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "写出 viewer.scene 上后处理滤镜链的属性名，以及读取链上 stage 层数的属性名。",
+      "explanation": "滤镜链属性是 viewer.scene.postProcessStages，其类型为 PostProcessStageCollection；length 给出当前链上的层数，add 与 remove 则负责调整链内容。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "viewer.scene.postProcessStages；length",
+        "scene.postProcessStages；length",
+        "postProcessStages；length",
+        "viewer.scene.postProcessStages.length",
+        "scene.postProcessStages.length",
+        "PostProcessStageCollection；length"
+      ],
+      "placeholder": "例如：postProcessStages；length"
+    },
+    {
+      "id": "cesium-11-028",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "亮度 uniform 使用 () => 0.8 + 0.2 * Math.sin(performance.now() / 500)。当 performance.now() 恰好为 250π 时，brightness 的值是多少？",
+      "explanation": "先算角度：performance.now() / 500 = 250π / 500 = π / 2，因此正弦值为 1。代入得 brightness = 0.8 + 0.2 × 1 = 1.0，数值答案为 1。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        },
+        {
+          "title": "MDN Math.sin()",
+          "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math/sin"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1,
+      "tolerance": 0,
+      "placeholder": "例如：0.8"
+    },
+    {
+      "id": "cesium-11-029",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "每个自定义 PostProcessStage 都必须声明 depthTexture，否则即使只做反色也无法运行。",
+      "explanation": "该说法错误。colorTexture 与纹理坐标是颜色后处理的基本输入；depthTexture 只在需要深度时声明。反色、亮度、暗角等纯颜色滤镜不必读取深度纹理。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-11-030",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "要在山地建筑密集的城市看板上演示 ambientOcclusion 增强缝隙阴影，并选用重庆作为案例，请在地图上点击重庆的大致位置。",
+      "explanation": "重庆位于中国西南部、长江与嘉陵江交汇区域，目标点取市中心约 29.5630°N、106.5516°E，城市级容差为 300 km。山地城市建筑高差与街谷层次丰富，便于观察环境光遮蔽带来的角落阴影。",
+      "refs": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        },
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 29.563,
+        "lng": 106.5516
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-11-031",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "调试 bloom 时设置 stages.bloom.uniforms.glowOnly = true，画面会呈现什么？",
+      "explanation": "glowOnly 为 true 时只查看泛光层，便于单独观察亮区产生的光晕并调参；恢复 false 后才把泛光效果与原始画面正常组合。它不会关闭滤镜链或切换成夜视效果。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "只显示泛光层，便于调参",
+          "hint": "glowOnly 的字面作用就是仅看光晕"
+        },
+        {
+          "key": "B",
+          "text": "关闭整个后处理滤镜链"
+        },
+        {
+          "key": "C",
+          "text": "强制切换成荧光绿夜视画面"
+        },
+        {
+          "key": "D",
+          "text": "只保留原始颜色，不再生成光晕"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-11-032",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "自定义亮度滤镜中，GLSL 与 JS 两侧分别怎样声明 brightness uniform，两侧命名要遵守什么规则？",
+      "explanation": "GLSL 中写 uniform float brightness;，JS 构造参数写 uniforms: { brightness: 数值或函数 }。两侧键名必须同为 brightness，不需要添加 u_ 等前缀，之后也可通过 stage.uniforms.brightness 改值。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "uniform float brightness;；uniforms: { brightness: 值 }；键名一致",
+        "GLSL 声明 uniform float brightness，JS uniforms 使用 brightness，名称一致",
+        "uniform float brightness；uniforms.brightness；无前缀且同名",
+        "uniform float brightness; + uniforms: { brightness }，两边同名",
+        "glsl uniform float brightness，js uniforms brightness"
+      ],
+      "placeholder": "写出 GLSL 声明、JS 键名及命名规则"
+    },
+    {
+      "id": "cesium-11-033",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "按照讲义的自定义暗角 shader，下列哪些代码或作用描述是正确的？",
+      "explanation": "暗角先以 vec2(0.5) 为中心求偏移，再用长度表示离中心的距离；smoothstep 生成平滑衰减，dim 乘到 RGB 上而 alpha 保持原值。strength 增大是加强边缘变暗，不是把中心强制增亮。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "vec2 delta = v_textureCoordinates - vec2(0.5)"
+        },
+        {
+          "key": "B",
+          "text": "float dist = length(delta) * 1.414"
+        },
+        {
+          "key": "C",
+          "text": "dim 可由 1.0 - strength * smoothstep(...) 得到"
+        },
+        {
+          "key": "D",
+          "text": "输出使用 color.rgb * dim，同时保留 color.a"
+        },
+        {
+          "key": "E",
+          "text": "strength 越大，屏幕中心就会被强制增亮越多"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-11-034",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "PostProcessStage 的默认采样模式是 LINEAR；如果不手动设置，纹理采样一定会做平滑线性插值。",
+      "explanation": "该说法错误。讲义明确给出的默认 sampleMode 是 NEAREST；只有需要平滑插值时，才显式设置 sampleMode: PostProcessStageSampleMode.LINEAR。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-11-035",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "看板中的建筑边缘锯齿较明显，若只想开启内置的后处理抗锯齿，应执行哪一行？",
+      "explanation": "stages.fxaa.enabled = true 会开启内置 FXAA，在渲染末端平滑边缘。bloom 与 ambientOcclusion 分别负责泛光和角落阴影，夜视工厂则生成荧光绿画面，都不是抗锯齿开关。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "stages.bloom.enabled = true"
+        },
+        {
+          "key": "B",
+          "text": "stages.ambientOcclusion.enabled = true"
+        },
+        {
+          "key": "C",
+          "text": "stages.add(library.createNightVisionStage())"
+        },
+        {
+          "key": "D",
+          "text": "stages.fxaa.enabled = true",
+          "hint": "FXAA 是本章的后处理抗锯齿"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-11-036",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "反色 shader 对 RGB 执行 1.0 - color.rgb。某像素红色分量为 0.25，处理后红色分量是多少？",
+      "explanation": "反色只对该分量做 1 减原值的运算：1.0 - 0.25 = 0.75，因此处理后的红色分量是 0.75；alpha 不参与这次计算。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.75,
+      "tolerance": 0,
+      "placeholder": "例如：0.5"
+    },
+    {
+      "id": "cesium-11-037",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "自定义后处理需要平滑线性插值时，sampleMode 应设置为哪个完整枚举值？",
+      "explanation": "应设置 sampleMode: PostProcessStageSampleMode.LINEAR。默认模式是 NEAREST；LINEAR 只改变采样插值方式，不会减少 stage 数量或全屏 pass 数。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "PostProcessStageSampleMode.LINEAR",
+        "Cesium.PostProcessStageSampleMode.LINEAR",
+        "sampleMode: PostProcessStageSampleMode.LINEAR",
+        "LINEAR",
+        "线性插值 LINEAR"
+      ],
+      "placeholder": "例如：PostProcessStageSampleMode.LINEAR"
+    },
+    {
+      "id": "cesium-11-038",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "一个读取深度的自定义 stage 在部分设备报 DeveloperError，另一个旧 shader 在 GLSL3 环境中没有正确输出。哪些排查或修复符合本章约定？",
+      "explanation": "深度能力要先用 stage.isSupported 探测，不支持时降级；GLSL3 模板输出应使用 out_FragColor，颜色输入则用 colorTexture 配合 v_textureCoordinates。强制跳过能力探测或退回 gl_FragColor 都会延续故障。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把最终颜色输出改为 out_FragColor"
+        },
+        {
+          "key": "B",
+          "text": "检查 stage.isSupported，深度能力不足时先降级"
+        },
+        {
+          "key": "C",
+          "text": "核对 colorTexture 与 v_textureCoordinates 的采样写法"
+        },
+        {
+          "key": "D",
+          "text": "忽略 isSupported，在不支持深度纹理的设备上也强制执行"
+        },
+        {
+          "key": "E",
+          "text": "把 out_FragColor 改回 gl_FragColor 以适配 GLSL3"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-11-039",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "要在北京的城市 3D Tiles 看板中演示拾取建筑后用 silhouette.selected 描边，请在地图上点击北京的大致位置。",
+      "explanation": "北京位于中国北部、华北平原西北缘，目标点取市中心约 39.9042°N、116.4074°E，城市级容差为 300 km。城市建筑看板可把 scene.pick 得到的要素数组交给轮廓 stage，实现选中描边。",
+      "refs": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        },
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9042,
+        "lng": 116.4074
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-11-040",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "monitorStage 是已创建并暂存的黑白 stage。要让 setMonitorMode(true) 进入「黑白、无泛光」监控模式，同时让 false 恢复原状态，应怎样写？",
+      "explanation": "监控模式开启时应关闭 bloom、启用 monitorStage；关闭时二者反向恢复。因此两行应分别是 stages.bloom.enabled = !on 与 monitorStage.enabled = on，不能用两个相同的布尔值同时开关。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "stages.bloom.enabled = on; monitorStage.enabled = !on"
+        },
+        {
+          "key": "B",
+          "text": "stages.bloom.enabled = false; monitorStage.enabled = false"
+        },
+        {
+          "key": "C",
+          "text": "stages.bloom.enabled = !on; monitorStage.enabled = on",
+          "hint": "on 为 true 时去泛光并启用黑白，false 时反向恢复"
+        },
+        {
+          "key": "D",
+          "text": "stages.bloom.enabled = true; monitorStage.enabled = true"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-11-041",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "后处理 stage 的 selected 属性接收什么数据？这些选中要素通常可以从哪个拾取操作获得？",
+      "explanation": "selected 接收要素数组，例如 selected = [pickedFeature]，数组元素可以是 3D Tiles 要素或 Entity。它们通常来自 scene.pick 的拾取结果，再交给轮廓或自定义 stage 做局部处理。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "要素数组（3D Tiles 要素或 Entity），可来自 scene.pick",
+        "[pickedFeature]；3D Tiles 要素或 Entity 的数组",
+        "selected 接收数组，数据来自 scene.pick 拾取结果",
+        "PostProcessStage.selected = [pickedFeature]",
+        "Entity 或 3D Tiles 要素数组，scene.pick"
+      ],
+      "placeholder": "例如：要素数组，来自 scene.pick"
+    },
+    {
+      "id": "cesium-11-042",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "某像素 color.rgb = vec3(0.2, 0.4, 0.6)。按讲义 sepia 矩阵第一行 dot(color.rgb, vec3(0.393, 0.769, 0.189)) 计算，sepiaRgb 的红色分量是多少？",
+      "explanation": "点积要求对应分量相乘再求和：0.2 × 0.393 = 0.0786，0.4 × 0.769 = 0.3076，0.6 × 0.189 = 0.1134；三者相加为 0.0786 + 0.3076 + 0.1134 = 0.4996。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.4996,
+      "tolerance": 0,
+      "placeholder": "例如：0.25"
+    },
+    {
+      "id": "cesium-11-043",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "执行 stages.fxaa.enabled = false 会永久销毁 FXAA stage，之后不能再通过 enabled = true 恢复。",
+      "explanation": "该说法错误。enabled 是布尔开关，false 只是暂时停用内置 FXAA，并不等于 remove 或销毁；需要时重新设置 stages.fxaa.enabled = true 即可恢复。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-11-044",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 2,
+      "stem": "静态看板开启后处理后，滤镜与场景都很久不变化。讲义建议配合哪个渲染模式，避免没有变化时仍持续重绘和运行滤镜？",
+      "explanation": "应配合 requestRenderMode。静态看板在滤镜没变时无需持续重绘，请求渲染能减少无效的全屏 pass；若 uniforms 使用每帧函数等持续变化的数据源，则仍可能驱动画面刷新。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "requestRenderMode",
+        "requestRenderMode = true",
+        "scene.requestRenderMode",
+        "viewer.scene.requestRenderMode",
+        "请求渲染模式 requestRenderMode"
+      ],
+      "placeholder": "填写渲染模式的英文 API 名"
+    },
+    {
+      "id": "cesium-11-045",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "在不牺牲目标视觉效果的前提下，哪些做法能减少后处理的无效开销或全屏 pass 数？",
+      "explanation": "反色与亮度这类逐像素逻辑可合并到一个 fragmentShader，未使用的 stage 应移除，静态看板可配合 requestRenderMode。拆成更多 stage 会增加 pass；LINEAR 只改变插值方式，并不会减少全屏 pass 数。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把反色与亮度合并进同一个 fragmentShader"
+        },
+        {
+          "key": "B",
+          "text": "把不再使用的自定义 stage 从链中 remove"
+        },
+        {
+          "key": "C",
+          "text": "静态看板配合 requestRenderMode，画面不变就不重绘"
+        },
+        {
+          "key": "D",
+          "text": "把一个 shader 能完成的效果拆成更多独立 stage"
+        },
+        {
+          "key": "E",
+          "text": "把 NEAREST 改为 LINEAR，以此减少全屏 pass 数"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-11-046",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "sepia 示例使用 mix(color.rgb, sepiaRgb, strength)。把 strength 固定为 1.0 时，RGB 输出体现什么？",
+      "explanation": "mix 的第三参数为 1.0 时完全选择第二个颜色输入，因此 RGB 是纯 sepiaRgb，不再保留原色与棕褐色的中间混合；alpha 仍由输出表达式单独保留。strength 为 0 才完全是原色。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "完全采用 sepiaRgb，呈现纯棕褐色矩阵结果",
+          "hint": "mix 的插值权重为 1 时选择第二个颜色"
+        },
+        {
+          "key": "B",
+          "text": "完全保留 color.rgb，不应用棕褐色"
+        },
+        {
+          "key": "C",
+          "text": "把 RGB 全部强制改为 1.0"
+        },
+        {
+          "key": "D",
+          "text": "只把 alpha 改为 0，RGB 不变"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-11-047",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 1,
+      "stem": "要为讲义中的「夜景城市 + 镜头光斑」演示选用纽约曼哈顿景观，请在地图上点击纽约的大致位置。",
+      "explanation": "纽约位于美国东北部、哈德孙河入海口附近，目标点取曼哈顿南部约 40.7128°N、74.0060°W，城市级容差为 300 km。曼哈顿高层建筑群与夜景灯光适合展示镜头光斑等后处理效果。",
+      "refs": [
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        },
+        {
+          "title": "Cesium.PostProcessStageLibrary API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStageLibrary.html"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.7128,
+        "lng": -74.006
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-11-048",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "sepia 实战在 10 秒后要停止呼吸动画并卸下滤镜。setTimeout 回调里必须完成哪两项清理？",
+      "explanation": "先 clearInterval(timer) 停止定时修改 strength，再 viewer.scene.postProcessStages.remove(sepia) 把滤镜移出链。只做前一项会留下全屏 pass，只做后一项则会让定时器继续无意义运行。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        },
+        {
+          "title": "MDN clearInterval()",
+          "url": "https://developer.mozilla.org/zh-CN/docs/Web/API/Window/clearInterval"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "clearInterval(timer)；viewer.scene.postProcessStages.remove(sepia)",
+        "clearInterval(timer)；postProcessStages.remove(sepia)",
+        "清除定时器并移除 sepia stage",
+        "clearInterval + remove(sepia)",
+        "停止 setInterval，并从滤镜链 remove sepia"
+      ],
+      "placeholder": "写出定时器清理与 stage 移除操作"
+    },
+    {
+      "id": "cesium-11-049",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "暗角 shader 在屏幕中心得到 delta = vec2(0.5)，因此中心 dist 最大；越靠四角 delta 越接近零，画面越亮。",
+      "explanation": "该说法把方向说反了。中心 v_textureCoordinates 为 vec2(0.5)，减去中心后 delta 为零、dist 最小；离中心越远，偏移长度与 smoothstep 衰减越大，dim 越小，所以四周更暗。",
+      "refs": [
+        {
+          "title": "Cesium.PostProcessStage API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PostProcessStage.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-11-050",
+      "skill": "cesium",
+      "module": "11",
+      "difficulty": 3,
+      "stem": "某条只含自定义 stage 的滤镜链初始 length 为 2。先 add 黑白、夜视、景深、暗角 4 个 stage，再 remove 黑白和夜视；随后把旧景深与旧暗角合并为一个新 stage，remove 这两个旧 stage 并 add 合并 stage。最终 length 是多少？",
+      "explanation": "分步计数：初始 2 个，加 4 个后为 6 个；移除黑白和夜视后为 4 个；合并时再移除旧景深与旧暗角，剩 2 个，最后加入合并 stage，得到 2 + 1 = 3 个。",
+      "refs": [
+        {
+          "title": "CesiumJS Post Processing 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-post-processing/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "例如：4"
     }
   ]
 }

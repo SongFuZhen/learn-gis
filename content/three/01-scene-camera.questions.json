@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "01",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-01-001",
@@ -318,6 +318,942 @@
       "answer": 2,
       "tolerance": 0,
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-01-014",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "在保持 aspect、near、far 不变时，把 PerspectiveCamera 的 fov 从 45 调到 80，最直接的变化是什么？",
+      "explanation": "fov 控制纵向视野角。调大 fov 会让纵向视野更宽，同时透视变形更明显；它不会自动移动相机，也不会替你修改近、远裁剪面。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.fov",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "纵向视野变窄，透视变形减弱" },
+        { "key": "B", "text": "near 自动变为 80" },
+        { "key": "C", "text": "相机自动向后移动" },
+        {
+          "key": "D",
+          "text": "纵向视野更宽，透视变形更明显",
+          "hint": "fov 是纵向视野角，调大就会看得更宽"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-01-015",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "Object3D.add 可以在一次调用中添加多个子节点，例如 robot.add(body, head)。",
+      "explanation": "正确。add 支持一次传入多个对象，示例中的 robot.add(body, head) 会把 body 和 head 都添加为 robot 的直属子节点，不需要拆成两次调用。",
+      "refs": [
+        {
+          "title": "three.js Object3D.add",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-01-016",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "某帧 now = 1250，previousTime = 1000，仅按 (now - previousTime) / 1000 计算原始 delta（本题不应用 0.05 秒上限），结果是多少秒？",
+      "explanation": "两个时间戳之差为 1250-1000=250 毫秒。再除以 1000 转换成秒，得到原始 delta=250/1000=0.25 秒；本题只考单位换算，不执行后续截断。",
+      "refs": [
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.25,
+      "tolerance": 0,
+      "unit": "秒",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-01-017",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于透视相机与正交相机的参数和使用场景，下列说法正确的有哪些？",
+      "explanation": "产品展示、漫游通常利用透视投影的近大远小，工程图、轴测视图和编辑器则常用正交投影。两种相机都需要 near、far 界定可见深度，正交相机用左右上下边界而非 fov 描述视图。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        },
+        {
+          "title": "three.js OrthographicCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/OrthographicCamera"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "产品展示和漫游通常优先考虑透视相机",
+          "hint": "透视投影更符合人眼观察时的近大远小"
+        },
+        {
+          "key": "B",
+          "text": "工程图、轴测视图和编辑器适合使用正交相机",
+          "hint": "正交投影不会因距离产生近大远小"
+        },
+        {
+          "key": "C",
+          "text": "正交相机同样需要 near 和 far 界定可见深度",
+          "hint": "本章 OrthographicCamera 示例的最后两个参数就是 near、far"
+        },
+        { "key": "D", "text": "正交相机通过 fov 参数设置纵向视野角" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-01-018",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章把渲染器输出颜色空间显式设为 sRGB 时，应给 renderer.outputColorSpace 赋哪个 three 常量？（只写常量名）",
+      "explanation": "示例使用 renderer.outputColorSpace = THREE.SRGBColorSpace。这个常量明确指定 sRGB 输出，便于团队统一颜色空间约定。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.outputColorSpace",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "short",
+      "accepted": ["SRGBColorSpace", "THREE.SRGBColorSpace"],
+      "placeholder": "例如：SRGBColorSpace"
+    },
+    {
+      "id": "three-01-019",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "代码只执行 const cube = new THREE.Mesh(geometry, material)，随后直接渲染空 Scene。要让 cube 参与该场景渲染，还缺什么操作？",
+      "explanation": "创建 Mesh 只在内存中生成一个对象，不会自动把它挂进场景树。还要执行 scene.add(cube)，渲染器遍历该 Scene 时才会处理这个网格。",
+      "refs": [
+        {
+          "title": "three.js Object3D.add",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Scene",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只执行 camera.lookAt(0, 0, 0)" },
+        {
+          "key": "B",
+          "text": "执行 scene.add(cube)",
+          "hint": "新对象必须挂到要渲染的场景树中"
+        },
+        { "key": "C", "text": "立即执行 geometry.dispose()" },
+        { "key": "D", "text": "把 renderer 的像素比设为 0" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-01-020",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "在画布显示尺寸不变时，提高 renderer 的像素比会减少内部绘制缓冲区像素数，从而降低片元工作量。",
+      "explanation": "错误。提高像素比会同时放大内部绘制缓冲区的宽和高，总像素数增加，片元工作量也随之上升，因此高分屏下建议给像素比设置上限。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.setPixelRatio",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-01-021",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "画布 CSS 尺寸为 800×600，devicePixelRatio 为 3。执行 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)) 后，绘制缓冲区共有多少像素？",
+      "explanation": "设备像素比 3 被封顶为 2，因此缓冲区宽为 800×2=1600，高为 600×2=1200，总像素数为 1600×1200=1,920,000。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.setPixelRatio",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer.setPixelRatio"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1920000,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-01-022",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "按本章的黑屏排查链，下列检查项符合推荐流程的有哪些？",
+      "explanation": "推荐依次检查场景树挂载、父级变换、相机视锥、材质光照和渲染循环。这样能从结构逐步查到像素，而不是尚未确认物体是否入镜就随机更换材质。",
+      "refs": [
+        {
+          "title": "three.js Scene",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        },
+        {
+          "title": "three.js PerspectiveCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "确认物体确实位于待渲染的场景树中",
+          "hint": "先检查挂载关系"
+        },
+        {
+          "key": "B",
+          "text": "检查父级变换是否把物体移出了观察区域",
+          "hint": "父级变换会传递给子节点"
+        },
+        {
+          "key": "C",
+          "text": "确认目标位于相机视锥内",
+          "hint": "物体存在不代表它一定入镜"
+        },
+        {
+          "key": "D",
+          "text": "检查材质是否有合适光照，以及渲染循环是否仍执行",
+          "hint": "结构检查之后再继续检查像素生成条件"
+        },
+        { "key": "E", "text": "跳过结构检查，先反复随机更换材质" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-01-023",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "PerspectiveCamera 的 far 参数主要界定什么？",
+      "explanation": "far 是远平面距离，与 near 一起界定可见深度范围。调大 far 能让更远的物体入镜，但过大的深度范围会使深度精度更紧张。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.far",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "可见深度范围的最远平面距离",
+          "hint": "far 与 near 共同限定深度范围"
+        },
+        { "key": "B", "text": "相机的纵向视野角" },
+        { "key": "C", "text": "画布的 CSS 显示宽度" },
+        { "key": "D", "text": "渲染器的内部像素密度" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-01-024",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "画布只位于页面某个容器中，适配时应读取该容器的哪两个 DOM 尺寸属性来代替 window 宽高？（写出属性名）",
+      "explanation": "容器内画布应读取容器的 clientWidth 和 clientHeight，分别作为显示宽度与高度；无条件使用 window.innerWidth、innerHeight 会忽略容器实际布局。",
+      "refs": [
+        {
+          "title": "MDN Element.clientWidth",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/clientWidth"
+        },
+        {
+          "title": "MDN Element.clientHeight",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/clientHeight"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "clientWidth/clientHeight",
+        "clientWidth / clientHeight",
+        "clientWidth、clientHeight",
+        "clientWidth 和 clientHeight",
+        "container.clientWidth/container.clientHeight",
+        "container.clientWidth / container.clientHeight"
+      ],
+      "placeholder": "例如：clientWidth / clientHeight"
+    },
+    {
+      "id": "three-01-025",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "每帧只修改 robot 和 head 的 rotation，不调用 add/remove，scene.children.length 不会因这些旋转而改变。",
+      "explanation": "正确。旋转只修改节点的局部变换及相应矩阵，不会改变场景树的挂载关系，因此 Scene 的直属子节点数量保持不变。",
+      "refs": [
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Scene.children",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-01-026",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "按本章练习，robot 每秒转 30°，其直属子节点 head 相对父级每秒反向转 60°。下列实现或结果正确的有哪些？",
+      "explanation": "30°/秒对应 Math.PI/6 弧度/秒，60°/秒对应 Math.PI/3 弧度/秒。父节点使用正向增量、head 使用反向增量，二者都乘 delta；head 的世界变换由自身局部变换与 robot 的父级变换叠加，但不会反向修改父节点角度。",
+      "refs": [
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "robot.rotation.y += (Math.PI / 6) * delta",
+          "hint": "Math.PI/6 弧度就是 30°"
+        },
+        {
+          "key": "B",
+          "text": "head.rotation.y -= (Math.PI / 3) * delta",
+          "hint": "负号表达相对父级反向旋转"
+        },
+        {
+          "key": "C",
+          "text": "head 的局部变换会叠加 robot 传来的父级变换",
+          "hint": "它会随父级转动，同时保留自身反向旋转"
+        },
+        { "key": "D", "text": "head 的反向自转会自动把 robot.rotation.y 减去同样角度" },
+        { "key": "E", "text": "两个节点都应固定每帧增加 0.01，无需读取 delta" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-01-027",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "某段按时间动画未对 delta 设置上限，角速度为每秒 90°，本帧 delta = 0.2 秒，cube.rotation.y 对应的角度增加多少度？",
+      "explanation": "按时间步进，角度增量等于角速度乘 delta，即 90×0.2=18°。这与本帧回调发生了多少次无关。",
+      "refs": [
+        {
+          "title": "three.js Object3D.rotation",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        }
+      ],
+      "type": "numeric",
+      "answer": 18,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-01-028",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "body 已正确挂在 robot 下，相机固定看向原点。执行 robot.position.set(1000, 0, 0) 后 body 消失，材质与渲染循环正常。最合理的结论与修复是什么？",
+      "explanation": "父节点平移会传给 body，使 body 随 robot 移到远离原点的位置并离开当前视锥。应调整 robot 的位置，或改变相机观察位置与方向让目标重新入镜；挂载关系本身没有消失。",
+      "refs": [
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js PerspectiveCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "body 自动从 robot.children 中删除，必须重新创建几何体" },
+        { "key": "B", "text": "只需提高渲染像素比，物体就会回到视锥内" },
+        {
+          "key": "C",
+          "text": "父级平移把 body 带出了视锥，应调整 robot 位置或让相机覆盖目标新位置",
+          "hint": "沿排查链检查父级变换和视锥"
+        },
+        { "key": "D", "text": "调用 body.geometry.dispose() 即可恢复显示" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-01-029",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "设置场景背景时，示例用哪个 three 类封装颜色值，例如 new THREE.___(0x0b1220)？（写类名）",
+      "explanation": "THREE.Color 用来表示颜色，示例通过 new THREE.Color(0x0b1220) 创建深色背景对象，再赋给 scene.background。",
+      "refs": [
+        {
+          "title": "three.js Color",
+          "url": "https://threejs.org/docs/#api/en/math/Color"
+        },
+        {
+          "title": "three.js Scene.background",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "short",
+      "accepted": ["Color", "THREE.Color"],
+      "placeholder": "例如：Color"
+    },
+    {
+      "id": "three-01-030",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "执行 robot.remove(head) 且没有把 head 挂回 robot 后，继续旋转 robot，head 仍会因为它曾经是子节点而跟着转动。",
+      "explanation": "错误。remove 已解除父子挂载关系，head 不再处于 robot 的变换层级下，因此后续旋转 robot 不会再通过父级变换带动 head；这与资源是否销毁是两个问题。",
+      "refs": [
+        {
+          "title": "three.js Object3D.remove",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-01-031",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "阅读本章 WebGLRenderer 示例中的光照代码，下列说法正确的有哪些？",
+      "explanation": "示例创建了白色、强度 0.4 的 AmbientLight，以及白色、强度 2 的 DirectionalLight，并把后者的位置设为 (3, 5, 4)。两种光源的颜色和强度不能对调理解。",
+      "refs": [
+        {
+          "title": "three.js AmbientLight",
+          "url": "https://threejs.org/docs/#api/en/lights/AmbientLight"
+        },
+        {
+          "title": "three.js DirectionalLight",
+          "url": "https://threejs.org/docs/#api/en/lights/DirectionalLight"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "AmbientLight 使用白色，强度为 0.4",
+          "hint": "对应 new THREE.AmbientLight(0xffffff, 0.4)"
+        },
+        {
+          "key": "B",
+          "text": "DirectionalLight 使用白色，强度为 2",
+          "hint": "对应 new THREE.DirectionalLight(0xffffff, 2)"
+        },
+        {
+          "key": "C",
+          "text": "平行光 sun 的位置被设为 (3, 5, 4)",
+          "hint": "对应 sun.position.set(3, 5, 4)"
+        },
+        { "key": "D", "text": "AmbientLight 强度为 2，而 DirectionalLight 强度为 0.4" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-01-032",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "一个小物体位于相机正前方，沿观察方向距离为 0.05，而相机 near = 0.1、far = 100。其他条件正常，看不到它的最可能原因是什么？",
+      "explanation": "物体比近平面更近，位于可见深度范围之外，因此会被近裁剪排除。可以调整物体或相机位置，也可以在保持 near 大于 0 且符合场景尺度的前提下调整近平面。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.near",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "far = 100 太小，物体位于远平面之外" },
+        { "key": "B", "text": "fov 使用度导致所有近处物体不可见" },
+        { "key": "C", "text": "开启抗锯齿会自动删除近处网格" },
+        {
+          "key": "D",
+          "text": "物体比近平面更近，被近裁剪排除",
+          "hint": "可见深度从 near 开始，而不是从相机位置开始"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-01-033",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "上一帧到本帧相隔 0.4 秒，代码执行 delta = Math.min(0.4, 0.05)，角速度为每秒 90°。本帧实际增加多少度？",
+      "explanation": "Math.min 把本帧步长从 0.4 秒截到 0.05 秒，因此用于动画的旋转增量为 90×0.05=4.5°，而不是直接按 0.4 秒旋转 36°。",
+      "refs": [
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        },
+        {
+          "title": "three.js Object3D.rotation",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4.5,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-01-034",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "在 tick 中把 scene 按 camera 绘制到画布，应调用 WebGLRenderer 的哪个方法？（只写方法名）",
+      "explanation": "renderer.render(scene, camera) 会使用指定相机绘制指定场景。动画代码更新旋转后仍需执行渲染，才能把最新状态呈现在画布上。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.render",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer.render"
+        }
+      ],
+      "type": "short",
+      "accepted": ["render", "renderer.render", "renderer.render(scene, camera)", "renderer.render(scene,camera)"],
+      "placeholder": "例如：render"
+    },
+    {
+      "id": "three-01-035",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "PerspectiveCamera 的 fov 使用度，而本章旋转动画中的 angularSpeed = Math.PI / 2 使用弧度/秒，二者单位不同。",
+      "explanation": "正确。fov 的构造参数以度表示视野角；示例中的 Math.PI/2 是弧度制角速度，表示每秒旋转 90°。阅读代码时不能把两种角度单位混用。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.fov",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        },
+        {
+          "title": "three.js Object3D.rotation",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-01-036",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "创建正交相机时令 halfHeight = 2、aspect = 1.5，并按本章公式设置左右上下边界。下列参数正确的有哪些？",
+      "explanation": "halfWidth = halfHeight×aspect = 2×1.5 = 3，所以 left=-3、right=3；纵向半高仍为 2，因此 top=2、bottom=-2。",
+      "refs": [
+        {
+          "title": "three.js OrthographicCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/OrthographicCamera"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "left = -3",
+          "hint": "left = -halfHeight × aspect"
+        },
+        {
+          "key": "B",
+          "text": "right = 3",
+          "hint": "right = halfHeight × aspect"
+        },
+        {
+          "key": "C",
+          "text": "top = 2",
+          "hint": "top 直接等于 halfHeight"
+        },
+        { "key": "D", "text": "bottom = 2" },
+        { "key": "E", "text": "left = -2" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-01-037",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "为让下一帧的 delta 仍表示距上一帧的时间，previousTime = now 在 tick 中应怎样执行？",
+      "explanation": "每次回调先由 now 与旧 previousTime 算出 delta，随后把 previousTime 更新为 now。这样本次时间戳就成为下一次计算的上帧基准；若从不更新，delta 会持续虚大。",
+      "refs": [
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只在初始化时执行一次，之后永不更新" },
+        {
+          "key": "B",
+          "text": "每次算出当前 delta 后，再更新 previousTime = now",
+          "hint": "当前帧时间要成为下一帧的比较基准"
+        },
+        { "key": "C", "text": "每帧都把 previousTime 重置为 0" },
+        { "key": "D", "text": "只在窗口 resize 时更新" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-01-038",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "renderer.domElement 是渲染器使用的画布，可以通过 document.body.appendChild(renderer.domElement) 把它插入页面。",
+      "explanation": "正确。WebGLRenderer 的 domElement 对应实际 canvas，示例通过 appendChild 将它挂到 body，用户才能在页面中看到渲染结果。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.domElement",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        },
+        {
+          "title": "MDN Node.appendChild",
+          "url": "https://developer.mozilla.org/docs/Web/API/Node/appendChild"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-01-039",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "相机已经执行 position.set(4, 3, 6)，要让它朝向原点，应调用哪个相机方法？（只写方法名）",
+      "explanation": "camera.lookAt(0, 0, 0) 会调整相机观察方向，使其朝向原点；position.set 决定相机站在哪里，lookAt 决定它看向哪里。",
+      "refs": [
+        {
+          "title": "three.js Object3D.lookAt",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D.lookAt"
+        }
+      ],
+      "type": "short",
+      "accepted": ["lookAt", "camera.lookAt", "Object3D.lookAt", "camera.lookAt(0, 0, 0)", "camera.lookAt(0,0,0)"],
+      "placeholder": "例如：lookAt"
+    },
+    {
+      "id": "three-01-040",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "head.position.y = 1.3，且 head 仍是 robot 的子节点。把 robot.position.y 从 0 改为 2，不旋转也不缩放，head 随父级后的世界高度是多少？",
+      "explanation": "纯平移且没有旋转、缩放时，子节点世界高度等于父级平移量与自身局部高度之和，即 2+1.3=3.3。",
+      "refs": [
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3.3,
+      "tolerance": 0,
+      "unit": "场景单位",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-01-041",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "在本章场景树中，Scene 扮演的角色是什么？",
+      "explanation": "Scene 是场景树的根节点，网格、灯光、相机和 Group 都作为 Object3D 节点组织在这棵树中。它既不是材质，也不是画布或着色器。",
+      "refs": [
+        {
+          "title": "three.js Scene",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "场景树根节点，用于组织网格、灯光、相机和 Group",
+          "hint": "本章首先从 Scene 开始梳理父子关系"
+        },
+        { "key": "B", "text": "专门保存材质颜色的纹理对象" },
+        { "key": "C", "text": "浏览器提供的 DOM 画布元素" },
+        { "key": "D", "text": "一段在 GPU 上执行的着色器程序" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-01-042",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "renderer.setPixelRatio 与 renderer.setSize 完全等价，二者可以随意互换而不会产生不同影响。",
+      "explanation": "错误。setPixelRatio 决定内部渲染像素密度，setSize 设置画布显示尺寸与绘制缓冲区尺寸；它们作用的配置不同，不能当作同一个方法随意互换。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-01-043",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于本章 three 相机与 Cesium 相机的对照，下列说法正确的有哪些？",
+      "explanation": "两者都有视锥、近平面和远平面，但 three 相机工作于普通笛卡尔空间，不原生提供经纬度入口；Cesium 的 setView、flyTo、lookAt 操作地心坐标中的地球相机，three 也没有 Globe 替它决定观察对象。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        },
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "两者都有视锥、近平面和远平面",
+          "hint": "这是两类相机共有的可见范围概念"
+        },
+        {
+          "key": "B",
+          "text": "three 相机在普通笛卡尔空间中工作",
+          "hint": "本章相机使用 position.set 与直角坐标"
+        },
+        { "key": "C", "text": "three 相机原生提供经纬度定位入口" },
+        {
+          "key": "D",
+          "text": "Cesium 的 setView、flyTo、lookAt 操作地心坐标中的地球相机",
+          "hint": "它面向地球场景，而不是普通局部场景"
+        },
+        { "key": "E", "text": "three 会由一个 Globe 自动替开发者决定观察对象" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-01-044",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "要把 Scene 的底色设置为一个 Color，应修改 Scene 的哪个属性？（只写属性名）",
+      "explanation": "scene.background 用来指定场景背景，示例把一个 THREE.Color 实例赋给它，从而得到深蓝近黑的底色。",
+      "refs": [
+        {
+          "title": "three.js Scene.background",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "short",
+      "accepted": ["background", "scene.background"],
+      "placeholder": "例如：background"
+    },
+    {
+      "id": "three-01-045",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "相机位于原点并正对 z 轴负方向，一个尺寸很小的目标位于 (0, 0, -50)，near = 0.1、far = 10，其他条件正常。看不到目标的首要原因与修复是什么？",
+      "explanation": "目标距离相机约 50，已经超过 far=10，因此会被远平面裁掉。应调整目标或相机位置，或按实际场景尺度把 far 调到能覆盖目标并调用 updateProjectionMatrix；也不应无节制扩大深度范围。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera.far",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "near 太大，必须把 near 固定改成 0" },
+        { "key": "B", "text": "像素比太低，只需提高 devicePixelRatio" },
+        {
+          "key": "C",
+          "text": "目标超出远平面，应调整空间位置或让 far 合理覆盖目标并更新投影矩阵",
+          "hint": "沿观察方向检查目标是否落在 near 与 far 之间"
+        },
+        { "key": "D", "text": "目标会自动入镜，无需修改任何位置或投影参数" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-01-046",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "透视相机的深度缓冲精度并不是沿深度均匀分布，而是在近平面附近更密集。",
+      "explanation": "正确。透视深度精度在近平面附近最密集，极小的 near 配合过大的 far/near 比例会让远处可用精度更紧张，进而增加相近表面 z-fighting 的风险。",
+      "refs": [
+        {
+          "title": "three.js PerspectiveCamera 深度精度说明",
+          "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-01-047",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "依次执行 scene.add(robot)、robot.add(body, head)、robot.remove(head)、scene.add(head) 后，下列层级状态正确的有哪些？",
+      "explanation": "最终 robot 与 head 都是 Scene 的直属子节点；body 仍留在 robot.children 中，而 head 已被移除，所以不在 robot.children 中。children 不递归列出孙节点，因此 body 不会同时直接出现在 scene.children 中。",
+      "refs": [
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Scene",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "scene.children 直接包含 robot 与 head",
+          "hint": "最后一步把 head 添加为 Scene 的直属子节点"
+        },
+        {
+          "key": "B",
+          "text": "robot.children 仍直接包含 body",
+          "hint": "remove 只针对 head，没有移除 body"
+        },
+        {
+          "key": "C",
+          "text": "head 已不再列在 robot.children 中",
+          "hint": "robot.remove(head) 解除了原来的挂载关系"
+        },
+        { "key": "D", "text": "scene.children 还会递归直接包含 body" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-01-048",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章时间步进代码中，delta 的数值单位是什么？",
+      "explanation": "delta 以秒为单位。代码把时间戳差除以 1000，将毫秒转换成秒，再与按秒描述的角速度相乘，得到本帧角度增量。",
+      "refs": [
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "帧" },
+        {
+          "key": "B",
+          "text": "秒",
+          "hint": "角速度乘 delta 前先把毫秒除以 1000"
+        },
+        { "key": "C", "text": "毫秒" },
+        { "key": "D", "text": "弧度" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-01-049",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "正交相机保持 halfHeight 不变，并按本章公式适配更宽的容器。aspect 增大后，下列视图边界变化正确的有哪些？",
+      "explanation": "left=-halfHeight×aspect、right=halfHeight×aspect，所以 aspect 增大时左边界更小、右边界更大，横向范围扩展；top=halfHeight、bottom=-halfHeight 不随 aspect 改变，投影也仍是正交。",
+      "refs": [
+        {
+          "title": "three.js OrthographicCamera",
+          "url": "https://threejs.org/docs/#api/en/cameras/OrthographicCamera"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "left 的数值变得更小，横向左边界向外扩展",
+          "hint": "left 等于 -halfHeight×aspect"
+        },
+        {
+          "key": "B",
+          "text": "right 的数值变得更大，横向右边界向外扩展",
+          "hint": "right 等于 halfHeight×aspect"
+        },
+        {
+          "key": "C",
+          "text": "top 与 bottom 的绝对值仍等于 halfHeight",
+          "hint": "纵向边界没有乘 aspect"
+        },
+        { "key": "D", "text": "相机会自动变成透视投影并产生近大远小" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-01-050",
+      "skill": "three",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "下列哪段 tick 核心代码最符合本章基于时间的动画与持续渲染方式？",
+      "explanation": "正确流程是先把时间戳差转换为秒并限制异常步长，再更新上一帧时间，用角速度乘 delta 更新旋转，最后渲染并预约下一帧。固定每帧增量或只更新状态而不渲染都不符合示例。",
+      "refs": [
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        },
+        {
+          "title": "three.js WebGLRenderer.render",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer.render"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "计算并限制 delta，更新 previousTime，rotation += angularSpeed * delta，然后 render 并请求下一帧",
+          "hint": "时间更新、状态更新、渲染与预约下一帧缺一不可"
+        },
+        { "key": "B", "text": "每帧固定 rotation += 0.01，并假定所有屏幕刷新率相同" },
+        { "key": "C", "text": "直接用毫秒差乘角速度，不做秒单位转换" },
+        { "key": "D", "text": "只更新 rotation，从不调用 render，也不再请求下一帧" }
+      ],
+      "answer": ["A"]
     }
   ]
 }

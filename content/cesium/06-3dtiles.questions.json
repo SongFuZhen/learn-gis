@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "06",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-06-001",
@@ -374,9 +374,1038 @@
         "按 LOD 按需加载控制内存与带宽",
         "几何误差驱动层次细节调度",
         "只加载视锥内所需精度的瓦片",
-        "LOD 按需调度"
+        "LOD 按需调度",
+        "按需加载",
+        "LOD按需加载",
+        "层次细节按需加载",
+        "按视锥和距离只加载当前视角需要的瓦片",
+        "控制内存与带宽",
+        "视锥裁剪",
+        "减少内存占用和传输量",
+        "远处用低精度瓦片，视锥外不加载"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-06-013",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "要用大量实例重复表达同种树模型，最合适的瓦片内容格式是？",
+      "explanation": "i3dm 面向实例化模型，适合用许多实例重复表达树木、路灯等同一种模型。b3dm 常用于批量建筑，pnts 用于点云，tileset.json 则是入口描述文件。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "b3dm"
+        },
+        {
+          "key": "B",
+          "text": "i3dm",
+          "hint": "实例化模型适合大量重复对象"
+        },
+        {
+          "key": "C",
+          "text": "pnts"
+        },
+        {
+          "key": "D",
+          "text": "tileset.json"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-06-014",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "tileset.json 中的瓦片树描述通常直接提供哪些调度信息？",
+      "explanation": "入口文件描述瓦片层级、空间包围体和几何误差，引擎据此进行视野筛选与 LOD 调度。模型三角面位于 b3dm 等瓦片内容中，ion 凭据也不是瓦片树的空间调度字段。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "瓦片之间的层级关系"
+        },
+        {
+          "key": "B",
+          "text": "瓦片的 boundingVolume 空间范围"
+        },
+        {
+          "key": "C",
+          "text": "瓦片的 geometricError 几何误差"
+        },
+        {
+          "key": "D",
+          "text": "每个数据集的 ion 登录密码"
+        },
+        {
+          "key": "E",
+          "text": "所有建筑的全部三角面数据"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-06-015",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "tileset.json 会把数据集中所有三角面完整存放在 JSON 里，因此不再需要 b3dm 等瓦片内容文件。",
+      "explanation": "此说法错误。tileset.json 是描述瓦片树、包围体和几何误差的入口，具体模型几何由 b3dm、glb、i3dm、pnts 等瓦片内容承载，二者职责不同。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-06-016",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "3D Tiles 中，描述瓦片空间范围、帮助引擎判断其是否进入视野的字段叫什么？",
+      "explanation": "boundingVolume 表示瓦片的空间包围体。引擎利用它组织空间索引并判断瓦片与当前视野的关系，不必先下载该瓦片包含的全部模型内容。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "boundingVolume",
+        "boundingVolume（包围体）",
+        "包围体",
+        "包围盒字段 boundingVolume"
+      ],
+      "placeholder": "填写英文属性名或中文术语"
+    },
+    {
+      "id": "cesium-06-017",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "假设一棵瓦片树按四叉树组织，根节点为第 0 层，每个非叶节点恰有 4 个子节点；包含第 0、1、2 层且已完全展开时，节点总数是多少？",
+      "explanation": "第 0 层有 1 个根节点，第 1 层有 1×4=4 个节点，第 2 层有 4×4=16 个节点，因此总数为 1+4+16=21 个。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 21,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填写整数"
+    },
+    {
+      "id": "cesium-06-018",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "在地图上点击「北京」的大致位置，这里可作为整城白模与建筑批表着色练习的城市背景。",
+      "explanation": "北京位于华北平原北部，市中心约为北纬 39.9042°、东经 116.4074°。以这类城市为背景，可用建筑高度等批表属性练习三维专题着色；本题容差为 300 千米。",
+      "refs": [
+        {
+          "title": "北京市人民政府门户网站",
+          "url": "https://www.beijing.gov.cn/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9042,
+        "lng": 116.4074
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-06-019",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "无人机激光扫描得到的离散点云切片，最对应的 3D Tiles 内容格式是？",
+      "explanation": "pnts 是点云瓦片内容格式，适合承载离散点及其属性。b3dm 和 i3dm 分别面向批量模型与实例化模型，glb 则是 glTF 模型内容。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "b3dm"
+        },
+        {
+          "key": "B",
+          "text": "glb"
+        },
+        {
+          "key": "C",
+          "text": "i3dm"
+        },
+        {
+          "key": "D",
+          "text": "pnts",
+          "hint": "pnts 用于点云内容"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-06-020",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "下列哪些来源可以生成讲义所述的 3D Tiles 数据？",
+      "explanation": "讲义列出的常见来源包括倾斜摄影、BIM/CIM 导出、城市白模批量生成和点云切片。CSS 样式表只能描述样式，不能生成三维瓦片数据。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "无人机航拍建模得到的倾斜摄影成果"
+        },
+        {
+          "key": "B",
+          "text": "BIM/CIM 数据导出"
+        },
+        {
+          "key": "C",
+          "text": "单独一张 CSS 样式表"
+        },
+        {
+          "key": "D",
+          "text": "城市白模批量生成流程"
+        },
+        {
+          "key": "E",
+          "text": "点云切片成果"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-06-021",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "把自托管 tileset 移到普通 CDN 后，仍可用 Cesium3DTileset.fromUrl 加载，且不因为使用 CDN 就必须配置 ion token。",
+      "explanation": "此说法正确。自托管或普通 CDN 托管都只是让 tileset.json 及瓦片内容可通过 URL 访问，加载流程不变；只有改用 ion 托管服务时才涉及 ion token。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-06-022",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "在现代 CesiumJS 中，通过 tileset.json 的 URL 异步创建三维瓦片数据集，应调用哪个方法？",
+      "explanation": "应调用 Cesium3DTileset.fromUrl，并使用 await 等待入口文件请求与数据集创建完成。创建后还要把返回的 tileset 加入 viewer.scene.primitives 才会显示。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium3DTileset.fromUrl",
+        "Cesium.Cesium3DTileset.fromUrl",
+        "await Cesium.Cesium3DTileset.fromUrl",
+        "await Cesium3DTileset.fromUrl"
+      ],
+      "placeholder": "填写完整 API 方法名"
+    },
+    {
+      "id": "cesium-06-023",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "某瓦片树根节点的 geometricError 为 96 米，每向下一层子瓦片的几何误差变为父节点的 1/4。第 2 层瓦片的几何误差是多少米？",
+      "explanation": "根节点是第 0 层，第 1 层误差为 96×1/4=24 米，第 2 层再乘以 1/4，即 24×1/4=6 米，也可写成 96÷4²=6 米。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "只填写数值"
+    },
+    {
+      "id": "cesium-06-024",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "在地图上点击「上海」的大致位置，把它作为 BIM/CIM 建筑模型接入 3D Tiles 的城市背景。",
+      "explanation": "上海位于长江入海口附近，市中心约为北纬 31.2304°、东经 121.4737°。城市建筑与 BIM/CIM 成果可经切片后按瓦片树流式加载；本题容差为 300 千米。",
+      "refs": [
+        {
+          "title": "上海市人民政府门户网站",
+          "url": "https://www.shanghai.gov.cn/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 31.2304,
+        "lng": 121.4737
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-06-025",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "样式表达式 color('dodgerblue', 0.8) 中第二个参数 0.8 表示什么？",
+      "explanation": "color 函数的第二个参数是 alpha 透明度，0.8 表示较不透明的蓝色效果。它不会改变瓦片几何误差、建筑高度或屏幕空间误差阈值。",
+      "refs": [
+        {
+          "title": "Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "颜色的 alpha 透明度",
+          "hint": "第二个参数控制不透明的程度"
+        },
+        {
+          "key": "B",
+          "text": "瓦片的几何误差为 80 米"
+        },
+        {
+          "key": "C",
+          "text": "最大屏幕空间误差为 0.8 像素"
+        },
+        {
+          "key": "D",
+          "text": "建筑高度固定为 80 米"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-06-026",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "不重新切分城市白模，只依靠已有批表属性与 Cesium3DTileStyle，可以直接尝试哪些专题表达？",
+      "explanation": "样式表达式能读取已有属性并按条件染色，因此可直接表达楼高、楼龄、用途以及已经写入属性的人口密度等主题。它不能凭样式重写全部三角面，也不会自动创造缺失的属性数据。",
+      "refs": [
+        {
+          "title": "Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "按 height 属性进行楼高分级着色"
+        },
+        {
+          "key": "B",
+          "text": "按 buildingAge 属性区分楼龄"
+        },
+        {
+          "key": "C",
+          "text": "按 use 属性区分建筑用途"
+        },
+        {
+          "key": "D",
+          "text": "仅用一条颜色表达式重写数据集中的全部三角面"
+        },
+        {
+          "key": "E",
+          "text": "表达已经写入属性的人口密度、噪声或日照主题"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-06-027",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "瓦片的 geometricError 数值越小，就说明该瓦片一定越粗糙，应优先被卸载。",
+      "explanation": "此说法错误。几何误差较小通常表示细节更精细，而不是更粗糙；实际加载或卸载还取决于相机视角、包围体和当前屏幕空间误差，不能只看一个字段就决定。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-06-028",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "瓦片树中用来描述某层模型与更精细模型之间几何差异、并参与 LOD 调度的字段叫什么？",
+      "explanation": "该字段是 geometricError，即几何误差。它与瓦片包围体、相机视角共同支持层次细节选择，帮助引擎决定当前精度是否足够。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "geometricError",
+        "geometricError（几何误差）",
+        "几何误差"
+      ],
+      "placeholder": "填写英文属性名或中文术语"
+    },
+    {
+      "id": "cesium-06-029",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "为练习 SSE 计算，假设某视角下 SSE = geometricError × 0.75 像素/米。瓦片 geometricError 为 24 米时，其 SSE 是多少像素？",
+      "explanation": "按题设给出的简化换算关系，SSE=24×0.75=18 像素。这里直接代入指定视角下的系数即可，不需要估算额外参数。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 18,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "只填写数值"
+    },
+    {
+      "id": "cesium-06-030",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "在地图上点击「深圳」的大致位置，作为倾斜摄影街区模型流式浏览的城市背景。",
+      "explanation": "深圳位于广东省南部、珠江口东岸，南接香港，市中心约为北纬 22.5431°、东经 114.0579°。密集街区模型适合用 3D Tiles 按需加载；本题容差为 300 千米。",
+      "refs": [
+        {
+          "title": "深圳市人民政府门户网站",
+          "url": "https://www.sz.gov.cn/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 22.5431,
+        "lng": 114.0579
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-06-031",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "把 maximumScreenSpaceError 从默认值 16 调为 4，通常会出现哪组变化？",
+      "explanation": "更小的最大屏幕空间误差意味着更严格的精度要求，引擎会倾向加载更精细的瓦片，因此画面细节增加，瓦片请求量和流量通常也会上升。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "画面更精细，瓦片请求通常增加",
+          "hint": "阈值更小意味着精度要求更严格"
+        },
+        {
+          "key": "B",
+          "text": "画面更粗糙，瓦片请求通常减少"
+        },
+        {
+          "key": "C",
+          "text": "只改变模型颜色，不影响加载"
+        },
+        {
+          "key": "D",
+          "text": "禁止继续请求任何子瓦片"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-06-032",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "Cesium3DTileStyle 的颜色表达式支持本章列出的哪些颜色表示方式？",
+      "explanation": "样式语言支持 CSS 色名和 #hex 颜色串，也提供 rgb、rgba、hsl 等内建函数；注意 hsl 的色相是弧度、饱和度与亮度取 0~1 小数，且表达式里 % 是取模运算符而非 CSS 百分号，hsl(0, 100%, 50%) 属非法写法。url 用于引用资源，不是颜色表示方式。",
+      "refs": [
+        {
+          "title": "Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "color('red') 使用 CSS 色名"
+        },
+        {
+          "key": "B",
+          "text": "color('#ff0000') 使用 #hex 颜色串"
+        },
+        {
+          "key": "C",
+          "text": "rgb(255, 0, 0) 使用 RGB 分量"
+        },
+        {
+          "key": "D",
+          "text": "hsl(0, 1, 0.5) 使用 HSL 表示（色相为弧度，饱和度/亮度取 0~1 小数）"
+        },
+        {
+          "key": "E",
+          "text": "url('red.png') 把图片地址当作颜色"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-06-033",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "批表中的属性名是 Height 时，样式表达式必须写 ${Height}，写成 ${height} 不能视为同一个属性。",
+      "explanation": "此说法正确。样式表达式引用的批表属性名大小写敏感，Height 与 height 是两个不同名称；排错时应先核对批表中的实际字段拼写。",
+      "refs": [
+        {
+          "title": "Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-06-034",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "在 CesiumJS 中，要创建可按批表属性进行条件染色的三维瓦片样式对象，应使用哪个类？",
+      "explanation": "应使用 Cesium3DTileStyle，完整写法为 new Cesium.Cesium3DTileStyle(...)。创建后可把样式对象赋给 tileset.style，由表达式读取批表属性。",
+      "refs": [
+        {
+          "title": "Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cesium3DTileStyle",
+        "Cesium.Cesium3DTileStyle",
+        "new Cesium.Cesium3DTileStyle",
+        "new Cesium3DTileStyle"
+      ],
+      "placeholder": "填写类名或构造写法"
+    },
+    {
+      "id": "cesium-06-035",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "某 b3dm 批表原有 height、buildingAge、use 三个字段，新增 id 和 floors 两个字段且保留原字段，现在共有多少个字段？",
+      "explanation": "原有 3 个字段，新增 2 个不同字段，没有删除或重名覆盖，因此字段总数为 3+2=5 个。这里统计字段名数量，不统计每栋建筑的属性值数量。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填写整数"
+    },
+    {
+      "id": "cesium-06-036",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "在地图上点击「杭州」的大致位置，作为按建筑高度属性进行三维专题着色的城市背景。",
+      "explanation": "杭州位于浙江省北部、钱塘江下游，以西湖闻名，市中心约为北纬 30.2741°、东经 120.1551°。城市白模可利用楼高批表属性进行分级着色；本题容差为 300 千米。",
+      "refs": [
+        {
+          "title": "杭州市人民政府门户网站",
+          "url": "https://www.hangzhou.gov.cn/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.2741,
+        "lng": 120.1551
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-06-037",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "对于高顶点量 tileset，开启 enableCollision 前最应额外评估什么？",
+      "explanation": "本章特别提醒，高顶点量数据开启碰撞会带来性能代价，因此应结合设备与数据规模评估 CPU 拾取、碰撞计算等开销，而不是只关注功能是否开启。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "碰撞与拾取带来的性能开销",
+          "hint": "高顶点量会放大相关计算成本"
+        },
+        {
+          "key": "B",
+          "text": "OGC 标准是否会自动更改名称"
+        },
+        {
+          "key": "C",
+          "text": "CSS 色名是否全部变成大写"
+        },
+        {
+          "key": "D",
+          "text": "tileset.json 是否会自动变成影像金字塔"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-06-038",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "维护跨版本旧代码时，下列哪些说法与本章版本注记一致？",
+      "explanation": "现代流程采用 await Cesium3DTileset.fromUrl；旧构造器写法已废弃。1.115 起 enableCollision 默认关闭，旧的 disableCollision 在 1.116 已移除且旧语义相反。fromUrl 只负责创建，不会代替开发者挂载到 primitives。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "1.104 前常见的 new Cesium3DTileset({ url }) 属于已废弃的老写法"
+        },
+        {
+          "key": "B",
+          "text": "现代流程可使用 await Cesium3DTileset.fromUrl(url)"
+        },
+        {
+          "key": "C",
+          "text": "1.115 起 enableCollision 的默认值为 false"
+        },
+        {
+          "key": "D",
+          "text": "1.116 已移除 disableCollision，迁移时要注意旧字段语义相反"
+        },
+        {
+          "key": "E",
+          "text": "fromUrl 会自动执行 viewer.scene.primitives.add，无需再挂载"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-06-039",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "只要 tileset.enableCollision=true，即使 ScreenSpaceCameraController#enableCollisionDetection=false，相机防钻入模型仍一定会生效。",
+      "explanation": "此说法错误。相机防钻入模型需要 tileset 的 enableCollision 与相机控制器的 enableCollisionDetection 同时开启；后者是这个功能的另一个总开关，不能被前者绕过。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        },
+        {
+          "title": "ScreenSpaceCameraController API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ScreenSpaceCameraController.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-06-040",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "除 tileset 的 enableCollision 外，相机防钻入模型还要求 ScreenSpaceCameraController 上哪个默认开启的总开关保持 true？",
+      "explanation": "该属性是 enableCollisionDetection，默认值为 true。它还要与 tileset.enableCollision=true 配合，两个条件同时满足后才能实现本章所述的相机碰撞防护。",
+      "refs": [
+        {
+          "title": "ScreenSpaceCameraController API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ScreenSpaceCameraController.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "enableCollisionDetection",
+        "ScreenSpaceCameraController#enableCollisionDetection",
+        "ScreenSpaceCameraController.enableCollisionDetection",
+        "viewer.scene.screenSpaceCameraController.enableCollisionDetection"
+      ],
+      "placeholder": "填写控制器属性名"
+    },
+    {
+      "id": "cesium-06-041",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "一片 i3dm 树林共有 1200 个树木实例，假设每块瓦片恰好容纳 40 个实例且没有剩余，需要多少块内容瓦片？",
+      "explanation": "总实例数除以每块瓦片的实例数即可：1200÷40=30。因为 1200 能被 40 整除，所以恰好需要 30 块瓦片，不需要额外向上取整。",
+      "refs": [
+        {
+          "title": "OGC 3D Tiles 快速入门",
+          "url": "https://docs.ogc.org/cs/18-053r2/quickstart/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 30,
+      "tolerance": 0,
+      "unit": "块",
+      "placeholder": "只填写整数"
+    },
+    {
+      "id": "cesium-06-042",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "批表属性 height 要与数值 100 作严格相等比较，符合本章样式表达式语法的是哪一项？",
+      "explanation": "本章样式表达式使用 === 和 !== 表示严格相等与严格不等，不提供 == 的宽松相等写法。因此 height 与 100 严格相等应写为 ${height} === 100。",
+      "refs": [
+        {
+          "title": "Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "${height} == 100"
+        },
+        {
+          "key": "B",
+          "text": "${height} === 100",
+          "hint": "严格相等使用三个等号"
+        },
+        {
+          "key": "C",
+          "text": "${height} = 100"
+        },
+        {
+          "key": "D",
+          "text": "${height} equals 100"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-06-043",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "本地加载一个正常 tileset 时，结合 Network 面板与挂载代码，可以支持下列哪些判断？",
+      "explanation": "加载呈两阶段：先请求入口 tileset.json，再按相机视角零散请求所需瓦片；入口若返回 404，后续瓦片树无从建立。入口成功不代表每个内容请求都必然成功，也不意味着所有瓦片已经一次下载完毕。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "首先能看到对 tileset.json 的请求"
+        },
+        {
+          "key": "B",
+          "text": "随后会按视角需求请求部分瓦片内容"
+        },
+        {
+          "key": "C",
+          "text": "若入口 tileset.json 返回 404，模型无法正常加载"
+        },
+        {
+          "key": "D",
+          "text": "入口请求成功就能保证以后每块瓦片都返回 200"
+        },
+        {
+          "key": "E",
+          "text": "fromUrl 开始前，数据集的所有瓦片就已全部下载到本地"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-06-044",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "Cesium3DTileset.fromUrl 是同步调用，无需 await 就能保证 tileset.json 已请求完成。",
+      "explanation": "此说法错误。fromUrl 需要异步请求入口文件，讲义使用 await 等待其返回 tileset；省略等待会把尚未完成的异步流程当成已就绪结果，后续挂载与定位容易出错。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-06-045",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "tileset 已挂载后，要让相机定位到该模型，讲义使用的是 viewer 的哪个异步方法？",
+      "explanation": "使用 await viewer.zoomTo(tileset) 可让相机定位到已挂载的数据集。zoomTo 负责视角定位，不代替 fromUrl 创建数据集，也不代替 primitives.add 挂载。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "viewer.zoomTo",
+        "zoomTo",
+        "viewer.zoomTo(tileset)",
+        "await viewer.zoomTo(tileset)"
+      ],
+      "placeholder": "填写方法调用或方法名"
+    },
+    {
+      "id": "cesium-06-046",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "一个 BIM 导出的模型采用 1:200 比例，实际建筑高 80 米。按相同比例换算，模型高度是多少米？",
+      "explanation": "比例 1:200 表示模型长度:实际长度=1:200，因此模型高度为 80×1/200=0.4 米。计算时两边统一使用米，结果精确为 0.4。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.4,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "只填写数值"
+    },
+    {
+      "id": "cesium-06-047",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "创建 Cesium3DTileset 时未显式设置 maximumScreenSpaceError，本章给出的默认值是多少？",
+      "explanation": "本章示例说明 maximumScreenSpaceError 的默认值是 16。它是精度与流量之间的调节开关，改成更小的 4 会提高精度要求并通常增加瓦片请求。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "4"
+        },
+        {
+          "key": "B",
+          "text": "8"
+        },
+        {
+          "key": "C",
+          "text": "16",
+          "hint": "本章创建示例注释给出了默认值"
+        },
+        {
+          "key": "D",
+          "text": "32"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-06-048",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "使用 CesiumJS 仓库自带样例在本地跑通 token-free 流程，哪些操作符合讲义？",
+      "explanation": "本地流程是取得 SampleData、用静态服务器发布样例目录、通过本地 tileset.json 调用 fromUrl，再挂载并定位。该路径不使用 ion 托管资产，因此不需要 fromIonAssetId 或 ion token。",
+      "refs": [
+        {
+          "title": "CesiumJS 3D Tiles 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-3d-tiles/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "取得仓库 Apps/SampleData/Cesium3DTiles/ 下的样例数据"
+        },
+        {
+          "key": "B",
+          "text": "用静态文件服务器发布样例 Tileset 目录"
+        },
+        {
+          "key": "C",
+          "text": "必须改用 fromIonAssetId(96188) 并配置 ion token"
+        },
+        {
+          "key": "D",
+          "text": "把本地 tileset.json 的 URL 传给 Cesium3DTileset.fromUrl"
+        },
+        {
+          "key": "E",
+          "text": "将 tileset 加入 scene.primitives，并用 viewer.zoomTo 定位"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-06-049",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "3D Tiles 样式表达式中的 && 和 || 会无条件计算左右两侧，不支持短路求值。",
+      "explanation": "此说法错误。本章表达式速查明确说明 &&、||、! 属于逻辑运算，并且 && 与 || 支持短路求值，因此不能把它们理解为始终计算两侧。",
+      "refs": [
+        {
+          "title": "Cesium3DTileStyle API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileStyle.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-06-050",
+      "skill": "cesium",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "要让 CPU 拾取 3D Tiles 表面以及 Entity 对 3D Tiles 贴地生效，创建 tileset 时应把哪个布尔选项设为 true？",
+      "explanation": "应设置 enableCollision: true。1.115 起该选项默认 false，它同时控制相机碰撞、CPU 拾取和 Entity 对 3D Tiles 的贴地行为；高顶点量数据开启时还要评估性能代价。",
+      "refs": [
+        {
+          "title": "Cesium3DTileset API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Cesium3DTileset.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "enableCollision",
+        "enableCollision: true",
+        "{ enableCollision: true }",
+        "Cesium3DTileset.enableCollision"
+      ],
+      "placeholder": "填写构造选项名"
     }
   ]
 }

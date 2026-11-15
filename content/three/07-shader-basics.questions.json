@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "07",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-07-001",
@@ -225,6 +225,541 @@
       "answer": 0.23,
       "tolerance": 0.000001,
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-07-014",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "若要让平面顶点真正上下起伏，而不是仅改变表面颜色，应主要修改哪个着色阶段？",
+      "explanation": "几何顶点位置由顶点着色器处理，修改局部坐标后再写入 gl_Position 才能形成真实起伏。片元着色器负责候选片元的颜色，不能凭改颜色增加或移动几何顶点。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "顶点着色器", "hint": "顶点位移属于几何位置计算" },
+        { "key": "B", "text": "片元着色器" },
+        { "key": "C", "text": "深度测试" },
+        { "key": "D", "text": "帧缓冲混合" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-015",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于图元装配、裁剪与光栅化的职责，下列说法正确的有哪些？",
+      "explanation": "图元装配把顶点组成三角形，裁剪去掉视锥外部分，光栅化再判断三角形覆盖哪些像素并产生片元候选。片元着色器位于这些步骤之后，不负责把顶点装配成三角形。",
+      "refs": [{ "title": "MDN WebGL API", "url": "https://developer.mozilla.org/docs/Web/API/WebGL_API" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "图元装配把顶点组织成三角形", "hint": "顶点先形成待绘制的图元" },
+        { "key": "B", "text": "裁剪会去掉视锥外的部分", "hint": "裁剪发生在后续光栅化之前" },
+        { "key": "C", "text": "光栅化判断三角形覆盖哪些像素", "hint": "矢量三角形由此变成片元候选" },
+        { "key": "D", "text": "片元着色器负责把三个顶点装配成三角形" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-07-016",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "normalMatrix 是用于变换法线的 3×3 矩阵，而不是把顶点投影到裁剪空间的矩阵。",
+      "explanation": "正确。本章明确把 normalMatrix 定义为法线变换使用的 3×3 矩阵。顶点从相机空间进入裁剪空间使用的是 projectionMatrix，二者用途与维度都不同。",
+      "refs": [{ "title": "ShaderMaterial 内置矩阵", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-07-017",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在 three 几何体上注册自定义逐顶点属性 aScale 时，应调用 geometry 的哪个方法？（只写方法名）",
+      "explanation": "geometry.setAttribute 用来登记几何属性，示例把名为 aScale 的 BufferAttribute 传给这个方法。仅在 GLSL 写声明并不能自动把 JS 数组上传为逐顶点数据。",
+      "refs": [{ "title": "BufferGeometry 文档", "url": "https://threejs.org/docs/#api/en/core/BufferGeometry" }],
+      "type": "short",
+      "accepted": ["setAttribute", "geometry.setAttribute", "BufferGeometry.setAttribute", "geometry.setAttribute(\"aScale\", attribute)"],
+      "placeholder": "例如：setAttribute"
+    },
+    {
+      "id": "three-07-018",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "片元中使用 mix(a,b,t)，其定义为 a×(1-t)+b×t。若 a 的红色分量为 0.2、b 的红色分量为 1.0、t=0.25，混合结果的红色分量是多少？",
+      "explanation": "按线性混合公式计算，红色分量为 0.2×(1-0.25)+1.0×0.25=0.15+0.25=0.4。本章片元模板正是用 mix 按权重组合两种颜色。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "numeric",
+      "answer": 0.4,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-07-019",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在 ShaderMaterial 自动提供的矩阵中，哪一个负责把局部坐标变换到相机空间？",
+      "explanation": "modelViewMatrix 等于 viewMatrix×modelMatrix，完成局部坐标到相机空间的变换。projectionMatrix 接下来把相机空间变到裁剪空间，normalMatrix 则用于法线。",
+      "refs": [{ "title": "ShaderMaterial 内置矩阵", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "projectionMatrix" },
+        { "key": "B", "text": "modelViewMatrix", "hint": "它组合了模型变换与视图变换" },
+        { "key": "C", "text": "normalMatrix" },
+        { "key": "D", "text": "cameraPosition" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-07-020",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "顶点着色器可以随意改写 attribute，并把这个 attribute 直接当作片元着色器的输出。",
+      "explanation": "错误。attribute 是顶点着色器中的只读逐顶点输入，不能随意赋值，也不是片元输出。跨阶段传递数据应由顶点写 varying，片元颜色则写入规定的片元输出变量。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-07-021",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "下列 GLSL 类型与本章数据用途的对应关系，正确的有哪些？",
+      "explanation": "float 可保存时间等标量，vec2 可保存二维 UV，sampler2D 用于二维纹理采样。三维位置需要三个分量，通常用 vec3，而 bool 只能表示布尔值。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "float 保存 uTime 这样的浮点标量", "hint": "时间值只有一个浮点分量" },
+        { "key": "B", "text": "vec2 保存二维 UV 坐标", "hint": "UV 由两个分量组成" },
+        { "key": "C", "text": "sampler2D 表示二维纹理采样器", "hint": "这是本章列出的常用 GLSL 类型之一" },
+        { "key": "D", "text": "bool 用来保存三维顶点位置" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-07-022",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "已有 vec4 color，若只取它的 RGB 三个分量并忽略 alpha，应写什么分量访问表达式？（只写表达式）",
+      "explanation": "color.rgb 通过 swizzle 分量访问取出红、绿、蓝三个分量，可作为 vec3 使用，alpha 不会包含在结果中。它不同于读取单个分量的 color.r。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "short",
+      "accepted": ["color.rgb", "(color.rgb)", "vec3(color.rgb)", "color.xyz", "(color.xyz)", "vec3(color.xyz)"],
+      "placeholder": "例如：color.rgb"
+    },
+    {
+      "id": "three-07-023",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在 GLSL 中执行 vec3 p=vec3(1.0) 后，p.x+p.y+p.z 的值为多少？",
+      "explanation": "vec3(1.0) 会把 x、y、z 三个分量全部初始化为 1.0，因此三个分量之和为 1+1+1=3。该构造方式不是只给第一个分量赋值。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-07-024",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在 GLSL 中声明浮点变量 uScale 并赋予初值 1，哪种写法符合本章类型规范？",
+      "explanation": "GLSL 浮点变量应使用 float 类型，浮点常量明确写成 1.0，并以分号结束。let 属于 JS，int 表示整数，vec3 则会产生三个分量而非一个标量。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "let uScale = 1;" },
+        { "key": "B", "text": "int uScale = 1.0;" },
+        { "key": "C", "text": "float uScale = 1.0;", "hint": "类型与浮点字面量相互匹配" },
+        { "key": "D", "text": "vec3 uScale = 1.0;" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-07-025",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "本章的 GLSL 矩阵与向量相乘时，矩阵写在向量左侧，例如 projectionMatrix*vec4(p,1.0)。",
+      "explanation": "正确。本章模板遵循矩阵在左、向量在右的乘法约定，并按模型视图、投影的先后组合矩阵。不能把它当作 JS 数组方法或任意交换操作数顺序。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-07-026",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在不改变几何顶点位置的前提下，下列哪些需求通常应改片元着色器？",
+      "explanation": "贴图效果、渐变色、透明度与发光颜色都属于候选片元的外观计算，适合片元着色器。让顶点真正左右摆动改变的是几何位置，应放在顶点着色器。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "调整表面贴图效果", "hint": "贴图颜色在片元阶段确定" },
+        { "key": "B", "text": "修改表面渐变色", "hint": "颜色渐变不改变顶点位置" },
+        { "key": "C", "text": "调整透明度或发光颜色", "hint": "这些都是片元外观参数" },
+        { "key": "D", "text": "让几何顶点真正左右摆动" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-07-027",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "本章波浪示例使用哪个 three 几何体类来提供平面的细分顶点？（写类名）",
+      "explanation": "示例通过 new THREE.PlaneGeometry(4,4,128,128) 创建细分平面，再把几何体与 ShaderMaterial 组成 Mesh。细分顶点为顶点位移提供了几何基础。",
+      "refs": [{ "title": "PlaneGeometry 文档", "url": "https://threejs.org/docs/#api/en/geometries/PlaneGeometry" }],
+      "type": "short",
+      "accepted": ["PlaneGeometry", "THREE.PlaneGeometry", "PlaneGeometry 类"],
+      "placeholder": "例如：PlaneGeometry"
+    },
+    {
+      "id": "three-07-028",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "本章 crest=smoothstep(-0.2,0.2,vHeight)，再以 crest×0.5 作为混合权重。已知边界内令 t=(vHeight+0.2)/0.4，smoothstep 结果为 t²(3-2t)。当 vHeight=0.1 时，最终混合权重是多少？",
+      "explanation": "先求 t=(0.1+0.2)/0.4=0.75，再求 smoothstep=0.75²×(3-2×0.75)=0.5625×1.5=0.84375。最终权重还要乘 0.5，所以为 0.421875。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "numeric",
+      "answer": 0.421875,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-07-029",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "自定义材质黑屏，控制台指出顶点和片元中的 vHeight 类型不一致。下列哪种处理最直接有效？",
+      "explanation": "varying 两端必须保持同名且同类型。若顶点写入 float 高度，片元也应声明并读取 float vHeight；改相机、反复重建材质或提高像素比都不能消除 GLSL 类型冲突。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把两端的 vHeight 声明统一为相同类型，例如 varying float vHeight", "hint": "先消除编译日志指出的类型冲突" },
+        { "key": "B", "text": "把相机移动到原点并提高 devicePixelRatio" },
+        { "key": "C", "text": "每帧重新创建 ShaderMaterial，但不修改声明" },
+        { "key": "D", "text": "删除所有控制台日志并继续运行" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-030",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "同一个 uniform 可在顶点和片元着色器中按相同类型声明并读取，让两个阶段共享一次绘制中的参数。",
+      "explanation": "正确。uniform 是一次绘制中保持不变的全局参数，顶点与片元阶段都能读取。它不同于只能在顶点阶段输入的 attribute，也不同于由顶点写、片元读的 varying。",
+      "refs": [{ "title": "ShaderMaterial uniforms", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-07-031",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "关于本章波浪模板的顶点着色器数据流，下列说法正确的有哪些？",
+      "explanation": "模板先把内置 uv 写入 vUv，再用 sin 与 cos 修改局部 p.z，并把位移后的高度写入 vHeight。gl_Position 由顶点着色器计算，片元着色器不负责输出顶点裁剪位置。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "vUv=uv 把内置 UV 交给自定义 varying", "hint": "UV 由此跨阶段传递" },
+        { "key": "B", "text": "p.z 由关于 p.x、p.y 与 uTime 的正弦和余弦项计算", "hint": "这是波浪的几何位移来源" },
+        { "key": "C", "text": "vHeight=p.z 把位移后的高度传给片元阶段", "hint": "片元随后根据高度计算 crest" },
+        { "key": "D", "text": "片元着色器负责计算并写入 gl_Position" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-07-032",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "练习新增 uHotColor，JS 侧用 THREE.Color 保存它。片元着色器顶部应写哪条对应的 GLSL uniform 声明？（写完整声明）",
+      "explanation": "THREE.Color 的 RGB 三个分量对应 GLSL 的 vec3，练习又要求参数名为 uHotColor，因此片元中声明 uniform vec3 uHotColor;，随后用它替代硬编码橙色。",
+      "refs": [{ "title": "ShaderMaterial uniforms", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "short",
+      "accepted": ["uniform vec3 uHotColor;", "uniform vec3 uHotColor", "uniform vec3 uHotColor ;"],
+      "placeholder": "例如：uniform vec3 uHotColor;"
+    },
+    {
+      "id": "three-07-033",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "按练习把 uTime 改为 delta 累加。若 uTime 初值为 0.5，连续三帧 delta 依次为 0.02、0.03、0.05，第三帧结束后的 uTime 是多少？",
+      "explanation": "delta 累加是在原值上逐帧加入帧间隔，因此第三帧结束后 uTime=0.5+0.02+0.03+0.05=0.6。这里不需要用总帧数替代每帧给出的 delta。",
+      "refs": [{ "title": "Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" }],
+      "type": "numeric",
+      "answer": 0.6,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-07-034",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "下列哪种改动需要设置 material.needsUpdate=true，而不是仅修改已有 uniform.value？",
+      "explanation": "新增 define 或改变 shader 源码会改变材质编译输入，需要标记 needsUpdate。更新 uTime.value 或用 Color.set 修改已有颜色 uniform 都属于常规动态传参，不应借此反复触发编译。",
+      "refs": [{ "title": "Material 文档", "url": "https://threejs.org/docs/#api/en/materials/Material" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "每帧更新 material.uniforms.uTime.value" },
+        { "key": "B", "text": "调用 material.uniforms.uHotColor.value.set 换颜色" },
+        { "key": "C", "text": "新增 define 或修改 vertexShader/fragmentShader 源码", "hint": "编译输入已经发生变化" },
+        { "key": "D", "text": "读取 clock.getElapsedTime 的返回值" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-07-035",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "即使平面没有细分，顶点着色器也会自动增加内部顶点，因此 PlaneGeometry 的分段数对波浪几何细节毫无影响。",
+      "explanation": "错误。顶点着色器处理几何体已经提供的顶点，并不会按本章模板自动细分平面。PlaneGeometry 的细分顶点越充分，可用于位移的内部顶点越多，几何波浪才能更细腻。",
+      "refs": [{ "title": "PlaneGeometry 文档", "url": "https://threejs.org/docs/#api/en/geometries/PlaneGeometry" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-07-036",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "本章 tick 要把 Clock 记录的总经过时间写入 uTime.value，模板调用了哪个方法？",
+      "explanation": "模板使用 clock.getElapsedTime() 取得总经过时间，再赋给 material.uniforms.uTime.value。getDelta 返回的是帧间隔，适合练习中的 delta 累加，但不是模板这里调用的方法。",
+      "refs": [{ "title": "Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "clock.getDelta()" },
+        { "key": "B", "text": "clock.getElapsedTime()", "hint": "它返回 Clock 累计的经过时间" },
+        { "key": "C", "text": "requestAnimationFrame(tick)" },
+        { "key": "D", "text": "renderer.render(scene,camera)" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-07-037",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "点击画布切换 uHotColor 时，练习对 material.uniforms.uHotColor.value 中的 THREE.Color 调用哪个方法设置十六进制颜色？（只写方法名）",
+      "explanation": "THREE.Color.set 可以接收新的十六进制颜色，练习使用 material.uniforms.uHotColor.value.set(0xa855f7)。这只更新已有 uniform 的颜色值，不需要替换材质。",
+      "refs": [{ "title": "Color 文档", "url": "https://threejs.org/docs/#api/en/math/Color" }],
+      "type": "short",
+      "accepted": ["set", ".set", "value.set", "Color.set", "material.uniforms.uHotColor.value.set"],
+      "placeholder": "例如：set"
+    },
+    {
+      "id": "three-07-038",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "某顶点位移后的局部坐标为 (0.8,0.4,-0.12)，wave 仅设置 rotation.x=-π/2 且位置为原点。按 y′=y×cosθ-z×sinθ，该顶点的世界 y 坐标是多少？",
+      "explanation": "θ=-π/2 时 cosθ=0、sinθ=-1，因此 y′=0.4×0-(-0.12)×(-1)=-0.12。模板注释所说局部 z 位移转为世界 y 起伏，可由这一旋转关系验证。",
+      "refs": [{ "title": "Object3D 文档", "url": "https://threejs.org/docs/#api/en/core/Object3D" }],
+      "type": "numeric",
+      "answer": -0.12,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-07-039",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "顶点模板使用 vec4(p,1.0) 构造位置时，最后一个分量 1.0 表示什么？",
+      "explanation": "本章明确指出 vec4(p,1.0) 最后的 1.0 表示这是一个位置，而不是方向。gl_Position 必须是 vec4，因此要把三分量局部位置扩展成四分量后再做矩阵变换。",
+      "refs": [{ "title": "Khronos GLSL 说明", "url": "https://www.khronos.org/opengl/wiki/OpenGL_Shading_Language" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "表示这是位置而不是方向", "hint": "位置在本章模板中使用第四个分量 1.0" },
+        { "key": "B", "text": "表示片元 alpha 必须为 1" },
+        { "key": "C", "text": "表示 uTime 固定为 1 秒" },
+        { "key": "D", "text": "表示几何体只有一个顶点" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-040",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "本章波浪材质无需额外灯光，因为片元颜色完全由自定义 shader 计算。",
+      "explanation": "正确。模板的片元着色器直接用 uColor、vUv 与 vHeight 算出 gl_FragColor，没有依赖光照材质模型，所以不必向场景添加灯光才能得到这些自定义颜色。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-07-041",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "对照 Cesium PostProcessStage 与 three ShaderMaterial，下列说法正确的有哪些？",
+      "explanation": "Cesium 对照例只处理整屏片元阶段；three ShaderMaterial 针对自己的几何，可同时自定义顶点与片元。three 的 JS uniform 使用带 value 的对象，Cesium 可传值或求值函数，两者注入的输入输出名不能互抄。",
+      "refs": [
+        { "title": "CesiumJS 官方文档", "url": "https://cesium.com/documentation/cesiumjs/" },
+        { "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "本章 Cesium 对照例只编写整屏片元阶段", "hint": "它读取上一阶段画面并输出后处理颜色" },
+        { "key": "B", "text": "three ShaderMaterial 可同时处理自己的顶点与片元", "hint": "本章波浪模板同时包含两个着色器" },
+        { "key": "C", "text": "three JS 侧采用带 value 的 uniform 对象，Cesium 对照例可传值或求值函数", "hint": "两套 JS 参数约定不能混为一谈" },
+        { "key": "D", "text": "两个框架注入的纹理坐标与片元输出名完全相同，可以原样互抄" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-07-042",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "自定义逐顶点标量 aScale 已在 geometry 中登记。ShaderMaterial 的顶点着色器应写哪条 GLSL 声明？（写完整声明）",
+      "explanation": "aScale 是每个顶点各一个的 float，因此应声明 attribute float aScale;。它是自定义属性所以需要自行声明，不能像 position、normal、uv 那样依赖 ShaderMaterial 自动注入。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "short",
+      "accepted": ["attribute float aScale;", "attribute float aScale", "attribute float aScale ;"],
+      "placeholder": "例如：attribute float aScale;"
+    },
+    {
+      "id": "three-07-043",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "按本章练习给波浪新增 uAmplitude，哪组实现与要求一致？",
+      "explanation": "练习要求在 uniforms 中加入初值 0.2 的 uAmplitude，在顶点着色器声明 uniform float uAmplitude，并把 sin 项与 cos 项之和整体乘上它。它不是逐顶点 attribute，也不需要每帧重建材质。",
+      "refs": [{ "title": "ShaderMaterial uniforms", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "JS 添加 uAmplitude:{value:0.2}，顶点声明 uniform float uAmplitude，并把两个位移项之和整体乘它", "hint": "参数类型、作用阶段与乘法范围都与练习一致" },
+        { "key": "B", "text": "在片元声明 attribute float uAmplitude，并只乘 vUv.y" },
+        { "key": "C", "text": "声明 uniform vec3 uAmplitude，用它替换 gl_Position" },
+        { "key": "D", "text": "每帧重建材质，但不在 GLSL 中声明或使用 uAmplitude" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-044",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "若目标是给整幅已渲染画面统一添加滤镜，而不是修改某个 Mesh，本章建议优先考虑后处理 Pass。",
+      "explanation": "正确。本章在阶段选择中明确区分单个材质与整屏效果：几何起伏或表面颜色可改相应 ShaderMaterial，整幅滤镜则更适合下一章的后处理 Pass。给某个 Mesh 增加顶点位移不能替代整屏处理。",
+      "refs": [{ "title": "three.js 官方手册", "url": "https://threejs.org/manual/" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-07-045",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于本章波浪模板的片元颜色计算，下列说法正确的有哪些？",
+      "explanation": "base 按 vUv.y 混合 uColor 与青色，crest 由 vHeight 经 smoothstep 得到，最终再以 crest×0.5 混合 base 与橙色。gl_FragColor 的第四个分量为 1.0，而不是 0。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "base 使用 vUv.y 在 uColor 与 vec3(0.1,0.9,1.0) 之间混合", "hint": "UV 的 y 分量控制第一种渐变" },
+        { "key": "B", "text": "crest=smoothstep(-0.2,0.2,vHeight) 使用高度计算权重", "hint": "顶点位移结果由此影响片元颜色" },
+        { "key": "C", "text": "最终颜色以 crest×0.5 为权重混合 base 与橙色", "hint": "height 权重还要再乘 0.5" },
+        { "key": "D", "text": "gl_FragColor=vec4(color,0.0) 把 alpha 固定为 0" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-07-046",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "若按模板让波浪平面的正反两面都参与绘制，应保留哪项 ShaderMaterial 配置？",
+      "explanation": "模板在 ShaderMaterial 构造参数中设置 side:THREE.DoubleSide，用于绘制平面的双面。uTime、vHeight 和 clock 都不负责材质的面侧设置。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "side:THREE.DoubleSide", "hint": "DoubleSide 对应双面绘制配置" },
+        { "key": "B", "text": "uniforms:{uTime:{value:0}}" },
+        { "key": "C", "text": "varying float vHeight" },
+        { "key": "D", "text": "clock.getElapsedTime()" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-047",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "只要片元着色器写出了颜色，该候选片元就一定会成为最终像素，后续深度测试不会改变结果。",
+      "explanation": "错误。片元着色器之后仍有深度、模板测试与混合，候选片元可能因深度测试失败而被丢弃。因此执行过片元着色器不等于它的颜色必然进入最终 framebuffer。",
+      "refs": [{ "title": "MDN WebGL API", "url": "https://developer.mozilla.org/docs/Web/API/WebGL_API" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-07-048",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "把本章默认兼容写法迁移到 glslVersion:THREE.GLSL3 时，下列做法正确的有哪些？",
+      "explanation": "GLSL3 下应使用 in/out 语法：顶点自定义插值输出用 out，片元对应输入用 in，并声明自定义片元输出变量替代 gl_FragColor。不能一边启用 GLSL3，一边完整保留旧 varying 与 gl_FragColor 混写。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "顶点阶段的自定义插值输出改用 out 声明", "hint": "GLSL3 用 out 表达顶点阶段输出" },
+        { "key": "B", "text": "片元阶段用匹配的 in 声明读取这些插值数据", "hint": "输入名称和类型要与顶点输出对应" },
+        { "key": "C", "text": "使用自定义片元输出变量替代 gl_FragColor", "hint": "这是本章指出的 GLSL3 输出约定" },
+        { "key": "D", "text": "继续混用全部旧 varying 与 gl_FragColor，不必调整语法" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-07-049",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "自定义着色器编译失败时，本章建议优先到哪里查看带行号的 shader 编译日志？",
+      "explanation": "three 会在浏览器控制台打印带行号的 shader 编译日志，应据此检查重复声明、varying 类型、数字类型和分号括号等问题。只观察场景背景色无法替代这些诊断信息。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "浏览器控制台", "hint": "编译日志会指出 shader 行号与错误" },
+        { "key": "B", "text": "PlaneGeometry 的 width 属性" },
+        { "key": "C", "text": "Scene 的背景颜色" },
+        { "key": "D", "text": "操作系统的文件扩展名列表" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-07-050",
+      "skill": "three",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "完成本章「振幅与鼠标颜色」练习时，下列实现符合要求的有哪些？",
+      "explanation": "练习新增初值 0.2 的 uAmplitude，并让它乘整个位移和；uHotColor 替代片元中的硬编码橙色，点击时通过 Color.set 更新其 value。由于 shader 源码与 define 都未改变，无需重建材质或设置 needsUpdate。",
+      "refs": [{ "title": "ShaderMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/ShaderMaterial" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "在 uniforms 中添加 uAmplitude:{value:0.2}", "hint": "练习给出了这个初始振幅" },
+        { "key": "B", "text": "把 sin 与 cos 两个位移项之和整体乘 uAmplitude", "hint": "不能只缩放到其中一个位移项" },
+        { "key": "C", "text": "用 uHotColor 替代片元中硬编码的橙色", "hint": "颜色由此可以从 JS 动态控制" },
+        { "key": "D", "text": "点击时执行 material.uniforms.uHotColor.value.set(0xa855f7)，不重建材质", "hint": "更新已有颜色 uniform 不需要重新编译" },
+        { "key": "E", "text": "每次点击都重新编写 shader 源码并创建全新材质" }
+      ],
+      "answer": ["A", "B", "C", "D"]
     }
   ]
 }

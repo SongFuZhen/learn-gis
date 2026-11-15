@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "06",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-06-001",
@@ -198,6 +198,562 @@
       "tolerance": 0,
       "unit": "元",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-06-014",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "某行政区没有任何订单点落入，collect(districts, orders, \"amount\", \"amounts\") 后该面的 amounts 通常是什么？",
+      "explanation": "collect 仍会保留这个面，只是没有可收集的属性值，因此 amounts 是空数组 []。后续求和时可在空数组上使用初始值 0，而不是把空数组当成一笔金额为 0 的订单。",
+      "refs": [{ "title": "Turf collect API", "url": "https://turfjs.org/docs/api/collect" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "空数组 []", "hint": "没有命中点就没有可收集的元素" },
+        { "key": "B", "text": "包含一个 0 的数组 [0]" },
+        { "key": "C", "text": "数字 null" },
+        { "key": "D", "text": "整个面要素会被删除" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-015",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "讲义示例中，西区 collect 得到 amounts = [32, 28]（单位：元）。该区订单平均金额是多少元？",
+      "explanation": "先确认数组中有 2 笔订单，再计算总额 32 + 28 = 60 元，平均金额为 60 ÷ 2 = 30 元。collect 只负责收集，除法需要调用方完成。",
+      "refs": [{ "title": "Turf collect API", "url": "https://turfjs.org/docs/api/collect" }],
+      "type": "numeric",
+      "answer": 30,
+      "tolerance": 0,
+      "unit": "元",
+      "placeholder": "只填平均金额数值"
+    },
+    {
+      "id": "turf-06-016",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "输入点与 clustersDbscan 参数都不变时，仅仅缩放地图不会改变 DBSCAN 的聚类结果。",
+      "explanation": "正确。maxDistance 是按 units 解释的地理距离，不是屏幕像素距离；地图缩放只改变显示比例，不会改变输入坐标和参数，因此 DBSCAN 结果不变。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-06-017",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "关于 clustersDbscan 返回点的聚类属性，下列说法正确的有哪些？",
+      "explanation": "返回结果仍是点要素集合，并附加聚类属性。dbscan 可标记 core、edge 或 noise，属于某簇的点可有数字 cluster 编号；噪声点不能被当成一个正常热点簇。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "properties.dbscan 可能出现 core、edge 或 noise", "hint": "这三个值区分核心、邻接边缘与噪声角色" },
+        { "key": "B", "text": "属于某簇时，properties.cluster 可以是数字编号", "hint": "cluster 用于标识所属簇" },
+        { "key": "C", "text": "所有噪声点都会被强制分配一个有效热点簇号" },
+        { "key": "D", "text": "结果保留点要素，并在 properties 上附加聚类信息", "hint": "聚类是在原有点结果上补充属性" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-06-018",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "本章自定义 pointCount 中，用哪个函数判断订单点是否位于当前面格内？",
+      "explanation": "pointCount 在每个格子的 filter 回调中调用 booleanPointInPolygon(order, cell)，满足点面包含关系的订单才被计入 length。网格函数本身不完成这个判断。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "short",
+      "accepted": ["booleanPointInPolygon", "turf.booleanPointInPolygon"],
+      "placeholder": "写出点面判断函数名"
+    },
+    {
+      "id": "turf-06-019",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "讲义的 collect 与网格示例以北京附近坐标构造数据。请在地图上点击「北京市中心」的大致位置。",
+      "explanation": "北京市中心约为北纬 39.90°、东经 116.41°。讲义包围盒 [116.36, 39.87, 116.50, 39.96] 正是北京城区附近的研究范围；本题采用 300 千米城市级容差。",
+      "refs": [{ "title": "EPSG:4326 经纬度坐标", "url": "https://epsg.io/4326" }],
+      "type": "map",
+      "target": {
+        "lat": 39.9042,
+        "lng": 116.4074
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-06-020",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "在城市订单热力底表中，hexGrid 相比规则矩形网格常被选用的几何优势是什么？",
+      "explanation": "六边形格子的邻居关系更均匀，视觉上较少方向偏好，因此常用于城市热力。它并不自动产生订单计数，也不会天然保证统计结论比矩形网格更正确。",
+      "refs": [{ "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "六边形邻居关系较均匀，视觉上较少方向偏好", "hint": "这是几何与视觉表达上的特点" },
+        { "key": "B", "text": "每个六边形会自动带有正确的订单金额均值" },
+        { "key": "C", "text": "六边形可以保证每格订单数完全相等" },
+        { "key": "D", "text": "hexGrid 返回的不是面，而是屏幕像素块" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-021",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "KMeans 更偏向紧凑、大小相近的簇，因此特别适合发现任意细长或弯曲形状的密度簇。",
+      "explanation": "错误。KMeans 围绕质心分配点，更偏向紧凑且大小相近的簇，不适合发现任意形状的密度簇；后一场景更应考虑 DBSCAN 的密度可达关系。",
+      "refs": [
+        { "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" },
+        { "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-06-022",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "四个非空面格的订单计数为 [2, 5, 5, 9]。按偶数长度取中间两项均值，计数中位数是多少？",
+      "explanation": "数组已经升序排列，长度 4 为偶数，中间两项是第 2 项 5 和第 3 项 5，因此中位数为 (5 + 5) ÷ 2 = 5。答案是 5，不是最大值 9。",
+      "refs": [{ "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" }],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "单/格",
+      "placeholder": "只填中位数数值"
+    },
+    {
+      "id": "turf-06-023",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "朴素 pointCount 在大网格与大点集上过慢，下列优化方向符合本章建议的有哪些？",
+      "explanation": "朴素实现要进行格数乘点数规模重复点面判断。空间索引或包围盒分桶可先减少候选点，Web Worker 可避免重计算阻塞界面；盲目增加嵌套遍历只会加重负担。",
+      "refs": [
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" },
+        { "title": "MDN Web Workers API", "url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "使用空间索引缩小每格的候选点范围", "hint": "先排除不可能落入的点" },
+        { "key": "B", "text": "先按包围盒分桶，再做精确点面判断", "hint": "粗筛与精判可以组合" },
+        { "key": "C", "text": "将重计算交给 Web Worker，降低界面阻塞", "hint": "把计算移出主线程是工程优化" },
+        { "key": "D", "text": "为每格重复完整扫描所有点，并再嵌套一次相同循环" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-06-024",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "某次 DBSCAN 结果全是噪声。若只调整邻域半径而不改 minPoints，应增大还是减小 maxDistance？",
+      "explanation": "应增大 maxDistance，让更多邻近点落入同一邻域，从而提高形成密度核心的机会。讲义也允许降低 minPoints，但本题限定只调整半径，所以不能把减小半径作为答案。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "short",
+      "accepted": ["增大", "调大", "增大 maxDistance", "调大 maxDistance"],
+      "placeholder": "填写“增大”或“减小”"
+    },
+    {
+      "id": "turf-06-025",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "为 hexGrid 提供研究区面作为 mask 后，本章所述的筛选行为是什么？",
+      "explanation": "mask 用于保留与指定面相交的网格，以减少研究区外的无效单元。它不是订单统计器，也不等于只保留完全包含在研究区内的格子，更不能替代点面计数。",
+      "refs": [{ "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "保留与 mask 面相交的网格，减少区外无效单元", "hint": "相交筛选用于限定研究范围" },
+        { "key": "B", "text": "只保留订单数大于零的网格" },
+        { "key": "C", "text": "把所有网格转换成订单 Point" },
+        { "key": "D", "text": "自动计算每个格子的订单金额总和" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-026",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "collect 会把输入 polygons 转换成订单点集，并为每个订单点写入所属面名称。",
+      "explanation": "错误。collect 的输出仍是一组面，每个面新增由内部点属性值组成的数组；它不会把面转换成点，也不会逐个修改输入订单点的所属面名称。",
+      "refs": [{ "title": "Turf collect API", "url": "https://turfjs.org/docs/api/collect" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-06-027",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "一个规则矩形研究区按 4 列、3 行生成有效面格，且没有 mask 剔除单元，共有多少个格子？",
+      "explanation": "每个行列交叉位置对应一个矩形面格，因此总格数为列数乘行数，即 4 × 3 = 12 个。这里统计的是网格单元数量，不是订单点数量。",
+      "refs": [{ "title": "Turf rectangleGrid API", "url": "https://turfjs.org/docs/api/rectangleGrid" }],
+      "type": "numeric",
+      "answer": 12,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填格子数量"
+    },
+    {
+      "id": "turf-06-028",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "关于 hexGrid、rectangleGrid 和 pointGrid 的输出几何，下列说法正确的有哪些？",
+      "explanation": "hexGrid 与 rectangleGrid 都生成 Polygon 面集合，适合作为统计单元；pointGrid 生成 Point 点集合，适合采样或中心标记。三者并不输出相同几何类型。",
+      "refs": [
+        { "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" },
+        { "title": "Turf rectangleGrid API", "url": "https://turfjs.org/docs/api/rectangleGrid" },
+        { "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "hexGrid 的格子几何是 Polygon", "hint": "六边形网格是面网格" },
+        { "key": "B", "text": "rectangleGrid 的格子几何是 Polygon", "hint": "矩形网格也是面网格" },
+        { "key": "C", "text": "pointGrid 的要素几何是 Point", "hint": "名称中的 point 表明输出为规则点集" },
+        { "key": "D", "text": "三种函数都只输出 LineString" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-06-029",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "讲义 collect 示例把北京附近的面命名为“西区”和“东区”。请点击真实地点「北京市西城区」的大致位置。",
+      "explanation": "北京市西城区位于中心城区偏西，约为北纬 39.91°、东经 116.37°，与示例“西区”位于西侧的空间关系相符。本题使用 200 千米容差，点击北京西部城区即可。",
+      "refs": [{ "title": "EPSG:4326 经纬度坐标", "url": "https://epsg.io/4326" }],
+      "type": "map",
+      "target": {
+        "lat": 39.9137,
+        "lng": 116.366
+      },
+      "toleranceKm": 200
+    },
+    {
+      "id": "turf-06-030",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "本章 pointCount 把每个面格内的订单数量写入 properties 的哪个字段？",
+      "explanation": "示例返回新 properties 时使用 { ...cell.properties, count }，所以订单数量保存在 count 字段。地图渲染器随后可以读取这个数值进行分级设色。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "short",
+      "accepted": ["count", "properties.count", "cell.properties.count"],
+      "placeholder": "写出计数字段名"
+    },
+    {
+      "id": "turf-06-031",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "统计结果需要按规则行列与服务端表格对齐，三种网格函数中优先选择哪一个？",
+      "explanation": "rectangleGrid 生成规则矩形面，便于按行列组织索引并与服务端表格对齐。六边形更强调均匀邻居关系，pointGrid 则没有可直接统计的面边界。",
+      "refs": [{ "title": "Turf rectangleGrid API", "url": "https://turfjs.org/docs/api/rectangleGrid" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "rectangleGrid", "hint": "矩形单元天然适合规则行列组织" },
+        { "key": "B", "text": "hexGrid" },
+        { "key": "C", "text": "pointGrid" },
+        { "key": "D", "text": "clustersKmeans" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-032",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "collect 的行政区汇总结果异常时，根据本章提醒，应优先检查哪些问题？",
+      "explanation": "collect 依赖点面包含关系，错误坐标会改变点是否落面，未闭合环会破坏面几何，跨面边界点则涉及边界语义。这些输入问题需要先核查，不能指望 collect 自动修复。",
+      "refs": [{ "title": "Turf collect API", "url": "https://turfjs.org/docs/api/collect" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "订单坐标是否错误或偏离实际位置", "hint": "先确认输入点的位置可信" },
+        { "key": "B", "text": "行政区面的环是否未闭合", "hint": "面几何质量会影响包含判断" },
+        { "key": "C", "text": "跨面边界点的包含语义是否符合业务要求", "hint": "严格边界规则需要额外检查" },
+        { "key": "D", "text": "认为 collect 会自动修复所有错误坐标与未闭合环" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-06-033",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "聚类结果中的 cluster 编号 0 天然比编号 1 更重要，因此应按编号大小解释热点等级。",
+      "explanation": "错误。簇编号只是区分所属簇的标签，不携带业务量、密度或重要性的天然排序。需要比较热点时应另行统计点数、金额等指标，不能按编号大小排等级。",
+      "refs": [
+        { "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" },
+        { "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-06-034",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "某面执行 collect 后，properties.amounts.length 表示什么？",
+      "explanation": "amounts 的每个元素来自一个落入该面的订单点，因此数组长度就是被收集到 amount 的订单点数量。它不是金额总和，也不是行政区面积。",
+      "refs": [{ "title": "Turf collect API", "url": "https://turfjs.org/docs/api/collect" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "落入该面且被收集 amount 的订单点数量", "hint": "数组元素个数对应订单笔数" },
+        { "key": "B", "text": "该面订单金额的总和" },
+        { "key": "C", "text": "该面的地理面积" },
+        { "key": "D", "text": "全部研究区的行政区数量" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-035",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "讲义 collect 示例中的“东区”位于北京附近。请点击真实地点「北京市东城区」的大致位置。",
+      "explanation": "北京市东城区位于中心城区偏东，约为北纬 39.93°、东经 116.42°，与示例“东区”在东的空间关系一致。其位置也落在讲义北京网格包围盒附近，容差为 200 千米。",
+      "refs": [{ "title": "EPSG:4326 经纬度坐标", "url": "https://epsg.io/4326" }],
+      "type": "map",
+      "target": {
+        "lat": 39.9288,
+        "lng": 116.4165
+      },
+      "toleranceKm": 200
+    },
+    {
+      "id": "turf-06-036",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "按讲义的业务尺度建议，骑手驻店热点与城市间站点聚类分别更适合哪组邻域尺度？",
+      "explanation": "骑手驻店热点发生在较小的本地空间，适合百米级邻域；城市间站点跨度更大，适合千米级邻域。参数必须配合 units 和业务距离，不能直接套用屏幕像素。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "前者百米级，后者千米级", "hint": "邻域尺度应匹配两类业务的实际间距" },
+        { "key": "B", "text": "前者千米级，后者百米级" },
+        { "key": "C", "text": "两者都只能使用屏幕像素" },
+        { "key": "D", "text": "两者都与 maxDistance 无关" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-037",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "已有带 count 的非空与空面格混合底表，下列热力样式处理符合本章建议的有哪些？",
+      "explanation": "先过滤 count 为 0 的格子，可避免大量空格干扰非空计数分布；按分位数设置颜色与透明度通常比线性套色更耐离群值。格元还要随观察尺度设计，不能在高倍缩放时机械沿用城市级尺寸。",
+      "refs": [{ "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "分析非空格子分布前先过滤 count === 0 的格子", "hint": "大量零值会扭曲非空热区的统计分布" },
+        { "key": "B", "text": "按分位数设置颜色与透明度，以降低离群值影响", "hint": "分位数分级比简单线性映射更耐极端值" },
+        { "key": "C", "text": "无论缩放多高，都始终沿用同一城市级格元尺寸" },
+        { "key": "D", "text": "把所有格子的 count 改成同一个常数再分级" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "turf-06-038",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "本章 pointCount 使用 { ...cell.properties, count }，因此能在新增计数时保留格子原有的其他属性。",
+      "explanation": "正确。展开语法先复制 cell.properties 的已有键值，再写入新的 count；返回对象保留原有几何，并生成包含原有属性与计数字段的新 properties。",
+      "refs": [
+        { "title": "MDN 展开语法", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax" },
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-06-039",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "hexGrid、rectangleGrid 和 pointGrid 通过哪个选项显式指定 cellSide 的距离单位？",
+      "explanation": "三种网格函数都通过 units 解释 cellSide 的尺度，例如 { units: \"kilometers\" } 表示数值按千米理解。显式设置该选项可避免把米级参数误当成千米。",
+      "refs": [{ "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" }],
+      "type": "short",
+      "accepted": ["units", "units 选项", "options.units"],
+      "placeholder": "写出单位选项名"
+    },
+    {
+      "id": "turf-06-040",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "clustersDbscan 处理 12 个点后，有 5 个 core、4 个 edge、3 个 noise。归属于密度簇的非噪声点共有多少个？",
+      "explanation": "core 与 edge 都是密度簇中的点，noise 不计入簇。因此非噪声点数为 5 + 4 = 9 个，也可用总点数核算为 12 - 3 = 9 个。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "numeric",
+      "answer": 9,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填非噪声点数量"
+    },
+    {
+      "id": "turf-06-041",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "需要得到可保存、可统计且缩放后仍稳定的地理订单簇，再交给 Cesium 展示，应采用哪条链路？",
+      "explanation": "应先用 Turf 的 DBSCAN 或 KMeans 按地理坐标算出 GeoJSON 结果，再加载到 Cesium。EntityCluster 主要解决屏幕显示拥挤，缩放后显示簇会变化，不能冒充稳定的空间分析底表。",
+      "refs": [
+        { "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" },
+        { "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "先用 Turf 计算地理簇，再把 GeoJSON 加载到 Cesium", "hint": "空间分析与屏幕展示应分工" },
+        { "key": "B", "text": "只保存 EntityCluster 每次缩放后的屏幕合并结果作为分析真值" },
+        { "key": "C", "text": "用pointGrid替代全部订单点，不读取原始坐标" },
+        { "key": "D", "text": "只修改地图背景色，簇会由 Cesium 自动写入 GeoJSON" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-042",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "pointGrid 生成的规则点集可以用于空间采样，或作为格网中心标记，而不是直接提供面边界。",
+      "explanation": "正确。pointGrid 返回 Point 的 FeatureCollection，适合规则采样与中心标记。若要按面格计数，应使用 hexGrid、rectangleGrid 等面单元，或另外建立点与统计单元的映射。",
+      "refs": [{ "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-06-043",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "本章 pointCount 在 map 生成带 count 的格子数组后，用哪个函数重新包装成 FeatureCollection？",
+      "explanation": "示例最外层调用 featureCollection(...)，将 map 得到的格子要素数组包装为 GeoJSON FeatureCollection。booleanPointInPolygon 只负责内部点面判断，不负责包装结果集合。",
+      "refs": [{ "title": "Turf 文档", "url": "https://turfjs.org/docs/" }],
+      "type": "short",
+      "accepted": ["featureCollection", "turf.featureCollection"],
+      "placeholder": "写出集合构造函数名"
+    },
+    {
+      "id": "turf-06-044",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "关于 clustersKmeans 的适用任务与限制，下列说法正确的有哪些？",
+      "explanation": "业务明确需要 8 个运营片区时，可把 numberOfClusters 设为 8；KMeans 更适合紧凑、大小相近的簇。它不擅长任意形状密度簇，也不能替代 DBSCAN 自动识别噪声。",
+      "refs": [{ "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "全城明确划定 8 个运营片区时，可设置 numberOfClusters: 8", "hint": "明确组数是 KMeans 的典型输入条件" },
+        { "key": "B", "text": "点群较紧凑且各组大小相近时，更符合 KMeans 的倾向", "hint": "围绕质心分组更偏好紧凑结构" },
+        { "key": "C", "text": "它是发现任意细长、弯曲密度簇的首选" },
+        { "key": "D", "text": "它会把孤立点自动标为 noise，无需其他算法" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "turf-06-045",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "将骑手驻店热点的 500 米邻域半径传给 clustersDbscan，且 units 设为 kilometers 时，maxDistance 应填多少？",
+      "explanation": "因为 1 千米 = 1000 米，所以 500 米换算为 500 ÷ 1000 = 0.5 千米。units 已为 kilometers 时应填 0.5，若直接填 500 就会把半径放大到 500 千米。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "numeric",
+      "answer": 0.5,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填千米数值"
+    },
+    {
+      "id": "turf-06-046",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 1,
+      "stem": "讲义北京网格包围盒还覆盖市中心以东的城区。请点击真实地点「北京市朝阳区」的大致位置。",
+      "explanation": "北京市朝阳区位于市中心以东，常用城区代表坐标约为北纬 39.92°、东经 116.44°，处在讲义示例包围盒范围内。本题采用 250 千米容差，以识别北京东部城区为目标。",
+      "refs": [{ "title": "EPSG:4326 经纬度坐标", "url": "https://epsg.io/4326" }],
+      "type": "map",
+      "target": {
+        "lat": 39.9219,
+        "lng": 116.4435
+      },
+      "toleranceKm": 250
+    },
+    {
+      "id": "turf-06-047",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "保持 clustersDbscan 的输入点与 maxDistance 不变，只增大 minPoints，通常会带来什么变化？",
+      "explanation": "增大 minPoints 会提高成为密度核心所需的邻域点数，原本稀疏的区域更难形成核心，因此通常更容易产生噪声。它不是增加预设簇数的 K 值。",
+      "refs": [{ "title": "Turf clustersDbscan API", "url": "https://turfjs.org/docs/api/clustersDbscan" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "形成密度核心的门槛提高，通常更容易产生噪声", "hint": "邻域内需要满足的点数条件更严格" },
+        { "key": "B", "text": "所有点必然组成同一个簇" },
+        { "key": "C", "text": "maxDistance 会自动变成屏幕像素" },
+        { "key": "D", "text": "算法会自动改成 KMeans 并指定簇数" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-06-048",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "pointCount 是 Turf 官方提供的通用统计函数，只要传入网格和点集就会自动完成所有业务汇总。",
+      "explanation": "错误。本章的 pointCount 是为讲解网格计数而自定义的封装，内部显式执行点面判断并写回 count。Turf 网格函数只生成几何，并不存在这个可替代全部业务统计的官方通用函数。",
+      "refs": [
+        { "title": "Turf hexGrid API", "url": "https://turfjs.org/docs/api/hexGrid" },
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-06-049",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 3,
+      "stem": "clustersKmeans 返回点的 properties 中，哪个字段保存该点所属簇的质心坐标？",
+      "explanation": "示例通过 feature.properties.centroid 读取所属簇的质心坐标；properties.cluster 则保存簇编号。两者用途不同，质心字段不是 numberOfClusters，也不是 DBSCAN 的 noise 标记。",
+      "refs": [{ "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }],
+      "type": "short",
+      "accepted": ["centroid", "properties.centroid", "feature.properties.centroid"],
+      "placeholder": "写出质心字段名"
+    },
+    {
+      "id": "turf-06-050",
+      "skill": "turf",
+      "module": "06",
+      "difficulty": 2,
+      "stem": "朴素 pointCount 对 M 个面格逐格 filter N 个订单点，不做索引或分桶时，点面包含判断的规模是多少？",
+      "explanation": "每个面格都要扫描一次完整点集，因此判断次数的规模为 M × N。这个乘积解释了大网格乘大点集为何容易过慢，也说明需要空间索引、包围盒分桶或 Web Worker。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "M + N" },
+        { "key": "B", "text": "M × N", "hint": "每一格都要处理一遍全部 N 个点" },
+        { "key": "C", "text": "只取 M 与 N 中的较小值" },
+        { "key": "D", "text": "始终只有一次判断" }
+      ],
+      "answer": ["B"]
     }
   ]
 }

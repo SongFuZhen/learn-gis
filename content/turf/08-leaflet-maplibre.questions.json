@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "08",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-08-001",
@@ -207,6 +207,609 @@
       "tolerance": 0,
       "unit": "次/秒",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-08-014",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Turf 返回的单个 Feature 或 FeatureCollection 都可以交给已有 L.geoJSON 图层的 addData 展示。",
+      "explanation": "正确。addData 可直接接收 Turf 生成的 Feature 或 FeatureCollection，图层负责转换为 Leaflet 渲染对象，不需要先手工创建 Marker 或 Polygon 实例。",
+      "refs": [
+        { "title": "Leaflet GeoJSON API", "url": "https://leafletjs.com/reference.html" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-08-015",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Leaflet 示例执行 setView([39.904, 116.407], 12) 时，前两个数分别表示什么？",
+      "explanation": "Leaflet 的 setView 使用 [纬度, 经度]，所以中心是纬度 39.904、经度 116.407，第三个数 12 是缩放级别。这与 GeoJSON 的 [经度, 纬度] 顺序不同。",
+      "refs": [{ "title": "Leaflet Map setView", "url": "https://leafletjs.com/reference.html" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "纬度 39.904、经度 116.407", "hint": "setView 的中心参数采用先纬后经顺序" },
+        { "key": "B", "text": "经度 39.904、纬度 116.407" },
+        { "key": "C", "text": "缩放级别 39.904、缓冲区半径 116.407" },
+        { "key": "D", "text": "屏幕横坐标 39.904、纵坐标 116.407" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-08-016",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Leaflet 重绘分析结果前，要清空 analysisLayer 中的旧要素，应调用哪个方法？",
+      "explanation": "analysisLayer.clearLayers() 只移除该分析图层中的旧要素，保留地图实例与 OSM 底图，随后可继续 addData，符合本章的稳定更新模式。",
+      "refs": [{ "title": "Leaflet LayerGroup clearLayers", "url": "https://leafletjs.com/reference.html" }],
+      "type": "short",
+      "accepted": ["clearLayers", "clearLayers()", "analysisLayer.clearLayers", "analysisLayer.clearLayers()"],
+      "placeholder": "写出方法名"
+    },
+    {
+      "id": "turf-08-017",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "某 OSM 瓦片服务在 zoom z 时全球共有 4^z 张瓦片。z = 3 时，全球共有多少张瓦片？",
+      "explanation": "z = 3 时，每边有 2^3 = 8 张瓦片，全球总数为 4^3 = 64 张，也可写成 8 × 8 = 64。",
+      "refs": [
+        { "title": "OSM Slippy Map Tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" },
+        { "title": "Leaflet TileLayer API", "url": "https://leafletjs.com/reference.html" }
+      ],
+      "type": "numeric",
+      "answer": 64,
+      "tolerance": 0,
+      "unit": "张",
+      "placeholder": "只填整数"
+    },
+    {
+      "id": "turf-08-018",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "为了让地图重建后仍能撤销、重算和复现分析，哪些内容应保存在地图外的独立 state 中？",
+      "explanation": "原始输入、分析参数和最新 Turf 结果共同构成可复现的数据状态。地图私有字段会随渲染实现变化，屏幕截图也不能恢复几何与参数，因此都不能替代独立 GeoJSON 状态。",
+      "refs": [
+        { "title": "GeoJSON RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "原始点击点或绘线的 GeoJSON", "hint": "原始输入是重新执行分析链的起点" },
+        { "key": "B", "text": "缓冲半径与单位等分析参数", "hint": "只有几何而没有参数仍不能完整复现结果" },
+        { "key": "C", "text": "最新 Turf 计算结果", "hint": "独立保存结果可用于复用、检查和清空" },
+        { "key": "D", "text": "只保存地图实例的私有字段" },
+        { "key": "E", "text": "只保留当前地图的屏幕截图" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-08-019",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "在地图上点击本章 setView 与 maplibregl.Map 示例共同使用的北京位置。",
+      "explanation": "示例以北京约 39.904°N、116.407°E 为初始中心。Leaflet 写作 [39.904, 116.407]，MapLibre 与 GeoJSON 写作 [116.407, 39.904]；本题容差为 300 千米。",
+      "refs": [
+        { "title": "Leaflet Map API", "url": "https://leafletjs.com/reference.html" },
+        { "title": "MapLibre GL JS Map", "url": "https://maplibre.org/maplibre-gl-js/docs/" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.904,
+        "lng": 116.407
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-08-020",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "创建空的 Leaflet 分析图层时，L.geoJSON(null, options) 中的 null 表示什么？",
+      "explanation": "null 让图层以无初始要素的状态创建，options 中的样式仍会保留，之后可通过 addData 加入 Turf 结果。它不会删除底图，也不会禁止后续更新。",
+      "refs": [{ "title": "Leaflet GeoJSON API", "url": "https://leafletjs.com/reference.html" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "立即删除地图与底图" },
+        { "key": "B", "text": "初始没有 GeoJSON 要素，之后仍可 addData", "hint": "空图层可先创建，数据到达后再填充" },
+        { "key": "C", "text": "永久禁止向图层添加数据" },
+        { "key": "D", "text": "自动对地图中心生成缓冲区" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-08-021",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "MapLibre 的 addLayer 配置中，source 字段应与目标 addSource 使用的数据源 id 保持一致。",
+      "explanation": "正确。样式 layer 通过 source 字段引用已经注册的数据源 id；本章两者都使用 turf-analysis，若 id 不一致，图层就无法取得预期的 GeoJSON 数据。",
+      "refs": [{ "title": "MapLibre GL JS Source 与 Layer", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-08-022",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Leaflet 中已有 analysisLayer，要把新的 Turf 折线或缓冲区加入该图层，应调用哪个方法？",
+      "explanation": "analysisLayer.addData(data) 接收标准 GeoJSON，并把其中的要素加入已有 L.geoJSON 图层；Turf 的 Feature 与 FeatureCollection 都可作为 data。",
+      "refs": [{ "title": "Leaflet GeoJSON addData", "url": "https://leafletjs.com/reference.html" }],
+      "type": "short",
+      "accepted": ["addData", "addData()", "analysisLayer.addData", "analysisLayer.addData()"],
+      "placeholder": "写出方法名"
+    },
+    {
+      "id": "turf-08-023",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "按 zoom z 全球瓦片数为 4^z 计算，分别准备 z=0、z=1、z=2 三级的完整瓦片集合，共需多少张？",
+      "explanation": "三级瓦片分别计数再相加：z=0 有 4^0 = 1 张，z=1 有 4^1 = 4 张，z=2 有 4^2 = 16 张，总计 1 + 4 + 16 = 21 张。",
+      "refs": [{ "title": "OSM Slippy Map Tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" }],
+      "type": "numeric",
+      "answer": 21,
+      "tolerance": 0,
+      "unit": "张",
+      "placeholder": "只填整数"
+    },
+    {
+      "id": "turf-08-024",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "对照本章 Leaflet 与 MapLibre 初始化示例，下列说法正确的有哪些？",
+      "explanation": "两个库都需要相应的 CSS 来正确呈现地图，Leaflet 的 OSM 底图示例保留了署名。MapLibre 构造器需要容器与样式等配置；地图只需初始化一次，点击不应触发重建。",
+      "refs": [
+        { "title": "Leaflet API 参考", "url": "https://leafletjs.com/reference.html" },
+        { "title": "MapLibre GL JS 文档", "url": "https://maplibre.org/maplibre-gl-js/docs/" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "Leaflet 示例导入 leaflet/dist/leaflet.css", "hint": "样式资源是地图初始化的组成部分" },
+        { "key": "B", "text": "OSM tileLayer 配置 attribution 署名", "hint": "示例保留 OpenStreetMap contributors 署名" },
+        { "key": "C", "text": "MapLibre 示例导入 maplibre-gl/dist/maplibre-gl.css", "hint": "对应库的 CSS 同样需要加载" },
+        { "key": "D", "text": "maplibregl.Map 不需要 container 和 style 配置" },
+        { "key": "E", "text": "每次点击都应重新创建地图实例" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-08-025",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "在地图上点击北京天安门广场，作为后续 Turf 点缓冲区的中心。",
+      "explanation": "天安门广场位于北京中心区域、故宫博物院以南，目标坐标约为 39.9087°N、116.3975°E。点击后可按 [116.3975, 39.9087] 构造 Turf Point；本题容差为 300 千米。",
+      "refs": [
+        { "title": "OpenStreetMap", "url": "https://www.openstreetmap.org/" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9087,
+        "lng": 116.3975
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-08-026",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "对一个 Turf Point 调用 buffer(input, 300, { units: \"meters\" }) 后，output.geometry.type 通常是什么？",
+      "explanation": "点缓冲区表示围绕该点的一定距离范围，因此返回 Feature 的几何通常是 Polygon。Feature 是外层对象类型，不是 output.geometry.type 的值。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Point" },
+        { "key": "B", "text": "LineString" },
+        { "key": "C", "text": "Polygon", "hint": "缓冲区是具有面积的面几何" },
+        { "key": "D", "text": "FeatureCollection" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-08-027",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "MapLibre GeoJSON source 的 setData 既可以接收新的 GeoJSON 对象，也可以接收 GeoJSON 数据地址。",
+      "explanation": "正确。setData 的数据参数可直接使用 Feature、FeatureCollection 等 GeoJSON 对象，也可使用数据 URL；两种形式都复用已注册的数据源，无需拆建样式层。",
+      "refs": [{ "title": "MapLibre GL JS GeoJSON Source", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-08-028",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "draft 已累积至少两个 [经度, 纬度] 坐标，构造 Turf 折线应调用哪个函数？",
+      "explanation": "lineString(draft) 把至少两个标准坐标位置构造成 LineString Feature，随后才能沿折线计算 buffer。只有一个坐标时应继续等待输入。",
+      "refs": [{ "title": "Turf lineString API", "url": "https://turfjs.org/docs/api/lineString" }],
+      "type": "short",
+      "accepted": ["lineString", "lineString()", "turf.lineString", "turf.lineString()"],
+      "placeholder": "写出 Turf 函数名"
+    },
+    {
+      "id": "turf-08-029",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "全球瓦片在 zoom z 时每边有 2^z 张，每张边长 256 像素。z=2 时，全世界瓦片拼成的正方形边长是多少像素？",
+      "explanation": "z=2 时每边有 2^2 = 4 张瓦片，每张边长 256 像素，所以拼接后的边长为 4 × 256 = 1024 像素。",
+      "refs": [{ "title": "OSM Slippy Map Tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" }],
+      "type": "numeric",
+      "answer": 1024,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "只填整数"
+    },
+    {
+      "id": "turf-08-030",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "依次点击三个位置绘制安全走廊时，下列哪些状态转换符合本章交互闭环？",
+      "explanation": "每次点击先把 [lng, lat] 追加到 draft；不足两点时只保存草稿，达到两点后即可构造 LineString 并计算缓冲区，第三点则用完整三点坐标重算。地图与渲染通道保持复用。",
+      "refs": [
+        { "title": "Turf lineString API", "url": "https://turfjs.org/docs/api/lineString" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "第一次点击保存坐标，但暂不构造 LineString", "hint": "一个位置不足以定义折线" },
+        { "key": "B", "text": "第二次点击后用两个点构造 route 并计算 corridor", "hint": "达到 LineString 的最少点数后即可进入分析" },
+        { "key": "C", "text": "第三次点击后用三个点重建 route 并更新 corridor", "hint": "新输入进入同一标准化与重算路径" },
+        { "key": "D", "text": "每次点击都重新 new maplibregl.Map" },
+        { "key": "E", "text": "第三次点击后必须删除 draft 中的前两个点" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-08-031",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "在地图上点击北京故宫博物院，作为三点绘线练习中的一个真实地点。",
+      "explanation": "故宫博物院位于北京中轴线中心区域、天安门广场以北，是明清皇宫建筑群，目标坐标约为 39.9163°N、116.3972°E。本题使用城市级容差 300 千米。",
+      "refs": [
+        { "title": "OpenStreetMap", "url": "https://www.openstreetmap.org/" },
+        { "title": "Turf lineString API", "url": "https://turfjs.org/docs/api/lineString" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9163,
+        "lng": 116.3972
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-08-032",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "需要按风险等级 properties.level 改变 MapLibre 缓冲区颜色时，哪项分工最合理？",
+      "explanation": "空间分析先在 Turf 中完成，再把明确的 properties 交给样式层。MapLibre 的 paint 表达式负责颜色等视觉表现，不应承担缓冲区生成等空间计算。",
+      "refs": [
+        { "title": "MapLibre GL JS Style", "url": "https://maplibre.org/maplibre-gl-js/docs/" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "在 paint 表达式中生成缓冲几何并替代 Turf" },
+        { "key": "B", "text": "用样式表达式替代 Turf lineString 构造折线" },
+        { "key": "C", "text": "直接修改屏幕像素并删除全部 GeoJSON" },
+        { "key": "D", "text": "Turf 先完成空间分析，paint 只根据 properties 控制表现", "hint": "计算与样式分离，结果更容易测试和复用" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "turf-08-033",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "执行“清空”时，只要清除地图上的分析图层，保留 draft 也能保证下一次绘线从空白开始。",
+      "explanation": "错误。若只清屏而保留 draft，下一次点击仍会接到旧坐标后面，状态与画面不一致。清空必须同时重置 draft、相关输入输出状态和地图分析数据。",
+      "refs": [
+        { "title": "Turf lineString API", "url": "https://turfjs.org/docs/api/lineString" },
+        { "title": "Leaflet LayerGroup API", "url": "https://leafletjs.com/reference.html" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-08-034",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "要获取 id 为 turf-analysis 的已注册 MapLibre 数据源，应写出怎样的完整调用？",
+      "explanation": "map.getSource(\"turf-analysis\") 按注册 id 取得数据源，取得后可检查返回值是否存在，再调用 setData。仅写 setData 而不能先定位 source，无法完成这条更新路径。",
+      "refs": [{ "title": "MapLibre GL JS Map getSource", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "short",
+      "accepted": [
+        "map.getSource(\"turf-analysis\")",
+        "map.getSource('turf-analysis')",
+        "getSource(\"turf-analysis\")",
+        "getSource('turf-analysis')"
+      ],
+      "placeholder": "map.getSource(...)"
+    },
+    {
+      "id": "turf-08-035",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "瓦片横坐标公式为 x=floor((lng+180)/360×2^z)。取本章北京经度 lng=116.407，z=3 时 x 是多少？",
+      "explanation": "z=3 时 2^z=8，代入得 x=floor((116.407+180)/360×8)=floor(6.586822...)=6。floor 表示向下取整，因此答案不是四舍五入后的 7。",
+      "refs": [{ "title": "OSM Slippy Map Tilenames", "url": "https://wiki.openstreetmap.org/wiki/Slippy_map_tilenames" }],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "x 序号",
+      "placeholder": "只填整数"
+    },
+    {
+      "id": "turf-08-036",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "为本章 Turf 缓冲区配置 MapLibre fill 图层时，下列哪些配置项与示例一致？",
+      "explanation": "示例图层使用 fill 类型，通过 turf-analysis 引用固定数据源，并在 paint 中设置填充颜色与不透明度。缓冲距离由 Turf 计算，setData 也不需要更换 source id。",
+      "refs": [{ "title": "MapLibre GL JS Layer", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "type 为「fill」", "hint": "缓冲区 Polygon 使用填充图层展示" },
+        { "key": "B", "text": "source 为「turf-analysis」", "hint": "样式层引用 addSource 注册的固定 id" },
+        { "key": "C", "text": "paint 中设置 fill-color 与 fill-opacity", "hint": "这两个属性分别控制填充颜色和不透明度" },
+        { "key": "D", "text": "用 paint 的 buffer-distance 代替 Turf buffer" },
+        { "key": "E", "text": "每次 setData 都更换 layer 的 source id" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-08-037",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "需要逐个访问 analysisLayer 中的 Leaflet 矢量子图层并分别导出时，应使用哪个遍历方法？",
+      "explanation": "analysisLayer.eachLayer(callback) 会遍历其中的子图层，回调内可再调用 layer.toGeoJSON()。source.setData 属于 MapLibre 更新流程，不是 Leaflet 的遍历方法。",
+      "refs": [{ "title": "Leaflet LayerGroup eachLayer", "url": "https://leafletjs.com/reference.html" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "new maplibregl.Map(...)" },
+        { "key": "B", "text": "analysisLayer.eachLayer(...)", "hint": "回调参数就是每个待处理的子图层" },
+        { "key": "C", "text": "source.setData(...)" },
+        { "key": "D", "text": "requestAnimationFrame(...)" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-08-038",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Turf 生成的 GeoJSON 可以交给 Cesium 加载，但高程与贴地展示仍由 Cesium 负责。",
+      "explanation": "正确。标准 GeoJSON 让同一 Turf 二维分析结果可以跨渲染框架复用；Cesium 的三维场景、高程和贴地策略不属于 Turf 的计算职责。",
+      "refs": [
+        { "title": "Cesium GeoJsonDataSource", "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html" },
+        { "title": "GeoJSON RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-08-039",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "已有 Turf 缓冲区 state.result，要计算其面积，应调用哪个 Turf 函数？",
+      "explanation": "area(state.result) 计算输入 GeoJSON 的面积，本章练习直接使用其结果作为缓冲区面积，返回单位为平方米，与地图样式中的填充不透明度无关。",
+      "refs": [{ "title": "Turf area API", "url": "https://turfjs.org/docs/api/area" }],
+      "type": "short",
+      "accepted": ["area", "area()", "turf.area", "turf.area()"],
+      "placeholder": "写出 Turf 函数名"
+    },
+    {
+      "id": "turf-08-040",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "new maplibregl.Map 配置中的 zoom: 11 表示什么？",
+      "explanation": "zoom: 11 设置地图初始视图的缩放级别，与 center 一起决定打开地图时看到的范围。它不是缓冲区半径、数据源 id 或瓦片像素尺寸。",
+      "refs": [{ "title": "MapLibre GL JS Map Options", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "地图初始缩放级别", "hint": "它与 center 共同定义初始视图" },
+        { "key": "B", "text": "缓冲区半径为 11 米" },
+        { "key": "C", "text": "GeoJSON 数据源 id 为 11" },
+        { "key": "D", "text": "每张瓦片边长为 11 像素" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-08-041",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "创建 L.geoJSON 分析图层时，哪些 style 配置与本章示例一致？",
+      "explanation": "本章 Leaflet 样式使用 color 设置线条颜色、weight 设置线宽、fillOpacity 设置填充不透明度。缓冲半径和单位属于 Turf buffer 参数，不属于 Leaflet 样式。",
+      "refs": [
+        { "title": "Leaflet Path Style", "url": "https://leafletjs.com/reference.html" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "color 为「#e63946」", "hint": "它设置分析要素的线条颜色" },
+        { "key": "B", "text": "weight 为 2", "hint": "它设置矢量路径的线宽" },
+        { "key": "C", "text": "fillOpacity 为 0.25", "hint": "它设置面要素的填充不透明度" },
+        { "key": "D", "text": "units 为「meters」即可决定缓冲半径" },
+        { "key": "E", "text": "zoom 为 12 即可生成缓冲区几何" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-08-042",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "Leaflet 的 event.latlng 与 MapLibre 的 event.lngLat 都可以在事件边界转换成标准 GeoJSON，再复用同一 Turf 分析链。",
+      "explanation": "正确。两者只是事件属性名不同，回调中都可读取 lng 与 lat，并构造 point([lng, lat])。此后使用同一 GeoJSON 数据契约，无需为两个地图库重写 Turf 计算。",
+      "refs": [
+        { "title": "Leaflet MouseEvent", "url": "https://leafletjs.com/reference.html" },
+        { "title": "MapLibre GL JS Events", "url": "https://maplibre.org/maplibre-gl-js/docs/" },
+        { "title": "Turf point API", "url": "https://turfjs.org/docs/api/point" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-08-043",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "把缓冲区计算移入 Web Worker 时，哪组数据最适合作为分析输入传递？",
+      "explanation": "Worker 中的 Turf 计算只需要独立 GeoJSON 与明确的分析参数，这些普通数据便于跨线程传递。地图实例、DOM 容器和私有渲染字段都不应成为纯几何计算的依赖。",
+      "refs": [
+        { "title": "MDN Web Workers API", "url": "https://developer.mozilla.org/docs/Web/API/Web_Workers_API" },
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Leaflet 地图实例与 DOM 容器" },
+        { "key": "B", "text": "maplibregl.Map 实例与样式图层" },
+        { "key": "C", "text": "独立 GeoJSON 输入与缓冲半径、单位", "hint": "数据契约与渲染对象解耦后可直接复用分析链" },
+        { "key": "D", "text": "地图私有字段与屏幕截图" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-08-044",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "某测试先后使用 150 米和 300 米作为缓冲半径，两次半径之和折合多少千米？",
+      "explanation": "先求半径之和：150 + 300 = 450 米；再按 1 千米 = 1000 米换算，450 ÷ 1000 = 0.45 千米。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "numeric",
+      "answer": 0.45,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-08-045",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "在地图上点击北京首都国际机场，作为折线练习的终点。",
+      "explanation": "北京首都国际机场位于北京城区东北方向，是重要的航空枢纽，目标坐标约为 40.0801°N、116.5846°E。将其作为终点时仍按 [经度, 纬度] 写入 draft；本题容差为 400 千米。",
+      "refs": [
+        { "title": "OpenStreetMap", "url": "https://www.openstreetmap.org/" },
+        { "title": "Turf lineString API", "url": "https://turfjs.org/docs/api/lineString" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.0801,
+        "lng": 116.5846
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "turf-08-046",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "用户可能在 MapLibre load 前点击地图，怎样避免 updateAnalysis 因数据源尚未创建而失败？",
+      "explanation": "load 前 getSource 可能取不到目标数据源。稳妥做法是暂存加载前的输入，在 load 中创建 source 后统一刷新，并在更新前检查 source；重复注册同 id 数据源不是可靠修复。",
+      "refs": [{ "title": "MapLibre GL JS Map 与 GeoJSON Source", "url": "https://maplibre.org/maplibre-gl-js/docs/" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "假定 getSource 始终存在并直接调用 setData" },
+        { "key": "B", "text": "每次点击都用同一 id 再执行一次 addSource" },
+        { "key": "C", "text": "丢弃全部加载前输入且不做任何状态处理" },
+        { "key": "D", "text": "加载前暂存输入，load 创建 source 后统一刷新，并在更新前检查 source", "hint": "既处理事件时序，也保留用户的原始输入" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "turf-08-047",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "把地图渲染查询返回的要素直接当作原始分析输入，可能遇到哪些问题？",
+      "explanation": "渲染查询面向当前显示结果，要素可能因瓦片或视图处理而被切片、抽稀和裁剪，所以不能保证还原原始输入。精确重算应优先读取独立保存的标准 GeoJSON 状态。",
+      "refs": [
+        { "title": "MapLibre GL JS Query Features", "url": "https://maplibre.org/maplibre-gl-js/docs/" },
+        { "title": "GeoJSON RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "一个原始要素可能被切成多个渲染片段", "hint": "切片面向渲染，不等于原始数据边界" },
+        { "key": "B", "text": "几何可能为显示效率而被抽稀", "hint": "顶点减少会改变用于重算的几何" },
+        { "key": "C", "text": "要素可能被当前视图或瓦片边界裁剪", "hint": "查询结果可能只保留可见部分" },
+        { "key": "D", "text": "查询接口保证完整保留全部原始坐标" },
+        { "key": "E", "text": "查询结果会自动恢复已经撤销的输入" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-08-048",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "Cesium 与 Leaflet 一样，点击回调通常直接提供 event.latlng，无需从屏幕位置做场景坐标转换。",
+      "explanation": "错误。Leaflet 与 MapLibre 的二维点击事件直接给经纬度；Cesium 通常先由 ScreenSpaceEventHandler 取得屏幕位置，再通过 pickEllipsoid、pickPosition 等接口转换为场景坐标。",
+      "refs": [
+        { "title": "Cesium ScreenSpaceEventHandler", "url": "https://cesium.com/learn/cesiumjs/ref-doc/ScreenSpaceEventHandler.html" },
+        { "title": "Leaflet MouseEvent", "url": "https://leafletjs.com/reference.html" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-08-049",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "第三方绘制控件中的结果要交回 Turf，哪种获取方式最稳妥？",
+      "explanation": "公开的 GeoJSON 导出接口提供稳定、标准的数据契约，可直接衔接 Turf。私有字段可能随版本变化，DOM 节点和样式颜色也不是可靠的几何来源。",
+      "refs": [
+        { "title": "GeoJSON RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" },
+        { "title": "Leaflet Layer toGeoJSON", "url": "https://leafletjs.com/reference.html" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "读取控件未公开的私有字段" },
+        { "key": "B", "text": "使用控件公开的 GeoJSON 导出接口", "hint": "公开标准接口比内部实现细节更稳定" },
+        { "key": "C", "text": "把控件的 DOM 节点直接传给 buffer" },
+        { "key": "D", "text": "根据要素的显示颜色反推坐标" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-08-050",
+      "skill": "turf",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "MapLibre 初始化空 GeoJSON source 时，本章用哪个 Turf 函数生成空的 FeatureCollection？",
+      "explanation": "featureCollection([]) 生成不含要素但结构合法的 FeatureCollection，可作为 addSource 的初始 data，也可用于后续清空数据而不拆建 source 和 layer。",
+      "refs": [
+        { "title": "Turf featureCollection API", "url": "https://turfjs.org/docs/api/featureCollection" },
+        { "title": "MapLibre GL JS GeoJSON Source", "url": "https://maplibre.org/maplibre-gl-js/docs/" }
+      ],
+      "type": "short",
+      "accepted": ["featureCollection", "featureCollection()", "turf.featureCollection", "turf.featureCollection()"],
+      "placeholder": "写出 Turf 函数名"
     }
   ]
 }

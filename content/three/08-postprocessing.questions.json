@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "08",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-08-001",
@@ -222,6 +222,642 @@
       "tolerance": 0,
       "unit": "片元",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-08-014",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "本章示例接入 composer 后，tick 中应调用哪个渲染入口让整条 Pass 链出图？",
+      "explanation": "应调用 composer.render(delta)，由 EffectComposer 驱动整条 Pass 链。继续调用 renderer.render(scene, camera) 会绕过后处理流程，看不到 composer 上添加的效果。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "renderer.render(scene, camera)" },
+        { "key": "B", "text": "composer.render(delta)", "hint": "由 composer 依次执行各处理阶段" },
+        { "key": "C", "text": "bloomPass.render(scene, camera)" },
+        { "key": "D", "text": "camera.render(delta)" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-08-015",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于 EffectComposer 的 readBuffer、writeBuffer 与 ping-pong 过程，下列说法正确的有哪些？",
+      "explanation": "处理阶段从 readBuffer 取得上一阶段结果，把新结果写入 writeBuffer，随后交换两个缓冲继续传递。中间效果并非都直接写默认 framebuffer，这正是离屏 ping-pong 的组织方式。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "Pass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/Pass" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "readBuffer 可作为当前阶段读取的输入", "hint": "它保存上一步传来的图像" },
+        { "key": "B", "text": "writeBuffer 可作为当前阶段写入的目标", "hint": "读写分离后再交换角色" },
+        { "key": "C", "text": "处理后可交换两个缓冲，让结果继续流向下一阶段", "hint": "这就是 ping-pong 的核心" },
+        { "key": "D", "text": "每个中间效果都必须先写默认 framebuffer，再从屏幕读回" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-08-016",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "执行 new EffectComposer(renderer) 时未传自定义 renderTarget，composer 会按 renderer 尺寸创建内部渲染目标。",
+      "explanation": "正确。自定义 renderTarget 是可选构造参数；不提供时，EffectComposer 会依据 renderer 的尺寸创建内部目标，因此最小示例无需手工准备离屏纹理。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-08-017",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "composer 会把链上最后一个启用 Pass 的哪个布尔属性设为 true，使其结果输出到屏幕？",
+      "explanation": "该属性是 renderToScreen。composer 自动处理最后一个启用 Pass 的上屏设置，其余 Pass 通常在离屏目标之间传递，不应把每个 Pass 都手动设为 true。",
+      "refs": [
+        { "title": "Pass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/Pass" },
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "short",
+      "accepted": ["renderToScreen", "pass.renderToScreen", "Pass.renderToScreen", "this.renderToScreen"],
+      "placeholder": "例如：renderToScreen"
+    },
+    {
+      "id": "three-08-018",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "同一 CSS 尺寸、同一个全屏 Pass 下，pixelRatio 从 1 提高到 2。按宽×高×DPR²估算，每帧片元工作量变为原来的多少倍？",
+      "explanation": "像素比同时作用于宽和高，因此工作量按 DPR 的平方变化。新工作量与原工作量之比为 2²÷1²=4，即变为原来的 4 倍。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "倍",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-08-019",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "为避免中间后处理结果提前覆盖屏幕，关于 Pass.renderToScreen 的做法哪项正确？",
+      "explanation": "应让 composer 根据链顺序管理上屏状态，最后一个启用 Pass 输出到屏幕，其余阶段在离屏目标间传递。把所有 Pass 都设为 true 会让中间结果提前写屏，破坏后续加工流程。",
+      "refs": [
+        { "title": "Pass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/Pass" },
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把每个 Pass 的 renderToScreen 都设为 true" },
+        { "key": "B", "text": "只把 RenderPass 设为 true，其余 Pass 不执行" },
+        { "key": "C", "text": "交给 composer 设置最后一个启用 Pass 上屏，其余阶段离屏传递", "hint": "避免中间结果抢占默认 framebuffer" },
+        { "key": "D", "text": "把所有 Pass 都设为 false，并删除链尾输出阶段" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-08-020",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "WebGLRenderer 的 antialias: true 会保证 composer 的每个离屏 renderTarget 自动获得同样的 MSAA。",
+      "explanation": "错误。renderer 的 antialias 设置作用于默认 framebuffer，不保证 composer 的离屏目标具有同样的 MSAA。离屏画面出现锯齿时，需要另行评估支持 MSAA 的目标或抗锯齿 Pass。",
+      "refs": [
+        { "title": "WebGLRenderer 文档", "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer" },
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-08-021",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "运行时要让链入口的 RenderPass 改用另一台相机，按讲义可采取哪些做法？",
+      "explanation": "可以更新现有 RenderPass 实例的 camera 属性，也可以用新相机构建并替换这个 RenderPass。色调映射和泛光扩散参数都不决定 RenderPass 使用哪台相机。",
+      "refs": [
+        { "title": "RenderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/RenderPass" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "更新原 RenderPass 实例的 camera 属性", "hint": "直接更换链入口使用的相机" },
+        { "key": "B", "text": "用新相机构建并替换这个 RenderPass", "hint": "替换入口 Pass 同样可行" },
+        { "key": "C", "text": "只修改 OutputPass 读取的 toneMapping" },
+        { "key": "D", "text": "只提高 bloomPass.radius" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "three-08-022",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "已有链 [RenderPass, Bloom, OutputPass]，要把 vignettePass 插到索引 2、即 OutputPass 前，应调用 composer 的哪个方法？（只写方法名）",
+      "explanation": "应使用 insertPass，示例写法是 composer.insertPass(vignettePass, 2)。插入后链变为 RenderPass、Bloom、Vignette、OutputPass，输出转换仍位于最后。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "short",
+      "accepted": ["insertPass", "composer.insertPass", "composer.insertPass(vignettePass, 2)", "composer.insertPass(vignettePass,2)"],
+      "placeholder": "例如：insertPass"
+    },
+    {
+      "id": "three-08-023",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "本章 new UnrealBloomPass(new THREE.Vector2(w, h), 0.9, 0.35, 0.8) 中，最后一个数值 0.8 对应哪个参数？",
+      "explanation": "示例构造参数在分辨率之后依次是 strength、radius、threshold，因此 0.9 是强度、0.35 是扩散半径、0.8 是亮度门槛。最后一个 0.8 对应 threshold。",
+      "refs": [
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "strength" },
+        { "key": "B", "text": "radius" },
+        { "key": "C", "text": "threshold", "hint": "它是分辨率之后的第三个数值参数" },
+        { "key": "D", "text": "pixelRatio" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-08-024",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "本章暗角 shader 中，某像素 distance(vUv, vec2(0.5))=0.5，strength=0.4。已知 smoothstep(0.25, 0.75, 0.5)=0.5，该像素的 shade 为多少？",
+      "explanation": "按公式 shade=1-strength×smoothstep(0.25,0.75,d) 代入，得到 shade=1-0.4×0.5=1-0.2=0.8。因此该像素 RGB 会乘 0.8。",
+      "refs": [
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "numeric",
+      "answer": 0.8,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-08-025",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "暗角片元最后写入 vec4(color.rgb * shade, color.a)，因此它只缩放 RGB，并保留输入颜色的 alpha。",
+      "explanation": "正确。color.rgb * shade 只改变红、绿、蓝三个通道，第四个分量直接使用原来的 color.a，所以这段暗角逻辑不会额外修改输入透明度。",
+      "refs": [
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-08-026",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "composer 的离屏画面出现锯齿时，按讲义可评估哪些方案，并应同时考虑什么代价？",
+      "explanation": "可评估支持 MSAA 的 renderTarget，也可加入 SMAA 或 FXAA Pass；无论选择哪种，都应把额外显存、带宽与全屏处理开销计入。renderer 的 antialias: true 本身并不保证离屏目标抗锯齿。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "three.js 后处理示例", "url": "https://threejs.org/examples/" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "评估支持 MSAA 的 renderTarget", "hint": "离屏目标需要单独考虑多重采样" },
+        { "key": "B", "text": "评估加入 SMAA Pass", "hint": "这是可选的后处理抗锯齿路线" },
+        { "key": "C", "text": "评估加入 FXAA Pass", "hint": "它以额外全屏处理换取边缘改善" },
+        { "key": "D", "text": "把额外显存与全屏处理开销纳入权衡", "hint": "画质改进并非没有成本" },
+        { "key": "E", "text": "只保留 renderer 的 antialias: true，就必然解决所有离屏锯齿" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-08-027",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "OutputPass 会从 renderer 的哪个属性读取色调映射算法，例如 ACESFilmicToneMapping？（写属性名）",
+      "explanation": "属性名是 toneMapping，示例通过 renderer.toneMapping=THREE.ACESFilmicToneMapping 指定算法。OutputPass 在链尾读取该设置，完成最终显示前的色调映射。",
+      "refs": [
+        { "title": "OutputPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/OutputPass" },
+        { "title": "WebGLRenderer 文档", "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer" }
+      ],
+      "type": "short",
+      "accepted": ["toneMapping", "renderer.toneMapping", "THREE.WebGLRenderer.toneMapping"],
+      "placeholder": "例如：toneMapping"
+    },
+    {
+      "id": "three-08-028",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "为什么同一套基于 EffectComposer 的屏幕滤镜可以作用于整个场景？",
+      "explanation": "这些效果通常处理的是整幅屏幕输入纹理，只关心像素及其颜色，不需要知道像素来自哪个 Mesh。因此同一个滤镜链可以统一作用于场景渲染结果，而无需逐个改写材质。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "它逐像素处理整幅输入纹理，通常不关心像素来自哪个 Mesh", "hint": "滤镜面对的是场景图像而非对象清单" },
+        { "key": "B", "text": "它会为每个 Mesh 自动复制一份几何体" },
+        { "key": "C", "text": "它只能处理场景中第一个 Mesh" },
+        { "key": "D", "text": "它要求所有材质都先改成 ShaderMaterial" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-08-029",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "呼吸暗角采用 strength=0.4+0.15×sin(clock.elapsedTime×2)。当 elapsedTime=π/4 时，strength 是多少？",
+      "explanation": "elapsedTime=π/4 时，正弦函数的自变量为 π/2，而 sin(π/2)=1。代入可得 strength=0.4+0.15×1=0.55，正好到达该呼吸范围的峰值。",
+      "refs": [
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" },
+        { "title": "Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" }
+      ],
+      "type": "numeric",
+      "answer": 0.55,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-08-030",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于本章 OutputPass 的显示收尾职责，下列说法正确的有哪些？",
+      "explanation": "OutputPass 读取 renderer 的色调映射设置；ACES 色调映射把 HDR 亮度压入可显示范围，随后还要完成输出色彩空间转换。亮区提取和多级模糊属于 UnrealBloomPass，而非 OutputPass。",
+      "refs": [
+        { "title": "OutputPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/OutputPass" },
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "读取 renderer 的色调映射设置", "hint": "最终显示转换与 renderer 配置一致" },
+        { "key": "B", "text": "通过 ACES 等色调映射把 HDR 亮度压入可显示范围", "hint": "高动态范围需要显示前压缩" },
+        { "key": "C", "text": "完成输出色彩空间转换", "hint": "这是链尾的重要职责" },
+        { "key": "D", "text": "负责 Bloom 的亮区提取与多级模糊" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-08-031",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "先把 CSS 宽高手动乘以 DPR，再调用 composer.setPixelRatio(DPR) 和 setSize，可以避免物理像素被重复放大。",
+      "explanation": "错误。setSize 接收 CSS 像素，composer 内部会再乘自己的 pixelRatio。输入尺寸先乘一次 DPR、内部又乘一次，会让宽高都重复放大，物理像素量扩大到应有的 DPR² 倍。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-08-032",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "画面完全没有光晕，材质主要使用亮度不超过 1 的 LDR 颜色，且 Bloom 的 threshold 很高。优先应排查哪项？",
+      "explanation": "应先检查是否真有像素亮度超过 threshold；高门槛下 LDR 颜色可能完全选不出亮区，同时确认 OutputPass 位于链尾。盲目增加几何分段或修改 UV 名称不会创造超过门槛的亮度。",
+      "refs": [
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" },
+        { "title": "OutputPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/OutputPass" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "是否有像素亮度超过 threshold，并确认 OutputPass 位于链尾", "hint": "先排查亮区选择与最终显示链" },
+        { "key": "B", "text": "把所有 Mesh 的几何分段数提高四倍" },
+        { "key": "C", "text": "把 vUv 与 position 两个变量互换" },
+        { "key": "D", "text": "把 camera.aspect 设置成 threshold 的数值" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-08-033",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "本章暗角 shader 用哪个 GLSL 函数在 d=0.25 到 0.75 之间生成平滑过渡权重？（只写函数名）",
+      "explanation": "使用的是 smoothstep。它把 0.25 到 0.75 范围内的距离转换成平滑变化的权重，再与 strength 一起决定 shade，避免暗角出现生硬的阶跃边界。",
+      "refs": [
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "short",
+      "accepted": ["smoothstep", "smoothstep(0.25, 0.75, d)", "smoothstep(0.25,0.75,d)"],
+      "placeholder": "例如：smoothstep"
+    },
+    {
+      "id": "three-08-034",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "把 bloomPass.enabled 设为 false 会让 composer 跳过整条链，RenderPass、Vignette 与 OutputPass 也都停止工作。",
+      "explanation": "错误。enabled=false 只会让 composer 跳过 Bloom 这个 Pass，其他仍启用的 RenderPass、Vignette 与 OutputPass 会继续传递和输出图像，因此可以单独关闭泛光观察效果。",
+      "refs": [
+        { "title": "Pass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/Pass" },
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-08-035",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "窗口 CSS 尺寸变化后，为同时避免画面比例失真和离屏尺寸不匹配，应执行哪些操作？",
+      "explanation": "应更新 camera.aspect 并调用 updateProjectionMatrix，再以新的 CSS 宽高分别调用 renderer.setSize 和 composer.setSize。若 composer 已设置 pixelRatio，就不要再把 setSize 的宽高预先乘 DPR。",
+      "refs": [
+        { "title": "PerspectiveCamera 文档", "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera" },
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "WebGLRenderer 文档", "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "把 camera.aspect 更新为新宽度除以新高度", "hint": "先同步透视相机的宽高比" },
+        { "key": "B", "text": "调用 camera.updateProjectionMatrix()", "hint": "让新 aspect 进入投影矩阵" },
+        { "key": "C", "text": "调用 renderer.setSize(newWidth, newHeight)", "hint": "同步渲染器的 CSS 尺寸" },
+        { "key": "D", "text": "调用 composer.setSize(newWidth, newHeight)", "hint": "同步离屏目标的 CSS 尺寸" },
+        { "key": "E", "text": "保留 composer.pixelRatio，同时把 setSize 的宽高预先乘 DPR" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-08-036",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "某画面 CSS 尺寸为 800×450，DPR=1.5。若性能账本把当前链折算为 5 个等效全屏阶段，每帧约处理多少个片元？",
+      "explanation": "单个等效全屏阶段的片元量为 800×450×1.5²=810,000。再计 5 个等效阶段，得到 810,000×5=4,050,000 个片元；这里已按题设把内部子阶段折算进总数。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" }
+      ],
+      "type": "numeric",
+      "answer": 4050000,
+      "tolerance": 0,
+      "unit": "片元",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-08-037",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "链为 RenderPass → Bloom → Vignette → OutputPass。仅把 outputPass.enabled=false，其余保持启用，按 composer 规则最准确的结果是什么？",
+      "explanation": "Vignette 会成为最后一个启用 Pass 并被设置上屏，所以仍可能有图像；但 OutputPass 被跳过，色调映射与输出色彩空间转换也随之缺失。其他 Pass 不会自动接替 OutputPass 的显示收尾职责。",
+      "refs": [
+        { "title": "OutputPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/OutputPass" },
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "Pass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/Pass" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "整条链必然完全没有图像输出" },
+        { "key": "B", "text": "Vignette 成为最后启用 Pass 并上屏，但缺少 OutputPass 的显示转换", "hint": "上屏规则与显示收尾职责要分开判断" },
+        { "key": "C", "text": "RenderPass 会自动执行 OutputPass 的色调映射与色彩空间转换" },
+        { "key": "D", "text": "Vignette 也会自动禁用，因此 Bloom 必然成为最后启用 Pass" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-08-038",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "UnrealBloomPass 是选取超过门槛的亮区并扩散光晕，不等于把场景中所有物体无差别整体提亮。",
+      "explanation": "正确。threshold 先决定哪些亮区参与泛光，strength 与 radius 再控制光晕叠加强度和扩散范围。它并不是对整个画面统一增加相同亮度的开关。",
+      "refs": [
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-08-039",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "阅读本章 VignetteShader，下列关于数据流与暗角计算的说法正确的有哪些？",
+      "explanation": "顶点着色器把 uv 写入 varying vUv，片元用 vUv 采样 tDiffuse，并以 distance(vUv,vec2(0.5)) 得到到中心的距离。strength 越大时 shade 越小，暗角只会更强，不会让边缘更亮。",
+      "refs": [
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "顶点着色器把 uv 写入 vUv，片元通过 varying 接收", "hint": "纹理坐标由顶点阶段传到片元阶段" },
+        { "key": "B", "text": "片元用 texture2D(tDiffuse, vUv) 读取上一阶段颜色", "hint": "采样坐标与输入纹理在这里汇合" },
+        { "key": "C", "text": "distance(vUv, vec2(0.5)) 表示当前纹理坐标到画面中心的距离", "hint": "vec2(0.5) 是归一化画面的中心" },
+        { "key": "D", "text": "strength 越大，shade 越大，因此画面边缘会更亮" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-08-040",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "resize 时已经更新 camera.aspect，还要调用哪个相机方法重建投影矩阵？（只写方法名）",
+      "explanation": "应调用 updateProjectionMatrix。只修改 camera.aspect 字段不会自动完成投影矩阵重建，因此 resize 回调在设置新宽高比后还要显式执行这个方法。",
+      "refs": [
+        { "title": "PerspectiveCamera 文档", "url": "https://threejs.org/docs/#api/en/cameras/PerspectiveCamera" }
+      ],
+      "type": "short",
+      "accepted": ["updateProjectionMatrix", "camera.updateProjectionMatrix", "camera.updateProjectionMatrix()"],
+      "placeholder": "例如：updateProjectionMatrix"
+    },
+    {
+      "id": "three-08-041",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "示例中提高 MeshStandardMaterial 的 emissiveIntensity，为什么有助于产生可见的 Bloom？",
+      "explanation": "自发光强度和光照可以产生超过 1 的 HDR 颜色，使相关像素更容易越过 Bloom 的 threshold 而被选为亮区。它不会改变 DPR，也不会自动让场景中所有像素获得相同亮度。",
+      "refs": [
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" },
+        { "title": "MeshStandardMaterial 文档", "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "自发光可形成超过 1 的 HDR 亮度，使像素更容易越过 threshold", "hint": "先让亮区真正达到泛光选取门槛" },
+        { "key": "B", "text": "它会自动把 composer 的 DPR 提高到 4" },
+        { "key": "C", "text": "它会把每个像素的位置转换成经纬度" },
+        { "key": "D", "text": "它会强制所有像素具有完全相同的亮度" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-08-042",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "设备 DPR=3，代码使用 pixelRatio=Math.min(devicePixelRatio, 2)，composer 的 CSS 尺寸为 640×360。只统计 3 个等效全屏阶段，每帧片元量是多少？",
+      "explanation": "实际 pixelRatio 被限制为 2，物理宽为 640×2=1280，物理高为 360×2=720。单个等效阶段有 1280×720=921,600 个片元，3 个阶段合计 2,764,800 个。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "numeric",
+      "answer": 2764800,
+      "tolerance": 0,
+      "unit": "片元",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-08-043",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "调整已有 bloomPass.strength 的数值时，必须重新创建 UnrealBloomPass 和 EffectComposer 才能生效。",
+      "explanation": "错误。讲义直接把新值赋给 bloomPass.strength、threshold 和 radius 来调整效果，没有重建 Pass 或 composer。动态修改已有实例的参数即可，不必反复搭建整条链。",
+      "refs": [
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-08-044",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "按本章 Vite/ESM 示例，下列类与 three/addons 导入路径对应正确的有哪些？",
+      "explanation": "EffectComposer、RenderPass、UnrealBloomPass、OutputPass 都从 three/addons/postprocessing 下各自的同名文件导入。ShaderPass 应来自 ShaderPass.js，不能从 OutputPass.js 导入。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "RenderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/RenderPass" },
+        { "title": "UnrealBloomPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/UnrealBloomPass" },
+        { "title": "OutputPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/OutputPass" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "EffectComposer ← three/addons/postprocessing/EffectComposer.js", "hint": "类名与模块文件名一致" },
+        { "key": "B", "text": "RenderPass ← three/addons/postprocessing/RenderPass.js", "hint": "场景入口 Pass 的导入路径" },
+        { "key": "C", "text": "UnrealBloomPass ← three/addons/postprocessing/UnrealBloomPass.js", "hint": "泛光 Pass 使用同名模块" },
+        { "key": "D", "text": "OutputPass ← three/addons/postprocessing/OutputPass.js", "hint": "输出 Pass 使用同名模块" },
+        { "key": "E", "text": "ShaderPass ← three/addons/postprocessing/OutputPass.js" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-08-045",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "不使用 composer、直接执行 renderer.render(scene, camera) 时，本章所说的最终绘制目标是什么？",
+      "explanation": "直接渲染的终点是 canvas 的默认 framebuffer。接入 composer 后才会先把场景画进 WebGLRenderTarget，再让后续 Pass 逐道加工，因此两种路径的最终中间流程不同。",
+      "refs": [
+        { "title": "WebGLRenderer 文档", "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer" },
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "canvas 的默认 framebuffer", "hint": "直接渲染没有把场景先送进 composer 的离屏链" },
+        { "key": "B", "text": "composer 的 readBuffer" },
+        { "key": "C", "text": "composer 的 writeBuffer" },
+        { "key": "D", "text": "UnrealBloomPass 的内部模糊目标" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-08-046",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 3,
+      "stem": "完成本章「呼吸暗角」练习时，下列实现与结果正确的有哪些？",
+      "explanation": "练习每帧修改 vignettePass.uniforms.strength.value，公式 0.4+0.15×sin(clock.elapsedTime×2) 让强度在 0.25 到 0.55 之间变化。调参不需要重建 Pass，且应修改实例克隆后的 uniforms，而非只改原始 shader 对象。",
+      "refs": [
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" },
+        { "title": "Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "每帧更新 vignettePass.uniforms.strength.value", "hint": "修改 Pass 实例实际使用的 uniform" },
+        { "key": "B", "text": "使用 0.4+0.15×sin(clock.elapsedTime×2) 计算强度", "hint": "这是练习给出的呼吸公式" },
+        { "key": "C", "text": "强度会在 0.25 到 0.55 之间周期变化", "hint": "正弦值范围为 -1 到 1" },
+        { "key": "D", "text": "动态调参无需每帧重建 ShaderPass", "hint": "更新 value 即可" },
+        { "key": "E", "text": "只改原始 VignetteShader.uniforms，就一定比修改 Pass 实例更可靠" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-08-047",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "DPR 不变时，若 CSS 宽度和高度都加倍，单个全屏 Pass 的片元工作量会变为原来的 4 倍，而不是 2 倍。",
+      "explanation": "正确。片元量与宽乘高成正比，宽和高分别变为 2 倍后，面积变为 2×2=4 倍。DPR 不变时无需再改变平方项，所以总工作量也是原来的 4 倍。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-08-048",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "本章 tick 中 const delta=Math.min(clock.getDelta(), 0.05) 对单帧时间步长做了什么处理？",
+      "explanation": "Math.min 取 clock.getDelta() 与 0.05 中较小的值，因此把单帧 delta 的上限限制为 0.05 秒。它不是设置下限，也不是把 delta 转换成帧数。",
+      "refs": [
+        { "title": "Clock 文档", "url": "https://threejs.org/docs/#api/en/core/Clock" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "保证 delta 至少为 0.05 秒" },
+        { "key": "B", "text": "把 delta 的上限限制为 0.05 秒", "hint": "Math.min 会选择较小的时间值" },
+        { "key": "C", "text": "把秒转换成累计帧数" },
+        { "key": "D", "text": "把显示器刷新率固定为 20 Hz" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-08-049",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 1,
+      "stem": "本章 VignetteShader 中，顶点着色器把 uv 传给片元着色器时使用的 varying 变量名是什么？",
+      "explanation": "变量名是 vUv。顶点着色器执行 vUv=uv，片元着色器再用同一个 varying 变量采样 tDiffuse 并计算到画面中心的距离。",
+      "refs": [
+        { "title": "ShaderPass 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/ShaderPass" }
+      ],
+      "type": "short",
+      "accepted": ["vUv", "varying vec2 vUv", "varying vec2 vUv;"],
+      "placeholder": "例如：vUv"
+    },
+    {
+      "id": "three-08-050",
+      "skill": "three",
+      "module": "08",
+      "difficulty": 2,
+      "stem": "关于 three EffectComposer 与 Cesium postProcessStages 的结构对照，哪项最准确？",
+      "explanation": "three 通过 EffectComposer 显式组织 RenderPass、ShaderPass、OutputPass 等节点；Cesium 把 scene.postProcessStages 当作滤镜图，fxaa、bloom 可直接启停。两者顺序与全屏成本都重要，但 GLSL 输入输出约定不能直接互换。",
+      "refs": [
+        { "title": "EffectComposer 文档", "url": "https://threejs.org/docs/#examples/en/postprocessing/EffectComposer" },
+        { "title": "CesiumJS 官方文档", "url": "https://cesium.com/documentation/cesiumjs/" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "three 显式组织各类 Pass，Cesium 把 postProcessStages 作为滤镜图并可启停内置阶段", "hint": "两者都能组织效果，但节点组织方式不同" },
+        { "key": "B", "text": "二者的 GLSL 输入输出变量名完全相同，可不加修改直接互换" },
+        { "key": "C", "text": "three 只能使用内置 Bloom，不能插入自定义 ShaderPass" },
+        { "key": "D", "text": "Cesium 的全屏后处理阶段不消耗带宽，也不需要考虑顺序" }
+      ],
+      "answer": ["A"]
     }
   ]
 }

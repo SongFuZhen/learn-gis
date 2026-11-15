@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "05",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-05-001",
@@ -342,6 +342,956 @@
       "answer": 0.5,
       "tolerance": 0.000001,
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-05-014",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "new OrbitControls(camera, renderer.domElement) 中第二个参数的主要作用是什么？",
+      "explanation": "第二个参数指定控制器监听鼠标、触摸等输入的 DOM 元素。把 renderer.domElement 传入后，画布上的拖动与滚轮手势才能被转换为相机绕 target 的轨道运动。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls 构造函数",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "指定接收交互事件的画布元素",
+          "hint": "控制器需要知道在哪块 DOM 区域监听输入"
+        },
+        { "key": "B", "text": "指定场景背景使用哪个 DOM 颜色" },
+        { "key": "C", "text": "指定保存模型业务 ID 的数组" },
+        { "key": "D", "text": "指定 Raycaster 返回结果的排序方式" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-05-015",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "把 PointerEvent 坐标换算为 canvas 内的 NDC 时，下列做法正确的有哪些？",
+      "explanation": "clientX/clientY 是视口像素坐标，应先减去画布 rect 的 left/top，再除以 rect 的 CSS 宽高完成归一化。NDC 不依赖 drawing buffer 像素尺寸，也不需要额外乘 devicePixelRatio。",
+      "refs": [
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        },
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把 clientX/clientY 视为视口像素坐标",
+          "hint": "它们不是画布内局部坐标"
+        },
+        {
+          "key": "B",
+          "text": "分别扣除 rect.left 与 rect.top",
+          "hint": "先消除画布相对视口的偏移"
+        },
+        {
+          "key": "C",
+          "text": "使用 rect.width 与 rect.height 做归一化",
+          "hint": "公式对应画布的 CSS 尺寸"
+        },
+        { "key": "D", "text": "必须再乘 devicePixelRatio 才能交给 Raycaster" },
+        { "key": "E", "text": "必须用 drawing buffer 像素尺寸替代 rect 尺寸" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-05-016",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "OrbitControls 的阻尼是松手后继续衰减的惯性，而不是一个单纯降低旋转速度的系数。",
+      "explanation": "正确。阻尼让交互结束后的运动在后续更新中逐步衰减，因此 enableDamping 开启后还要持续调用 update。它描述的是惯性的时间行为，不只是把每次旋转按比例变小。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls.enableDamping",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-05-017",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "updatePointer 中读取 canvas 在视口中的位置与 CSS 尺寸，应调用 renderer.domElement 的哪个方法？（只写方法名）",
+      "explanation": "getBoundingClientRect 返回元素相对视口的位置和尺寸，示例据此取得 left、top、width 与 height。只有先取得这个 rect，才能把视口指针坐标转换为画布内坐标。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "getBoundingClientRect",
+        "getBoundingClientRect()",
+        "renderer.domElement.getBoundingClientRect",
+        "renderer.domElement.getBoundingClientRect()"
+      ],
+      "placeholder": "例如：getBoundingClientRect"
+    },
+    {
+      "id": "three-05-018",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "canvas 的 rect.top=120、rect.height=360，指针 event.clientY=210。按 pointer.y=-((clientY-rect.top)/rect.height)×2+1 计算，NDC 的 y 是多少？",
+      "explanation": "指针距画布上边缘为 210-120=90 像素，纵向比例为 90/360=0.25。代入公式得 pointer.y=-0.25×2+1=0.5；负号体现了浏览器坐标向下而 NDC 向上。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.5,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-05-019",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "Mesh 刚修改 position，尚未经过下一次 render，立即拾取却仍基于旧位置。最直接的修复是什么？",
+      "explanation": "射线求交依赖对象的最新世界矩阵。对象移动后若要在下一帧渲染前立即拾取，应先更新相关世界矩阵，再执行求交；调整阻尼或距离限制不会修正过期矩阵。",
+      "refs": [
+        {
+          "title": "three.js Object3D 世界矩阵",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "增大 controls.maxDistance 后重新绑定 click" },
+        {
+          "key": "B",
+          "text": "先更新相关对象的世界矩阵，再立即执行射线求交",
+          "hint": "让求交读取到与最新 position 一致的矩阵"
+        },
+        { "key": "C", "text": "把 dampingFactor 设为 0 并删除指针坐标" },
+        { "key": "D", "text": "只修改材质颜色，等待共享矩阵自动失效" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-020",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "为了减少不必要的射线拾取计算，下列做法符合本章建议的有哪些？",
+      "explanation": "应维护明确的 pickables，只检测需要交互的候选对象；需要子节点时可对候选根递归。大量 Mesh 的 hover 可只保存最新指针，每个动画帧最多求交一次，避免每次 pointermove 都全场景计算。",
+      "refs": [
+        {
+          "title": "three.js Raycaster.intersectObjects",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "维护明确的 pickables 候选集合",
+          "hint": "把拾取范围限制在真正可交互的对象上"
+        },
+        { "key": "B", "text": "无条件把灯光、地面和全部装饰物都加入检测" },
+        {
+          "key": "C",
+          "text": "需要子 Mesh 时，只对相关候选根节点递归求交",
+          "hint": "递归能力不等于必须遍历整个场景"
+        },
+        {
+          "key": "D",
+          "text": "密集 hover 时保存最新指针，每个动画帧最多求交一次",
+          "hint": "用帧调度合并高频指针事件"
+        }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-05-021",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "devicePixelRatio 为 2 时，必须再把根据 canvas CSS rect 得到的 NDC 乘以 2，才能供 setFromCamera 使用。",
+      "explanation": "错误。NDC 是范围固定的归一化坐标，与设备像素比无关。client 坐标先结合 CSS rect 映射到 [-1,1] 即可，额外乘 2 会让坐标越界并造成拾取错误。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        },
+        {
+          "title": "three.js Raycaster.setFromCamera",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-05-022",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "setFromCamera 之后，要对 pickables 数组及其子节点求交，应调用 Raycaster 的哪个方法？（只写方法名）",
+      "explanation": "intersectObjects(pickables, true) 会检测候选数组，第二个参数 true 表示递归检查子节点。该方法返回按距离升序排列的命中数组，而不是直接修改 hover 或 selected。",
+      "refs": [
+        {
+          "title": "three.js Raycaster.intersectObjects",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster.intersectObjects"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "intersectObjects",
+        "intersectObjects()",
+        "raycaster.intersectObjects",
+        "raycaster.intersectObjects(pickables, true)",
+        "raycaster.intersectObjects(pickables,true)"
+      ],
+      "placeholder": "例如：intersectObjects"
+    },
+    {
+      "id": "three-05-023",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "pointerdown 记录的位置为 (40,60)，click 时为 (46,68)。按 Math.hypot 计算，按下到抬起的位移是多少像素？",
+      "explanation": "水平位移为 46-40=6，垂直位移为 68-60=8，因此总位移为 Math.hypot(6,8)=√(6²+8²)=10 像素。该值大于示例阈值 5，所以这次操作应被过滤而非点选。",
+      "refs": [
+        {
+          "title": "MDN Math.hypot",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/hypot"
+        },
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-05-024",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "示例的 pointerleave 回调为什么要先设置 hovered=null，再调用 updateHighlights？",
+      "explanation": "指针离开画布后，原来的临时悬停对象已经不应继续显示 hot 状态，因此要清空 hovered 并重算高亮。这个回调不修改 selected，持久选中仍可保留并按优先级显示。",
+      "refs": [
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        },
+        {
+          "title": "three.js MeshStandardMaterial.emissive",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "为了强制把相机 target 重置到世界原点" },
+        {
+          "key": "B",
+          "text": "清除过期的悬停反馈，同时保留持久选中状态",
+          "hint": "pointerleave 只结束 hover，不等于点击空白"
+        },
+        { "key": "C", "text": "为了让所有 Mesh 永久共享同一个材质" },
+        { "key": "D", "text": "为了把命中数组从升序改成降序" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-025",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "多个 Mesh 共享同一材质，单个对象高亮却整批变色。下列判断与修复合理的有哪些？",
+      "explanation": "共享材质意味着多个 Mesh 读取同一份外观状态，直接改色会一起变化。可给目标克隆独立材质后再高亮，也可使用独立轮廓层而不改共享材质；仅克隆几何体不会让材质自动独立。",
+      "refs": [
+        {
+          "title": "three.js Material",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        },
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "先确认材质是否共享，避免把资源共享误判为拾取层级错误",
+          "hint": "命中正确也可能因共享外观而整批变色"
+        },
+        { "key": "B", "text": "直接修改共享材质可保证只有当前 Mesh 变色" },
+        {
+          "key": "C",
+          "text": "按目标克隆独立材质，再修改该实例的高亮",
+          "hint": "把目标的外观状态与共享实例分离"
+        },
+        {
+          "key": "D",
+          "text": "使用独立轮廓层，不直接修改共享材质",
+          "hint": "把高亮视觉与业务材质解耦"
+        },
+        { "key": "E", "text": "只克隆 geometry 就会自动得到独立材质" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-05-026",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "示例中点击空白且未通过拖拽过滤时，把 selected 设为 null 可以取消已有选中。",
+      "explanation": "正确。空白处 pick(event)?.object 经空值处理得到 null，把它写入 selected 后统一刷新高亮，旧对象的 active 状态就会消失。这是明确的取消选中交互。",
+      "refs": [
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-05-027",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "业务销毁时，除了移除事件监听，还应调用 OrbitControls 的哪个方法释放控制器？（只写方法名）",
+      "explanation": "controls.dispose() 用于释放控制器关联的监听等资源。销毁阶段同时移除业务事件监听并调用 dispose，可避免重复初始化与闭包引用造成的泄漏。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls.dispose",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "short",
+      "accepted": ["dispose", "dispose()", "controls.dispose", "controls.dispose()"],
+      "placeholder": "例如：dispose"
+    },
+    {
+      "id": "three-05-028",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "某次缩放前相机到 controls.target 的距离为 18，controls.minDistance=3、maxDistance=12。应用距离限制后，相机到目标的距离应是多少？",
+      "explanation": "当前距离 18 超过 maxDistance=12，因此控制器会把缩放上界限制为 12。minDistance=3 只约束下界，本题没有触及；限制的是相机到 target 的距离而不是场景坐标值。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls.maxDistance",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12,
+      "tolerance": 0,
+      "unit": "场景单位",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-05-029",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "需要在射线命中的三维位置放置一个标记，最应读取 Intersection 的哪个字段？",
+      "explanation": "Intersection.point 表示射线与几何表面的交点位置，适合用来放置标记。object 是实际命中的对象，distance 是交点到射线起点的距离，face 则描述命中的面。",
+      "refs": [
+        {
+          "title": "three.js Raycaster Intersection",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "object" },
+        {
+          "key": "B",
+          "text": "point",
+          "hint": "该字段保存交点的三维位置"
+        },
+        { "key": "C", "text": "distance" },
+        { "key": "D", "text": "face" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-030",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于示例 updateHighlights 中 hover 与 selected 的视觉合成，下列说法正确的有哪些？",
+      "explanation": "active 与 hot 分别依据 selected 和 hovered 计算；emissive 的三元表达式先判断 active，因此选中态优先。既不是选中也不是悬停的普通对象使用黑色 emissive，而 pointerleave 不需要清除 selected。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial.emissive",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "active 与 hot 分别根据 selected、hovered 计算",
+          "hint": "两个视觉条件来自两份独立状态"
+        },
+        {
+          "key": "B",
+          "text": "先判断 active 再判断 hot，使选中态优先于悬停态",
+          "hint": "三元表达式的分支顺序体现优先级"
+        },
+        {
+          "key": "C",
+          "text": "既未选中也未悬停时，emissive 使用 0x000000",
+          "hint": "这是普通状态的自发光颜色"
+        },
+        { "key": "D", "text": "指针离开画布时必须同时把 selected 清空" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-05-031",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "intersectObjects(pickables, true) 中的 true 表示只检查传入根节点，并忽略它们的 children。",
+      "explanation": "错误。第二个参数 true 表示递归检查子节点，因此实际命中项可能是候选 Group 内部的深层 Mesh。若只想检查传入对象本身，才不应启用递归。",
+      "refs": [
+        {
+          "title": "three.js Raycaster.intersectObjects",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-05-032",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "从一次射线命中结果中读取实际被打中的 Mesh，应访问 Intersection 的哪个字段？（只写字段名）",
+      "explanation": "Intersection.object 指向实际与射线相交的对象。递归拾取模型时它常是子 Mesh，业务代码可从这个对象出发沿 parent 链寻找带 selectable 标记的模型根节点。",
+      "refs": [
+        {
+          "title": "three.js Raycaster Intersection.object",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "short",
+      "accepted": ["object", "intersection.object", "Intersection.object", "hit.object", "hits[0].object"],
+      "placeholder": "例如：object"
+    },
+    {
+      "id": "three-05-033",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "大量 Mesh 场景中，每次 pointermove 都求交导致卡顿，还要求高亮跟随最新位置。哪种改造最合适？",
+      "explanation": "pointermove 只更新保存的最新指针坐标，动画帧再按这份坐标最多求交一次，可把高频事件合并到渲染节奏，同时避免使用过期位置。对全场景重复求交或只在点击时检测都不能满足实时 hover。",
+      "refs": [
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "MDN requestAnimationFrame",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/requestAnimationFrame"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "事件中保存最新指针，每个动画帧最多用它求交一次",
+          "hint": "合并高频事件，但始终使用最新坐标"
+        },
+        { "key": "B", "text": "每个事件对整个 Scene 连续求交两次" },
+        { "key": "C", "text": "丢弃全部 pointermove，只在 click 后更新 hover" },
+        { "key": "D", "text": "只提高 devicePixelRatio，不改变求交次数" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-05-034",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "示例在指针离开 canvas 时清除 hovered，监听的是哪个事件？（只写事件名）",
+      "explanation": "pointerleave 表示指针离开目标元素，示例在回调中设置 hovered=null 并刷新高亮。它只清除临时悬停，不应被当成点击空白来清除 selected。",
+      "refs": [
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        }
+      ],
+      "type": "short",
+      "accepted": ["pointerleave", "pointerleave 事件", "onpointerleave"],
+      "placeholder": "例如：pointerleave"
+    },
+    {
+      "id": "three-05-035",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "关于销毁三维交互组件时的清理工作，下列说法正确的有哪些？",
+      "explanation": "销毁时要移除已绑定的指针事件监听，并调用 controls.dispose()，从而避免重复初始化后事件叠加和闭包引用滞留。仅隐藏 canvas 不会自动完成这些资源与监听清理。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls.dispose",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        },
+        {
+          "title": "MDN EventTarget.removeEventListener",
+          "url": "https://developer.mozilla.org/docs/Web/API/EventTarget/removeEventListener"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "移除组件注册的 pointer 事件监听",
+          "hint": "避免销毁后回调仍被触发"
+        },
+        {
+          "key": "B",
+          "text": "调用 controls.dispose()",
+          "hint": "释放控制器自身关联的资源"
+        },
+        { "key": "C", "text": "只把 canvas 设为不可见，就必定会清除所有监听与闭包" },
+        {
+          "key": "D",
+          "text": "完整清理可降低重复初始化和闭包引用导致泄漏的风险",
+          "hint": "维护监听与控制器生命周期是清理的目的"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-05-036",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "一次 Raycaster 命中结果除了 object，还可能包含交点 point、距离 distance、面 face 和 UV 等信息。",
+      "explanation": "正确。Intersection 不只说明打中了谁，还能提供交点、距离、面与 UV 等求交细节，供放置标记、读取距离或处理表面信息使用。不同字段承担不同用途。",
+      "refs": [
+        {
+          "title": "three.js Raycaster Intersection",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-05-037",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "已知 canvas 的 rect.top=50、rect.height=400，某次换算得到 pointer.y=0.5。按本章 y 公式反求，event.clientY 应是多少像素？",
+      "explanation": "由 0.5=-((clientY-50)/400)×2+1，可得 ((clientY-50)/400)=0.25，因此 clientY-50=100，最终 clientY=150。反算时仍要使用 CSS rect，而不是 drawing buffer 尺寸。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "numeric",
+      "answer": 150,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-05-038",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "按本章与 Cesium 的对照，若需要取得穿透后的多层拾取结果，应使用哪个接口？",
+      "explanation": "Cesium 的 scene.drillPick 用于取得穿透后的多层结果，scene.pick 则取最上层对象。three 本章使用 Raycaster 返回按距离排序的命中数组，两者形式不同但都完成屏幕到三维的求交。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "scene.pick" },
+        {
+          "key": "B",
+          "text": "scene.drillPick",
+          "hint": "drill 表示继续穿透取得多层结果"
+        },
+        { "key": "C", "text": "controls.update" },
+        { "key": "D", "text": "renderer.render" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-039",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "hovered 随指针移动变化，selected 只在点击时改变；分开保存可避免临时悬停覆盖持久选择。",
+      "explanation": "正确。hover 是临时反馈，selected 是持久业务状态，生命周期不同。分别保存后再统一重算视觉，才能在指针移入移出时保留选中，并按既定优先级显示高亮。",
+      "refs": [
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-05-040",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "实现一次完整的点击选中流程时，下列哪些处理环节与本章的四步交互顺序一致？",
+      "explanation": "正确链路是先用 canvas rect 更新 NDC，再 setFromCamera，然后对 pickables 递归求交并取最近项，最后写入 selected 并统一刷新视觉。点击空白也应写入 null 来取消旧选择，不能一直保留旧状态。",
+      "refs": [
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "读取事件并结合 canvas rect 更新 NDC",
+          "hint": "这是生成拾取射线前的坐标准备"
+        },
+        {
+          "key": "B",
+          "text": "用更新后的 NDC 与 camera 调用 setFromCamera",
+          "hint": "坐标换算完成后再设置射线"
+        },
+        {
+          "key": "C",
+          "text": "对 pickables 求交，普通单选取最近的命中项",
+          "hint": "hits[0] 对应最近交点"
+        },
+        {
+          "key": "D",
+          "text": "更新 selected 后统一刷新高亮，空白命中可写为 null",
+          "hint": "状态更新与视觉刷新放在求交之后"
+        },
+        { "key": "E", "text": "未命中时永远保留旧 selected，禁止点击空白取消" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-05-041",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "示例在 Mesh 或模型根节点上保存 label、selectable 等自定义业务数据，使用的是哪个属性？（只写属性名）",
+      "explanation": "Object3D.userData 用于存放应用自定义数据，示例通过 mesh.userData.label 保存标签，也可在模型根节点设置 userData.selectable。它不改变 Raycaster 的几何求交规则。",
+      "refs": [
+        {
+          "title": "three.js Object3D.userData",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "short",
+      "accepted": ["userData", "object.userData", "mesh.userData", "model.userData", "root.userData"],
+      "placeholder": "例如：userData"
+    },
+    {
+      "id": "three-05-042",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "本章代码使用哪条导入语句引入 OrbitControls？",
+      "explanation": "示例从 three/addons/controls/OrbitControls.js 导入命名导出 OrbitControls，再从 three 包导入 THREE 命名空间。控制器属于 three addons，不是 Cesium 或 Raycaster 模块的导出。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "import { OrbitControls } from \"three/addons/controls/OrbitControls.js\";",
+          "hint": "路径位于 three addons 的 controls 目录"
+        },
+        { "key": "B", "text": "import { OrbitControls } from \"cesium/Scene/Raycaster.js\";" },
+        { "key": "C", "text": "import OrbitControls from \"three/math/Vector2.js\";" },
+        { "key": "D", "text": "const OrbitControls = new THREE.Raycaster();" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-05-043",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "对 Raycaster 而言，一个屏幕像素对应三维空间中的一条射线，而不是一个预先确定的三维点。",
+      "explanation": "正确。射线从相机出发，经过指针在成像平面上的位置向场景延伸；它与不同距离的三角形可能产生多个交点，因此还需要求交和距离排序才能确定命中对象。",
+      "refs": [
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-05-044",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "调试非全屏画布的 NDC 换算时，指针位于下列角落，哪些读数符合预期？",
+      "explanation": "NDC 左上为 (-1,1)，左下为 (-1,-1)，右下为 (1,-1)，右上应为 (1,1)。浏览器 y 向下而 NDC y 向上，所以上边缘对应 +1、下边缘对应 -1。",
+      "refs": [
+        {
+          "title": "MDN getBoundingClientRect",
+          "url": "https://developer.mozilla.org/docs/Web/API/Element/getBoundingClientRect"
+        },
+        {
+          "title": "three.js Raycaster.setFromCamera",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "左上角得到 (-1,1)",
+          "hint": "左边界 x=-1，上边界 y=1"
+        },
+        {
+          "key": "B",
+          "text": "左下角得到 (-1,-1)",
+          "hint": "左下是 NDC 的两个负边界"
+        },
+        {
+          "key": "C",
+          "text": "右下角得到 (1,-1)",
+          "hint": "右边界 x=1，下边界 y=-1"
+        },
+        { "key": "D", "text": "右上角得到 (-1,-1)" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-05-045",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "glTF 根节点设置了 userData.selectable=true，但命中可能发生在任意深层子 Mesh。哪种业务根节点解析方式最稳妥？",
+      "explanation": "应从 intersection.object 自身开始检查，未标记则沿 parent 逐级向上，直到找到 selectable 根节点；找不到时按无可选业务对象处理。只上溯一级无法覆盖任意深度，直接返回 Scene 也会丢失具体模型身份。",
+      "refs": [
+        {
+          "title": "three.js Object3D.parent",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D.parent"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "无论命中谁，都只读取 object.parent 一次并停止" },
+        {
+          "key": "B",
+          "text": "从命中对象开始检查 selectable，未标记则沿 parent 上溯，找不到就按未选中处理",
+          "hint": "同时兼容根节点自身命中与任意深度子 Mesh 命中"
+        },
+        { "key": "C", "text": "始终把整个 Scene 当成唯一业务模型" },
+        { "key": "D", "text": "只比较 geometry 数量，不读取对象层级" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-046",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "controls.target=(0,1,0)，相机位置为 (3,5,0)。相机到轨道目标的欧氏距离是多少场景单位？",
+      "explanation": "位置差为 (3-0,5-1,0-0)=(3,4,0)，距离为 √(3²+4²+0²)=5。该距离处于示例 3～12 的缩放限制内，因此不会仅因上下限被钳制。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls 距离限制",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "场景单位",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-05-047",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "关于本章画布事件各自承担的职责，下列说法正确的有哪些？",
+      "explanation": "pointerdown 记录按下坐标供拖拽距离判断，pointermove 更新 hover 与指针样式，click 在位移过滤后更新 selected。pointerleave 只清除 hover，不应强制取消持久选中。",
+      "refs": [
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "pointerdown 记录 downX 与 downY",
+          "hint": "按下点是后续位移计算的基准"
+        },
+        {
+          "key": "B",
+          "text": "pointermove 更新 hovered，并据此设置 cursor",
+          "hint": "悬停反馈随指针位置变化"
+        },
+        {
+          "key": "C",
+          "text": "click 在拖拽位移过滤后更新 selected",
+          "hint": "避免把旋转相机误判为点选"
+        },
+        { "key": "D", "text": "pointerleave 必须把 hovered 与 selected 同时清空" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-05-048",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "对 controls.dampingFactor=0.08 的含义，下列哪种理解最准确？",
+      "explanation": "dampingFactor 控制阻尼更新中惯性衰减的程度，示例取 0.08。它不是每次输入固定旋转 0.08 弧度，也不是 Raycaster 距离或相机缩放上下限；开启阻尼后仍需每帧 update。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls.dampingFactor",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "每次指针移动固定旋转 0.08 弧度" },
+        {
+          "key": "B",
+          "text": "控制阻尼惯性在持续更新中的衰减程度",
+          "hint": "该系数服务于松手后的惯性衰减"
+        },
+        { "key": "C", "text": "把 Raycaster 最大命中距离限制为 0.08" },
+        { "key": "D", "text": "把 minDistance 与 maxDistance 自动设为同一数值" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-05-049",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "pointerdown 位于 (200,150)，随后拖动相机并在 (212,158) 触发 click。由于最终仍落在 canvas 内，示例必须忽略 5 像素阈值并强制更新 selected。",
+      "explanation": "错误。位移为 Math.hypot(12,8)=√208，明显大于 5，说明这是应被过滤的轨道拖拽。click 中 moved>5 会直接 return，因此不应更新 selected；是否仍在 canvas 内不能替代拖拽判断。",
+      "refs": [
+        {
+          "title": "MDN Pointer events",
+          "url": "https://developer.mozilla.org/docs/Web/API/Pointer_events"
+        },
+        {
+          "title": "three.js OrbitControls",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-05-050",
+      "skill": "three",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "设置 minDistance、maxDistance 与 maxPolarAngle 后，为什么 hover 高亮仍能正常执行？",
+      "explanation": "这些 OrbitControls 属性只约束相机相对 target 的缩放距离与轨道极角，不会禁止 pointermove 或射线求交。指针移动时仍可更新 NDC、设置射线、检测 pickables 并刷新临时高亮。",
+      "refs": [
+        {
+          "title": "three.js OrbitControls",
+          "url": "https://threejs.org/docs/#examples/en/controls/OrbitControls"
+        },
+        {
+          "title": "three.js Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "因为 hover 不需要指针坐标，也不需要射线求交" },
+        { "key": "B", "text": "因为距离限制会自动把每个子 Mesh 改为可选根节点" },
+        {
+          "key": "C",
+          "text": "因为这些属性只约束相机，pointermove 仍会执行拾取与高亮逻辑",
+          "hint": "相机运动限制与指针拾取流程是两项不同职责"
+        },
+        { "key": "D", "text": "因为 maxPolarAngle 会把未命中数组改写成命中数组" }
+      ],
+      "answer": ["C"]
     }
   ]
 }

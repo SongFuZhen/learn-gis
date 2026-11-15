@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "05",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-05-001",
@@ -284,6 +284,811 @@
       "type": "short",
       "accepted": ["@Concurrent", "Concurrent"],
       "placeholder": "例如：@Concurrent"
+    },
+    {
+      "id": "harmony-05-015",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "讲义示例从 @kit.NetworkKit 中导入哪个命名导出来使用 HTTP 请求能力？",
+      "explanation": "示例使用 import { http } from '@kit.NetworkKit'，随后通过 http.createHttp() 创建请求对象。webSocket 提供长连接能力，taskpool 则用于并发任务。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "webSocket" },
+        { "key": "B", "text": "http", "hint": "HTTP 相关类型与方法位于该命名导出下" },
+        { "key": "C", "text": "taskpool" },
+        { "key": "D", "text": "worker" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-05-016",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 loadLevel 中 connectTimeout: 5000 与 readTimeout: 5000 的配置，哪些理解正确？",
+      "explanation": "两个超时值都以毫秒为单位，分别约束连接和读取阶段的等待，讲义中均设为 5000。它们只限制等待时间，不能保证服务器返回 200，也不能代替状态码检查。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "两个配置值都以毫秒为单位", "hint": "5000 毫秒即 5 秒" },
+        { "key": "B", "text": "connectTimeout 与 readTimeout 分别约束连接和读取等待", "hint": "这是两个不同阶段的超时配置" },
+        { "key": "C", "text": "讲义示例把这两个配置值都设为 5000", "hint": "对应练习中的连接和读取各 5 秒" },
+        { "key": "D", "text": "设置这两个值后服务器就必须返回 200" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-05-017",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "声明 ohos.permission.INTERNET 后，服务器就一定会成功响应，也可以跳过 HTTPS 校验。",
+      "explanation": "该权限只提供联网能力，不承诺服务器成功，也不改变 HTTPS 的证书校验要求。请求仍需处理网络异常、HTTP 状态码和服务端业务结果。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-05-018",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "确认 HTTP 状态码为 200 后，讲义用哪个 API 把响应字符串解析为 JSON 数据？（写 API 名）",
+      "explanation": "示例先检查 responseCode，再执行 JSON.parse(response.result as string)。只有状态码符合预期才进入解析，真实项目还应继续校验解析后的字段。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "MDN JSON.parse",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "JSON.parse",
+        "JSON.parse(response.result as string)",
+        "JSON.parse(res.result as string)",
+        "JSON.parse(response.result)",
+        "JSON.parse(res.result)"
+      ],
+      "placeholder": "例如：JSON.parse"
+    },
+    {
+      "id": "harmony-05-019",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "若希望 connectTimeout 限制为 5 秒，按讲义所用的毫秒单位应填写多少？",
+      "explanation": "超时配置使用毫秒，1 秒等于 1000 毫秒，因此 5 秒应换算为 5×1000=5000 毫秒。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5000,
+      "tolerance": 0,
+      "unit": "毫秒",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-05-020",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "使用讲义中的 HTTP 请求对象发送 POST 数据时，请求体应放在哪个配置项中？",
+      "explanation": "讲义明确说明 POST 数据放在 extraData，请求头则按服务端约定另行设置。responseCode 用于读取响应状态，expectDataType 指定期望的响应数据类型。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "responseCode" },
+        { "key": "B", "text": "expectDataType" },
+        { "key": "C", "text": "extraData", "hint": "POST 请求体数据放在这里" },
+        { "key": "D", "text": "session" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-05-021",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "为了让 HTTP 响应处理覆盖真实失败场景，下列做法正确的有哪些？",
+      "explanation": "Promise fulfilled 只表示获得了响应流程的结果，404/500 也可能正常返回响应，因此必须检查 responseCode。解析后还要校验字段，并为空响应、错误 JSON 和服务端业务错误提供界面状态。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "Promise fulfilled 后仍检查 responseCode", "hint": "HTTP 错误状态也可能对应已完成的 Promise" },
+        { "key": "B", "text": "Promise fulfilled 就可以直接认定业务成功" },
+        { "key": "C", "text": "真实项目在 JSON.parse 后还要校验字段", "hint": "类型断言不能替代运行时数据校验" },
+        { "key": "D", "text": "为空响应、错误 JSON 和业务错误准备界面状态", "hint": "这些结果都需要可见且可处理的界面反馈" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-05-022",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "页面已经用 session 序号拒绝旧响应，为什么在请求能力支持时仍应主动取消旧请求？",
+      "explanation": "session 序号只决定晚到结果是否采用，并不会让已经发出的网络请求立即停止。主动取消可以进一步节省流量和请求资源，两种机制分别处理传输与结果落地。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "取消可节省流量与请求资源，而序号只负责拒绝旧结果",
+          "hint": "传输取消和结果失效是两条不同的防线"
+        },
+        { "key": "B", "text": "取消请求可以保证服务器以后都返回 200" },
+        { "key": "C", "text": "session 序号会自动把所有旧响应改成新数据" },
+        { "key": "D", "text": "取消请求后就不再需要检查 HTTP 状态码" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-05-023",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "LevelPanel 在组件出现时启动首次加载，是在哪个生命周期回调中调用 refresh？（写回调名）",
+      "explanation": "示例在 aboutToAppear 中调用 this.refresh('04')，把异步请求的启动与 build 的界面描述分开。请求完成后再通过状态更新驱动渲染。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["aboutToAppear", "aboutToAppear()"],
+      "placeholder": "例如：aboutToAppear"
+    },
+    {
+      "id": "harmony-05-024",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "讲义把 connectTimeout 与 readTimeout 都设为 5000 毫秒。仅计算这两个配置值的数值之和，结果是多少毫秒？",
+      "explanation": "两个配置值相加为 5000+5000=10000 毫秒。这只是题目要求的配置值求和，并不表示存在一个有严格 10000 毫秒上限的单一总超时。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10000,
+      "tolerance": 0,
+      "unit": "毫秒",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-05-025",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "loadLevel 中 expectDataType: http.HttpDataType.STRING 的作用是什么？",
+      "explanation": "该配置指定期望响应数据按字符串形式返回，所以示例之后把 result 断言为 string 再交给 JSON.parse。它不会自动完成 DTO 字段校验，也不会替代状态码检查。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把 POST 请求体自动转换为字符串" },
+        { "key": "B", "text": "保证响应中的每个字段都符合 LevelDto" },
+        { "key": "C", "text": "跳过响应状态码检查并直接返回业务对象" },
+        {
+          "key": "D",
+          "text": "指定期望响应按字符串返回，之后仍可执行 JSON.parse",
+          "hint": "该配置描述期望的响应数据类型"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "harmony-05-026",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "根据请求之间是否存在先后依赖，下列 Promise 组织方式正确的有哪些？",
+      "explanation": "互不依赖的请求可用 Promise.all 并行发起，后一个请求若依赖前一个结果则应顺序 await。Promise.all 不会消除失败，独立请求也没有必须逐个等待的要求。",
+      "refs": [
+        {
+          "title": "MDN Promise.all",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"
+        },
+        {
+          "title": "MDN await",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/await"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "两个互不依赖的请求可用 Promise.all 并行", "hint": "独立任务不必人为串行" },
+        { "key": "B", "text": "第二个请求依赖第一个结果时应顺序 await", "hint": "先取得依赖值，再发起下一步" },
+        { "key": "C", "text": "使用 Promise.all 后任何请求都不会再 reject" },
+        { "key": "D", "text": "即使请求互不依赖，也必须等前一个完成再发下一个" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "harmony-05-027",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "同一 WebSocket 事件重复订阅不会让消息重复处理，因此可以在任意位置反复调用 on。",
+      "explanation": "重复订阅可能让同一条消息被处理多次。讲义要求由一个对象统一管理连接生命周期，避免分散且重复的事件订阅。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-05-028",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "ProgressChannel 使用哪个 API 创建 WebSocket 对象？（写 API 名）",
+      "explanation": "示例通过 webSocket.createWebSocket() 创建连接对象，然后在该对象上订阅事件并调用 connect。创建对象本身还不等于连接已经成功打开。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "createWebSocket",
+        "createWebSocket()",
+        "webSocket.createWebSocket",
+        "webSocket.createWebSocket()"
+      ],
+      "placeholder": "例如：webSocket.createWebSocket"
+    },
+    {
+      "id": "harmony-05-029",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "LevelPanel 的 session 初始为 0，连续调用 refresh 三次且每次都执行 ++this.session，期间没有其他修改。此时 session 是多少？",
+      "explanation": "每次 refresh 都让 session 递增 1，三次调用依次得到 1、2、3，所以最终值为 3。响应是否晚到不会改变这个计数过程。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-05-030",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "应用只需一次性获取一份题库，不需要服务端持续推送，按讲义应优先选择哪种方式？",
+      "explanation": "一次短请求取题库使用 HTTP 即可。WebSocket 更适合服务端主动推送和持续双向通信，TaskPool 与 Worker 则用于把计算移出 UI 线程。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "发起一次 HTTP 请求", "hint": "短请求获取数据无需维持长连接" },
+        { "key": "B", "text": "永久保持 WebSocket 长连接" },
+        { "key": "C", "text": "创建 TaskPool 长驻连接" },
+        { "key": "D", "text": "用 Worker 代替所有网络接口" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-05-031",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "按照 ProgressChannel 的 message 回调约定，处理收到的数据时哪些做法正确？",
+      "explanation": "message 回调先通过 !err 排除错误，再用 typeof data === 'string' 识别文本。ArrayBuffer 表示另一类二进制数据，应分别处理，不能假定所有消息都可直接按 JSON 文本解析。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "不检查 err，把所有 data 都直接交给 JSON.parse" },
+        { "key": "B", "text": "先确认 !err 再处理数据", "hint": "回调同时提供错误信息与数据" },
+        { "key": "C", "text": "用 typeof data === 'string' 识别文本消息", "hint": "示例用该条件区分字符串" },
+        { "key": "D", "text": "文本消息与 ArrayBuffer 分别处理", "hint": "二进制数据需要不同的处理路径" }
+      ],
+      "answer": ["B", "C", "D"]
+    },
+    {
+      "id": "harmony-05-032",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "在 WebSocket 长连接管理中，心跳机制主要用于发现什么问题？",
+      "explanation": "心跳用于发现表面仍连接、实际已不可用的假连接。它不能代替 close 和 error 事件处理，也不负责把后台计算结果转换为 UI 状态。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "HTTP 响应 JSON 字段是否完整" },
+        { "key": "B", "text": "TaskPool 任务是否需要拆分" },
+        { "key": "C", "text": "Promise 是否支持 then 链式调用" },
+        { "key": "D", "text": "看似在线但实际不可用的假连接", "hint": "心跳帮助检验长连接是否仍有活性" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "harmony-05-033",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "sendProgress 在调用 socket.send 前，用哪个 API 把 { levelId } 对象序列化为 JSON 字符串？",
+      "explanation": "示例执行 JSON.stringify({ levelId })，把对象转换为字符串后再发送。JSON.parse 的方向相反，用于把 JSON 字符串解析为数据。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        },
+        {
+          "title": "MDN JSON.stringify",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "JSON.stringify",
+        "JSON.stringify({ levelId })",
+        "JSON.stringify({levelId})",
+        "this.socket.send(JSON.stringify({ levelId }))",
+        "socket.send(JSON.stringify({ levelId }))"
+      ],
+      "placeholder": "例如：JSON.stringify"
+    },
+    {
+      "id": "harmony-05-034",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "执行 Promise.resolve(3).then(value => value * 4).then(value => value + 2) 后，最终 fulfilled 的数值是多少？",
+      "explanation": "then 回调按链式顺序接收上一环结果：先计算 3×4=12，再计算 12+2=14，因此最终 fulfilled 的数值为 14。",
+      "refs": [
+        {
+          "title": "MDN Promise.prototype.then",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise/then"
+        }
+      ],
+      "type": "numeric",
+      "answer": 14,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-05-035",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "页面只需解析一个小 JSON 并过滤几十项数据，按讲义为什么可以直接在 UI 线程完成？",
+      "explanation": "小 JSON 和几十项过滤的计算量较小，跨线程传递数据所需的序列化成本反而可能更高。只有计算规模足以抵消并发开销时，才更适合交给 TaskPool 或 Worker。",
+      "refs": [
+        {
+          "title": "TaskPool 简介",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/taskpool-introduction"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "因为 UI 线程可以直接执行任意规模的批量计算" },
+        {
+          "key": "B",
+          "text": "因为任务很小，跨线程序列化开销可能反而更高",
+          "hint": "是否跨线程要比较计算收益与传递成本"
+        },
+        { "key": "C", "text": "因为 TaskPool 无法接收数组数据" },
+        { "key": "D", "text": "因为 JSON.parse 会自动创建 Worker" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-05-036",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "向 TaskPool 的 @Concurrent 函数传递数据和编写任务逻辑时，哪些边界必须遵守？",
+      "explanation": "传给任务的数据和返回值都要满足跨线程传递约束。@Concurrent 函数应接收可传递的纯数据，不能假设可以直接捕获组件 this 或任意闭包，更不能把后台任务当成直接操作 UI 的环境。",
+      "refs": [
+        {
+          "title": "TaskPool 简介",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/taskpool-introduction"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "传入任务的数据要满足跨线程传递约束", "hint": "任务输入不是可以不受限制共享的对象图" },
+        { "key": "B", "text": "任务返回值不受任何跨线程传递约束" },
+        { "key": "C", "text": "不能假设任务函数可以随手捕获组件 this", "hint": "组件实例不是可任意捕获的纯数据" },
+        { "key": "D", "text": "不能假设任意闭包都能直接带入任务", "hint": "编写任务时要明确数据边界" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-05-037",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "一个后台任务需要长驻接收协议并反复收发消息，按讲义的选择标准更适合使用什么？",
+      "explanation": "长驻接收协议、反复收发任务需要明确控制生命周期和消息通道，更适合 Worker。TaskPool 更适合由线程池托管、执行完即可回收的独立短任务。",
+      "refs": [
+        {
+          "title": "HarmonyOS 开发指南",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只调用 JSON.parse" },
+        { "key": "B", "text": "一次性的 TaskPool 短任务" },
+        { "key": "C", "text": "由开发者控制生命周期的 Worker", "hint": "长驻通信需要明确的消息通道和生命周期" },
+        { "key": "D", "text": "在 build 中持续循环接收" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-05-038",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "讲义用 new taskpool.Task(sumValues, values) 封装独立短任务，这里使用的是哪个构造器？（写完整构造器名）",
+      "explanation": "taskpool.Task 构造器接收并发任务函数及其参数，示例写法为 new taskpool.Task(sumValues, values)。sumValues 是需要用 @Concurrent 标记的任务函数。",
+      "refs": [
+        {
+          "title": "TaskPool 简介",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/taskpool-introduction"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "taskpool.Task",
+        "new taskpool.Task",
+        "new taskpool.Task(sumValues, values)",
+        "new taskpool.Task(sumValues,values)"
+      ],
+      "placeholder": "例如：taskpool.Task"
+    },
+    {
+      "id": "harmony-05-039",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "请求需要携带访问令牌时，下列哪种做法符合讲义的安全要求？",
+      "explanation": "请求头应按服务端约定设置，访问令牌不应拼进 URL，也不应写入日志。URL 和日志更容易被转发、采集或长期保留，不能把它们当作令牌的存放位置。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把令牌拼入 URL，方便每次请求自动携带" },
+        { "key": "B", "text": "把完整令牌写入日志，便于线上排查" },
+        {
+          "key": "C",
+          "text": "按服务端约定设置请求头，不把令牌放进 URL 或日志",
+          "hint": "同时满足接口约定与敏感信息保护"
+        },
+        { "key": "D", "text": "声明 INTERNET 权限后关闭 HTTPS 校验" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-05-040",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "三个互不依赖的请求分别耗时 120、250、180 毫秒，用 Promise.all 同时发起并忽略调度开销，全部完成约需多少毫秒？",
+      "explanation": "并行发起时，Promise.all 等待最慢的那个请求，因此总等待约为 max(120, 250, 180)=250 毫秒，而不是把三个耗时串行相加。",
+      "refs": [
+        {
+          "title": "MDN Promise.all",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"
+        }
+      ],
+      "type": "numeric",
+      "answer": 250,
+      "tolerance": 0,
+      "unit": "毫秒",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-05-041",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "讲义 loadLevel 的请求配置中，用哪个枚举值明确指定 GET 方法？",
+      "explanation": "请求配置使用 method: http.RequestMethod.GET。GET 是方法枚举成员，extraData 是 POST 等请求携带数据的配置项，HttpDataType.STRING 则描述期望的响应数据类型。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "http.RequestMethod.GET", "hint": "RequestMethod 枚举中的 GET 成员" },
+        { "key": "B", "text": "http.HttpDataType.STRING" },
+        { "key": "C", "text": "http.HttpRequest.GET" },
+        { "key": "D", "text": "http.ResponseCode.GET" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-05-042",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "LevelPanel 用哪个状态装饰器声明 title 和 failed，让异步结果变化驱动界面更新？（写装饰器名）",
+      "explanation": "示例用 @State 声明 title 与 failed，异步回调修改这些状态后，build 根据当前状态显示标题或失败重试按钮。请求本身不在 build 中等待。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@State", "State"],
+      "placeholder": "例如：@State"
+    },
+    {
+      "id": "harmony-05-043",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "按讲义的 Stage 工程结构，联网权限 requestPermissions 应配置在哪个文件中？",
+      "explanation": "联网权限写在 entry/src/main/module.json5 的 module.requestPermissions 数组中。AppScope/app.json5 是应用级配置，oh-package.json5 管理依赖，build-profile.json5 管理工程构建配置。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "entry/src/main/module.json5", "hint": "模块的 requestPermissions 位于该文件" },
+        { "key": "B", "text": "AppScope/app.json5" },
+        { "key": "C", "text": "oh-package.json5" },
+        { "key": "D", "text": "build-profile.json5" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-05-044",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "WebSocket 异常重连采用有上限的指数退避，三次重连前分别等待 300、600、1200 毫秒。这三次等待总计多少毫秒？",
+      "explanation": "三次退避等待相加为 300+600+1200=2100 毫秒。指数退避逐步拉长重试间隔，同时还要有次数上限，不能立即无限重连。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2100,
+      "tolerance": 0,
+      "unit": "毫秒",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-05-045",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "loadLevel(id: string): Promise<LevelDto> 的返回类型最准确的含义是什么？",
+      "explanation": "该函数异步产出 LevelDto，调用方可以用 await 或 then 取得成功值；非 200 状态码被显式抛出时，Promise 会进入拒绝路径。返回类型并不承诺每次请求都成功。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        },
+        {
+          "title": "MDN Promise",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Promise"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "函数同步返回 LevelDto，调用方无需等待" },
+        {
+          "key": "B",
+          "text": "函数返回一个异步 Promise，成功时给出 LevelDto，失败时可以 reject",
+          "hint": "返回类型描述异步成功值，异常仍走拒绝路径"
+        },
+        { "key": "C", "text": "函数保证服务器一定返回 200" },
+        { "key": "D", "text": "函数返回 LevelDto 字符串数组" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-05-046",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "结合 ProgressChannel 的 manualClose 标志与 close 回调，下列代码理解正确的有哪些？",
+      "explanation": "connect 开始时把 manualClose 复位为 false，使后续异常关闭可被识别；close 回调仅在 !manualClose 时进入异常关闭逻辑；dispose 先把标志设为 true 再关闭，从而把主动退出与意外断线区分开。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "connect 开始时把 manualClose 设为 false，重新允许识别异常关闭", "hint": "新连接会重置主动关闭标志" },
+        { "key": "B", "text": "close 回调中的 !manualClose 分支对应非主动关闭", "hint": "主动退出会先改变这个标志" },
+        { "key": "C", "text": "dispose 先设 manualClose=true，可避免主动退出被当成异常断线", "hint": "先记录关闭意图，再执行 close" },
+        { "key": "D", "text": "manualClose=true 表示必须立即无限重连" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-05-047",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "按照 ProgressChannel 的写法，connect(url) 与 send(...) 返回 Promise 的失败应如何处理？",
+      "explanation": "示例分别在 connect 和 send 返回的 Promise 后调用 catch，记录 BusinessError。订阅 open 或 error 事件不能取代对每次异步操作拒绝路径的处理。",
+      "refs": [
+        {
+          "title": "WebSocket 连接",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只把 build 改成 async，网络失败就会自动消失" },
+        { "key": "B", "text": "只要订阅 open，connect 与 send 都不会失败" },
+        { "key": "C", "text": "把两个 Promise 都交给 JSON.parse 处理" },
+        {
+          "key": "D",
+          "text": "分别通过 catch 处理两个 Promise 的拒绝",
+          "hint": "每个异步操作都需要自己的错误归属"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "harmony-05-048",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 TaskPool 的任务粒度与示例任务对象，下列说法正确的有哪些？",
+      "explanation": "任务过大应拆分，过小应合并，以减少单个任务过重或调度开销过高等问题。独立短任务可用 new taskpool.Task(sumValues, values) 表达，并不是越小越应该逐个创建任务。",
+      "refs": [
+        {
+          "title": "TaskPool 简介",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/taskpool-introduction"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "任务越小越应该逐项创建，完全不用考虑调度开销" },
+        { "key": "B", "text": "过大的任务应适当拆分", "hint": "拆分有助于控制单个任务规模" },
+        { "key": "C", "text": "过小的任务应适当合并", "hint": "合并没有必要的小任务可降低并发管理成本" },
+        { "key": "D", "text": "独立短任务可用 new taskpool.Task(sumValues, values) 封装", "hint": "这是讲义给出的任务对象写法" }
+      ],
+      "answer": ["B", "C", "D"]
+    },
+    {
+      "id": "harmony-05-049",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "请求失败后 catch 只打印日志，failed 始终不变，页面一直显示“加载中”。按讲义应如何修复？",
+      "explanation": "当前请求失败时应把 failed 设为 true，让 build 显示“加载失败，重试”按钮，并在点击后重新调用 refresh。吞掉错误而不更新状态会让界面失去可恢复的失败路径。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "继续吞掉错误，让加载状态无限保持" },
+        {
+          "key": "B",
+          "text": "当前请求失败时设置 failed=true，展示可点击 refresh 的重试入口",
+          "hint": "失败要落到可恢复的界面状态"
+        },
+        { "key": "C", "text": "删除所有错误处理，并不再检查请求序号" },
+        { "key": "D", "text": "把每次失败都当作 200 响应解析" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-05-050",
+      "skill": "harmony",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 LevelPanel 示例中的加载与错误状态流转，下列说法正确的有哪些？",
+      "explanation": "build 根据 title 和 failed 描述当前界面；每次 refresh 先清除旧失败状态；只有序号仍匹配当前会话的成功响应才更新 title。旧请求的失败也不能越过序号检查，任意修改 failed 会干扰新请求。",
+      "refs": [
+        {
+          "title": "Stage 模型入门",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        },
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "build 根据 title 和 failed 描述当前界面", "hint": "渲染由状态驱动" },
+        { "key": "B", "text": "refresh 一开始就设置 failed=true，确保先显示失败" },
+        { "key": "C", "text": "refresh 开始时设置 failed=false，清除上一次失败状态", "hint": "新请求先进入正常加载路径" },
+        { "key": "D", "text": "只有序号仍匹配当前会话的成功响应才更新 title", "hint": "旧成功响应同样会被序号检查挡住" },
+        { "key": "E", "text": "任意旧请求失败都应无条件把 failed 改为 true" }
+      ],
+      "answer": ["A", "C", "D"]
     }
   ]
 }

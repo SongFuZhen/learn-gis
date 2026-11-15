@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "03",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-03-001",
@@ -331,6 +331,925 @@
       "tolerance": 0,
       "unit": "倍",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-03-014",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "需要模拟向四周发光、主要照亮附近区域的灯泡，应选择哪种光源？",
+      "explanation": "PointLight 从一个局部位置向各方向发光，适合模拟灯泡等局部灯具。DirectionalLight 模拟远处平行光，SpotLight 则把照射限制在锥形范围内。",
+      "refs": [
+        {
+          "title": "three.js PointLight",
+          "url": "https://threejs.org/docs/#api/en/lights/PointLight"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "DirectionalLight" },
+        {
+          "key": "B",
+          "text": "PointLight",
+          "hint": "局部位置加全方向发光符合灯泡模型"
+        },
+        { "key": "C", "text": "AmbientLight" },
+        { "key": "D", "text": "HemisphereLight" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-03-015",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "对于 new THREE.SpotLight(0xffffff, 50, 15, Math.PI / 6, 0.35, 2)，下列参数解读正确的有哪些？",
+      "explanation": "这六个参数依次是颜色、强度、distance、angle、penumbra 和 decay。因此影响距离为 15、锥角为 Math.PI / 6、边缘柔化为 0.35、距离衰减为 2；最后一个参数不是边缘柔化。",
+      "refs": [
+        {
+          "title": "three.js SpotLight",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "distance 为 15，可限制光的影响范围",
+          "hint": "第三个构造参数是 distance"
+        },
+        {
+          "key": "B",
+          "text": "光锥角 angle 为 Math.PI / 6",
+          "hint": "第四个构造参数是 angle"
+        },
+        { "key": "C", "text": "边缘柔化 penumbra 为 2" },
+        {
+          "key": "D",
+          "text": "距离衰减 decay 为 2",
+          "hint": "最后一个构造参数是 decay"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-03-016",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "SpotLight 具有锥形照射范围，适合模拟手电或舞台上的重点照明。",
+      "explanation": "正确。SpotLight 的直觉模型就是有锥角的手电，光线集中在朝向 target 的锥形区域内，因此适合舞台、车灯和重点照明。",
+      "refs": [
+        {
+          "title": "three.js SpotLight",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-03-017",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "DirectionalLight 的阴影相机属于哪种相机类型？（写类名）",
+      "explanation": "DirectionalLight 使用 OrthographicCamera 作为阴影相机，以正交投影覆盖会投影和会接收阴影的区域。其 left、right、top、bottom 与 near、far 共同限定有效范围。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        }
+      ],
+      "type": "short",
+      "accepted": ["OrthographicCamera", "THREE.OrthographicCamera", "正交相机", "正交投影相机"],
+      "placeholder": "例如：OrthographicCamera"
+    },
+    {
+      "id": "three-03-018",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "半径为 0.7 的球要恰好接触 y = 0 的水平地面，球心的 y 坐标应设为多少？",
+      "explanation": "球最低点为球心 y 坐标减去半径。令最低点等于地面高度 0，可得球心 y = 0 + 0.7 = 0.7，此时球恰好落地而不穿插或悬空。",
+      "refs": [
+        {
+          "title": "three.js Object3D.position",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.7,
+      "tolerance": 0,
+      "unit": "场景单位",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-03-019",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "需要为户外场景添加带天空色与地面色层次的柔和补光，应优先选择哪种光源？",
+      "explanation": "HemisphereLight 分别使用天空色和地面色，在表面朝向上形成柔和渐变，比完全均匀的 AmbientLight 更有方向层次，适合户外补光。",
+      "refs": [
+        {
+          "title": "three.js HemisphereLight",
+          "url": "https://threejs.org/docs/#api/en/lights/HemisphereLight"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "PointLight" },
+        { "key": "B", "text": "SpotLight" },
+        {
+          "key": "C",
+          "text": "HemisphereLight",
+          "hint": "天空色与地面色是它的核心特征"
+        },
+        { "key": "D", "text": "AmbientLight" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-03-020",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "为展示场景选择补光与局部照明时，下列光源与用途匹配正确的有哪些？",
+      "explanation": "HemisphereLight 适合户外柔和补光，PointLight 适合模拟局部灯泡，SpotLight 适合舞台等重点照明。AmbientLight 没有方向且不支持阴影，不能承担方向明确的投影主光。",
+      "refs": [
+        {
+          "title": "three.js HemisphereLight",
+          "url": "https://threejs.org/docs/#api/en/lights/HemisphereLight"
+        },
+        {
+          "title": "three.js SpotLight",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "HemisphereLight 用于带天空与地面层次的户外补光",
+          "hint": "它提供柔和的方向层次"
+        },
+        { "key": "B", "text": "AmbientLight 用于产生方向明确的锐利主阴影" },
+        {
+          "key": "C",
+          "text": "PointLight 用于模拟照亮四周的局部灯泡",
+          "hint": "局部灯具可从一点向各方向发光"
+        },
+        {
+          "key": "D",
+          "text": "SpotLight 用于舞台或展品的锥形重点照明",
+          "hint": "锥角让照明集中于目标区域"
+        }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-03-021",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "MeshStandardMaterial 采用金属度—粗糙度工作流来描述 PBR 材质。",
+      "explanation": "正确。本章的 MeshStandardMaterial 示例通过 metalness 表示金属属性，通过 roughness 表示表面反射的粗糙程度，这正是金属度—粗糙度工作流。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-03-022",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章示例把 renderer.shadowMap.type 设为哪个常量，以使用 PCF 柔和阴影？（写常量名）",
+      "explanation": "示例使用 THREE.PCFSoftShadowMap 设置阴影贴图类型。这个常量只决定阴影过滤方式，仍需单独设置 renderer.shadowMap.enabled = true 才能启用阴影流程。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.shadowMap",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "PCFSoftShadowMap",
+        "THREE.PCFSoftShadowMap",
+        "renderer.shadowMap.type = THREE.PCFSoftShadowMap",
+        "renderer.shadowMap.type=THREE.PCFSoftShadowMap"
+      ],
+      "placeholder": "例如：PCFSoftShadowMap"
+    },
+    {
+      "id": "three-03-023",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "示例 SpotLight 的锥角参数为 Math.PI / 6 弧度，换算成角度是多少度？",
+      "explanation": "一圆周 2π 弧度等于 360 度，所以 π 弧度等于 180 度。Math.PI / 6 对应 180÷6=30 度。",
+      "refs": [
+        {
+          "title": "three.js SpotLight.angle",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight"
+        }
+      ],
+      "type": "numeric",
+      "answer": 30,
+      "tolerance": 0,
+      "unit": "度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-03-024",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "正常相机渲染时，阴影贴图依据什么判断一个片元落入阴影？",
+      "explanation": "阴影贴图先保存光源视角下的最近深度。正常渲染时，若当前片元到光源的距离大于深度图中同方向的最近距离，说明中间存在遮挡物，该片元就处于阴影中。",
+      "refs": [
+        {
+          "title": "three.js LightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/LightShadow"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "片元的基础色是否比阴影颜色更深" },
+        { "key": "B", "text": "片元到正常相机的距离是否大于 far" },
+        { "key": "C", "text": "材质的 metalness 是否恰好等于 0.5" },
+        {
+          "key": "D",
+          "text": "片元到光源的距离是否大于深度图记录的最近距离",
+          "hint": "更远意味着光线先遇到了其他遮挡物"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-03-025",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "根据 paintedPlastic、brushedCopper 和 polishedCopper 的材质示例，下列说法正确的有哪些？",
+      "explanation": "paintedPlastic 使用 metalness 0 与 roughness 0.65；brushedCopper 使用 metalness 1 与 roughness 0.35。polishedCopper 先克隆 brushedCopper，再把 roughness 改为 0.08，因此不会保留原来的 0.35。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "paintedPlastic 的 metalness 为 0，roughness 为 0.65",
+          "hint": "这两个值直接出现在塑料材质构造参数中"
+        },
+        {
+          "key": "B",
+          "text": "brushedCopper 的 metalness 为 1，roughness 为 0.35",
+          "hint": "拉丝铜示例采用金属度 1"
+        },
+        { "key": "C", "text": "polishedCopper 克隆后仍保持 roughness 为 0.35" },
+        {
+          "key": "D",
+          "text": "polishedCopper 由 brushedCopper.clone() 创建，再把 roughness 改为 0.08",
+          "hint": "克隆后还显式修改了粗糙度"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-03-026",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "PointLight 与 SpotLight 默认按物理距离衰减，并可通过 distance 限制影响范围。",
+      "explanation": "正确。本章构造示例分别为点光和聚光设置了 distance 与 decay；其中 distance 用来限制影响范围，decay 描述随距离衰减的方式。",
+      "refs": [
+        {
+          "title": "three.js PointLight",
+          "url": "https://threejs.org/docs/#api/en/lights/PointLight"
+        },
+        {
+          "title": "three.js SpotLight",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-03-027",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "修改 DirectionalLight 阴影相机的 left、right、top、bottom 后，应调用哪个方法更新投影矩阵？（只写方法名）",
+      "explanation": "修改阴影相机边界后，要调用 shadowCamera.updateProjectionMatrix() 重新生成投影矩阵。只修改字段而不调用该方法，新的覆盖范围可能不会按预期进入后续阴影计算。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "updateProjectionMatrix",
+        "shadowCamera.updateProjectionMatrix",
+        "shadowCamera.updateProjectionMatrix()",
+        "sun.shadow.camera.updateProjectionMatrix",
+        "sun.shadow.camera.updateProjectionMatrix()"
+      ],
+      "placeholder": "例如：updateProjectionMatrix"
+    },
+    {
+      "id": "three-03-028",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "平行光阴影相机的 left = -3、right = 3，其水平覆盖范围宽度是多少？",
+      "explanation": "水平覆盖宽度等于 right 减去 left，即 3-(-3)=6 个场景单位。若 top=3、bottom=-3，垂直范围也同样为 6。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "场景单位",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-03-029",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "SpotLight 光斑可见，target 正确且各阴影开关已开启，但某物体仍不投出预期阴影。接下来最应检查什么？",
+      "explanation": "在 target 与开关链都正常后，应检查物体是否同时位于聚光锥和阴影相机 near/far 范围内。物体即使被主相机看见，也可能因在聚光锥外或阴影裁剪范围外而不产生预期影子。",
+      "refs": [
+        {
+          "title": "three.js SpotLight",
+          "url": "https://threejs.org/docs/#api/en/lights/SpotLight"
+        },
+        {
+          "title": "three.js LightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/LightShadow"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "物体是否位于聚光锥内，并处于阴影相机 near/far 范围内",
+          "hint": "主相机可见不代表阴影相机也覆盖了物体"
+        },
+        { "key": "B", "text": "是否把 scene.environmentIntensity 改为 0" },
+        { "key": "C", "text": "是否把 AmbientLight 的天空色设为白色" },
+        { "key": "D", "text": "是否把球体材质的 metalness 固定为 0.5" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-03-030",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "检查并修改 DirectionalLight 的阴影相机时，下列说法正确的有哪些？",
+      "explanation": "DirectionalLight 使用正交阴影相机；near/far 必须容纳相关物体，修改边界或裁剪面后还要调用 updateProjectionMatrix。仅改字段不会显式重建投影矩阵，可能让配置看起来没有生效。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "该阴影相机采用正交投影",
+          "hint": "平行光使用正交阴影相机"
+        },
+        { "key": "B", "text": "修改 left/right/top/bottom 后无需更新投影矩阵" },
+        {
+          "key": "C",
+          "text": "near/far 应覆盖需要参与阴影的相关物体",
+          "hint": "裁剪范围外的物体可能不出现预期阴影"
+        },
+        {
+          "key": "D",
+          "text": "修改相机参数后应调用 updateProjectionMatrix()",
+          "hint": "让修改后的参数进入投影矩阵"
+        }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-03-031",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "PointLight 的阴影只需从一个方向渲染，因此其阴影成本与单张 DirectionalLight 阴影图完全相同。",
+      "explanation": "错误。PointLight 向四周发光，为覆盖各方向遮挡关系，其阴影需要从六个方向渲染，成本尤其高，不能等同于只渲染一张阴影图的情况。",
+      "refs": [
+        {
+          "title": "three.js PointLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/PointLightShadow"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-03-032",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章使用哪个类把环境预滤波成适合不同 roughness 采样的数据？（写类名）",
+      "explanation": "PMREMGenerator 负责环境预滤波，示例通过 pmrem.fromScene(...) 生成环境渲染目标，再把其中的纹理赋给 scene.environment。",
+      "refs": [
+        {
+          "title": "three.js PMREMGenerator",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        }
+      ],
+      "type": "short",
+      "accepted": ["PMREMGenerator", "THREE.PMREMGenerator", "new THREE.PMREMGenerator(renderer)"],
+      "placeholder": "例如：PMREMGenerator"
+    },
+    {
+      "id": "three-03-033",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "一张阴影贴图的 mapSize 为 512×1024，其像素总数是多少？",
+      "explanation": "像素总数等于宽乘高，即 512×1024=524288。这里直接求给定纹理的总像素量，不涉及边长放大倍数。",
+      "refs": [
+        {
+          "title": "three.js LightShadow.mapSize",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/LightShadow.mapSize"
+        }
+      ],
+      "type": "numeric",
+      "answer": 524288,
+      "tolerance": 0,
+      "unit": "像素",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-03-034",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于非金属与金属的反射颜色，下列哪种说法符合本章的 PBR 工作流？",
+      "explanation": "非金属的反射高光通常多呈浅色，而金属的反射颜色更受材质基础色影响。这也是铜等金属会呈现带有自身颜色反射的原因，不能把 metalness 当作统一增白或增亮开关。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "所有材质的高光颜色都与基础色无关" },
+        { "key": "B", "text": "非金属高光必定完全等于基础色" },
+        {
+          "key": "C",
+          "text": "非金属高光多呈浅色，金属反射颜色更受基础色影响",
+          "hint": "两类材质对反射颜色的影响方式不同"
+        },
+        { "key": "D", "text": "金属反射只能呈纯白色" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-03-035",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "一个场景开启多盏 PointLight 阴影后成本明显升高，下列原因或优化方向合理的有哪些？",
+      "explanation": "每盏 PointLight 的阴影都要覆盖六个方向，多盏投影灯会继续叠加渲染成本。可减少不必要的投影灯，让非关键补光不生成阴影；AmbientLight 本身不支持阴影，不存在六方向阴影渲染。",
+      "refs": [
+        {
+          "title": "three.js PointLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/PointLightShadow"
+        },
+        {
+          "title": "three.js AmbientLight",
+          "url": "https://threejs.org/docs/#api/en/lights/AmbientLight"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "单盏 PointLight 的阴影需要覆盖六个方向",
+          "hint": "全方向发光带来额外的阴影视角"
+        },
+        {
+          "key": "B",
+          "text": "增加投影灯数量会叠加阴影渲染成本",
+          "hint": "每盏投影灯都有自己的阴影工作"
+        },
+        { "key": "C", "text": "AmbientLight 也需要渲染六方向阴影图" },
+        {
+          "key": "D",
+          "text": "可减少不必要的投影灯，让非关键补光不投射阴影",
+          "hint": "把阴影预算留给真正需要的主光"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-03-036",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "AmbientLight 的成本较低，适合用来防止暗部纯黑，但不适合独自承担方向塑形。",
+      "explanation": "正确。AmbientLight 是成本最低的均匀底光，可避免暗部完全变黑；但它没有主方向，若只使用它，物体各面容易一样亮而缺少体积感。",
+      "refs": [
+        {
+          "title": "three.js AmbientLight",
+          "url": "https://threejs.org/docs/#api/en/lights/AmbientLight"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-03-037",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "示例通过 Scene 的哪个属性把环境照明强度设为 0.8？（写属性名）",
+      "explanation": "scene.environmentIntensity 控制场景环境照明的整体强度，示例将其设为 0.8。它与 scene.environment 所引用的环境纹理是两个不同配置。",
+      "refs": [
+        {
+          "title": "three.js Scene.environmentIntensity",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "environmentIntensity",
+        "scene.environmentIntensity",
+        "scene.environmentIntensity = 0.8",
+        "scene.environmentIntensity=0.8"
+      ],
+      "placeholder": "例如：environmentIntensity"
+    },
+    {
+      "id": "three-03-038",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "三盏 PointLight 都开启阴影，每盏都要覆盖六个方向，更新一轮阴影共需渲染多少个方向视角？",
+      "explanation": "每盏点光需要六个方向的阴影视角，三盏共需 3×6=18 个方向视角。这个计算直观说明多盏点光同时投影为何成本较高。",
+      "refs": [
+        {
+          "title": "three.js PointLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/PointLightShadow"
+        }
+      ],
+      "type": "numeric",
+      "answer": 18,
+      "tolerance": 0,
+      "unit": "个方向视角",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-03-039",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "按照本章示例，蓝色喷漆塑料 paintedPlastic 应使用哪组材质参数？",
+      "explanation": "示例把喷漆塑料设为非金属，因此 metalness 为 0，并使用 roughness 0.65 表现较粗糙的反射。其他组合会把材质推向金属或更光滑的表面。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "metalness: 1, roughness: 0.08" },
+        {
+          "key": "B",
+          "text": "metalness: 0, roughness: 0.65",
+          "hint": "与 paintedPlastic 的构造参数一致"
+        },
+        { "key": "C", "text": "metalness: 1, roughness: 0.35" },
+        { "key": "D", "text": "metalness: 0.65, roughness: 0" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-03-040",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "按照本章推荐的产品展示布光流程，下列做法正确的有哪些？",
+      "explanation": "推荐顺序是先用主光确定体积与阴影，再用 Hemisphere/Ambient 轻补暗部，随后调整 metalness/roughness，最后加入 IBL 丰富反射。一开始叠很多高强度灯会让明暗关系难以判断并增加阴影成本。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLight",
+          "url": "https://threejs.org/docs/#api/en/lights/DirectionalLight"
+        },
+        {
+          "title": "three.js PMREMGenerator",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "先用主光确定体积感与阴影关系",
+          "hint": "主光先建立画面的主要明暗结构"
+        },
+        {
+          "key": "B",
+          "text": "再用 HemisphereLight 或 AmbientLight 轻补暗部",
+          "hint": "补光放在主光之后更容易控制强度"
+        },
+        {
+          "key": "C",
+          "text": "随后调整 PBR 参数，最后加入 IBL 丰富反射",
+          "hint": "材质与环境反射按顺序逐层完善"
+        },
+        { "key": "D", "text": "一开始叠很多高强度灯，再逐个猜测它们的作用" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-03-041",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "把 glTF 产品模型加入 three 场景后，为什么不会自动获得带有太阳方向与阴影的照明？",
+      "explanation": "three 的 Light 只是开发者自行配置的普通场景节点，模型来自 glTF 并不会自动创建太阳、主光或阴影范围。仍需手动添加合适光源，设置位置或 target，并配置投影与接收关系。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLight",
+          "url": "https://threejs.org/docs/#api/en/lights/DirectionalLight"
+        },
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "因为 glTF 模型永远不能接收任何光照" },
+        { "key": "B", "text": "因为 three 会自动把太阳光强度设为零" },
+        { "key": "C", "text": "因为加载模型会自动删除场景中的全部光源" },
+        {
+          "key": "D",
+          "text": "因为光源与阴影由开发者配置，模型格式不会自动建立太阳照明",
+          "hint": "模型数据与场景照明设计是两项独立工作"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-03-042",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "对于真实的单一材质，metalness 取 0.5 左右通常比靠近 0 或 1 更符合本章建议。",
+      "explanation": "错误。真实单一材质的金属度通常靠近 0 或 1 两端；中间值更适合表现混合层或艺术效果，不应被当成一般真实材质的默认选择。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial.metalness",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-03-043",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "PMREMGenerator 在本章 IBL 流程中的核心作用是什么？",
+      "explanation": "PMREMGenerator 会把输入环境预滤波为适合不同 roughness 采样的数据，使 PBR 材质能按表面粗糙程度获得合适的环境反射。它不是用来生成物体之间投影阴影的工具。",
+      "refs": [
+        {
+          "title": "three.js PMREMGenerator",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "预滤波环境，生成适合不同 roughness 采样的数据",
+          "hint": "它处理的是环境反射数据"
+        },
+        { "key": "B", "text": "自动为每盏灯生成六方向阴影" },
+        { "key": "C", "text": "把所有材质的 metalness 固定为 1" },
+        { "key": "D", "text": "把 SpotLight 自动转换成 AmbientLight" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-03-044",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "根据本章 RoomEnvironment 与 PMREMGenerator 示例，下列代码操作正确的有哪些？",
+      "explanation": "示例用 fromScene(new RoomEnvironment(), 0.04) 生成 environmentRT，把 environmentRT.texture 赋给 scene.environment，并设置 environmentIntensity 为 0.8。生成后可释放 PMREMGenerator，但 environmentRT 仍保存正在使用的纹理，不能立即随生成器一起释放。",
+      "refs": [
+        {
+          "title": "three.js PMREMGenerator",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        },
+        {
+          "title": "three.js RoomEnvironment",
+          "url": "https://threejs.org/docs/#examples/en/environments/RoomEnvironment"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "const environmentRT = pmrem.fromScene(new RoomEnvironment(), 0.04)",
+          "hint": "从室内环境场景生成预滤波渲染目标"
+        },
+        {
+          "key": "B",
+          "text": "scene.environment = environmentRT.texture",
+          "hint": "把生成结果中的纹理交给场景"
+        },
+        { "key": "C", "text": "赋给 scene.environment 后立即调用 environmentRT.dispose()" },
+        {
+          "key": "D",
+          "text": "scene.environmentIntensity = 0.8",
+          "hint": "示例将环境强度设为 0.8"
+        },
+        {
+          "key": "E",
+          "text": "环境生成完成后调用 pmrem.dispose()",
+          "hint": "生成器可在结果生成后释放"
+        }
+      ],
+      "answer": ["A", "B", "D", "E"]
+    },
+    {
+      "id": "three-03-045",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "整个应用 teardown 且不再使用环境纹理时，还应释放示例中的哪个资源？",
+      "explanation": "pmrem.dispose() 已在环境生成后释放生成器，但 environmentRT 仍持有 scene.environment 使用的纹理。整个应用拆除且环境不再使用时，应再调用 environmentRT.dispose()。",
+      "refs": [
+        {
+          "title": "three.js PMREMGenerator",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "spot.target.dispose()" },
+        { "key": "B", "text": "sun.shadow.camera.dispose()" },
+        {
+          "key": "C",
+          "text": "environmentRT.dispose()",
+          "hint": "释放保存环境纹理的渲染目标"
+        },
+        { "key": "D", "text": "metalness.dispose()" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-03-046",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "本章所述 PBR 使用能量守恒来近似表面反射，而不是把材质参数当作任意曝光控制。",
+      "explanation": "正确。PBR 以能量守恒近似表面反射，metalness 与 roughness 描述材质本身的属性。灯光强度、环境照明与材质参数各有职责，不能混作同一个曝光滑块。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-03-047",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "练习要求 DirectionalLight 阴影相机只覆盖 6×6 的地面核心区域，哪组配置符合要求？",
+      "explanation": "left=-3、right=3、top=3、bottom=-3 会在两个方向各形成宽度 6 的覆盖范围，即 6×6。修改这些字段后还需 updateProjectionMatrix()，仅把 mapSize 设为 6×6 并不能定义世界空间覆盖范围。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "left=-6、right=6、top=6、bottom=-6，不更新投影矩阵" },
+        {
+          "key": "B",
+          "text": "left=-3、right=3、top=3、bottom=-3，并调用 updateProjectionMatrix()",
+          "hint": "两个方向的覆盖宽度都为 6"
+        },
+        { "key": "C", "text": "left=3、right=-3、top=-3、bottom=3，并调用 updateProjectionMatrix()" },
+        { "key": "D", "text": "只调用 sun.shadow.mapSize.set(6, 6)，保持相机边界不变" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-03-048",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章使用哪个附加环境类快速构造可复用的室内环境？（写类名）",
+      "explanation": "RoomEnvironment 提供可复用的室内环境，示例把它传给 pmrem.fromScene(...) 生成预滤波环境数据，从而为 PBR 材质提供环境反射内容。",
+      "refs": [
+        {
+          "title": "three.js RoomEnvironment",
+          "url": "https://threejs.org/docs/#examples/en/environments/RoomEnvironment"
+        }
+      ],
+      "type": "short",
+      "accepted": ["RoomEnvironment", "new RoomEnvironment", "new RoomEnvironment()"],
+      "placeholder": "例如：RoomEnvironment"
+    },
+    {
+      "id": "three-03-049",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "完成「半径 0.7 的金属球落地并产生阴影」练习时，下列配置符合要求的有哪些？",
+      "explanation": "球心 y=0.7 才能让球底接触 y=0 的地面；球要 castShadow，地面要 receiveShadow，同时 renderer 与平行光都要开启阴影。scene.environment 用于补充金属环境反射，仅用 AmbientLight 无法单独塑造体积和接触影。",
+      "refs": [
+        {
+          "title": "three.js DirectionalLightShadow",
+          "url": "https://threejs.org/docs/#api/en/lights/shadows/DirectionalLightShadow"
+        },
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Scene.environment",
+          "url": "https://threejs.org/docs/#api/en/scenes/Scene.environment"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "ball.position.y = 0.7",
+          "hint": "球心高度等于半径时球底恰好落地"
+        },
+        { "key": "B", "text": "只添加 AmbientLight，即可独立完成主光塑形与接触阴影" },
+        {
+          "key": "C",
+          "text": "ground.receiveShadow = true",
+          "hint": "地面作为接收面执行阴影比较"
+        },
+        {
+          "key": "D",
+          "text": "renderer.shadowMap.enabled = true，且 sun.castShadow = true",
+          "hint": "渲染器与光源都要允许阴影流程"
+        },
+        {
+          "key": "E",
+          "text": "ball.castShadow = true，并使用 scene.environment 提供环境反射",
+          "hint": "球负责遮挡深度，环境负责金属反射内容"
+        }
+      ],
+      "answer": ["A", "C", "D", "E"]
+    },
+    {
+      "id": "three-03-050",
+      "skill": "three",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "为了让环境反射适配不同 roughness，必须每帧重新执行 pmrem.fromScene(...) 生成环境贴图。",
+      "explanation": "错误。PMREMGenerator 的预滤波结果已经用于不同粗糙度采样，通常只需生成一次并复用。每帧重复 fromScene 会增加不必要的工作，也不符合本章的资源管理示例。",
+      "refs": [
+        {
+          "title": "three.js PMREMGenerator.fromScene",
+          "url": "https://threejs.org/docs/#api/en/extras/PMREMGenerator"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
     }
   ]
 }

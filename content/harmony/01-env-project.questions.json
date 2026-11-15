@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "01",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-01-001",
@@ -311,6 +311,908 @@
       "type": "short",
       "accepted": ["requestPermissions"],
       "placeholder": "例如：requestPermissions"
+    },
+    {
+      "id": "harmony-01-015",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "使用 DevEco Studio 创建本章的 Application 基线工程时，应用模型与开发语言应分别选择哪一组？",
+      "explanation": "本章明确要求新建 Application 工程时应用模型选择 Stage、语言选择 ArkTS。Empty Ability 是模板名称，ArkUI 则用于构建界面，二者都不能替代这组选择。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Stage 与 Java" },
+        { "key": "B", "text": "ArkUI 与 TypeScript" },
+        {
+          "key": "C",
+          "text": "Stage 与 ArkTS",
+          "hint": "分别对应本章要求的应用模型和开发语言"
+        },
+        { "key": "D", "text": "Empty Ability 与 JSON5" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-01-016",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章新建 Application 工程时选择了哪个模板来建立可运行基线？（写模板名）",
+      "explanation": "讲义使用 Empty Ability 模板生成应用壳与首页，先保持模板结构运行，再逐步修改代码。Stage 是应用模型，ArkTS 是开发语言，它们都不是本空所问的模板名。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["Empty Ability", "EmptyAbility", "Empty Ability 模板"],
+      "placeholder": "例如：Empty Ability"
+    },
+    {
+      "id": "harmony-01-017",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "应用级名称、图标与版本等信息应统一维护在哪个文件中？",
+      "explanation": "AppScope/app.json5 负责应用级标识、名称、图标和版本等信息。module.json5 面向模块、Ability、设备与权限，不能用它替代应用级配置。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "AppScope/app.json5",
+          "hint": "该文件承接整个应用的公共信息"
+        },
+        { "key": "B", "text": "entry/src/main/module.json5" },
+        { "key": "C", "text": "entry/oh-package.json5" },
+        { "key": "D", "text": "entry/build-profile.json5" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-01-018",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "创建 Stage 工程并准备真机运行时，哪些核对项符合本章要求？",
+      "explanation": "bundleName 发布后应保持稳定，entry 模块支持的设备类型在模块配置中声明，真机运行前还要确认 SDK 可用并完成签名。oh_modules 是安装生成的依赖目录，不应手工编辑。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "确认 bundleName 的唯一性，发布后不要随意更改",
+          "hint": "包名是应用的稳定标识"
+        },
+        {
+          "key": "B",
+          "text": "在模块配置中声明手机、平板等设备支持",
+          "hint": "设备类型属于模块级配置"
+        },
+        {
+          "key": "C",
+          "text": "确认真机所需 SDK 可用，并按提示完成签名配置",
+          "hint": "SDK 与签名都是真机运行前的检查项"
+        },
+        { "key": "D", "text": "手动修改 oh_modules，以便长期维护第三方依赖源码" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-01-019",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "开始修改业务代码前，为什么建议先保持 Empty Ability 模板结构运行一次？",
+      "explanation": "先验证未修改的模板，可以建立可运行基线。之后逐步改代码，一旦出现问题，就能更容易区分是环境、配置还是业务代码导致，而不是把所有变化混在一起排查。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "为了阻止模板生成 pages/Index 页面" },
+        {
+          "key": "B",
+          "text": "为了建立可运行基线，便于区分环境、配置与业务代码问题",
+          "hint": "先验证模板，再逐项引入变化"
+        },
+        { "key": "C", "text": "为了让所有权限自动获得授权" },
+        { "key": "D", "text": "为了永久省略真机签名配置" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-01-020",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "AppScope/resources 用于存放应用级共享资源，而不是 entry 模块的页面业务逻辑。",
+      "explanation": "对。目录图明确把 AppScope/resources 标为应用级共享资源目录。ArkTS 页面业务代码位于 entry 的 ets 源码目录，二者职责不能混放。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-01-021",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "首页示例中的 Text(this.message).fontSize(24) 给字体大小传入了多少？",
+      "explanation": "示例在 Text(this.message) 后直接调用 fontSize(24)，括号中的数值就是 24。题目只要求读取该显式参数，不需要额外换算单位。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 24,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-01-022",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "在本章的 Web 工程类比中，构建产物要安装到 HarmonyOS 设备时，对应的应用包形态是什么？",
+      "explanation": "本章将 Web 构建产物交给部署平台类比为构建 HAP 并安装到设备。HAP 是可安装到设备上的应用包形态，JSON5 配置、ArkTS 源码和 oh_modules 都不是这一产物。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "HTML 入口文件" },
+        { "key": "B", "text": "oh_modules 依赖目录" },
+        { "key": "C", "text": "ArkTS 源文件压缩包" },
+        {
+          "key": "D",
+          "text": "HAP 应用包",
+          "hint": "构建后可安装到 HarmonyOS 设备"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "harmony-01-023",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章的 EntryAbility 继承自哪个应用实例生命周期基类？（写类名）",
+      "explanation": "骨架代码使用 export default class EntryAbility extends UIAbility，说明 EntryAbility 是 UIAbility 子类。页面组件 Index 不继承该类，而是使用 ArkUI 组件结构。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["UIAbility", "UIAbility 类"],
+      "placeholder": "例如：UIAbility"
+    },
+    {
+      "id": "harmony-01-024",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于 EntryAbility 骨架顶部的导入语句，下列对应关系正确的有哪些？",
+      "explanation": "AbilityConstant、UIAbility 和 Want 都来自 @kit.AbilityKit，window 来自 @kit.ArkUI。把 window 或 UIAbility 的 Kit 来源对调，会与骨架代码不符。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "AbilityConstant、UIAbility、Want 从 @kit.AbilityKit 导入",
+          "hint": "这三个名称属于同一条导入语句"
+        },
+        {
+          "key": "B",
+          "text": "window 从 @kit.ArkUI 导入",
+          "hint": "WindowStage 类型通过 window 命名空间使用"
+        },
+        { "key": "C", "text": "window 从 @kit.AbilityKit 导入" },
+        { "key": "D", "text": "UIAbility 从 @kit.ArkUI 导入" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "harmony-01-025",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "按讲义的 EntryAbility 骨架，从 onCreate 到 onDestroy 一共显式保留了多少个回调？",
+      "explanation": "骨架依次给出 onCreate、onWindowStageCreate、onWindowStageDestroy、onForeground、onBackground、onDestroy，共 6 个回调。页面组件的 build 不属于这组 Ability 回调。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-01-026",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "按照本章对 UIAbility 生命周期的划分，onCreate 更适合承担哪项工作？",
+      "explanation": "onCreate 适合初始化应用实例需要的数据。窗口舞台要到 onWindowStageCreate 才可用，页面 UI 由组件 build 描述，依赖安装则由 ohpm 负责，不能混入同一职责。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "初始化应用实例需要的数据",
+          "hint": "这是应用实例创建阶段的初始化工作"
+        },
+        { "key": "B", "text": "取得 WindowStage 并加载首页" },
+        { "key": "C", "text": "用 Column 和 Text 描述页面结构" },
+        { "key": "D", "text": "安装 oh-package.json5 中的依赖" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-01-027",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "应用发生前后台切换并销毁窗口舞台时，下列生命周期回调对应关系正确的有哪些？",
+      "explanation": "进入前台触发 onForeground，进入后台触发 onBackground，窗口舞台销毁对应 onWindowStageDestroy。onForeground 描述 Ability 的前后台状态，不等于组件的 aboutToAppear。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Ability 进入前台时进入 onForeground",
+          "hint": "前台状态由该回调表达"
+        },
+        { "key": "B", "text": "Ability 进入后台时仍只进入 onForeground" },
+        {
+          "key": "C",
+          "text": "Ability 进入后台时进入 onBackground",
+          "hint": "后台切换与前台回调相互对应"
+        },
+        {
+          "key": "D",
+          "text": "窗口舞台销毁时进入 onWindowStageDestroy",
+          "hint": "该回调对应 WindowStage 的销毁阶段"
+        },
+        { "key": "E", "text": "onForeground 与组件的 aboutToAppear 完全等价" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-01-028",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "首页 Index 组件中，message 前使用了哪个装饰器来声明组件状态？（写装饰器名）",
+      "explanation": "示例写作 @State message: string = 'Stage 工程已启动'，因此装饰器是 @State。它声明页面组件中的状态字段，@Entry 和 @Component 则用于标识页面入口与组件。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@State", "State"],
+      "placeholder": "例如：@State"
+    },
+    {
+      "id": "harmony-01-029",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "按照本章目录图，EntryAbility.ets 通常位于哪个目录？",
+      "explanation": "EntryAbility.ets 位于 entry/src/main/ets/entryability，页面 Index.ets 则位于 entry/src/main/ets/pages。resources 与 AppScope/resources 都用于资源，不是该 Ability 源码目录。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "AppScope/resources" },
+        { "key": "B", "text": "entry/src/main/ets/pages" },
+        {
+          "key": "C",
+          "text": "entry/src/main/ets/entryability",
+          "hint": "目录名直接对应 entry 模块的 Ability 源码"
+        },
+        { "key": "D", "text": "entry/src/main/resources/base" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-01-030",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章在「创建时重点核对三项」中一共列出了多少项核对内容？",
+      "explanation": "讲义依次列出 bundleName、模块与设备类型、SDK 与签名三组核对内容，因此总数为 3 项。这里按讲义的三组清单计数，不拆分组内细节。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "项",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-01-031",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于 onWindowStageCreate 中的 loadContent 调用与回调处理，下列说法正确的有哪些？",
+      "explanation": "示例加载 pages/Index，并通过 err.code 判断是否失败；失败时记录错误并 return，成功时记录页面加载成功。忽略错误继续走成功分支会掩盖首页加载问题。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "示例使用 windowStage.loadContent('pages/Index', callback) 加载首页",
+          "hint": "页面路径通过第一个参数传入"
+        },
+        {
+          "key": "B",
+          "text": "err.code 非零时记录错误并提前 return",
+          "hint": "失败分支不能继续按成功处理"
+        },
+        {
+          "key": "C",
+          "text": "未出现错误码时可以记录页面加载成功",
+          "hint": "这是错误分支之后的成功处理"
+        },
+        { "key": "D", "text": "即使 err.code 非零，也应忽略错误并直接记录加载成功" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-01-032",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "需要声明 entry 模块支持手机、平板等设备类型时，应修改哪个文件？",
+      "explanation": "模块与设备类型属于模块级信息，应在 entry/src/main/module.json5 中声明。app.json5 管应用级信息，oh-package.json5 管依赖，build-profile.json5 管构建选项。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "AppScope/app.json5" },
+        {
+          "key": "B",
+          "text": "entry/src/main/module.json5",
+          "hint": "设备支持与模块、Ability、权限一样属于模块配置"
+        },
+        { "key": "C", "text": "entry/oh-package.json5" },
+        { "key": "D", "text": "entry/build-profile.json5" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-01-033",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "在 ArkTS 代码中引用本章示例的 startIcon 媒体资源，应写出哪个完整表达式？",
+      "explanation": "讲义给出的媒体资源引用写法是 $r('app.media.startIcon')。其中 app.media 表示媒体资源类别，startIcon 是资源名，不能把它替换成颜色资源路径。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "$r('app.media.startIcon')",
+        "$r(\"app.media.startIcon\")",
+        "$r( 'app.media.startIcon' )",
+        "$r( \"app.media.startIcon\" )"
+      ],
+      "placeholder": "例如：$r('app.media.startIcon')"
+    },
+    {
+      "id": "harmony-01-034",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "页面需要同时适配深色模式、不同语言和屏幕规格，且不希望为每种组合复制组件，哪种做法最符合本章设计？",
+      "explanation": "resources/base 提供默认资源，限定词目录承接深色模式、语言和屏幕规格等差异，代码继续通过 $r 引用资源。这样变化的是资源选择，不需要为每种模式复制一套组件。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "为每种模式复制完整的 Index 组件并分别维护" },
+        { "key": "B", "text": "把所有文本与颜色硬编码在 build 中" },
+        { "key": "C", "text": "只保留 Previewer 当前模式，删除其他资源" },
+        {
+          "key": "D",
+          "text": "使用 resources/base、限定词目录与统一的 $r 资源引用",
+          "hint": "默认资源和差异资源分工，组件代码保持复用"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "harmony-01-035",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "讲义中的 onCreate(want, launchParam) 回调显式接收多少个参数？",
+      "explanation": "onCreate 的签名依次列出 want 和 launchParam 两个参数，因此答案是 2。AbilityConstant.LaunchParam 是第二个参数的类型，不是额外的第三个参数。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-01-036",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "对照本章网络权限片段，下列配置与授权理解正确的有哪些？",
+      "explanation": "网络权限在 module.json5 的 requestPermissions 中声明，权限名是 ohos.permission.INTERNET，reason 指向 $string:network_reason。reason 不是随意备注，声明存在也不保证权限自动获批。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "权限声明放在 module.json5 的 requestPermissions 数组中",
+          "hint": "权限属于模块级配置"
+        },
+        {
+          "key": "B",
+          "text": "网络权限名写作 ohos.permission.INTERNET",
+          "hint": "这是片段中 name 字段的完整取值"
+        },
+        {
+          "key": "C",
+          "text": "reason 使用 $string:network_reason 指向解释字符串",
+          "hint": "该值引用面向用户说明用途的字符串资源"
+        },
+        { "key": "D", "text": "只要声明存在，所有权限都会在真机上自动获批" },
+        { "key": "E", "text": "reason 只是开发者随手填写、无需资源化的备注" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-01-037",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "entry/src/main/resources 在典型 Stage 工程中主要负责什么？",
+      "explanation": "entry/src/main/resources 用于存放模块资源与页面相关配置。AppScope/resources 面向应用级共享资源，oh_modules 是生成的依赖目录，build-profile.json5 则负责构建选项。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "存放 entry 模块资源与页面相关配置",
+          "hint": "它位于 entry/src/main 下，服务于该模块"
+        },
+        { "key": "B", "text": "保存整个应用的 bundleName" },
+        { "key": "C", "text": "手工维护第三方依赖源码" },
+        { "key": "D", "text": "替代 ohpm 执行依赖安装" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-01-038",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "EntryAbility 骨架中，onWindowStageCreate 的 windowStage 参数使用什么类型？（写类型名）",
+      "explanation": "回调签名写作 onWindowStageCreate(windowStage: window.WindowStage)，所以完整类型是 window.WindowStage。window 来自 @kit.ArkUI，WindowStage 不是 UIAbility 的基类。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["window.WindowStage", "WindowStage"],
+      "placeholder": "例如：window.WindowStage"
+    },
+    {
+      "id": "harmony-01-039",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "构建失败后日志很长，按照本章的排查建议，阅读构建日志时应优先关注什么？",
+      "explanation": "应优先找到构建日志中的首个错误，因为后续错误可能由它连续引发。只看最后一行摘要容易错过根因，手工修改 oh_modules 或跳过配置检查也不是日志定位方法。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只复制最后一行摘要，忽略前面的错误" },
+        { "key": "B", "text": "先手动修改 oh_modules，再重新阅读日志" },
+        {
+          "key": "C",
+          "text": "定位并分析日志中的首个错误",
+          "hint": "首个错误更可能接近后续报错的根因"
+        },
+        { "key": "D", "text": "直接删除全部构建配置，不再检查错误内容" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-01-040",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "把 React/Web 工程经验迁移到本章 Stage 工程时，下列类比正确的有哪些？",
+      "explanation": "npm 安装依赖可类比 ohpm 按 oh-package.json5 安装依赖，Vite 开发服务器可类比 Previewer 或设备运行但验证范围不同，浏览器入口页则对应 UIAbility 创建窗口并加载页面。React 入口组件与 UIAbility 职责不同，不能直接等同。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "npm install 可类比 ohpm 安装依赖，依赖声明写入 oh-package.json5",
+          "hint": "两者都处理依赖，但使用的清单和工具不同"
+        },
+        {
+          "key": "B",
+          "text": "Vite 开发服务器可类比 Previewer 或设备运行，同时要注意验证范围不同",
+          "hint": "运行入口可以类比，验证边界不能直接画等号"
+        },
+        {
+          "key": "C",
+          "text": "浏览器打开入口页可类比 UIAbility 创建窗口并加载页面",
+          "hint": "HarmonyOS 不是通过 HTML 入口启动"
+        },
+        { "key": "D", "text": "React 入口组件与 UIAbility 职责完全相同，都直接描述页面 UI" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-01-041",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章「修改工程后按顺序排查」的清单共有多少个步骤？",
+      "explanation": "清单依次包括检查配置归属与 JSON5、检查依赖与 oh_modules、查看构建日志首个错误、区分 Previewer 与真机验证，共 4 个步骤。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-01-042",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "若要让首页 Column 的内容按示例在主轴方向居中，应使用哪项设置？",
+      "explanation": "示例在 Column 上调用 .justifyContent(FlexAlign.Center)，用于设置主轴方向的对齐方式。fontSize 管文字大小，onClick 管点击事件，width('100%') 只管宽度。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": ".fontSize(24)" },
+        {
+          "key": "B",
+          "text": ".justifyContent(FlexAlign.Center)",
+          "hint": "justifyContent 用于主轴对齐"
+        },
+        { "key": "C", "text": ".onClick(() => {})" },
+        { "key": "D", "text": ".width('100%')" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-01-043",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章要求 bundleName 使用哪种命名风格来保证应用标识的组织性？（写风格名称）",
+      "explanation": "bundleName 使用反向域名风格，例如把域名各部分按反向顺序组织。它是应用唯一标识，发布后不要随意更改，不能只使用任意界面标题代替。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "反向域名",
+        "反向域名风格",
+        "逆序域名",
+        "逆序域名风格",
+        "reverse domain name",
+        "reverse domain name notation"
+      ],
+      "placeholder": "例如：反向域名风格"
+    },
+    {
+      "id": "harmony-01-044",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于工程级与 entry 模块级构建、依赖配置的作用域，下列说法正确的有哪些？",
+      "explanation": "工程根目录的 build-profile.json5 管工程级构建，entry 下的同名文件管 entry 模块构建；根目录与 entry 下的 oh-package.json5 也分别声明对应层级的依赖。运行时权限不属于 entry 构建配置。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "工程根目录的 build-profile.json5 保存工程级构建配置",
+          "hint": "根目录对应整个工程"
+        },
+        {
+          "key": "B",
+          "text": "entry/build-profile.json5 保存 entry 模块构建配置",
+          "hint": "entry 目录对应模块级作用域"
+        },
+        {
+          "key": "C",
+          "text": "工程根目录的 oh-package.json5 声明工程级依赖",
+          "hint": "依赖清单也区分工程与模块层级"
+        },
+        {
+          "key": "D",
+          "text": "entry/oh-package.json5 声明 entry 模块依赖",
+          "hint": "它服务于 entry 模块"
+        },
+        { "key": "E", "text": "entry/build-profile.json5 用来声明模块的全部运行时权限" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "harmony-01-045",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "首页未按预期加载，loadContent 回调已经报告失败。除查看 err.code 外，最应优先核对哪项内容？",
+      "explanation": "练习的关键检查点指出，loadContent 的页面路径必须与实际页面配置一致，因此应核对 pages/Index 是否对应真实页面。调整字体、修改生成依赖或搬动 bundleName 都不能修复页面路径不匹配。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把 Text 的 fontSize 从 24 改成更大的值" },
+        { "key": "B", "text": "直接编辑 oh_modules 中的依赖源码" },
+        { "key": "C", "text": "把 bundleName 移到页面组件的 build 中" },
+        {
+          "key": "D",
+          "text": "核对 loadContent 的 pages/Index 路径与实际页面配置是否一致",
+          "hint": "加载路径必须指向真实配置的页面"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "harmony-01-046",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "讲义 EntryAbility 的 onCreate 回调中，want 的类型是 Want，launchParam 的类型是 AbilityConstant.LaunchParam。",
+      "explanation": "对。骨架完整签名为 onCreate(want: Want, launchParam: AbilityConstant.LaunchParam): void。Want 与 AbilityConstant 都从 @kit.AbilityKit 导入，void 表示该回调没有返回值。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-01-047",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "对照本章的 pages/Index.ets，下列哪些结构符合这个普通 ArkUI 页面组件的写法？",
+      "explanation": "Index 使用 @Entry 和 @Component 修饰，以 struct Index 定义组件，并在 build 中描述 UI。它不是继承 UIAbility 的 class，Ability 与页面组件应保持分层。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用 @Entry 标识页面入口",
+          "hint": "该装饰器出现在 Index 定义之前"
+        },
+        {
+          "key": "B",
+          "text": "使用 @Component 标识组件",
+          "hint": "它与 @Entry 一起修饰 Index"
+        },
+        {
+          "key": "C",
+          "text": "使用 struct Index 定义页面组件",
+          "hint": "示例没有把它声明为 UIAbility 子类"
+        },
+        { "key": "D", "text": "使用 class Index extends UIAbility 让页面继承 Ability" },
+        {
+          "key": "E",
+          "text": "在 build 中描述 Column、Text 与 Button 等 UI",
+          "hint": "build 负责页面 UI 描述"
+        }
+      ],
+      "answer": ["A", "B", "C", "E"]
+    },
+    {
+      "id": "harmony-01-048",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "修改工程后无法运行，按照本章建议的排查顺序，第一步应检查什么？",
+      "explanation": "第一步是确认配置归属是否正确，以及 JSON5 是否可解析。依赖、构建日志和运行验证也很重要，但它们位于后续步骤；一开始就编辑生成目录会引入更多问题。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "检查配置是否放对文件，并确认 JSON5 可以解析",
+          "hint": "先排除配置归属与语法问题"
+        },
+        { "key": "B", "text": "不看配置，直接手动修改 oh_modules" },
+        { "key": "C", "text": "只凭 Previewer 的结果认定真机也没有问题" },
+        { "key": "D", "text": "跳过前面的错误，只查看构建日志最后一行" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-01-049",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "首页示例的 Column({ space: 12 }) 中，space 参数显式设置为多少？",
+      "explanation": "Column 的构造参数对象中直接写有 space: 12，因此答案是 12。该数值表示示例设置的子组件间距，不需要根据 fontSize 或宽高百分比另行计算。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-01-050",
+      "skill": "harmony",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "完成本章练习时，点击「标记完成」后页面仍显示旧状态。下列哪种修改符合示例且能保持页面与 Ability 分层？",
+      "explanation": "应保留 Index 中的 @State status，并在 Button 的 onClick 中执行 this.status = '已完成工程结构练习'。状态更新属于页面组件，不需要让 Index 继承 UIAbility，也不应通过权限文件或生成依赖目录实现。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "让 Index 继承 UIAbility，并把状态写入 requestPermissions" },
+        {
+          "key": "B",
+          "text": "保留 @State status，在 onClick 中把它更新为「已完成工程结构练习」",
+          "hint": "页面交互只更新页面组件自己的状态"
+        },
+        { "key": "C", "text": "把目标文本写入 oh_modules，页面继续读取旧状态" },
+        { "key": "D", "text": "删除 Button 的 onClick，并只修改应用级 bundleName" }
+      ],
+      "answer": ["B"]
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "10",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-10-001",
@@ -389,6 +389,993 @@
         "发射与生命周期演化"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-10-014",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "营火粒子要显示火焰图案，应该在 ParticleSystem 中配置哪个属性来提供贴图？",
+      "explanation": "image 指定每颗粒子使用的贴图，讲义示例使用 /cesium/fire.png。emitter 只管出生分布，startColor 只负责起始颜色，都不能替代火焰贴图。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "image",
+          "hint": "它指向粒子使用的图片资源"
+        },
+        {
+          "key": "B",
+          "text": "modelMatrix"
+        },
+        {
+          "key": "C",
+          "text": "emissionRate"
+        },
+        {
+          "key": "D",
+          "text": "lifetime"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-10-015",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "minimumParticleLife 与 maximumParticleLife 限定了每颗粒子随机寿命的上下界，而不是让整个粒子系统只存活这一段随机时间。",
+      "explanation": "这两个属性作用于单个 Particle，系统会在区间内为粒子取随机寿命；系统一整轮的时长由 lifetime 控制，两者的时间层级不同。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-10-016",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "若要设置粒子系统每秒发射的粒子数量，应填写哪个 ParticleSystem 属性名？",
+      "explanation": "emissionRate 表示连续发射速率，单位是颗每秒。它与平均粒子寿命共同决定稳态常驻数量，但不表示单个粒子的存活秒数。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "emissionRate",
+        "emissionRate 属性",
+        "ParticleSystem.emissionRate",
+        "Cesium.ParticleSystem.emissionRate"
+      ],
+      "placeholder": "例如：emissionRate"
+    },
+    {
+      "id": "cesium-10-017",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "某系统 emissionRate = 80 颗/秒，连续运行 5 秒，不配置 bursts，且只统计出生总数、不扣除死亡粒子，共生成多少颗粒子？",
+      "explanation": "出生总数等于发射率乘连续发射时长：80 颗/秒 × 5 秒 = 400 颗。这里问的是累计出生量，不是受粒子寿命影响的同一时刻常驻量。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 400,
+      "tolerance": 0,
+      "unit": "颗",
+      "placeholder": "例如：400"
+    },
+    {
+      "id": "cesium-10-018",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "关于四种发射器的出生空间与典型用途，下列对应关系正确的有哪些？",
+      "explanation": "CircleEmitter 在圆盘内随机出生，ConeEmitter 在锥体内并沿锥轴喷射，SphereEmitter 在球体内并向外喷射。BoxEmitter 则在长方体内部随机取出生点，适合覆盖降雨或降雪区域，并非只能固定一点。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleEmitter API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ParticleEmitter.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "CircleEmitter：圆盘内随机，可用于烟囱口或圆形雪区"
+        },
+        {
+          "key": "B",
+          "text": "ConeEmitter：锥体内随机并沿锥轴喷出，可用于喷泉"
+        },
+        {
+          "key": "C",
+          "text": "SphereEmitter：球体内随机并向外喷，可用于爆炸"
+        },
+        {
+          "key": "D",
+          "text": "BoxEmitter：所有粒子只能出生在同一固定点，无法覆盖区域",
+          "hint": "BoxEmitter 的出生点分布在长方体内部"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-019",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "讲义营火示例把 firePosition 设在北京。在地图上点击这处营火粒子场景对应的城市位置。",
+      "explanation": "示例使用 Cartesian3.fromDegrees(116.397, 39.909, 0)，经度在前、纬度在后，目标是华北平原北部的北京。营火通过 modelMatrix 落在该地面点，容差为 300 千米。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.909,
+        "lng": 116.397
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-10-020",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "关于 ParticleSystem 与 updateCallback 参数中的 particle，下列理解正确的是？",
+      "explanation": "ParticleSystem 管理整批粒子的发射与更新，回调里的 particle 表示当前正在更新的一颗粒子，可读取其 position、velocity、mass 等状态。两者分别是群体管理者与个体状态。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ParticleSystem 管理粒子群体，particle 表示当前的一颗粒子",
+          "hint": "回调会逐粒子执行，因此拿到的是个体"
+        },
+        {
+          "key": "B",
+          "text": "两者都表示整个场景，只是名称不同"
+        },
+        {
+          "key": "C",
+          "text": "particle 是相机对象，用于修改观察方向"
+        },
+        {
+          "key": "D",
+          "text": "ParticleSystem 只保存一张贴图，不管理粒子"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-10-021",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "ParticleSystem 的 loop 默认值为 true，因此设置有限 lifetime 后，系统到点通常会归零并开始下一轮。",
+      "explanation": "讲义明确给出 loop 默认 true 的循环行为：lifetime 到点后时间取模归零并重置 bursts。若制作只播放一次的特效，应显式设置 loop: false。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-10-022",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "讲义用哪两个 ParticleSystem 属性限定每颗粒子的随机寿命区间？请写出这对属性名。",
+      "explanation": "下界属性是 minimumParticleLife，上界属性是 maximumParticleLife，数值单位为秒。系统在这两个值之间为每颗粒子确定寿命，而不是用它们设置整轮 lifetime。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "minimumParticleLife 和 maximumParticleLife",
+        "minimumParticleLife、maximumParticleLife",
+        "minimumParticleLife / maximumParticleLife",
+        "minimumParticleLife maximumParticleLife",
+        "minimumParticleLife 与 maximumParticleLife"
+      ],
+      "placeholder": "例如：minimumParticleLife 和 maximumParticleLife"
+    },
+    {
+      "id": "cesium-10-023",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "营火示例中 minimumParticleLife = 0.6 秒、maximumParticleLife = 1.4 秒，按均匀分布估算，平均粒子寿命是多少秒？",
+      "explanation": "均匀分布的平均值等于上下界的算术平均：(0.6 + 1.4) ÷ 2 = 1.0 秒。这个平均值可与 emissionRate 相乘来估算稳态常驻粒子数。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1,
+      "tolerance": 0,
+      "unit": "秒",
+      "placeholder": "例如：1"
+    },
+    {
+      "id": "cesium-10-024",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "在雨的 updateCallback 中实现重力与风时，下列代码理解正确的有哪些？",
+      "explanation": "particle.velocity 是当前粒子的速度；负 Z 标量向量经 multiplyByScalar 得到本帧向下的速度增量，再由 Cartesian3.add 加回原速度。风的增量也必须乘 dt，否则不同帧率下每帧施加的增量相同，运动积分会随帧率改变。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "particle.velocity 保存当前速度，回调可以读取并修改它"
+        },
+        {
+          "key": "B",
+          "text": "multiplyByScalar(UNIT_Z, -9.8 * dt, tmp1) 构造本帧向下的速度增量"
+        },
+        {
+          "key": "C",
+          "text": "Cartesian3.add 可把速度增量累加回 particle.velocity"
+        },
+        {
+          "key": "D",
+          "text": "风产生的速度增量不应乘 dt，这样才不会受帧间隔影响",
+          "hint": "加速度乘时间才得到本帧速度增量"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-025",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "看板关闭烟雾图层后不再需要该 ParticleSystem，讲义建议如何从场景中移除它？",
+      "explanation": "粒子系统由 scene.primitives.add 加入，因此不再需要时应对应调用 scene.primitives.remove(particleSystem)。只修改颜色或把发射率调为零并不等同于从原语容器移除系统。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.entities.remove(particleSystem)"
+        },
+        {
+          "key": "B",
+          "text": "scene.primitives.remove(particleSystem)",
+          "hint": "从哪个原语容器加入，就从该容器移除"
+        },
+        {
+          "key": "C",
+          "text": "把 startColor 设为透明即可"
+        },
+        {
+          "key": "D",
+          "text": "把 minimumSpeed 设为 0 即可"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-10-026",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "lifetime 与 maximumParticleLife 都用于设置每颗粒子的最大存活秒数，因此把其中一个改成另一个不会影响效果。",
+      "explanation": "该说法混淆了两级时间。lifetime 控制粒子系统一轮发射的时长，maximumParticleLife 只限制单颗粒子的寿命上界；替换它们会同时破坏循环节奏与粒子生灭过程。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-10-027",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "要给每颗粒子添加重力或风等自定义运动逻辑，应实现 ParticleSystem 的哪个回调属性？",
+      "explanation": "自定义逐粒子物理写在 updateCallback 中，回调接收 particle 与 dt。系统每帧对每颗活着的粒子调用它，所以可在其中更新速度等个体状态。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "updateCallback",
+        "updateCallback 回调",
+        "ParticleSystem.updateCallback",
+        "Cesium.ParticleSystem.updateCallback"
+      ],
+      "placeholder": "例如：updateCallback"
+    },
+    {
+      "id": "cesium-10-028",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "降雪系统 emissionRate = 100 颗/秒，粒子寿命在 [4, 6] 秒内均匀分布，忽略 bursts，稳态常驻粒子数约是多少？",
+      "explanation": "先求平均寿命：(4 + 6) ÷ 2 = 5 秒；再算稳态数量：100 颗/秒 × 5 秒 = 500 颗。这正是讲义把雪密度控制在约 500 颗常驻的数量账。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 500,
+      "tolerance": 0,
+      "unit": "颗",
+      "placeholder": "例如：500"
+    },
+    {
+      "id": "cesium-10-029",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "一个粒子看板帧率下降，下列哪些调整符合讲义的性能账本？",
+      "explanation": "粒子开销取决于常驻数量与单粒绘制成本。较小的贴图可降低绘制开销；降 emissionRate 或缩短平均寿命都能降低常驻量。发射率不变时把平均寿命加倍，常驻量反而约加倍，不会减半。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "视觉差异可接受时，用 32×32 小贴图替代 1024×1024 大贴图"
+        },
+        {
+          "key": "B",
+          "text": "粒子数上千后观察帧率，必要时降低 emissionRate"
+        },
+        {
+          "key": "C",
+          "text": "emissionRate 不变时，把平均寿命加倍可使常驻量约减半",
+          "hint": "常驻量与平均寿命同向变化"
+        },
+        {
+          "key": "D",
+          "text": "emissionRate 不变时，适当缩短平均寿命以降低常驻量"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-10-030",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "若用 SphereEmitter 与 bursts 制作夏威夷基拉韦厄火山喷发的粒子特效，在地图上点击这座火山的位置。",
+      "explanation": "目标是美国夏威夷岛上的基拉韦厄火山，山顶区域约为北纬 19.4069°、西经 155.2834°。它位于夏威夷火山国家公园，球形向外发射与定时 bursts 可表现喷发和灰烬脉冲，区域容差为 500 千米。",
+      "refs": [
+        {
+          "title": "USGS：Kilauea 火山",
+          "url": "https://www.usgs.gov/volcanoes/kilauea"
+        },
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 19.4069,
+        "lng": -155.2834
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "cesium-10-031",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "minimumSpeed = 2、maximumSpeed = 5 的配置对新生粒子表示什么？",
+      "explanation": "这两个属性限定粒子初速度大小的随机区间，示例中单位为米每秒。它们不表示粒子寿命、系统播放时长或重力加速度，具体喷出方向还受发射器形状控制。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每颗粒子的初速度大小在 2 到 5 米/秒之间取值",
+          "hint": "speed 是初速度大小，范围由 minimum 与 maximum 限定"
+        },
+        {
+          "key": "B",
+          "text": "粒子系统只能播放 2 到 5 秒"
+        },
+        {
+          "key": "C",
+          "text": "重力加速度在 2 到 5 米/秒²之间变化"
+        },
+        {
+          "key": "D",
+          "text": "每颗粒子的寿命固定增加 2 到 5 秒"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-10-032",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "当 lifetime 保持默认值 Number.MAX_VALUE 时，讲义所述的到点循环与 complete 触发机制整体关闭。",
+      "explanation": "有限的 lifetime 才定义一轮何时结束；默认 Number.MAX_VALUE 近似无限长，系统不会走到常规的一轮终点，因此相应的循环与 complete 机制不生效。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-10-033",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "要在指定时刻一次性喷出一批粒子，bursts 数组中的元素应使用哪个 Cesium 类？",
+      "explanation": "每个爆发脉冲由 ParticleBurst 描述，实际写法为 new Cesium.ParticleBurst({...})，再放进 ParticleSystem 的 bursts 数组。time 指定脉冲时刻，minimum 与 maximum 限定该批数量。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ParticleBurst",
+        "Cesium.ParticleBurst",
+        "ParticleBurst 类",
+        "new Cesium.ParticleBurst",
+        "new Cesium.ParticleBurst()"
+      ],
+      "placeholder": "例如：ParticleBurst"
+    },
+    {
+      "id": "cesium-10-034",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "某粒子速度为 (3, 0, 13.8) 米/秒，只受 9.8 米/秒² 的向下重力。经过一次 dt = 1 秒的速度更新后，速度大小是多少？",
+      "explanation": "先更新 Z 分量：13.8 + (-9.8 × 1) = 4 米/秒，所以新速度为 (3, 0, 4)。速度大小按向量模长计算：√(3² + 0² + 4²) = √25 = 5 米/秒。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "米/秒",
+      "placeholder": "例如：5"
+    },
+    {
+      "id": "cesium-10-035",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "按照讲义组合一个覆盖相机上方区域的降雨系统，下列配置合理的有哪些？",
+      "explanation": "大范围雨区适合 BoxEmitter；高速下落和细长贴图形成雨线感；回调中用负 Z 重力与水平恒定向量形成下落和风。明显正弦横摆是讲义雪花回调的特征，不是雨直线下落感的必要配置。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "用 BoxEmitter 覆盖相机上方的长方体雨区"
+        },
+        {
+          "key": "B",
+          "text": "采用较快下落速度与细长贴图"
+        },
+        {
+          "key": "C",
+          "text": "在 updateCallback 中叠加重力与水平恒定风"
+        },
+        {
+          "key": "D",
+          "text": "必须给雨滴加入明显正弦横摆，并禁止使用水平风",
+          "hint": "讲义把明显正弦横摆用于雪，雨使用恒定风"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-036",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "updateCallback(particle, dt) 中的 dt 在讲义物理更新里表示什么？",
+      "explanation": "dt 是距上次更新的帧间隔，单位为秒。加速度乘 dt 得到这一帧应累加的速度增量，因此重力项写成 -9.8 * dt，而不是把 dt 当作粒子编号或毫秒时间戳。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "当前粒子的编号"
+        },
+        {
+          "key": "B",
+          "text": "两次更新之间的时间间隔，单位为秒",
+          "hint": "速度增量 = 加速度 × dt"
+        },
+        {
+          "key": "C",
+          "text": "系统从加载至今的毫秒时间戳"
+        },
+        {
+          "key": "D",
+          "text": "本帧需要新增的粒子总数"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-10-037",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "在东北天局部坐标中，把 UNIT_Z 乘以 -9.8 * dt 再加到速度上，会让 velocity.z 增大，使粒子向上加速。",
+      "explanation": "负标量使 Z 方向速度增量朝下，因此 velocity.z 会减小，而不是增大。在东北天坐标里 Z 对应上方，负 Z 增量正是讲义雨示例用来模拟向下重力的方式。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-10-038",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "若要让粒子颜色随寿命从起始颜色插值到结束颜色，应配置哪一对 ParticleSystem 属性名？",
+      "explanation": "颜色插值由 startColor 与 endColor 定义：粒子刚出生时采用 startColor，接近寿命终点时过渡到 endColor。透明度的同步变化也写在这两个颜色的 alpha 分量中。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "startColor 和 endColor",
+        "startColor、endColor",
+        "startColor / endColor",
+        "startColor endColor",
+        "startColor 与 endColor",
+        "ParticleSystem.startColor 和 ParticleSystem.endColor"
+      ],
+      "placeholder": "例如：startColor 和 endColor"
+    },
+    {
+      "id": "cesium-10-039",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "一颗雨滴从静止开始，只受 9.8 米/秒² 的恒定重力，忽略空气阻力，2 秒内的下落距离是多少米？",
+      "explanation": "初速度为零时，匀加速位移 s = 1/2 × g × t²。代入 g = 9.8、t = 2：s = 0.5 × 9.8 × 2² = 19.6 米。也可由平均速度 (0 + 19.6) ÷ 2 再乘 2 秒验证。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 19.6,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "例如：19.6"
+    },
+    {
+      "id": "cesium-10-040",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "为两千颗活跃粒子编写高频 updateCallback 时，下列哪些做法能避免不必要的逐粒子开销？",
+      "explanation": "回调成本会乘上粒子数与帧率。tmp1、tmp2 等临时向量应预先分配并复用，恒定风向量等不变计算应移到回调外，同时避免每颗粒子都 new 对象或扫描大数组，减少分配与重复计算。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "在回调外预分配 tmp1、tmp2，并在多次调用间复用"
+        },
+        {
+          "key": "B",
+          "text": "把恒定风向量等不变计算提到回调外"
+        },
+        {
+          "key": "C",
+          "text": "避免在每次回调中 new 临时对象"
+        },
+        {
+          "key": "D",
+          "text": "每颗粒子每帧都完整扫描一次大型业务数组，以确保逻辑足够复杂",
+          "hint": "高频回调应避免与物理更新无关的大数组扫描"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-041",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "要用 BoxEmitter 模拟新加坡大范围的强降雨，在地图上点击这个天气粒子场景对应的城市位置。",
+      "explanation": "新加坡位于马来半岛南端、接近赤道，目标城市中心约为北纬 1.3521°、东经 103.8198°。其热带海洋性环境常有强降雨，适合作为 BoxEmitter 雨区场景，城市级容差为 300 千米。",
+      "refs": [
+        {
+          "title": "新加坡气象署",
+          "url": "https://www.weather.gov.sg/home/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 1.3521,
+        "lng": 103.8198
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-10-042",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "编写 (particle, dt) => { ... } 时，若要读取当前粒子的 position 与 velocity，应使用哪个参数？",
+      "explanation": "第一个参数 particle 携带当前个体的 position、velocity、mass 等状态，所以应读 particle.position 与 particle.velocity。第二个参数 dt 只是帧间隔秒数，scene 与 camera 也不是该回调的这两个形参。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "particle",
+          "hint": "个体位置与速度都挂在当前粒子对象上"
+        },
+        {
+          "key": "B",
+          "text": "dt"
+        },
+        {
+          "key": "C",
+          "text": "camera"
+        },
+        {
+          "key": "D",
+          "text": "modelMatrix"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-10-043",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "讲义雪回调中的 Math.sin(...) 项直接修改 particle.velocity.z，因此主要制造上下跳动，而不是横向漂移。",
+      "explanation": "示例把正弦速度增量累加到 particle.velocity.x，X 方向因此随时间来回变化，形成横向飘雪。负 UNIT_Z 重力项才影响 Z 方向下落，题干把两个分量的作用对调了。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-10-044",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "若要让粒子尺寸随生命周期从起始缩放值过渡到结束缩放值，应配置哪一对属性名？",
+      "explanation": "startScale 与 endScale 控制粒子出生和消亡时的缩放系数，系统在寿命内对二者插值。营火示例由 2 过渡到 6，所以单颗粒子的视觉尺寸会逐渐放大。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "startScale 和 endScale",
+        "startScale、endScale",
+        "startScale / endScale",
+        "startScale endScale",
+        "startScale 与 endScale",
+        "ParticleSystem.startScale 和 ParticleSystem.endScale"
+      ],
+      "placeholder": "例如：startScale 和 endScale"
+    },
+    {
+      "id": "cesium-10-045",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "对照讲义完整营火示例，下列哪些视觉或生命周期判断符合其参数设置？",
+      "explanation": "示例颜色从黄色 alpha 0.9 插值到红色 alpha 0.2，同时缩放从 2 增至 6，并使用 15° ConeEmitter 向上喷，所以会渐红渐隐、逐渐变大并沿锥轴喷发。lifetime = 16 是系统一轮时长，不是每颗粒子的寿命；粒子寿命仅为 0.6 到 1.4 秒。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "粒子会由偏黄逐渐变红，同时 alpha 降低而渐隐"
+        },
+        {
+          "key": "B",
+          "text": "startScale 到 endScale 的插值使粒子视觉尺寸逐渐放大"
+        },
+        {
+          "key": "C",
+          "text": "15° ConeEmitter 让粒子沿锥轴方向喷出"
+        },
+        {
+          "key": "D",
+          "text": "lifetime = 16 表示每颗火焰粒子都存活 16 秒",
+          "hint": "请区分系统一轮时长与 0.6～1.4 秒的单粒寿命"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-046",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "用户需要点击一处烟火设施并弹出业务面板，同时还要保留火焰粒子效果。哪种实现更符合讲义的交互选型？",
+      "explanation": "ParticleSystem 负责大量、短命、有规律的火焰视觉，隐形 Entity 代理负责稳定拾取与业务属性绑定。这样不必为大量短命粒子实现复杂拾取，也不会因粒子生灭丢失交互目标。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "用 ParticleSystem 表现火焰，并放置隐形 Entity 代理承接点击"
+        },
+        {
+          "key": "B",
+          "text": "为每颗短命火焰粒子分别绑定业务点击事件"
+        },
+        {
+          "key": "C",
+          "text": "把每颗粒子转换成一张独立影像图层"
+        },
+        {
+          "key": "D",
+          "text": "取消所有视觉表现，只保留地形"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-10-047",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 1,
+      "stem": "ParticleBurst 的 time 属性以毫秒计，因此 time: 2.0 表示系统运行两毫秒时触发爆发。",
+      "explanation": "讲义示例中的 time 使用秒，并相对于系统一轮 lifetime 的起点计时。time: 2.0 表示第二秒触发一次爆发，不是两毫秒；minimum 与 maximum 则限定该批粒子数量。",
+      "refs": [
+        {
+          "title": "Cesium.ParticleSystem API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/ParticleSystem.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-10-048",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "requestRenderMode 下，相机变化后已手动更新雪系统的 modelMatrix，还应调用 Scene 的哪个方法来请求新帧？",
+      "explanation": "手动修改矩阵后调用 viewer.scene.requestRender()，也可简写为 scene.requestRender()。按需渲染模式不会仅因这处手动赋值就自动安排新帧，必须显式提出渲染请求。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "requestRender",
+        "requestRender()",
+        "scene.requestRender()",
+        "viewer.scene.requestRender()",
+        "Scene.requestRender"
+      ],
+      "placeholder": "例如：scene.requestRender()"
+    },
+    {
+      "id": "cesium-10-049",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 3,
+      "stem": "综合看板同时包含多种视觉对象，下列技术选型符合讲义边界的有哪些？",
+      "explanation": "粒子系统用于大量、短命且有运动规律的烟花和雨雪；业务标注适合 Entity；海量静态点适合 PointPrimitiveCollection。3D Tiles 不是短命粒子运动的通用替代品，选型应看对象生命周期、数量与交互需求。",
+      "refs": [
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "烟花与循环雨雪使用 ParticleSystem"
+        },
+        {
+          "key": "B",
+          "text": "需要业务属性与稳定表达的标注使用 Entity"
+        },
+        {
+          "key": "C",
+          "text": "海量静态点使用 PointPrimitiveCollection"
+        },
+        {
+          "key": "D",
+          "text": "所有短命运动粒子都必须先烘焙成 3D Tiles 才能显示",
+          "hint": "3D Tiles 与逐帧粒子更新服务于不同对象"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-10-050",
+      "skill": "cesium",
+      "module": "10",
+      "difficulty": 2,
+      "stem": "若给哈尔滨冬季看板添加 CircleEmitter 降雪与正弦横摆，在地图上点击这座天气粒子场景对应的城市。",
+      "explanation": "哈尔滨位于中国东北的黑龙江省，城市中心约为北纬 45.8038°、东经 126.5349°。其寒冷多雪的冬季适合作为慢速下落、横向摆动雪粒子场景，城市级容差为 300 千米。",
+      "refs": [
+        {
+          "title": "Harbin（Wikipedia）",
+          "url": "https://en.wikipedia.org/wiki/Harbin"
+        },
+        {
+          "title": "CesiumJS Particle System 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-particle-systems/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 45.8038,
+        "lng": 126.5349
+      },
+      "toleranceKm": 300
     }
   ]
 }

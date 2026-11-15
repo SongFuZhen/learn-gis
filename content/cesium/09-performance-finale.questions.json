@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "09",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-09-001",
@@ -377,6 +377,1053 @@
         "渲染提交与资源加载两类瓶颈"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-09-013",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "本章示例中，globe 与 3D Tiles 的 maximumScreenSpaceError 默认值分别是多少？",
+      "explanation": "影像与地形使用的 globe 默认值是 2，3D Tiles 使用的 tileset 默认值是 16。两套阈值分别配置，不能把一个默认值套到另一类数据上。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "globe 为 2，tileset 为 16",
+          "hint": "影像地形与模型各有默认值"
+        },
+        {
+          "key": "B",
+          "text": "globe 为 16，tileset 为 2"
+        },
+        {
+          "key": "C",
+          "text": "两者都为 16"
+        },
+        {
+          "key": "D",
+          "text": "两者都为 2"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-09-014",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "requestRenderMode 且 maximumRenderTimeChange = Infinity 时，哪些操作后应主动调用 requestRender()？",
+      "explanation": "CallbackProperty 更新、切换精度预设以及修改引擎未跟踪的自定义状态，都可能不被引擎自动察觉，因此要显式请求新帧。相机交互会由引擎处理，完全静止且无变化则无需请求。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "CallbackProperty 使用的业务数据已经更新",
+          "hint": "回调更新不会自行触发新帧"
+        },
+        {
+          "key": "B",
+          "text": "点击精度按钮后修改了 maximumScreenSpaceError",
+          "hint": "练习中的模式切换也要请求渲染"
+        },
+        {
+          "key": "C",
+          "text": "修改了引擎未自动跟踪的自定义图元状态",
+          "hint": "引擎察觉不到的变化要显式通知"
+        },
+        {
+          "key": "D",
+          "text": "用户正常拖动相机浏览场景"
+        },
+        {
+          "key": "E",
+          "text": "场景完全静止且没有任何数据变化"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-09-015",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "Cesium 默认渲染循环即使场景纹丝不动，也会持续每帧绘制。",
+      "explanation": "默认策略是每帧都画，因此静止看板也可能持续占用 GPU。requestRenderMode 才把策略改为有变化时才渲染，减少无意义的空转。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-09-016",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "若平均帧时长约为 16.7 ms，对应帧率约是多少 fps？（填整数）",
+      "explanation": "一秒等于 1000 ms，帧率 = 1000 ÷ 16.7 ≈ 59.88 fps，按题意取整数约为 60 fps，因此填 60。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 60,
+      "tolerance": 0,
+      "unit": "fps",
+      "placeholder": "例如：60"
+    },
+    {
+      "id": "cesium-09-017",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "requestRenderMode 下，CallbackProperty 数据更新后要调用 Scene 的哪个方法来显式请求一帧？",
+      "explanation": "应调用 requestRender()。按需渲染不会为每次回调自动产生新帧，显式调用后引擎才知道需要把更新后的数据画到屏幕上。",
+      "refs": [
+        {
+          "title": "Scene",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "requestRender()",
+        "requestRender",
+        "scene.requestRender()",
+        "viewer.scene.requestRender()"
+      ],
+      "placeholder": "填写方法名，例如 requestRender()"
+    },
+    {
+      "id": "cesium-09-018",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "若收官看板要定位到中国的首都北京，请在地图上点击北京的大致位置。",
+      "explanation": "北京位于华北平原北缘，是中国的首都，中心坐标约为 39.9042°N、116.4074°E。本题采用 300 km 城市级容差，识别城市所在区域即可。",
+      "refs": [
+        {
+          "title": "Beijing - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Beijing"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9042,
+        "lng": 116.4074
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-09-019",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "下列哪类应用最符合本章建议开启 requestRenderMode 的经验法则？",
+      "explanation": "静止为主、偶尔交互的数据看板最能从按需渲染中受益。相机持续运动时本来就需要不断产生新帧，开启该模式难以减少渲染工作。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "静止为主、偶尔交互的数据看板",
+          "hint": "静止时间越多，按需渲染越有价值"
+        },
+        {
+          "key": "B",
+          "text": "相机持续自动环绕的展示"
+        },
+        {
+          "key": "C",
+          "text": "每帧都改变视角的飞行模拟"
+        },
+        {
+          "key": "D",
+          "text": "相机从不停止移动的高频漫游"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-09-020",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "关于 globe 与 tileset 的 maximumScreenSpaceError，下列说法正确的有哪些？",
+      "explanation": "globe 的属性驱动影像与地形选层，tileset 的属性驱动 3D Tiles 选层，二者可以独立调整。修改 globe 不会自动同步到所有 tileset，SSE 也不是拾取坐标参数。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "globe 的属性控制影像与地形的选层",
+          "hint": "它作用于地球表面数据"
+        },
+        {
+          "key": "B",
+          "text": "tileset 的属性控制 3D Tiles 的选层",
+          "hint": "模型瓦片有自己的阈值"
+        },
+        {
+          "key": "C",
+          "text": "两套阈值可以分别调参，并非同一个共享变量",
+          "hint": "可以按数据类型采用不同精度"
+        },
+        {
+          "key": "D",
+          "text": "修改 globe 会自动同步修改所有 tileset"
+        },
+        {
+          "key": "E",
+          "text": "它只用于拾取坐标，与 LOD 无关"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-09-021",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "开启 requestRenderMode 后，用户拖动相机也不会触发新帧，必须额外手动 requestRender()。",
+      "explanation": "相机交互属于引擎能够感知的变化，会正常触发渲染。手动 requestRender() 主要用于 CallbackProperty 等引擎察觉不到的数据更新，并非所有交互都要手动处理。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-09-022",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "一个交互过程稳定在 40 fps 时，平均每帧时长是多少毫秒？",
+      "explanation": "平均帧时长 = 1000 ms ÷ 帧率，因此 1000 ÷ 40 = 25 ms。帧率越高，留给每一帧的时间越短。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 25,
+      "tolerance": 0,
+      "unit": "ms",
+      "placeholder": "例如：25"
+    },
+    {
+      "id": "cesium-09-023",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "要调整 3D Tiles 的屏幕空间误差阈值，应设置 Cesium3DTileset 的哪个属性？",
+      "explanation": "属性名是 maximumScreenSpaceError。它决定屏幕误差达到多少像素时换用更精细的瓦片，调小更清晰但会增加请求与内存压力。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "maximumScreenSpaceError",
+        "tileset.maximumScreenSpaceError",
+        "Cesium3DTileset.maximumScreenSpaceError"
+      ],
+      "placeholder": "填写属性名"
+    },
+    {
+      "id": "cesium-09-024",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "若三维看板要展示长江入海口的上海，请在地图上点击上海的大致位置。",
+      "explanation": "上海位于中国东部沿海、长江入海口，中心坐标约为 31.2304°N、121.4737°E。本题使用 300 km 城市级容差，不要求点中某个具体街区。",
+      "refs": [
+        {
+          "title": "Shanghai - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Shanghai"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 31.2304,
+        "lng": 121.4737
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-09-025",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "已创建 PointPrimitiveCollection 实例 points，且 position、color 已定义，加入一个点应使用哪种写法？",
+      "explanation": "PointPrimitiveCollection 通过自身的 add 方法添加点图元，并接收 position、pixelSize、color 等参数。它不是 Entity 集合，也不是要加入 dataSources 的数据源。",
+      "refs": [
+        {
+          "title": "Cesium.PointPrimitiveCollection API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PointPrimitiveCollection.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "points.add({ position, pixelSize: 6, color })",
+          "hint": "点图元直接加入 Collection"
+        },
+        {
+          "key": "B",
+          "text": "viewer.entities.add({ position, pixelSize: 6, color })"
+        },
+        {
+          "key": "C",
+          "text": "points.addEntity({ position })"
+        },
+        {
+          "key": "D",
+          "text": "viewer.dataSources.add(points)"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-09-026",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "按本章收官看板的需求清单，哪些实现组合符合设计？",
+      "explanation": "收官看板把 GeoJSON 属性染色、点海 Collection、第 07 章拾取交互和第 08 章量算组合起来。十万级 POI 应批量管理，而不是创建十万个高开销 Entity。",
+      "refs": [
+        {
+          "title": "Cesium.PointPrimitiveCollection API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PointPrimitiveCollection.html"
+        },
+        {
+          "title": "CesiumJS 课 · 空间量算",
+          "url": "https://gis.ason.top/s/cesium/08"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoJSON 政区面加载后按 population 属性染色",
+          "hint": "复用第 04 章的逐要素样式"
+        },
+        {
+          "key": "B",
+          "text": "十万级 POI 使用 PointPrimitiveCollection",
+          "hint": "同构点海走批处理池"
+        },
+        {
+          "key": "C",
+          "text": "悬停高亮与点击面板复用第 07 章的 handler 组合",
+          "hint": "交互能力可以直接组合"
+        },
+        {
+          "key": "D",
+          "text": "测距工具复用第 08 章的空间量算能力",
+          "hint": "看板也包含量算"
+        },
+        {
+          "key": "E",
+          "text": "为每个 POI 创建独立 Entity 以降低开销"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-09-027",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "对于少量异构对象，Primitive 比 Entity 更声明式、更省心，因此应作为默认起点。",
+      "explanation": "少量异构对象应优先使用声明式、最省心的 Entity。Primitive 直接面向渲染，需要自行管理几何与外观，适合海量数据或极致控制，而不是默认起点。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-09-028",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "忽略缓存与失败重试，一次更新中 5 个相机构图各请求 8 片影像瓦片和 12 片模型瓦片，共发起多少次瓦片请求？",
+      "explanation": "每个构图请求 8 + 12 = 20 次，5 个构图共 5 × 20 = 100 次。题设忽略缓存与重试，因此直接把各类瓦片请求相加即可。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "numeric",
+      "answer": 100,
+      "tolerance": 0,
+      "unit": "次",
+      "placeholder": "请输入整数"
+    },
+    {
+      "id": "cesium-09-029",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "本章为十万个同构 POI 点选择批处理池时，应实例化哪个 Collection 类？",
+      "explanation": "应使用 PointPrimitiveCollection。它把大量同构点放进统一集合中管理，避免十万个 Entity 带来的独立对象开销与渲染状态切换。",
+      "refs": [
+        {
+          "title": "Cesium.PointPrimitiveCollection API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PointPrimitiveCollection.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "PointPrimitiveCollection",
+        "Cesium.PointPrimitiveCollection",
+        "new PointPrimitiveCollection()",
+        "new Cesium.PointPrimitiveCollection()"
+      ],
+      "placeholder": "填写类名"
+    },
+    {
+      "id": "cesium-09-030",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "若看板要展示珠江三角洲的广州，请在地图上点击广州的大致位置。",
+      "explanation": "广州是广东省省会，位于珠江三角洲区域，中心坐标约为 23.1291°N、113.2644°E。300 km 容差用于城市区域级点击判分。",
+      "refs": [
+        {
+          "title": "Guangzhou - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Guangzhou"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 23.1291,
+        "lng": 113.2644
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-09-031",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "maximumRenderTimeChange = Infinity 在本章配置中表达的是什么策略？",
+      "explanation": "它表示完全信任显式渲染请求，不再依靠时间变化做定时兜底刷新。这样更省电，但引擎察觉不到的数据变化必须手动 requestRender()。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "完全信任显式请求，不做定时兜底刷新",
+          "hint": "数据变化要显式通知场景"
+        },
+        {
+          "key": "B",
+          "text": "每隔无限毫秒就强制刷新一次"
+        },
+        {
+          "key": "C",
+          "text": "永久禁止相机交互触发渲染"
+        },
+        {
+          "key": "D",
+          "text": "自动把 maximumScreenSpaceError 设为无限大"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-09-032",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "关于 pickEllipsoid 与 pickPosition 的结果及坐标转换，下列说法正确的有哪些？",
+      "explanation": "两种拾取都得到 Cartesian3，而不是直接带 longitude、latitude 的对象。需要地理坐标时要用 Cartographic.fromCartesian 转换；pickPosition 虽由深度缓冲重构位置，返回类型仍是 Cartesian3。",
+      "refs": [
+        {
+          "title": "Scene",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "两者都返回 Cartesian3 坐标",
+          "hint": "返回的是地固笛卡尔坐标"
+        },
+        {
+          "key": "B",
+          "text": "pickEllipsoid 的结果可直接读取 longitude"
+        },
+        {
+          "key": "C",
+          "text": "需要经纬度时可使用 Cartographic.fromCartesian",
+          "hint": "先做坐标类型转换"
+        },
+        {
+          "key": "D",
+          "text": "pickPosition 由深度缓冲重构位置，结果仍需坐标转换",
+          "hint": "深度重构不改变返回类型"
+        },
+        {
+          "key": "E",
+          "text": "两者都直接返回 Entity 属性表"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-09-033",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "Viewer 构造时设置 animation: false、timeline: false，就已经等价于开启 requestRenderMode。",
+      "explanation": "animation 与 timeline 选项控制界面控件是否显示，不负责场景的渲染调度。按需渲染仍需单独设置 viewer.scene.requestRenderMode = true。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-09-034",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "按简化的内存估算，192 片已加载瓦片平均每片占 0.75 MiB，不计其他开销，总占用多少 MiB？",
+      "explanation": "总内存 = 瓦片数 × 单片平均占用，即 192 × 0.75 = 144 MiB。题设不计其他开销，所以无需再加入额外系数。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "numeric",
+      "answer": 144,
+      "tolerance": 0,
+      "unit": "MiB",
+      "placeholder": "例如：144"
+    },
+    {
+      "id": "cesium-09-035",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "要让 Scene 只在有变化时渲染，应把哪个布尔属性设为 true？",
+      "explanation": "应设置 requestRenderMode = true。该属性开启按需渲染后，静止场景不再持续重绘；引擎察觉不到的更新还要配合 requestRender()。",
+      "refs": [
+        {
+          "title": "Scene",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "requestRenderMode",
+        "scene.requestRenderMode",
+        "viewer.scene.requestRenderMode",
+        "scene.requestRenderMode = true",
+        "viewer.scene.requestRenderMode = true"
+      ],
+      "placeholder": "填写属性名"
+    },
+    {
+      "id": "cesium-09-036",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "若看板要展示四川盆地中的成都，请在地图上点击成都的大致位置。",
+      "explanation": "成都是四川省省会，位于四川盆地西部，中心坐标约为 30.5728°N、104.0668°E。本题容差为 300 km，按城市区域级位置判分。",
+      "refs": [
+        {
+          "title": "Chengdu - Wikipedia",
+          "url": "https://en.wikipedia.org/wiki/Chengdu"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 30.5728,
+        "lng": 104.0668
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-09-037",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "按本章练习的 presets = { hd: 2, eco: 24 }，切换到省流模式时哪段操作正确？",
+      "explanation": "省流模式要调大阈值：globe 使用 24，若 tileset 存在则使用练习中的 32。requestRenderMode 下完成切换后还要调用 requestRender()，让新参数及时生效。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "globe 设为 24，tileset 设为 32，最后调用 requestRender()",
+          "hint": "省流调大阈值，并显式请求新帧"
+        },
+        {
+          "key": "B",
+          "text": "globe 设为 2，tileset 设为 8，不请求新帧"
+        },
+        {
+          "key": "C",
+          "text": "globe 设为 24，tileset 设为 8，不请求新帧"
+        },
+        {
+          "key": "D",
+          "text": "只调用 requestRender()，保留全部高清阈值"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-09-038",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "使用 debugShowFramesPerSecond 与浏览器 Performance 面板时，哪些判断符合本章的排查方法？",
+      "explanation": "帧率开关用于快速观察，Performance 录制用于进一步区分 JS 主线程与 GPU 瓶颈。若 JS 主线程忙，应检查回调和数据逻辑；未经定位就把 SSE 调到 1 或增加绘制量都会南辕北辙。",
+      "refs": [
+        {
+          "title": "CesiumJS Optimization 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-optimization/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "debugShowFramesPerSecond 可用于观察实时帧率",
+          "hint": "先获得直观的帧率反馈"
+        },
+        {
+          "key": "B",
+          "text": "Performance 录制可帮助区分 JS 主线程忙与 GPU 忙",
+          "hint": "不同瓶颈采用不同优化手段"
+        },
+        {
+          "key": "C",
+          "text": "JS 主线程忙时应优先检查 Callback 与数据处理代码",
+          "hint": "先检查占用主线程的逻辑"
+        },
+        {
+          "key": "D",
+          "text": "看到帧率低就不做录制，直接把所有 SSE 调到 1"
+        },
+        {
+          "key": "E",
+          "text": "确认 GPU 忙后应优先增加每帧绘制对象"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-09-039",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "1.122 新增的 CallbackPositionProperty 通过实体位置的懒求值，适合先用于优化高频移动目标。",
+      "explanation": "CallbackPositionProperty 是面向实体位置的懒求值属性。轨迹动画、实时目标等高频移动场景可先尝试它，避免普通 CallbackProperty 在每帧进行不必要的全量求值。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-09-040",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "本章练习里，tileset 高清模式 maximumScreenSpaceError 为 8，省流模式为 32。省流阈值是高清阈值的多少倍？",
+      "explanation": "倍数为 32 ÷ 8 = 4。省流模式把可容忍的屏幕误差放大到高清模式的 4 倍，从而减少不必要的精细瓦片请求。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "倍",
+      "placeholder": "例如：4"
+    },
+    {
+      "id": "cesium-09-041",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "pickEllipsoid 返回 Cartesian3 后，要转换为带经纬度的 Cartographic，应调用哪个方法？",
+      "explanation": "使用 Cartographic.fromCartesian。拾取结果是 x、y、z 形式的 Cartesian3，直接读取 longitude 不会得到经度，必须先转换成 Cartographic。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cartographic.fromCartesian",
+        "Cesium.Cartographic.fromCartesian",
+        "Cartographic.fromCartesian()",
+        "Cesium.Cartographic.fromCartesian()"
+      ],
+      "placeholder": "填写转换方法名"
+    },
+    {
+      "id": "cesium-09-042",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "本章染色代码使用 pop > 3_000_000 才设为红色。某政区 population 恰好为 3_000_000，最终会是什么颜色？",
+      "explanation": "条件使用严格大于号，人口恰好等于 3_000_000 时条件为 false，会进入 else 分支，使用透明度 0.2 的青色，而不是红色。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "透明度 0.35 的红色"
+        },
+        {
+          "key": "B",
+          "text": "透明度 0.2 的青色",
+          "hint": "严格大于不包含临界值"
+        },
+        {
+          "key": "C",
+          "text": "完全透明且没有材质"
+        },
+        {
+          "key": "D",
+          "text": "透明度 0.85 的白色"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-09-043",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "在本章 PointPrimitiveCollection 的 POI 示例中，下列写法或含义正确的有哪些？",
+      "explanation": "fromDegrees 把经纬度变成点位置，pixelSize 控制屏幕像素大小，withAlpha 设置颜色不透明度，每个点通过 points.add 加入集合。集合可直接管理点图元，无需先创建 Entity。",
+      "refs": [
+        {
+          "title": "Cesium.PointPrimitiveCollection API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.PointPrimitiveCollection.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cartesian3.fromDegrees(poi.lon, poi.lat) 用于生成点位置",
+          "hint": "经纬度要先转换为 Cartesian3"
+        },
+        {
+          "key": "B",
+          "text": "pixelSize: 6 设置点的屏幕像素大小",
+          "hint": "该参数以像素表示点的大小"
+        },
+        {
+          "key": "C",
+          "text": "Color.CYAN.withAlpha(0.8) 得到带不透明度的青色",
+          "hint": "withAlpha 返回调整透明度后的颜色"
+        },
+        {
+          "key": "D",
+          "text": "每个 POI 可通过 points.add 加入集合",
+          "hint": "增删改都围绕集合进行"
+        },
+        {
+          "key": "E",
+          "text": "必须先为每个 POI 创建 Entity 才能加入集合"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-09-044",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "GeoJsonDataSource.load 中的 clampToGround: true 表示关闭贴地，让政区面悬在地形上方。",
+      "explanation": "clampToGround: true 的含义恰恰是开启贴地，让 GeoJSON 政区面贴合地表。它既不是关闭贴地，也不是让面悬空的参数。",
+      "refs": [
+        {
+          "title": "CesiumJS 课 · Entity 可视化与 GeoJSON",
+          "url": "https://gis.ason.top/s/cesium/04"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-09-045",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "某 3D Tiles 缓存预算为 512 MiB，当前已占用 320 MiB。忽略其他开销，还可使用多少 MiB？",
+      "explanation": "剩余缓存 = 总预算 − 已占用 = 512 − 320 = 192 MiB。cacheBytes 表达字节级缓存预算，本题已统一换算成 MiB 后相减。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 192,
+      "tolerance": 0,
+      "unit": "MiB",
+      "placeholder": "例如：192"
+    },
+    {
+      "id": "cesium-09-046",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "当海量图形需要直接控制几何与外观、并自行管理底层渲染时，本章建议选择哪种数据形态？",
+      "explanation": "应选择底层 Primitive。它提供直接面向渲染的控制能力，但也要求开发者自行管理几何与外观；少量对象不必为此放弃 Entity 的便利。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Primitive",
+        "Cesium.Primitive",
+        "new Primitive()",
+        "new Cesium.Primitive()"
+      ],
+      "placeholder": "填写数据形态名称"
+    },
+    {
+      "id": "cesium-09-047",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "maximumScreenSpaceError 所表达的屏幕空间误差，是以屏幕像素来衡量的。",
+      "explanation": "SSE 判断瓦片误差在屏幕上超过多少像素时才换用更精细版本，因此阈值采用屏幕像素语义，而不是米、经纬度或瓦片数量。",
+      "refs": [
+        {
+          "title": "Cesium.Cesium3DTileset.maximumScreenSpaceError",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Cesium3DTileset.html#maximumScreenSpaceError"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-09-048",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "收官看板要求「OSM 底图 + 无地形、token-free」。下列基座配置最符合要求的是？",
+      "explanation": "本章直接使用 OpenStreetMapImageryProvider 创建 OSM 影像底图，不配置地形服务，也不需要 ion token。World Terrain 与 OSM Buildings 属于后续接 ion 的进阶路径。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用 ImageryLayer.fromProviderAsync 包装 OpenStreetMapImageryProvider，不配置地形",
+          "hint": "与章内 OSM 基座代码一致"
+        },
+        {
+          "key": "B",
+          "text": "配置 createWorldTerrainAsync 并填写 ion token"
+        },
+        {
+          "key": "C",
+          "text": "把 OSM Buildings 的 Cesium3DTileset 当作影像 baseLayer"
+        },
+        {
+          "key": "D",
+          "text": "只设置 timeline: true，不提供任何影像源"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-09-049",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "关于本章提到的 1.121 起默认值调整，下列说法正确的有哪些？",
+      "explanation": "1.121 起 MSAA 默认开启，色调映射改为 PBR Neutral，因此升级后画面更平滑、更亮可能来自官方默认值变化。排查时应先核对版本变化，不能一概认定为业务代码回归。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "MSAA 从该版本起默认开启",
+          "hint": "抗锯齿默认值发生变化"
+        },
+        {
+          "key": "B",
+          "text": "色调映射调整为 PBR Neutral",
+          "hint": "这是画面观感变化的原因之一"
+        },
+        {
+          "key": "C",
+          "text": "升级后画面变亮变平滑可能来自官方默认值变化",
+          "hint": "先核对版本注记再判断回归"
+        },
+        {
+          "key": "D",
+          "text": "这些视觉变化必然证明业务代码发生回归"
+        },
+        {
+          "key": "E",
+          "text": "该版本把所有数据的 SSE 永久固定为 1"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-09-050",
+      "skill": "cesium",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "在 requestRenderMode 下，要完全信任显式请求、关闭定时兜底刷新，应把哪个属性设为 Infinity？",
+      "explanation": "应把 maximumRenderTimeChange 设为 Infinity。它与 requestRenderMode 配套使用，关闭基于时间变化的兜底刷新，因此手动 requestRender() 更不能遗漏。",
+      "refs": [
+        {
+          "title": "Scene",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Scene.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "maximumRenderTimeChange",
+        "scene.maximumRenderTimeChange",
+        "viewer.scene.maximumRenderTimeChange",
+        "scene.maximumRenderTimeChange = Infinity",
+        "viewer.scene.maximumRenderTimeChange = Infinity"
+      ],
+      "placeholder": "填写属性名"
     }
   ]
 }

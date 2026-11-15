@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "03",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-03-001",
@@ -391,6 +391,1184 @@
       "type": "short",
       "accepted": ["AppStorageV2"],
       "placeholder": "例如：AppStorageV2"
+    },
+    {
+      "id": "harmony-03-015",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "V1 组件中，一个只由该组件自己拥有并修改、且需要驱动 UI 刷新的计数器，应优先使用哪个装饰器？",
+      "explanation": "组件私有且需要响应式更新的状态在 V1 中应使用 @State。普通成员变量不具备这种状态观察能力，@Prop 和 @Link 则用于父子组件之间的数据传递。",
+      "refs": [
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Prop"
+        },
+        {
+          "key": "B",
+          "text": "@State",
+          "hint": "它对应 V1 的组件私有状态"
+        },
+        {
+          "key": "C",
+          "text": "@Link"
+        },
+        {
+          "key": "D",
+          "text": "不使用装饰器的普通成员变量"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-03-016",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "为一条数据流选择状态管理方案时，下列哪些做法符合本章的所有权原则？",
+      "explanation": "应先确定状态由谁拥有和修改，再根据父子传递方向选择装饰器。状态并非越多越好，只传一两层时没有必要把每个值都提升为跨层共享状态。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "不论是否参与 UI，都把所有普通成员变量改为 @State"
+        },
+        {
+          "key": "B",
+          "text": "先确定状态由谁拥有、由谁修改",
+          "hint": "所有权是选择方案的第一步"
+        },
+        {
+          "key": "C",
+          "text": "只根据变量名称决定装饰器，不考虑数据流向"
+        },
+        {
+          "key": "D",
+          "text": "确定所有权后，再根据父子传递方向选择方案",
+          "hint": "单向、双向与跨层共享对应不同方案"
+        },
+        {
+          "key": "E",
+          "text": "只传一两层时，不必把每个值都提升为共享状态",
+          "hint": "避免不必要地扩大状态作用范围"
+        }
+      ],
+      "answer": [
+        "B",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "harmony-03-017",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章 V1 得分示例中，父组件的 score 初值为 60。通过 @Link 绑定后，连续点击 3 次“加一分”，再点击 1 次“减一分”，父组件显示的得分是多少？",
+      "explanation": "ScoreEditor 通过 @Link 与父组件的 score 双向同步，因此子组件的修改也会反映到父组件。计算过程为 60+3-1=62 分。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        }
+      ],
+      "type": "numeric",
+      "answer": 62,
+      "tolerance": 0,
+      "unit": "分",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-03-018",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章 V1 跨层共享示例中，@Provide 与 @Consume 使用什么字符串键名共享 score？只写键名。",
+      "explanation": "示例两端都使用 studyScore 作为共享键名。@Provide('studyScore') 与 @Consume('studyScore') 的键名一致，才能表达同一份跨层状态。",
+      "refs": [
+        {
+          "title": "@Provide 与 @Consume",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-provide-and-consume"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "studyScore",
+        "'studyScore'",
+        "\"studyScore\""
+      ],
+      "placeholder": "例如：studyScore"
+    },
+    {
+      "id": "harmony-03-019",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "同一工程的不同数据流可以分别采用 V1 或 V2，但同一条数据流应统一使用其中一套规则。",
+      "explanation": "对。V1 与 V2 可以在工程中分别使用，限制针对的是同一条数据流。父子接力时混用两套装饰器规则，容易造成同步与观察行为不一致。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-03-020",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "V2 子组件读取父组件的计数并请求修改它，哪种实现最符合“数据向下，事件向上”？",
+      "explanation": "V2 推荐由 @Param 接收父组件传入的数据，由 @Event 发出变更意图，父组件收到事件后修改自己拥有的 @Local。这样数据来源和修改责任都更清楚。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "子组件用 @Local 保存副本，并假设父组件会自动读取"
+        },
+        {
+          "key": "B",
+          "text": "子组件用 @Prop 接收后直接反向写父组件源值"
+        },
+        {
+          "key": "C",
+          "text": "子组件用 @Param 接收数据、用 @Event 通知，父组件修改自己的 @Local",
+          "hint": "数据向下，变更意图通过事件向上"
+        },
+        {
+          "key": "D",
+          "text": "父子各自新建 AppStorageV2，借此自动同步任意局部变量"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-03-021",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "按照本章 V1 Learner 示例搭建嵌套对象观察链路时，下列哪些代码关系正确？",
+      "explanation": "V1 示例由 @Observed 标记 Learner 类，父组件用 @State 持有 Learner 实例，LearnerCard 用 @ObjectLink 接收它。@ObjectLink 不在子组件本地初始化，也不需要在这条 V1 链路中叠加 @Trace。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Learner 类使用 @Observed 标记",
+          "hint": "这是 V1 类实例观察链路的一端"
+        },
+        {
+          "key": "B",
+          "text": "LearnerCard 在本地用 new Learner 初始化自己的 @ObjectLink"
+        },
+        {
+          "key": "C",
+          "text": "LearnerPage 用 @State 持有 new Learner('小鸿', 0)",
+          "hint": "父组件拥有并保存这个类实例"
+        },
+        {
+          "key": "D",
+          "text": "LearnerCard 用 @ObjectLink learner 接收父组件实例",
+          "hint": "子组件通过它观察并修改实例属性"
+        },
+        {
+          "key": "E",
+          "text": "这条 V1 链路必须再给 completed 添加 V2 的 @Trace 才能保持一致"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-03-022",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章 Learner 示例中，completed 初值为 0。每次点击“完成一章”会执行 this.learner.completed++，连续点击 5 次后 completed 是多少？",
+      "explanation": "每次点击都让 completed 增加 1，从 0 连续执行 5 次自增后得到 5。@Observed 与 @ObjectLink 负责让这次属性变化进入 V1 观察链路。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "章",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-03-023",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "V2 中，若要让 Lesson 类进入本章所述的类实例观察体系，应在类上使用哪个装饰器？",
+      "explanation": "V2 使用 @ObservedV2 标记类，再用 @Trace 标记其中需要观察的属性。两者职责不同，@ObservedV2 面向类，@Trace 面向具体属性。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@ObservedV2",
+          "hint": "它是 V2 的类级观察装饰器"
+        },
+        {
+          "key": "B",
+          "text": "@Observed"
+        },
+        {
+          "key": "C",
+          "text": "@ObjectLink"
+        },
+        {
+          "key": "D",
+          "text": "@Provide"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-03-024",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "本章 V2 LessonCard 通过哪个装饰器接收父组件传入的 Lesson 实例？只写装饰器名。",
+      "explanation": "LessonCard 声明的是 @Param lesson。它用于接收父组件向下传入的数据，随后可以读取实例并修改被 @Trace 观察的 done 属性。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "@Param",
+        "Param"
+      ],
+      "placeholder": "例如：@Param"
+    },
+    {
+      "id": "harmony-03-025",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "在本章 V2 Lesson 类中，title 没有 @Trace，而 done 有 @Trace；只修改 title 时，不能指望这层属性观察机制自动刷新关联 UI。",
+      "explanation": "对。示例只把 done 标记为 @Trace，因此这层机制观察的是 done 的变化。title 没有被标记，不能把它的修改等同于被观察属性的更新。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "harmony-03-026",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于本章推荐的 lessons 数组不可变更新，下列哪些理解正确？",
+      "explanation": "展开旧数组并加入 newLesson 会生成新数组，再重新赋给 this.lessons，使状态引用变化清晰可见。讲义不推荐依赖原地 push，也不建议用 setTimeout 掩盖观察链路问题。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "统一优先使用 this.lessons.push(newLesson)，无需考虑引用变化"
+        },
+        {
+          "key": "B",
+          "text": "可使用 this.lessons = [...this.lessons, newLesson] 生成并赋回新数组",
+          "hint": "这是讲义给出的不可变追加写法"
+        },
+        {
+          "key": "C",
+          "text": "不可变替换能让数组引用的变化更清晰",
+          "hint": "排查时可以比较更新前后的引用"
+        },
+        {
+          "key": "D",
+          "text": "只要用 setTimeout 延迟执行 push，就能修复任意状态观察问题"
+        }
+      ],
+      "answer": [
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-03-027",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "对象字段已经修改，但嵌套内容没有刷新。按照本章方法，哪种排查最符合“观察边界”的思路？",
+      "explanation": "先确认修改落在对象本身、第一层字段还是更深字段，再判断当前装饰器是否覆盖该层级。只有定位到具体观察边界，才能选择 V1 的 @Observed/@ObjectLink 或 V2 的 @ObservedV2/@Trace。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "不检查修改层级，直接给页面增加随机 key"
+        },
+        {
+          "key": "B",
+          "text": "不检查所有权，统一把所有数据移入 AppStorage"
+        },
+        {
+          "key": "C",
+          "text": "只延长 setTimeout 的等待时间，不改变观察链路"
+        },
+        {
+          "key": "D",
+          "text": "先定位修改的是对象本身、第一层字段还是更深字段，再核对对应版本的观察机制",
+          "hint": "先确定越过的是哪一层观察边界"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-03-028",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章 V2 练习中 nextId 初值为 2，每次追加任务后执行 this.nextId++。连续追加 3 个任务后，nextId 的值是多少？",
+      "explanation": "每次追加都会让 nextId 增加 1。连续三次后，它依次从 2 变为 3、4、5，因此最终值是 5。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-03-029",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "本章 V2 任务列表需要稳定的 ForEach key，下列哪个写法与练习一致？",
+      "explanation": "练习使用 item.id.toString() 作为 key。任务 id 是稳定标识，而 done 会切换、title 未必唯一，数组位置也不能替代练习中的稳定任务 id。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "(item: StudyTask) => item.done.toString()"
+        },
+        {
+          "key": "B",
+          "text": "(item: StudyTask) => item.id.toString()",
+          "hint": "稳定任务 id 转为字符串作为 key"
+        },
+        {
+          "key": "C",
+          "text": "(item: StudyTask) => item.title"
+        },
+        {
+          "key": "D",
+          "text": "(item: StudyTask) => Math.random().toString()"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-03-030",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章 V2 练习中，TaskRow 与 Index 的 struct 使用哪个组件装饰器？只写装饰器名。",
+      "explanation": "练习中的 TaskRow 与 Index 都使用 @ComponentV2，与 @Local、@Param、@ObservedV2 和 @Trace 组成统一的 V2 数据流，没有混用 V1 的 @Component。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "@ComponentV2",
+        "ComponentV2"
+      ],
+      "placeholder": "例如：@ComponentV2"
+    },
+    {
+      "id": "harmony-03-031",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "关于 AppStorage 与 AppStorageV2 的适用场景，下列哪些说法符合本章边界？",
+      "explanation": "二者适合进程内跨组件共享登录态、全局配置等状态。它们不等于磁盘持久化，也不能替代所有首选项或关系型数据方案。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "可用于跨组件共享登录态",
+          "hint": "登录态是讲义列出的共享状态示例"
+        },
+        {
+          "key": "B",
+          "text": "会把其中任意状态自动写入磁盘"
+        },
+        {
+          "key": "C",
+          "text": "可用于共享全局配置",
+          "hint": "全局配置适合作为应用级共享状态"
+        },
+        {
+          "key": "D",
+          "text": "主要解决进程内的跨组件状态共享",
+          "hint": "内存共享与持久化是两个问题"
+        },
+        {
+          "key": "E",
+          "text": "可以无条件替代所有首选项与关系型数据存储"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-03-032",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "本章 V2 练习的 tasks 初始包含 1 个 StudyTask。每次点击“追加任务”都用新数组添加 1 项，连续点击 4 次后 tasks.length 是多少？",
+      "explanation": "初始数组有 1 项，四次追加各增加 1 项，因此 tasks.length=1+4=5。每次赋值都产生新数组引用，列表新增也处于 V2 状态链路中。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "项",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-03-033",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "一条数据流中，父组件用 V1 @State 持有值，子组件却按 V2 @Param/@Event 规则期待同步。最合理的修复是什么？",
+      "explanation": "问题出在整条链路混用了两套规则，应统一改为 V1 或 V2，并同步调整父子传参与状态声明。继续叠加装饰器或延迟刷新都不能修复版本不一致。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        },
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "保留两端代码，再额外添加 @Provide 掩盖差异"
+        },
+        {
+          "key": "B",
+          "text": "在子组件用 setTimeout 延迟读取，等待两套规则自行协调"
+        },
+        {
+          "key": "C",
+          "text": "把这条链路整体统一为 V1 或 V2，并同步调整父子传参方式",
+          "hint": "修复目标是同一数据流的规则一致性"
+        },
+        {
+          "key": "D",
+          "text": "给同一个变量同时叠加 @State 与 @Local"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-03-034",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "将 React 的状态思路迁移到本章 ArkUI 方案时，下列对应关系正确的有哪些？",
+      "explanation": "useState 可对应 V1 @State 或 V2 @Local，props 向下传可对应 @Prop 或 @Param，回调子传父可对应 V2 @Param + @Event。V2 推荐事件上传，而不是到处建立隐式双向绑定。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "props 向下传可迁移为 @Prop 或 @Param",
+          "hint": "两者都表达父到子的数据输入"
+        },
+        {
+          "key": "B",
+          "text": "useState 可迁移为 V1 @State 或 V2 @Local",
+          "hint": "按所选版本表达组件私有状态"
+        },
+        {
+          "key": "C",
+          "text": "回调子传父应迁移为到处建立隐式双向绑定"
+        },
+        {
+          "key": "D",
+          "text": "回调子传父在 V2 中可用 @Param + @Event 表达",
+          "hint": "子组件发事件，父组件修改自己的状态"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-03-035",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "V2 跨层级共享中，祖先组件用哪个装饰器提供状态，与后代的 @Consumer 对应？",
+      "explanation": "V2 使用 @Provider 与 @Consumer 组成跨层级共享方案。@Provider 位于提供状态的祖先侧，@Consumer 位于访问状态的后代侧。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@Provide 与 @Consume",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-provide-and-consume"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "@Provider",
+        "Provider"
+      ],
+      "placeholder": "例如：@Provider"
+    },
+    {
+      "id": "harmony-03-036",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "本章 V2 练习从 nextId=2 开始追加任务，每次先用当前 nextId 创建任务，再执行 nextId++。第三次追加所创建任务的 id 是多少？",
+      "explanation": "三次追加分别在自增前使用 nextId，因此创建的任务 id 依次为 2、3、4。第三次创建的任务 id 是 4，创建后 nextId 才变为 5。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-03-037",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "需求要求应用重启后仍能读取学习记录。按照本章划分，下列哪种处理最合理？",
+      "explanation": "应用级内存共享不等于持久化。需要跨重启保留的数据应采用后续首选项、关系型数据或相应状态持久化方案，不能仅依赖 AppStorage。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "根据数据形态选择后续持久化方案，而不是只把记录放进 AppStorage",
+          "hint": "持久化要解决应用重启后的数据保留"
+        },
+        {
+          "key": "B",
+          "text": "只使用 AppStorage，因为它会自动保存任意状态到磁盘"
+        },
+        {
+          "key": "C",
+          "text": "给数组加随机 key，重启后就能恢复数据"
+        },
+        {
+          "key": "D",
+          "text": "把 @State 改成 @Prop，即可获得磁盘持久化"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-03-038",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "按照本章“值和引用→观察层级→版本一致性”的固定顺序排查不刷新，下列哪些说法正确？",
+      "explanation": "先打印并检查更新前后的值与引用，再检查修改是否越过观察层级，最后确认数据流是否混用 V1/V2。这个顺序用于定位状态链路，三项不能被视为完全等价、随意替换。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "先检查值和引用是否确实发生变化",
+          "hint": "这是固定排查顺序的第一步"
+        },
+        {
+          "key": "B",
+          "text": "三项检查完全等价，任意颠倒都不会影响定位"
+        },
+        {
+          "key": "C",
+          "text": "随后检查修改位置是否落在观察层级覆盖范围内",
+          "hint": "对象本身与深层字段可能对应不同观察边界"
+        },
+        {
+          "key": "D",
+          "text": "再检查同一条数据流是否混用了 V1 与 V2",
+          "hint": "版本一致性是固定顺序中的第三条线"
+        },
+        {
+          "key": "E",
+          "text": "打印更新前后的引用与字段值有助于第一步定位",
+          "hint": "先取得事实，再选择修复方式"
+        }
+      ],
+      "answer": [
+        "A",
+        "C",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "harmony-03-039",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "祖先组件通过 @Provide('studyScore') 提供初值 60，后代使用匹配的 @Consume。若祖先把 score 增加 8，后代读取到的共享分数是多少？",
+      "explanation": "祖先与后代通过相同的 studyScore 键共享状态，祖先把分数增加 8 后，后代读取的是更新后的共享值，即 60+8=68 分。",
+      "refs": [
+        {
+          "title": "@Provide 与 @Consume",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-provide-and-consume"
+        }
+      ],
+      "type": "numeric",
+      "answer": 68,
+      "tolerance": 0,
+      "unit": "分",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-03-040",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "一个高频变化的应用级状态导致整页许多无关区域跟着更新，哪种治理方式符合本章建议？",
+      "explanation": "高频变化状态放入应用级共享时，应控制订阅范围，避免全局更新放大成整页刷新。增加无关订阅或销毁重建页面都不能缩小更新影响面。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "让页面所有组件都订阅这个状态，不管是否使用"
+        },
+        {
+          "key": "B",
+          "text": "用随机 key 强制整页重建，以扩大刷新范围"
+        },
+        {
+          "key": "C",
+          "text": "把它复制到更多全局键中，增加同步链路"
+        },
+        {
+          "key": "D",
+          "text": "控制订阅范围，避免高频全局更新放大成整页刷新",
+          "hint": "缩小受影响的状态订阅面"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-03-041",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章表格中，V1 用于应用级跨组件状态共享的中枢叫什么？只写 API 名称。",
+      "explanation": "V1 对应的应用级状态中枢是 AppStorage，V2 对应 AppStorageV2。它们用于跨组件内存共享，不代表自动磁盘持久化。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "AppStorage",
+        "AppStorage API",
+        "AppStorage状态存储"
+      ],
+      "placeholder": "例如：AppStorage"
+    },
+    {
+      "id": "harmony-03-042",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "V1 子组件需要通过 @Link 接收父组件的 score，下列哪个声明符合本章规则？",
+      "explanation": "@Link 不能在子组件本地初始化，应只声明 @Link score: number，再由父组件通过 this.$score 传入状态引用。给它默认值或普通值都不符合这条绑定规则。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@State：组件内状态",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ts-state-management-state"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Link score: number = 60;"
+        },
+        {
+          "key": "B",
+          "text": "@Link score: number;",
+          "hint": "不在本地初始化，由父组件传入状态引用"
+        },
+        {
+          "key": "C",
+          "text": "@Link score: number = this.score;"
+        },
+        {
+          "key": "D",
+          "text": "score: number = 60;"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-03-043",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "把 React Context 的跨层共享思路迁移到 ArkUI 时，哪种做法符合本章建议？",
+      "explanation": "Context 对应 Provide/Consume 或 Provider/Consumer 这类跨层共享能力，可避免每一层机械转发无关参数。它不要求把所有局部状态都改成全局状态。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "@Provide 与 @Consume",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-provide-and-consume"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "按所选版本使用 Provide/Consume 或 Provider/Consumer，减少逐层机械转发",
+          "hint": "跨层共享可以越过无关中间层"
+        },
+        {
+          "key": "B",
+          "text": "每一层都必须接收并转发所有参数，即使完全不用"
+        },
+        {
+          "key": "C",
+          "text": "把所有组件私有计数器都改成磁盘数据库字段"
+        },
+        {
+          "key": "D",
+          "text": "用 setTimeout 在中间层逐层传递状态"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-03-044",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "排查状态不刷新时，下列哪些属于本章明确不推荐的“掩盖问题”做法？",
+      "explanation": "setTimeout 延迟刷新、随机 key 和销毁重建页面都没有修复状态链路，还可能引入新的时序问题。打印值与引用、检查装饰器版本才是定位问题的有效手段。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "打印更新前后的引用与字段值"
+        },
+        {
+          "key": "B",
+          "text": "用 setTimeout 延迟刷新来掩盖问题",
+          "hint": "延迟执行没有修复观察链路"
+        },
+        {
+          "key": "C",
+          "text": "通过随机 key 强制组件更新",
+          "hint": "随机重建不等于修复状态同步"
+        },
+        {
+          "key": "D",
+          "text": "检查装饰器版本与父子传参是否一致"
+        },
+        {
+          "key": "E",
+          "text": "销毁并重建整个页面以暂时恢复显示",
+          "hint": "这会掩盖根因并引入额外时序问题"
+        }
+      ],
+      "answer": [
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "harmony-03-045",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "为什么本章不建议遇到深层属性不刷新时，就无差别重建整个对象？",
+      "explanation": "无差别重建可能暂时让引用变化，却掩盖真正的状态所有权错误，还会增加不必要的更新。应先定位观察层级，再补齐对应版本的观察机制。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "因为对象重建在任何情况下都无法改变引用"
+        },
+        {
+          "key": "B",
+          "text": "因为 ArkUI 禁止创建任何新的类实例"
+        },
+        {
+          "key": "C",
+          "text": "因为只要重建对象，所有装饰器都会自动失效"
+        },
+        {
+          "key": "D",
+          "text": "因为它可能掩盖所有权错误，并增加不必要更新",
+          "hint": "引用变化不等于状态链路已经设计正确"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-03-046",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "V2 子组件用哪个装饰器声明回调，向父组件发出修改状态的意图？只写装饰器名。",
+      "explanation": "@Event 用于表达子组件发出的变更意图，父组件注入相应实现并修改自己拥有的状态。它与向下传数据的 @Param 配套形成清晰的数据流。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "@Event",
+        "Event"
+      ],
+      "placeholder": "例如：@Event"
+    },
+    {
+      "id": "harmony-03-047",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章 V2 LessonCard 需要切换完成状态，下列哪种操作符合 @Param 与 @Trace 的使用方式？",
+      "explanation": "子组件可以修改传入实例上被 @Trace 观察的 done 属性，但不应给 @Param lesson 本身重新赋值。切换 this.lesson.done 正好符合这条属性观察链路。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "执行 this.lesson = new Lesson('新实例')，重新赋值 @Param 本身"
+        },
+        {
+          "key": "B",
+          "text": "执行 this.lesson.done = !this.lesson.done，修改被 @Trace 观察的属性",
+          "hint": "修改实例属性，而不是替换 @Param 本身"
+        },
+        {
+          "key": "C",
+          "text": "给 LessonCard 再叠加一个 V1 @ObjectLink 以替代 @Param"
+        },
+        {
+          "key": "D",
+          "text": "只修改一个与 UI 无关的普通局部变量"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-03-048",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "本章 V1 LearnerPage 已用 @State 持有 learner，向 LearnerCard 的 @ObjectLink 传入该实例时，哪个写法与示例一致？",
+      "explanation": "@ObjectLink 接收父组件持有的 @Observed 类实例，示例写 LearnerCard({ learner: this.learner })。这里不是 @Link 的 this.$learner 引用传法，也不需要重新创建另一个实例。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "LearnerCard({ learner: this.$learner })"
+        },
+        {
+          "key": "B",
+          "text": "LearnerCard({ learner: 'learner' })"
+        },
+        {
+          "key": "C",
+          "text": "LearnerCard({ learner: this.learner })",
+          "hint": "把父组件持有的 Learner 实例直接传给 @ObjectLink"
+        },
+        {
+          "key": "D",
+          "text": "LearnerCard({ learner: new Learner('另一位学习者', 10) })"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-03-049",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "对照本章 V2 StudyTask 练习，下列哪些实现同时满足属性观察、父子传参与数组新增要求？",
+      "explanation": "练习用 @ObservedV2 标记 StudyTask，用 @Trace 观察 done，TaskRow 通过 @Param 接收任务，Index 用 @Local 持有 tasks 并以新数组追加。整条链路统一使用 V2，不需要再叠加 V1 @State。",
+      "refs": [
+        {
+          "title": "状态管理概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview"
+        },
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "StudyTask 的 done 属性使用 @Trace 标记",
+          "hint": "完成状态切换需要进入属性观察链路"
+        },
+        {
+          "key": "B",
+          "text": "StudyTask 类使用 @ObservedV2 标记",
+          "hint": "类级观察与属性级 @Trace 配套"
+        },
+        {
+          "key": "C",
+          "text": "在同一条数据流中再叠加 V1 @State，以混用版本增强观察"
+        },
+        {
+          "key": "D",
+          "text": "TaskRow 通过 @Param task 接收任务实例",
+          "hint": "子组件接收数据并切换 task.done"
+        },
+        {
+          "key": "E",
+          "text": "Index 用 @Local tasks 持有列表，并通过 this.tasks = [...this.tasks, task] 追加",
+          "hint": "私有列表状态与不可变新增都属于 V2 练习"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "harmony-03-050",
+      "skill": "harmony",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "V1 祖先与后代通过 studyScore 共享 number 类型的 score，下列哪组声明符合本章的名称和类型匹配要求？",
+      "explanation": "@Provide 与 @Consume 应使用相同的 studyScore 键名，并保持 number 类型一致。不同键名无法表达同一份共享状态，改成 string 也破坏了类型匹配。",
+      "refs": [
+        {
+          "title": "@Provide 与 @Consume",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-provide-and-consume"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "祖先 @Provide('score') score: number，后代 @Consume('studyScore') score: number"
+        },
+        {
+          "key": "B",
+          "text": "祖先 @Provide('studyScore') score: number，后代 @Consume('studyScore') score: string"
+        },
+        {
+          "key": "C",
+          "text": "祖先 @Provide('studyScore') score: string，后代 @Consume('studyScore') score: number"
+        },
+        {
+          "key": "D",
+          "text": "祖先 @Provide('studyScore') score: number，后代 @Consume('studyScore') score: number",
+          "hint": "共享键名和变量类型都一致"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
     }
   ]
 }

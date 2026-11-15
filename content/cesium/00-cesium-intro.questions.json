@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "00",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-00-001",
@@ -300,6 +300,1134 @@
       ],
       "answer": [
         "B"
+      ]
+    },
+    {
+      "id": "cesium-00-011",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "与二维瓦片地图相比，哪些属于本章强调的 CesiumJS 场景能力？",
+      "explanation": "CesiumJS 以 WGS84 真实椭球组织三维场景，相机可以贴地、倾斜和绕飞，高度与内置 Clock 时间维度都是一等能力。固定俯视反而是二维地图的典型限制。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "在 WGS84 真实椭球上组织场景",
+          "hint": "椭球体是 Cesium 与平面瓦片地图的重要区别"
+        },
+        {
+          "key": "B",
+          "text": "相机可以贴地、倾斜并绕飞",
+          "hint": "自由三维视角属于核心能力"
+        },
+        {
+          "key": "C",
+          "text": "视角只能保持固定俯视"
+        },
+        {
+          "key": "D",
+          "text": "地形、建筑和卫星轨道都可以具有高度",
+          "hint": "高度在 Cesium 中是一等公民"
+        },
+        {
+          "key": "E",
+          "text": "利用内置 Clock 进行轨迹回放",
+          "hint": "Clock 为动态模拟提供时间维度"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-00-012",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在 Vite 中安装 cesium 包后，要让本地 Viewer 正确找到运行资源，还必须完成哪项配置？",
+      "explanation": "打包工具不会自动搬运 Cesium 的 Workers、Assets、Widgets、ThirdParty 四个静态目录。需要复制这些目录并配置 CESIUM_BASE_URL，引擎才能从正确 URL 加载资源。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "只执行 npm run dev，无需处理任何静态资源"
+        },
+        {
+          "key": "B",
+          "text": "复制四个静态资源目录，并配置 CESIUM_BASE_URL",
+          "hint": "资源位置与全局基础 URL 两项都要处理"
+        },
+        {
+          "key": "C",
+          "text": "只配置 Cesium.Ion.defaultAccessToken"
+        },
+        {
+          "key": "D",
+          "text": "必须改用服务端渲染才能加载资源"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-013",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Vite 配置中，用于告诉 Cesium 静态资源基础 URL 的全局常量名称是什么？",
+      "explanation": "CESIUM_BASE_URL 指定引擎加载 Workers、Assets 等资源的 URL 前缀。本章通过 Vite 的 define 配置把它定义为 /cesium，与四个静态目录的复制目标对应。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "CESIUM_BASE_URL"
+      ],
+      "placeholder": "填写全局常量名"
+    },
+    {
+      "id": "cesium-00-014",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在 React 或 Vue 中使用 CesiumJS，应等容器渲染完成后再初始化，并关闭服务端渲染，否则可能出现白屏。",
+      "explanation": "Cesium 会直接操作真实 DOM 和 WebGL 画布。容器尚未挂载时不存在可用 DOM 节点，服务端环境也没有浏览器画布，因此要延迟到客户端容器就绪后初始化。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-00-015",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在 Cesium 中把相机初始高度设为 2.5 千米。若高度参数以米为单位，应填写多少？（只填数值）",
+      "explanation": "长度单位换算为 1 千米 = 1000 米，所以相机高度 = 2.5 × 1000 = 2500 米。Cesium 的高度数值按米填写，精确答案为 2500。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2500,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "例如：1000"
+    },
+    {
+      "id": "cesium-00-016",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在三维地球上点击中国北京的大致位置，将其作为城市级场景的观察目标。",
+      "explanation": "北京位于中国华北地区，坐标约为北纬 39.9042°、东经 116.4074°，城市级容差为 300 千米。在 Cesium 中可用该经纬度定位到 WGS84 椭球上的北京，再推近并倾斜相机观察城市；立体建筑仍需另配三维数据。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9042,
+        "lng": 116.4074
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-00-017",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "本地部署 CesiumJS 时，本章要求复制到输出目录的静态资源目录有哪些？",
+      "explanation": "本章明确列出 Workers、Assets、Widgets、ThirdParty 四个目录，它们分别承载计算任务、资源文件、界面控件资源和第三方依赖。Documents 不属于这套必拷目录。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Workers",
+          "hint": "包含后台计算所需的 Worker 资源"
+        },
+        {
+          "key": "B",
+          "text": "Assets",
+          "hint": "包含引擎运行所需资源"
+        },
+        {
+          "key": "C",
+          "text": "Widgets",
+          "hint": "包含 Viewer 控件相关资源"
+        },
+        {
+          "key": "D",
+          "text": "ThirdParty",
+          "hint": "包含随引擎分发的第三方依赖"
+        },
+        {
+          "key": "E",
+          "text": "Documents"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-00-018",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "本章建议使用哪种 Vite 项目模板来最直观地运行第一个 Cesium 示例？",
+      "explanation": "本章假设使用纯前端、无框架的 Vanilla JS 项目。这样能直接观察 DOM 容器、Cesium 初始化和静态资源配置，不必先处理框架生命周期。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "vanilla",
+          "hint": "无框架模板最贴合本章十行入门代码"
+        },
+        {
+          "key": "B",
+          "text": "react"
+        },
+        {
+          "key": "C",
+          "text": "vue"
+        },
+        {
+          "key": "D",
+          "text": "必须先使用服务端渲染模板"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-00-019",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在默认 Viewer 中，可以按住右键或使用 Ctrl 加左键拖动来倾斜视角，从贴地方向观察城市。",
+      "explanation": "本章给出的鼠标操作中，左键拖动用于转球，中键或右键用于缩放，按住右键或 Ctrl 加左键拖动可倾斜视角。倾斜观察正是三维场景区别于固定俯视地图的重要体验。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-00-020",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "本章用于创建带控件三维地球查看器的 Cesium 类名是什么？",
+      "explanation": "Cesium.Viewer 是本章创建第一个三维地球的入口类，构造时传入 DOM 容器和 baseLayer 等选项。它组合了场景、相机以及罗盘、时钟等常用控件。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Viewer",
+        "Cesium.Viewer"
+      ],
+      "placeholder": "填写 Cesium 类名"
+    },
+    {
+      "id": "cesium-00-021",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "两个观察点位于同一纬度，经度分别为东经 116.4° 和东经 104.1°，它们的经度相差多少度？",
+      "explanation": "两点都在东经且纬度相同，经度差直接相减：116.4° - 104.1° = 12.3°。把坐标传给 Cesium 时仍要遵守经度在前、纬度在后的参数顺序。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12.3,
+      "tolerance": 0,
+      "unit": "°",
+      "placeholder": "只填经度差的数值"
+    },
+    {
+      "id": "cesium-00-022",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在三维地球上点击澳大利亚悉尼的大致位置，将其作为南半球城市场景的观察目标。",
+      "explanation": "悉尼位于澳大利亚东南沿海，坐标约为南纬 33.8688°、东经 151.2093°，城市级容差为 300 千米。在 Cesium 中定位时要注意纬度为负、经度为正，可从全球视角推近后倾斜观察免费影像中的城市纹理。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -33.8688,
+        "lng": 151.2093
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-00-023",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Cesium 的名称与哪一时间标准背景相关？",
+      "explanation": "Cesium 是元素铯，铯原子钟用于定义时间标准。这个名称对应了引擎对时间维度的一等支持，例如借助 Clock 进行轨迹回放与动态模拟。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "铯原子钟与时间标准",
+          "hint": "名称来自元素铯，也呼应引擎的时间维度"
+        },
+        {
+          "key": "B",
+          "text": "CSS 动画的帧率标准"
+        },
+        {
+          "key": "C",
+          "text": "OSM 瓦片的版本编号"
+        },
+        {
+          "key": "D",
+          "text": "Web 墨卡托投影的专利名称"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-00-024",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "本章练习使用的 ArcGIS World Imagery 不是 OSM，因此必须配置 Cesium ion token 才能加载。",
+      "explanation": "本章练习特别选用无需 token 的 ArcGIS World Imagery 免费瓦片服务，通过 ArcGisMapServerImageryProvider.fromUrl 加载。它不是默认 ion 影像，不注册 ion 也能完成该练习。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-00-025",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "对照本章最小 Viewer 示例，哪些步骤确实出现在初始化流程中？",
+      "explanation": "示例先导入 Cesium 命名空间和 widgets.css，再以 cesiumContainer 为 DOM 容器构造 Viewer，并显式传入免费 baseLayer。整个免费底图流程不要求注册 ion 或设置默认 token。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "通过 import * as Cesium from \"cesium\" 导入引擎",
+          "hint": "示例使用命名空间导入"
+        },
+        {
+          "key": "B",
+          "text": "导入 cesium/Build/Cesium/Widgets/widgets.css",
+          "hint": "控件样式来自该 CSS 文件"
+        },
+        {
+          "key": "C",
+          "text": "显式提供免费的 baseLayer",
+          "hint": "避免默认影像触发未授权请求"
+        },
+        {
+          "key": "D",
+          "text": "以 cesiumContainer 为容器构造 Cesium.Viewer",
+          "hint": "Viewer 需要已存在的 DOM 容器"
+        },
+        {
+          "key": "E",
+          "text": "必须设置 Cesium.Ion.defaultAccessToken 后才能运行"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-00-026",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "要让 Viewer 自带控件具备官方样式，本章示例从 cesium 包导入了哪个 CSS 路径？",
+      "explanation": "正确导入路径是 cesium/Build/Cesium/Widgets/widgets.css。它提供 Viewer 及控件的样式；只导入 JavaScript 而遗漏该文件，控件布局和外观可能异常。",
+      "refs": [
+        {
+          "title": "CesiumJS Quickstart（官方入门）",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-quickstart/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "cesium/Build/Cesium/Widgets/widgets.css"
+      ],
+      "placeholder": "填写完整的 CSS 导入路径"
+    },
+    {
+      "id": "cesium-00-027",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "把旧教程 new Cesium.Viewer(el, { imageryProvider: p }) 迁移到 1.107+，哪项底图写法符合本章基线？",
+      "explanation": "1.107 将 Viewer 的 imageryProvider 选项更新为 baseLayer，并采用 ImageryLayer.fromProviderAsync 包装异步 Provider。仅设置 token 不能替代底图选项迁移。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "继续使用 imageryProvider: p，并断言它永不废弃"
+        },
+        {
+          "key": "B",
+          "text": "使用 baseLayer: Cesium.ImageryLayer.fromProviderAsync(p)",
+          "hint": "新选项名与异步图层包装要同时更新"
+        },
+        {
+          "key": "C",
+          "text": "把 p 传给 baseLayerPicker，替代所有影像配置"
+        },
+        {
+          "key": "D",
+          "text": "把 p 直接赋给 Cesium.Ion.defaultAccessToken"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-028",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "CesiumJS 通常每月发布一个小版本，但本章指出破坏性变更很少，多数 API 的签名多年保持稳定。",
+      "explanation": "本章版本基线说明发布节奏与 API 稳定性是两件事：小版本按月发布，并不意味着每月都要重写业务。升级前仍应查变更日志，重点关注少数废弃和破坏性改动。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-00-029",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "以每秒 60 帧的恒定速率渲染一段 3 秒相机动画，一共需要渲染多少帧？",
+      "explanation": "总帧数等于帧率乘以时长：60 帧/秒 × 3 秒 = 180 帧。秒的单位相互抵消，因此精确结果为 180，不需要额外取整。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 180,
+      "tolerance": 0,
+      "unit": "帧",
+      "placeholder": "只填总帧数"
+    },
+    {
+      "id": "cesium-00-030",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在三维地球上点击美国纽约市的大致位置，将其作为北美洲城市场景的观察目标。",
+      "explanation": "纽约市位于美国东北沿海，坐标约为北纬 40.7128°、西经 74.0060°，城市级容差为 300 千米。Cesium 坐标参数中应写纬度 40.7128、经度 -74.006，并记住 fromDegrees 等 API 是经度在前；建筑立体化需要独立三维数据。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.7128,
+        "lng": -74.006
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-00-031",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "本章提到 Viewer 右下角及画面自带的控件包括哪些？",
+      "explanation": "本章列出的自带控件有罗盘、比例尺和动画时钟，分别用于转向、判断尺度和控制时间。图层树与 SQL 查询面板不属于这段入门说明。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "罗盘",
+          "hint": "可用于调整场景方向"
+        },
+        {
+          "key": "B",
+          "text": "比例尺",
+          "hint": "用于辅助判断当前视图尺度"
+        },
+        {
+          "key": "C",
+          "text": "动画时钟",
+          "hint": "对应 Cesium 的时间维度"
+        },
+        {
+          "key": "D",
+          "text": "本章明确内置的 SQL 查询面板"
+        },
+        {
+          "key": "E",
+          "text": "本章明确内置的数据库图层树"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-00-032",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "从 1.123 起 Viewer 功能逐步迁移到哪个可用于无控件场景的类？写出类名。",
+      "explanation": "CesiumWidget 提供更轻量的无控件场景入口。本章在 1.123 里程碑中指出 Viewer 功能逐步向它迁移，因此只需要地球画布而不需要整套 Viewer 控件时可关注该类。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "CesiumWidget",
+        "Cesium.CesiumWidget"
+      ],
+      "placeholder": "填写 Cesium 类名"
+    },
+    {
+      "id": "cesium-00-033",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "最小 Viewer 示例同时设置 baseLayerPicker: false、geocoder: false、homeButton: false，目的是什么？",
+      "explanation": "这三个布尔选项分别关闭底图选择器、地理编码搜索和主页按钮，目的是关掉入门示例用不到的控件，让画面更干净。它们不会删除 baseLayer，也不会锁定相机或改变投影。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "关闭用不到的界面控件，让画面更简洁",
+          "hint": "这些选项控制界面功能，不改变地球数据模型"
+        },
+        {
+          "key": "B",
+          "text": "删除已经显式配置的 baseLayer"
+        },
+        {
+          "key": "C",
+          "text": "禁止用户进行任何相机缩放和倾斜"
+        },
+        {
+          "key": "D",
+          "text": "把 WGS84 椭球切换为 Web 墨卡托平面"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-00-034",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "从 1.109 起，旧同步构造器仍被完整保留并推荐使用，因此网上旧教程不会因这些构造器而报错。",
+      "explanation": "1.109 起旧同步构造器陆续移除，旧教程中的 new Provider 或 new Tileset 写法可能直接报错。迁移时应采用 fromUrl、fromIonAssetId 等本章列出的新式工厂。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-00-035",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "WGS84 椭球的长半轴为 6378137 米，换算为千米是多少？（只填数值）",
+      "explanation": "按 1 千米 = 1000 米换算，长半轴 = 6378137 ÷ 1000 = 6378.137 千米。该数值描述 Cesium 默认使用的 WGS84 椭球尺度，精确到题给小数无需四舍五入。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6378.137,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填换算后的数值"
+    },
+    {
+      "id": "cesium-00-036",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在三维地球上点击肯尼亚内罗毕的大致位置，将其作为非洲城市场景的观察目标。",
+      "explanation": "内罗毕是肯尼亚首都，位于东非高原，坐标约为南纬 1.2921°、东经 36.8219°，城市级容差为 300 千米。在 Cesium 全球场景中可先定位这个靠近赤道的城市，再推近观察影像；如需真实地面起伏，应另接地形服务。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        },
+        {
+          "title": "OpenStreetMap",
+          "url": "https://www.openstreetmap.org/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -1.2921,
+        "lng": 36.8219
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-00-037",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "按照本章建议，Sandcastle 可以用来完成哪些学习与验证工作？",
+      "explanation": "Sandcastle 的三类推荐用途是查询 API 示例、验证 Provider 在当前网络中的表现，以及阅读官方示例源码。它不是必须执行的本地构建步骤，也不是生产瓦片发布平台。",
+      "refs": [
+        {
+          "title": "Cesium Sandcastle 官方示例场",
+          "url": "https://sandcastle.cesium.com/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "搜索 camera flyTo 等 API 的可运行示例",
+          "hint": "可先抄官方示例再按需求修改"
+        },
+        {
+          "key": "B",
+          "text": "先验证某个 Provider 在当前网络环境能否出图",
+          "hint": "验证通过后再搬回本地项目"
+        },
+        {
+          "key": "C",
+          "text": "阅读官方示例下方的源码",
+          "hint": "示例源码是免费的最佳实践材料"
+        },
+        {
+          "key": "D",
+          "text": "把它当作每个本地项目必须执行的编译器"
+        },
+        {
+          "key": "E",
+          "text": "用它替代所有生产环境的瓦片托管服务"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-00-038",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "1.119 新增了哪个全局属性，可以一处设置默认椭球并让各 API 共同使用？",
+      "explanation": "Ellipsoid.default 是 1.119 新增的全局默认椭球入口。修改它可让相关 API 使用同一椭球，不必在每次调用时逐个传参，适用于基准面对比或其他天体场景。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Ellipsoid.default",
+        "Cesium.Ellipsoid.default"
+      ],
+      "placeholder": "填写完整的属性名"
+    },
+    {
+      "id": "cesium-00-039",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "哪个版本新增 scene.requestRenderMode，为后续按需渲染性能优化提供开关？",
+      "explanation": "scene.requestRenderMode 在 1.51 引入，是本章列出的性能里程碑。1.104 主要引入异步工厂，1.107 更新 Viewer 底图选项，1.121 则改变多项默认视觉设置。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "1.51",
+          "hint": "该版本新增按需渲染开关"
+        },
+        {
+          "key": "B",
+          "text": "1.104"
+        },
+        {
+          "key": "C",
+          "text": "1.107"
+        },
+        {
+          "key": "D",
+          "text": "1.121"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-00-040",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "升级 CesiumJS 前，可以在官方仓库的 CHANGES.md 中检索用到的类名，核对废弃和破坏性变更。",
+      "explanation": "CHANGES.md 按版本倒序记录废弃和破坏性变更，是本章推荐的官方核查渠道。先搜索项目使用的类名，能比凭旧教程猜测更可靠地发现需要迁移的 API。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-00-041",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "本章列为多年稳定、可放心引用旧资料的 API 或文档结构有哪些？",
+      "explanation": "Entity 体系、GeoJsonDataSource、CZML 文档结构以及 ScreenSpaceEventHandler 与 pick 都在本章的稳定区清单中。Globe.terrainExaggeration 则已在 1.116 移除，不能当作稳定 API。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Entity 体系",
+          "hint": "属于本章明确列出的稳定区"
+        },
+        {
+          "key": "B",
+          "text": "GeoJsonDataSource",
+          "hint": "属于本章明确列出的稳定区"
+        },
+        {
+          "key": "C",
+          "text": "CZML 文档结构",
+          "hint": "文档结构也位于稳定区清单"
+        },
+        {
+          "key": "D",
+          "text": "ScreenSpaceEventHandler 与 pick",
+          "hint": "事件处理与拾取接口多年稳定"
+        },
+        {
+          "key": "E",
+          "text": "Globe.terrainExaggeration"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-00-042",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "在 CesiumJS 1.115+ 中，希望相机与 3D Tiles 碰撞、Entity 可贴到其表面，应如何配置？",
+      "explanation": "1.115 起 3D Tiles 默认不参与相机碰撞，Entity 也不再自动贴到其表面。需要在 Cesium3DTileset 上启用 enableCollision: true；旧 disableCollision 字段已经移除。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "为 Cesium3DTileset 设置 enableCollision: true",
+          "hint": "显式开启碰撞，才能恢复相机碰撞和实体贴附语义"
+        },
+        {
+          "key": "B",
+          "text": "继续使用已经移除的 disableCollision 字段"
+        },
+        {
+          "key": "C",
+          "text": "只设置 baseLayerPicker: false"
+        },
+        {
+          "key": "D",
+          "text": "只需把影像换成 OSM，碰撞会自动开启"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-00-043",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "按照本章的新旧写法对照表，哪些 API 迁移对应关系是正确的？",
+      "explanation": "1.104 起 Provider 与 Tileset 广泛采用异步工厂，1.109 起旧同步构造器陆续移除。OSM Provider 和 3D Tiles 使用 fromUrl，世界地形与 OSM 建筑分别使用题目列出的 fromIonAssetId 工厂及资源编号。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "new OpenStreetMapImageryProvider({ url }) 改为 OpenStreetMapImageryProvider.fromUrl(url)",
+          "hint": "OSM Provider 改用异步 URL 工厂"
+        },
+        {
+          "key": "B",
+          "text": "new Cesium3DTileset({ url }) 改为 Cesium3DTileset.fromUrl(url)",
+          "hint": "3D Tiles 同样采用异步工厂"
+        },
+        {
+          "key": "C",
+          "text": "createWorldTerrain() 改为 CesiumTerrainProvider.fromIonAssetId(1)",
+          "hint": "本章给出的世界地形新写法"
+        },
+        {
+          "key": "D",
+          "text": "createOsmBuildings() 改为 Cesium3DTileset.fromIonAssetId(96188)",
+          "hint": "OSM 建筑使用本章列出的 ion 资源编号"
+        },
+        {
+          "key": "E",
+          "text": "把所有 fromUrl 工厂改回 new 同步构造器，以符合 1.109+ 推荐写法"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-00-044",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "1.122 的 CallbackPositionProperty 仍需每帧全量求值，因此它比 CallbackProperty 更耗性能。",
+      "explanation": "CallbackPositionProperty 的新增价值正是支持位置懒求值。本章把它列为高频动态位置的性能新选项，与每帧全量求值的 CallbackProperty 相比可以减少不必要计算，题干把两者关系说反了。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-00-045",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "1.116 移除 Globe.terrainExaggeration 后，地形夸张应改用 Scene 下的哪个属性？",
+      "explanation": "地形夸张入口已统一迁移到 Scene.verticalExaggeration。旧 Globe.terrainExaggeration 不再可用；本章还同时列出 verticalExaggerationRelativeHeight 作为 Scene 上的相关属性。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Scene.verticalExaggeration",
+        "verticalExaggeration"
+      ],
+      "placeholder": "例如：Scene.xxx"
+    },
+    {
+      "id": "cesium-00-046",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "一段相机动画已渲染 300 帧，渲染速率恒为每秒 30 帧，这段动画持续多少秒？",
+      "explanation": "时长等于总帧数除以帧率：300 帧 ÷ 30 帧/秒 = 10 秒。这里帧率恒定且总帧数可以整除，因此精确答案为 10。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0,
+      "unit": "秒",
+      "placeholder": "只填动画时长数值"
+    },
+    {
+      "id": "cesium-00-047",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "升级到 CesiumJS 1.121 后，同一份代码画面更亮且边缘更平滑，最合理的判断是什么？",
+      "explanation": "1.121 默认开启 4 倍 MSAA，并将默认色调映射从 ACES 换成 Khronos PBR Neutral，因此边缘更平滑、模型观感变亮属于官方默认视觉质量调整，不是业务代码回归。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "业务代码一定发生回归，应立即回退全部场景逻辑"
+        },
+        {
+          "key": "B",
+          "text": "默认 4 倍 MSAA 与 Khronos PBR Neutral 色调映射带来的视觉变化",
+          "hint": "这是 1.121 的两项默认观感变化"
+        },
+        {
+          "key": "C",
+          "text": "经纬度顺序被引擎自动交换"
+        },
+        {
+          "key": "D",
+          "text": "Viewer 已自动停止加载一切影像"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-00-048",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "1.123 中用于限制相机最大倾斜角、帮助防止钻地的控制器属性完整名称是什么？",
+      "explanation": "ScreenSpaceCameraController.maximumTiltAngle 是 1.123 新增的相机俯仰上限。通过限制最大倾斜角，可以约束用户交互，降低钻入地下或穿模的风险。",
+      "refs": [
+        {
+          "title": "CesiumJS 版本变更日志",
+          "url": "https://github.com/CesiumGS/cesium/blob/main/CHANGES.md"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ScreenSpaceCameraController.maximumTiltAngle",
+        "maximumTiltAngle"
+      ],
+      "placeholder": "填写控制器属性完整名称"
+    },
+    {
+      "id": "cesium-00-049",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "按题给 WGS84 参数，长半轴 a = 6378137 米、短半轴 b = 6356752.314245 米，a - b 等于多少米？",
+      "explanation": "直接按题给精度作减法：6378137 - 6356752.314245 = 21384.685755 米。该差值反映 WGS84 椭球长短半轴之差，过程未再近似或四舍五入，因此 tolerance 为 0。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 21384.685755,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "按题给小数精度填写"
+    },
+    {
+      "id": "cesium-00-050",
+      "skill": "cesium",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "根据更换 ArcGIS World Imagery 的练习与解答，关于影像、地形、三维模型的关系，哪些判断正确？",
+      "explanation": "卫星影像负责表面纹理，地形服务负责地面起伏，3D Tiles 等三维模型负责让建筑真正立体，三者是相互独立的数据层。只换影像可以看到屋顶纹理，却不会自动产生高度或立体建筑。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "卫星影像可显示建筑屋顶纹理，但仍平贴在球面上",
+          "hint": "可见纹理不等于具有真实高度"
+        },
+        {
+          "key": "B",
+          "text": "要让地面产生真实起伏，需要接入地形服务",
+          "hint": "地形是影像之外的独立数据层"
+        },
+        {
+          "key": "C",
+          "text": "要让屋顶和建筑真正立起来，需要 3D Tiles 等三维模型",
+          "hint": "立体建筑由三维模型承担"
+        },
+        {
+          "key": "D",
+          "text": "影像、地形和三维模型是相互独立的数据层",
+          "hint": "三层可以分别配置与组合"
+        },
+        {
+          "key": "E",
+          "text": "只要换用卫星影像，地面和建筑就会自动获得真实高度"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
       ]
     }
   ]

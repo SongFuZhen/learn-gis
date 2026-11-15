@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "00",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-00-001",
@@ -310,6 +310,846 @@
       "tolerance": 0,
       "unit": "公顷",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-00-014",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在一个 GIS 技术栈中，需要持久保存地块并执行 SQL 空间查询，应选择哪类工具？",
+      "explanation": "讲义的分工表把数据存储与 SQL 空间查询交给 PostGIS 或 GeoPackage；Turf 只负责客户端几何计算，Leaflet 负责二维地图，Cesium 负责三维渲染。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Turf.js" },
+        {
+          "key": "B",
+          "text": "PostGIS / GeoPackage",
+          "hint": "这一层负责数据持久化与空间查询"
+        },
+        { "key": "C", "text": "Leaflet" },
+        { "key": "D", "text": "CesiumJS" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-00-015",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于讲义中的 @turf/helpers 创建函数，下列用法描述正确的有哪些？",
+      "explanation": "point 可用第二个参数携带 properties，lineString 按顺序组织路线坐标，featureCollection 则把多个 Feature 组成集合。helpers 只负责创建 GeoJSON，不会自动给数据添加地图样式或执行渲染。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "point([116.404, 39.915], { name: \"天安门\" }) 可创建带名称属性的点",
+          "hint": "point 的第二个参数用于 properties"
+        },
+        {
+          "key": "B",
+          "text": "lineString 用于把路线坐标按顺序组织成线",
+          "hint": "讲义用它创建 route"
+        },
+        { "key": "C", "text": "featureCollection 会自动给每个 Feature 添加地图样式并显示" },
+        {
+          "key": "D",
+          "text": "featureCollection([shop, route, block]) 可把三个 Feature 放入同一集合",
+          "hint": "集合中可以同时存在点、线和面"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-00-016",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Turf 在浏览器中计算用户所画路线的长度时，不必先把数据发送到服务器。",
+      "explanation": "对。Turf 的定位就是客户端就地几何计算，路线数据可以始终留在浏览器内；是否使用服务器存储或服务是另一层架构选择，不是 Turf 计算的前置条件。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-00-017",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "point、lineString、polygon 和 featureCollection 这些创建函数可从哪个按需安装的 npm 包导入？（写包名）",
+      "explanation": "讲义从 @turf/helpers 导入这些函数，用它创建标准 GeoJSON 比手写对象更不容易出错；@turf/area 则提供面积计算函数。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@turf/helpers"],
+      "placeholder": "例如：@turf/helpers"
+    },
+    {
+      "id": "turf-00-018",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "turf.area 返回 6,400,000 平方米。按讲义示例换算，面积是多少平方公里？",
+      "explanation": "1 平方公里等于 1,000,000 平方米，因此 6,400,000 ÷ 1,000,000 = 6.4 平方公里。换算只改变展示单位，不需要重新计算几何。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6.4,
+      "tolerance": 0,
+      "unit": "平方公里",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-00-019",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "讲义用 point([116.404, 39.915], { name: \"天安门\" }) 演示 GeoJSON。请在地图上点出北京天安门的大致位置。",
+      "explanation": "天安门位于中国北京中心区域，讲义示例坐标按 [经度, 纬度] 写作 [116.404, 39.915]。北京位于亚洲东部，本题容差为城市级 300 公里。",
+      "refs": [
+        {
+          "title": "RFC 7946 The GeoJSON Format",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.915,
+        "lng": 116.404
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-00-020",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "项目基于 Turf v7，查到一份 v5 教程且多几何计算结果异常，首先应怎么处理？",
+      "explanation": "v5 时代的部分多几何行为已有调整，不能默认旧教程完全适用于 v7。应先对照 v7 官方文档与发布说明核查函数行为和 ESM 用法；函数签名基本稳定并不等于所有旧细节都可直接照搬。",
+      "refs": [
+        {
+          "title": "Turf v7 发布说明",
+          "url": "https://github.com/Turfjs/turf/releases"
+        },
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "原样保留旧代码，因为所有版本的多几何行为完全相同" },
+        {
+          "key": "B",
+          "text": "对照 v7 文档与发布说明，核查多几何行为和模块用法",
+          "hint": "旧教程需要按当前版本基线复核"
+        },
+        { "key": "C", "text": "把 GeoJSON 改成 KML，即可绕过版本差异" },
+        { "key": "D", "text": "改用 Leaflet 的地图容器完成面积计算" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-00-021",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "下列哪些名称属于 RFC 7946 GeoJSON 的七种几何类型？",
+      "explanation": "七种几何类型是 Point、MultiPoint、LineString、MultiLineString、Polygon、MultiPolygon 和 GeometryCollection。Entity 与 Primitive 是 Cesium 场景对象概念，不属于 GeoJSON 几何类型。",
+      "refs": [
+        {
+          "title": "RFC 7946 The GeoJSON Format",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "MultiPoint",
+          "hint": "它表示多个点"
+        },
+        { "key": "B", "text": "Entity" },
+        {
+          "key": "C",
+          "text": "MultiLineString",
+          "hint": "它表示多条线"
+        },
+        { "key": "D", "text": "Primitive" },
+        {
+          "key": "E",
+          "text": "GeometryCollection",
+          "hint": "它是七种几何类型之一"
+        }
+      ],
+      "answer": ["A", "C", "E"]
+    },
+    {
+      "id": "turf-00-022",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Turf 使用经纬度角度时采用十进制度，而不是度分秒格式。",
+      "explanation": "对。讲义要求角度使用十进制度，例如 39.915 直接作为纬度数值；度分秒若作为字符串或不换算的分段数字传入，不符合这一输入约定。",
+      "refs": [
+        {
+          "title": "RFC 7946 Position 定义",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-00-023",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用 @turf/helpers 创建一个 Point Feature 时，应调用哪个函数？（只写函数名）",
+      "explanation": "point 函数根据 [lng, lat] 坐标和可选 properties 创建 Point Feature，例如讲义中的 shop。lineString 与 polygon 分别用于线和面，不能替代点创建函数。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["point", "turf.point", "helpers.point", "point([lng,lat])", "point([lng, lat])"],
+      "placeholder": "例如：point"
+    },
+    {
+      "id": "turf-00-024",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "某地块面积为 0.375 平方公里。结合讲义的平方公里与公顷换算关系，它等于多少公顷？",
+      "explanation": "先把平方公里换成平方米，再换成公顷：0.375 × 1,000,000 ÷ 10,000 = 37.5。也可记住 1 平方公里等于 100 公顷，所以 0.375 × 100 = 37.5。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "numeric",
+      "answer": 37.5,
+      "tolerance": 0,
+      "unit": "公顷",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-00-025",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "按照讲义的 [lng, lat] 规则，点 [-0.1278, 51.5074] 表示英国伦敦。请在地图上点出伦敦的大致位置。",
+      "explanation": "伦敦是英国首都，位于欧洲英格兰东南部、泰晤士河沿岸，市内的格林尼治与本初子午线密切相关。目标坐标的负经度表示西经，纬度为北纬。",
+      "refs": [
+        {
+          "title": "RFC 7946 Position 定义",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 51.5074,
+        "lng": -0.1278
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "turf-00-026",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "一个带孔洞的 GeoJSON Polygon，其 coordinates 层级应怎样组织？",
+      "explanation": "Polygon 的 coordinates 是线性环数组：第一个环表示外边界，后续可选环表示内边界或孔洞，每个环内部再包含坐标。不能把所有环的点混在同一个一维数组里。",
+      "refs": [
+        {
+          "title": "RFC 7946 Polygon",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用环数组，首个环为外环，后续环为内环",
+          "hint": "外环与孔洞通过环的层级区分"
+        },
+        { "key": "B", "text": "把外环和孔洞的所有坐标混在同一个一维数组" },
+        { "key": "C", "text": "把每个坐标都改写成 properties 属性" },
+        { "key": "D", "text": "必须删除孔洞，因为 Polygon 不允许内环" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-00-027",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于讲义所列 GIS 技术栈的工具分工，下列对应关系正确的有哪些？",
+      "explanation": "GeoServer 等地图服务负责发布瓦片或矢量，Leaflet 与 MapLibre 负责二维地图和交互，Cesium 负责三维地球、地形及 3D Tiles。WebGL 三维渲染不是 PostGIS 的职责。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        },
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoServer：发布瓦片或矢量服务",
+          "hint": "它属于服务层"
+        },
+        {
+          "key": "B",
+          "text": "Leaflet / MapLibre：绘制二维地图并管理交互",
+          "hint": "它们属于二维渲染层"
+        },
+        { "key": "C", "text": "PostGIS：负责浏览器里的 WebGL 三维渲染" },
+        {
+          "key": "D",
+          "text": "CesiumJS：展示三维地球、地形与 3D Tiles",
+          "hint": "这些属于三维场景能力"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-00-028",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "CDN 零构建方式适合快速原型与文档页，不必先创建 Vite 工程。",
+      "explanation": "对。讲义给出的 CDN 示例直接在 type=\"module\" 的脚本中导入 Turf v7 ESM，适合零构建试验；npm 与 Vite 是本课程工程主线，但不是每个原型的强制前置步骤。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-00-029",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "要把一串按路线顺序排列的坐标创建成 GeoJSON LineString，应使用 @turf/helpers 的哪个函数？",
+      "explanation": "lineString 接收坐标数组并创建线 Feature，讲义用它构造 route。point 只创建单个点，polygon 则要求按线性环组织面的坐标。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["lineString", "turf.lineString", "helpers.lineString", "lineString(coordinates)", "lineString([...])"],
+      "placeholder": "例如：lineString"
+    },
+    {
+      "id": "turf-00-030",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "某地块的 turf.area 结果为 8,765,432 平方米。换算成公顷并用 toFixed(2) 保留两位后，显示数值是多少？",
+      "explanation": "先按 1 公顷等于 10,000 平方米换算：8,765,432 ÷ 10,000 = 876.5432 公顷。再用 toFixed(2) 保留两位小数，第三位为 3，因此显示 876.54。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "numeric",
+      "answer": 876.54,
+      "tolerance": 0,
+      "unit": "公顷",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-00-031",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "一个 GeoJSON 点写作 [-74.006, 40.7128]，对应美国纽约。请在地图上点出纽约的大致位置。",
+      "explanation": "纽约位于北美洲美国东北部大西洋沿岸，目标坐标约为西经 74.006°、北纬 40.7128°。负经度表示西经，不能把它误当成纬度。",
+      "refs": [
+        {
+          "title": "RFC 7946 Position 定义",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.7128,
+        "lng": -74.006
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "turf-00-032",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "已在 Cesium 中拾取一个 Entity，现在要在不上服务器的前提下用 Turf 分析它的位置与既有 GeoJSON 围栏的关系。合理的数据流是什么？",
+      "explanation": "Turf 的统一语言是 GeoJSON，不能直接消费 Cesium Entity。应先从 Entity 提取所需经纬度并转换成 GeoJSON，再交给 Turf 做二维分析；Cesium 场景对象与 Turf 数据通过格式转换衔接。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        },
+        {
+          "title": "Cesium Entity API",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/Entity.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把 Entity 对象原样传给 Turf，因为它会自动识别所有 Cesium 类型" },
+        {
+          "key": "B",
+          "text": "提取 Entity 的经纬度并转换为 GeoJSON，再交给 Turf 分析",
+          "hint": "先跨越数据格式边界，再进行二维计算"
+        },
+        { "key": "C", "text": "用 Turf 创建 WebGL 地球后再读取 Entity" },
+        { "key": "D", "text": "必须先发布 WMTS 服务，Turf 才能读取坐标" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-00-033",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "把同一份小区 Polygon 依次用于 geojson.io、Turf 和 Cesium 时，下列理解正确的有哪些？",
+      "explanation": "geojson.io 用于绘制平面矢量草稿，Turf 只消费坐标完成计算，Cesium 则可加载同一 GeoJSON 并决定贴地等展示方式。面积数值由几何计算产生，不会自动决定 Cesium 的颜色样式。",
+      "refs": [
+        {
+          "title": "geojson.io",
+          "url": "https://geojson.io/"
+        },
+        {
+          "title": "Cesium GeoJsonDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "geojson.io 可作为绘制并复制 GeoJSON 的平面矢量草稿本",
+          "hint": "它用于准备练习数据"
+        },
+        {
+          "key": "B",
+          "text": "Turf 消费坐标进行计算，但不关心形状如何显示",
+          "hint": "几何计算与样式渲染相互独立"
+        },
+        { "key": "C", "text": "turf.area 的数值会自动决定 Cesium 中的填充颜色" },
+        {
+          "key": "D",
+          "text": "Cesium 可加载同一 GeoJSON，并通过贴地设置控制展示方式",
+          "hint": "显示效果由三维渲染层负责"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-00-034",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "Turf v7 仍以 CommonJS 为主要模块形式，因此讲义 CDN 示例不使用 ESM。",
+      "explanation": "错。v6 到 v7 的主要变化之一是全面转向 ESM，并去掉 CommonJS 的历史包袱。讲义 CDN 示例正是在 type=\"module\" 脚本中通过 import 引入 v7。",
+      "refs": [
+        {
+          "title": "Turf v7 发布说明",
+          "url": "https://github.com/Turfjs/turf/releases"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-00-035",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "用 @turf/helpers 根据外环坐标创建一个 Polygon Feature，应调用哪个函数？（只写函数名）",
+      "explanation": "polygon 函数接收按线性环组织的坐标并创建面 Feature，讲义用它创建 block 与 olympic。它只构造 GeoJSON，不负责把多边形画到地图上。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["polygon", "turf.polygon", "helpers.polygon", "polygon(coordinates)", "polygon([...])"],
+      "placeholder": "例如：polygon"
+    },
+    {
+      "id": "turf-00-036",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "一块 2.4 平方公里的区域被平均分成 6 块。按讲义的单位换算关系，每块面积是多少公顷？",
+      "explanation": "1 平方公里等于 100 公顷，所以总面积为 2.4 × 100 = 240 公顷。平均分成 6 块后，每块为 240 ÷ 6 = 40 公顷。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "numeric",
+      "answer": 40,
+      "tolerance": 0,
+      "unit": "公顷",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-00-037",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "一个 GeoJSON 点写作 [151.2093, -33.8688]，对应澳大利亚悉尼。请在地图上点出悉尼的大致位置。",
+      "explanation": "悉尼位于大洋洲澳大利亚东南沿海，目标坐标约为东经 151.2093°、南纬 33.8688°。第二个分量为负值表示南半球纬度，坐标仍按先经后纬排列。",
+      "refs": [
+        {
+          "title": "RFC 7946 Position 定义",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": -33.8688,
+        "lng": 151.2093
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "turf-00-038",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "按本章 npm + Vite 主线，哪条命令用于创建名为 turf-lab 的 vanilla 模板工程？",
+      "explanation": "讲义先执行 npm create vite@latest turf-lab -- --template vanilla 创建工程，然后进入目录安装 @turf/turf 并运行 npm run dev。安装依赖和启动开发服务器是后续步骤。",
+      "refs": [
+        {
+          "title": "Vite 官方指南",
+          "url": "https://vite.dev/guide/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "npm create vite@latest turf-lab -- --template vanilla",
+          "hint": "这条命令创建 vanilla 模板工程"
+        },
+        { "key": "B", "text": "npm run dev turf-lab -- --template vanilla" },
+        { "key": "C", "text": "npm install @turf/turf --template vanilla" },
+        { "key": "D", "text": "npx geojson.io create turf-lab" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-00-039",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于本章介绍的 Turf 接入方式，下列做法正确的有哪些？",
+      "explanation": "学习与原型可直接安装 @turf/turf 总入口，工程也可按需安装 @turf/helpers 与 @turf/area，CDN 则可用模块脚本导入 v7 ESM。安装 Turf 不会顺带安装 Cesium，更不会自动创建三维地球。",
+      "refs": [
+        {
+          "title": "@turf/turf 包说明（npm）",
+          "url": "https://www.npmjs.com/package/@turf/turf"
+        },
+        {
+          "title": "Turf v7 发布说明",
+          "url": "https://github.com/Turfjs/turf/releases"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "学习阶段可执行 npm install @turf/turf 使用总入口",
+          "hint": "总入口省去逐个管理小包的步骤"
+        },
+        {
+          "key": "B",
+          "text": "按需接入可执行 npm install @turf/helpers @turf/area",
+          "hint": "只安装需要的创建与面积函数"
+        },
+        {
+          "key": "C",
+          "text": "CDN 原型可在 type=\"module\" 脚本中导入 @turf/turf@7 的 ESM 文件",
+          "hint": "这是讲义给出的零构建写法"
+        },
+        { "key": "D", "text": "安装 @turf/turf 会自动安装 Cesium 并创建三维地球" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-00-040",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "GeoJSON Feature 可以通过 properties 保存 name 等业务属性。",
+      "explanation": "对。Feature 在几何之外可以携带 properties，讲义创建天安门点时就写入 { name: \"天安门\" }。这些属性描述业务信息，与坐标所表达的几何位置相互独立。",
+      "refs": [
+        {
+          "title": "RFC 7946 The GeoJSON Format",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-00-041",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "讲义练习中，Cesium 加载 GeoJSON 后可用哪个属性控制是否贴地？（写属性名）",
+      "explanation": "GeoJsonDataSource 的 clampToGround 用于控制 GeoJSON 几何是否贴地，这属于 Cesium 的渲染配置。它不是 Turf 的几何计算参数，也不会改变原始 GeoJSON 坐标。",
+      "refs": [
+        {
+          "title": "Cesium GeoJsonDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": ["clampToGround", "dataSource.clampToGround", "geoJsonDataSource.clampToGround", "GeoJsonDataSource.clampToGround"],
+      "placeholder": "例如：clampToGround"
+    },
+    {
+      "id": "turf-00-042",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "某公园的 turf.area 结果为 2,460,000 平方米。若平均划分成 3 块，每块面积是多少公顷？",
+      "explanation": "先求每块的平方米数：2,460,000 ÷ 3 = 820,000 平方米；再按 1 公顷等于 10,000 平方米换算，820,000 ÷ 10,000 = 82 公顷。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "numeric",
+      "answer": 82,
+      "tolerance": 0,
+      "unit": "公顷",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-00-043",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "Turf 的距离计算采用大圆距离语义，而不是三维空间中穿过椭球内部的弦长。",
+      "explanation": "对。讲义对比表明确 Turf 使用大圆距离，常由 haversine 类公式计算；弦长是 Cesium 三维量算中可选的距离语义之一，二者不能混用。",
+      "refs": [
+        {
+          "title": "Turf distance API",
+          "url": "https://turfjs.org/docs/api/distance"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-00-044",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "本章对 turf.area 可接收的输入范围是怎样描述的？",
+      "explanation": "area 可接收任意 GeoJSON，而不只限于单独的 Polygon Feature，并返回以平方米表示的面积。实际业务仍需传入合法数据，但其接口范围不被限定为一种 Feature 包装形式。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只接受 Polygon Feature，其他 GeoJSON 一律不能传入" },
+        {
+          "key": "B",
+          "text": "可接收任意 GeoJSON",
+          "hint": "讲义明确用“任意 GeoJSON”描述输入范围"
+        },
+        { "key": "C", "text": "只接受 FeatureCollection，裸 Geometry 不能传入" },
+        { "key": "D", "text": "只接受 Cesium Entity 集合" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-00-045",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "GeoJSON LineString 和 Polygon 一样，也必须让首尾坐标完全相同才能表示一条普通路线。",
+      "explanation": "错。普通 LineString 是按顺序排列的坐标数组，不要求首尾闭合；Polygon 的线性环才有首尾相同的要求。讲义中的 route 只含两个不同端点，仍能表示路线。",
+      "refs": [
+        {
+          "title": "RFC 7946 The GeoJSON Format",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-00-046",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "关于 Geometry、Feature 与 FeatureCollection 的层级，下列说法正确的有哪些？",
+      "explanation": "Point 等 Geometry 描述几何本身，Feature 可在几何外携带 properties，FeatureCollection 则组织多个 Feature。GeometryCollection 收集的是多个几何，它与收集 Feature 的 FeatureCollection 不是同一种对象。",
+      "refs": [
+        {
+          "title": "RFC 7946 The GeoJSON Format",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Point、LineString 等 Geometry 描述几何本身",
+          "hint": "它们首先表达空间形状"
+        },
+        {
+          "key": "B",
+          "text": "Feature 可以在几何之外携带 properties",
+          "hint": "业务属性与几何可以在 Feature 中组合"
+        },
+        {
+          "key": "C",
+          "text": "FeatureCollection 可组织 shop、route、block 等多个 Feature",
+          "hint": "讲义用 featureCollection 创建这一层集合"
+        },
+        { "key": "D", "text": "GeometryCollection 与 FeatureCollection 完全相同，都只收集 Feature" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-00-047",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "Cesium 加载 Turf 生成的 GeoJSON 后，几何会自动获得真实三维高程，因此可替代地形与三维分析。",
+      "explanation": "错。Turf 是二维库，Cesium 的加载与贴地展示不会反推出真实高程，更不会补齐三维分析能力。地形、真实高度及三维距离仍需相应的三维数据和 Cesium 能力。",
+      "refs": [
+        {
+          "title": "Turf.js 官方文档",
+          "url": "https://turfjs.org/docs/"
+        },
+        {
+          "title": "Cesium GeoJsonDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-00-048",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "本章练习推荐用哪个在线工具沿小区围墙绘制 Polygon，并复制其 GeoJSON？（写工具名称）",
+      "explanation": "练习使用 geojson.io 作为在线 GeoJSON 草稿本，绘制后复制数据到 Vite 项目中计算。它不是 Turf 函数，也不负责代替 Cesium 做三维展示。",
+      "refs": [
+        {
+          "title": "geojson.io",
+          "url": "https://geojson.io/"
+        }
+      ],
+      "type": "short",
+      "accepted": ["geojson.io", "https://geojson.io", "https://geojson.io/", "geojson.io网站", "geojson.io 网站"],
+      "placeholder": "例如：geojson.io"
+    },
+    {
+      "id": "turf-00-049",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "同一份 GeoJSON 在 geojson.io 中是平面矢量，进入 Cesium 后却可能悬空或贴地。这一现象最准确地说明了什么？",
+      "explanation": "几何数据与渲染方式是两层关注点：GeoJSON 提供坐标，平面工具与三维引擎可以作出不同展示，Turf 只消费几何数值。是否贴地不会改变 area 已消费的原始坐标，也不由面积数值决定。",
+      "refs": [
+        {
+          "title": "geojson.io",
+          "url": "https://geojson.io/"
+        },
+        {
+          "title": "Cesium GeoJsonDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "说明 Turf 会根据显示样式重新修改 GeoJSON 坐标" },
+        {
+          "key": "B",
+          "text": "说明几何数据与渲染方式是两层相互独立的关注点",
+          "hint": "同一数据可以在不同显示环境中呈现不同效果"
+        },
+        { "key": "C", "text": "说明 area 的结果由 Cesium 的贴地开关决定" },
+        { "key": "D", "text": "说明 GeoJSON 只能用于二维，不能再被三维引擎加载" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-00-050",
+      "skill": "turf",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "只要两个 GeoJSON 的 properties 完全相同，turf.area 的结果就必然相同，与 coordinates 无关。",
+      "explanation": "错。area 消费的是几何坐标，形状或范围不同会影响面积；properties 只是名称等业务属性。两个对象即使 properties 一样，只要 coordinates 表达的几何不同，面积就可以不同。",
+      "refs": [
+        {
+          "title": "Turf area API",
+          "url": "https://turfjs.org/docs/api/area"
+        },
+        {
+          "title": "RFC 7946 The GeoJSON Format",
+          "url": "https://datatracker.ietf.org/doc/html/rfc7946"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
     }
   ]
 }

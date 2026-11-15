@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "01",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-01-001",
@@ -355,6 +355,1036 @@
       ],
       "type": "truefalse",
       "answer": false
+    },
+    {
+      "id": "cesium-01-013",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "页面初始化时要让相机立刻到达北京上空，不播放飞行动画，应选择哪个操作？",
+      "explanation": "setView 会瞬间设置相机位置和朝向，适合初始化或复位；flyTo 有过渡动画，lookAt 则用于锁定目标环绕观察。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "camera.flyTo"
+        },
+        {
+          "key": "B",
+          "text": "camera.lookAt"
+        },
+        {
+          "key": "C",
+          "text": "camera.setView",
+          "hint": "初始化需要瞬间到位，不需要飞行过渡"
+        },
+        {
+          "key": "D",
+          "text": "camera.flyToBoundingSphere"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-01-014",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "关于地理坐标与笛卡尔坐标在 Cesium 工作流程中的分工，哪些说法正确？",
+      "explanation": "外部经纬度数据可在进入场景时转成 Cartesian3，WebGL 的相机、模型和光照计算使用直角坐标，空间运算也大多可在笛卡尔系进行；展示 Cartographic 读数时必须先把弧度转为度。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "GeoJSON 等外部经纬度数据可在入口转换为 Cartesian3"
+        },
+        {
+          "key": "B",
+          "text": "相机、模型和光照计算所在的三维场景使用直角坐标"
+        },
+        {
+          "key": "C",
+          "text": "展示坐标时可把 Cartographic 的弧度值直接当作度数"
+        },
+        {
+          "key": "D",
+          "text": "许多空间运算可以直接在笛卡尔坐标系中进行"
+        },
+        {
+          "key": "E",
+          "text": "进入 Cesium 后仍需用经纬度角度执行所有渲染计算"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-01-015",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "普通地图展示中，相机的 roll 通常保持为 0，以避免画面左右翻滚。",
+      "explanation": "roll 表示机身或视线绕前进方向左右翻滚。普通展示通常希望地平线保持水平，因此设为 0；heading 和 pitch 才负责常规朝向与俯仰调整。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-01-016",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "把以度为单位的 heading 或 pitch 转为 Cesium 所需的弧度，应调用 Cesium.Math 的哪个方法？（填方法名）",
+      "explanation": "Cesium.Math.toRadians 执行度到弧度的转换，计算关系为弧度 = 度数 × π / 180；反方向转换才使用 toDegrees。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "toRadians",
+        "Cesium.Math.toRadians",
+        "Math.toRadians"
+      ],
+      "placeholder": "方法名，不含括号"
+    },
+    {
+      "id": "cesium-01-017",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "Cesium.Math.toDegrees(2 * Math.PI) 返回多少度？（填数值）",
+      "explanation": "一周角为 2π 弧度，对应 360°。计算为 2π × 180° / π = 360°，所以精确答案是 360。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 360,
+      "tolerance": 0,
+      "unit": "°",
+      "placeholder": "例如：180"
+    },
+    {
+      "id": "cesium-01-018",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "讲义示例多次把相机目的地设在北京。请在地图上点击北京城区的大致位置。",
+      "explanation": "北京是中国的首都，位于华北平原北缘。讲义采用经度 116.397°、纬度 39.909° 作为北京示例坐标，本题使用 300 公里的城市级容差。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.909,
+        "lng": 116.397
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-01-019",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "关于 Cesium 使用的 ECEF 地心固连坐标系，哪些描述符合讲义定义？",
+      "explanation": "ECEF 原点在地球质心，x 轴指向本初子午线与赤道的交点，z 轴指向北极。Cartesian3 表达的是地心直角坐标，不是把经纬度和高度直接换名保存。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "原点位于地球质心"
+        },
+        {
+          "key": "B",
+          "text": "x 轴指向本初子午线与赤道的交点"
+        },
+        {
+          "key": "C",
+          "text": "z 轴指向北极"
+        },
+        {
+          "key": "D",
+          "text": "x、y、z 分别等同于经度、纬度、高度"
+        },
+        {
+          "key": "E",
+          "text": "原点位于北京城区的地表"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-01-020",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "Cartesian3 的 x、y、z 三个分量分别存储经度、纬度和高度。",
+      "explanation": "Cartesian3 存储地心直角坐标系中的三个空间分量，并非经纬度与高度。经度、纬度和高度由 Cartographic 表达，两者需要显式转换。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-01-021",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "需要相机以动画方式飞到新的 destination，应调用 camera 的哪个方法？（填方法名）",
+      "explanation": "camera.flyTo 会生成从当前视角到目标视角的过渡动画，适合交互跳转和叙事镜头；setView 则是无动画瞬移。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "flyTo",
+        "camera.flyTo",
+        "viewer.camera.flyTo"
+      ],
+      "placeholder": "例如：setView"
+    },
+    {
+      "id": "cesium-01-022",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "lookAt 的观察距离从 5000 米缩短到 1200 米，相机离目标近了多少米？",
+      "explanation": "两次 HeadingPitchRange 的 range 都以米为单位，距离差为 5000 - 1200 = 3800 米，因此相机向目标靠近了 3800 米。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3800,
+      "tolerance": 0,
+      "unit": "m",
+      "placeholder": "例如：1000"
+    },
+    {
+      "id": "cesium-01-023",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "Cesium.Rectangle.fromDegrees 的四个位置参数应按什么顺序传入？",
+      "explanation": "Rectangle.fromDegrees(west, south, east, north) 依次接收西边界经度、南边界纬度、东边界经度、北边界纬度，单位都是度。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "west、south、east、north",
+          "hint": "先给西南角，再给东北角"
+        },
+        {
+          "key": "B",
+          "text": "north、south、east、west"
+        },
+        {
+          "key": "C",
+          "text": "south、west、north、east"
+        },
+        {
+          "key": "D",
+          "text": "west、east、south、north"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-01-024",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "本章练习用 lookAt 锁定故宫。请在地图上点击故宫所在的位置。",
+      "explanation": "故宫位于北京城区中心，是明清两代皇宫。讲义练习使用经度 116.397°、纬度 39.917° 作为故宫目标点，本题采用 200 公里的城市级容差。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.917,
+        "lng": 116.397
+      },
+      "toleranceKm": 200
+    },
+    {
+      "id": "cesium-01-025",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "执行 const c2 = Cesium.Cartographic.fromDegrees(116.397, 39.909, 100) 后，哪些读数或转换结果正确？",
+      "explanation": "fromDegrees 接收经纬度度数和米制高度，但所得 Cartographic 内部仍存弧度。因此 c2.height 为 100，经纬度经 toDegrees 后分别回到 116.397° 和 39.909°。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "c2.height 等于 100 米"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.Math.toDegrees(c2.longitude) 约为 116.397"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Math.toDegrees(c2.latitude) 约为 39.909"
+        },
+        {
+          "key": "D",
+          "text": "c2.longitude 的数值约为 116.397 弧度"
+        },
+        {
+          "key": "E",
+          "text": "c2 是 Cartesian3 类型，不能读取 height"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-01-026",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "为下列使用意图选择相符合的相机操作，哪些配对正确？",
+      "explanation": "三种操作各有明确意图：setView 用于初始化或复位的瞬移，flyTo 用于带过渡的交互跳转，lookAt 用于锁定目标环绕。把任何场景都交给同一个 API 会丢失相应的交互语义。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "程序启动时直接到位——setView"
+        },
+        {
+          "key": "B",
+          "text": "用户点击后平滑跳转——flyTo"
+        },
+        {
+          "key": "C",
+          "text": "围绕一个地标观察——lookAt"
+        },
+        {
+          "key": "D",
+          "text": "初始化时必须播放动画——setView"
+        },
+        {
+          "key": "E",
+          "text": "恢复自由相机且不做任何变换——lookAt"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-01-027",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "lookAt 锁定目标后，可调用 camera.lookAtTransform(Cesium.Matrix4.IDENTITY) 恢复自由相机。",
+      "explanation": "lookAt 会设置以目标为中心的相机变换。把变换恢复为 Matrix4.IDENTITY 可解除这种环绕约束，让相机重新回到自由移动状态。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-01-028",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "Cesium 1.119 新增的 Cesium.Ellipsoid.default 主要解决什么问题？",
+      "explanation": "Ellipsoid.default 可统一设置各 API 使用的默认椭球，从而切换到月球、火星等基准面，避免每次坐标转换都逐个传入椭球参数。",
+      "refs": [
+        {
+          "title": "CesiumJS API 参考",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "自动监听相机变化并更新坐标读数"
+        },
+        {
+          "key": "B",
+          "text": "把 Cartographic 的弧度直接格式化为度分秒"
+        },
+        {
+          "key": "C",
+          "text": "为 flyTo 自动生成 complete 回调"
+        },
+        {
+          "key": "D",
+          "text": "统一更换全 API 的默认椭球，无需逐次传参",
+          "hint": "可把默认基准面切换为月球或火星椭球"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-01-029",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "一次 flyTo 的 duration 为 3 秒，若每帧时长恒为 0.05 秒，理论上共经历多少帧？",
+      "explanation": "帧数等于总时长除以每帧时长，即 3 ÷ 0.05 = 60 帧。这里按题设的恒定帧时长计算，不考虑实际渲染中的帧率波动。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 60,
+      "tolerance": 0,
+      "unit": "帧",
+      "placeholder": "例如：30"
+    },
+    {
+      "id": "cesium-01-030",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "构造 new Cesium.HeadingPitchRange(heading, pitch, 5000) 供 lookAt 使用时，哪些配置理解正确？",
+      "explanation": "HeadingPitchRange 前两个角度使用弧度，负 pitch 表示低头俯视，第三个参数 range 是相机到目标的距离，单位为米，不是相机的椭球高。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "heading 为 45° 时应写 Cesium.Math.toRadians(45)"
+        },
+        {
+          "key": "B",
+          "text": "以 30° 俯角观察时可写 Cesium.Math.toRadians(-30)"
+        },
+        {
+          "key": "C",
+          "text": "第三个参数 5000 表示离目标 5000 米"
+        },
+        {
+          "key": "D",
+          "text": "pitch 使用 -30° 表示抬头看天 30°"
+        },
+        {
+          "key": "E",
+          "text": "第三个参数表示相机相对椭球面的固定高度"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-01-031",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "flyTo 的 complete 回调在飞行刚开始时执行，因此不能用它串联飞行结束后的 lookAt。",
+      "explanation": "complete 的用途正是在飞行完成后执行后续逻辑。讲义把 lookAt 放进 complete，使相机飞到故宫后再锁定目标，实现连续镜头。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-01-032",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "要把 Cartographic 中以弧度存储的经纬度转成度数显示，应调用 Cesium.Math 的哪个方法？（填方法名）",
+      "explanation": "Cesium.Math.toDegrees 把弧度转换为度数，计算关系为度数 = 弧度 × 180 / π。它只转换角度，不负责转换 height 的米制单位。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "toDegrees",
+        "Cesium.Math.toDegrees",
+        "Math.toDegrees"
+      ],
+      "placeholder": "方法名，不含括号"
+    },
+    {
+      "id": "cesium-01-033",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "已有 Cartesian3 点 p，想取得它的 Cartographic 地理坐标表示，应使用哪段代码？",
+      "explanation": "Cartographic.fromCartesian(p) 负责从地心笛卡尔坐标反算地理坐标，所得 longitude 和 latitude 为弧度，height 为米；随后可用 toDegrees 转换角度。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.Cartesian3.fromDegrees(p)"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.Cartographic.fromCartesian(p)",
+          "hint": "这是笛卡尔坐标到地理坐标的反向转换"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Math.toDegrees(p)"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.Rectangle.fromDegrees(p)"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-01-034",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "获取相机当前经纬度时，应读取上次 flyTo 传入的 destination，而不是 camera.positionCartographic。",
+      "explanation": "destination 是飞行目标，飞行中或用户继续操作后都不等于当前位置。实时坐标读数应读取 camera.positionCartographic，再把其中的弧度经纬度转换为度。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-01-035",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "准备用 flyTo 以 45° 俯角飞到故宫上空 800 米，下列配置哪些正确？",
+      "explanation": "目的地可由 fromDegrees 生成 Cartesian3，高度为 800 米；heading 为 0 表示正北，pitch 必须转换为负弧度才会低头，duration 以秒计，普通展示的 roll 保持 0。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "destination 使用 Cartesian3.fromDegrees(116.397, 39.909, 800)"
+        },
+        {
+          "key": "B",
+          "text": "orientation.heading 使用 Cesium.Math.toRadians(0) 可表示正北"
+        },
+        {
+          "key": "C",
+          "text": "orientation.pitch 使用 Cesium.Math.toRadians(45) 表示低头 45°"
+        },
+        {
+          "key": "D",
+          "text": "duration 设置为 2 表示飞行持续 2 秒"
+        },
+        {
+          "key": "E",
+          "text": "普通展示的 orientation.roll 可保持为 0"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-01-036",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "ECEF 的 x 轴指向本初子午线与赤道交点。请在地图上点击这个交点。",
+      "explanation": "本初子午线经度为 0°，赤道纬度为 0°，两者交点位于西非外侧的几内亚湾海域。该真实地理位置对应 ECEF 的 x 轴方向，本题采用 1200 公里区域级容差。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 0,
+        "lng": 0
+      },
+      "toleranceKm": 1200
+    },
+    {
+      "id": "cesium-01-037",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "除 complete 回调外，按讲义提到的新版 Promise 形式，如何保证 flyTo 完成后才执行 lookAt？",
+      "explanation": "新版 flyTo 的 Promise 形式可与 await 配合，等待飞行结束后再调用 lookAt。这与 complete 回调的目的一致，都能避免用固定延时猜测动画结束时刻。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "先调用 lookAt，再调用 flyTo，让前者自动等待"
+        },
+        {
+          "key": "B",
+          "text": "监听 mousemove，以最后一次鼠标移动推断飞行结束"
+        },
+        {
+          "key": "C",
+          "text": "每秒重复调用 lookAt，直到画面看起来稳定"
+        },
+        {
+          "key": "D",
+          "text": "await camera.flyTo(...) 后再调用 camera.lookAt(...)",
+          "hint": "Promise 等待完成后再串接下一镜头"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-01-038",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "camera.percentageChanged 设得越大，changed 事件就越灵敏，触发也越频繁。",
+      "explanation": "percentageChanged 是触发变化事件所需的比例阈值。阈值越大，需要累计的相机变化越大，事件通常越少；设小阈值才会提高触发灵敏度。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-01-039",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "相机从北京上空 15000 米的初始位置飞到故宫上空 800 米，高度共降低多少米？",
+      "explanation": "两处 fromDegrees 的第三个参数都是以米计的高度，高度差为 15000 - 800 = 14200 米，因此相机降低了 14200 米。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 14200,
+      "tolerance": 0,
+      "unit": "m",
+      "placeholder": "例如：1000"
+    },
+    {
+      "id": "cesium-01-040",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "实现随相机移动更新的经纬度和高度读数条，下列做法哪些正确？",
+      "explanation": "读数条应监听 changed 并用 percentageChanged 控制触发阈值，从 positionCartographic 取当前位置；经纬度需转为度，高度可直接按米格式化。只监听 mousemove 会漏掉键盘、惯性和代码飞行。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "从 viewer.camera.positionCartographic 读取当前位置"
+        },
+        {
+          "key": "B",
+          "text": "用 Cesium.Math.toDegrees 转换经度和纬度"
+        },
+        {
+          "key": "C",
+          "text": "height 可按米读取并用 toFixed(0) 格式化"
+        },
+        {
+          "key": "D",
+          "text": "只监听画布 mousemove 就能覆盖键盘、惯性和代码飞行"
+        },
+        {
+          "key": "E",
+          "text": "使用 camera.changed，并设置合适的 percentageChanged"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-01-041",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 2,
+      "stem": "camera.lookAt 锁定目标后，用户滚动缩放主要改变哪一项？",
+      "explanation": "lookAt 把相机约束在目标周围的环绕轨道上，滚轮缩放主要改变 HeadingPitchRange 中的 range，即相机到目标的距离，而不是解除锁定或把距离改成经纬度。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "目标点的经度和纬度"
+        },
+        {
+          "key": "B",
+          "text": "地球的默认椭球参数"
+        },
+        {
+          "key": "C",
+          "text": "相机与目标之间的 range 距离",
+          "hint": "锁定目标后，缩放改变环绕距离"
+        },
+        {
+          "key": "D",
+          "text": "Matrix4.IDENTITY 的矩阵值"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-01-042",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "要读取相机当前的 Cartographic 位置，应访问 camera 的哪个属性？（填属性名）",
+      "explanation": "camera.positionCartographic 直接提供相机当前的地理坐标表示，其经纬度为弧度、高度为米，适合用于实时坐标读数条。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "positionCartographic",
+        "camera.positionCartographic",
+        "viewer.camera.positionCartographic"
+      ],
+      "placeholder": "属性名，不含分号"
+    },
+    {
+      "id": "cesium-01-043",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "camera.flyTo 的 duration 参数以秒为单位，例如 duration: 3 表示飞行 3 秒。",
+      "explanation": "讲义示例中的 duration: 3 表示三秒飞行动画，不是三千秒或三帧。把时长与帧数换算时，还需另知每帧时长。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-01-044",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "讲义用 Rectangle.fromDegrees(115.0, 39.0, 117.5, 41.0) 表示矩形范围。请点击该矩形的东北角。",
+      "explanation": "参数顺序是西、南、东、北，所以东北角为经度 117.5°、纬度 41.0°，位于北京东北方向的燕山地区。它是示例矩形的真实边界交点，本题采用 800 公里区域级容差。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 41.0,
+        "lng": 117.5
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "cesium-01-045",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "一份 Leaflet 数据用 [39.909, 116.397] 按 [lat, lng] 顺序表示北京，传给 Cartesian3.fromDegrees 时应怎样写？",
+      "explanation": "Leaflet 使用纬度在前，而 Cesium 的 fromDegrees 使用经度在前。跨库搬运时必须交换这两个值，正确调用为 fromDegrees(116.397, 39.909)，高度可另按米传入。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.Cartesian3.fromDegrees(116.397, 39.909)",
+          "hint": "把 Leaflet 的纬度在前换成 Cesium 的经度在前"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.Cartesian3.fromDegrees(39.909, 116.397)"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.Cartesian3.fromDegrees(39.909, 0, 116.397)"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.Cartesian3.fromDegrees(116.397)"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-01-046",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "按本章「初始化—飞行—锁定环绕」练习组织连续镜头，哪些步骤正确？",
+      "explanation": "练习先用 setView 初始化北京上空视角，再延时 flyTo 到故宫上空，并在 complete 中调用 lookAt 锁定目标。需要自由相机时，再通过 lookAtTransform 与单位矩阵解除约束。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "启动时用 setView 把相机放到北京上空 15000 米"
+        },
+        {
+          "key": "B",
+          "text": "延时后用 flyTo 前往故宫上空 800 米"
+        },
+        {
+          "key": "C",
+          "text": "在 flyTo 的 complete 回调中调用 lookAt"
+        },
+        {
+          "key": "D",
+          "text": "需要恢复自由相机时调用 lookAtTransform(Matrix4.IDENTITY)"
+        },
+        {
+          "key": "E",
+          "text": "必须先 lookAt 再 flyTo，才能保证 lookAt 在飞行后执行"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-01-047",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 3,
+      "stem": "把 270° 转成弧度后，结果是多少 π？只填 π 的系数，例如 π/2 填 0.5。",
+      "explanation": "度转弧度使用度数 × π / 180，所以 270° = 270π / 180 = 3π/2 = 1.5π。题目要求填写 π 的系数，因此答案是 1.5。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1.5,
+      "tolerance": 0,
+      "unit": "π rad",
+      "placeholder": "例如：0.5"
+    },
+    {
+      "id": "cesium-01-048",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "Cartesian3.fromDegrees 返回的笛卡尔坐标对象属于哪个 Cesium 类？（填类名）",
+      "explanation": "fromDegrees 是 Cartesian3 的构造辅助方法，返回 Cartesian3 实例。这个实例表达 ECEF 地心直角坐标，可直接用于相机 destination 等参数。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cartesian3",
+        "Cesium.Cartesian3"
+      ],
+      "placeholder": "例如：Cartographic"
+    },
+    {
+      "id": "cesium-01-049",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "不经过 Cartesian3，直接由经纬度度数构造地理坐标对象，应调用哪个 API？（填类名和方法名）",
+      "explanation": "Cartographic.fromDegrees(lon, lat, height) 可直接从度数构造 Cartographic，省去先创建 Cartesian3 再反查地理坐标的步骤；其内部角度仍保存为弧度。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Cartographic.fromDegrees",
+        "Cesium.Cartographic.fromDegrees"
+      ],
+      "placeholder": "格式：类名.方法名"
+    },
+    {
+      "id": "cesium-01-050",
+      "skill": "cesium",
+      "module": "01",
+      "difficulty": 1,
+      "stem": "要让相机锁定一个目标点并环绕观察，应调用 camera 的哪个方法？（填方法名）",
+      "explanation": "camera.lookAt 接收目标 Cartesian3 和 HeadingPitchRange，把相机放到目标周围的观察轨道；之后仍可环绕和缩放，但目标保持锁定。",
+      "refs": [
+        {
+          "title": "Cesium Camera 官方教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-camera/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "lookAt",
+        "camera.lookAt",
+        "viewer.camera.lookAt"
+      ],
+      "placeholder": "例如：flyTo"
     }
   ]
 }

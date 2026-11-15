@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "04",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-04-001",
@@ -206,6 +206,582 @@
       "tolerance": 0,
       "unit": "平方千米",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-04-014",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "booleanPointInPolygon 在本章中支持用 Point 判断哪类面几何？",
+      "explanation": "booleanPointInPolygon 的点面判断支持 Polygon 与 MultiPolygon，因此单个面和由多个面组成的几何都可以作为面输入；它不是点与线或点与属性的判断工具。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只支持 Polygon，不支持 MultiPolygon" },
+        { "key": "B", "text": "支持 Polygon 与 MultiPolygon", "hint": "两类面几何都在本章明确的支持范围内" },
+        { "key": "C", "text": "只支持 LineString 与 MultiLineString" },
+        { "key": "D", "text": "只支持 Feature 的 properties 对象" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-04-015",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "booleanWithin 只回答布尔关系，而 union 会真正生成表示合并范围的新几何。",
+      "explanation": "正确。booleanWithin 属于空间谓词，返回 true 或 false；union 属于叠置运算，会构造合并后的 Polygon、MultiPolygon 等结果，二者职责不能互换。",
+      "refs": [
+        { "title": "Turf booleanWithin API", "url": "https://turfjs.org/docs/api/booleanWithin" },
+        { "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-04-016",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "使用 booleanPointInPolygon 时，若只承认严格内部而排除外环和孔洞边界，应把哪个选项设为 true？",
+      "explanation": "应设置 ignoreBoundary: true。这个选项改变边界是否算内部的业务规则，默认值为 false；开启后，压在外环或孔洞边界上的点不再被判为面内点。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "short",
+      "accepted": ["ignoreBoundary", "ignoreBoundary: true", "ignoreBoundary:true", "ignoreBoundary = true", "忽略边界"],
+      "placeholder": "写出选项名"
+    },
+    {
+      "id": "turf-04-017",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "把 areaA 与 areaB 组成 featureCollection([areaA, areaB]) 调用 intersect 时，features 数组有多少个元素？",
+      "explanation": "该 FeatureCollection 只放入 areaA 和 areaB 两个面要素，所以 features.length = 1 + 1 = 2；本次调用的输入要素数量可以直接由数组元素计数得到。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-04-018",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "Turf v7 中，哪些叠置函数按本章约定使用 FeatureCollection 组织面输入？",
+      "explanation": "intersect、union、difference 都通过 FeatureCollection 接收参与叠置的面。booleanPointInPolygon 和 booleanContains 是空间谓词，不采用这种交并差输入入口。",
+      "refs": [
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" },
+        { "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" },
+        { "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "intersect", "hint": "交集使用 FeatureCollection 入口" },
+        { "key": "B", "text": "union", "hint": "并集同样使用 FeatureCollection 入口" },
+        { "key": "C", "text": "difference", "hint": "差集首项与后续项也放在 FeatureCollection 中" },
+        { "key": "D", "text": "booleanPointInPolygon" },
+        { "key": "E", "text": "booleanContains" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-04-019",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "讲义 areaA、areaB 的坐标位于东经 116.40°—116.43°、北纬 39.90°—39.92°。在地图上点击这组示例所在的城市。",
+      "explanation": "这组坐标位于北京市城区一带，目标点约为北纬 39.904°、东经 116.407°。北京位于华北平原北部，讲义在此构造相邻面，演示压线点、包含关系与交并差。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "map",
+      "target": {
+        "lat": 39.904,
+        "lng": 116.407
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-04-020",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "小面 small 完整位于大面 big 内，若使用 booleanWithin 验证，正确调用是哪项？",
+      "explanation": "booleanWithin(a, b) 判断首项 a 是否完整位于第二项 b 内，所以应写 booleanWithin(small, big)。交换参数会改变观察方向，Overlap 又不表达完全包含。",
+      "refs": [{ "title": "Turf booleanWithin API", "url": "https://turfjs.org/docs/api/booleanWithin" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "booleanWithin(big, small)" },
+        { "key": "B", "text": "booleanWithin(small, big)", "hint": "被判断是否位于内部的小面应放在首项" },
+        { "key": "C", "text": "booleanContains(small, big)" },
+        { "key": "D", "text": "booleanOverlap(small, big)" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-04-021",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "ignoreBoundary: true 会提高坐标本身的精度，因此任何点面业务都应无条件开启它。",
+      "explanation": "错误。ignoreBoundary 只改变边界是否算内部的判定政策，不会改善坐标精度。默认包含边界与严格排除边界各有适用场景，唯一归属还需要额外业务规则。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-04-022",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "要判断两个几何是否完全没有公共点，连边界相触也不允许，应调用本章哪个空间谓词函数？",
+      "explanation": "应调用 booleanDisjoint。它只在两个几何完全相离时返回 true；共享内部、边或角点都意味着存在公共点，因此不能算 Disjoint。",
+      "refs": [{ "title": "Turf booleanDisjoint API", "url": "https://turfjs.org/docs/api/booleanDisjoint" }],
+      "type": "short",
+      "accepted": ["booleanDisjoint", "BooleanDisjoint", "@turf/boolean-disjoint", "Disjoint"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-04-023",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "在边长单位为千米的理想平面练习中，矩形 A 的 bbox 为 [0, 0, 5, 4]，矩形 B 为 [3, 1, 8, 3]。它们并集的面积是多少平方千米？",
+      "explanation": "A 面积为 5 × 4 = 20，B 面积为 5 × 2 = 10；交集 bbox 为 [3, 1, 5, 3]，面积为 2 × 2 = 4。并集面积按容斥计算为 20 + 10 - 4 = 26 平方千米。",
+      "refs": [{ "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" }],
+      "type": "numeric",
+      "answer": 26,
+      "tolerance": 0,
+      "unit": "平方千米",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-04-024",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "关于 intersect、union、difference 与空间谓词的职责，下列说法正确的有哪些？",
+      "explanation": "intersect 保留公共部分，union 合并输入面，difference 从首项剪除后续面的覆盖范围；它们生成几何结果。booleanOverlap 与 booleanDisjoint 只判断关系，不返回叠置几何。",
+      "refs": [
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" },
+        { "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" },
+        { "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "intersect 用于保留输入面的公共部分", "hint": "交集关注共同覆盖范围" },
+        { "key": "B", "text": "union 用于合并输入面的覆盖范围", "hint": "并集还会消解内部共享边" },
+        { "key": "C", "text": "difference 用首项减去后续面的覆盖范围", "hint": "首项是被剪除的主体" },
+        { "key": "D", "text": "booleanOverlap 会返回重叠部分的新 Polygon" },
+        { "key": "E", "text": "booleanDisjoint 用 null 表示两个几何相离" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-04-025",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "讲义将 onRing 定义为 point([116.40, 39.91])，它恰好压在 areaA 左边外环上。请在地图上点出这个北京城区压线点。",
+      "explanation": "目标点为北纬 39.91°、东经 116.40°，位于北京市城区一带。该点与 areaA 左边界经度相同、纬度处于上下边之间，所以默认点面判断为 true，ignoreBoundary: true 时则为 false。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "map",
+      "target": {
+        "lat": 39.91,
+        "lng": 116.4
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-04-026",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "两个 Polygon 只共享一条边而没有公共面积，booleanOverlap 应返回什么？",
+      "explanation": "应返回 false。Overlap 要求同维度几何部分重叠并有内部公共部分，仅共享一条边属于边界接触，不满足面的部分重叠条件。",
+      "refs": [{ "title": "Turf booleanOverlap API", "url": "https://turfjs.org/docs/api/booleanOverlap" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "true，因为只要接触就算重叠" },
+        { "key": "B", "text": "false，因为只有边界接触而没有公共面积", "hint": "边界接触与部分重叠必须区分" },
+        { "key": "C", "text": "null，因为结果没有公共面积" },
+        { "key": "D", "text": "返回共享边组成的 Polygon" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-04-027",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "两个完全分离的面执行 union 时一定返回 null，因为合并结果不可能包含分离区域。",
+      "explanation": "错误。union 合并的是输入面的总覆盖范围，分离区域可以共同组成 MultiPolygon；null 是需要显式处理的可能结果，但不能把“几何分离”直接等同于“并集为 null”。",
+      "refs": [{ "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-04-028",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "Turf v7 的交并差把多个面组织成哪种 GeoJSON 对象作为统一输入？",
+      "explanation": "统一输入是 FeatureCollection，可借助 featureCollection([a, b]) 构造。它把参与叠置的面要素放在一个集合中，而不是把两个面作为旧式的独立位置参数。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "short",
+      "accepted": ["FeatureCollection", "featureCollection", "featurecollection", "featureCollection([a, b])", "要素集合"],
+      "placeholder": "写出 GeoJSON 类型名"
+    },
+    {
+      "id": "turf-04-029",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "intersect 返回 MultiPolygon 后要做总面积统计，哪种处理正确？",
+      "explanation": "应让 area 直接消费整个交集结果，使所有组成面都参与统计。只取 coordinates[0] 或第一个外环会丢弃其他碎片或孔洞信息，无法保证总面积正确。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只读取 coordinates[0]，忽略其余组成面" },
+        { "key": "B", "text": "先判空，再把完整结果交给 area", "hint": "面积统计要覆盖整个 Polygon 或 MultiPolygon 结果" },
+        { "key": "C", "text": "只保留第一个外环，孔洞一律忽略" },
+        { "key": "D", "text": "先把结果转换成 true，再计算 true 的面积" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-04-030",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "一个压线点位于两个共享边围栏的公共边上。分别用默认设置和 ignoreBoundary: true 对两个围栏各判断一次，四次判断中共有多少次返回 true？",
+      "explanation": "默认规则下，压线点对两个围栏各命中一次，得到 2 次 true；开启 ignoreBoundary 后，两次都返回 false。因此总数为 1 + 1 + 0 + 0 = 2 次。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "unit": "次",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-04-031",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "根据几何关系选择正确描述：哪些选项符合 Contains、Overlap 与 Disjoint 的语义？",
+      "explanation": "完全分离满足 Disjoint，大面完整包含小面满足 Contains，同维度面共享部分内部满足 Overlap。仅共享角点不算 Overlap，完全包含也不应改用 Overlap 表达。",
+      "refs": [
+        { "title": "Turf booleanContains API", "url": "https://turfjs.org/docs/api/booleanContains" },
+        { "title": "Turf booleanOverlap API", "url": "https://turfjs.org/docs/api/booleanOverlap" },
+        { "title": "Turf booleanDisjoint API", "url": "https://turfjs.org/docs/api/booleanDisjoint" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "两个几何完全分离时，booleanDisjoint 为 true", "hint": "相离意味着没有任何公共点" },
+        { "key": "B", "text": "两个面只共享一个角点时，booleanOverlap 必为 true" },
+        { "key": "C", "text": "big 完整包含 small 时，booleanContains(big, small) 为 true", "hint": "Contains 的首项是包含主体" },
+        { "key": "D", "text": "big 完整包含 small 时，booleanOverlap(big, small) 必为 true" },
+        { "key": "E", "text": "两个面具有部分公共内部但互不包含时，可用 booleanOverlap 判断", "hint": "这正是同维度部分重叠的场景" }
+      ],
+      "answer": ["A", "C", "E"]
+    },
+    {
+      "id": "turf-04-032",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "在几何关系成立的前提下，booleanContains(a, b) 与 booleanWithin(b, a) 表达了相同的完整包含观察方向。",
+      "explanation": "正确。booleanContains(a, b) 读作 a 包含 b，booleanWithin(b, a) 读作 b 位于 a 内；两者都把 a 作为外部主体、b 作为被包含对象，参数观察方向相反但关系对应。",
+      "refs": [
+        { "title": "Turf booleanContains API", "url": "https://turfjs.org/docs/api/booleanContains" },
+        { "title": "Turf booleanWithin API", "url": "https://turfjs.org/docs/api/booleanWithin" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-04-033",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "intersect 的公共部分由多个互不相连的面碎片组成时，结果的 geometry.type 可能是什么？",
+      "explanation": "可能是 MultiPolygon。一个 MultiPolygon 能容纳多个分离的 Polygon，每个 Polygon 还可能带孔洞，因此下游不能只按单一外环遍历。",
+      "refs": [{ "title": "RFC 7946 MultiPolygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.7" }],
+      "type": "short",
+      "accepted": ["MultiPolygon", "multipolygon", "multiPolygon", "多多边形"],
+      "placeholder": "写出几何类型名"
+    },
+    {
+      "id": "turf-04-034",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "difference(featureCollection([a, b])) 中，b 完整覆盖 a 时，结果及正确处理是什么？",
+      "explanation": "首项 a 被后续面 b 完全剪除后没有剩余，difference 返回 null。调用方应把它作为正常的空结果分支处理，而不是继续假定存在 coordinates。",
+      "refs": [{ "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "返回 null，使用前先判空", "hint": "首项被完全覆盖时没有剩余几何" },
+        { "key": "B", "text": "返回未改变的 a，并保留全部面积" },
+        { "key": "C", "text": "返回 b，并把首项属性全部复制过来" },
+        { "key": "D", "text": "返回 false，可直接当作布尔谓词结果" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-04-035",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "根据讲义 areaA 与 areaB 的坐标，二者公共矩形的中心为 [116.415, 39.91]。请在地图上点出这个北京城区交集中心。",
+      "explanation": "areaA 的经度范围为 116.40°—116.42°，areaB 为 116.41°—116.43°，公共经度范围因此是 116.41°—116.42°，中心经度为 116.415°；两者公共纬度为 39.90°—39.92°，中心纬度为 39.91°。该真实地点位于北京市城区一带。",
+      "refs": [{ "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }],
+      "type": "map",
+      "target": {
+        "lat": 39.91,
+        "lng": 116.415
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-04-036",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "对多个面执行 union 后，下列结果处理与属性策略正确的有哪些？",
+      "explanation": "union 会合并覆盖范围并消解内部共享边；若区域彼此分离，结果可能是 MultiPolygon。下游不能强制按单 Polygon 处理，关键业务属性也应显式构造。",
+      "refs": [{ "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "合并时可以消解面之间的内部共享边", "hint": "这是面并集区别于简单数组装盒的地方" },
+        { "key": "B", "text": "分离区域可能使结果成为 MultiPolygon", "hint": "一个并集结果可以包含多个组成面" },
+        { "key": "C", "text": "任何有效输入的 union 结果都保证只是单 Polygon" },
+        { "key": "D", "text": "关键业务字段应显式重建，而不是依赖属性自动合并", "hint": "属性继承不应替代明确的输出契约" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-04-037",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "交并差后可以无条件依赖输入 properties 自动合并，因此关键业务字段无需显式重建。",
+      "explanation": "错误。本章要求以对应函数文档核对其属性行为，并为关键业务字段显式构造输出属性；隐式自动合并不能保证符合业务的字段命名、来源和优先级。",
+      "refs": [
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" },
+        { "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" },
+        { "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-04-038",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "在 Turf v7 中，要从首项面 a 中剪掉后续面 b 的覆盖范围，应使用哪个交并差函数？",
+      "explanation": "应使用 difference，并以 featureCollection([a, b]) 保持输入顺序。首项 a 是保留剩余部分的主体，b 提供需要剪除的覆盖范围。",
+      "refs": [{ "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }],
+      "type": "short",
+      "accepted": ["difference", "Difference", "@turf/difference", "turf.difference", "差集"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-04-039",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "在边长单位为千米的理想平面练习中，矩形 A 的 bbox 为 [0, 0, 6, 6]，矩形 B 为 [2, 2, 8, 4]。difference(featureCollection([A, B])) 的剩余面积是多少平方千米？",
+      "explanation": "A 面积为 6 × 6 = 36。A 与 B 的交集 bbox 为 [2, 2, 6, 4]，面积是 4 × 2 = 8；差集只剪除落在 A 内的公共部分，所以剩余面积为 36 - 8 = 28 平方千米。",
+      "refs": [{ "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }],
+      "type": "numeric",
+      "answer": 28,
+      "tolerance": 0,
+      "unit": "平方千米",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-04-040",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "面对自相交外环等可疑 GeoJSON，哪种生产处理最符合本章建议？",
+      "explanation": "应在数据入口进行 GeoJSON 校验与必要清洗，再用小样本确认叠置结果。try/catch 只能捕获部分异常，不能修复错误拓扑，更不应被用来掩盖脏数据。",
+      "refs": [
+        { "title": "RFC 7946 GeoJSON", "url": "https://datatracker.ietf.org/doc/html/rfc7946" },
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "用 try/catch 隐藏所有错误并继续读取坐标" },
+        { "key": "B", "text": "在入口校验和清洗，再用小样本确认结果", "hint": "先保证输入几何有效，再验证业务输出" },
+        { "key": "C", "text": "跳过输入检查，假定叠置一定会修复外环" },
+        { "key": "D", "text": "改用 scene.pick 自动修复 GeoJSON 拓扑" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-04-041",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "intersect 的返回值进入下游几何时，下列处理正确的有哪些？",
+      "explanation": "交集可能为 null、Polygon 或 MultiPolygon。Polygon 要考虑孔洞，MultiPolygon 要遍历所有组成面且各自仍可能有孔洞；面积统计应消费完整结果，不能只保留第一个面。",
+      "refs": [
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" },
+        { "title": "RFC 7946 MultiPolygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.7" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "读取 geometry 前先处理 null 分支", "hint": "没有公共面积是正常空结果" },
+        { "key": "B", "text": "结果为 Polygon 时，同时考虑外环和可能存在的孔洞", "hint": "单 Polygon 也不等于只有一个坐标环" },
+        { "key": "C", "text": "结果为 MultiPolygon 时，遍历每个 Polygon 及其孔洞", "hint": "每个组成面都有自己的环结构" },
+        { "key": "D", "text": "MultiPolygon 只取第一个 Polygon 就一定不会丢失公共区域" },
+        { "key": "E", "text": "面积统计应交给 area 消费完整结果", "hint": "完整结果才能覆盖全部分离碎片" }
+      ],
+      "answer": ["A", "B", "C", "E"]
+    },
+    {
+      "id": "turf-04-042",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "两个几何完全没有公共点时，booleanDisjoint 返回 true。",
+      "explanation": "正确。Disjoint 的核心语义就是完全相离，即内部与边界都没有公共位置；只要共享内部、边或角点，返回值就应为 false。",
+      "refs": [{ "title": "Turf booleanDisjoint API", "url": "https://turfjs.org/docs/api/booleanDisjoint" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-04-043",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "讲义用 common?.geometry.type 安全读取可能为 null 的交集结果。其中 ?. 称为什么运算符？",
+      "explanation": "?. 是可选链运算符。common 为 null 或 undefined 时，表达式会短路并得到 undefined，从而避免直接解引用；它只负责安全访问，不会替代显式的空结果业务分支。",
+      "refs": [
+        { "title": "MDN 可选链运算符", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Optional_chaining" },
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }
+      ],
+      "type": "short",
+      "accepted": ["?.", "可选链", "可选链运算符", "optional chaining", "optional chaining operator"],
+      "placeholder": "写出运算符或中文名称"
+    },
+    {
+      "id": "turf-04-044",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "点恰好压在 Polygon 孔洞边界上，设置 ignoreBoundary: true 后，booleanPointInPolygon 与 booleanDisjoint 分别返回什么？",
+      "explanation": "依次为 false、false。ignoreBoundary: true 让点面判断排除孔洞边界；但 Disjoint 只关心是否存在公共点，压线点仍与面共享边界位置，所以不相离。",
+      "refs": [
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" },
+        { "title": "Turf booleanDisjoint API", "url": "https://turfjs.org/docs/api/booleanDisjoint" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "true、true" },
+        { "key": "B", "text": "false、false", "hint": "严格内部排除边界，但边界接触仍不是相离" },
+        { "key": "C", "text": "false、true" },
+        { "key": "D", "text": "true、false" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-04-045",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "在边长单位为千米的理想平面练习中，A 的 bbox 为 [0, 0, 10, 10]，B 为 [2, 0, 6, 10]，C 为 [4, 0, 8, 10]。difference(featureCollection([A, B, C])) 的剩余面积是多少平方米？",
+      "explanation": "B 覆盖 4 × 10 = 40 平方千米，C 也覆盖 40；二者重叠宽 6 - 4 = 2 千米，重叠面积 2 × 10 = 20。剪除范围合计 40 + 40 - 20 = 60，A 剩余 10 × 10 - 60 = 40 平方千米；乘以 1,000,000 得 40,000,000 平方米。",
+      "refs": [{ "title": "Turf difference API", "url": "https://turfjs.org/docs/api/difference" }],
+      "type": "numeric",
+      "answer": 40000000,
+      "tolerance": 0,
+      "unit": "平方米",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-04-046",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "关于无效面几何进入交并差流程的风险与处理，下列说法正确的有哪些？",
+      "explanation": "自相交外环、无法成面的退化环和错误孔洞关系都可能使结果不稳定。本章建议在入口校验并清洗 GeoJSON，再用小样本核查结果，而不是靠异常捕获掩盖输入问题。",
+      "refs": [
+        { "title": "RFC 7946 GeoJSON", "url": "https://datatracker.ietf.org/doc/html/rfc7946" },
+        { "title": "Turf intersect API", "url": "https://turfjs.org/docs/api/intersect" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "自相交外环可能让叠置结果不稳定", "hint": "无效拓扑不能视为可靠输入" },
+        { "key": "B", "text": "重复到无法成面的环需要先校验和清洗", "hint": "退化环不具备正常面的可靠结构" },
+        { "key": "C", "text": "只要没有抛异常，错误孔洞关系就可以完全忽略" },
+        { "key": "D", "text": "入口清洗后仍应通过小样本确认结果", "hint": "格式处理与业务结果核查缺一不可" },
+        { "key": "E", "text": "最佳做法是用 try/catch 隐藏错误并继续生产流程" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-04-047",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "两个面仅共享一条边时，booleanDisjoint 为 false；同时，这种边界接触也不足以让 booleanOverlap 为 true。",
+      "explanation": "正确。共享边意味着存在公共点，所以不满足 Disjoint；但两个面没有公共面积，只是边界接触，也不满足同维度部分重叠的 Overlap 语义。",
+      "refs": [
+        { "title": "Turf booleanDisjoint API", "url": "https://turfjs.org/docs/api/booleanDisjoint" },
+        { "title": "Turf booleanOverlap API", "url": "https://turfjs.org/docs/api/booleanOverlap" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-04-048",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "两个面存在公共面积，若目的是合并覆盖范围并消解内部共享边，应选择哪个函数？",
+      "explanation": "应选择 union。它把输入面的范围合并为一个叠置结果并消解内部共享边；intersect 只保留公共部分，difference 则用于剪除。",
+      "refs": [{ "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "intersect" },
+        { "key": "B", "text": "difference" },
+        { "key": "C", "text": "union", "hint": "并集负责合并范围，而不是只保留公共区域" },
+        { "key": "D", "text": "booleanContains" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-04-049",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "根据讲义 areaA 与 areaB 的范围，二者并集外包矩形的东北角为 [116.43, 39.92]。请在地图上点出这个北京城区面顶点。",
+      "explanation": "两个面的最小经度为 116.40°、最大经度为 116.43°，最小纬度为 39.90°、最大纬度为 39.92°，所以并集外包矩形东北角是东经 116.43°、北纬 39.92°。该点也是 areaB 的东北顶点，真实位置在北京市城区一带。",
+      "refs": [{ "title": "Turf union API", "url": "https://turfjs.org/docs/api/union" }],
+      "type": "map",
+      "target": {
+        "lat": 39.92,
+        "lng": 116.43
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-04-050",
+      "skill": "turf",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "Cesium 的 scene.pick 受相机、遮挡和渲染状态影响，不能替代 Turf 对坐标与 GeoJSON 面的二维拓扑判断。",
+      "explanation": "正确。scene.pick 回答屏幕像素命中了哪个渲染对象，而 booleanPointInPolygon 判断坐标与面的空间关系，不需要场景或相机；可靠分工是先拾取业务对象，再按需要交给 Turf 判断。",
+      "refs": [
+        { "title": "Cesium.Scene.pick API 参考", "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Scene.html#pick" },
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }
+      ],
+      "type": "truefalse",
+      "answer": true
     }
   ]
 }

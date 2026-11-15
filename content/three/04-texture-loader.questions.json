@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "04",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-04-001",
@@ -335,6 +335,1036 @@
       "tolerance": 0,
       "unit": "%",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-04-014",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "关于常见 UV 坐标的方向与取值，下列哪项描述正确？",
+      "explanation": "U 沿图片横向，V 沿图片纵向，常见取值范围是 0～1。顶点携带这样的二维坐标后，三角形内部才能通过插值得到连续的纹理采样位置。",
+      "refs": [
+        {
+          "title": "three.js Texture",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js BufferGeometry.uv",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "U 表示深度，V 表示时间，范围没有限制" },
+        { "key": "B", "text": "U 沿纵向、V 沿横向，常见范围是 -1～1" },
+        {
+          "key": "C",
+          "text": "U 沿横向、V 沿纵向，常见范围是 0～1",
+          "hint": "两个分量分别对应图片的横轴与纵轴"
+        },
+        { "key": "D", "text": "U 与 V 都只能取整数，不能插值" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-04-015",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "GLTFLoader 加载一个内容丰富的 glTF 场景后，结果中可能包含哪些内容？",
+      "explanation": "glTF 是三维场景传输格式，加载结果不只是单个 Mesh，还可能有场景树、材质、相机和动画。它不会仅因使用 glTF 就自动产生城市级瓦片调度能力。",
+      "refs": [
+        {
+          "title": "three.js GLTFLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        },
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "场景树",
+          "hint": "模型可以包含多层 Object3D 节点"
+        },
+        {
+          "key": "B",
+          "text": "材质",
+          "hint": "网格外观可随模型一起传输"
+        },
+        {
+          "key": "C",
+          "text": "相机",
+          "hint": "glTF 场景可以携带相机"
+        },
+        {
+          "key": "D",
+          "text": "动画",
+          "hint": "加载结果可通过 animations 提供动画片段"
+        },
+        { "key": "E", "text": "自动生成的城市级 3D Tiles 调度器" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-04-016",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "renderer 的输出通常使用 sRGB，因此所有输入纹理也都应统一设置为 SRGBColorSpace。",
+      "explanation": "错误。输出颜色空间与输入纹理的用途是两件事：颜色图需要按其实际编码解码，而 normal、roughness 等数据图必须保留原始数值，不能统一标成 sRGB。",
+      "refs": [
+        {
+          "title": "three.js Texture.colorSpace",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js WebGLRenderer",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-04-017",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "要查询当前设备支持的纹理各向异性上限，应调用 renderer.capabilities 的哪个方法？（只写方法名）",
+      "explanation": "renderer.capabilities.getMaxAnisotropy() 返回当前设备支持的最大各向异性值。讲义再用 Math.min 把业务期望值与该上限结合，避免直接设置设备无法支持的数值。",
+      "refs": [
+        {
+          "title": "three.js WebGLRenderer.capabilities",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        },
+        {
+          "title": "three.js Texture.anisotropy",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "getMaxAnisotropy",
+        "getMaxAnisotropy()",
+        "renderer.capabilities.getMaxAnisotropy",
+        "renderer.capabilities.getMaxAnisotropy()"
+      ],
+      "placeholder": "例如：getMaxAnisotropy"
+    },
+    {
+      "id": "three-04-018",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "按讲义示例创建 new THREE.PlaneGeometry(4, 4) 后，plane.getAttribute(\"uv\").count 的值是多少？",
+      "explanation": "该平面有 4 个顶点，position.count 为 4；UV 与顶点一一对应，因此 uv.count 同样是 4。这里的构造参数 4 不是把 UV 数量设为 16。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.uv",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-04-019",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "希望纹理超出 0～1 后仍然重复，并且相邻重复单元交替镜像，应选择哪种包裹模式？",
+      "explanation": "MirroredRepeatWrapping 在重复纹理的同时交替镜像相邻单元。RepeatWrapping 只重复不镜像，ClampToEdgeWrapping 则把越界坐标钳到边缘。",
+      "refs": [
+        {
+          "title": "three.js Texture wrapping",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "THREE.ClampToEdgeWrapping" },
+        { "key": "B", "text": "THREE.RepeatWrapping" },
+        { "key": "C", "text": "THREE.NoColorSpace" },
+        {
+          "key": "D",
+          "text": "THREE.MirroredRepeatWrapping",
+          "hint": "名称中的 Mirrored 表示相邻单元会镜像"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-04-020",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "GLB 文件已经加载成功，业务接入前还应检查哪些事项？",
+      "explanation": "网络与解析成功只说明模型数据可读，不代表业务初始化完成。仍需检查模型尺度、朝向、材质是否符合场景要求，并明确资源所有权，避免后续释放互相影响。",
+      "refs": [
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        },
+        {
+          "title": "three.js GLTFLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "模型尺度是否适合当前场景",
+          "hint": "导出单位与场景尺度可能并不一致"
+        },
+        {
+          "key": "B",
+          "text": "模型朝向是否正确",
+          "hint": "加载成功后仍可能需要调整旋转"
+        },
+        {
+          "key": "C",
+          "text": "材质表现是否符合预期",
+          "hint": "材质仍需结合实际灯光与颜色空间检查"
+        },
+        {
+          "key": "D",
+          "text": "几何、材质与纹理的资源所有权",
+          "hint": "后续释放前必须明确资源由谁管理"
+        },
+        { "key": "E", "text": "只要文件下载成功，以上事项都可省略" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-04-021",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "GLB 可以把 glTF 的 JSON、几何缓冲与纹理等内容打包成二进制单文件。",
+      "explanation": "正确。glTF 通常由 JSON、几何缓冲和纹理组成，GLB 是其二进制单文件打包形式。GLTFLoader 能读取这两种形式，打包差异不改变它们表达三维场景的用途。",
+      "refs": [
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        },
+        {
+          "title": "Khronos glTF",
+          "url": "https://www.khronos.org/gltf/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-04-022",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "DRACOLoader 要把解码器根目录设为 /draco/，应调用哪个方法？（只写方法名）",
+      "explanation": "draco.setDecoderPath(\"/draco/\") 指定浏览器获取 DRACO 解码文件的根路径。该方法只设置解码器位置，模型结构仍由 GLTFLoader 负责读取。",
+      "refs": [
+        {
+          "title": "three.js DRACOLoader.setDecoderPath",
+          "url": "https://threejs.org/docs/#examples/en/loaders/DRACOLoader"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "setDecoderPath",
+        "setDecoderPath()",
+        "draco.setDecoderPath",
+        "draco.setDecoderPath(\"/draco/\")",
+        "draco.setDecoderPath('/draco/')"
+      ],
+      "placeholder": "例如：setDecoderPath"
+    },
+    {
+      "id": "three-04-023",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "砖墙颜色纹理横向重复 6 次、纵向重复 3 次，不考虑边缘裁切，共排布多少个纹理单元？",
+      "explanation": "每个横向行带包含 6 个纹理单元，纵向共有 3 个行带，因此总数为 6×3=18。实现时仍需配合 RepeatWrapping 与 repeat.set(6, 3)。",
+      "refs": [
+        {
+          "title": "three.js Texture.repeat",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "numeric",
+      "answer": 18,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-04-024",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "Vite 项目已把 DRACO 解码文件复制到 public/draco/，生产环境却请求解码器 404。下列哪项配置与这种部署方式一致？",
+      "explanation": "public/draco/ 中的文件部署后应对应站点的 /draco/ 路径，因此应设置 draco.setDecoderPath(\"/draco/\") 并确认文件实际发布。浏览器不应去请求源码目录 node_modules 或带 public 前缀的虚构地址。",
+      "refs": [
+        {
+          "title": "three.js DRACOLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/DRACOLoader"
+        },
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "draco.setDecoderPath(\"/draco/\")，并确认 /draco/ 下的文件已部署",
+          "hint": "public 中的 draco 目录会映射到站点根路径下"
+        },
+        { "key": "B", "text": "draco.setDecoderPath(\"/public/draco/\")，因为 URL 必须包含 public" },
+        { "key": "C", "text": "draco.setDecoderPath(\"/node_modules/three/examples/jsm/libs/draco/gltf/\")，生产环境直接读取依赖目录" },
+        { "key": "D", "text": "删除全部解码文件，只保留 robot.glb 即可自动解码" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-04-025",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "阅读讲义 disposeModel 的资源收集阶段，下列哪些做法符合实现？",
+      "explanation": "实现会遍历网格，把 geometry 放入集合；材质先统一成数组再收集；材质属性值中满足 isTexture 的对象放入纹理集合。Set 用于去重，但不能因此跳过后续网格的遍历。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.dispose",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "three.js Texture.dispose",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js Object3D.traverse",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "遍历时对 isMesh 对象收集 object.geometry",
+          "hint": "几何资源从网格对象上取得"
+        },
+        {
+          "key": "B",
+          "text": "先把单个材质或材质数组统一成列表，再加入 materials 集合",
+          "hint": "两种 material 形态需要统一处理"
+        },
+        {
+          "key": "C",
+          "text": "遍历材质属性值，把 isTexture 为真的值加入 textures 集合",
+          "hint": "这样才能发现材质引用的纹理"
+        },
+        { "key": "D", "text": "Set 会把同一对象的多份引用复制成彼此独立的资源" },
+        { "key": "E", "text": "发现第一个共享材质后，后续所有 Mesh 都可跳过" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-04-026",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "对材质调用 dispose 后，它引用的全部 Texture 都会随之自动 dispose，因此无需单独收集纹理。",
+      "explanation": "错误。讲义把 Geometry、Material、Texture 视为需要分别释放的 GPU 资源，所以 disposeModel 会单独收集纹理并调用 texture.dispose，不能假定材质释放会级联处理全部纹理。",
+      "refs": [
+        {
+          "title": "three.js Texture.dispose",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js Material",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-04-027",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "disposeModel 要访问 root 下的每个后代节点并收集网格资源，应调用 Object3D 的哪个遍历方法？（只写方法名）",
+      "explanation": "root.traverse(callback) 会遍历根节点及其后代，让回调逐个接收对象。实现再在回调中检查 object.isMesh，只从网格收集几何体、材质和纹理。",
+      "refs": [
+        {
+          "title": "three.js Object3D.traverse",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "traverse",
+        "traverse()",
+        "root.traverse",
+        "Object3D.traverse"
+      ],
+      "placeholder": "例如：traverse"
+    },
+    {
+      "id": "three-04-028",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "讲义中的 PlaneGeometry 有 4 个顶点，每个顶点提供 U、V 两个坐标分量。把这些 UV 展开后共有多少个坐标分量？",
+      "explanation": "每个顶点对应一个二维 UV，也就是 U、V 两个数值。4 个顶点共有 4×2=8 个坐标分量；这里问的是分量总数，而不是 uv.count 的顶点数。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.uv",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-04-029",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "使用 LoadingManager 时，哪个回调适合在本批资源开始加载时记录 URL 与加载计数？",
+      "explanation": "onStart 在本批加载开始时触发，讲义回调接收 url、loaded、total。onProgress 用于后续进度，onLoad 用于本批完成，onError 则用于报告失败资源。",
+      "refs": [
+        {
+          "title": "three.js LoadingManager.onStart",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "manager.onLoad = (url, loaded, total) => { /* ... */ }" },
+        {
+          "key": "B",
+          "text": "manager.onStart = (url, loaded, total) => { /* ... */ }",
+          "hint": "开始阶段使用 onStart"
+        },
+        { "key": "C", "text": "manager.onError = (url, loaded, total) => { /* ... */ }" },
+        { "key": "D", "text": "manager.onProgress = () => { /* 不接收任何信息 */ }" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-04-030",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "加载 gltf.scene 后，要让其中的网格既投射又接收阴影，哪些操作符合讲义？",
+      "explanation": "应遍历 gltf.scene，在 object.isMesh 为真时设置 castShadow 与 receiveShadow。这样配置作用于网格节点，而不是把动画片段当成网格或盲目处理所有非网格对象。",
+      "refs": [
+        {
+          "title": "three.js GLTFLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        },
+        {
+          "title": "three.js Object3D.traverse",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Mesh",
+          "url": "https://threejs.org/docs/#api/en/objects/Mesh"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "调用 gltf.scene.traverse 遍历节点",
+          "hint": "模型网格可能位于不同层级"
+        },
+        {
+          "key": "B",
+          "text": "通过 object.isMesh 筛选网格",
+          "hint": "只需对 Mesh 设置这两个网格阴影属性"
+        },
+        {
+          "key": "C",
+          "text": "设置 object.castShadow = true",
+          "hint": "该设置让网格投射阴影"
+        },
+        {
+          "key": "D",
+          "text": "设置 object.receiveShadow = true",
+          "hint": "该设置让网格接收阴影"
+        },
+        { "key": "E", "text": "只设置 gltf.animations.castShadow = true" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-04-031",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "同一个 LoadingManager 可以同时传给 TextureLoader 与 GLTFLoader，用来汇总本批资源的加载情况。",
+      "explanation": "正确。加载器构造函数可以接收共享的 manager，因此纹理和模型任务能够汇入同一套开始、进度、完成与错误回调，便于页面维护统一的加载状态。",
+      "refs": [
+        {
+          "title": "three.js LoadingManager",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager"
+        },
+        {
+          "title": "three.js TextureLoader",
+          "url": "https://threejs.org/docs/#api/en/loaders/TextureLoader"
+        },
+        {
+          "title": "three.js GLTFLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-04-032",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "讲义使用 await 等待 robot.glb 加载完成时，调用了 GLTFLoader 的哪个异步方法？（只写方法名）",
+      "explanation": "gltfLoader.loadAsync(url) 返回可供 await 等待的异步加载结果，示例由此取得 gltf 对象。它不同于只负责压缩几何解码的 DRACOLoader 方法。",
+      "refs": [
+        {
+          "title": "three.js GLTFLoader.loadAsync",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "loadAsync",
+        "loadAsync()",
+        "gltfLoader.loadAsync",
+        "gltfLoader.loadAsync(\"/models/robot.glb\")",
+        "gltfLoader.loadAsync('/models/robot.glb')"
+      ],
+      "placeholder": "例如：loadAsync"
+    },
+    {
+      "id": "three-04-033",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "设备 getMaxAnisotropy() 返回 12，执行 Math.min(8, renderer.capabilities.getMaxAnisotropy()) 后，anisotropy 应设置为多少？",
+      "explanation": "Math.min(8, 12) 取较小值 8，因此最终设置为 8。设备虽然支持到 12，但代码额外设置了不超过 8 的视觉与性能上限。",
+      "refs": [
+        {
+          "title": "three.js Texture.anisotropy",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js WebGLRenderer.capabilities",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "numeric",
+      "answer": 8,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-04-034",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "下列哪项最准确地描述了常见 glTF 文件内容的组成？",
+      "explanation": "glTF 通常由 JSON、几何缓冲与纹理等内容共同表达三维场景；GLB 则把这些内容打包成二进制单文件。它不是一段 Three 初始化脚本，也不是地理瓦片索引。",
+      "refs": [
+        {
+          "title": "Khronos glTF",
+          "url": "https://www.khronos.org/gltf/"
+        },
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "只包含一段创建 Scene 的 JavaScript" },
+        { "key": "B", "text": "只能是不可拆分的图片文件" },
+        {
+          "key": "C",
+          "text": "通常包含 JSON、几何缓冲与纹理等内容",
+          "hint": "这些部分共同描述模型结构、几何和外观"
+        },
+        { "key": "D", "text": "只包含城市级瓦片的空间索引" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-04-035",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "对照 three 的 GLTFLoader 与 Cesium 的 3D Tiles，下列说法正确的有哪些？",
+      "explanation": "GLTFLoader 面向单个模型或场景；3D Tiles 面向城市级空间数据的流式调度，glTF 常作为瓦片内部模型内容。两者都使用 glTF 并不意味着 GLTFLoader 自动获得地理坐标、层级瓦片或地球 LOD 能力。",
+      "refs": [
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        },
+        {
+          "title": "Khronos glTF",
+          "url": "https://www.khronos.org/gltf/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "three 的 GLTFLoader 主要面向单个模型或场景",
+          "hint": "它读取 glTF/GLB 的模型内容"
+        },
+        {
+          "key": "B",
+          "text": "Cesium 的 3D Tiles 面向城市级空间数据流式调度",
+          "hint": "层级瓦片与空间调度属于 3D Tiles 的范畴"
+        },
+        {
+          "key": "C",
+          "text": "glTF 可以作为 3D Tiles 瓦片内部的模型内容",
+          "hint": "模型格式与瓦片组织方式可以组合"
+        },
+        { "key": "D", "text": "GLTFLoader 加载 glTF 后会自动获得经纬度与地球 LOD 调度" },
+        { "key": "E", "text": "只要都使用 glTF，两者就完全具备相同的地理能力" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-04-036",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "纹理 anisotropy 并非越高越好，应结合设备支持上限与实际视觉收益选择。",
+      "explanation": "正确。各向异性用于改善斜视角采样，但更高数值不一定带来成比例的视觉收益。讲义使用 Math.min 限制在设备能力和预期上限之内，正体现了这种权衡。",
+      "refs": [
+        {
+          "title": "three.js Texture.anisotropy",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-04-037",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "disposeModel 使用哪个 JavaScript 内置集合类对共享的 Geometry、Material 与 Texture 引用去重？（写类名）",
+      "explanation": "Set 保存唯一值，同一个资源对象被重复 add 时不会形成多份集合项，因此适合在遍历多个 Mesh 时收集并去重资源，之后每份资源只释放一次。",
+      "refs": [
+        {
+          "title": "MDN Set",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set"
+        },
+        {
+          "title": "three.js Texture.dispose",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "short",
+      "accepted": ["Set", "new Set", "new Set()"],
+      "placeholder": "例如：Set"
+    },
+    {
+      "id": "three-04-038",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "按讲义 percent = total > 0 ? Math.round((loaded / total) * 100) : 0 的写法，当 total=0 时进度显示百分之多少？",
+      "explanation": "total=0 时条件表达式的保护分支直接返回 0，不执行除法，因此显示 0%。这一 guard 避免除以零产生无效进度值。",
+      "refs": [
+        {
+          "title": "three.js LoadingManager.onProgress",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0,
+      "tolerance": 0,
+      "unit": "%",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-04-039",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "object.material 既可能是单个材质，也可能是材质数组。disposeModel 中哪种写法能把两种情况统一为材质列表？",
+      "explanation": "Array.isArray(object.material) 为真时直接使用原数组，否则把单个材质包成单元素数组。这样后续 for...of 能以同一种方式处理每个材质，不会漏掉数组中的后续材质。",
+      "refs": [
+        {
+          "title": "MDN Array.isArray",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray"
+        },
+        {
+          "title": "three.js Mesh.material",
+          "url": "https://threejs.org/docs/#api/en/objects/Mesh"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "const list = [object.material];，对数组也不做任何判断" },
+        { "key": "B", "text": "const list = [object.material[0]];，始终只取第一个材质" },
+        { "key": "C", "text": "const list = object.material ? object.material : [];" },
+        {
+          "key": "D",
+          "text": "const list = Array.isArray(object.material) ? object.material : [object.material];",
+          "hint": "数组保持原样，单材质包装为单元素数组"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-04-040",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于 wrapS、wrapT 与越界 UV 的处理，下列说法正确的有哪些？",
+      "explanation": "wrapS 控制横向 U 方向的包裹，wrapT 控制纵向 V 方向；ClampToEdgeWrapping 把越界采样钳到边缘。MirroredRepeatWrapping 会镜像重复，而 anisotropy 负责斜视角采样，不决定越界包裹方式。",
+      "refs": [
+        {
+          "title": "three.js Texture wrapping",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "wrapS 控制 U 方向的包裹方式",
+          "hint": "S 对应纹理横向"
+        },
+        {
+          "key": "B",
+          "text": "wrapT 控制 V 方向的包裹方式",
+          "hint": "T 对应纹理纵向"
+        },
+        {
+          "key": "C",
+          "text": "ClampToEdgeWrapping 会把越界采样钳到边缘",
+          "hint": "该模式不会连续生成新的重复单元"
+        },
+        { "key": "D", "text": "MirroredRepeatWrapping 只重复而从不镜像" },
+        { "key": "E", "text": "anisotropy 决定 UV 越界后使用哪种包裹模式" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-04-041",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "DRACOLoader 只负责压缩几何解码，不能代替 GLTFLoader 解析完整的模型场景。",
+      "explanation": "正确。两种加载器职责不同：GLTFLoader 读取模型结构、材质、相机与动画等内容，DRACOLoader 只为使用 DRACO 压缩的几何提供解码支持。配置解码器不等于把场景解析职责也移交给它。",
+      "refs": [
+        {
+          "title": "three.js DRACOLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/DRACOLoader"
+        },
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-04-042",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "disposeModel 遍历材质的属性值时，用哪个布尔标记识别某个值是否为 Texture？（只写属性名）",
+      "explanation": "value?.isTexture 用于判断当前材质属性值是否为纹理对象；为真时把 value 加入 textures 集合。可选链还能在属性值为空时避免直接访问属性出错。",
+      "refs": [
+        {
+          "title": "three.js Texture.isTexture",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "MDN Object.values",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/values"
+        }
+      ],
+      "type": "short",
+      "accepted": ["isTexture", "value.isTexture", "value?.isTexture"],
+      "placeholder": "例如：isTexture"
+    },
+    {
+      "id": "three-04-043",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "已有 const manager = new THREE.LoadingManager()，哪种写法能创建由该 manager 统一统计的 TextureLoader？",
+      "explanation": "TextureLoader 构造函数接收 manager，因此 new THREE.TextureLoader(manager) 创建的加载器会把任务纳入统一管理。先无参创建再调用 load(manager) 会把 manager 错当资源地址。",
+      "refs": [
+        {
+          "title": "three.js TextureLoader",
+          "url": "https://threejs.org/docs/#api/en/loaders/TextureLoader"
+        },
+        {
+          "title": "three.js LoadingManager",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "new THREE.TextureLoader(manager)",
+          "hint": "把共享 manager 传给加载器构造函数"
+        },
+        { "key": "B", "text": "new THREE.TextureLoader().load(manager)" },
+        { "key": "C", "text": "new THREE.LoadingManager(new THREE.TextureLoader())" },
+        { "key": "D", "text": "new THREE.Scene(manager)" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-04-044",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "要单独设置纹理在 V 方向超出 0～1 后的包裹方式，应修改哪个属性？",
+      "explanation": "wrapT 对应 V 方向的包裹方式，wrapS 对应 U 方向。repeat 控制重复次数，anisotropy 改善斜视角采样，二者都不能代替 wrapT 的越界处理配置。",
+      "refs": [
+        {
+          "title": "three.js Texture.wrapT",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "texture.wrapS" },
+        {
+          "key": "B",
+          "text": "texture.wrapT",
+          "hint": "T 方向对应 V 坐标"
+        },
+        { "key": "C", "text": "texture.repeat" },
+        { "key": "D", "text": "texture.anisotropy" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-04-045",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "按讲义 disposeModel 的释放阶段，完成资源收集与去重后应执行哪些操作？",
+      "explanation": "讲义依次对 textures、materials、geometries 中的资源调用 dispose，最后执行 root.removeFromParent 脱离父节点。动画片段数组没有在这里替代三类 GPU 资源的释放。",
+      "refs": [
+        {
+          "title": "three.js Texture.dispose",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        },
+        {
+          "title": "three.js BufferGeometry.dispose",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "three.js Object3D.removeFromParent",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "遍历 textures 并调用 texture.dispose()",
+          "hint": "纹理由独立集合统一释放"
+        },
+        {
+          "key": "B",
+          "text": "遍历 materials 并调用 material.dispose()",
+          "hint": "每个去重后的材质分别释放"
+        },
+        {
+          "key": "C",
+          "text": "遍历 geometries 并调用 geometry.dispose()",
+          "hint": "几何体的 GPU 资源也要释放"
+        },
+        {
+          "key": "D",
+          "text": "最后调用 root.removeFromParent()",
+          "hint": "资源处理后把根节点从父级移除"
+        },
+        { "key": "E", "text": "只调用 gltf.animations.dispose() 代替上述全部步骤" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-04-046",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "讲义的 PlaneGeometry(4, 4) 示例中，position.count 与 uv.count 都为 4，体现了顶点与 UV 的一一对应。",
+      "explanation": "正确。示例分别打印两个 Attribute 的 count，结果都为 4。每个位置顶点都有对应的二维纹理坐标，光栅化时才能据此在三角形内部插值采样。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "three.js Texture",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-04-047",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "disposeModel 在 for...of 循环中对材质执行 Object.values(material)，主要目的是什么？",
+      "explanation": "Object.values(material) 给出材质各属性的值，实现随后检查每个 value?.isTexture，以发现并收集材质引用的纹理。它不负责解码模型，也不负责计算加载进度。",
+      "refs": [
+        {
+          "title": "MDN Object.values",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object/values"
+        },
+        {
+          "title": "three.js Texture.isTexture",
+          "url": "https://threejs.org/docs/#api/en/textures/Texture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "列出 root 的全部子节点并修改其位置" },
+        { "key": "B", "text": "把 DRACO 几何直接解码成动画" },
+        {
+          "key": "C",
+          "text": "遍历材质属性值，以便通过 isTexture 找出纹理",
+          "hint": "纹理可能挂在材质的不同属性上"
+        },
+        { "key": "D", "text": "计算 LoadingManager 的 loaded 与 total" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-04-048",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "哪个 three 加载器既能读取 .gltf，也能读取打包为二进制单文件的 .glb？",
+      "explanation": "GLTFLoader 同时支持 glTF 与 GLB，返回场景、材质、相机和动画等内容。DRACOLoader 只是按需为压缩几何提供解码支持，并不是完整的场景格式加载器。",
+      "refs": [
+        {
+          "title": "three.js GLTFLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        },
+        {
+          "title": "three.js Loading 3D models",
+          "url": "https://threejs.org/docs/#manual/en/introduction/Loading-3D-models"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "TextureLoader" },
+        { "key": "B", "text": "DRACOLoader" },
+        { "key": "C", "text": "LoadingManager" },
+        {
+          "key": "D",
+          "text": "GLTFLoader",
+          "hint": "名称对应 glTF，同时兼容其 GLB 打包形式"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-04-049",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "要为同一批纹理与 GLB 任务实现统一进度 UI，下列哪些做法符合讲义？",
+      "explanation": "可以创建一个 LoadingManager，并把它分别传给 TextureLoader 与 GLTFLoader。进度计算使用 loaded/total，同时用 total > 0 的保护分支避免除零；多个加载器并不需要各自隔离 manager。",
+      "refs": [
+        {
+          "title": "three.js LoadingManager",
+          "url": "https://threejs.org/docs/#api/en/loaders/managers/LoadingManager"
+        },
+        {
+          "title": "three.js TextureLoader",
+          "url": "https://threejs.org/docs/#api/en/loaders/TextureLoader"
+        },
+        {
+          "title": "three.js GLTFLoader",
+          "url": "https://threejs.org/docs/#examples/en/loaders/GLTFLoader"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "先创建 const manager = new THREE.LoadingManager()",
+          "hint": "共享同一个管理器实例"
+        },
+        {
+          "key": "B",
+          "text": "使用 new THREE.TextureLoader(manager) 加载纹理",
+          "hint": "纹理任务进入统一管理器"
+        },
+        {
+          "key": "C",
+          "text": "使用 new GLTFLoader(manager) 加载模型",
+          "hint": "模型任务也进入同一个管理器"
+        },
+        {
+          "key": "D",
+          "text": "用 total > 0 ? Math.round((loaded / total) * 100) : 0 计算百分比",
+          "hint": "计算前处理 total 为零的情况"
+        },
+        { "key": "E", "text": "每种加载器都必须使用不同 manager，不能共享" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "three-04-050",
+      "skill": "three",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "disposeModel 在第一个 Mesh 中发现了共享材质后，可以跳过后续 Mesh，因为它们的 Geometry 也必然全部相同。",
+      "explanation": "错误。共享材质不代表后续网格的几何体或其他资源也相同。Set 的作用是对收集到的资源去重，而不是允许提前停止遍历；每个 Mesh 仍需检查并收集其独占资源。",
+      "refs": [
+        {
+          "title": "three.js Object3D.traverse",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js BufferGeometry.dispose",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "MDN Set",
+          "url": "https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Set"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
     }
   ]
 }

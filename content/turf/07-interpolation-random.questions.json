@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "07",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-07-001",
@@ -201,6 +201,605 @@
       "tolerance": 0.000001,
       "unit": "观测值单位",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-07-014",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在 interpolate(stations, 2, options) 中，第二个参数 cellWidth = 2 的直接作用是什么？",
+      "explanation": "cellWidth 决定输出网格的单元大小，也就是网格分辨率。它不会把站点数量改成 2，也不会创造新的观测；其实际距离单位由 units 等选项共同确定。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把输入观测站点数量固定为 2 个" },
+        { "key": "B", "text": "决定输出网格单元的尺寸", "hint": "cellWidth 描述网格单元宽度" },
+        { "key": "C", "text": "把待估计属性限制为两个有效值" },
+        { "key": "D", "text": "为每个站点自动生成两种颜色" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-07-015",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "randomPoint、randomLine、randomPolygon 的第一个参数都表示要生成的要素数量。",
+      "explanation": "正确。三个函数都以生成数量作为第一个参数，例如 randomPoint(100) 生成 100 个点要素，randomLine(5) 生成 5 个线要素，randomPolygon(3) 生成 3 个面要素。",
+      "refs": [
+        { "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" },
+        { "title": "Turf randomLine API", "url": "https://turfjs.org/docs/api/randomLine" },
+        { "title": "Turf randomPolygon API", "url": "https://turfjs.org/docs/api/randomPolygon" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-07-016",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "讲义的数值—颜色示例中，哪个自定义函数按 start + (end - start) × t 完成一维线性插值？",
+      "explanation": "函数名是 lerp。它根据比例 t 在 start 与 end 之间取值；colorAt 再对各色标通道调用这个函数，因此它本身并不进行地理空间插值。",
+      "refs": [{ "title": "MDN Math", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math" }],
+      "type": "short",
+      "accepted": ["lerp", "lerp(start, end, t)", "lerp(start,end,t)"],
+      "placeholder": "写出示例函数名"
+    },
+    {
+      "id": "turf-07-017",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 interpolate 的网格分辨率与估计可靠性，下列说法正确的有哪些？",
+      "explanation": "减小 cellWidth 会增加网格单元密度，但不会增加观测信息。站点稀疏、分布不均和异常值都可能让估计失真；interpolate 估计的是空间属性，而不是单纯混合 RGB。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "cellWidth 会影响输出网格的分辨率", "hint": "网格尺寸与输出单元密度直接相关" },
+        { "key": "B", "text": "缩小 cellWidth 就等于增加了真实观测站点" },
+        { "key": "C", "text": "站点稀疏或分布不均时，结果可能具有误导性", "hint": "输出更密不代表输入证据更充分" },
+        { "key": "D", "text": "异常观测值可能干扰周围网格的估计", "hint": "距离权重不会自动识别业务异常" },
+        { "key": "E", "text": "interpolate 只负责在两个 RGB 颜色之间取中间值" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "turf-07-018",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "按 weight = 2 的反距离权重公式 w = 1 / distance²，三个距离分别为 2、4、5。归一化所用的 IDW 分母，也就是权重和，是多少？",
+      "explanation": "三个权重依次为 1/2² = 0.25、1/4² = 0.0625、1/5² = 0.04。IDW 分母是三者之和：0.25 + 0.0625 + 0.04 = 0.3525。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "numeric",
+      "answer": 0.3525,
+      "tolerance": 0,
+      "unit": "权重和",
+      "placeholder": "填写精确小数"
+    },
+    {
+      "id": "turf-07-019",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "讲义 interpolate 示例中 temperature 为 18 的站点坐标是 [116.30, 39.90]。请在地图上点选这个北京中心城区西部站点。",
+      "explanation": "目标位于北纬 39.90°、东经 116.30°，在北京中心城区西部。讲义把这个真实地理位置作为温度散点之一，用来演示由已知站点估计周围网格属性。",
+      "refs": [
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" },
+        { "title": "RFC 7946 位置坐标", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9,
+        "lng": 116.3
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-07-020",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "其他条件不变，将 interpolate 的 weight 从 1 调大到 4，通常会对距离权重产生什么影响？",
+      "explanation": "weight 是距离幂次。幂次增大后，较远点的 1 / distance^weight 衰减更快，近点相对主导更明显；它不会改变观测数量，也不负责设定颜色数量。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "所有站点无论距离远近都获得完全相同的权重" },
+        { "key": "B", "text": "输入站点数量自动扩大为原来的 4 倍" },
+        { "key": "C", "text": "近点主导更明显，远点权重衰减更快", "hint": "距离幂次越大，远点权重下降越剧烈" },
+        { "key": "D", "text": "输出颜色固定变成四级分段设色" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-07-021",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "讲义的 colorAt 会把低于 low.value 的输入按 t = 0 处理，并把高于 high.value 的输入按 t = 1 处理。",
+      "explanation": "正确。代码先用 Math.min(1, ratio) 限制上界，再用 Math.max(0, ...) 限制下界，因此超出两个色标端点的输入会分别停在低端色与高端色。",
+      "refs": [{ "title": "MDN Math", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-07-022",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "要从一个 FeatureCollection 中随机抽取指定数量的已有要素，应调用哪个 Turf 函数？",
+      "explanation": "应调用 sample(featureCollection, num)。它从已有集合随机挑取要素，适合生成测试子集；它不会沿路线按距离创建新坐标。",
+      "refs": [{ "title": "Turf sample API", "url": "https://turfjs.org/docs/api/sample" }],
+      "type": "short",
+      "accepted": ["sample", "turf.sample"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-07-023",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "把插值网格属性接入多段色标时，下列哪些实现与解释是合理的？",
+      "explanation": "多段设色应先定位数值所属区间，再在该区间内逐通道混合 RGB，同时处理缺失值、非有限数和上下界。颜色平滑只是显示效果，不能反推站点充足或空间估计可靠。",
+      "refs": [
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" },
+        { "title": "MDN Math", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "先找到 value 所在的色标区间", "hint": "不同区间应使用对应的两个端点色" },
+        { "key": "B", "text": "在选定区间内分别混合各 RGB 通道", "hint": "讲义 colorAt 正是逐通道调用 lerp" },
+        { "key": "C", "text": "非有限数可以直接参与比例计算，无需专门处理" },
+        { "key": "D", "text": "缺失值和色标上下界需要显式处理", "hint": "输入质量与边界条件会影响显示是否有效" },
+        { "key": "E", "text": "只要颜色渐变平滑，就能证明空间估计准确" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-07-024",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "先用 randomPoint(40, { bbox }) 生成站点，再用 sample(points, 8) 抽出不重复的验证子集。未被抽中的站点还有多少个点？",
+      "explanation": "randomPoint 的第一个参数给出 40 个点，sample 从中抽走 8 个已有站点。剩余点数为 40 - 8 = 32，不涉及重新随机生成坐标。",
+      "refs": [
+        { "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" },
+        { "title": "Turf sample API", "url": "https://turfjs.org/docs/api/sample" }
+      ],
+      "type": "numeric",
+      "answer": 32,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-07-025",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "讲义 interpolate 示例中 temperature 为 21 的站点坐标是 [116.42, 39.98]。请在地图上点选这个北京中心城区北部站点。",
+      "explanation": "目标位于北纬 39.98°、东经 116.42°，在北京中心城区北部。GeoJSON 坐标先写经度再写纬度，因此地图目标是 lat = 39.98、lng = 116.42。",
+      "refs": [
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" },
+        { "title": "RFC 7946 位置坐标", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.98,
+        "lng": 116.42
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-07-026",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "执行 randomPolygon(3, { bbox }) 后，features[0].geometry.type 应是什么？",
+      "explanation": "第一个要素的几何类型是 Polygon。参数 3 表示集合中有三个面要素，并不把每个要素变成 MultiPolygon，也不表示三角形必须有三个顶点。",
+      "refs": [{ "title": "Turf randomPolygon API", "url": "https://turfjs.org/docs/api/randomPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Point" },
+        { "key": "B", "text": "LineString" },
+        { "key": "C", "text": "MultiLineString" },
+        { "key": "D", "text": "Polygon", "hint": "randomPolygon 生成的是面要素" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "turf-07-027",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "tin(points, z) 会输出与 interpolate 相同的规则方形网格，而不是不规则三角形集合。",
+      "explanation": "错误。tin 将散点连接成不规则三角网，输出三角形面要素；interpolate 则根据散点属性生成规则网格。两者的输出结构与后续用途不同。",
+      "refs": [
+        { "title": "Turf tin API", "url": "https://turfjs.org/docs/api/tin" },
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-07-028",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "已知一条 LineString 和沿线距离，要在该里程位置生成一个新点，应调用哪个 Turf 函数？",
+      "explanation": "应调用 along(line, distance, options)。它按沿线几何距离定位并生成新点；与 length 配合可布置每千米里程点，而 sample 只随机抽取已有要素。",
+      "refs": [{ "title": "Turf along API", "url": "https://turfjs.org/docs/api/along" }],
+      "type": "short",
+      "accepted": ["along", "turf.along"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-07-029",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "下列函数与输出几何要素的对应关系，正确的有哪些？",
+      "explanation": "randomPoint、randomLine、randomPolygon 分别生成点、线、面要素集合；tin 输出带顶点属性的三角形面要素集合。sample 不生成规则网格，只从已有集合随机抽取要素。",
+      "refs": [
+        { "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" },
+        { "title": "Turf randomLine API", "url": "https://turfjs.org/docs/api/randomLine" },
+        { "title": "Turf randomPolygon API", "url": "https://turfjs.org/docs/api/randomPolygon" },
+        { "title": "Turf tin API", "url": "https://turfjs.org/docs/api/tin" },
+        { "title": "Turf sample API", "url": "https://turfjs.org/docs/api/sample" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "randomPoint 输出 Point 要素集合", "hint": "每个生成要素都是点" },
+        { "key": "B", "text": "randomLine 输出 LineString 要素集合", "hint": "数量由第一个参数控制" },
+        { "key": "C", "text": "randomPolygon 输出 Polygon 要素集合", "hint": "每个生成要素都是面" },
+        { "key": "D", "text": "sample 把任何输入转换成规则方形网格" },
+        { "key": "E", "text": "tin 输出三角形 Polygon 要素集合", "hint": "不规则三角网由三角形面组成" }
+      ],
+      "answer": ["A", "B", "C", "E"]
+    },
+    {
+      "id": "turf-07-030",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "按讲义 low = 15、high = 25 的色标，colorAt(20) 返回的 RGB 数组是哪一项？",
+      "explanation": "数值 20 位于区间中点，所以 t = 0.5。R = 49 + (215 - 49) × 0.5 = 132，G = 54 + (48 - 54) × 0.5 = 51，B = 149 + (39 - 149) × 0.5 = 94。",
+      "refs": [{ "title": "MDN Math", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "[132, 51, 94]", "hint": "三个通道都取两个端点的中值" },
+        { "key": "B", "text": "[49, 54, 149]" },
+        { "key": "C", "text": "[215, 48, 39]" },
+        { "key": "D", "text": "[264, 102, 188]" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-07-031",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "讲义 interpolate 示例中 temperature 为 24 的站点坐标是 [116.55, 39.88]。请在地图上点选这个北京中心城区东部站点。",
+      "explanation": "目标位于北纬 39.88°、东经 116.55°，在北京中心城区东部。该站点是讲义四个温度散点之一，其观测值会随距离权重参与未知网格位置的估计。",
+      "refs": [
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" },
+        { "title": "RFC 7946 位置坐标", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.88,
+        "lng": 116.55
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-07-032",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "执行 tin(stations, \"temperature\") 后，triangle.properties.a 在讲义示例中表示什么？",
+      "explanation": "properties.a 保存该三角形一个顶点对应的 temperature 数值，properties.b 与 properties.c 保存另外两个顶点的值。planepoint 使用这三个值定义局部平面。",
+      "refs": [
+        { "title": "Turf tin API", "url": "https://turfjs.org/docs/api/tin" },
+        { "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "三角形质心的经度" },
+        { "key": "B", "text": "三角形的平方千米面积" },
+        { "key": "C", "text": "三角形一个顶点的 temperature 值", "hint": "a、b、c 分别对应三个顶点的指定属性" },
+        { "key": "D", "text": "整个网格的 RGB 颜色数组" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-07-033",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "讲义用 centroid(triangle) 取得三角形内部的目标点，再把目标点与该三角形交给 planepoint。",
+      "explanation": "正确。非退化三角形的质心位于其内部，因此示例可避免目标落在三角形之外。随后 planepoint 根据这个三角形的三个顶点值估计目标位置的属性。",
+      "refs": [
+        { "title": "Turf centroid API", "url": "https://turfjs.org/docs/api/centroid" },
+        { "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-07-034",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "要把带有指定数值属性的散点连接成不规则三角网，应调用哪个 Turf 函数？",
+      "explanation": "应调用 tin(points, z)。第二个参数 z 是顶点数值的属性名，输出的三角形通过 a、b、c 保存对应顶点值，供后续局部平面估计使用。",
+      "refs": [{ "title": "Turf tin API", "url": "https://turfjs.org/docs/api/tin" }],
+      "type": "short",
+      "accepted": ["tin", "turf.tin"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-07-035",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "关于 planepoint、三角面覆盖范围以及与 Cesium 的区别，下列说法正确的有哪些？",
+      "explanation": "planepoint 依据单个三角面的平面方程返回属性数值；三角形内是局部估计，三角形外可能只是外推。Cesium SampledProperty 处理动态状态的时间插值，sampleTerrain 查询地形高度，语义均不同。",
+      "refs": [
+        { "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" },
+        { "title": "Cesium SampledProperty API", "url": "https://cesium.com/learn/cesiumjs/ref-doc/SampledProperty.html" },
+        { "title": "Cesium sampleTerrain API", "url": "https://cesium.com/learn/cesiumjs/ref-doc/global.html#sampleTerrain" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "目标位于三角形内时，可用三个顶点值做局部平面估计", "hint": "三点确定该三角面的平面" },
+        { "key": "B", "text": "目标超出三角形时，即使得到有限数值也可能只是外推", "hint": "数学可延伸不等于有观测覆盖" },
+        { "key": "C", "text": "planepoint 返回的是 RGB 数组，而不是属性数值" },
+        { "key": "D", "text": "Cesium SampledProperty 常用于按时间插值动态对象状态", "hint": "时间维度与二维位置属性估计不同" },
+        { "key": "E", "text": "Cesium sampleTerrain 查询地形高度，不能等同于 Turf 属性估计", "hint": "地形采样与三角面属性求值是不同问题" }
+      ],
+      "answer": ["A", "B", "D", "E"]
+    },
+    {
+      "id": "turf-07-036",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "三个已知点到目标点的距离分别为 1、2、2，观测值分别为 6、12、18。按 weight = 2、w = 1 / distance² 做 IDW 估计，结果是多少？",
+      "explanation": "权重依次为 1、1/4、1/4，权重和为 1.5。加权和为 6 × 1 + 12 × 1/4 + 18 × 1/4 = 13.5，因此估计值为 13.5 ÷ 1.5 = 9。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "numeric",
+      "answer": 9,
+      "tolerance": 0,
+      "unit": "观测值单位",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-07-037",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "讲义 interpolate 示例中 temperature 为 19 的站点坐标是 [116.38, 39.80]。请在地图上点选这个北京城区南部站点。",
+      "explanation": "目标位于北纬 39.80°、东经 116.38°，在北京城区南部。它与讲义另外三个站点共同提供离散温度观测，而不是本身构成完整的温度网格。",
+      "refs": [
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" },
+        { "title": "RFC 7946 位置坐标", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.1" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.8,
+        "lng": 116.38
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-07-038",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "某网格单元附近有一个异常高温站，其他站点又很稀疏。把 weight 从 1 增到 4、cellWidth 减半后，哪种判断最稳妥？",
+      "explanation": "更大的 weight 会让近处异常站的影响更突出，更小的 cellWidth 只会细化输出网格。两种调整都不会增加真实观测，也不能自动修复异常值，应回查站点数据与模型。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "异常站影响必然消失，网格也更具有观测依据" },
+        { "key": "B", "text": "近处异常站可能更主导，网格更细但不增加观测信息", "hint": "同时考虑距离幂次与分辨率不能创造数据这一事实" },
+        { "key": "C", "text": "cellWidth 减半会自动补足两倍真实站点" },
+        { "key": "D", "text": "weight 增大后所有站点权重完全相同" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-07-039",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "若 low.value 与 high.value 相等，讲义 colorAt 的比例计算会出现除零，因此色标设计必须处理这种边界情况。",
+      "explanation": "正确。比例公式分母是 high.value - low.value，两端数值相等时分母为零，可能产生 NaN 或 Infinity。实际实现应拒绝、合并或单独处理这种退化色标。",
+      "refs": [{ "title": "MDN Math", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-07-040",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "讲义中哪个自定义函数接收 value，计算色标比例并逐通道返回混合后的 RGB 数组？",
+      "explanation": "函数名是 colorAt。它先根据 value 求比例并限制在 0 到 1，再让 low.color 的每个通道通过 lerp 与 high.color 对应通道混合。",
+      "refs": [{ "title": "MDN Math", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math" }],
+      "type": "short",
+      "accepted": ["colorAt", "colorAt(value)"],
+      "placeholder": "写出示例函数名"
+    },
+    {
+      "id": "turf-07-041",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于讲义中的随机抽站与每千米路线布点代码，下列说法正确的有哪些？",
+      "explanation": "sample 从已有站点抽子集，length 以指定单位求路线总长，along 按给定里程生成新点。示例循环使用 index + 1，从 1 千米开始；sample 不提供等距语义。",
+      "refs": [
+        { "title": "Turf sample API", "url": "https://turfjs.org/docs/api/sample" },
+        { "title": "Turf length API", "url": "https://turfjs.org/docs/api/length" },
+        { "title": "Turf along API", "url": "https://turfjs.org/docs/api/along" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "sample(stations, 8) 从已有站点中随机抽取 8 个", "hint": "抽取对象是集合中的既有要素" },
+        { "key": "B", "text": "sample 会沿路线每隔 1 千米自动创建新点" },
+        { "key": "C", "text": "length(route, { units: \"kilometers\" }) 提供路线千米总长", "hint": "总长用于确定整千米循环次数" },
+        { "key": "D", "text": "循环 along(route, index + 1, options) 可在整千米位置生成点", "hint": "index 从 0 开始时，index + 1 对应 1 千米起" },
+        { "key": "E", "text": "along 的作用是从 FeatureCollection 随机挑选旧点" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "turf-07-042",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "按题设的理想方形划分，一个东西宽 20 千米、南北宽 10 千米的区域使用 cellWidth = 2 千米的网格，不考虑边界取整，共有多少个网格单元？",
+      "explanation": "东西方向有 20 ÷ 2 = 10 列，南北方向有 10 ÷ 2 = 5 行，因此总网格数为 10 × 5 = 50。这是题设理想划分数，不是在描述不规则边界裁剪。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "numeric",
+      "answer": 50,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-07-043",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "对带有 temperature 属性的站点调用 interpolate 后，返回结果最适合怎样描述？",
+      "explanation": "interpolate 返回带估计属性的规则网格 FeatureCollection，示例网格要素带有估计的 temperature。它不是单个观测点、不规则三角网或脱离地理数据的纯颜色数组。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "一个不含属性的随机 Point" },
+        { "key": "B", "text": "只包含 RGB 通道的一维数组" },
+        { "key": "C", "text": "由 tin 自动生成的不规则三角形集合" },
+        { "key": "D", "text": "带估计 temperature 属性的规则网格 FeatureCollection", "hint": "空间估计结果保存在网格要素属性中" }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "turf-07-044",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "planepoint 会对 TIN 中所有三角形的结果求平均，所以传入哪个三角形都不影响结果。",
+      "explanation": "错误。planepoint 只使用传入的一个三角面，由该三角形三个顶点定义的平面求值。选择不同三角形可能得到不同结果，目标超出三角形时还涉及外推风险。",
+      "refs": [{ "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-07-045",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在讲义 interpolate 示例中，为让 cellWidth 按千米解释，options.units 应填入什么字符串？",
+      "explanation": "应填写 kilometers。cellWidth 给出网格单元宽度，units 指定距离单位；讲义用 units: \"kilometers\" 表达 2 千米网格，而不是把单位写进 temperature 属性。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "short",
+      "accepted": ["kilometers", "\"kilometers\"", "units: \"kilometers\"", "units = \"kilometers\""],
+      "placeholder": "写出单位字符串"
+    },
+    {
+      "id": "turf-07-046",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "完成讲义「40 个随机站点到温度网格，再抽 8 站并布设路线里程点」的练习，哪些步骤与目的配对正确？",
+      "explanation": "练习链路是随机造站并写入温度、interpolate 生成 2 千米方形网格、sample 抽 8 个已有站点、length 与 along 生成里程点。colorAt 只负责显示，不能修复异常站点造成的估计问题。",
+      "refs": [
+        { "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" },
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" },
+        { "title": "Turf sample API", "url": "https://turfjs.org/docs/api/sample" },
+        { "title": "Turf along API", "url": "https://turfjs.org/docs/api/along" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "randomPoint(40, { bbox }) 后逐点写入模拟 temperature", "hint": "先构造带数值属性的输入站点" },
+        { "key": "B", "text": "用 interpolate 生成 cellWidth 为 2 千米的方形网格", "hint": "网格估计需要站点属性与插值配置" },
+        { "key": "C", "text": "用 sample(stations, 8) 抽取 8 个已有站点", "hint": "抽样与沿线生成新点不同" },
+        { "key": "D", "text": "用 length 与 along 在路线整千米位置布点", "hint": "总长度和沿线距离共同控制里程点" },
+        { "key": "E", "text": "出现温度极值时只需调整 colorAt，就能消除站点数据问题" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "turf-07-047",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "空间插值与数值—颜色线性插值可以独立使用，讲义的 colorAt 也能直接服务上一章的 count 结果。",
+      "explanation": "正确。interpolate 根据地理距离估计空间属性，colorAt 只把已有数值映射成 RGB。两者可以衔接，也可以分开使用，颜色映射本身不要求输入必须来自空间插值。",
+      "refs": [
+        { "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" },
+        { "title": "MDN Math", "url": "https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Math" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-07-048",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "weight = 3 时，近点距离为 1、远点距离为 2。按 w = 1 / distance³，近点权重是远点权重的多少倍？",
+      "explanation": "近点权重为 1 / 1³ = 1，远点权重为 1 / 2³ = 1/8。两者相除得到 1 ÷ (1/8) = 8，所以近点权重是远点的 8 倍。",
+      "refs": [{ "title": "Turf interpolate API", "url": "https://turfjs.org/docs/api/interpolate" }],
+      "type": "numeric",
+      "answer": 8,
+      "tolerance": 0,
+      "unit": "倍",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "turf-07-049",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "练习把 40 个随机模拟站点中的 8 个用 sample 抽作「验证集」。对这种验证结果的解释，哪项最严谨？",
+      "explanation": "这 8 个站点仍来自相同的随机模拟流程，适合演示抽样和检查程序流程，但不能替代真实观测来验证业务精度。随机合成数据不能证明模型适合真实世界。",
+      "refs": [
+        { "title": "Turf randomPoint API", "url": "https://turfjs.org/docs/api/randomPoint" },
+        { "title": "Turf sample API", "url": "https://turfjs.org/docs/api/sample" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "8 个模拟站就是实测站，可以直接证明真实温度精度" },
+        { "key": "B", "text": "只要抽样子集的颜色正常，就能证明模型适合所有区域" },
+        { "key": "C", "text": "它可演示抽样流程，但不能替代真实观测检验", "hint": "验证数据的来源决定了结论边界" },
+        { "key": "D", "text": "sample 会为 8 个站点创造新的真实观测值" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "turf-07-050",
+      "skill": "turf",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "目标点不在任何 TIN 三角形覆盖内，却仍把最近的三角形交给 planepoint 并得到有限数值。应怎样解释这个结果？",
+      "explanation": "有限数值可能只是最近三角面平面的外推，不代表目标位置有 TIN 覆盖或观测支持。工程中应先检查点面关系，并决定无覆盖时返回空值还是采用其他模型。",
+      "refs": [
+        { "title": "Turf tin API", "url": "https://turfjs.org/docs/api/tin" },
+        { "title": "Turf planepoint API", "url": "https://turfjs.org/docs/api/planepoint" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "可能只是平面外推，应先确认覆盖并制定无覆盖策略", "hint": "可计算出一个数不等于该估计有空间依据" },
+        { "key": "B", "text": "该数值必然就是目标位置的实测高程" },
+        { "key": "C", "text": "planepoint 已自动查询并融合 Cesium 地形瓦片" },
+        { "key": "D", "text": "只要结果有限，就无需关心目标位于哪个三角形" }
+      ],
+      "answer": ["A"]
     }
   ]
 }

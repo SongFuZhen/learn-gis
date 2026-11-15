@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "00",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-00-001",
@@ -348,6 +348,1167 @@
       "type": "short",
       "accepted": ["HAP", "HarmonyOS Ability Package"],
       "placeholder": "例如：HAP"
+    },
+    {
+      "id": "harmony-00-015",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在 ArkUI 计数器中，点击按钮后希望界面计数更新，哪种做法符合声明式 UI 心智模型？",
+      "explanation": "ArkUI 没有浏览器 DOM，应在事件中修改被观察的状态，再由框架更新依赖该状态的 UI，而不是查询并改写节点。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "用 document 查询 Text 节点并修改其文本内容"
+        },
+        {
+          "key": "B",
+          "text": "在 onClick 中修改被观察的 count 状态，让框架更新依赖它的 UI",
+          "hint": "状态驱动界面更新"
+        },
+        {
+          "key": "C",
+          "text": "调用 ohpm 重新安装当前页面组件"
+        },
+        {
+          "key": "D",
+          "text": "在 EntryAbility 中重新创建整个应用进程"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-00-016",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "按照本章的技术栈地图，下列概念与职责的归类哪些正确？",
+      "explanation": "ArkTS 属于语言层，Stage 模型组织应用与 Ability，ExtensionAbility 面向扩展场景，ArkData 属于数据层；UIAbility 是有界面的应用实例，不是普通组件。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        },
+        {
+          "title": "HarmonyOS 官方文档",
+          "url": "https://developer.huawei.com/consumer/cn/doc/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "ArkTS 负责业务逻辑、类型与组件语言",
+          "hint": "它属于语言层"
+        },
+        {
+          "key": "B",
+          "text": "Stage 模型组织应用入口、Ability、窗口与生命周期",
+          "hint": "它属于应用壳层"
+        },
+        {
+          "key": "C",
+          "text": "UIAbility 只是页面中的一个普通文本组件"
+        },
+        {
+          "key": "D",
+          "text": "ExtensionAbility 承担卡片、后台等扩展场景入口",
+          "hint": "扩展入口与普通页面入口要分开"
+        },
+        {
+          "key": "E",
+          "text": "ArkData 提供首选项、关系型数据等数据管理能力",
+          "hint": "它属于数据层"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D",
+        "E"
+      ]
+    },
+    {
+      "id": "harmony-00-017",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "本章「先建立技术栈地图」表格列出了从 ArkTS 到 HAP 的多少个 HarmonyOS 概念？",
+      "explanation": "表格依次列出 ArkTS、ArkUI、Stage 模型、UIAbility、ExtensionAbility、ArkData、DevEco Studio、hvigor、ohpm 和 HAP，共 10 个概念。",
+      "refs": [
+        {
+          "title": "HarmonyOS 官方文档",
+          "url": "https://developer.huawei.com/consumer/cn/doc/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-00-018",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkUI 中，用哪个装饰器把 struct 声明为自定义组件？（写装饰器名）",
+      "explanation": "@Component 用来声明自定义组件；@Entry 负责标记页面入口，两者职责不同，不能互相替代。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "@Component",
+        "Component"
+      ],
+      "placeholder": "例如：@Component"
+    },
+    {
+      "id": "harmony-00-019",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "只要 Previewer 中 UI 显示正常，就可以不再进行真机验证，权限、传感器和完整系统交互的结果都必然一致。",
+      "explanation": "错误。Previewer 适合查看 UI，但不能替代真机验证权限、传感器和完整系统交互，这些能力必须在真实运行环境中检查。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-00-020",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "为卡片或后台等扩展场景选择入口时，应对应本章技术栈中的哪个概念？",
+      "explanation": "ExtensionAbility 承担卡片、后台等扩展场景入口；普通带界面的应用实例由 UIAbility 负责，二者不能混用。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "ArkData"
+        },
+        {
+          "key": "B",
+          "text": "hvigor"
+        },
+        {
+          "key": "C",
+          "text": "ExtensionAbility",
+          "hint": "它面向特定能力的后台或扩展入口"
+        },
+        {
+          "key": "D",
+          "text": "Column"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-021",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "关于本章列出的 ArkTS 写法与迁移策略，下列判断哪些正确？",
+      "explanation": "对象和数组解构受限时可逐项处理，class 多继承要改成单继承并用接口表达多能力，数组展开则受支持；形状相同不等于自动兼容，as any 也不是迁移方案。",
+      "refs": [
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "对象或数组解构受限时，可改为逐项读取、逐项赋值",
+          "hint": "用显式访问替代受限解构"
+        },
+        {
+          "key": "B",
+          "text": "class 多继承应改为单继承，多能力用接口表达",
+          "hint": "ArkTS 不支持 class 多继承"
+        },
+        {
+          "key": "C",
+          "text": "数组展开 [...arr] 可用于不可变数组更新",
+          "hint": "这是表格明确保留的写法"
+        },
+        {
+          "key": "D",
+          "text": "两个类只要字段形状相同，就必然可以按 structural typing 自动兼容"
+        },
+        {
+          "key": "E",
+          "text": "遇到类型问题时，优先用 as any 绕过所有静态检查"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-022",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "Learner 实例的 completedLessons 初始为 0，连续调用 finishOne() 三次后，该字段的值是多少？",
+      "explanation": "finishOne() 每次执行 completedLessons++，字段增加 1。初始值 0 经过三次调用后变为 0+3=3。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "章",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-00-023",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "ArkUI 自定义组件用哪个方法描述页面 UI？（只写方法名）",
+      "explanation": "build() 是组件描述界面的入口，对应 React 组件返回 JSX 所承担的表达职责，但其中使用的是 ArkUI 声明式语法。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "build",
+        "build()",
+        "build 方法",
+        "build() 方法"
+      ],
+      "placeholder": "例如：build"
+    },
+    {
+      "id": "harmony-00-024",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在 HarmonyOS 技术栈中，首选项与关系型数据等数据管理能力主要由哪一层提供？",
+      "explanation": "ArkData 负责首选项、关系型数据等数据管理能力；WindowStage 管窗口，ohpm 管依赖，DevEco Studio 管工程开发流程。",
+      "refs": [
+        {
+          "title": "HarmonyOS 官方文档",
+          "url": "https://developer.huawei.com/consumer/cn/doc/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "DevEco Studio"
+        },
+        {
+          "key": "B",
+          "text": "WindowStage"
+        },
+        {
+          "key": "C",
+          "text": "ohpm"
+        },
+        {
+          "key": "D",
+          "text": "ArkData",
+          "hint": "它位于数据管理层"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-00-025",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于本章从应用启动到 ArkUI 页面的链路，下列说法哪些正确？",
+      "explanation": "EntryAbility 是 UIAbility 子类，onCreate 对应实例创建，onWindowStageCreate 表示窗口舞台就绪；Index.ets 是被加载的页面，页面组件不需要继承 UIAbility。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "EntryAbility 是 UIAbility 的子类",
+          "hint": "它处于应用入口层"
+        },
+        {
+          "key": "B",
+          "text": "onCreate 对应 UIAbility 实例创建",
+          "hint": "这是链路中的实例创建阶段"
+        },
+        {
+          "key": "C",
+          "text": "onWindowStageCreate 表示窗口舞台已经就绪",
+          "hint": "随后才能通过窗口舞台加载页面"
+        },
+        {
+          "key": "D",
+          "text": "Index.ets 本身就是应用进程入口"
+        },
+        {
+          "key": "E",
+          "text": "每个页面组件都必须再次继承 UIAbility"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-026",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "练习的 ProgressCard 中，Column 包含两个 Text 和一个 Button，space 为 8。只计算这三个直接子元素之间的间距，总和是多少？",
+      "explanation": "三个直接子元素之间有两处相邻间距，因此总间距为 (3-1)×8=16，不包含容器边缘的额外留白。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 16,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-00-027",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "TypeScript 代码依赖「两个类字段形状相同即可互相赋值」，迁移到 ArkTS 时应怎样调整？",
+      "explanation": "ArkTS 不按 structural typing 的「形状相同就兼容」规则处理，应使用明确的类以及继承或实现关系表达类型兼容性。",
+      "refs": [
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "建立明确的类与继承或实现关系，不只依赖字段形状相同",
+          "hint": "类型关系需要显式表达"
+        },
+        {
+          "key": "B",
+          "text": "给两个类都添加 @Entry 装饰器"
+        },
+        {
+          "key": "C",
+          "text": "把所有字段统一改成 any"
+        },
+        {
+          "key": "D",
+          "text": "在运行时删除所有不一致的字段"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-00-028",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "UIAbility 的哪个生命周期回调表示窗口舞台已经就绪？（只写回调名）",
+      "explanation": "onWindowStageCreate 表示窗口舞台就绪，本章启动链路随后通过 loadContent 加载 pages/Index 页面。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "onWindowStageCreate",
+        "onWindowStageCreate()"
+      ],
+      "placeholder": "例如：onWindowStageCreate"
+    },
+    {
+      "id": "harmony-00-029",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Stage 模型、UIAbility 与 ArkUI 页面组件只是同一个概念的三个名称，可以在代码分层中随意互换。",
+      "explanation": "错误。Stage 模型管应用与 Ability 的组织，UIAbility 是有界面的应用实例，ArkUI 页面组件描述具体 UI，三者处于不同层次。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-00-030",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在 Stage 模型的启动链路中，WindowStage 的主要职责是什么？",
+      "explanation": "WindowStage 管理 UIAbility 对应的窗口舞台，具体 ArkUI 页面由它加载；它不负责依赖安装、数据持久化或组件状态声明。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "安装并发布工程依赖"
+        },
+        {
+          "key": "B",
+          "text": "管理 UIAbility 对应的窗口舞台",
+          "hint": "它是窗口与页面加载之间的组织层"
+        },
+        {
+          "key": "C",
+          "text": "管理首选项与关系型数据"
+        },
+        {
+          "key": "D",
+          "text": "声明组件内部的可观察状态"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-00-031",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "阅读本章计数器 Index 组件，下列代码解读哪些正确？",
+      "explanation": "@State 声明组件内可观察状态，Column 是纵向容器，Text 与 Button 是内置组件；示例通过 this.count++ 增加计数，不涉及 document 查询。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "@State count 声明组件内可观察状态",
+          "hint": "它是 V1 的组件内部状态"
+        },
+        {
+          "key": "B",
+          "text": "Column 用作纵向布局容器",
+          "hint": "子元素按纵向组织"
+        },
+        {
+          "key": "C",
+          "text": "Text 与 Button 都是 ArkUI 内置组件",
+          "hint": "示例直接用它们描述界面"
+        },
+        {
+          "key": "D",
+          "text": "build() 中必须使用 document 查询并创建节点"
+        },
+        {
+          "key": "E",
+          "text": "点击按钮后，示例通过 this.count-- 减少计数"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-032",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "本章 ArkTS 写法迁移表中，「ArkTS 中的处理」明确写为「支持」的共有多少行？",
+      "explanation": "共有两行：一行是数组展开 [...arr]，另一行是 async/await、泛型、可选参数；其余行列出的是限制、禁止或不同的类型规则。",
+      "refs": [
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "unit": "行",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-00-033",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "在 ArkUI V1 状态管理中，用哪个装饰器声明组件内部的可观察状态？（写装饰器名）",
+      "explanation": "V1 使用 @State 声明组件内部的可观察状态；V2 对应的是 @Local，而 @Component 只负责声明自定义组件。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "@State",
+        "State"
+      ],
+      "placeholder": "例如：@State"
+    },
+    {
+      "id": "harmony-00-034",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "React 的 useState 思路迁移到 ArkUI V2 时，本章列出的对应装饰器是哪个？",
+      "explanation": "本章对照表指出，V1 使用 @State，V2 使用 @Local 表达组件内部状态；@Entry 与 @Builder 分别负责入口标记和组合复用。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Entry"
+        },
+        {
+          "key": "B",
+          "text": "@Builder"
+        },
+        {
+          "key": "C",
+          "text": "@Local",
+          "hint": "这是 V2 的局部状态装饰器"
+        },
+        {
+          "key": "D",
+          "text": "@Component"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-035",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "关于本章 ProgressCard 练习的组件与交互，下列哪些与参考实现一致？",
+      "explanation": "参考实现用 @Component struct 声明 ProgressCard，分别展示课程名和完成状态，并在按钮事件中将 done 设为 true；界面更新不依赖 DOM 操作。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "使用 @Component struct ProgressCard 声明组件",
+          "hint": "它属于 ArkUI 自定义组件"
+        },
+        {
+          "key": "B",
+          "text": "通过 Text(this.progress.lessonName) 展示课程名",
+          "hint": "界面读取固定数据结构中的字段"
+        },
+        {
+          "key": "C",
+          "text": "用三元表达式根据 done 显示「已完成」或「学习中」",
+          "hint": "显示内容由状态决定"
+        },
+        {
+          "key": "D",
+          "text": "点击「标记完成」后执行 this.progress.done = true",
+          "hint": "事件负责修改状态"
+        },
+        {
+          "key": "E",
+          "text": "必须通过 document 查询 Text 并直接改其 innerText"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-00-036",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "本章「React 思路在 ArkUI 中对应什么」对照表一共列出了多少种 React 思路？",
+      "explanation": "对照表共有 5 行，分别是 function component、返回 JSX、useState、onClick={handler} 和组件组合复用。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "种",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-00-037",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "除了自定义组件，本章提到哪种机制也可用于 ArkUI 的组件组合复用？",
+      "explanation": "React 的组件组合复用思路可迁移到 ArkUI 的自定义组件与 @Builder 等机制；@State 管状态，WindowStage 管窗口舞台。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@State"
+        },
+        {
+          "key": "B",
+          "text": "WindowStage"
+        },
+        {
+          "key": "C",
+          "text": "ArkData"
+        },
+        {
+          "key": "D",
+          "text": "@Builder",
+          "hint": "它属于界面组合与复用机制"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-00-038",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "计数器示例中，哪个内置容器用于纵向组织 Text 与 Button？（写组件名）",
+      "explanation": "Column 是纵向容器，示例用它包裹 Text 和 Button，并通过 space 设置子元素间距。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "Column",
+        "Column()"
+      ],
+      "placeholder": "例如：Column"
+    },
+    {
+      "id": "harmony-00-039",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "关于 ArkUI 与 React 的类比及其边界，下列说法哪些符合本章？",
+      "explanation": "两者都可用「UI 是状态的表达」来理解，但 ArkUI 没有浏览器 DOM、JSX 和 npm 生态；类比只帮助定位概念，API 不能逐字翻译。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        },
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "两者都可用「UI 是状态的表达」建立心智模型",
+          "hint": "这是类比能够帮助迁移的部分"
+        },
+        {
+          "key": "B",
+          "text": "ArkUI 没有浏览器 DOM",
+          "hint": "不应寻找 document 操作接口"
+        },
+        {
+          "key": "C",
+          "text": "ArkUI 没有 JSX 和 npm 生态",
+          "hint": "React 生态不能原样搬入"
+        },
+        {
+          "key": "D",
+          "text": "React API 可以逐字翻译成 ArkUI API"
+        },
+        {
+          "key": "E",
+          "text": "有了 React 类比，就不必再学习 ArkTS 的语言约束"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-040",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "一段依赖动态写法的 TypeScript 在 DevEco Studio 中编译失败，优先应如何理解和处理？",
+      "explanation": "这是 ArkTS 语言约束在编译期发挥作用，不应先认定为 IDE 误报。应检查动态写法并改成明确类型和固定对象结构，而不是用 as any 掩盖问题。",
+      "refs": [
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "直接认定为 DevEco Studio 误报并忽略错误"
+        },
+        {
+          "key": "B",
+          "text": "按 ArkTS 语言约束检查动态写法，改为明确类型与固定结构",
+          "hint": "编译期拦截是在帮助提前发现问题"
+        },
+        {
+          "key": "C",
+          "text": "用 as any 包住所有表达式以跳过迁移"
+        },
+        {
+          "key": "D",
+          "text": "只要用 ohpm 安装 TypeScript 就能解除 ArkTS 限制"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-00-041",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "计数器 Index 示例中，组件及其状态字段一共使用了 @Entry、@Component、@State 多少种装饰器？",
+      "explanation": "示例使用了 @Entry、@Component 和 @State 三种装饰器，各出现一次，因此总数为 3 种。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "种",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-00-042",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "创建 Stage 工程、编辑、预览、调试、签名与构建等工程全流程工作，主要使用哪个工具？",
+      "explanation": "DevEco Studio 覆盖工程创建、编辑、预览、调试、签名与构建等流程；hvigor 专注构建任务，ohpm 专注依赖管理。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "DevEco Studio",
+          "hint": "它是本章列出的综合工程开发工具"
+        },
+        {
+          "key": "B",
+          "text": "hvigor"
+        },
+        {
+          "key": "C",
+          "text": "ohpm"
+        },
+        {
+          "key": "D",
+          "text": "ArkData"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-00-043",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "关于鸿蒙工程的配置文件分工与验证边界，下列说法哪些符合本章？",
+      "explanation": "oh-package.json5 负责依赖声明，依赖、模块声明与应用信息各有自己的文件；Previewer 适合查看 UI，但权限、传感器和完整系统交互仍需真机验证。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        },
+        {
+          "title": "HarmonyOS 官方文档",
+          "url": "https://developer.huawei.com/consumer/cn/doc/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "依赖声明写在 oh-package.json5 中",
+          "hint": "这个文件与依赖管理相关"
+        },
+        {
+          "key": "B",
+          "text": "依赖、模块声明、应用信息各有自己的文件",
+          "hint": "不要把所有配置混成一个清单"
+        },
+        {
+          "key": "C",
+          "text": "Previewer 适合用来查看 UI",
+          "hint": "它的优势是界面预览"
+        },
+        {
+          "key": "D",
+          "text": "Previewer 可以完全替代真机验证权限、传感器与完整系统交互"
+        },
+        {
+          "key": "E",
+          "text": "oh-package.json5 就是模块清单，应集中写入全部应用信息"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-044",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "希望基于 arr 生成追加 newItem 后的新数组，同时保留原数组，本章明确支持哪种写法？",
+      "explanation": "数组展开 [...arr] 在 ArkTS 中受支持，可用于不可变数组更新；数组解构受到限制，运行时增删对象属性也不符合固定对象形态要求。",
+      "refs": [
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "const next = [...arr, newItem]",
+          "hint": "展开原数组并追加元素，不修改原数组"
+        },
+        {
+          "key": "B",
+          "text": "const [first, ...rest] = arr，再把 first 当成新数组"
+        },
+        {
+          "key": "C",
+          "text": "arr.extraItems = [newItem]，再把 arr 当成新数组"
+        },
+        {
+          "key": "D",
+          "text": "delete arr.length，再由运行时自动追加 newItem"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-00-045",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "计数器示例中，Button('完成一小节') 后链接的 .onClick(() => { ... }) 具体完成了什么？",
+      "explanation": "按钮回调执行 this.count++，增加被观察的 count 状态，随后框架更新依赖该状态的 Text；它没有重建 UIAbility，也没有修改 DOM。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "重新声明并启动一个 UIAbility"
+        },
+        {
+          "key": "B",
+          "text": "调用 ohpm 安装一个新的按钮组件"
+        },
+        {
+          "key": "C",
+          "text": "执行 this.count++，由状态变化驱动计数文本更新",
+          "hint": "事件修改状态，框架负责界面更新"
+        },
+        {
+          "key": "D",
+          "text": "通过 document 直接修改页面的 innerHTML"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-046",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 2,
+      "stem": "本章在练习后提到，后续需要可靠驱动对象属性的深层更新时，会引入哪些机制组合？",
+      "explanation": "讲义明确列出 V1 的 @Observed/@ObjectLink 与 V2 的 @ObservedV2/@Trace 两组机制；@Entry/@Component 不是专门解决深层观察的组合。",
+      "refs": [
+        {
+          "title": "HarmonyOS 官方文档",
+          "url": "https://developer.huawei.com/consumer/cn/doc/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Observed 与 @ObjectLink",
+          "hint": "这是讲义提到的 V1 组合"
+        },
+        {
+          "key": "B",
+          "text": "@ObservedV2 与 @Trace",
+          "hint": "这是讲义提到的 V2 组合"
+        },
+        {
+          "key": "C",
+          "text": "@Entry 与 @Component"
+        },
+        {
+          "key": "D",
+          "text": "hvigor 与 ohpm"
+        }
+      ],
+      "answer": [
+        "A",
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-00-047",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "React 开发者把「返回 JSX」的习惯迁移到 ArkUI 时，下列哪种理解最准确？",
+      "explanation": "React 返回 JSX 的职责在 ArkUI 中由 build() 内的声明式 UI 承担，但 ArkUI 没有 JSX，不能把 React 代码逐字照搬，也不能用 UIAbility 代替页面组件。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "在 build() 中逐字返回原来的 React JSX 即可"
+        },
+        {
+          "key": "B",
+          "text": "用 document 操作替代整个 build() 方法"
+        },
+        {
+          "key": "C",
+          "text": "把所有 ArkUI 自定义组件改写成 UIAbility 子类"
+        },
+        {
+          "key": "D",
+          "text": "在 build() 内使用 ArkUI 声明式语法描述 UI，而不是照搬 JSX",
+          "hint": "迁移的是表达职责，不是逐字迁移语法"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-00-048",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "Learner 示例中，完成一章后调用哪个方法让 completedLessons 加一？（只写方法名）",
+      "explanation": "Learner 类的 finishOne() 方法执行 this.completedLessons++，所以完成一章后调用它即可让完成数加一。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "finishOne",
+        "finishOne()",
+        "learner.finishOne",
+        "learner.finishOne()"
+      ],
+      "placeholder": "例如：finishOne"
+    },
+    {
+      "id": "harmony-00-049",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 3,
+      "stem": "阅读 Stage 工程时，发现 EntryAbility.ets 与 pages/Index.ets。下列分工判断哪项正确？",
+      "explanation": "EntryAbility.ets 负责把窗口与首页连接起来，不是首页组件；Index.ets 是被加载的 ArkUI 页面，不是应用进程入口，也不需要继承 UIAbility。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "EntryAbility.ets 是首页组件，Index.ets 是应用进程入口"
+        },
+        {
+          "key": "B",
+          "text": "二者都只是普通的 Text 内置组件"
+        },
+        {
+          "key": "C",
+          "text": "EntryAbility.ets 连接窗口与首页，Index.ets 是被加载的页面",
+          "hint": "应用入口层与具体页面层要分开"
+        },
+        {
+          "key": "D",
+          "text": "Index.ets 必须继承 UIAbility 才能描述页面 UI"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-00-050",
+      "skill": "harmony",
+      "module": "00",
+      "difficulty": 1,
+      "stem": "在本章的技术栈地图中，ArkTS 这一层主要负责什么？",
+      "explanation": "ArkTS 负责业务逻辑、类型和组件语言；首选项与关系型数据属于 ArkData，依赖安装发布属于 ohpm，编译打包等构建任务属于 hvigor。",
+      "refs": [
+        {
+          "title": "ArkTS 开发入门",
+          "url": "https://developer.huawei.com/consumer/cn/arkts/devstart/"
+        },
+        {
+          "title": "从 TypeScript 到 ArkTS 的适配规则",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/typescript-to-arkts-migration-guide"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "业务逻辑、类型与组件语言",
+          "hint": "它属于语言层"
+        },
+        {
+          "key": "B",
+          "text": "首选项与关系型数据管理"
+        },
+        {
+          "key": "C",
+          "text": "依赖安装与发布"
+        },
+        {
+          "key": "D",
+          "text": "编译、打包与构建任务"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
     }
   ]
 }

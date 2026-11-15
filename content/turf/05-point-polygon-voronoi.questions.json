@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "05",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-05-001",
@@ -204,6 +204,558 @@
       "tolerance": 0,
       "unit": "个",
       "placeholder": "只填区间数量"
+    },
+    {
+      "id": "turf-05-014",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "一个行政区 Polygon 的外环是闭合五边形，坐标序列首尾重复。若坐标数组共有 6 个位置，独立角点有多少个？",
+      "explanation": "闭合环将第一个坐标在末尾重复一次，所以 6 个坐标位置中有 1 个仅用于闭合；6 - 1 = 5，对应五边形的 5 个独立角点。",
+      "refs": [{ "title": "RFC 7946：Polygon 与 Linear Ring", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填独立角点数量"
+    },
+    {
+      "id": "turf-05-015",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "pointGrid 在讲义流程中直接生成的几何对象是什么？",
+      "explanation": "pointGrid 负责在 bbox 内按间距生成规则 Point 网格，随后为点写入采样值，再交给 isobands；它不会直接生成等值面或 Delaunay 三角网。",
+      "refs": [{ "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "规则分布的 Point 要素集合", "hint": "先得到规则采样点，再生成等值区间面" },
+        { "key": "B", "text": "已经着色的等值区间 Polygon" },
+        { "key": "C", "text": "只含一个行政区的 MultiPolygon" },
+        { "key": "D", "text": "连接站点的 Delaunay 三角形" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-016",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "某订单被多个行政区同时命中。下列哪些情况符合本章对多命中来源与处理的描述？",
+      "explanation": "共享边在默认边界规则下可同时属于相邻面，区域几何重叠也会造成多命中。唯一归属业务应保存全部命中并按明确优先级裁决；bbox 粗筛只减少候选，不会复制订单。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "订单压在共享边上，且默认边界计入内部", "hint": "相邻面可能同时接受同一个压线点" },
+        { "key": "B", "text": "行政区几何本身存在重叠", "hint": "重叠区域内的点具有多个合法的拓扑命中" },
+        { "key": "C", "text": "使用 bbox 粗筛必然把订单复制成多份" },
+        { "key": "D", "text": "若要求唯一归属，应记录全部命中并按明确优先级裁决", "hint": "业务唯一性需要政策，不由 find 的数组顺序保证" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-05-017",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "区域循环中使用数组 find 时，只要订单命中多个区域，它就会自动返回全部命中区域。",
+      "explanation": "错误。find 只返回满足条件的第一个元素，不会返回全部命中数组。需要审计重叠或压线点时，应遍历并保存所有命中，再执行业务裁决。",
+      "refs": [{ "title": "MDN：Array.prototype.find()", "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-05-018",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "写出本章用于精确判断一个 Point 是否位于 Polygon 内的 Turf 函数名。",
+      "explanation": "本章使用 booleanPointInPolygon 执行精确拓扑判断。它默认把边界计入内部；批量归属时仍需另行处理多命中和未命中。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "short",
+      "accepted": ["booleanPointInPolygon", "booleanPointInPolygon()", "boolean-point-in-polygon"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-05-019",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "讲义 pointGrid 示例以 point([116.425, 39.925]) 为距离采样中心。请在地图上点出这个北京城区中心点。",
+      "explanation": "该坐标位于北京中心城区，约在故宫东北方向；北京地处华北平原北部。讲义以它为中心计算规则采样点的距离，因此等值带可呈环状，地图目标是示例中心而非某个 Voronoi 站点。",
+      "refs": [
+        { "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" },
+        { "title": "Turf distance API", "url": "https://turfjs.org/docs/api/distance" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.925,
+        "lng": 116.425
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-05-020",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "5 公里间距的规则采样网格为什么不能可靠表达几十米宽的热岛？",
+      "explanation": "采样间距决定可表达细节的上限，几十米宽的变化可能落在采样点之间而被漏掉。增加分段或让颜色更平滑，都不能恢复没有被观测到的空间细节。",
+      "refs": [
+        { "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" },
+        { "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "采样间距限制了可分辨细节，过稀网格会漏掉窄小变化", "hint": "等值面精度不能超越输入采样密度" },
+        { "key": "B", "text": "isobands 只支持以米为单位的温度" },
+        { "key": "C", "text": "热岛必须改成 Voronoi 站点才可显示" },
+        { "key": "D", "text": "只要增加颜色数量就能恢复未采样的细节" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-021",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "不做粗筛时，对 80 个订单点逐一检查 12 个候选行政区，最多需要执行多少次 booleanPointInPolygon 判断？",
+      "explanation": "最坏情况下，每个订单都要检查全部 12 个区域，因此最多为 80 × 12 = 960 次。find 提前命中可能减少实际调用，但不改变这个最大候选判断数。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "numeric",
+      "answer": 960,
+      "tolerance": 0,
+      "unit": "次",
+      "placeholder": "只填最大判断次数"
+    },
+    {
+      "id": "turf-05-022",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "为一组温度采样发布 isobands 结果前，下列做法正确的有哪些？",
+      "explanation": "可靠的等值面需要可读取的网格数值、覆盖关注值域的 breaks，以及对缺测、稀疏和断裂区间的检查。保留采样与分段元数据便于复核，视觉平滑不能证明测量精度。",
+      "refs": [
+        { "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" },
+        { "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "确认规则网格点具有可读取的数值温度属性", "hint": "zProperty 必须指向实际采样数值" },
+        { "key": "B", "text": "让 breaks 覆盖关心的值域并保留分段元数据", "hint": "分段定义是解释与复现结果的重要依据" },
+        { "key": "C", "text": "把视觉平滑直接当作测量精度证明" },
+        { "key": "D", "text": "检查缺测、采样稀疏或断裂区间等质量风险", "hint": "输入质量风险会传递到输出等值面" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-05-023",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "isobands 输出的边界越平滑，就能越确定原始温度测量具有很高的空间精度。",
+      "explanation": "错误。视觉平滑只描述结果的绘制外观，不等于测量精度。等值面的可信度仍受原始观测、采样密度、缺测和 breaks 设置约束。",
+      "refs": [{ "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-05-024",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "写出讲义中用于在 bbox 内按指定间距生成规则采样点网格的 Turf 函数名。",
+      "explanation": "pointGrid 根据 bbox、间距和单位生成规则 Point 网格。讲义随后给这些点写入 value，再把网格交给 isobands 生成等值区间面。",
+      "refs": [{ "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }],
+      "type": "short",
+      "accepted": ["pointGrid", "pointGrid()", "point-grid"],
+      "placeholder": "写出函数名"
+    },
+    {
+      "id": "turf-05-025",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "温度采样值覆盖 0–30℃，而 breaks 只写 [0, 5, 10]，最需要警惕什么？",
+      "explanation": "这组 breaks 只定义到 10℃，没有覆盖完整的 0–30℃ 关注值域，高温部分可能得不到完整表达。应根据业务值域设计断点，不能期待颜色或函数自动补齐。",
+      "refs": [{ "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "分段未覆盖完整关注值域，高温部分可能没有得到完整表达", "hint": "breaks 要覆盖业务关心的数值范围" },
+        { "key": "B", "text": "Turf 会自动把所有温度改为 10℃" },
+        { "key": "C", "text": "每个采样点会自动变成行政区" },
+        { "key": "D", "text": "颜色越多就自动补齐 10–30℃ 的观测" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-026",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "一个规则采样网格有 7 列、5 行，每个行列交点生成一个 Point，pointGrid 输入到 isobands 前共有多少个采样点？",
+      "explanation": "每个行列交点对应一个采样点，因此总数为 7 × 5 = 35 个。这里计算的是规则网格节点数，不是后续等值区间面的数量。",
+      "refs": [{ "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }],
+      "type": "numeric",
+      "answer": 35,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填采样点总数"
+    },
+    {
+      "id": "turf-05-027",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "一批门店站点直接运行 voronoi 后出现空单元和异常坐标。下列排查措施合理的有哪些？",
+      "explanation": "重复点、站点过少和全部共线都会造成退化，应在计算前清洗并检查分布。计算后还要检查空单元、异常坐标和业务映射；复制站点只会加重重复输入问题。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "检查完全重复的站点坐标并先去重", "hint": "重复站点不应被当成新的有效站点" },
+        { "key": "B", "text": "检查有效站点是否过少或全部共线", "hint": "这些输入无法形成正常的平面三角剖分" },
+        { "key": "C", "text": "生成后检查空单元、异常坐标及站点映射", "hint": "输出质量检查与输入清洗同样必要" },
+        { "key": "D", "text": "复制所有站点，让重复数量翻倍" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-05-028",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "将采样值写入 Point 的 value 属性后，isobands 的 zProperty 也应设为 value，才能按该字段读取数值。",
+      "explanation": "正确。zProperty 是采样数值字段的名称，属性键与选项值一致时，isobands 才能从每个网格 Point 读取相应数值并结合 breaks 分段。",
+      "refs": [{ "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-05-029",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "讲义西侧行政区示例的中心可写作 point([116.35, 39.85])。请在地图上点出这个北京城区采样点。",
+      "explanation": "该点位于北京市中心城区西南方向，是 west 矩形区域的中心，也恰好位于讲义采样 bbox 的西南角。北京地处华北平原北部；实际对范围边缘点做归属时仍需声明边界政策。",
+      "refs": [
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" },
+        { "title": "Turf pointGrid API", "url": "https://turfjs.org/docs/api/pointGrid" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.85,
+        "lng": 116.35
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-05-030",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "voronoi(points, options) 中用于指定业务裁切范围的选项名称是什么？",
+      "explanation": "选项名称是 bbox，取值顺序为最小经度、最小纬度、最大经度、最大纬度。它裁切输出单元的范围，不会新增站点或设置缓冲距离。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "short",
+      "accepted": ["bbox", "bbox 选项", "边界框", "业务 bbox", "裁切 bbox"],
+      "placeholder": "写出选项名称"
+    },
+    {
+      "id": "turf-05-031",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "在不考虑边界并列的常规情况下，Voronoi 单元内部任意位置与对应站点的关系是什么？",
+      "explanation": "Voronoi 按所采用的平面距离模型划分最近站点区域，因此单元内部位置通常更接近该单元对应站点。这个关系不自动代表行政隶属或真实驾车时间。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "相对其他有效站点，它在平面距离模型下更接近该单元对应站点", "hint": "最近站点关系是 Voronoi 的定义" },
+        { "key": "B", "text": "它到所有站点的距离都相等" },
+        { "key": "C", "text": "它一定位于对应站点的行政辖区内" },
+        { "key": "D", "text": "它到对应站点的驾车时间必定最短" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-032",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "原始站点表有 10 条记录，其中 3 条与前面记录的坐标完全重复。去重后剩 7 个非共线有效站点，正常生成 Voronoi 时应对应多少个单元？",
+      "explanation": "先计算有效站点数：10 - 3 = 7。题设已说明去重后为非共线有效站点且正常生成，因此 7 个有效站点对应 7 个 Voronoi 单元，重复记录不额外增加单元。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "numeric",
+      "answer": 7,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填正常单元数量"
+    },
+    {
+      "id": "turf-05-033",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "关于 Delaunay 与 Voronoi 的几何性质及输入敏感性，下列说法正确的有哪些？",
+      "explanation": "Delaunay 三角网满足空外接圆性质，并与 Voronoi 互为对偶；Voronoi 不是随机着色。几乎共圆的密集站点会放大数值误差，因此几何性质与输入质量必须一起考虑。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "Delaunay 三角形的外接圆内不应包含其他站点", "hint": "这是空外接圆性质的核心表述" },
+        { "key": "B", "text": "二者互为对偶，可用于解释最近站点分区", "hint": "三角网与最近区域由同一批站点几何驱动" },
+        { "key": "C", "text": "几乎共圆的密集站点可能放大数值误差", "hint": "近退化配置需要额外的输出质量检查" },
+        { "key": "D", "text": "Voronoi 是随机着色，与站点几何无关" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-05-034",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "重复站点会让部分位置的最近站点关系失去唯一性，因此进入 Voronoi 前应先识别并去重。",
+      "explanation": "正确。坐标完全相同的站点到任意位置的距离相同，无法提供可区分的最近站点关系，还会造成退化输入。去重后再检查有效站点数与空间分布更稳妥。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-05-035",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "批量归属时，未命中任何区域的订单应进入哪一类审计集合？可写中文名称或讲义示例变量名。",
+      "explanation": "这些订单应进入未命中或未归属集合，讲义变量名为 unmatched。保留该集合可以检查区域覆盖空洞和脏坐标，并对照订单总数防止静默漏单。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "short",
+      "accepted": ["未命中集合", "未命中列表", "未归属集合", "未归属列表", "unmatched"],
+      "placeholder": "写出集合名称或变量名"
+    },
+    {
+      "id": "turf-05-036",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "为什么全部站点共线被视为 Voronoi 输入的退化情况？",
+      "explanation": "Voronoi 与 Delaunay 互为对偶，而全部共线的站点没有正常的平面三角剖分，可能使单元生成异常。计算前应检查站点分布，而不是期待 bbox 修复共线输入。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "共线输入没有正常的平面 Delaunay 三角剖分，单元生成可能异常", "hint": "对偶三角网的退化会传递到 Voronoi" },
+        { "key": "B", "text": "共线会自动让所有单元面积相等" },
+        { "key": "C", "text": "共线能把平面距离转换为驾车时间" },
+        { "key": "D", "text": "共线会自动补齐每个站点的业务属性" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-037",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "采样质检保留距中心不超过 5 千米的点。六个距离值为 1.2、3.8、5.0、5.1、7.6、4.9 千米，应保留多少个点？",
+      "explanation": "不超过 5 千米表示距离小于或等于 5。符合条件的是 1.2、3.8、5.0、4.9，共 4 个；5.1 和 7.6 超过阈值，恰好 5.0 应保留。",
+      "refs": [{ "title": "Turf distance API", "url": "https://turfjs.org/docs/api/distance" }],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填保留点数量"
+    },
+    {
+      "id": "turf-05-038",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "将城市门店 Voronoi 单元写入业务报告时，下列表述严谨的有哪些？",
+      "explanation": "Voronoi 只表达所采用平面距离模型下的最近站点关系，bbox 会裁切最外侧单元；大范围或精密应用还需评估投影与距离模型。它不能天然替代驾车等时区或行政辖区。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "它表示所采用平面距离模型下的最近站点分区", "hint": "报告应明确几何模型，而非扩大业务含义" },
+        { "key": "B", "text": "大范围或精密应用需要评估投影与距离模型", "hint": "经纬度的实际地面长度并不处处一致" },
+        { "key": "C", "text": "bbox 会影响最外侧单元的裁切结果", "hint": "不同业务范围可产生不同的外侧边界" },
+        { "key": "D", "text": "它天然等同于真实驾车等时区与行政辖区" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-05-039",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "为门店设置 Voronoi bbox 时，裁切范围不应小于站点分布和业务关注范围，否则最外侧单元可能被不适当地截断。",
+      "explanation": "正确。bbox 是业务裁切边界，应覆盖站点分布及关注区域。范围过小时，外侧单元会被截断，甚至无法合理表达站点附近的最近区域。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-05-040",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "讲义东侧行政区示例的中心可写作 point([116.45, 39.85])。请在地图上点出这个北京城区采样点。",
+      "explanation": "该点位于北京中心城区东南部，与 west 区域中心处于同一纬度、经度相差 0.10°，两者分处共享经线边界 116.40 的两侧。北京位于华北平原北部，示例用相邻矩形演示归属。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "map",
+      "target": {
+        "lat": 39.85,
+        "lng": 116.45
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-05-041",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "讲义批量归属示例中，命中区域后写入订单属性的区域标识字段叫什么？",
+      "explanation": "字段名是 regionId。代码把 hit.properties.regionId 写入 order.properties.regionId，从而保留订单命中的区域标识；未命中订单则进入 unmatched。",
+      "refs": [{ "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }],
+      "type": "short",
+      "accepted": ["regionId", "regionID", "regionId 字段", "regionId 属性"],
+      "placeholder": "写出属性字段名"
+    },
+    {
+      "id": "turf-05-042",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "讲义为什么用 distance(center, sample) 的返回值模拟采样值时，容易观察到环状等值区间？",
+      "explanation": "距同一中心相近的点构成近似同心环，把距离值按 breaks 分段后，等值区间自然容易呈环状。这里只是用距离模拟数值场，并不代表 isobands 强制输出等面积圆环。",
+      "refs": [
+        { "title": "Turf distance API", "url": "https://turfjs.org/docs/api/distance" },
+        { "title": "Turf isobands API", "url": "https://turfjs.org/docs/api/isobands" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "距同一中心相近的规则点形成近似同心环，距离分段因此呈环状", "hint": "距离值场围绕共同中心组织，等值带也随之呈环状" },
+        { "key": "B", "text": "distance 会自动读取门店道路拥堵" },
+        { "key": "C", "text": "pointGrid 会把所有点放在同一坐标" },
+        { "key": "D", "text": "isobands 会强制每个面都是等面积圆环" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-043",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "按本章练习完成「Voronoi 门店邻域 + 订单归属」统计时，哪些步骤不可省略？",
+      "explanation": "完整流程要用合适 bbox 生成并检查 cells，显式验证 cell 到 storeId 的映射，再保存订单全部命中并处理压线、多命中和未命中。假定属性自动透传会跳过关键业务校验。",
+      "refs": [
+        { "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" },
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "用覆盖站点的局部 bbox 生成并检查 cells", "hint": "裁切范围与输出异常都需要检查" },
+        { "key": "B", "text": "显式建立并验证 cell 与 storeId 的映射", "hint": "几何单元必须可靠连接回门店业务标识" },
+        { "key": "C", "text": "记录每单全部命中，并对压线、多命中和未命中执行既定政策", "hint": "归属统计必须包含边界与审计分支" },
+        { "key": "D", "text": "假定输出 cell 自动透传全部门店 properties，省去映射验证" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-05-044",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "密集或几乎共圆的站点可能放大 Delaunay 与 Voronoi 计算中的数值误差，因此结果需要质量检查。",
+      "explanation": "正确。几乎共圆属于近退化几何配置，微小数值扰动可能影响三角关系及 Voronoi 顶点。站点越密集，越需要检查异常坐标和单元质量。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-05-045",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "跨省大范围设施 Voronoi 为什么不宜直接照搬城市小范围的平面近似？",
+      "explanation": "经度一度与纬度一度对应的实际地面长度不同，大范围直接套用平面近似会加大距离关系误差。城市小范围可快速近似，大范围或精密应用应评估投影与距离模型。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "经纬度实际地面长度随方向与纬度不同，大范围应评估投影和距离模型", "hint": "应用范围越大，越不能忽略坐标与距离模型" },
+        { "key": "B", "text": "大范围会自动产生真实驾车路网" },
+        { "key": "C", "text": "只要把站点改成中文名称就能消除距离误差" },
+        { "key": "D", "text": "Voronoi 在任何范围内都会自动使用三维地形测距" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-046",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "讲义 Voronoi 统计流程中，用于把输出 cell 明确映射回具体门店的业务标识字段叫什么？",
+      "explanation": "业务标识字段是 storeId。输出 cell 不应被假定自动携带输入站点的全部 properties，因此必须建立并验证 cell 与 storeId 的映射后再做订单统计。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "short",
+      "accepted": ["storeId", "storeID", "storeId 字段", "storeId 属性"],
+      "placeholder": "写出门店标识字段名"
+    },
+    {
+      "id": "turf-05-047",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "下列哪一项最准确地描述了 Delaunay 三角剖分的空外接圆性质？",
+      "explanation": "空外接圆性质要求任一 Delaunay 三角形的外接圆内部不包含其他站点。它与 Voronoi 的对偶关系解释了站点几何如何决定最近区域，并不要求全部站点共线或面积相等。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "任一三角形的外接圆内不包含其他站点", "hint": "外接圆内部应为空，圆周上的退化情况另需检查" },
+        { "key": "B", "text": "每个三角形都必须包含全部站点" },
+        { "key": "C", "text": "所有站点必须落在同一条直线上" },
+        { "key": "D", "text": "外接圆面积必须等于 Voronoi 单元面积" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-05-048",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "bbox 或空间索引只负责减少候选区域，最终命中关系仍应由精确点面判断确认。",
+      "explanation": "正确。粗筛用于排除不可能命中的区域，以降低精确计算次数；索引结果不是拓扑归属本身，最终仍要用 booleanPointInPolygon 等精确谓词确认。",
+      "refs": [
+        { "title": "Turf booleanPointInPolygon API", "url": "https://turfjs.org/docs/api/booleanPointInPolygon" },
+        { "title": "Turf bbox API", "url": "https://turfjs.org/docs/api/bbox" }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-05-049",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "讲义门店 s3 使用 point([116.48, 39.86])。请在地图上点出这个北京城区 Voronoi 站点。",
+      "explanation": "该点位于北京中心城区东南部，处于讲义局部 bbox [116.32, 39.80, 116.53, 39.96] 内。北京地处华北平原北部；s3 与其他三家门店共同驱动最近站点分区，bbox 只负责裁切。",
+      "refs": [{ "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" }],
+      "type": "map",
+      "target": {
+        "lat": 39.86,
+        "lng": 116.48
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-05-050",
+      "skill": "turf",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "把 Turf 生成的 Voronoi cells 加载到 Cesium 后，地形和建筑遮挡会自动重新计算并改变原来的二维最近站点归属。",
+      "explanation": "错误。GeoJsonDataSource 可以把二维结果加载到三维场景展示，但地形、建筑遮挡和三维拾取不会反向改变 Turf 已计算的最近站点关系。展示与二维分析是不同环节。",
+      "refs": [
+        { "title": "Turf voronoi API", "url": "https://turfjs.org/docs/api/voronoi" },
+        { "title": "Cesium GeoJsonDataSource", "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html" }
+      ],
+      "type": "truefalse",
+      "answer": false
     }
   ]
 }

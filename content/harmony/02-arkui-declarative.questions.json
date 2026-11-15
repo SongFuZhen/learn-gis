@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "02",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-02-001",
@@ -383,6 +383,1121 @@
       "type": "short",
       "accepted": ["alignContent", "alignContent()"],
       "placeholder": "例如：alignContent"
+    },
+    {
+      "id": "harmony-02-015",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在 ArkUI 自定义组件中，@Entry 的主要作用是什么？",
+      "explanation": "@Entry 用于标记页面入口；@Component 声明自定义组件，@State 管理可观察状态，@Builder 则用于抽取 UI 片段，三者职责不同。",
+      "refs": [
+        {
+          "title": "创建自定义组件",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "把成员变量声明为可观察状态"
+        },
+        {
+          "key": "B",
+          "text": "标记页面入口组件",
+          "hint": "它标识页面级入口，而不是普通状态字段"
+        },
+        {
+          "key": "C",
+          "text": "抽取可复用的轻量 UI 片段"
+        },
+        {
+          "key": "D",
+          "text": "设置父容器剩余空间的分配比例"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-02-016",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "将 React 开发经验迁移到本章 ArkUI 写法时，下列对应关系正确的有哪些？",
+      "explanation": "本章对照表将 useState 对应到 V1 的 @State、数组 map 对应到 ForEach、React 事件属性对应到链式事件属性；build 描述组件树，并不返回浏览器 DOM。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        },
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "useState 对应 V1 的 @State"
+        },
+        {
+          "key": "B",
+          "text": "数组 map 对应 ForEach，并需关注 key 生成器"
+        },
+        {
+          "key": "C",
+          "text": "onChange={...} 对应 .onChange((value) => { ... })"
+        },
+        {
+          "key": "D",
+          "text": "返回 JSX 对应 build() 返回浏览器 DOM 节点"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-017",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "关于 ArkUI 中 build() 的描述，下列哪一项正确？",
+      "explanation": "build() 中写的是声明式 UI 描述，用来构建组件树，不是 JSX，也不存在由它返回并操作的浏览器 DOM；数据请求等副作用也不应放在这里。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "返回 JSX，并交给浏览器按 HTML 解析"
+        },
+        {
+          "key": "B",
+          "text": "封装 document.querySelector 以查找 UI 节点"
+        },
+        {
+          "key": "C",
+          "text": "描述声明式组件树，而不是 JavaScript XML",
+          "hint": "ArkUI 的组件树不等于浏览器 DOM"
+        },
+        {
+          "key": "D",
+          "text": "每次执行都必须发起网络请求以刷新界面"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-018",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "在 V1 自定义组件中，保存组件内可观察状态应使用哪个装饰器？",
+      "explanation": "@State 保存组件内部的可观察状态，状态变化会驱动依赖它的 UI 更新；@Entry 和 @Component 分别负责入口标记与组件声明。",
+      "refs": [
+        {
+          "title": "创建自定义组件",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@State", "State", "@State装饰器", "State装饰器"],
+      "placeholder": "例如：@State"
+    },
+    {
+      "id": "harmony-02-019",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "示例中 TextInput 的 onChange 将新值赋给 this.keyword 后，界面为何会更新？",
+      "explanation": "keyword 由 @State 修饰，事件回调改变它之后，框架会重新计算依赖该状态的 UI；不需要查找 Text 节点或直接给它赋文本。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@State 状态变化使框架重新计算依赖它的 UI",
+          "hint": "更新来源是状态驱动，而非手动操作节点"
+        },
+        {
+          "key": "B",
+          "text": "必须再调用 Text 的 setText 方法才能更新"
+        },
+        {
+          "key": "C",
+          "text": "只有销毁并重新启动整个应用才会更新"
+        },
+        {
+          "key": "D",
+          "text": "TextInput 会自动改写页面中所有 Text 的内容"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-02-020",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "动手练习中 courses 初始有 3 门课程。点击「追加课程」按钮两次，每次成功追加 1 门且不删除课程，此时 courses.length 为多少？",
+      "explanation": "初始长度为 3，每次追加使长度增加 1，因此最终为 3 + 1 + 1 = 5；不可变数组更新只是替换数组引用，不改变这个计数关系。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 5,
+      "tolerance": 0,
+      "unit": "门",
+      "placeholder": "请输入最终课程数量"
+    },
+    {
+      "id": "harmony-02-021",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Column 中三个子组件要在纵向上整体居中，应优先设置哪项？",
+      "explanation": "Column 的主轴是纵向，justifyContent(FlexAlign.Center) 控制主轴居中对齐；HorizontalAlign 用于其横向交叉轴，VerticalAlign 不用于 Column 的交叉轴设置。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "alignItems(HorizontalAlign.Center)"
+        },
+        {
+          "key": "B",
+          "text": "justifyContent(FlexAlign.Center)",
+          "hint": "先确认 Column 的纵向主轴"
+        },
+        {
+          "key": "C",
+          "text": "alignItems(VerticalAlign.Center)"
+        },
+        {
+          "key": "D",
+          "text": "alignContent(Alignment.Center)"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-02-022",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Column 的交叉轴是纵向，所以应使用 VerticalAlign 设置它的交叉轴对齐。",
+      "explanation": "错误。Column 的主轴才是纵向，其交叉轴为横向，应通过 alignItems(HorizontalAlign.*) 设置；VerticalAlign 对应 Row 的纵向交叉轴。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-02-023",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Row 中子组件需要在横向上保持从起始位置排列，应设置哪项主轴对齐？",
+      "explanation": "Row 的主轴为横向，因此使用 justifyContent(FlexAlign.Start) 控制子组件从横向起始位置排列；alignItems 管的是纵向交叉轴，alignContent 则用于 Stack。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "alignItems(VerticalAlign.Top)"
+        },
+        {
+          "key": "B",
+          "text": "alignItems(HorizontalAlign.Start)"
+        },
+        {
+          "key": "C",
+          "text": "alignContent(Alignment.TopStart)"
+        },
+        {
+          "key": "D",
+          "text": "justifyContent(FlexAlign.Start)",
+          "hint": "Row 的横向分布属于主轴对齐"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-02-024",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "根据本章 Index 示例的 keyword 交互逻辑，下列说法正确的有哪些？",
+      "explanation": "keyword 初始为空，所以显示「尚未输入」；输入非空内容后条件表达式切换为「正在查找」；「清空」按钮把 keyword 赋为空字符串，界面会随状态回到初始提示。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "初始 keyword 为空，Text 显示「尚未输入」"
+        },
+        {
+          "key": "B",
+          "text": "输入非空内容后，Text 显示「正在查找：」及输入内容"
+        },
+        {
+          "key": "C",
+          "text": "点击「清空」会把 keyword 设置为空字符串"
+        },
+        {
+          "key": "D",
+          "text": "点击「清空」后仍保留原 keyword，Text 内容不变"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-025",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "需要让一张图片与右上角的状态徽标层叠显示，最符合本章容器选择建议的是？",
+      "explanation": "Stack 用于子组件层叠，适合图片与徽标叠加的场景；Column 和 Row 是线性排列容器，List 面向滚动列表，都不以层叠布局为主要意图。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Column"
+        },
+        {
+          "key": "B",
+          "text": "Row"
+        },
+        {
+          "key": "C",
+          "text": "Stack",
+          "hint": "层叠是 Stack 的核心布局意图"
+        },
+        {
+          "key": "D",
+          "text": "List"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-026",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Row 中左侧标题与右侧按钮之间，需要占据剩余空间把二者推开，应使用哪个组件？",
+      "explanation": "Blank() 会占据 Row 中剩余空间，常用于把两侧内容推开；它不是固定宽度的分隔线，也不负责设置交叉轴对齐。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "short",
+      "accepted": ["Blank", "Blank()", "Blank组件"],
+      "placeholder": "例如：Blank()"
+    },
+    {
+      "id": "harmony-02-027",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "keyword 为空时显示「尚未输入」，非空时显示「正在查找：」及输入内容，下列哪段 Text 参数最符合示例？",
+      "explanation": "字符串长度大于 0 表示已经输入内容，此时条件表达式选择带 keyword 的分支；否则选择「尚未输入」。把两个分支对调会得到恰好相反的显示逻辑。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "this.keyword.length === 0 ? `正在查找：${this.keyword}` : '尚未输入'"
+        },
+        {
+          "key": "B",
+          "text": "this.keyword.length > 0 ? `正在查找：${this.keyword}` : '尚未输入'",
+          "hint": "非空分支应放在长度大于 0 的判断之后"
+        },
+        {
+          "key": "C",
+          "text": "this.keyword.length > 0 ? '尚未输入' : '尚未输入'"
+        },
+        {
+          "key": "D",
+          "text": "this.keyword.length > 0 ? '尚未输入' : `正在查找：${this.keyword}`"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-02-028",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "动手练习中 private nextId: number = 4。连续成功追加三门课程后，nextId 的值是多少？",
+      "explanation": "三次追加分别使用 id 4、5、6，每次生成课程后都执行 nextId++，所以最终值是 7，它也将成为下一门课程的 id。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "numeric",
+      "answer": 7,
+      "tolerance": 0,
+      "placeholder": "请输入 nextId 的最终值"
+    },
+    {
+      "id": "harmony-02-029",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "LessonList 的 lessons 为空数组时，以下哪种组件树最符合本章的空态处理？",
+      "explanation": "length 等于 0 时应进入空态分支并显示「暂时没有课程」，否则才通过 ForEach 描述课程列表；两个分支互斥，不应把空态提示与列表无条件同时显示。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "if (this.lessons.length === 0) 显示空态 Text，else 中使用 ForEach",
+          "hint": "空数组走空态，非空数组走列表"
+        },
+        {
+          "key": "B",
+          "text": "if (this.lessons.length > 0) 显示空态 Text，else 中使用 ForEach"
+        },
+        {
+          "key": "C",
+          "text": "无条件同时描述空态 Text 与 ForEach，不判断 lessons.length"
+        },
+        {
+          "key": "D",
+          "text": "只在 aboutToDisappear 中判断是否显示空态"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-02-030",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 Column、Row、Flex 与 Stack 的选择，下列说法符合本章建议的有哪些？",
+      "explanation": "普通纵向、横向线性布局分别优先选 Column、Row；需要伸缩规则时再考虑 Flex，需要层叠效果时考虑 Stack。Stack 不按 Row 的横向线性主轴分配子组件空间。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "普通纵向线性布局优先使用 Column"
+        },
+        {
+          "key": "B",
+          "text": "普通横向线性布局优先使用 Row"
+        },
+        {
+          "key": "C",
+          "text": "需要伸缩规则时再考虑 Flex"
+        },
+        {
+          "key": "D",
+          "text": "需要层叠效果时可选择 Stack"
+        },
+        {
+          "key": "E",
+          "text": "Stack 应按 Row 的横向主轴规则分配子组件空间"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-02-031",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "列表数据已正确替换，但界面未按预期更新。下列哪种做法符合本章对 key 的告诫？",
+      "explanation": "不应靠随机更换 key 强制重建列表项，这会把刷新问题与数据身份混在一起。正确做法是修正数据和状态更新方式，同时让稳定唯一的业务 key 继续标识同一条数据。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "每次渲染都随机更换 key，以强制重建所有列表项"
+        },
+        {
+          "key": "B",
+          "text": "修正数据与状态更新方式，并保持业务 key 稳定",
+          "hint": "key 表示身份，不应充当刷新开关"
+        },
+        {
+          "key": "C",
+          "text": "让所有列表项共用一个常量 key，减少 key 的数量"
+        },
+        {
+          "key": "D",
+          "text": "把增删后会变化的数组下标当作永久数据身份"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-02-032",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "一个 Column({ space: 12 }) 没有额外 padding，三个子组件高度分别为 40vp、60vp、80vp。忽略其他间距，三个子组件与项目间距的总高度是多少？",
+      "explanation": "三个子组件之间只有 2 个项目间距，因此总高度为 40 + 60 + 80 + 2 × 12 = 204vp，不能把 space 误乘为子组件数量 3。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "numeric",
+      "answer": 204,
+      "tolerance": 0,
+      "unit": "vp",
+      "placeholder": "请输入总高度数值"
+    },
+    {
+      "id": "harmony-02-033",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "一段 UI 需要拥有自己的状态和生命周期，并作为独立复用边界，应优先采用哪种方式？",
+      "explanation": "需要独立状态、生命周期或复用边界时，应抽成自定义组件；@Builder 更适合只抽取重复的轻量 UI 结构，@Styles 和链式属性则用于样式复用。",
+      "refs": [
+        {
+          "title": "创建自定义组件",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components"
+        },
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Styles"
+        },
+        {
+          "key": "B",
+          "text": "@Builder"
+        },
+        {
+          "key": "C",
+          "text": "自定义组件",
+          "hint": "独立状态与生命周期需要组件级边界"
+        },
+        {
+          "key": "D",
+          "text": "一组链式属性"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-034",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Column 中，正文区域需要按权重分配剩余高度，应在正文上调用哪个属性方法？",
+      "explanation": "layoutWeight 用于按权重分配父线性容器中的剩余空间；本章 LayoutPage 用 layoutWeight(1) 让正文占据 Column 的剩余高度，而不是把高度固定为 1vp。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "short",
+      "accepted": ["layoutWeight", "layoutWeight()", "layoutWeight(1)"],
+      "placeholder": "例如：layoutWeight(1)"
+    },
+    {
+      "id": "harmony-02-035",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "只需要复用一组通用属性样式，且明确不包含事件处理，应选择哪种机制？",
+      "explanation": "@Styles 用于复用通用属性样式，但不支持事件；@Extend 可以扩展指定内置组件的样式与事件组合，@BuilderParam 则负责注入 UI 片段。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Styles",
+          "hint": "它复用通用属性样式，但不封装事件"
+        },
+        {
+          "key": "B",
+          "text": "@BuilderParam"
+        },
+        {
+          "key": "C",
+          "text": "@Entry"
+        },
+        {
+          "key": "D",
+          "text": "LazyForEach"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-02-036",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "为了维持 build() 纯粹并正确处理副作用，下列安排合理的有哪些？",
+      "explanation": "初始化适合放在 aboutToAppear，清理适合放在 aboutToDisappear，用户动作由事件回调处理；build 可能随重建重复执行，在其中注册监听、请求数据或创建定时器会反复产生副作用。",
+      "refs": [
+        {
+          "title": "创建自定义组件",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components"
+        },
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "把初始化数据工作放入 aboutToAppear"
+        },
+        {
+          "key": "B",
+          "text": "把监听清理工作放入 aboutToDisappear"
+        },
+        {
+          "key": "C",
+          "text": "把用户点击处理放入 onClick 回调"
+        },
+        {
+          "key": "D",
+          "text": "在 build 每次执行时都注册一个新的监听器"
+        },
+        {
+          "key": "E",
+          "text": "在 build 中启动定时器，让它随重建反复重启"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-037",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "动手练习点击「追加课程」时，哪段状态更新最符合参考实现？",
+      "explanation": "数组展开会生成一个新数组，保留原课程并在末尾加入 course，符合练习采用的不可变更新方式；原数组直接 push 或按 nextId 当下标写入都不是参考实现。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "this.courses.push(course); this.courses = this.courses;"
+        },
+        {
+          "key": "B",
+          "text": "this.courses = [...this.courses, course];",
+          "hint": "展开原数组并追加，得到新的数组引用"
+        },
+        {
+          "key": "C",
+          "text": "this.courses = [];"
+        },
+        {
+          "key": "D",
+          "text": "this.courses[this.nextId] = course;"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-02-038",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "一个宽 300vp 的 Row({ space: 10 }) 依次放置宽 60vp 的标题、Blank() 和宽 80vp 的按钮。忽略其他尺寸与间距，Blank() 的宽度是多少？",
+      "explanation": "三个子组件之间有 2 个间距，共占 20vp；标题和按钮共占 140vp，所以 Blank 获得 300 - 60 - 80 - 20 = 140vp 的剩余宽度。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "numeric",
+      "answer": 140,
+      "tolerance": 0,
+      "unit": "vp",
+      "placeholder": "请输入 Blank 的宽度数值"
+    },
+    {
+      "id": "harmony-02-039",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "需要为 Text 这一类指定内置组件复用「样式与事件组合」，应选择哪种机制？",
+      "explanation": "@Extend 用于扩展指定内置组件的样式与事件组合，本题的目标组件是 Text；@Styles 只复用通用属性样式且不支持事件，不能替代这个需求。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "@Styles"
+        },
+        {
+          "key": "B",
+          "text": "@Extend",
+          "hint": "它面向指定内置组件，并可组合样式与事件"
+        },
+        {
+          "key": "C",
+          "text": "@BuilderParam"
+        },
+        {
+          "key": "D",
+          "text": "@State"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "harmony-02-040",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "父组件需要向自定义组件注入一段 UI 片段，应使用哪个装饰器声明接收属性？",
+      "explanation": "@BuilderParam 让父组件把 UI 片段注入自定义组件；@Builder 负责定义可复用 UI 结构，两者的「定义片段」与「接收外部片段」职责不同。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        },
+        {
+          "title": "创建自定义组件",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@BuilderParam", "BuilderParam", "@BuilderParam装饰器", "BuilderParam装饰器"],
+      "placeholder": "例如：@BuilderParam"
+    },
+    {
+      "id": "harmony-02-041",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "一个全高 Column 包含固定高度的顶部 Row 和底部按钮，中间正文需占满剩余高度；顶部 Row 的标题靠左、按钮靠右且二者纵向居中。下列组合最完整？",
+      "explanation": "正文用 layoutWeight(1) 分配固定头尾之外的剩余高度；Row 中用 Blank() 占据中间剩余宽度，把标题与按钮推向两侧；Row 的纵向是交叉轴，所以还需 alignItems(VerticalAlign.Center)。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "正文 layoutWeight(1)；标题与按钮之间放 Blank()，Row 设置 alignItems(VerticalAlign.Center)",
+          "hint": "同时满足剩余高度、左右分隔和纵向居中三个条件"
+        },
+        {
+          "key": "B",
+          "text": "正文 height('100%')；Row 只设置 justifyContent(FlexAlign.Center)，不使用 Blank()"
+        },
+        {
+          "key": "C",
+          "text": "正文 layoutWeight(1)；使用 Blank()，但 Row 设置 alignItems(HorizontalAlign.Center)"
+        },
+        {
+          "key": "D",
+          "text": "正文 layoutWeight(1)；Row 中不使用 Blank()，只给按钮设置 width('100%')"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "harmony-02-042",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "下列哪些写法符合本章对 List 子组件结构的约定？",
+      "explanation": "List 的直接子组件使用 ListItem 或 ListItemGroup。普通项内容放进 ListItem，分组结构使用 ListItemGroup；即使由 ForEach 生成普通项，也仍应遵守列表项容器约定。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "List() { ListItem() { Text('普通项') } }"
+        },
+        {
+          "key": "B",
+          "text": "List() { ListItemGroup(...) { /* 分组项 */ } }"
+        },
+        {
+          "key": "C",
+          "text": "List() { Text('绕过列表项容器') }"
+        },
+        {
+          "key": "D",
+          "text": "使用 ForEach 生成普通项时，仍将每项内容放入 ListItem"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "D"
+      ]
+    },
+    {
+      "id": "harmony-02-043",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "一个高 420vp 的 Column 中，固定头部占 60vp，其余空间由两个区域按 layoutWeight(1) 与 layoutWeight(2) 分配。忽略间距，权重为 2 的区域高度是多少？",
+      "explanation": "扣除固定头部后剩余 420 - 60 = 360vp，总权重为 1 + 2 = 3；权重为 2 的区域占其中 2/3，所以高度是 360 × 2/3 = 240vp。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "numeric",
+      "answer": 240,
+      "tolerance": 0,
+      "unit": "vp",
+      "placeholder": "请输入该区域的高度数值"
+    },
+    {
+      "id": "harmony-02-044",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "List 的直接子组件需要使用分组列表项容器时，应写出哪个组件名？",
+      "explanation": "分组列表项容器是 ListItemGroup；普通列表项使用 ListItem。二者都可作为 List 的直接子组件，但分组语义不能由普通 Text 代替。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "short",
+      "accepted": ["ListItemGroup", "ListItemGroup()", "ListItemGroup组件"],
+      "placeholder": "例如：ListItemGroup"
+    },
+    {
+      "id": "harmony-02-045",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "根据本章 LayoutPage 示例的组件树与参数，下列说法正确的有哪些？",
+      "explanation": "示例外层 Column 的 space 为 16，顶部 Row 的 space 为 12，Blank 位于信息区与「继续」按钮之间；正文使用 layoutWeight(1)，外层 Column 的交叉轴对齐是 HorizontalAlign.Start。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "外层 Column 使用 space: 16"
+        },
+        {
+          "key": "B",
+          "text": "顶部 Row 使用 space: 12"
+        },
+        {
+          "key": "C",
+          "text": "Blank 位于学习进度信息区与「继续」按钮之间"
+        },
+        {
+          "key": "D",
+          "text": "正文区域被设置为固定高度 1vp，而不是按权重分配"
+        },
+        {
+          "key": "E",
+          "text": "外层 Column 使用 alignItems(HorizontalAlign.End) 让子组件靠右"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-046",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "某子组件在内容宽 320vp 的父容器中使用 width('50%')，不考虑其他约束，其宽度是多少？",
+      "explanation": "百分比尺寸要结合父容器约束理解，本题就是父容器内容宽度的 50%，因此子组件宽度为 320 × 50% = 160vp，而不是整个屏幕宽度的一半。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "numeric",
+      "answer": 160,
+      "tolerance": 0,
+      "unit": "vp",
+      "placeholder": "请输入子组件宽度数值"
+    },
+    {
+      "id": "harmony-02-047",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "数量有限的静态列表在 build() 中通常使用哪个列表渲染语法？",
+      "explanation": "数量有限的静态列表适合使用 ForEach；数据量大且需要滚动时，本章建议改用 List 配合 LazyForEach 和 IDataSource，按需创建可见区域附近的项。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "short",
+      "accepted": ["ForEach", "ForEach()", "ForEach语法"],
+      "placeholder": "例如：ForEach"
+    },
+    {
+      "id": "harmony-02-048",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于本章尺寸与剩余空间分配，下列说法正确的有哪些？",
+      "explanation": "Blank 占据 Row 剩余空间，layoutWeight 按权重分配 Column 剩余空间；固定尺寸、百分比和权重都应结合父容器约束选择。百分比不脱离父容器，layoutWeight(1) 也不是固定 1vp。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Blank() 可占据 Row 中的剩余空间"
+        },
+        {
+          "key": "B",
+          "text": "layoutWeight 可按权重分配 Column 中的剩余空间"
+        },
+        {
+          "key": "C",
+          "text": "固定尺寸、百分比或权重的选择应先明确父容器约束"
+        },
+        {
+          "key": "D",
+          "text": "width('100%') 始终等于整个屏幕宽度，与父容器无关"
+        },
+        {
+          "key": "E",
+          "text": "layoutWeight(1) 表示把组件高度固定为 1vp"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "harmony-02-049",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "使用 List 时不需要给列表明确尺寸约束，父容器与数据量会自动保证按需布局。",
+      "explanation": "错误。本章明确要求给 List 列表尺寸约束，应结合父容器确定固定尺寸、百分比或权重，不能完全依赖数据量自动推定列表的布局范围。",
+      "refs": [
+        {
+          "title": "声明式 UI 描述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-declarative-ui-description"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-02-050",
+      "skill": "harmony",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "下列关于自定义组件与各类复用机制边界的组合判断，正确的有哪些？",
+      "explanation": "自定义组件承载独立状态与生命周期，@Builder 抽取轻量结构，@BuilderParam 接收父组件注入的 UI，@Extend 扩展指定内置组件的样式与事件；@Styles 不支持事件，@Extend 也不用于扩展自定义组件。",
+      "refs": [
+        {
+          "title": "ArkUI 基本语法概述",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview"
+        },
+        {
+          "title": "创建自定义组件",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-create-custom-components"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "需要自身状态或生命周期时，可抽成自定义组件"
+        },
+        {
+          "key": "B",
+          "text": "@Builder 适合抽取轻量 UI 结构，参数可按引用或值传递"
+        },
+        {
+          "key": "C",
+          "text": "@BuilderParam 可让父组件向自定义组件注入 UI 片段"
+        },
+        {
+          "key": "D",
+          "text": "@Styles 可复用通用属性样式，并可任意封装事件处理"
+        },
+        {
+          "key": "E",
+          "text": "@Extend 专门扩展自定义组件，不能指定 Text 等内置组件"
+        },
+        {
+          "key": "F",
+          "text": "@Extend 可扩展指定内置组件的样式与事件组合"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "F"
+      ]
     }
   ]
 }

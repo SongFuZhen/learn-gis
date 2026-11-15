@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "09",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-09-001",
@@ -204,6 +204,554 @@
       "tolerance": 0,
       "unit": "个",
       "placeholder": "只填 Feature 数量"
+    },
+    {
+      "id": "turf-09-014",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "一份来源不明的 GeoJSON 进入本章处理管线时，首先应完成哪项工作？",
+      "explanation": "应先解析并校验 Feature、Geometry、properties 结构以及经纬度范围，再由发现的问题决定后续清洗和转换；不能未检查就盲目执行全部函数。",
+      "refs": [{ "title": "GeoJSON RFC 7946", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "解析并校验要素结构、属性结构与经纬度范围", "hint": "先了解数据问题，再设计有针对性的管线" },
+        { "key": "B", "text": "不经检查就把所有几何交给 combine" },
+        { "key": "C", "text": "先把地图实例发送给 Worker 再判断数据内容" },
+        { "key": "D", "text": "先删除 properties，以免属性影响几何校验" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-015",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "为 flatten、cleanCoords 等关键转换编写小样本回归测试时，应重点比较哪些信息？",
+      "explanation": "转换可能改变 Feature 数量、几何类型以及 properties 的承载方式，回归测试应明确比较这些结果。地图背景色属于视图样式，不能判断几何转换是否保持预期语义。",
+      "refs": [
+        { "title": "Turf flatten API", "url": "https://turfjs.org/docs/api/flatten" },
+        { "title": "Turf cleanCoords API", "url": "https://turfjs.org/docs/api/cleanCoords" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "转换前后的 Feature 数量", "hint": "拍平或清洗可能改变要素计数" },
+        { "key": "B", "text": "输出几何类型是否符合目标算法要求", "hint": "Multi 与单几何不能混用" },
+        { "key": "C", "text": "properties 是否按预期保留和承载", "hint": "几何正确但属性丢失仍是回归问题" },
+        { "key": "D", "text": "地图容器的背景颜色是否更深" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-09-016",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "只要使用本章的数据管线，就必须对所有输入无脑执行 cleanCoords、rewind、flatten、explode 和 combine。",
+      "explanation": "错误。管线步骤应由实际数据问题和目标算法驱动，而不是无脑全跑。每次转换都可能改变数量、属性或拓扑含义，应按需选择并验证。",
+      "refs": [{ "title": "Turf flatten API", "url": "https://turfjs.org/docs/api/flatten" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-09-017",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "清理 GeoJSON 中重复点或不必要的共线点，应调用哪个 Turf 函数？",
+      "explanation": "应使用 cleanCoords。它按 Turf 的规则移除冗余坐标；rewind 只调整环方向，flatten 只拆多几何，三者职责不能混淆。",
+      "refs": [{ "title": "Turf cleanCoords API", "url": "https://turfjs.org/docs/api/cleanCoords" }],
+      "type": "short",
+      "accepted": ["cleanCoords", "cleanCoords()", "cleanCoords(geojson)"],
+      "placeholder": "写出 Turf 函数名"
+    },
+    {
+      "id": "turf-09-018",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "一个 FeatureCollection 含一条有 5 个顶点的 LineString 和一个含 3 个成员的 MultiPoint，explode 后总共得到多少个 Point Feature？",
+      "explanation": "LineString 的 5 个坐标顶点生成 5 个 Point，MultiPoint 的 3 个成员各贡献 1 个坐标点，因此总数为 5 + 3 = 8。explode 抽取顶点，不执行额外去重。",
+      "refs": [{ "title": "Turf explode API", "url": "https://turfjs.org/docs/api/explode" }],
+      "type": "numeric",
+      "answer": 8,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填 Point Feature 总数"
+    },
+    {
+      "id": "turf-09-019",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "在地图上点击本章 MultiPoint 示例的第一个坐标 [116.40, 39.90] 所示的位置（北京）。",
+      "explanation": "该坐标按 GeoJSON 的 [经度, 纬度] 顺序表示北京城区附近，北京位于中国华北平原北部。目标约为北纬 39.90°、东经 116.40°，城市级容差为 220 公里。",
+      "refs": [{ "title": "Turf flatten API", "url": "https://turfjs.org/docs/api/flatten" }],
+      "type": "map",
+      "target": {
+        "lat": 39.9,
+        "lng": 116.4
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "turf-09-020",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "清洗时发现部分面存在异常，哪种处理最符合本章的数据保护原则？",
+      "explanation": "应保留原始输入，记录转换造成的影响，并用小样本回归测试核查关键步骤。不能为了让校验通过而静默删除大面积几何或业务字段，也不能把 rewind 当成通用修复器。",
+      "refs": [{ "title": "Turf cleanCoords API", "url": "https://turfjs.org/docs/api/cleanCoords" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "保留原始输入并记录问题，用回归测试检查关键转换", "hint": "可追溯和可验证比静默改数据更重要" },
+        { "key": "B", "text": "直接删除所有异常面及其 properties，且不留记录" },
+        { "key": "C", "text": "只调用 rewind，然后宣称所有拓扑错误均已修复" },
+        { "key": "D", "text": "为了让输出美观，删除全部业务属性" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-021",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "主线程准备向 Worker 发送聚类任务，哪些消息字段符合纯数据通信约束？",
+      "explanation": "普通点集 GeoJSON、聚类数量和任务 id 都是可结构化克隆的纯数据。地图实例包含行为与外部资源，不应作为普通 GeoJSON 消息克隆给 Worker。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "由普通对象和数组组成的 points GeoJSON", "hint": "普通嵌套对象与数组可以结构化克隆" },
+        { "key": "B", "text": "数值参数 numberOfClusters", "hint": "数字是纯数据参数" },
+        { "key": "C", "text": "用于关联结果的任务 id", "hint": "字符串或数字 id 便于识别异步任务" },
+        { "key": "D", "text": "包含地图行为的 maplibregl.Map 实例" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-09-022",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "基准测试中固定输入数据与算法参数，有助于提高不同测量轮次之间的可比性。",
+      "explanation": "正确。固定输入和参数能减少无关变量，使耗时差异更可能来自目标运行环境或偶发性能变化，也便于他人复现测试。",
+      "refs": [{ "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-09-023",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "正式采样前先执行一次 run()，以减少首次加载与 JIT 编译影响的步骤叫什么？",
+      "explanation": "这一步称为预热。预热让首次加载和即时编译的影响尽量不主导正式样本，之后再进行多轮计时和统计分析。",
+      "refs": [{ "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }],
+      "type": "short",
+      "accepted": ["预热", "预先预热", "warmup", "warm-up", "warm up"],
+      "placeholder": "写出中文术语或英文 warmup"
+    },
+    {
+      "id": "turf-09-024",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "将 48000 个点按每批 400 个处理，每批纯计算耗时 35 毫秒；不计其他开销，总批处理耗时是多少毫秒？",
+      "explanation": "批次数为 48000 ÷ 400 = 120，每批耗时 35 毫秒，所以总耗时为 120 × 35 = 4200 毫秒。题目明确不计消息复制等其他开销。",
+      "refs": [{ "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }],
+      "type": "numeric",
+      "answer": 4200,
+      "tolerance": 0,
+      "unit": "毫秒",
+      "placeholder": "只填总耗时数值"
+    },
+    {
+      "id": "turf-09-025",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "在地图上点击本章 explode 折线示例的最后一个顶点 [116.50, 39.92] 所示的位置（北京城区东部）。",
+      "explanation": "目标点约为北纬 39.92°、东经 116.50°，位于北京城区偏东，是讲义用于演示顶点抽取的真实坐标之一。GeoJSON 坐标先写经度再写纬度，容差为 220 公里。",
+      "refs": [{ "title": "Turf explode API", "url": "https://turfjs.org/docs/api/explode" }],
+      "type": "map",
+      "target": {
+        "lat": 39.92,
+        "lng": 116.5
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "turf-09-026",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "一条闭合 LineString 的首尾坐标相同，对其执行 explode 后，关于重复位置的说法哪项正确？",
+      "explanation": "explode 按输入坐标抽取顶点，闭合线的首尾相同坐标可能形成位置重复的 Point。它不负责按业务语义去重，需要时应另行处理重复位置。",
+      "refs": [{ "title": "Turf explode API", "url": "https://turfjs.org/docs/api/explode" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "结果可能含重复位置的点，需要时按业务另行去重", "hint": "抽顶点不等于坐标去重" },
+        { "key": "B", "text": "explode 总是自动删除所有同位置点" },
+        { "key": "C", "text": "首尾相同会使整条线只输出一个点" },
+        { "key": "D", "text": "explode 会自动把重复点重新组合成 Polygon" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-027",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "关于多轮耗时样本的中位数与近似第 95 百分位，下列解释正确的有哪些？",
+      "explanation": "中位数描述排序后位于中部位置的典型样本，第 95 百分位用于观察较慢的尾部表现。中位数不是总和，第 95 百分位也不保证等于最大值。",
+      "refs": [{ "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "中位数可从排序后的中部位置反映典型耗时", "hint": "它不受少数极大值像平均值那样明显拉动" },
+        { "key": "B", "text": "第 95 百分位有助于观察较慢的尾部样本", "hint": "尾部统计量能暴露偶发长耗时" },
+        { "key": "C", "text": "中位数就是所有轮次耗时的总和" },
+        { "key": "D", "text": "任何样本的第 95 百分位都必然等于最大值" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "turf-09-028",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "普通 GeoJSON 通过 postMessage 发送后，主线程与 Worker 默认零成本共享同一个嵌套对象。",
+      "explanation": "错误。普通 GeoJSON 通常经过结构化克隆形成副本，并非零成本共享同一对象。大型输入输出的复制本身可能成为性能瓶颈。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-09-029",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "普通 GeoJSON 经 postMessage 发送给 Worker 时，通常采用哪种对象复制机制？",
+      "explanation": "通常采用结构化克隆。它能复制普通 GeoJSON 的嵌套对象与数组，但不能把 DOM、函数或地图实例等行为对象当作纯数据复制。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "short",
+      "accepted": ["结构化克隆", "结构化克隆算法", "Structured Clone", "structured clone", "structured cloning"],
+      "placeholder": "写出中文或英文机制名称"
+    },
+    {
+      "id": "turf-09-030",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "把 125000 条记录分片，每片最多 8000 条，最后一片可以不满，至少需要多少个分片？",
+      "explanation": "125000 ÷ 8000 = 15.625，15 个分片只能容纳 120000 条，剩余 5000 条还需 1 片，因此向上取整得到 16 个分片。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "numeric",
+      "answer": 16,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填最小分片数"
+    },
+    {
+      "id": "turf-09-031",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "在地图上点击本章 randomPoint 示例 bbox 的西南角 [116.30, 39.80]（北京城区西南侧）。",
+      "explanation": "bbox 依次给出西南角经度、西南角纬度、东北角经度、东北角纬度，因此西南角目标是北纬 39.80°、东经 116.30°。该点位于北京城区西南侧，容差为 220 公里。",
+      "refs": [{ "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }],
+      "type": "map",
+      "target": {
+        "lat": 39.8,
+        "lng": 116.3
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "turf-09-032",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "调用 rewind(geojson, { reverse: true }) 时，多边形外环与孔洞环采用什么方向？",
+      "explanation": "reverse: true 使用与默认右手规则相反的方向，因此外环为顺时针、孔洞环为逆时针。默认行为才是外环逆时针、孔洞环顺时针。",
+      "refs": [
+        { "title": "Turf rewind API", "url": "https://turfjs.org/docs/api/rewind" },
+        { "title": "GeoJSON RFC 7946 Polygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "外环顺时针，孔洞环逆时针", "hint": "reverse 会反转默认的环方向约定" },
+        { "key": "B", "text": "外环逆时针，孔洞环顺时针" },
+        { "key": "C", "text": "外环与孔洞环都为顺时针" },
+        { "key": "D", "text": "不调整任何环，只删除重复顶点" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-033",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "从 postMessage 前计时到对应 id 的 onmessage 触发，这段 Worker 端到端耗时包含哪些环节？",
+      "explanation": "完整链路包含输入消息复制与传递、Worker 内实际聚类，以及结果复制回传和接收。计时开始前已经完成的测试输入生成不属于这段目标算法的测量区间。",
+      "refs": [
+        { "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" },
+        { "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "输入 GeoJSON 的消息复制与传递", "hint": "结构化克隆不是零成本" },
+        { "key": "B", "text": "Worker 内执行 Turf 聚类的时间", "hint": "目标算法本身仍是完整链路的一部分" },
+        { "key": "C", "text": "结果复制回传并触发主线程接收", "hint": "终点在收到对应结果时，而非 Worker 内函数刚结束时" },
+        { "key": "D", "text": "startedAt 记录之前已经完成的随机输入生成" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-09-034",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "正确使用 rewind 规范环方向时，可以改变顶点顺序，但不应改变环所覆盖的区域。",
+      "explanation": "正确。rewind 的职责是重排环的顶点方向，而不是重新设计多边形区域。若覆盖区域发生业务上不可接受的变化，应检查输入和其他修复步骤。",
+      "refs": [{ "title": "Turf rewind API", "url": "https://turfjs.org/docs/api/rewind" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-09-035",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "主线程需要接收 Worker 回传的聚类结果时，应设置 worker 的哪个事件处理属性？",
+      "explanation": "应设置 worker.onmessage。回调可以从事件 data 中取得结果，并根据消息 id 对应原请求；postMessage 则用于发送消息。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "short",
+      "accepted": ["onmessage", "worker.onmessage", "onmessage 事件", "message 事件处理属性"],
+      "placeholder": "写出事件处理属性名"
+    },
+    {
+      "id": "turf-09-036",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "没有空间索引时，12000 个点逐一与 150 个候选面做点面判断，总共需要多少次候选判断？",
+      "explanation": "朴素两重遍历对每个点都检查全部候选面，判断次数为 n × m，即 12000 × 150 = 1800000 次。这里只计算候选判断次数，不包含其他几何操作。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "numeric",
+      "answer": 1800000,
+      "tolerance": 0,
+      "unit": "次",
+      "placeholder": "只填候选判断总次数"
+    },
+    {
+      "id": "turf-09-037",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "在地图上点击本章 randomPoint 示例 bbox 的东北角 [116.60, 40.00]（北京城区东北侧）。",
+      "explanation": "本章 bbox 为 [116.30, 39.80, 116.60, 40.00]，后两个数确定东北角，即北纬 40.00°、东经 116.60°。该点位于北京城区东北方向，城市级容差为 220 公里。",
+      "refs": [{ "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }],
+      "type": "map",
+      "target": {
+        "lat": 40,
+        "lng": 116.6
+      },
+      "toleranceKm": 220
+    },
+    {
+      "id": "turf-09-038",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "旧 GeoJSON 的多边形环方向与 RFC 7946 约定相反时，符合规范的解析器应怎样处理？",
+      "explanation": "RFC 7946 强调解析器不应仅因旧数据环方向不同就拒绝处理。对外输出时可用 rewind 规范化以提高互操作性，但环方向不是拒绝输入的唯一理由。",
+      "refs": [{ "title": "GeoJSON RFC 7946 Polygon", "url": "https://datatracker.ietf.org/doc/html/rfc7946#section-3.1.6" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "不应仅因环方向相反而拒绝解析，可在输出阶段规范化", "hint": "规范同时考虑了旧数据的兼容解析" },
+        { "key": "B", "text": "必须立即拒绝整个 FeatureCollection" },
+        { "key": "C", "text": "必须静默删除全部孔洞后才能解析" },
+        { "key": "D", "text": "必须把 Polygon 改成 Point 才能继续" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-039",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "多轮基准测试只要报告平均耗时，就足以排除偶发卡顿对性能结论的影响。",
+      "explanation": "错误。平均值可能掩盖少数特别慢的轮次，至少还应同时观察中位数和尾部分位数，才能更完整地描述典型表现与偶发长耗时。",
+      "refs": [{ "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-09-040",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "需要保存七轮 Turf 运算耗时并计算中位数时，哪种计时方式最合适？",
+      "explanation": "应在每轮运算前后调用 performance.now，保存差值形成样本数组，再排序计算统计量。console.time/timeEnd 更适合快速定位，不便于直接保存多轮数值样本。",
+      "refs": [{ "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "每轮用 performance.now 求差并把差值存入数组", "hint": "数值样本可继续排序并计算中位数" },
+        { "key": "B", "text": "每轮生成随机输入后只打印一次 console.time" },
+        { "key": "C", "text": "只在七轮全部结束后读取一次系统日期" },
+        { "key": "D", "text": "逐点打印日志，再用日志条数代表耗时" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-041",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "大型 GeoJSON 在 Worker 消息复制上形成瓶颈时，哪些优化符合本章建议？",
+      "explanation": "减少不必要字段、分批处理、缓存可复用任务，以及改用可转移的二进制表示，都能针对传输或重复计算压力进行优化。克隆地图实例既不符合纯数据约束，也不会降低 GeoJSON 复制成本。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "发送前减少与任务无关的属性字段", "hint": "更小的纯数据消息通常意味着更少的复制工作" },
+        { "key": "B", "text": "按任务需要分批处理大型输入", "hint": "分批可以控制单次消息规模" },
+        { "key": "C", "text": "缓存可复用任务，避免重复传输与计算", "hint": "缓存针对重复工作，而非盲目增加 Worker 数量" },
+        { "key": "D", "text": "在合适场景改用可转移的二进制表示", "hint": "这是大输入输出时降低普通对象复制压力的方向" },
+        { "key": "E", "text": "把地图实例连同函数一起克隆，以减少 GeoJSON 字段" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "turf-09-042",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "页面组件销毁时，应调用 Worker 的哪个方法来主动终止其运行？",
+      "explanation": "应调用 worker.terminate()。终止 Worker 是组件清理的一部分，同时还应忽略过期结果，避免异步回传后继续更新已销毁组件。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "short",
+      "accepted": ["terminate", "terminate()", "worker.terminate", "worker.terminate()"],
+      "placeholder": "写出 Worker 方法名"
+    },
+    {
+      "id": "turf-09-043",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "比较同一算法处理一万点与十万点的性能时，哪种报告方式最合理？",
+      "explanation": "应固定输入生成方式、参数、浏览器与构建模式，分别报告不同 n 的多轮统计结果。把不同规模混成一个平均值会掩盖输入规模对耗时的影响。",
+      "refs": [{ "title": "MDN performance.now", "url": "https://developer.mozilla.org/docs/Web/API/Performance/now" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "固定测试环境，分别报告一万点和十万点的多轮统计量", "hint": "不同 n 的结果应能分别比较和复现" },
+        { "key": "B", "text": "把两种规模的全部耗时混成一个数，不标注 n" },
+        { "key": "C", "text": "一万点用开发模式，十万点用生产模式后直接比较" },
+        { "key": "D", "text": "每轮改变聚类参数，以减少重复测量的麻烦" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-044",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "估算 100000 个点的坐标与属性字节数：每点含两个 8 字节浮点数和 24 字节属性，忽略对象开销，共需多少字节？",
+      "explanation": "每个点占用的估算量为 2 × 8 + 24 = 40 字节，100000 个点共需 40 × 100000 = 4000000 字节。题目忽略对象头、数组容器等额外开销。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "numeric",
+      "answer": 4000000,
+      "tolerance": 0,
+      "unit": "字节",
+      "placeholder": "只填十进制字节数"
+    },
+    {
+      "id": "turf-09-045",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "把同一 Turf 算法移入 Worker，主要收益是减少主线程阻塞，而不是自动降低算法复杂度。",
+      "explanation": "正确。Worker 改变计算所在的线程，使页面交互更不容易被重计算阻塞；算法本身的点面判断等操作次数不会仅因换线程就自动减少。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-09-046",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "Turf 聚类已迁入 Worker，但 Cesium 场景仍因渲染开销卡顿，哪种判断正确？",
+      "explanation": "Worker 主要减轻主线程的几何计算压力，不会自动减少 Cesium 的 WebGL 绘制调用、图元调度或显存开销。两类瓶颈需要分别测量和优化，不能混为一谈。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "继续分别测量 Turf 计算与 Cesium 渲染成本，Worker 不会自动降低后者", "hint": "主线程计算与三维渲染是不同瓶颈" },
+        { "key": "B", "text": "只要使用 Worker，Cesium 的绘制调用必然同比减少" },
+        { "key": "C", "text": "把 Cesium Entity 克隆给 Worker 就能消除显存开销" },
+        { "key": "D", "text": "无需测量，直接把全部实体属性删除即可" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-09-047",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "测量确认瓶颈是空间算法本身复杂度过高时，哪些后续措施能直接针对计算问题？",
+      "explanation": "减少输入、建立空间索引、缓存结果或更换更合适的算法，都能减少实际计算或重复工作。Worker 只能迁移执行位置，不会让同一个算法自动少做一次空间判断。",
+      "refs": [
+        { "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" },
+        { "title": "Turf clustersKmeans API", "url": "https://turfjs.org/docs/api/clustersKmeans" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "在满足业务精度的前提下减少输入规模", "hint": "输入规模直接影响大量几何遍历工作" },
+        { "key": "B", "text": "用空间索引缩小候选几何范围", "hint": "避免每个要素都与全部候选逐一计算" },
+        { "key": "C", "text": "缓存相同输入与参数的可复用结果", "hint": "缓存能消除重复计算" },
+        { "key": "D", "text": "改用复杂度更适合问题规模的算法", "hint": "这比只迁移线程更直接地改变计算成本" },
+        { "key": "E", "text": "只把同一算法移入 Worker，并断言比较次数自动减少" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "turf-09-048",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "并发 Worker 任务的消息协议中，用于对应请求与异步结果的字段通常叫什么？",
+      "explanation": "通常使用 id，也就是请求或任务编号。后发的短任务可能先返回，主线程应根据 id 匹配结果，而不能假设返回顺序等于发送顺序。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "short",
+      "accepted": ["id", "ID", "任务 id", "任务ID", "请求 id", "请求编号", "任务编号"],
+      "placeholder": "写出字段名或中文含义"
+    },
+    {
+      "id": "turf-09-049",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "页面组件销毁后，仍在运行的 Worker 一旦返回旧结果，就应无条件更新这个已销毁组件的状态。",
+      "explanation": "错误。组件销毁时应终止 Worker，并忽略过期结果，避免无效更新和生命周期问题。异步任务 id 也有助于识别结果是否仍对应当前请求。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-09-050",
+      "skill": "turf",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "Worker 内的 Turf 聚类可能抛出异常，哪种消息协议便于主线程可靠处理失败任务？",
+      "explanation": "Worker 内应捕获异常，把错误转换为可克隆的字符串，并连同原任务 id 回传；主线程根据 error 分支处理。直接回传行为对象或静默忽略错误都不符合纯数据消息协议。",
+      "refs": [{ "title": "MDN Web Worker", "url": "https://developer.mozilla.org/docs/Web/API/Worker" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "捕获异常并回传 { id, error: message }，主线程按 id 处理失败", "hint": "错误也应是可识别的纯数据消息" },
+        { "key": "B", "text": "捕获异常后不回传任何消息，让主线程永久等待" },
+        { "key": "C", "text": "把 DOM 节点作为错误对象回传给主线程" },
+        { "key": "D", "text": "忽略任务 id，并把失败结果当成最新成功结果使用" }
+      ],
+      "answer": ["A"]
     }
   ]
 }

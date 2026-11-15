@@ -1,7 +1,7 @@
 {
   "skill": "cesium",
   "module": "05",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "cesium-05-001",
@@ -405,6 +405,1029 @@
         "时间维度的采样属性"
       ],
       "placeholder": "用自己的话简要作答"
+    },
+    {
+      "id": "cesium-05-014",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "document 头的 clock.interval 从 2026-01-01T10:00:00Z 到 2026-01-01T10:10:00Z，这个时间轴共有多少秒？",
+      "explanation": "两个 ISO 8601 时刻相差 10 分钟，按 10 × 60 = 600 计算，因此时间轴长度是 600 秒。起止时刻都使用 Z，无需另做时区换算。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 600,
+      "tolerance": 0,
+      "unit": "秒",
+      "placeholder": "例如：600"
+    },
+    {
+      "id": "cesium-05-015",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "CZML 实体中的 point.pixelSize = 10 主要控制什么？",
+      "explanation": "pixelSize 控制点符号在屏幕上的像素尺寸，数值越大点看起来越大。它不是地理半径，也不决定采样点数量或轨迹拖尾时长。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "点在地面上的半径为 10 米"
+        },
+        {
+          "key": "B",
+          "text": "点符号的屏幕像素尺寸",
+          "hint": "pixelSize 描述点符号的显示大小"
+        },
+        {
+          "key": "C",
+          "text": "位置采样的总数必须是 10"
+        },
+        {
+          "key": "D",
+          "text": "轨迹只显示最近 10 秒"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-05-016",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "已有保存为 .json 的 CZML 文件 URL，讲义使用哪个类的哪个静态方法直接加载它？",
+      "explanation": "CzmlDataSource.load(url) 是讲义给出的文件加载入口，适用于后端下发或已经序列化的 CZML。类名与方法名共同构成完整 API 调用。",
+      "refs": [
+        {
+          "title": "Cesium CzmlDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/CzmlDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "CzmlDataSource.load",
+        "Cesium.CzmlDataSource.load",
+        "CzmlDataSource.load(url)",
+        "Cesium.CzmlDataSource.load(url)"
+      ],
+      "placeholder": "例如：Cesium.CzmlDataSource.load(url)"
+    },
+    {
+      "id": "cesium-05-017",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "关于本章 CZML 第 0 个 document 元数据块，下列内容哪些可以按示例放在其中？",
+      "explanation": "document 块可包含 id、name、version 和 clock，clock 内再配置 interval、currentTime、multiplier 等。position 及其 cartographicDegrees 属于后面的实体包，不属于 document 头。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "id 为 document"
+        },
+        {
+          "key": "B",
+          "text": "name 为飞机航迹"
+        },
+        {
+          "key": "C",
+          "text": "version 为 1.0"
+        },
+        {
+          "key": "D",
+          "text": "把实体的 cartographicDegrees 直接放在 document 根级"
+        },
+        {
+          "key": "E",
+          "text": "clock 中配置 interval 与 currentTime"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-05-018",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "document.clock.currentTime 用来指定加载后的初始当前时刻，并不表示轨迹最后一个采样时刻。",
+      "explanation": "currentTime 是 Clock 当前指向的时刻，示例把它设在时间轴起点以便从头播放。末采样时刻由采样数据或 stopTime 等边界表达，两者职责不同。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-05-019",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "本章 CZML 飞机轨迹在 position.epoch 对应的起点位于北京城区。请在地图上点击该起点的大致位置。",
+      "explanation": "起点的 cartographicDegrees 坐标为经度 116.39、纬度 39.90，对应北京城区。北京位于华北平原北缘，本题使用 300 公里城市级容差。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9,
+        "lng": 116.39
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-05-020",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "start 为 10:00:00，currentTime = JulianDate.addSeconds(start, 120)，stopTime = JulianDate.addSeconds(start, 360)。从 currentTime 到 stopTime 还剩多少场景秒？",
+      "explanation": "两个时刻都以同一个 start 为基准，剩余场景时间为 360 - 120 = 240 秒。这里计算的是 JulianDate 所表达的场景时刻之差，不牵涉 multiplier。",
+      "refs": [
+        {
+          "title": "CesiumJS API 文档",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 240,
+      "tolerance": 0,
+      "unit": "秒",
+      "placeholder": "例如：240"
+    },
+    {
+      "id": "cesium-05-021",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "document 头的 clock.interval 与实体包的 availability 分工，下列哪项正确？",
+      "explanation": "clock.interval 描述整份 CZML 文档的时间轴范围，availability 描述某个实体可用的时间范围。前者面向全局 Clock，后者面向具体实体，不能混为同一字段。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "clock.interval 管全文档时间轴，availability 管具体实体的可用时间",
+          "hint": "先区分全局时间轴与单个实体的时间范围"
+        },
+        {
+          "key": "B",
+          "text": "两者都只控制点符号的颜色"
+        },
+        {
+          "key": "C",
+          "text": "clock.interval 是位置秒偏移，availability 是插值阶数"
+        },
+        {
+          "key": "D",
+          "text": "二者完全等价，写在哪个包中都没有区别"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-05-022",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "要把 ISO 8601 字符串转换为可赋给 clock.currentTime 的时刻对象，应使用 JulianDate 的哪个静态方法？",
+      "explanation": "JulianDate.fromIso8601 将 ISO 8601 字符串解析为 JulianDate，而 clock.currentTime 接收的正是这种时刻对象。示例用它设置回放到指定的绝对时刻。",
+      "refs": [
+        {
+          "title": "CesiumJS API 文档",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "JulianDate.fromIso8601",
+        "Cesium.JulianDate.fromIso8601",
+        "fromIso8601",
+        "JulianDate.fromIso8601()"
+      ],
+      "placeholder": "例如：Cesium.JulianDate.fromIso8601"
+    },
+    {
+      "id": "cesium-05-023",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 CZML position 中 epoch 与采样序列的时间解释，下列说法正确的有哪些？",
+      "explanation": "epoch 建立采样时间的绝对零点，cartographicDegrees 每组首值是相对它的秒偏移，Clock 求值时引擎会在采样之间插值。epoch 不是倍速，组内首值也不是经度。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        },
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "epoch 为采样秒偏移建立绝对时间零点"
+        },
+        {
+          "key": "B",
+          "text": "每组首值表示相对 epoch 的秒偏移"
+        },
+        {
+          "key": "C",
+          "text": "Clock 走到采样点之间时引擎会自动插值"
+        },
+        {
+          "key": "D",
+          "text": "每组首值直接表示经度"
+        },
+        {
+          "key": "E",
+          "text": "epoch 与 clock.multiplier 都表示播放倍速"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-024",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "相邻两个 CZML 包的 interval 没有接上时，引擎一定会自动补齐时间空隙，因此不可能出现瞬移。",
+      "explanation": "讲义明确提示相邻包时间没接上可能造成瞬移，不能指望引擎自动补齐业务数据中的时间空隙。应检查区间衔接，并正确配置采样与插值。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-05-025",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "本章轨迹在 epoch 后 120 秒的采样点仍位于北京城区东北侧。请在地图上点击这个采样点的大致位置。",
+      "explanation": "第 120 秒采样坐标为经度 116.55、纬度 39.95，相对北京城区的起点向东、向北移动，仍在北京地区。本题使用 300 公里城市级容差。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.95,
+        "lng": 116.55
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "cesium-05-026",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "动手练习的 stopTime 比 startTime 晚 360 场景秒，multiplier = 60。忽略暂停，从头播到尾需要多少真实秒？",
+      "explanation": "multiplier = 60 表示每真实秒推进 60 场景秒，所以真实播放时长为 360 ÷ 60 = 6 秒。这里不能把 360 再乘以 60，否则会算反倍速关系。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "秒",
+      "placeholder": "例如：6"
+    },
+    {
+      "id": "cesium-05-027",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "纯代码示例中，Cartesian3.fromDegrees 的三个参数按什么顺序传入？",
+      "explanation": "Cartesian3.fromDegrees(lon, lat, h) 依次接收经度、纬度、高度。它没有 CZML 四元组里的秒偏移参数，采样时刻要作为 addSample 的另一个参数单独传入。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "纬度、经度、高度"
+        },
+        {
+          "key": "B",
+          "text": "高度、经度、纬度"
+        },
+        {
+          "key": "C",
+          "text": "经度、纬度、高度",
+          "hint": "对应示例中的 fromDegrees(lon, lat, h)"
+        },
+        {
+          "key": "D",
+          "text": "秒偏移、经度、纬度"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-028",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "纯代码轨迹中，把一个 JulianDate 时刻及其对应的 Cartesian3 位置加入 SampledPositionProperty，应调用哪个方法？",
+      "explanation": "addSample(time, position) 每次加入一组时刻与位置，是 SampledPositionProperty 建立轨迹采样的核心方法。多个采样加入后，属性才能在相邻时刻之间插值。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "addSample",
+        "SampledPositionProperty.addSample",
+        "positionProperty.addSample",
+        "addSample(time, position)",
+        "SampledPositionProperty.prototype.addSample"
+      ],
+      "placeholder": "例如：positionProperty.addSample(time, position)"
+    },
+    {
+      "id": "cesium-05-029",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 CZML path 的轨迹显示与时间窗口，下列说法正确的有哪些？",
+      "explanation": "path 用于显示轨迹，leadTime 控制向前展示的时间，示例设为 0 表示不展示未来段；trailTime 控制保留多长的历史拖尾。它们都不会改写 document 的全局时间轴，也不是点尺寸字段。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "leadTime = 0 表示不展示当前时刻之后的未来轨迹段"
+        },
+        {
+          "key": "B",
+          "text": "trailTime = 600 表示拖尾保留 600 秒的历史轨迹"
+        },
+        {
+          "key": "C",
+          "text": "实体配置 path 后可自动画出运动轨迹"
+        },
+        {
+          "key": "D",
+          "text": "trailTime 会自动把 document.clock.interval 改成同样长度"
+        },
+        {
+          "key": "E",
+          "text": "leadTime 用来控制 point.pixelSize"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-030",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "把 interpolationDegree 设为 2，就表示 SampledPositionProperty 中必须恰好只有两个采样点。",
+      "explanation": "interpolationDegree 表示插值多项式的阶数，不是采样点总数。练习使用二阶拉格朗日插值时仍有三个采样点，急转弯处还可以继续加密采样。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-05-031",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "本章轨迹在 epoch 后 300 秒继续移动到北京东北部。请在地图上点击第三个采样点的大致位置。",
+      "explanation": "第三个采样坐标为经度 116.90、纬度 40.10，相对前一点继续向东北，位于北京东北部的燕山南侧区域。它仍属示例爬升轨迹的一部分，本题容差为 500 公里。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.1,
+        "lng": 116.9
+      },
+      "toleranceKm": 500
+    },
+    {
+      "id": "cesium-05-032",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "position.epoch 为 2026-01-01T10:00:00Z，某位置采样对应 2026-01-01T10:07:30Z。写入 cartographicDegrees 时，该采样的秒偏移是多少？",
+      "explanation": "从 10:00:00 到 10:07:30 相差 7 分 30 秒，换算为 7 × 60 + 30 = 450 秒。因此该四元组的首值应写 450，而不是绝对日期字符串。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 450,
+      "tolerance": 0,
+      "unit": "秒",
+      "placeholder": "例如：450"
+    },
+    {
+      "id": "cesium-05-033",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "按本章 CZML 示例，path 的实体颜色 rgbaf 数组应放在哪一层属性路径中？",
+      "explanation": "示例的嵌套关系是 path.material.solidColor.color.rgbaf。material 表示路径材质，solidColor 表示纯色材质，color 内再存放 rgbaf 数组，不能直接塞到 clock 或 position 中。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "point.pixelSize.rgbaf"
+        },
+        {
+          "key": "B",
+          "text": "clock.currentTime.rgbaf"
+        },
+        {
+          "key": "C",
+          "text": "position.epoch.rgbaf"
+        },
+        {
+          "key": "D",
+          "text": "path.material.solidColor.color.rgbaf",
+          "hint": "沿 path → material → solidColor → color 逐层读取"
+        }
+      ],
+      "answer": [
+        "D"
+      ]
+    },
+    {
+      "id": "cesium-05-034",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "除拉格朗日插值外，讲义还提到可用哪个 Cesium 类进行埃尔米特插值？",
+      "explanation": "HermitePolynomialApproximation 是讲义列出的另一种平滑插值算法类，可赋给 interpolationAlgorithm。它与拉格朗日算法一样，也不能替代合理的采样点分布。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "HermitePolynomialApproximation",
+        "Cesium.HermitePolynomialApproximation",
+        "Hermite Polynomial Approximation"
+      ],
+      "placeholder": "例如：Cesium.HermitePolynomialApproximation"
+    },
+    {
+      "id": "cesium-05-035",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "要让动手练习从 start 自动播放，并在 start 后 360 场景秒停止，下列 Clock 配置哪些符合讲义？",
+      "explanation": "startTime 与 currentTime 都设为 start，stopTime 设为 start 加 360 秒，再把 shouldAnimate 设为 true。multiplier = 60 只控制流速，不能替代停止时刻或播放开关。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.clock.startTime = start"
+        },
+        {
+          "key": "B",
+          "text": "viewer.clock.stopTime = Cesium.JulianDate.addSeconds(start, 360, new Cesium.JulianDate())"
+        },
+        {
+          "key": "C",
+          "text": "viewer.clock.currentTime = start，并设置 shouldAnimate = true"
+        },
+        {
+          "key": "D",
+          "text": "为了自动播放，应设置 viewer.clock.shouldAnimate = false"
+        },
+        {
+          "key": "E",
+          "text": "只设置 multiplier = 60 就会把 stopTime 自动设为 start 后 360 秒"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-036",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "同一个实体的 path 与 point 可以分别设置颜色和透明度，两处 rgbaf 的 alpha 不必相同。",
+      "explanation": "point.color 与 path.material.solidColor.color 是两套独立样式。示例中点为不透明橙色，而路径使用 alpha 0.6 的半透明橙色，正说明两者可分别配置。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-05-037",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "本章 CZML 轨迹在 epoch 后 600 秒到达北京东北外侧的燕山区域。请在地图上点击末个采样点的大致位置。",
+      "explanation": "末点坐标为经度 117.30、纬度 40.30，位于河北承德南部、兴隆附近的燕山地区。它是四个采样位置中最靠东北的一点，本题使用 800 公里区域级容差。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 40.3,
+        "lng": 117.3
+      },
+      "toleranceKm": 800
+    },
+    {
+      "id": "cesium-05-038",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "document 时间轴长 600 场景秒，multiplier = 10。若稳定按每秒 20 帧渲染且不暂停，完整播放一遍共渲染多少帧？",
+      "explanation": "先求真实播放时长：600 ÷ 10 = 60 秒；再按每秒 20 帧计算：60 × 20 = 1200 帧。倍速先缩短真实时长，帧率再决定这段时长内的帧数。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "numeric",
+      "answer": 1200,
+      "tolerance": 0,
+      "unit": "帧",
+      "placeholder": "例如：1200"
+    },
+    {
+      "id": "cesium-05-039",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "要在 Clock 每帧推进时同步自定义 UI，下列哪种事件注册方式符合讲义？",
+      "explanation": "clock.onTick.addEventListener(callback) 注册每帧回调，可在回调中读取当前时刻并更新 UI。直接给 onTick 赋普通函数并不是讲义展示的事件订阅方式。",
+      "refs": [
+        {
+          "title": "Cesium.Clock API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.Clock.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "viewer.clock.onTick.addEventListener(callback)",
+          "hint": "onTick 通过 addEventListener 添加监听者"
+        },
+        {
+          "key": "B",
+          "text": "viewer.clock.onTick = callback"
+        },
+        {
+          "key": "C",
+          "text": "positionProperty.addSample(callback)"
+        },
+        {
+          "key": "D",
+          "text": "path.trailTime.addEventListener(callback)"
+        }
+      ],
+      "answer": [
+        "A"
+      ]
+    },
+    {
+      "id": "cesium-05-040",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "构造 Viewer 时，要关闭界面底部的动画控件与时间轴，需要把哪两个布尔参数设为 false？",
+      "explanation": "Viewer 构造参数 animation 与 timeline 分别控制动画控件和时间轴的显示，将两者设为 false 即可关闭这些界面组件。此操作不等同于修改 Clock 的播放逻辑。",
+      "refs": [
+        {
+          "title": "CesiumJS API 文档",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "animation 和 timeline",
+        "animation、timeline",
+        "animation: false, timeline: false",
+        "animation=false, timeline=false",
+        "animation 与 timeline"
+      ],
+      "placeholder": "例如：animation: false, timeline: false"
+    },
+    {
+      "id": "cesium-05-041",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "关于 SampledPositionProperty 的插值配置，下列说法哪些与讲义一致？",
+      "explanation": "讲义示例使用 interpolationDegree = 2 与拉格朗日算法，也列出埃尔米特算法，并建议平滑轨迹时采用二至三阶。算法只负责采样之间的求值，合理加密采样仍不可省略。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "练习把 interpolationDegree 设为 2，并使用 LagrangePolynomialApproximation"
+        },
+        {
+          "key": "B",
+          "text": "HermitePolynomialApproximation 是讲义列出的另一种插值算法"
+        },
+        {
+          "key": "C",
+          "text": "平滑轨迹可尝试 interpolationDegree 为 2 至 3"
+        },
+        {
+          "key": "D",
+          "text": "只要提高插值阶数，急转弯处就不再需要加密采样"
+        },
+        {
+          "key": "E",
+          "text": "interpolationAlgorithm 用来设置 rgbaf 颜色数组"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-042",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 2,
+      "stem": "把 clock.startTime 与 stopTime 恰好设为首个和末个采样时刻时，只在这段闭区间内正常播放，不会求取采样区间之外的位置。",
+      "explanation": "播放边界与采样边界重合时，区间内的求值都落在已有采样范围中，因此不会触发首尾之外的默认 NONE 外推。若继续越过末点，仍可能出现位置 undefined。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        },
+        {
+          "title": "Cesium.ExtrapolationType API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ExtrapolationType.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "cesium-05-043",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "使用纯代码方式构造随时间变化的位置轨迹，第一步应实例化哪个位置属性类？",
+      "explanation": "应先创建 new Cesium.SampledPositionProperty()，再用 addSample 加入时刻与位置。VelocityOrientationProperty 负责朝向，Clock 负责时间推进，都不能替代采样位置容器。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium.CzmlDataSource"
+        },
+        {
+          "key": "B",
+          "text": "Cesium.SampledPositionProperty",
+          "hint": "它保存随时间变化的位置采样"
+        },
+        {
+          "key": "C",
+          "text": "Cesium.VelocityOrientationProperty"
+        },
+        {
+          "key": "D",
+          "text": "Cesium.Clock"
+        }
+      ],
+      "answer": [
+        "B"
+      ]
+    },
+    {
+      "id": "cesium-05-044",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "已知 JulianDate 对象 start，要生成 start 之后 360 秒的新时刻对象，讲义使用哪个 JulianDate 静态方法？",
+      "explanation": "JulianDate.addSeconds(start, 360, result) 以已有 JulianDate 为基准增加秒数，并把结果写入 result。练习用它构造后续采样时刻以及 stopTime。",
+      "refs": [
+        {
+          "title": "CesiumJS API 文档",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "JulianDate.addSeconds",
+        "Cesium.JulianDate.addSeconds",
+        "addSeconds",
+        "JulianDate.addSeconds(start, 360, result)",
+        "Cesium.JulianDate.addSeconds(start, 360, new Cesium.JulianDate())"
+      ],
+      "placeholder": "例如：Cesium.JulianDate.addSeconds"
+    },
+    {
+      "id": "cesium-05-045",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "把 satellite.js 从 TLE 算出的卫星采样序列生成 CZML，下列做法哪些符合本章数据模型？",
+      "explanation": "轨道位置应由程序计算并转换，CZML 需要 document 头声明时间轴，position 再用 epoch 与秒偏移、经纬度、高度序列表达采样。TLE 根数本身不是位置数组，常量位置也不能表达时间轨迹。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        },
+        {
+          "title": "GIS 课 · 卫星星座与互联网",
+          "url": "https://gis.ason.top/s/gis/16"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "用程序把 TLE 计算结果转换为带时刻的位置采样"
+        },
+        {
+          "key": "B",
+          "text": "提供 id 为 document 的头，并用 clock.interval 声明时间轴"
+        },
+        {
+          "key": "C",
+          "text": "用 position.epoch 配合秒偏移、经度、纬度、高度采样序列"
+        },
+        {
+          "key": "D",
+          "text": "把 TLE 两行原文直接当作 cartographicDegrees 数值数组"
+        },
+        {
+          "key": "E",
+          "text": "只给一个不带时刻的固定位置，就能表示未来整圈动态轨迹"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-046",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 1,
+      "stem": "CZML 中的 path.width = 2 表示轨迹只保留两秒，与 trailTime 的含义相同。",
+      "explanation": "path.width 控制轨迹线的宽度，trailTime 才控制历史拖尾的时间长度。把线宽当成秒数会混淆视觉样式与时间窗口，两者不会自动同步。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "cesium-05-047",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "保持所有采样秒偏移不变，只把 position.epoch 从 10:00 改为 10:05，而 Clock 时间轴不变。轨迹的绝对采样时刻会怎样变化？",
+      "explanation": "每个绝对采样时刻都等于 epoch 加对应秒偏移，所以整段轨迹会后移 5 分钟。默认 NONE 外推下，原来的 10:00 已早于首个采样，此时可能得不到位置。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        },
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "秒偏移会自动减少 300，因此绝对采样时刻完全不变"
+        },
+        {
+          "key": "B",
+          "text": "只有路径颜色改变，位置时刻不受影响"
+        },
+        {
+          "key": "C",
+          "text": "所有绝对采样时刻后移 5 分钟，原来的 10:00 可能已早于首个采样",
+          "hint": "绝对采样时刻 = epoch + 秒偏移"
+        },
+        {
+          "key": "D",
+          "text": "epoch 只是显示名称，不参与位置求值"
+        }
+      ],
+      "answer": [
+        "C"
+      ]
+    },
+    {
+      "id": "cesium-05-048",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "要让同一条轨迹在 CZML 与纯代码 SampledPositionProperty 两种实现中保持一致，下列对应关系哪些正确？",
+      "explanation": "两种入口共享时间与位置属性思想：全局时间范围、绝对采样时刻、插值配置和拖尾语义都应对应。点尺寸与播放倍速属于不同维度，不要求数值相等。",
+      "refs": [
+        {
+          "title": "CesiumJS CZML 教程",
+          "url": "https://cesium.com/learn/cesiumjs-learn/cesiumjs-czml/"
+        },
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "document 的全局时间范围应与代码中的 Clock 起止边界协调"
+        },
+        {
+          "key": "B",
+          "text": "epoch 加秒偏移应与 addSample 使用的绝对 JulianDate 对应"
+        },
+        {
+          "key": "C",
+          "text": "插值算法与阶数应与 setInterpolationOptions 的配置对应"
+        },
+        {
+          "key": "D",
+          "text": "point.pixelSize 必须与 clock.multiplier 数值相等"
+        },
+        {
+          "key": "E",
+          "text": "两种实现中的 path.trailTime 都表示历史拖尾窗口"
+        }
+      ],
+      "answer": [
+        "A",
+        "B",
+        "C",
+        "E"
+      ]
+    },
+    {
+      "id": "cesium-05-049",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "CZML 已加载到变量 ds，若要遍历其实体并继续修改 position Property，应通过哪个集合取得实体数组？",
+      "explanation": "CzmlDataSource 加载后可通过 ds.entities.values 取得实体数组。讲义指出这些实体的 position 仍是 Property，因此可以在数据加载后继续编程调整，而不是只能重写整个文件。",
+      "refs": [
+        {
+          "title": "Cesium CzmlDataSource",
+          "url": "https://cesium.com/learn/cesiumjs/ref-doc/CzmlDataSource.html"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "ds.entities.values",
+        "dataSource.entities.values",
+        "entities.values",
+        "CzmlDataSource 实例.entities.values",
+        "数据源的 entities.values"
+      ],
+      "placeholder": "例如：ds.entities.values"
+    },
+    {
+      "id": "cesium-05-050",
+      "skill": "cesium",
+      "module": "05",
+      "difficulty": 3,
+      "stem": "只要 currentTime 落在实体的 availability 内，即使它超出 position 的采样区间，默认 NONE 外推也必定能返回位置。",
+      "explanation": "availability 的实体可用范围不能替代位置采样，也不会扩展 SampledPositionProperty 的采样边界。默认 NONE 下，首个采样之前或末个采样之后仍会得到 undefined。",
+      "refs": [
+        {
+          "title": "Cesium.SampledPositionProperty API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.SampledPositionProperty.html"
+        },
+        {
+          "title": "Cesium.ExtrapolationType API 参考",
+          "url": "https://cesium.com/reference/cesiumjs/latest/Cesium.ExtrapolationType.html"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
     }
   ]
 }

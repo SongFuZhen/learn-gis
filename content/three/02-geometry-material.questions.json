@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "02",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-02-001",
@@ -323,6 +323,938 @@
       "tolerance": 0,
       "unit": "个",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-02-014",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "一个由多个零件组成的三维模型中，哪项分工最符合本章对 BufferGeometry、Material 和 Group 的定义？",
+      "explanation": "BufferGeometry 保存形状数据，Material 决定表面外观，Group 则组织零件并统一级联变换。Group 不负责保存顶点，Material 也不负责组织三角形索引。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "three.js Group",
+          "url": "https://threejs.org/docs/#api/en/objects/Group"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "BufferGeometry 管反射外观，Material 管父子层级" },
+        { "key": "B", "text": "Material 管三角形索引，Group 管纹理坐标" },
+        {
+          "key": "C",
+          "text": "BufferGeometry 管形状，Material 管外观，Group 管零件的统一变换",
+          "hint": "几何、外观、层级各司其职"
+        },
+        { "key": "D", "text": "Group 保存全部 position，BufferGeometry 只保存颜色" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-02-015",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "Group 本身不绘制可见表面，但可以作为父节点统一移动挂在它下面的零件。",
+      "explanation": "正确。Group 是场景图中的组织节点，不像 Mesh 那样组合几何与材质进行绘制；它的变换会沿父子层级传递给子节点。",
+      "refs": [
+        {
+          "title": "three.js Group",
+          "url": "https://threejs.org/docs/#api/en/objects/Group"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-02-016",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "手工 BufferGeometry 已有 position 和 index，但缺少 normal。若希望按当前三角形自动生成顶点法线，应调用哪个方法？（只写方法名）",
+      "explanation": "computeVertexNormals() 会根据几何的三角形计算顶点法线；索引几何的共享顶点会综合相邻面的方向。生成后，MeshStandardMaterial 才能获得正常的受光明暗。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.computeVertexNormals",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "computeVertexNormals",
+        "geometry.computeVertexNormals",
+        "computeVertexNormals()",
+        "geometry.computeVertexNormals()",
+        "BufferGeometry.computeVertexNormals"
+      ],
+      "placeholder": "例如：computeVertexNormals"
+    },
+    {
+      "id": "three-02-017",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "一个手工几何有 5 个顶点，uv 的 itemSize 为 2。为每个顶点都提供一组 UV 时，uv 数组共有多少个浮点数？",
+      "explanation": "每个顶点需要 u、v 两个浮点数，5 个顶点共需 5×2=10 个浮点数。UV 的每项长度与 position 不同，但顶点数量必须对应。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry 默认属性",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-02-018",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 MeshStandardMaterial 的 side 设置，下列说法正确的有哪些？",
+      "explanation": "FrontSide、BackSide 和 DoubleSide 分别用于正面、背面与双面绘制。DoubleSide 会增加绘制及透明排序负担，也不会自动修复错误的三角形绕序或法线。",
+      "refs": [
+        {
+          "title": "three.js Material.side",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "FrontSide 用于按正面路径绘制表面",
+          "hint": "这是示例显式选择的正面模式"
+        },
+        {
+          "key": "B",
+          "text": "BackSide 可用于绘制背面",
+          "hint": "side 并不只有正面与双面两种选择"
+        },
+        {
+          "key": "C",
+          "text": "DoubleSide 会绘制正反两面，但可能增加绘制与透明排序负担",
+          "hint": "双面不是零成本设置"
+        },
+        { "key": "D", "text": "DoubleSide 会自动修正错误的索引绕序和法线" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-02-019",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "多个半透明表面复杂交叠，transparent 已开启且 opacity 设置正确，局部仍出现前后穿插异常。下一步最应检查什么？",
+      "explanation": "透明路径还会受到物体排序和深度写入影响，复杂交叠时可能出现穿帮。此时继续微调 opacity 不能解决前后关系，应重点检查透明排序、depthWrite 及是否不必要地使用了双面。",
+      "refs": [
+        {
+          "title": "three.js Material 透明与深度设置",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把 uv 的 itemSize 改成 3" },
+        {
+          "key": "B",
+          "text": "检查透明排序与深度写入等相关设置",
+          "hint": "半透明交叠还涉及片元先后与深度关系"
+        },
+        { "key": "C", "text": "删除全部 position 数据" },
+        { "key": "D", "text": "把父 Group 的局部位置归零即可" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-02-020",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "Object3D 的 matrix 已包含完整父级链变换，而 matrixWorld 只描述自身相对父级的局部变换。",
+      "explanation": "错误。两者恰好相反：matrix 描述节点相对父级的局部变换，matrixWorld 才包含从父级一路合成到当前节点的世界变换。",
+      "refs": [
+        {
+          "title": "three.js Object3D 矩阵",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-02-021",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "某几何有 8 个顶点，normal 的 itemSize 为 3。若每个顶点都有法线，normal 数组共有多少个浮点数？",
+      "explanation": "每个法线由 x、y、z 三个浮点数构成，8 个顶点需要 8×3=24 个浮点数。法线数组的元素个数是顶点数的三倍。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry 默认属性",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "numeric",
+      "answer": 24,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-02-022",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "调试几何拓扑时，希望暂时只画三角形线框，应把 Material 的哪个属性设为 true？（只写属性名）",
+      "explanation": "wireframe=true 会让材质以线框方式显示三角形，便于观察拓扑；排查光照时应恢复为 false，回到正常网格表面。",
+      "refs": [
+        {
+          "title": "three.js Material.wireframe",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "wireframe",
+        "material.wireframe",
+        "standard.wireframe",
+        "wireframe = true",
+        "wireframe=true",
+        "material.wireframe = true",
+        "standard.wireframe = true"
+      ],
+      "placeholder": "例如：wireframe"
+    },
+    {
+      "id": "three-02-023",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 MeshStandardMaterial 的关键参数，下列对应关系正确的有哪些？",
+      "explanation": "color 决定表面基础色，roughness 控制反射扩散程度，metalness 描述金属导电反射特征。金属度并不负责控制 UV 密度，几何分段也不是材质参数。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "color 对应表面基础色",
+          "hint": "它是材质的基础颜色"
+        },
+        { "key": "B", "text": "metalness 对应 UV 坐标的采样密度" },
+        {
+          "key": "C",
+          "text": "roughness 对应反射的扩散程度",
+          "hint": "粗糙度会改变反射的集中程度"
+        },
+        {
+          "key": "D",
+          "text": "metalness 对应金属导电反射特征",
+          "hint": "金属与非金属的反射特征不同"
+        }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-02-024",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "没有设置 index 时，渲染器会按 position 中的顶点顺序，每三个顶点组织一个三角形。",
+      "explanation": "正确。非索引几何按顶点顺序每三个一组绘制三角形；设置索引后，才由索引序列指定三角形的顶点组合并复用数据。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry 索引",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-02-025",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "计划后续对 BoxGeometry 做较细的顶点位移，为什么要合理增加盒子的分段数，而不是始终只用一个分段？",
+      "explanation": "分段会为盒子表面提供更多可位移的顶点，使变形能表达更细的形状。分段仍应按视觉收益选择，因为顶点与三角形增加也会抬高显存和绘制成本。",
+      "refs": [
+        {
+          "title": "three.js BoxGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/BoxGeometry"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "分段会自动开启材质透明路径" },
+        {
+          "key": "B",
+          "text": "更多分段提供更多可位移顶点，能表达更细的变形",
+          "hint": "顶点位移的精细程度受网格密度影响"
+        },
+        { "key": "C", "text": "分段越多，三角形数量就越少" },
+        { "key": "D", "text": "分段会把 BoxGeometry 自动变成 SphereGeometry" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-02-026",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "轨道 Group 位于原点，月球的局部位置为 (3,0,0)。Group 绕 Y 轴旋转 π/2 后，月球世界坐标的 z 分量是多少？",
+      "explanation": "按 three 的右手坐标旋转，绕 Y 轴旋转 π/2 会把局部正 X 方向映射到世界负 Z 方向，因此世界坐标为 (0,0,-3)，所求 z=-3。",
+      "refs": [
+        {
+          "title": "three.js Object3D 旋转与世界矩阵",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "numeric",
+      "answer": -3,
+      "tolerance": 0,
+      "placeholder": "只填数值，注意正负号"
+    },
+    {
+      "id": "three-02-027",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "按照本章示例，要把 position Attribute 的第一个顶点 y 坐标改为 -0.8，应调用哪个方法？（只写方法名）",
+      "explanation": "示例使用 position.setY(0, -0.8)，第一个参数是顶点序号 0，第二个参数是新的 y 值。修改后仍需设置 position.needsUpdate=true，并检查派生数据。",
+      "refs": [
+        {
+          "title": "three.js BufferAttribute.setY",
+          "url": "https://threejs.org/docs/#api/en/core/BufferAttribute"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "setY",
+        "position.setY",
+        "setY(0, -0.8)",
+        "setY(0,-0.8)",
+        "position.setY(0, -0.8)",
+        "position.setY(0,-0.8)"
+      ],
+      "placeholder": "例如：setY"
+    },
+    {
+      "id": "three-02-028",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于同一 BufferGeometry 中多张 Attribute 表的对齐方式，下列说法正确的有哪些？",
+      "explanation": "渲染器按同一顶点序号读取各属性表，因此它们的 count 要一致。position 每项三个数，15 个浮点数对应 5 个顶点；uv 每项是两个数，不能写成三个。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry Attribute",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "three.js BufferAttribute",
+          "url": "https://threejs.org/docs/#api/en/core/BufferAttribute"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "渲染器按相同顶点序号读取 position、normal 和 uv",
+          "hint": "多张表通过顶点序号对齐"
+        },
+        {
+          "key": "B",
+          "text": "这些 Attribute 的 count 必须一致",
+          "hint": "每项长度可以不同，但顶点项数要对应"
+        },
+        { "key": "C", "text": "uv 的每个顶点项必须包含三个浮点数" },
+        {
+          "key": "D",
+          "text": "position 数组有 15 个浮点数且 itemSize 为 3 时，对应 5 个顶点",
+          "hint": "顶点数等于数组长度除以 itemSize"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-02-029",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "为真实感材质设置 metalness 时，下列哪种取值策略最符合本章建议？",
+      "explanation": "真实材质通常更接近金属或非金属，因此 metalness 通常靠近 1 或 0。随意固定在中间值容易得到不明确的材质特征，也不能用它代替粗糙度。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial.metalness",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "所有材质都固定为 0.5" },
+        { "key": "B", "text": "非金属必须设为 1" },
+        { "key": "C", "text": "金属必须设为 0" },
+        {
+          "key": "D",
+          "text": "按材质类型选择靠近 0 或 1 的值",
+          "hint": "真实材质通常接近非金属或金属两端"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-02-030",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "本章列举的内置几何体已经提供 position、normal、uv 和合适的索引，通常不必再手工逐表创建。",
+      "explanation": "正确。BoxGeometry、SphereGeometry、PlaneGeometry、TorusGeometry 等内置几何已准备常用属性与索引，开发者可直接与材质组成 Mesh。",
+      "refs": [
+        {
+          "title": "three.js BoxGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/BoxGeometry"
+        },
+        {
+          "title": "three.js BufferGeometry",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-02-031",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "不先展开索引顶点，简单材质想直接获得硬面外观时，可把哪个材质属性设为 true？（只写属性名）",
+      "explanation": "flatShading=true 可让简单材质使用平直着色的硬面效果。它与 toNonIndexed() 后分别计算法线是不同路径，不能把两种写法的成本混为一谈。",
+      "refs": [
+        {
+          "title": "three.js Material.flatShading",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "flatShading",
+        "flatShading = true",
+        "flatShading=true",
+        "material.flatShading = true",
+        "material.flatShading=true",
+        "standard.flatShading = true"
+      ],
+      "placeholder": "例如：flatShading"
+    },
+    {
+      "id": "three-02-032",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "一个非索引几何的 position 数组有 36 个浮点数，itemSize 为 3。按每三个顶点组成一个三角形，共能组成多少个三角形？",
+      "explanation": "36÷3=12，因此共有 12 个顶点；非索引几何每三个顶点画一个三角形，所以三角形数为 12÷3=4。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry 非索引绘制",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-02-033",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "Scene 下有 vehicle Group 和独立的 ground Mesh；vehicle 下有 chassis Mesh 与 door Group，door 下还有 handle Mesh。旋转 vehicle 后，哪些对象的世界变换会随它改变？",
+      "explanation": "chassis 是 vehicle 的直接子节点，door 与 handle 则通过两层父子关系继承变换，所以三者的世界变换都会改变。ground 与 vehicle 是并列节点，不会随 vehicle 旋转。",
+      "refs": [
+        {
+          "title": "three.js Group",
+          "url": "https://threejs.org/docs/#api/en/objects/Group"
+        },
+        {
+          "title": "three.js Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "chassis",
+          "hint": "它直接继承 vehicle 的变换"
+        },
+        { "key": "B", "text": "ground" },
+        {
+          "key": "C",
+          "text": "door",
+          "hint": "嵌套 Group 也在 vehicle 的层级内"
+        },
+        {
+          "key": "D",
+          "text": "handle",
+          "hint": "父级链会一路合成到当前节点"
+        }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-02-034",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "本章的 new THREE.TorusGeometry(0.7, 0.22, 16, 64) 中，前两个参数分别表示什么？",
+      "explanation": "前两个参数分别是圆环半径 0.7 与管道半径 0.22，后两个参数控制两个方向的分段。圆环半径和管道粗细不是同一个尺寸。",
+      "refs": [
+        {
+          "title": "three.js TorusGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/TorusGeometry"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "圆环半径 0.7、管道半径 0.22",
+          "hint": "先确定整体圆环，再确定管道粗细"
+        },
+        { "key": "B", "text": "水平分段 0.7、垂直分段 0.22" },
+        { "key": "C", "text": "金属度 0.7、粗糙度 0.22" },
+        { "key": "D", "text": "位置 x 为 0.7、位置 y 为 0.22" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-02-035",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "内置几何体的分段数越高越好，不需要考虑三角形增加带来的显存与绘制成本。",
+      "explanation": "错误。增加分段会提升平滑度或变形精度，但也会增加顶点和三角形开销。应以实际视觉收益为准，在质量与性能之间取舍。",
+      "refs": [
+        {
+          "title": "three.js SphereGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/SphereGeometry"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-02-036",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "要从已有 geometry 中取得名为 position 的 BufferAttribute，本章示例调用了哪个 BufferGeometry 方法？（只写方法名）",
+      "explanation": "geometry.getAttribute(\"position\") 返回名为 position 的属性对象，随后可调用 setY 等方法修改数据。它只负责取属性，不会代替 needsUpdate 标记上传。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.getAttribute",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "getAttribute",
+        "geometry.getAttribute",
+        "getAttribute(\"position\")",
+        "getAttribute('position')",
+        "geometry.getAttribute(\"position\")",
+        "geometry.getAttribute('position')"
+      ],
+      "placeholder": "例如：getAttribute"
+    },
+    {
+      "id": "three-02-037",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "按 TorusGeometry(0.7, 0.22, 16, 64) 的尺寸，圆环中心到管道最外缘的径向距离是多少？",
+      "explanation": "最外缘距离等于圆环半径加管道半径，即 0.7+0.22=0.92。这里组合使用了前两个几何尺寸参数，与两个方向的分段数无关。",
+      "refs": [
+        {
+          "title": "three.js TorusGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/TorusGeometry"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.92,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-02-038",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "顶点变形后已设置 position.needsUpdate 并重算法线，但物体在某些视角会被过早剔除。最应优先更新哪项派生数据？",
+      "explanation": "needsUpdate 只负责把属性数据重新上传，旧包围球可能无法包住变形后的几何，从而导致错误的视锥剔除。此时应重新计算包围球，并按包围盒的使用情况同步检查。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.computeBoundingSphere",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "材质的 color" },
+        { "key": "B", "text": "子节点的局部 position" },
+        {
+          "key": "C",
+          "text": "几何的 boundingSphere",
+          "hint": "旧包围范围可能不再覆盖新形状"
+        },
+        { "key": "D", "text": "TorusGeometry 的管道半径" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-02-039",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "比较 toNonIndexed() 后重算法线与 flatShading:true 两种硬面方案，下列说法正确的有哪些？",
+      "explanation": "toNonIndexed() 会把共享顶点展开为独立项，增加顶点数量，之后各面可拥有独立法线；简单材质也可用 flatShading:true 获得硬面效果。展开顶点不会降低显存占用。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.toNonIndexed",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry.toNonIndexed"
+        },
+        {
+          "title": "three.js Material.flatShading",
+          "url": "https://threejs.org/docs/#api/en/materials/Material"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "toNonIndexed() 会把原先共享的顶点展开为独立项",
+          "hint": "独立顶点可以携带不同法线"
+        },
+        {
+          "key": "B",
+          "text": "展开后重算法线可让各面拥有独立法线",
+          "hint": "顶点不再共享同一份 normal"
+        },
+        { "key": "C", "text": "toNonIndexed() 会减少顶点数并降低显存占用" },
+        {
+          "key": "D",
+          "text": "简单材质还可使用 flatShading:true 获得硬面效果",
+          "hint": "这是讲义给出的另一种简单路径"
+        }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "three-02-040",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "使用 MeshStandardMaterial 时，如果几何缺少 normal，最直接受影响的是哪一项？",
+      "explanation": "normal 提供用于光照计算的表面方向，缺失时 MeshStandardMaterial 无法得到正常的明暗。UV 主要服务于纹理采样，不能替代法线的光照作用。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry 默认属性",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        },
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "父 Group 能否添加子节点" },
+        {
+          "key": "B",
+          "text": "表面的受光与明暗",
+          "hint": "法线直接参与光照计算"
+        },
+        { "key": "C", "text": "JavaScript 数组能否创建" },
+        { "key": "D", "text": "材质能否保存十六进制颜色" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-02-041",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "roughness 从 0 增大到 1，表示表面由光滑趋向粗糙；它不是控制金属与非金属的开关。",
+      "explanation": "正确。roughness 控制反射扩散程度，0 更光滑、1 更粗糙；金属与非金属的反射特征由 metalness 描述，两者职责不同。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial.roughness",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-02-042",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "几何变形后，希望重新计算它的包围盒，应调用 BufferGeometry 的哪个方法？（只写方法名）",
+      "explanation": "computeBoundingBox() 会根据当前几何重新计算包围盒。顶点形状改变后，旧包围盒可能不再适用，因此要与法线、包围球一起按需检查更新。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry.computeBoundingBox",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "computeBoundingBox",
+        "geometry.computeBoundingBox",
+        "computeBoundingBox()",
+        "geometry.computeBoundingBox()",
+        "BufferGeometry.computeBoundingBox"
+      ],
+      "placeholder": "例如：computeBoundingBox"
+    },
+    {
+      "id": "three-02-043",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "本章创建的 standard 材质使用 color:0x9ca3af、roughness:0.7、metalness:0.1、side:THREE.FrontSide。哪些选项与这段配置一致？",
+      "explanation": "配置中的基础色是 0x9ca3af，粗糙度为 0.7，金属度为 0.1，面朝向为 FrontSide，而不是 DoubleSide。各参数分别描述基础色、粗糙度、金属度与绘制面。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "基础色为 0x9ca3af",
+          "hint": "对应 color 参数"
+        },
+        {
+          "key": "B",
+          "text": "粗糙度为 0.7",
+          "hint": "对应 roughness 参数"
+        },
+        {
+          "key": "C",
+          "text": "金属度为 0.1",
+          "hint": "对应 metalness 参数"
+        },
+        { "key": "D", "text": "绘制面为 THREE.DoubleSide" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-02-044",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "开发者把 beacon.position 直接写成预期的世界坐标 (5.8,0.5,0)，又把它挂到 position.x=5 的 vehicle 下，结果多平移了 5。应如何修复？",
+      "explanation": "子节点 position 应保存相对父级的局部偏移，不能预先混入父级平移。应把 beacon.position 改回 (0.8,0.5,0)，由 vehicle 的世界矩阵合成出预期的世界位置。",
+      "refs": [
+        {
+          "title": "three.js Object3D 局部与世界变换",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "再把 beacon.position.x 增加 5" },
+        { "key": "B", "text": "把 vehicle 和 beacon 的 position 都归零" },
+        { "key": "C", "text": "只修改材质的 roughness" },
+        {
+          "key": "D",
+          "text": "把 beacon.position 改为局部偏移 (0.8,0.5,0)，保留父级平移",
+          "hint": "不要把父级位移在子节点中再写一次"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-02-045",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "normal 中每个顶点项表示用于光照计算的单位法线方向，而不是纹理采样坐标。",
+      "explanation": "正确。normal 是三维单位方向，用于确定表面受光；uv 才是二维纹理采样位置。两类 Attribute 虽按相同顶点序号对齐，但语义不同。",
+      "refs": [
+        {
+          "title": "three.js BufferGeometry 默认属性",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-02-046",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "关于 Object3D 的局部矩阵与世界矩阵，下列说法正确的有哪些？",
+      "explanation": "局部 matrix 描述节点相对父级的变换，matrixWorld 包含完整父级链的合成结果。世界矩阵不是只保存当前节点的局部平移，父级变换必须逐层参与。",
+      "refs": [
+        {
+          "title": "three.js Object3D 矩阵",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "matrix 描述节点相对父级的局部变换",
+          "hint": "局部矩阵不包含完整父级链"
+        },
+        { "key": "B", "text": "matrixWorld 只保存当前节点的局部平移" },
+        {
+          "key": "C",
+          "text": "matrixWorld 包含父级链的变换结果",
+          "hint": "世界变换需要继承父级"
+        },
+        {
+          "key": "D",
+          "text": "世界矩阵由父级矩阵一路乘到当前节点",
+          "hint": "层级变换通过矩阵级联合成"
+        }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-02-047",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 2,
+      "stem": "要表现典型的光滑金属表面，下列哪组参数方向最合理？",
+      "explanation": "光滑金属应具有较低 roughness 和接近 1 的 metalness。低粗糙度让反射更集中，高金属度体现金属反射特征；高粗糙度会使反射更分散。",
+      "refs": [
+        {
+          "title": "three.js MeshStandardMaterial",
+          "url": "https://threejs.org/docs/#api/en/materials/MeshStandardMaterial"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "roughness 接近 0，metalness 接近 1",
+          "hint": "低粗糙度配合金属反射特征"
+        },
+        { "key": "B", "text": "roughness 接近 1，metalness 接近 0" },
+        { "key": "C", "text": "roughness 接近 1，metalness 接近 1" },
+        { "key": "D", "text": "roughness 接近 0，metalness 接近 0" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-02-048",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "只要设置了 position.needsUpdate=true，变形后的旧 boundingSphere 和 boundingBox 就必定仍适用，无需再检查。",
+      "explanation": "错误。needsUpdate 只通知渲染器属性缓冲需要重新上传，并不保证旧包围体覆盖新形状。变形后仍要按需重算或检查包围球、包围盒及法线。",
+      "refs": [
+        {
+          "title": "three.js BufferAttribute.needsUpdate",
+          "url": "https://threejs.org/docs/#api/en/core/BufferAttribute"
+        },
+        {
+          "title": "three.js BufferGeometry 包围体",
+          "url": "https://threejs.org/docs/#api/en/core/BufferGeometry"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-02-049",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 3,
+      "stem": "vehicle.position 为 (5,0,0)，vehicle.rotation.y 为 π/2，beacon.position 为 (0.8,0.5,0)。世界矩阵已更新，下列推导正确的有哪些？",
+      "explanation": "beacon 的局部 position 始终为 (0.8,0.5,0)。绕 Y 轴旋转 π/2 后，局部正 X 映射到世界负 Z，再加父级平移，世界位置为 (5,0.5,-0.8)；父级 x 改为 6 时世界位置相应变为 (6,0.5,-0.8)。",
+      "refs": [
+        {
+          "title": "three.js Object3D 世界变换",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "three.js Vector3",
+          "url": "https://threejs.org/docs/#api/en/math/Vector3"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "beacon.position 仍为 (0.8,0.5,0)",
+          "hint": "父级变换不会改写子节点局部坐标"
+        },
+        { "key": "B", "text": "beacon 的世界位置为 (5.8,0.5,0)" },
+        {
+          "key": "C",
+          "text": "beacon 的世界位置为 (5,0.5,-0.8)",
+          "hint": "先应用父级旋转，再合成父级平移"
+        },
+        {
+          "key": "D",
+          "text": "若仅把 vehicle.position.x 改为 6，beacon 世界位置变为 (6,0.5,-0.8)",
+          "hint": "局部偏移不变，父级平移直接反映到世界结果"
+        }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "three-02-050",
+      "skill": "three",
+      "module": "02",
+      "difficulty": 1,
+      "stem": "本章执行 vehicle.add(chassis, beacon) 后，chassis 与 beacon 在场景图中的关系是什么？",
+      "explanation": "chassis 和 beacon 都被添加为 vehicle 的直接子节点，因此二者是兄弟节点。它们会共同继承 vehicle 的变换，但 chassis 并不是 beacon 的父节点。",
+      "refs": [
+        {
+          "title": "three.js Object3D.add",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D.add"
+        },
+        {
+          "title": "three.js Group",
+          "url": "https://threejs.org/docs/#api/en/objects/Group"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "chassis 是 beacon 的父节点" },
+        { "key": "B", "text": "beacon 是 vehicle 的父节点" },
+        {
+          "key": "C",
+          "text": "二者都是 vehicle 的直接子节点，互为兄弟节点",
+          "hint": "一次 add 可把两个对象挂到同一父级"
+        },
+        { "key": "D", "text": "二者都不再属于场景图" }
+      ],
+      "answer": ["C"]
     }
   ]
 }

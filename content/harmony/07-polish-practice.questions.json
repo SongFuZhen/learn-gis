@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "07",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-07-001",
@@ -288,6 +288,745 @@
       "type": "short",
       "accepted": ["animateTo", "animateTo()"],
       "placeholder": "例如：animateTo"
+    },
+    {
+      "id": "harmony-07-015",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "对于少量且稳定的关卡按钮集合，本章更推荐哪种渲染方式？",
+      "explanation": "ForEach 适合少量、稳定集合；LazyForEach 面向大量数据的按需创建，在简单稳定的小集合上不必引入完整数据源。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "ForEach", "hint": "少量且稳定时无需额外引入懒加载数据源" },
+        { "key": "B", "text": "必须使用 List + LazyForEach + IDataSource" },
+        { "key": "C", "text": "在 build 中反复重建数据源" },
+        { "key": "D", "text": "用数组下标固定所有可重排项" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-016",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "本章 LevelDataSource 中，totalCount 与 getData 的职责分别是什么？",
+      "explanation": "totalCount 返回 items.length 告知列表数据总数；getData(index) 返回对应下标的 LevelItem。它们都不负责注册监听或主动修改界面状态。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "totalCount 返回当前数据项总数", "hint": "示例直接返回 items.length" },
+        { "key": "B", "text": "getData 按索引返回一个 LevelItem", "hint": "示例返回 items[index]" },
+        { "key": "C", "text": "totalCount 负责注册数据变化监听器" },
+        { "key": "D", "text": "getData 无论传入什么索引都返回完整数组" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "harmony-07-017",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "为避免每次 build 都重建 LazyForEach 的数据源，应如何保存 source？",
+      "explanation": "讲义把 source 定义为组件的稳定成员并只初始化一次。若在 build 内 new LevelDataSource，构建过程会反复创建数据源，破坏列表状态与监听关系。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "保存为组件的稳定成员", "hint": "组件持有一份持续存在的数据源" },
+        { "key": "B", "text": "每次 build 都执行 new LevelDataSource" },
+        { "key": "C", "text": "在每个列表项的 itemBuilder 中分别新建" },
+        { "key": "D", "text": "每次绘制文字前都替换一个数据源" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-018",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 LevelDataSource 的数据变更通知，下列做法哪些符合讲义？",
+      "explanation": "replaceAll 先替换 items，再逐个通知已注册监听者；局部新增、删除要发送相应变更通知。只有整组替换才走全量重载，局部变化不能只改数组却不通知。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "replaceAll 先更新内部 items", "hint": "通知前要让数据源保存新数据" },
+        { "key": "B", "text": "整组替换后遍历 listeners 发出通知", "hint": "每个已注册监听者都需要收到变化" },
+        { "key": "C", "text": "局部新增、删除发送对应的数据变更通知", "hint": "局部变化使用局部通知" },
+        { "key": "D", "text": "局部删除只改数组，默认不发送任何通知" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-07-019",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "@State 数组原地 push 后界面不刷新，哪种修复符合本章建议？",
+      "explanation": "V1 中应通过整组替换让框架观察到新的数组引用，例如 this.arr = [...this.arr, item]。原地 push 只改变原数组内容，可能无法触发预期刷新。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "继续原地执行 this.arr.push(item)" },
+        { "key": "B", "text": "执行 this.arr = [...this.arr, item]", "hint": "用新数组引用表达整组替换" },
+        { "key": "C", "text": "在 build 中反复调用 push" },
+        { "key": "D", "text": "删除状态并永远显示固定文本" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-07-020",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "组件销毁时要清理定时器和监听器，应实现哪个组件生命周期方法？（只写方法名）",
+      "explanation": "aboutToDisappear 是讲义指定的组件销毁清理时机。定时器、监听器和长连接都应在这里配对释放，避免组件消失后仍继续工作。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["aboutToDisappear", "aboutToDisappear()"],
+      "placeholder": "例如：aboutToDisappear"
+    },
+    {
+      "id": "harmony-07-021",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "通关徽章放大动画结束后需要恢复原尺寸，哪种做法正确？",
+      "explanation": "应再通过明确的状态变化把 scaleValue 恢复到原值，并可为恢复过程配置动画。不要在 build 中偷偷重置，否则构建副作用可能引发反复刷新。",
+      "refs": [
+        {
+          "title": "显式动画",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-explicit-animation"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "在 build 中每次偷偷重置 scaleValue" },
+        { "key": "B", "text": "用明确的状态变化恢复原值", "hint": "恢复同样由状态驱动，可以配置过渡" },
+        { "key": "C", "text": "永久保持放大状态且不允许恢复" },
+        { "key": "D", "text": "通过重建 LazyForEach 数据源恢复" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-07-022",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "本章推荐优先用于淡入淡出动画、且通常不触发布局的属性是什么？",
+      "explanation": "opacity 改变透明度，是讲义列出的优先动画属性；相比 width、height，它通常不需要反复计算布局尺寸，适合表达淡入淡出过程。",
+      "refs": [
+        {
+          "title": "显式动画",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-explicit-animation"
+        }
+      ],
+      "type": "short",
+      "accepted": ["opacity", ".opacity", "opacity()"],
+      "placeholder": "例如：opacity"
+    },
+    {
+      "id": "harmony-07-023",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "从绘制成本看，下列哪类动画应当谨慎使用？",
+      "explanation": "大范围模糊与阴影的绘制成本更高，持续动画容易增加渲染负担。小范围透明度或变换反馈更符合本章的低成本动画原则。",
+      "refs": [
+        {
+          "title": "显式动画",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-explicit-animation"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "小范围 opacity 淡入淡出" },
+        { "key": "B", "text": "小范围 translate 位置反馈" },
+        { "key": "C", "text": "大范围模糊与阴影动画", "hint": "这类效果的绘制成本更高" },
+        { "key": "D", "text": "短时 scale 点击反馈" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "harmony-07-024",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "普通 Preferences 适合明文长期保存用户密码和长期令牌。",
+      "explanation": "错。普通 Preferences 不应明文保存密码、长期令牌；应选用系统安全能力，并缩短敏感数据生命周期，降低泄露后的影响。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-07-025",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "一个只需联网获取题库的功能申请权限时，哪种方案符合最小权限原则？",
+      "explanation": "只申请当前功能实际需要的网络权限，并在使用前解释用途即可。网络权限本身不授予读取相册、通讯录的能力，不应为无关数据额外申请权限。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "同时申请相册、通讯录等全部可能权限" },
+        { "key": "B", "text": "只申请实际需要的网络权限并解释用途", "hint": "权限范围与当前功能保持一致" },
+        { "key": "C", "text": "为了以后方便先申请所有敏感权限" },
+        { "key": "D", "text": "额外申请通讯录权限但不告知用途" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-07-026",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "处理日志与 Web 内容时，下列哪些做法符合本章安全要求？",
+      "explanation": "日志应避开完整令牌、隐私数据和认证请求头；Web 内容要限制来源，JavaScript 桥只暴露必要能力。完整记录认证头会扩大敏感信息泄露面。",
+      "refs": [
+        {
+          "title": "发起 HTTP 数据请求",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "日志不输出完整令牌与隐私数据", "hint": "敏感信息不应进入普通日志" },
+        { "key": "B", "text": "为便于排错完整输出所有认证请求头" },
+        { "key": "C", "text": "限制 Web 内容来源", "hint": "不能把任意来源都视为可信内容" },
+        { "key": "D", "text": "按最小范围暴露 JavaScript 桥能力", "hint": "桥接范围越大，潜在攻击面越大" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "harmony-07-027",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "在 Hypium 中组织一组判分测试，并描述其中一个具体行为，应分别使用哪两个函数？",
+      "explanation": "describe 用于给相关测试分组，it 用于描述一个具体行为或场景，expect 再对该行为的结果做断言，三者职责不能混淆。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "describe 与 it", "hint": "先分组，再描述一个测试行为" },
+        { "key": "B", "text": "expect 与 expect" },
+        { "key": "C", "text": "assertEqual 与 describe" },
+        { "key": "D", "text": "totalCount 与 getData" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-028",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "按 isPassed 规则，25 道题至少要答对多少道才能达到 60% 的通关阈值？",
+      "explanation": "25×60%=15，且 15÷25=0.6，满足 total>0 和正确率至少 60% 的条件，所以最少答对 15 题。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 15,
+      "tolerance": 0,
+      "unit": "道",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-07-029",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "要优先验证判分、通关阈值和下一关解锁规则，最合适的测试策略是什么？",
+      "explanation": "这些规则适合抽成纯函数，用 Hypium 单元测试反复验证输入与输出。UI 自动化可补关键点击路径，但不应替代快速、稳定的核心逻辑测试。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "把规则写成纯函数并用 Hypium 做单元测试", "hint": "核心业务规则优先独立验证" },
+        { "key": "B", "text": "只靠人工点击，不保存任何测试用例" },
+        { "key": "C", "text": "只做 UI 自动化并完全替代逻辑测试" },
+        { "key": "D", "text": "只测试界面颜色，不验证规则结果" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-030",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "关于 Hypium 断言、异步测试和覆盖率，下列说法哪些正确？",
+      "explanation": "expect 负责断言；异步用例必须等待 Promise 完成，避免请求未结束就退出；覆盖率只能作为发现遗漏的线索，不能代替对高风险边界的设计。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "expect 用于对行为结果做断言", "hint": "断言是验证结果的核心步骤" },
+        { "key": "B", "text": "异步测试应让框架等待 Promise 完成", "hint": "不能在异步工作结束前退出用例" },
+        { "key": "C", "text": "覆盖率是排查遗漏的线索而不是目标", "hint": "高风险边界仍需主动设计测试" },
+        { "key": "D", "text": "覆盖率到 100% 后就不必测试任何边界" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-07-031",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "讲义示例用 expect(isPassed(6, 10)).assertEqual(true) 验证阈值，其中完成相等断言的方法名是什么？",
+      "explanation": "assertEqual 用来断言实际结果与预期值相等。示例借此确认 6/10 刚好达到 60% 时 isPassed 返回 true。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "short",
+      "accepted": ["assertEqual", "assertEqual()"],
+      "placeholder": "例如：assertEqual"
+    },
+    {
+      "id": "harmony-07-032",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "对同一个 listener 连续调用两次 registerDataChangeListener，再调用一次 unregisterDataChangeListener，listeners 中还剩几项？",
+      "explanation": "注册时 includes 检查会阻止重复加入，所以两次注册后只有 1 项；注销时 indexOf 找到该项并 splice 删除，最终剩余 0 项。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0,
+      "tolerance": 0,
+      "unit": "项",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-07-033",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "状态管理 V1 中，需要跨层观察并修改深层对象属性，应采用哪组装饰器？",
+      "explanation": "V1 使用 @Observed 配合 @ObjectLink 处理深层对象的观测与传递。@ObservedV2 和 @Trace 属于 V2，不能在同一条数据流中随意混用两套体系。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "@Observed + @ObjectLink", "hint": "这是讲义给出的 V1 深层对象方案" },
+        { "key": "B", "text": "@ObservedV2 + @Trace" },
+        { "key": "C", "text": "@State + ForEach" },
+        { "key": "D", "text": "describe + it" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-034",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "同一条数据流同时使用状态管理 V1 和 V2 装饰器，可以让观测行为更可靠。",
+      "explanation": "错。同一数据流只应选择一套装饰器体系，跨层传递保持约定一致；混用 V1/V2 容易造成观测语义不一致和刷新问题。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-07-035",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "PassBadge 的 scaleValue 从 1 变为 1.12，相对原尺寸放大了百分之多少？",
+      "explanation": "1.12 表示变为原尺寸的 112%，相对于原尺寸的增加量是 1.12-1=0.12，即放大 12%。",
+      "refs": [
+        {
+          "title": "显式动画",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-explicit-animation"
+        }
+      ],
+      "type": "numeric",
+      "answer": 12,
+      "tolerance": 0,
+      "unit": "%",
+      "placeholder": "只填数值，不写百分号"
+    },
+    {
+      "id": "harmony-07-036",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "从首页进入答题页时，NavPathStack 应传递哪项数据以避免复制整个题库？",
+      "explanation": "只需传当前关卡的 levelId，答题页再据此异步加载所需内容。复制整个题库会扩大页面间数据耦合，也不符合蓝图中的分层设计。",
+      "refs": [
+        {
+          "title": "Navigation 导航架构",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "当前关卡的 levelId", "hint": "用标识定位数据，而不是复制数据集合" },
+        { "key": "B", "text": "整个题库的全部题目" },
+        { "key": "C", "text": "所有页面的组件实例" },
+        { "key": "D", "text": "应用产生的全部历史日志" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-037",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "徽章放大动画 duration 为 220 毫秒，结束后用 180 毫秒恢复原尺寸，两段动画总时长是多少毫秒？",
+      "explanation": "两段动画依次执行，总时长直接相加：220+180=400 毫秒。duration 的单位是毫秒，不需要再乘 1000。",
+      "refs": [
+        {
+          "title": "显式动画",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-explicit-animation"
+        }
+      ],
+      "type": "numeric",
+      "answer": 400,
+      "tolerance": 0,
+      "unit": "毫秒",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-07-038",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "新页面栈与转场需要统一管理，如何改造仍在拼接 router.pushUrl 的导航代码？",
+      "explanation": "本章建议新项目使用 Navigation 配合 NavPathStack，集中管理页面栈和转场。继续散落调用 router.pushUrl 不利于统一维护导航状态。",
+      "refs": [
+        {
+          "title": "Navigation 导航架构",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "改用 Navigation + NavPathStack 统一管理", "hint": "页面栈与转场由同一导航体系维护" },
+        { "key": "B", "text": "在 build 中反复调用 router.pushUrl" },
+        { "key": "C", "text": "仅用 if/else 代替全部页面栈管理" },
+        { "key": "D", "text": "把路由地址当作长期令牌明文保存" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-039",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "按照闯关 App 蓝图，下列页面职责划分哪些正确？",
+      "explanation": "QuizPage 负责答题结算，WrongBookPage 负责错题重练，AboutPage 负责版本与隐私说明。职责拆到不同页面，可以避免所有功能堆进一个超大页面。",
+      "refs": [
+        {
+          "title": "Navigation 导航架构",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "QuizPage 负责答题结算", "hint": "答题流程集中在答题页面" },
+        { "key": "B", "text": "WrongBookPage 负责错题重练", "hint": "错题复练有独立页面职责" },
+        { "key": "C", "text": "AboutPage 负责版本与隐私说明", "hint": "说明性内容归入关于页面" },
+        { "key": "D", "text": "AboutPage 专职执行 rawfile 判分与关卡解锁" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-07-040",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "提交答案后，哪个模块应以纯函数方式完成判分，避免把规则散落到页面构建中？",
+      "explanation": "Grader 在蓝图中承担纯函数判分职责，BankLoader 则负责读取并校验 rawfile JSON。拆分后规则更易用 Hypium 独立验证。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "BankLoader" },
+        { "key": "B", "text": "Grader", "hint": "它是蓝图中的纯逻辑判分模块" },
+        { "key": "C", "text": "AboutPage" },
+        { "key": "D", "text": "NavPathStack" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-07-041",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "恢复进度并异步加载答题页时，下列哪些处理符合主流程要求？",
+      "explanation": "无效关卡 ID 和越界题号都应回退到安全默认值，不能继续按坏数据渲染；异步加载还要处理失败并允许重试，保证主流程可恢复。",
+      "refs": [
+        {
+          "title": "Navigation 导航架构",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "无效关卡 ID 回退到安全默认值", "hint": "坏标识不能继续驱动页面渲染" },
+        { "key": "B", "text": "越界题号回退到安全默认值", "hint": "恢复断点必须检查题号范围" },
+        { "key": "C", "text": "异步加载失败时处理错误并支持重试", "hint": "主流程要覆盖失败恢复路径" },
+        { "key": "D", "text": "发现无效 ID 后仍强制按原值加载" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-07-042",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "LevelDataSource 中有 40 个 LevelItem，按数组下标调用 getData 时，最后一项的索引是多少？",
+      "explanation": "数组索引从 0 开始，40 项的有效下标为 0 到 39，因此最后一项通过 getData(39) 获取，而不是 getData(40)。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "numeric",
+      "answer": 39,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-07-043",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "条件渲染出现显隐或隐式类型转换问题时，本章建议把 && 写法改成什么？",
+      "explanation": "使用明确的 if/else 表达分支，条件和渲染路径更清晰，不依赖 && 的隐式值转换，也更便于排查显隐异常。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "明确的 if/else 分支", "hint": "显式表达每个渲染分支" },
+        { "key": "B", "text": "叠加更多隐式 && 表达式" },
+        { "key": "C", "text": "在 build 中反复向数组 push" },
+        { "key": "D", "text": "用 animateTo 代替条件判断" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-07-044",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "在 ProgressStore / QuizResume 分层中，哪个模块负责保存题号与作答快照？（只写模块名）",
+      "explanation": "QuizResume 负责断点续答所需的题号与作答快照；ProgressStore 负责整组替换进度并持久化，二者关注点不同。",
+      "refs": [
+        {
+          "title": "Navigation 导航架构",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "short",
+      "accepted": ["QuizResume"],
+      "placeholder": "例如：QuizResume"
+    },
+    {
+      "id": "harmony-07-045",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "为减少无效动画和资源占用，下列做法哪些符合本章建议？",
+      "explanation": "组件消失应停止循环动画，页面不可见时暂停无意义的媒体和动画；反馈宜小范围、短时。永久循环会持续占用资源并分散注意。",
+      "refs": [
+        {
+          "title": "显式动画",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-explicit-animation"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "组件消失时停止循环动画", "hint": "不可见组件不应继续做无效工作" },
+        { "key": "B", "text": "页面不可见时暂停无意义的媒体和动画", "hint": "后台暂停可以节省资源" },
+        { "key": "C", "text": "优先使用小范围、短时反馈", "hint": "短反馈兼顾提示效果与资源成本" },
+        { "key": "D", "text": "所有永久循环动画在后台也保持运行" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-07-046",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "状态管理 V2 中，观察深层对象类及其字段需要搭配哪两个装饰器？",
+      "explanation": "V2 使用 @ObservedV2 标记可观察类，并用 @Trace 标记需要观测的字段；@Observed + @ObjectLink 是 V1 的方案，不能混答。",
+      "refs": [
+        {
+          "title": "状态变量不刷新的常见排查",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "@ObservedV2 + @Trace",
+        "@ObservedV2 和 @Trace",
+        "ObservedV2 + Trace",
+        "ObservedV2 和 Trace",
+        "@ObservedV2、@Trace",
+        "ObservedV2、Trace"
+      ],
+      "placeholder": "例如：@ObservedV2 + @Trace"
+    },
+    {
+      "id": "harmony-07-047",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "答题页的明确状态与提交后行为，下列哪些符合本章蓝图？",
+      "explanation": "当前题、是否已提交、是否答对应拆成明确状态；提交后展示解析，答错可进入错题本，达到通关阈值才解锁下一关，不能用模糊状态隐式推断。",
+      "refs": [
+        {
+          "title": "Navigation 导航架构",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "拆分当前题、是否已提交、是否答对状态", "hint": "明确状态让提交流程可判断" },
+        { "key": "B", "text": "提交后显示答案解析", "hint": "解析是提交后的反馈" },
+        { "key": "C", "text": "答错后可以进入错题本", "hint": "错题重练与答题结果衔接" },
+        { "key": "D", "text": "达到通关阈值才解锁下一关", "hint": "解锁由通关规则控制" },
+        { "key": "E", "text": "未达到阈值也始终解锁下一关" }
+      ],
+      "answer": ["A", "B", "C", "D"]
+    },
+    {
+      "id": "harmony-07-048",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 3,
+      "stem": "综合实战要求按页面、数据源、纯逻辑和存储分层，主要为了解决什么问题？",
+      "explanation": "分层是为了避免功能堆进一个超大页面，让加载、判分、进度与断点各自可维护、可验证。它不是增加无用代码，而是明确职责边界和数据流。",
+      "refs": [
+        {
+          "title": "Navigation 导航架构",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "让所有功能继续堆在一个超大页面" },
+        { "key": "B", "text": "避免超大页面并明确各模块职责", "hint": "分层让业务流可维护、可验证" },
+        { "key": "C", "text": "取消核心规则的自动化测试" },
+        { "key": "D", "text": "让每个页面都复制一份完整题库" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-07-049",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 1,
+      "stem": "registerDataChangeListener 和 unregisterDataChangeListener 接收的监听器类型是什么？（只写类型名）",
+      "explanation": "两个方法都接收 DataChangeListener，分别用于加入和移除数据源变化监听；listeners 数组保存的也是这一类型。",
+      "refs": [
+        {
+          "title": "LazyForEach：数据懒加载",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-rendering-control-lazyforeach"
+        }
+      ],
+      "type": "short",
+      "accepted": ["DataChangeListener"],
+      "placeholder": "例如：DataChangeListener"
+    },
+    {
+      "id": "harmony-07-050",
+      "skill": "harmony",
+      "module": "07",
+      "difficulty": 2,
+      "stem": "一组 30 道题中答对 18 道，按 Grader 的正确率计算，答对比例是多少？（填百分数数值）",
+      "explanation": "答对比例为 18÷30=0.6，转换成百分数是 60。由于 total 大于 0 且达到 60%，该结果刚好满足通关阈值。",
+      "refs": [
+        {
+          "title": "构建第一个 HarmonyOS 应用（ArkTS）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage"
+        }
+      ],
+      "type": "numeric",
+      "answer": 60,
+      "tolerance": 0,
+      "unit": "%",
+      "placeholder": "只填数值，不写百分号"
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "skill": "three",
   "module": "09",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "three-09-001",
@@ -230,9 +230,1017 @@
       ],
       "type": "numeric",
       "answer": 0.00008,
-      "tolerance": 0.00000001,
+      "tolerance": 0,
       "unit": "MercatorCoordinate 单位",
       "placeholder": "只填数值"
+    },
+    {
+      "id": "three-09-014",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "按本章采用的 MapLibre CustomLayerInterface，一个 custom layer 对象至少应提供哪组必需成员？",
+      "explanation": "CustomLayerInterface 要求提供 id、type: \"custom\" 和 render；renderingMode、onAdd、onRemove 都是可选成员。Scene、Camera 和 WebGLRenderer 是本章在图层内部创建的 three 对象，不是接口要求的字段。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "center、zoom、pitch" },
+        { "key": "B", "text": "geometry、material、texture" },
+        {
+          "key": "C",
+          "text": "id、type: \"custom\"、render",
+          "hint": "这三项构成自定义图层的最小接口"
+        },
+        { "key": "D", "text": "source、tiles、minzoom、maxzoom" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-09-015",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "在本章共享画布的 threeLayer.onAdd 中，完成了哪些初始化工作？",
+      "explanation": "onAdd 负责一次性建立 Scene、Camera、Clock、Mesh、光照和共享地图 canvas/context 的 WebGLRenderer。逐帧读取主矩阵并绘制属于 render，释放 GPU 资源则属于 onRemove。",
+      "refs": [
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        },
+        {
+          "title": "THREE.WebGLRenderer",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "创建 THREE.Camera、THREE.Scene 与 THREE.Clock",
+          "hint": "这些对象保存场景和动画所需状态"
+        },
+        {
+          "key": "B",
+          "text": "创建立方体 Mesh 并添加环境光与平行光",
+          "hint": "可见物体和光照都在初始化阶段加入场景"
+        },
+        {
+          "key": "C",
+          "text": "使用地图 canvas 与回调 gl 创建 WebGLRenderer",
+          "hint": "这样 three 与 MapLibre 才能绘入同一上下文"
+        },
+        { "key": "D", "text": "每帧从 mainMatrix 重建投影矩阵并立即绘制" },
+        { "key": "E", "text": "遍历场景并 dispose 全部几何体与材质" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-016",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "共享地图 canvas 的 custom layer 应另开一套 requestAnimationFrame，并在 render 中随意调用 renderer.setSize 争夺画布尺寸。",
+      "explanation": "错误。共享路线中 MapLibre 拥有 canvas 尺寸和绘制调度，自定义层应在 render 中绘制，并通过 map.triggerRepaint 请求后续帧；另开循环和随意 setSize 会破坏这一所有权边界。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        },
+        {
+          "title": "THREE.WebGLRenderer",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-09-017",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "把 modelOrigin 的经纬度与高度转换为 MercatorCoordinate 时，应调用 MercatorCoordinate 的哪个静态方法？（只写方法名）",
+      "explanation": "MercatorCoordinate.fromLngLat 接收经纬度位置和可选高度，返回归一化 Web Mercator 坐标。它负责地理落点转换，不能把返回结果换成未经投影的 Vector3(lng, lat, 0)。",
+      "refs": [
+        {
+          "title": "MapLibre MercatorCoordinate.fromLngLat",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/MercatorCoordinate/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "fromLngLat",
+        "MercatorCoordinate.fromLngLat",
+        "maplibregl.MercatorCoordinate.fromLngLat",
+        "fromLngLat(modelOrigin, 0)"
+      ],
+      "placeholder": "例如：fromLngLat"
+    },
+    {
+      "id": "three-09-018",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "本章 BoxGeometry(40, 40, 40) 的立方体中心设为 cube.position.y=20，其底面在局部坐标中的 y 值是多少？",
+      "explanation": "立方体高为 40，中心到底面的距离是 20。中心位于 y=20 时，底面高度为 20-40÷2=0，因此立方体底面恰好落在局部地面上。",
+      "refs": [
+        {
+          "title": "THREE.BoxGeometry",
+          "url": "https://threejs.org/docs/#api/en/geometries/BoxGeometry"
+        },
+        {
+          "title": "THREE.Object3D",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0,
+      "tolerance": 0,
+      "unit": "局部米",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-09-019",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "团队选择独立 three canvas 与 renderer 覆盖地图，而不是共享 WebGL context。下列哪项是该路线必须接受的限制？",
+      "explanation": "独立 canvas 带来上下文隔离和 renderer 配置自由，但无法与地图共享三维深度，纹理和 framebuffer 等资源也不能直接跨 context 复用；还必须自行同步地图交互、相机和尺寸。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        },
+        {
+          "title": "THREE.WebGLRenderer",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "独立 renderer 永远无法加载 glTF 模型" },
+        { "key": "B", "text": "独立 canvas 会自动使用 Cesium 的地形与相机" },
+        {
+          "key": "C",
+          "text": "不能与地图共享深度，部分 GPU 资源不能直接跨 context 共用",
+          "hint": "上下文隔离同时意味着资源共享受限"
+        },
+        { "key": "D", "text": "只要监听 move，就能自动覆盖缩放、旋转、俯仰和 resize" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-09-020",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "关于本章 modelMatrix 的构造与列向量变换顺序，下列说法正确的有哪些？",
+      "explanation": "modelMatrix 依次组合平移、米制缩放和绕 x 轴旋转；按列向量从右向左理解，模型点先旋转，再缩放到 Mercator 单位，最后平移到 coord。该矩阵描述固定地理落点，不需要随地图相机每帧重建。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        },
+        {
+          "title": "MapLibre MercatorCoordinate",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/MercatorCoordinate/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "makeTranslation(coord.x, coord.y, coord.z) 负责把模型平移到地理落点",
+          "hint": "平移对应模型在 Mercator 世界中的位置"
+        },
+        {
+          "key": "B",
+          "text": "scale(new THREE.Vector3(meter, -meter, meter)) 负责轴向与米制比例变换",
+          "hint": "三个分量分别处理 x、y、z 的缩放"
+        },
+        {
+          "key": "C",
+          "text": "最后 multiply 的 makeRotationX 在列向量作用下先于缩放和平移执行",
+          "hint": "组合矩阵要从右向左读取"
+        },
+        { "key": "D", "text": "Vector3(modelOrigin[0], modelOrigin[1], 0) 与 fromLngLat 完全等价" },
+        { "key": "E", "text": "地图每次缩放都必须重新计算模型的固定 modelMatrix" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-021",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "本章缩放向量把 y 写成 -meter，是为了处理 three 局部 y 与 Mercator 屏幕式 y 的方向差异，并不表示模型位于南半球。",
+      "explanation": "正确。负号用于翻转局部 y 轴方向，使模型轴与 Mercator 坐标方向对齐；南北半球由经纬度位置决定，不能用模型缩放分量的符号判断。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4.scale",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-09-022",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "render 中要把 args.defaultProjectionData.mainMatrix 的数组写入 camera.projectionMatrix，应调用 Matrix4 的哪个方法？（只写方法名）",
+      "explanation": "Matrix4.fromArray 用数组元素填充当前矩阵，因此骨架代码执行 camera.projectionMatrix.fromArray(mainMatrix)，随后再乘 modelMatrix。它不会自动完成地图坐标到经纬度的逆转换。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4.fromArray",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "fromArray",
+        "Matrix4.fromArray",
+        "projectionMatrix.fromArray",
+        "camera.projectionMatrix.fromArray",
+        "fromArray(args.defaultProjectionData.mainMatrix)"
+      ],
+      "placeholder": "例如：fromArray"
+    },
+    {
+      "id": "three-09-023",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "某帧 clock.getDelta() 返回 0.12 秒，代码用 Math.min(delta, 0.05) 限幅，再执行 cube.rotation.y += delta * 0.5。该帧旋转量是多少弧度？",
+      "explanation": "0.12 秒超过上限，因此参与计算的 delta 是 0.05 秒。该帧旋转量为 0.05×0.5=0.025 弧度，限幅避免长时间卡顿后出现突然的大角度跳变。",
+      "refs": [
+        {
+          "title": "THREE.Clock.getDelta",
+          "url": "https://threejs.org/docs/#api/en/core/Clock"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.025,
+      "tolerance": 0,
+      "unit": "弧度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-09-024",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "需要 three 模型与地图其他三维图层共享深度缓冲、形成正确遮挡时，renderingMode 应设为何值？",
+      "explanation": "renderingMode: \"3d\" 让 custom layer 进入地图的三维深度关系，适合需要共享深度的模型绘制；\"2d\" 更适合不涉及深度共享的覆盖绘制。type 仍应独立设为 \"custom\"。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface.renderingMode",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "\"2d\"" },
+        {
+          "key": "B",
+          "text": "\"3d\"",
+          "hint": "该模式把自定义层纳入地图三维深度关系"
+        },
+        { "key": "C", "text": "\"overlay\"" },
+        { "key": "D", "text": "\"mercator\"" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-09-025",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "按本章收官练习，把自转立方体替换为静态 /models/product.glb 后，哪些改动符合要求？",
+      "explanation": "应在 onAdd 中使用 GLTFLoader，加载成功后把 gltf.scene 加入场景并请求一次地图重绘。静态模型不再逐帧自转，也就不需要 render 内无条件 triggerRepaint；模型旋转轴还要依据实际 glTF 建模轴向调整。",
+      "refs": [
+        {
+          "title": "three.js 官方文档",
+          "url": "https://threejs.org/docs/"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "在 onAdd 中创建 GLTFLoader，并在加载回调中加入 gltf.scene",
+          "hint": "加载器负责把本地 glb 转成可加入场景的对象"
+        },
+        {
+          "key": "B",
+          "text": "模型加载成功后调用 map.triggerRepaint()",
+          "hint": "异步完成时主动请求一次新帧以显示模型"
+        },
+        {
+          "key": "C",
+          "text": "移除逐帧自转更新和静态场景下每帧无条件的 triggerRepaint",
+          "hint": "没有持续动画就不必永久重绘"
+        },
+        { "key": "D", "text": "静态模型仍必须另开永久 requestAnimationFrame 才能跟随地图" },
+        { "key": "E", "text": "所有 glTF 都可忽略建模轴向，固定照抄同一个旋转" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-026",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "静态 three 场景只需在加载完成、模型变化或地图交互时重绘，不应在 render 中无条件永久调用 triggerRepaint。",
+      "explanation": "正确。持续重绘适用于本章不断自转的立方体，而静态模型没有逐帧视觉变化。保留永久重绘只会增加无意义的 GPU 工作，地图自身交互仍会触发自定义层绘制。",
+      "refs": [
+        {
+          "title": "MapLibre Map.triggerRepaint",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/"
+        },
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-09-027",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "静态 glTF 的异步加载回调把模型加入 scene 后，应调用 map 的哪个方法请求地图重绘？（只写方法名）",
+      "explanation": "map.triggerRepaint 请求 MapLibre 再绘制一帧，使异步加入的模型及时显示。它应由地图调度后续 render，而不是在加载回调里另建独立渲染循环。",
+      "refs": [
+        {
+          "title": "MapLibre Map.triggerRepaint",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "triggerRepaint",
+        "map.triggerRepaint",
+        "triggerRepaint()",
+        "map.triggerRepaint()"
+      ],
+      "placeholder": "例如：triggerRepaint"
+    },
+    {
+      "id": "three-09-028",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "已知 coord=(0.6, 0.4, 0)、meter=0.000002。局部点 (0,20,0) 按本章 modelMatrix 先绕 x 轴转 90°，再以 (meter,-meter,meter) 缩放并平移，最终 z 坐标是多少？",
+      "explanation": "绕 x 轴旋转 90° 后，(0,20,0) 变为 (0,0,20)。z 再乘 meter 得到 20×0.000002=0.00004，最后 coord.z=0 的平移不改变该值，因此最终 z 为 0.00004。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        },
+        {
+          "title": "MapLibre MercatorCoordinate",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/MercatorCoordinate/"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.00004,
+      "tolerance": 0,
+      "unit": "MercatorCoordinate 单位",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-09-029",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "本章桥接相机为什么直接使用普通 THREE.Camera，而不是再配置 PerspectiveCamera 的 fov 和 aspect？",
+      "explanation": "args.defaultProjectionData.mainMatrix 已包含 MapLibre 当前的观察与投影状态，直接赋给 three 相机即可。另设 fov/aspect 会形成第二套投影逻辑，容易与地图主矩阵冲突。",
+      "refs": [
+        {
+          "title": "THREE.Camera",
+          "url": "https://threejs.org/docs/#api/en/cameras/Camera"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "普通 Camera 会自动把所有经纬度转换成 ECEF 米" },
+        { "key": "B", "text": "PerspectiveCamera 不能用于任何 three 场景" },
+        { "key": "C", "text": "设置 fov/aspect 会自动释放地图的 GPU 资源" },
+        {
+          "key": "D",
+          "text": "地图主矩阵已经提供观察与投影状态，无需第二套透视投影参数",
+          "hint": "桥接层只使用地图给出的投影"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-09-030",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "在本章 render 的相机矩阵维护中，下列哪些步骤与骨架代码一致？",
+      "explanation": "骨架先用 fromArray 读取当前 mainMatrix，再乘 modelMatrix 得到投影矩阵；随后把 projectionMatrix 复制给 projectionMatrixInverse 并调用 invert，保证逆矩阵同步。主矩阵和逆矩阵都不能只在 onAdd 设置一次。",
+      "refs": [
+        {
+          "title": "THREE.Camera",
+          "url": "https://threejs.org/docs/#api/en/cameras/Camera"
+        },
+        {
+          "title": "THREE.Matrix4",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "projectionMatrix.fromArray(args.defaultProjectionData.mainMatrix)",
+          "hint": "每次 render 都读取当前地图主矩阵"
+        },
+        {
+          "key": "B",
+          "text": "在读取主矩阵后继续 multiply(modelMatrix)",
+          "hint": "模型矩阵把局部模型放入 Mercator 世界"
+        },
+        {
+          "key": "C",
+          "text": "projectionMatrixInverse.copy(projectionMatrix).invert()",
+          "hint": "投影逆矩阵需要与最新投影保持一致"
+        },
+        { "key": "D", "text": "每帧另算一套 fov/aspect，再覆盖地图主矩阵" },
+        { "key": "E", "text": "projectionMatrixInverse 只在 onAdd 求逆一次，此后永远缓存" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-031",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "新代码初始化共享 renderer 时，应优先依赖 map.painter.context.gl 这一内部路径，而忽略 onAdd 提供的公开 gl 参数。",
+      "explanation": "错误。onAdd(map, gl) 的 gl 是公开回调参数，应优先使用；map.painter.context.gl 是旧示例常见的内部路径，依赖 painter 内部结构会增加版本升级时失效的风险。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface.onAdd",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-09-032",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "本章用 THREE.Clock 计算相邻两次渲染的时间间隔时，调用了哪个方法？（只写方法名）",
+      "explanation": "Clock.getDelta 返回相邻调用之间的秒数，骨架把它限制到最多 0.05 秒后用于旋转动画。直接按固定帧数累加则会在帧率变化时改变实际旋转速度。",
+      "refs": [
+        {
+          "title": "THREE.Clock.getDelta",
+          "url": "https://threejs.org/docs/#api/en/core/Clock"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "getDelta",
+        "clock.getDelta",
+        "this.clock.getDelta",
+        "getDelta()",
+        "clock.getDelta()",
+        "this.clock.getDelta()"
+      ],
+      "placeholder": "例如：getDelta"
+    },
+    {
+      "id": "three-09-033",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "连续三帧 clock.getDelta() 分别返回 0.02、0.08、0.03 秒。每帧先限幅到最多 0.05 秒，再以 0.5 弧度/秒累加 rotation.y。三帧累计旋转多少弧度？",
+      "explanation": "三帧限幅后的时间依次为 0.02、0.05、0.03 秒，总计 0.10 秒。累计旋转量为 0.10×0.5=0.05 弧度；第二帧超出的 0.03 秒不会参与本帧计算。",
+      "refs": [
+        {
+          "title": "THREE.Clock.getDelta",
+          "url": "https://threejs.org/docs/#api/en/core/Clock"
+        }
+      ],
+      "type": "numeric",
+      "answer": 0.05,
+      "tolerance": 0,
+      "unit": "弧度",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-09-034",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "本章 HTML 与 CSS 中，为保证地图容器具有可见高度，正确的设置是哪一项？",
+      "explanation": "应让 html、body 和 #map 的高度都为 100%，地图容器才能在页面中获得明确的可见高度。矩阵和模型转换即使正确，也无法弥补高度为零的 DOM 容器。",
+      "refs": [
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        },
+        {
+          "title": "MapLibre Map API",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "html、body、#map 都设置 height: 100%",
+          "hint": "高度链路从页面根元素一直传到地图容器"
+        },
+        { "key": "B", "text": "只设置 #map 的 height: 0" },
+        { "key": "C", "text": "只给 BoxGeometry 设置 height: 100%" },
+        { "key": "D", "text": "删除 #map，改由经纬度自动创建可见 DOM 高度" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-09-035",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "本章 onRemove 的资源释放实现需要处理哪些细节？",
+      "explanation": "清理时应遍历场景中的 Mesh，对每个 geometry 调用 dispose；material 可能是数组，需要归一化后逐个 dispose，最后还要释放 renderer。仅把 map 设为 null 不会代替这些显式 GPU 资源清理。",
+      "refs": [
+        {
+          "title": "THREE.Object3D.traverse",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        },
+        {
+          "title": "THREE.WebGLRenderer.dispose",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        },
+        {
+          "title": "MapLibre CustomLayerInterface.onRemove",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "通过 scene.traverse 找到 Mesh，并释放各自的 geometry",
+          "hint": "几何体 GPU 数据需要显式 dispose"
+        },
+        {
+          "key": "B",
+          "text": "兼容单个 material 与 material 数组，并逐个释放",
+          "hint": "多材质 Mesh 不能只按单对象处理"
+        },
+        {
+          "key": "C",
+          "text": "完成场景资源清理后调用 renderer.dispose()",
+          "hint": "渲染器本身也持有需要释放的资源"
+        },
+        { "key": "D", "text": "只要设置 this.map=null，所有 GPU 对象都会自动执行 dispose" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-036",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "地图拖动时，只要 modelMatrix 的地理落点固定且主矩阵逐帧同步，就不需要另写 cube.position 跟随地图平移。",
+      "explanation": "正确。模型在 Mercator 世界中的落点由固定 modelMatrix 表达，用户看到的是地图相机视角变化。render 逐帧取得新主矩阵即可保持贴合，无需把地图平移量重复写入 cube.position。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-09-037",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "onRemove 中遍历 scene 下所有对象以查找 Mesh 并释放资源，使用的是 Object3D 的哪个方法？（只写方法名）",
+      "explanation": "Object3D.traverse 会递归访问对象及其后代，因此 this.scene.traverse 能统一检查场景中的 Mesh。只有先访问到实际对象，才能进一步释放 geometry 和可能为数组的 material。",
+      "refs": [
+        {
+          "title": "THREE.Object3D.traverse",
+          "url": "https://threejs.org/docs/#api/en/core/Object3D"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "traverse",
+        "Object3D.traverse",
+        "scene.traverse",
+        "this.scene.traverse"
+      ],
+      "placeholder": "例如：traverse"
+    },
+    {
+      "id": "three-09-038",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "为检验矩阵复合顺序，将某轴简化为一维仿射变换：modelMatrix 对应 x₁=2x+1，mainMatrix 对应 x₂=3x₁+4。局部 x=5 时，按 mainMatrix × modelMatrix 得到的 x₂ 是多少？",
+      "explanation": "列向量约定下 modelMatrix 先作用，得到 x₁=2×5+1=11；随后 mainMatrix 作用，得到 x₂=3×11+4=37。若颠倒两次变换顺序，会得到不同结果。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        }
+      ],
+      "type": "numeric",
+      "answer": 37,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "three-09-039",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "为什么不能把 modelMatrix 中的 makeRotationX(Math.PI/2) 当成所有 glTF 都必须照抄的固定常数？",
+      "explanation": "本章旋转用于把局部 y 向上的模型调整为 Mercator z 向上，但不同 glTF 的建模轴向可能不同。加载新模型时应先确认其局部轴，再调整旋转，不能盲目固定为绕 x 轴 90°。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4.makeRotationX",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        },
+        {
+          "title": "three.js 官方文档",
+          "url": "https://threejs.org/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "因为 Matrix4 完全不能表达绕 x 轴旋转" },
+        { "key": "B", "text": "因为地图每帧会随机改变 glTF 的局部建模轴" },
+        {
+          "key": "C",
+          "text": "因为不同 glTF 的建模轴向可能不同，旋转应按模型调整",
+          "hint": "本章角度只对应其约定的局部 y 向上模型"
+        },
+        { "key": "D", "text": "因为只有经度能够决定模型是否需要旋转" }
+      ],
+      "answer": ["C"]
+    },
+    {
+      "id": "three-09-040",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "比较共用 map canvas/context 与独立 three canvas 两条集成路线，下列判断正确的有哪些？",
+      "explanation": "共享路线可同屏合成并共享深度，但必须处理 autoClear、GL 状态和资源生命周期；独立路线隔离上下文、配置更自由，却没有共享深度，不能直接跨 context 复用纹理等资源，并需监听多种地图交互和 resize 完成同步。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        },
+        {
+          "title": "THREE.WebGLRenderer",
+          "url": "https://threejs.org/docs/#api/en/renderers/WebGLRenderer"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "共用路线可同屏合成，并可进入地图的三维深度关系",
+          "hint": "同一画布与上下文是共享深度的基础"
+        },
+        {
+          "key": "B",
+          "text": "共用路线必须谨慎处理 autoClear、GL 状态和资源释放",
+          "hint": "两个渲染器需要遵守共享边界"
+        },
+        {
+          "key": "C",
+          "text": "独立路线具有上下文隔离和 renderer 配置自由",
+          "hint": "这是付出同步成本换来的优势"
+        },
+        { "key": "D", "text": "独立路线的纹理和 framebuffer 默认可以直接跨 context 共用" },
+        { "key": "E", "text": "独立路线只监听 move 即可完整同步 zoom、rotate、pitch 和 resize" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "three-09-041",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "Math.min(clock.getDelta(), 0.05) 会把超过 0.05 秒的部分自动补回后续帧，因此动画累计时间绝不会因限幅而减少。",
+      "explanation": "错误。Math.min 只选取较小值，当前帧超出上限的时间差会被舍弃，并没有保存到后续帧的补时队列。其目的正是限制长帧造成的动画突跳，而不是保证累计时间完全守恒。",
+      "refs": [
+        {
+          "title": "THREE.Clock.getDelta",
+          "url": "https://threejs.org/docs/#api/en/core/Clock"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-09-042",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "本章为把局部 y 向上的模型调整为 Mercator z 向上，构造绕 x 轴旋转 90° 的 Matrix4 时使用哪个方法？（只写方法名）",
+      "explanation": "Matrix4.makeRotationX 创建绕 x 轴旋转的矩阵，本章传入 Math.PI/2 表示 90°。该旋转只适用于讲义约定的模型轴向，其他 glTF 应按实际建模轴调整。",
+      "refs": [
+        {
+          "title": "THREE.Matrix4.makeRotationX",
+          "url": "https://threejs.org/docs/#api/en/math/Matrix4"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "makeRotationX",
+        "Matrix4.makeRotationX",
+        "matrix.makeRotationX",
+        "makeRotationX(Math.PI / 2)",
+        "makeRotationX(Math.PI/2)"
+      ],
+      "placeholder": "例如：makeRotationX"
+    },
+    {
+      "id": "three-09-043",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "glTF 异步加载尚未完成时图层已被 onRemove 销毁，加载回调随后触发。最稳妥的处理是什么？",
+      "explanation": "回调应先检查图层是否仍然有效；若已移除，就不能再把 gltf.scene 加回已销毁的场景，并应释放不再使用的模型资源。这样可避免陈旧异步回调重新引入 GPU 对象和泄漏。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface.onRemove",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        },
+        {
+          "title": "three.js 官方文档",
+          "url": "https://threejs.org/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "无条件执行 scene.add(gltf.scene)，让已移除图层自动复活" },
+        {
+          "key": "B",
+          "text": "检查图层生命周期状态，已移除则不重新加入，并清理不再使用的资源",
+          "hint": "异步回调必须防止在销毁后重新添加资源"
+        },
+        { "key": "C", "text": "接管 MapLibre 的 canvas，并擅自创建一套永久渲染循环" },
+        { "key": "D", "text": "只修改模型的 longitude 字段，纹理就会随旧场景自动释放" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "three-09-044",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "把本章默认 Mercator 骨架用于生产项目时，哪些额外防护符合讲义建议？",
+      "explanation": "生产项目应处理 webglcontextlost 与 webglcontextrestored，避免上下文异常后无法恢复。启用地球投影、地形 draping 或特殊投影过渡时，还应按对应 MapLibre 示例选择模型矩阵接口，不能假设默认 Mercator 写法覆盖所有情况。",
+      "refs": [
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        },
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "处理 webglcontextlost 与 webglcontextrestored 生命周期",
+          "hint": "生产环境需要考虑 WebGL 上下文丢失和恢复"
+        },
+        {
+          "key": "B",
+          "text": "地球投影、地形 draping 或特殊投影过渡时选用对应的模型矩阵接口",
+          "hint": "默认 Mercator 骨架并不覆盖所有投影状态"
+        },
+        { "key": "C", "text": "认定同一套默认 Mercator 模型矩阵可无条件用于所有投影与地形模式" },
+        { "key": "D", "text": "透明模型可以忽略 custom layer 的预乘 alpha 混合约定" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "three-09-045",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "调用 material.dispose() 后，three 会自动遍历并释放该材质实际使用的所有 Texture，因此 glTF 清理无需单独处理纹理。",
+      "explanation": "错误。本章练习明确要求除 geometry 和 material 外，还要遍历材质中实际使用的 Texture 并逐个 dispose。材质释放不能被视为其所有纹理资源的自动级联释放。",
+      "refs": [
+        {
+          "title": "three.js 官方文档",
+          "url": "https://threejs.org/docs/"
+        },
+        {
+          "title": "MapLibre CustomLayerInterface.onRemove",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "three-09-046",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "地图样式重新加载后，style.load 回调准备重新添加 threeLayer。为什么先用 map.getLayer(threeLayer.id) 检查？",
+      "explanation": "getLayer 检查用于确认同名图层尚不存在，再执行 addLayer，避免 style.load 多次触发时重复添加相同 id。它让图层注册保持幂等，与模型矩阵计算和资源释放是不同职责。",
+      "refs": [
+        {
+          "title": "MapLibre Map.getLayer",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/"
+        },
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "为了把经纬度转换为米制 ECEF 坐标" },
+        { "key": "B", "text": "为了强制 three 每帧重新编译全部材质" },
+        { "key": "C", "text": "为了用图层 id 替代地图主矩阵" },
+        {
+          "key": "D",
+          "text": "为了只在同 id 图层不存在时添加，避免重复注册",
+          "hint": "if (!map.getLayer(id)) 是添加前的存在性保护"
+        }
+      ],
+      "answer": ["D"]
+    },
+    {
+      "id": "three-09-047",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "对照本章 Cesium 与 MapLibre 的坐标和拾取说明，下列说法正确的有哪些？",
+      "explanation": "Cesium 用 Cartesian3.fromDegrees 进入米制地心固连系，并由同一引擎管理地球、地形和相机；其 ScreenSpaceEventHandler 与 scene.pick 可统一拾取场景对象。MapLibre 的样式要素查询不理解 three Mesh，后者需要 Raycaster 和一致的地图射线。",
+      "refs": [
+        {
+          "title": "CesiumJS 官方文档",
+          "url": "https://cesium.com/documentation/cesiumjs/"
+        },
+        {
+          "title": "THREE.Raycaster",
+          "url": "https://threejs.org/docs/#api/en/core/Raycaster"
+        },
+        {
+          "title": "MapLibre Map API",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/classes/Map/"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        {
+          "key": "A",
+          "text": "Cesium 的 Cartesian3.fromDegrees 用于进入以米计的地心固连坐标系",
+          "hint": "这与 MapLibre 的归一化 Mercator 坐标不同"
+        },
+        {
+          "key": "B",
+          "text": "Cesium 由同一引擎管理地球、地形和相机",
+          "hint": "地理基准与相机管理是平台内置能力"
+        },
+        { "key": "C", "text": "MapLibre 的 queryRenderedFeatures 会自动识别 custom layer 中的每个 THREE.Mesh" },
+        {
+          "key": "D",
+          "text": "拾取 MapLibre 中的 three Mesh 需要 Raycaster，并构造与地图一致的射线",
+          "hint": "场景图对象不属于地图样式要素"
+        },
+        {
+          "key": "E",
+          "text": "Cesium 可用 ScreenSpaceEventHandler 配合 scene.pick 统一处理场景拾取",
+          "hint": "事件入口与场景拾取在同一引擎中协作"
+        }
+      ],
+      "answer": ["A", "B", "D", "E"]
+    },
+    {
+      "id": "three-09-048",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 2,
+      "stem": "静态 glTF 图层删除每帧 triggerRepaint 后，用户缩放或旋转地图时 MapLibre 仍会调用 custom layer 的 render，因此相机仍能逐帧同步。",
+      "explanation": "正确。取消的是静态内容主动要求的永久额外重绘，不是 MapLibre 自身交互驱动的绘制。地图缩放、旋转等操作仍会进入 render，所以这里依然要读取最新 mainMatrix。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface.render",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "three-09-049",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 1,
+      "stem": "项目只需普通二维矢量地图和简单楼块拉伸，不需要通用三维模型。按本章选型表，最合理的技术方案是？",
+      "explanation": "普通二维矢量和简单楼块拉伸可直接使用 MapLibre 原生图层，无需引入第二套渲染器。three + MapLibre 更适合平面地图上的通用三维特效，Cesium 则面向三维地球、真实地形和 3D Tiles 等需求。",
+      "refs": [
+        {
+          "title": "MapLibre GL JS 官方文档",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        {
+          "key": "A",
+          "text": "MapLibre 原生图层",
+          "hint": "简单需求不必承担第二套渲染器的成本"
+        },
+        { "key": "B", "text": "必须同时使用 Cesium、MapLibre 与 three" },
+        { "key": "C", "text": "只用纯 three，并手工实现全部地图样式能力" },
+        { "key": "D", "text": "必须使用 Cesium 的时间动态系统显示普通二维矢量" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "three-09-050",
+      "skill": "three",
+      "module": "09",
+      "difficulty": 3,
+      "stem": "在 custom layer 中绘制半透明 three 模型时出现混合异常。按本章生产注意事项，首先应核对哪项约定？",
+      "explanation": "透明模型需要遵守 custom layer 的预乘 alpha 混合约定，应检查 three 输出的颜色与 alpha 是否和地图期望一致。米制缩放、容器高度和 Clock 时间差都很重要，但不能直接修复透明混合约定不匹配。",
+      "refs": [
+        {
+          "title": "MapLibre CustomLayerInterface",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/API/interfaces/CustomLayerInterface/"
+        },
+        {
+          "title": "MapLibre custom layer 示例",
+          "url": "https://maplibre.org/maplibre-gl-js/docs/examples/add-a-custom-style-layer/"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "BoxGeometry 的宽度是否等于经度" },
+        { "key": "B", "text": "Clock.getDelta 是否被改为经纬度数组" },
+        {
+          "key": "C",
+          "text": "custom layer 的预乘 alpha 混合约定",
+          "hint": "透明输出要与地图期望的颜色和 alpha 表达方式一致"
+        },
+        { "key": "D", "text": "是否把 #map 高度改为零以隐藏透明像素" }
+      ],
+      "answer": ["C"]
     }
   ]
 }

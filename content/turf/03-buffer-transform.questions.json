@@ -1,7 +1,7 @@
 {
   "skill": "turf",
   "module": "03",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "turf-03-001",
@@ -208,6 +208,568 @@
       "tolerance": 0,
       "unit": "平方度",
       "placeholder": "只填坐标平面面积数值"
+    },
+    {
+      "id": "turf-03-014",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "关于 buffer 的 steps 选项，下列哪项理解正确？",
+      "explanation": "steps 描述每段圆弧的分段精细程度，并不表示整个圆周只生成固定数量的顶点。增大它会改善平滑度，同时也会增加顶点与计算成本。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "整个圆周的顶点总数必然等于 steps" },
+        { "key": "B", "text": "控制每段圆弧的分段精细程度", "hint": "它不等于整个圆周的固定顶点总数" },
+        { "key": "C", "text": "决定 radius 使用米还是千米" },
+        { "key": "D", "text": "决定是否原地修改输入对象" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-03-015",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "要把道路两侧 350 米写成 buffer 的千米半径参数，radius 应填多少？",
+      "explanation": "1 千米等于 1000 米，因此 radius = 350 ÷ 1000 = 0.35。调用时可写 buffer(road, 0.35, { units: \"kilometers\" })，缓冲半径与 350 米相同。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "numeric",
+      "answer": 0.35,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填千米半径数值"
+    },
+    {
+      "id": "turf-03-016",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "对 Polygon 使用正半径 buffer，通常会让面的范围向外扩张。",
+      "explanation": "正确。正半径会依据距离条件在原面边界外侧建立缓冲区，使空间范围向外扩张；负半径才用于向内收缩，并可能得到空结果。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-03-017",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "要把 buffer(road, 100, options) 的距离单位明确设为米，应填写哪个选项？",
+      "explanation": "应设置 units: \"meters\"，完整写法是 buffer(road, 100, { units: \"meters\" })。这样 100 才表示 100 米，而不是使用默认的千米单位。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "short",
+      "accepted": ["units", "units: \"meters\"", "units:\"meters\"", "{ units: \"meters\" }", "options.units"],
+      "placeholder": "写出选项名或完整设置"
+    },
+    {
+      "id": "turf-03-018",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "使用 circle(shop, 3, options) 生成门店配送圈时，下列说法正确的有哪些？",
+      "explanation": "circle 以圆心和半径直接构造 Polygon，properties 可写入业务属性，units 可指定半径单位。它适合点状中心的服务圈，但离散顶点不应被要求与同半径 buffer(point) 逐点相同。",
+      "refs": [{ "title": "Turf circle API", "url": "https://turfjs.org/docs/api/circle" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "圆心可由门店 Point Feature 提供", "hint": "circle 的第一个参数就是圆心" },
+        { "key": "B", "text": "输出是可用于空间判断的 Polygon", "hint": "离散圆仍然是面几何" },
+        { "key": "C", "text": "properties 可附加配送圈等级等业务属性", "hint": "属性与几何半径可以分别配置" },
+        { "key": "D", "text": "输出是不含任何顶点的数学曲线" },
+        { "key": "E", "text": "必须改用 buffer 才能指定半径单位" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-03-019",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "讲义门店 A 的圆心坐标位于北京的中心城区，请在地图上点击这座城市。",
+      "explanation": "讲义门店示例使用 GeoJSON 坐标 [116.407, 39.904]，即经度 116.407°、纬度 39.904°，位于北京市中心。circle 可围绕该点生成 3 千米配送圈，本题采用城市级定位容差。",
+      "refs": [
+        { "title": "Turf circle API", "url": "https://turfjs.org/docs/api/circle" },
+        { "title": "RFC 7946：GeoJSON 坐标顺序", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.904,
+        "lng": 116.407
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "turf-03-020",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "为什么不能把面的负缓冲简单理解为正缓冲的逆操作？",
+      "explanation": "负缓冲是在原边界内侧重新计算几何，不是把已有正缓冲结果沿原路缩回。收缩过程中边界和拓扑可能改变，因此不能依赖正负半径互相还原来恢复原面。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "负缓冲只修改属性，不参与几何计算" },
+        { "key": "B", "text": "它在原边界内侧重算几何，并非正缓冲结果的简单反向缩放", "hint": "重算边界与撤销一次外扩不是同一回事" },
+        { "key": "C", "text": "正缓冲一定返回空结果，所以无法还原" },
+        { "key": "D", "text": "负缓冲只负责旋转坐标，不负责收缩" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-03-021",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "连续变换但仍要保留输入对象时，应把哪个选项显式设为 false？",
+      "explanation": "应设置 mutate: false。三个变换函数默认就不修改输入，调用者应把每一步的返回值传给下一步；显式写出可让保留原对象的意图更清楚。",
+      "refs": [{ "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" }],
+      "type": "short",
+      "accepted": ["mutate", "mutate: false", "mutate:false", "{ mutate: false }", "options.mutate = false"],
+      "placeholder": "写出选项名或完整设置"
+    },
+    {
+      "id": "turf-03-022",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "transformRotate 省略 pivot 时，会固定围绕经纬度坐标原点 [0, 0] 旋转。",
+      "explanation": "错误。省略 pivot 时默认围绕输入数据的质心旋转，[0, 0] 并不是默认枢轴。若业务要求围绕固定门店转动，应显式传入该门店点。",
+      "refs": [{ "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-03-023",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "某几何的线性边长为 80 米，希望 transformScale 后按题设尺度关系变为 200 米，factor 应设为多少？",
+      "explanation": "缩放倍数等于目标尺度除以原尺度，即 factor = 200 ÷ 80 = 2.5。本题只计算缩放参数，不据此断言经纬度几何的椭球面积会严格按倍数平方变化。",
+      "refs": [{ "title": "Turf transformScale API", "url": "https://turfjs.org/docs/api/transformScale" }],
+      "type": "numeric",
+      "answer": 2.5,
+      "tolerance": 0,
+      "unit": "倍",
+      "placeholder": "只填缩放倍数"
+    },
+    {
+      "id": "turf-03-024",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "只关心某门店点的固定半径服务圈时，哪个 API 的调用意图最直接？",
+      "explanation": "circle 专门接收圆心和半径并生成离散圆 Polygon，业务意图最直接。buffer(point) 也能表达点的服务范围，但它是面向多种几何的通用缓冲接口。",
+      "refs": [{ "title": "Turf circle API", "url": "https://turfjs.org/docs/api/circle" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "circle", "hint": "圆心加半径即可描述该服务圈" },
+        { "key": "B", "text": "bboxPolygon" },
+        { "key": "C", "text": "transformTranslate" },
+        { "key": "D", "text": "centerOfBBox" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-03-025",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于 transformRotate 与 transformScale 的锚点和倍数，下列说法正确的有哪些？",
+      "explanation": "旋转省略 pivot 时默认围绕数据质心，缩放的 origin 决定锚点。factor 为 2 表示各方向尺度约放大到 2 倍，0.5 则表示缩小；锚点还会影响结果的位置。",
+      "refs": [
+        { "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" },
+        { "title": "Turf transformScale API", "url": "https://turfjs.org/docs/api/transformScale" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "旋转省略 pivot 时默认围绕数据质心", "hint": "固定门店枢轴需要显式传入" },
+        { "key": "B", "text": "origin 可控制缩放锚点", "hint": "相同倍数配不同锚点会得到不同位置" },
+        { "key": "C", "text": "factor 为 2 表示各方向尺度约放大到 2 倍", "hint": "这里描述线性尺度，不承诺严格的椭球面积倍数" },
+        { "key": "D", "text": "factor 为 0.5 表示放大到 2 倍" },
+        { "key": "E", "text": "pivot 用来设置平移距离和方位角" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-03-026",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "讲义旋转枢轴 [116.41, 39.91] 靠近北京王府井，请在地图上点击王府井大街。",
+      "explanation": "该 GeoJSON 枢轴按先经度后纬度书写，位于北京市中心王府井一带；王府井大街约为北纬 39.914°、东经 116.410°。把门店设为 pivot，可让配送面绕固定门店旋转。",
+      "refs": [
+        { "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" },
+        { "title": "RFC 7946：GeoJSON 坐标顺序", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.914,
+        "lng": 116.41
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-03-027",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "transformScale 要以 \"centroid\" 为缩放锚点，应设置哪个选项？",
+      "explanation": "应设置 origin: \"centroid\"。origin 控制缩放锚点，factor 只给出缩放倍数；即使倍数相同，选择不同锚点也可能改变缩放后的几何位置。",
+      "refs": [{ "title": "Turf transformScale API", "url": "https://turfjs.org/docs/api/transformScale" }],
+      "type": "short",
+      "accepted": ["origin", "origin: \"centroid\"", "origin:\"centroid\"", "{ origin: \"centroid\" }"],
+      "placeholder": "写出选项名或完整设置"
+    },
+    {
+      "id": "turf-03-028",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "在北向上的普通经纬度视图中，transformRotate 的正角表现为逆时针旋转。",
+      "explanation": "正确。transformRotate 按右手定则处理角度，在北向上的普通经纬度视图里，正角例如 30° 表现为逆时针；旋转围绕的几何中心仍由 pivot 决定。",
+      "refs": [{ "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-03-029",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "同一几何先做 transformScale(..., 1.2)，再对返回值做 transformScale(..., 0.5)，按题设线性尺度关系，总缩放倍数是多少？",
+      "explanation": "连续缩放的总倍数等于各次倍数相乘，即 1.2 × 0.5 = 0.6，而不是把两个倍数相加。第二步必须使用第一步的返回值，才能形成连续变换。",
+      "refs": [{ "title": "Turf transformScale API", "url": "https://turfjs.org/docs/api/transformScale" }],
+      "type": "numeric",
+      "answer": 0.6,
+      "tolerance": 0,
+      "unit": "倍",
+      "placeholder": "只填总缩放倍数"
+    },
+    {
+      "id": "turf-03-030",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "对经纬度几何执行 transformScale(area, 2) 后，为什么不能承诺椭球面积严格变为原来的 4 倍？",
+      "explanation": "factor² 只是理想平面线性缩放的面积关系。Turf 的输入是经纬度，内部采用球面或恒向线计算，各方向尺度约放大并不意味着椭球面积严格按 2² = 4 倍增长。",
+      "refs": [{ "title": "Turf transformScale API", "url": "https://turfjs.org/docs/api/transformScale" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "因为经纬度与球面计算不能保证严格的平面仿射面积关系", "hint": "factor² 不能无条件套到椭球面积" },
+        { "key": "B", "text": "因为 factor 为 2 时实际倍数会自动变成 1" },
+        { "key": "C", "text": "因为 transformScale 只修改 Feature 属性" },
+        { "key": "D", "text": "因为所有缩放结果都必然是空几何" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-03-031",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "关于 transformTranslate 的平移行为，下列说法正确的有哪些？",
+      "explanation": "transformTranslate 按距离和导航方位移动几何的所有顶点，45° 表示东北方向；zTranslation 可修改第三坐标。距离单位应由 units 明确指定，它不是只移动中心点而留下其他顶点。",
+      "refs": [{ "title": "Turf transformTranslate API", "url": "https://turfjs.org/docs/api/transformTranslate" }],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "平移会作用于几何的所有顶点", "hint": "不是仅修改中心点或第一个顶点" },
+        { "key": "B", "text": "方位角 45° 表示东北方向", "hint": "导航方位中 90° 向东，45° 位于北与东之间" },
+        { "key": "C", "text": "zTranslation 可用于修改第三坐标", "hint": "第三坐标与经纬度平面位移是不同维度" },
+        { "key": "D", "text": "平移只移动第一个顶点，其余顶点保持不动" },
+        { "key": "E", "text": "units 不起作用，距离始终按经度度数解释" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "turf-03-032",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "transformTranslate 会为了让折线更平滑，自动在原有折线段之间插入更多采样点。",
+      "explanation": "错误。平移会移动已有顶点，但不会自动替折线段之间增加采样点。若业务需要更密的折线，应另行处理采样，不能把平移当成曲线细分工具。",
+      "refs": [{ "title": "Turf transformTranslate API", "url": "https://turfjs.org/docs/api/transformTranslate" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-03-033",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "要把配送面向东北平移 800 米，除距离、方位和 options 外，应调用哪个 Turf 函数？",
+      "explanation": "应调用 transformTranslate，例如 transformTranslate(area, 800, 45, { units: \"meters\" })。45° 表示东北方向，units 明确把 800 解释为米。",
+      "refs": [{ "title": "Turf transformTranslate API", "url": "https://turfjs.org/docs/api/transformTranslate" }],
+      "type": "short",
+      "accepted": ["transformTranslate", "transform-translate", "@turf/transform-translate"],
+      "placeholder": "写出函数名或包名"
+    },
+    {
+      "id": "turf-03-034",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "讲义道路样例的终点靠近北京朝阳公园，请在地图上点击这座公园。",
+      "explanation": "道路最后的 GeoJSON 坐标 [116.48, 39.94] 位于北京朝阳公园附近，公园中心约为北纬 39.945°、东经 116.478°。对这条 LineString 做 buffer 会得到道路周边的面范围，而非改变显示线宽。",
+      "refs": [
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" },
+        { "title": "RFC 7946：GeoJSON 坐标顺序", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.945,
+        "lng": 116.478
+      },
+      "toleranceKm": 400
+    },
+    {
+      "id": "turf-03-035",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "在空间索引中先用 bbox 排除一批不可能相交的候选几何，主要利用了什么特性？",
+      "explanation": "bbox 用最小最大经纬度快速概括几何外包范围，比较四个数就能低成本粗筛。包围盒不相交时可排除候选，但包围盒相交并不能证明原始几何一定相交，仍需精细判断。",
+      "refs": [{ "title": "Turf bbox API", "url": "https://turfjs.org/docs/api/bbox" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "用四个数概括外包范围，适合低成本粗筛", "hint": "粗筛之后仍可对保留候选做精确拓扑判断" },
+        { "key": "B", "text": "完整保存原几何每一段曲线，可直接代替精确边界" },
+        { "key": "C", "text": "自动给所有几何增加相同的缓冲半径" },
+        { "key": "D", "text": "负责给折线插入采样点并计算显示线宽" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-03-036",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "要让地图初始视野覆盖一份 GeoJSON 的整体范围，最先适合计算哪项结果？",
+      "explanation": "先计算 bbox 可得到数据的最小最大经纬度，再据此设置地图视野。这个结果用于概括整体外包范围，不代表原始几何的精确边界，也不是缓冲或旋转变换。",
+      "refs": [{ "title": "Turf bbox API", "url": "https://turfjs.org/docs/api/bbox" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "bbox", "hint": "最小角与最大角可帮助确定地图显示范围" },
+        { "key": "B", "text": "负半径 buffer" },
+        { "key": "C", "text": "transformRotate 的角度" },
+        { "key": "D", "text": "transformTranslate 的 zTranslation" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-03-037",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "面的负缓冲可能改变孔洞，不能假设孔洞拓扑始终不变。",
+      "explanation": "正确。负缓冲会在原边界内侧重算几何，孔洞可能随收缩发生变化。下游不仅要判空，还应检查收缩后的孔洞和整体拓扑是否满足业务要求。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-03-038",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "处理跨反经线、极区或全球范围的数据时，关于 bbox 系列工具，下列判断正确的有哪些？",
+      "explanation": "简单最小最大经纬度在跨反经线、极区或全球数据中可能产生过宽范围；bbox 适合概括与粗筛，不应直接承担精细距离判断。bboxPolygon 只把该范围变成矩形，不会恢复真实边界或生成最小旋转外接矩形。",
+      "refs": [
+        { "title": "Turf bbox API", "url": "https://turfjs.org/docs/api/bbox" },
+        { "title": "Turf bboxPolygon API", "url": "https://turfjs.org/docs/api/bboxPolygon" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "跨反经线时，简单最小最大经度可能形成过宽范围", "hint": "经度跨度不能只看普通的数值最小最大值" },
+        { "key": "B", "text": "bboxPolygon 总会生成最小旋转外接矩形" },
+        { "key": "C", "text": "bbox 粗筛不能代替精细距离或真实边界判断", "hint": "外包范围只是候选筛选工具" },
+        { "key": "D", "text": "极区与全球数据也需要警惕简单包围范围过宽", "hint": "特殊范围不能盲目套用普通最小最大经纬度" },
+        { "key": "E", "text": "bboxPolygon 会自动恢复原几何的弯曲边界" }
+      ],
+      "answer": ["A", "C", "D"]
+    },
+    {
+      "id": "turf-03-039",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "已有 bbox 四元数组，要把它转换为矩形 Polygon Feature，应调用哪个函数？",
+      "explanation": "应调用 bboxPolygon(box)。它把 [minX, minY, maxX, maxY] 表示的范围转换成四角矩形 Polygon Feature，不会生成原几何的缓冲范围或精细边界。",
+      "refs": [{ "title": "Turf bboxPolygon API", "url": "https://turfjs.org/docs/api/bboxPolygon" }],
+      "type": "short",
+      "accepted": ["bboxPolygon", "bbox-polygon", "@turf/bbox-polygon"],
+      "placeholder": "写出函数名或包名"
+    },
+    {
+      "id": "turf-03-040",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "在 buffer → transformRotate → transformScale → transformTranslate 链中，若缩放步骤误用初始 area 而不是上一步 rotated，会产生什么结果？",
+      "explanation": "缩放会从初始 area 另起一条分支，前面 rotated 中的旋转结果不会进入这次缩放及后续链条。正确做法是让每一步接收上一步返回值，否则得到的不是预期的连续变换。",
+      "refs": [
+        { "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" },
+        { "title": "Turf transformScale API", "url": "https://turfjs.org/docs/api/transformScale" }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Turf 会自动补齐 rotated，因此结果不变" },
+        { "key": "B", "text": "从初始 area 形成分叉结果，旋转结果未进入后续缩放", "hint": "连续链条依赖上一步返回值，而不是依赖变量调用顺序" },
+        { "key": "C", "text": "只要最后调用 bbox，分叉就会被自动修复" },
+        { "key": "D", "text": "所有步骤都会自动合并为一个同半径 circle" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "turf-03-041",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "讲义初始配送区的北侧范围接近北京故宫，请在地图上点击故宫。",
+      "explanation": "讲义初始四边形的经度约为 116.40° 至 116.42°、纬度约为 39.90° 至 39.92°，位于北京市中心并接近故宫东侧。故宫中心约为北纬 39.9163°、东经 116.3972°，本题采用城市级定位容差。",
+      "refs": [
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" },
+        { "title": "RFC 7946：GeoJSON 坐标顺序", "url": "https://datatracker.ietf.org/doc/html/rfc7946" }
+      ],
+      "type": "map",
+      "target": {
+        "lat": 39.9163,
+        "lng": 116.3972
+      },
+      "toleranceKm": 300
+    },
+    {
+      "id": "turf-03-042",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "按题设的东西向距离求代数和：先向东平移 2 千米，再对结果向西平移 0.5 千米，相对最初位置向东净平移多少千米？",
+      "explanation": "导航方位中 90° 向东、270° 向西。以东为正方向，净位移为 2 - 0.5 = 1.5 千米；第二步作用于第一步返回值，因此两次位移可以在本题设定下求代数和。",
+      "refs": [{ "title": "Turf transformTranslate API", "url": "https://turfjs.org/docs/api/transformTranslate" }],
+      "type": "numeric",
+      "answer": 1.5,
+      "tolerance": 0,
+      "unit": "千米",
+      "placeholder": "只填向东净位移数值"
+    },
+    {
+      "id": "turf-03-043",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "circle 的 properties 选项可以把配送圈等级等业务属性写入输出 Feature。",
+      "explanation": "正确。properties 用于给输出 Polygon Feature 附加业务属性，例如配送圈等级；它与 radius、steps 的几何作用不同，不会把离散圆变成无限光滑曲线。",
+      "refs": [{ "title": "Turf circle API", "url": "https://turfjs.org/docs/api/circle" }],
+      "type": "truefalse",
+      "answer": true
+    },
+    {
+      "id": "turf-03-044",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "一条多步变换链还要保留历史快照，并可能共享给 React 状态，下列做法正确的有哪些？",
+      "explanation": "默认 mutate: false 并用上一步返回值串联，可保留原对象与历史快照。只有对象所有权明确、不再共享且无需原值时，才适合用 mutate: true 减少复制；共享状态不应被原地修改。",
+      "refs": [
+        { "title": "Turf transformRotate API", "url": "https://turfjs.org/docs/api/transformRotate" },
+        { "title": "Turf transformScale API", "url": "https://turfjs.org/docs/api/transformScale" },
+        { "title": "Turf transformTranslate API", "url": "https://turfjs.org/docs/api/transformTranslate" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "每一步使用上一步返回值继续变换", "hint": "这样才能形成连续链而不是多条分叉" },
+        { "key": "B", "text": "共享对象保持 mutate: false，以隔离历史快照", "hint": "新返回值可避免其他引用被同步改掉" },
+        { "key": "C", "text": "共享给 React 状态时必须开启 mutate: true" },
+        { "key": "D", "text": "对象明确独占且不再需要原值时，可用 mutate: true 减少复制", "hint": "开启原地修改的前提是清楚数据所有权" },
+        { "key": "E", "text": "忽略所有返回值并始终传入初始对象，也能得到同一条连续链" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-03-045",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "要直接获得几何包围盒中心的 Point Feature，应调用哪个 Turf 函数？",
+      "explanation": "应调用 centerOfBBox(geojson)。它返回包围盒中心的 Point Feature；bbox 返回四元数组，bboxPolygon 返回矩形面，三者的输出语义不能混淆。",
+      "refs": [{ "title": "Turf centerOfBBox API", "url": "https://turfjs.org/docs/api/centerOfBBox" }],
+      "type": "short",
+      "accepted": ["centerOfBBox", "center-of-bbox", "@turf/center-of-bbox"],
+      "placeholder": "写出函数名或包名"
+    },
+    {
+      "id": "turf-03-046",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "关于 bboxPolygon 的输出形状，下列哪项正确？",
+      "explanation": "bboxPolygon 使用 bbox 的最小最大经纬度生成四个角的轴对齐矩形 Polygon。它不是原几何的精细边界、正半径缓冲区，也不是相对坐标轴可任意旋转的最小外接矩形。",
+      "refs": [{ "title": "Turf bboxPolygon API", "url": "https://turfjs.org/docs/api/bboxPolygon" }],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "由 bbox 四角构成的轴对齐矩形 Polygon", "hint": "输出只是外包范围的矩形化表达" },
+        { "key": "B", "text": "一定是最小旋转外接矩形" },
+        { "key": "C", "text": "完整复原原几何的每一段弯曲边界" },
+        { "key": "D", "text": "必然等于原几何的正半径 buffer" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "turf-03-047",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "对 MultiPolygon 做负缓冲时，只要一个部分仍有面积，其他所有部分就必然也保持非空。",
+      "explanation": "错误。MultiPolygon 各部分的形状与狭窄程度不同，负缓冲后可能出现不同结果，某些部分会先消失。不能以某一个部分非空推断其他部分全部非空，应检查整体结果与拓扑。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "turf-03-048",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 3,
+      "stem": "关于 Turf 缓冲几何与 CesiumJS 显示的协作，下列说法正确的有哪些？",
+      "explanation": "Turf buffer 生成可继续做空间分析的 GeoJSON 面，可交给 Cesium GeoJsonDataSource 加载渲染。Cesium 的走廊宽度、线宽或模型缩放主要服务于显示，不能自动替代或回写 Turf 的分析几何。",
+      "refs": [
+        { "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" },
+        { "title": "Cesium GeoJsonDataSource", "url": "https://cesium.com/learn/cesiumjs/ref-doc/GeoJsonDataSource.html" }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "Turf buffer 生成的面可继续做面积、交并差与点面判断", "hint": "它是分析几何，不只是屏幕样式" },
+        { "key": "B", "text": "Cesium GeoJsonDataSource 可加载 Turf 生成的 GeoJSON", "hint": "常见流程是先计算，再加载渲染" },
+        { "key": "C", "text": "Cesium 走廊宽度与 Turf buffer 的几何语义始终完全相同" },
+        { "key": "D", "text": "可先用 Turf 计算缓冲面，再交给 Cesium 渲染", "hint": "空间分析与三维显示可以分工协作" },
+        { "key": "E", "text": "在 Cesium 中缩放模型会自动更新 Turf 输入几何" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "turf-03-049",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 2,
+      "stem": "讲义中的 buffer(land, -0.05, { units: \"kilometers\" }) 若改用米作为单位，radius 应填多少米？",
+      "explanation": "单位换算时保留负号，因为负半径表示向内收缩。-0.05 × 1000 = -50，所以应写 buffer(land, -50, { units: \"meters\" })，不能写成正的 50 米。",
+      "refs": [{ "title": "Turf buffer API", "url": "https://turfjs.org/docs/api/buffer" }],
+      "type": "numeric",
+      "answer": -50,
+      "tolerance": 0,
+      "unit": "米",
+      "placeholder": "填写带符号的米制半径"
+    },
+    {
+      "id": "turf-03-050",
+      "skill": "turf",
+      "module": "03",
+      "difficulty": 1,
+      "stem": "centerOfBBox(moved) 返回包围盒中心的 Point Feature，而不是四元 bbox 数组。",
+      "explanation": "正确。centerOfBBox 的输出是包围盒中心 Point Feature；四元数组 [minX, minY, maxX, maxY] 是 bbox 的返回形式，bboxPolygon 则返回矩形 Polygon Feature。",
+      "refs": [{ "title": "Turf centerOfBBox API", "url": "https://turfjs.org/docs/api/centerOfBBox" }],
+      "type": "truefalse",
+      "answer": true
     }
   ]
 }

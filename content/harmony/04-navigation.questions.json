@@ -1,7 +1,7 @@
 {
   "skill": "harmony",
   "module": "04",
-  "version": 1,
+  "version": 2,
   "questions": [
     {
       "id": "harmony-04-001",
@@ -320,6 +320,781 @@
       "type": "short",
       "accepted": ["clear", "clear()"],
       "placeholder": "例如：clear"
+    },
+    {
+      "id": "harmony-04-015",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "在 Navigation 的路径栈中，用户当前看到的目标页通常对应哪个位置？",
+      "explanation": "栈顶就是当前可见页面；新目标入栈后成为栈顶，pop 移除栈顶后才露出上一页，并不是同时渲染整份页面数组。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "栈底的第一个页面" },
+        { "key": "B", "text": "栈顶页面", "hint": "当前可见页位于路径栈顶部" },
+        { "key": "C", "text": "栈中所有页面同时并列显示" },
+        { "key": "D", "text": "尚未入栈的缓存页" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-016",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "路径栈最初只有首页，连续调用 pushPathByName 进入答题页和解析页后，栈中共有多少个页面？",
+      "explanation": "每次 pushPathByName 都保留当前页并新增一个目标页，因此页面数为初始的 1 加上两次入栈，即 1+2=3 个页面。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "个页面",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-04-017",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "根页面声明 private pathStack: NavPathStack = new NavPathStack()，再编写 Navigation(this.pathStack)，主要作用是什么？",
+      "explanation": "根页面持有路径栈，并把它绑定到 Navigation，后续目标页才能通过当前导航上下文操作同一条栈；这不是为每个按钮创建独立栈。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "让每个按钮各自持有一条独立路径栈" },
+        { "key": "B", "text": "把根 Navigation 绑定到根页面持有的共享路径栈", "hint": "导航容器与路径状态由此关联" },
+        { "key": "C", "text": "把路由参数自动转换成组件实例" },
+        { "key": "D", "text": "自动清空 Navigation 的标题栏" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-018",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于使用系统路由表组织 Navigation 页面，哪些说法符合本章建议？",
+      "explanation": "系统路由表集中维护页面名称与构建函数，组件只使用稳定页面名和业务参数。调整页面目录时不必逐个按钮修改字符串路径，也能避免跳转关系散落。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "集中配置页面名称与目标构建函数", "hint": "名称到页面的映射集中维护" },
+        { "key": "B", "text": "组件中保留稳定的页面名和业务参数", "hint": "按钮不必知道页面文件目录" },
+        { "key": "C", "text": "每次调整页面目录都必须逐个按钮修改字符串路径" },
+        { "key": "D", "text": "减少页面关系散落在大量跳转调用中的情况", "hint": "集中配置有利于维护页面关系" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-04-019",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "本章答题目标页中的 NavDestination.title('答题') 主要用于设置什么？",
+      "explanation": "title('答题') 设置目标页的标题展示，不会改变路径栈中的页面名称、QuizParam 的字段或 Navigation 的显示模式。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "NavDestination 的标题", "hint": "该属性负责目标页标题展示" },
+        { "key": "B", "text": "路径栈在路由表中的名称" },
+        { "key": "C", "text": "QuizParam 的 levelId 字段" },
+        { "key": "D", "text": "Navigation 的分栏模式" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-04-020",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "某目标组件的数据只需在创建时加载一次，而不是每次重新显示都加载，应使用哪个生命周期回调？（写回调名）",
+      "explanation": "aboutToAppear 在组件创建后、build 前执行，适合只需创建时加载一次的数据；每次重新可见都要刷新的工作才应放到 onShown。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "short",
+      "accepted": ["aboutToAppear", "aboutToAppear()", "aboutToAppear(): void"],
+      "placeholder": "例如：aboutToAppear"
+    },
+    {
+      "id": "harmony-04-021",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "要观察 NavDestination 因新页入栈而隐藏的时机，应使用哪个回调？",
+      "explanation": "NavDestination.onHidden 用于观察目标页隐藏。隐藏只表示页面不再可见，并不等价于目标组件已经执行 aboutToDisappear 或被销毁。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "onReady" },
+        { "key": "B", "text": "onHidden", "hint": "它对应目标页隐藏这一可见性事件" },
+        { "key": "C", "text": "onDidBuild" },
+        { "key": "D", "text": "aboutToAppear" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-022",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "路径栈从栈底到栈顶依次有首页、列表页、答题页、结算页。对结算页执行 replacePathByName 进入下一关后，再执行一次 pop，最终还剩多少个页面？",
+      "explanation": "replacePathByName 只替换当前栈顶，页面数仍为 4；随后 pop 移除新的栈顶，页面数变为 4-1=3，保留下面的首页、列表页和答题页。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "numeric",
+      "answer": 3,
+      "tolerance": 0,
+      "unit": "个页面",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-04-023",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "对照本章 React 类比，React Router 中提供路由作用域的 Router / Routes 更接近 ArkUI 的哪个组件？",
+      "explanation": "Navigation 提供导航作用域，因此对应 Router / Routes 的职责；NavDestination 对应一个 Route 页面，NavPathStack 则保存目标页路径。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "Navigation", "hint": "它为目标页提供统一的导航作用域" },
+        { "key": "B", "text": "NavDestination" },
+        { "key": "C", "text": "NavPathStack" },
+        { "key": "D", "text": "Column" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-04-024",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于本章列出的组件生命周期顺序与目标页回调语义，哪些说法正确？",
+      "explanation": "目标组件创建顺序为 aboutToAppear、build、onDidBuild。onReady 表示目标页已准备好而非每次重新显示，aboutToDisappear 表示组件销毁而非页面每次隐藏。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "aboutToAppear 在目标组件 build 前执行", "hint": "创建阶段先进入该回调，再构建界面" },
+        { "key": "B", "text": "目标组件 build 完成后执行 onDidBuild", "hint": "这是本章列出的创建顺序末段" },
+        { "key": "C", "text": "onReady 等价于目标页每次重新显示" },
+        { "key": "D", "text": "aboutToDisappear 表示目标页每次隐藏" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "harmony-04-025",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "连续从第 3 关进入第 4 关后，答题页仍显示第 3 关。代码一直读取全局保存的旧 levelId，优先应怎样修复？",
+      "explanation": "应读取并校验本次导航传入的参数，同时确认构建函数确实把它传入 QuizPage。全局旧值可能停留在上一次跳转，不能代表当前导航上下文。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "继续读取全局旧值，并增加一段固定延时" },
+        { "key": "B", "text": "改用本次跳转参数，校验类型并确保参数进入组件", "hint": "当前数据应随当前导航上下文传递" },
+        { "key": "C", "text": "为每个答题页新建一条空 NavPathStack" },
+        { "key": "D", "text": "把整份题库和组件实例一起塞进路由参数" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-026",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "需要共享视觉元素或特殊方向的 NavDestination 转场时，本章使用哪个 API 自定义转场？（写 API 名）",
+      "explanation": "customNavContentTransition 用于自定义 NavDestination 的内容转场。它只改变进入、退出和取消时的过渡表现，真正的页面状态仍由 NavPathStack 管理。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "short",
+      "accepted": [
+        "customNavContentTransition",
+        "customNavContentTransition()",
+        ".customNavContentTransition",
+        ".customNavContentTransition()"
+      ],
+      "placeholder": "例如：customNavContentTransition"
+    },
+    {
+      "id": "harmony-04-027",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "维护一个仍大量使用 router.pushUrl 的旧项目时，哪种策略符合本章建议？",
+      "explanation": "旧代码可以继续保留 router 以便维护，但新增主流程应统一采用 Navigation，不再让每个按钮扩散 router 调用，也不要求为迁移立即重写全部旧页面。",
+      "refs": [
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        },
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "立即在每个旧页面里再嵌套一套 Navigation" },
+        { "key": "B", "text": "旧代码可保留 router，新增主流程改用 Navigation 并停止扩散", "hint": "兼顾旧流程维护与新流程统一" },
+        { "key": "C", "text": "新增按钮继续各自编写 router.pushUrl" },
+        { "key": "D", "text": "把所有普通返回都替换为清空路径栈" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-028",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "若把从栈底到栈顶的页面依次看作从 0 开始编号的数组，当前共有首页、答题页、解析页三项，栈顶解析页的索引是多少？",
+      "explanation": "三项从 0 开始依次为索引 0、1、2，栈顶是最后一项，因此索引为总项数 3 减 1，即 2。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "numeric",
+      "answer": 2,
+      "tolerance": 0,
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-04-029",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "页面只声明了 NavDestination，外层却没有对应的 Navigation，导致目标页无法按预期入栈。根本修复是什么？",
+      "explanation": "NavDestination 只是目标页容器，必须处于对应的导航作用域中。应在根页面提供 Navigation 并绑定共享 NavPathStack，而不是在目标页制造另一条空栈。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "在目标页反复 new NavPathStack，直到 pop 生效" },
+        { "key": "B", "text": "提供对应的 Navigation 根容器并绑定共享路径栈", "hint": "目标页需要属于一个导航作用域" },
+        { "key": "C", "text": "在 NavDestination 内再嵌套一个 NavDestination" },
+        { "key": "D", "text": "只把目标页标题改得更明确" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-030",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "为共享视觉元素设计自定义 NavDestination 转场时，为避免交互取消后画面停在中间状态，哪些设计必须明确？",
+      "explanation": "完整转场必须回答进入怎样开始、退出怎样结束、交互被取消时怎样恢复。清栈和按钮随意改坐标都不是取消恢复机制，也不能代替 NavPathStack 的页面状态。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "进入转场怎样开始", "hint": "进入初始状态与过程需要明确" },
+        { "key": "B", "text": "退出转场怎样结束", "hint": "退出结束状态不能缺省" },
+        { "key": "C", "text": "交互被取消时怎样恢复", "hint": "取消路径必须能回到一致状态" },
+        { "key": "D", "text": "取消后强制 clear 整条路径栈" },
+        { "key": "E", "text": "只定义进入动画，退出和取消交给按钮随意修改坐标" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-04-031",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "用户点击返回时仍有未保存作答，哪种处理最符合本章建议？",
+      "explanation": "pop 会移除栈顶并离开当前页，因此返回前应先提示用户或先保存作答，避免未保存数据被直接丢弃；clear 则会清空整条栈，不是普通返回。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "不做提示，直接 clear 整条路径栈" },
+        { "key": "B", "text": "先提示或保存作答，再按业务流程执行 pop", "hint": "返回前先处理未保存状态" },
+        { "key": "C", "text": "新建一条 NavPathStack 以保留旧作答" },
+        { "key": "D", "text": "用 replacePathByName 静默丢弃当前作答" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-032",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "组件不再需要时，要释放它持有的定时器、订阅和监听器，应在哪个组件生命周期回调中清理？（写回调名）",
+      "explanation": "aboutToDisappear 用于组件销毁前清理资源。页面隐藏不必然触发组件销毁，所以不能用 onHidden 代替所有清理，也不应在该回调中修改状态。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "short",
+      "accepted": ["aboutToDisappear", "aboutToDisappear()", "aboutToDisappear(): void"],
+      "placeholder": "例如：aboutToDisappear"
+    },
+    {
+      "id": "harmony-04-033",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "目标页改用 getParamByName 获取路由参数时，哪种做法正确？",
+      "explanation": "getParamByName 应按目标页名读取，并对结果校验类型后再使用。它不是不受页面名约束的全局变量，也不能把未经校验的数据当成组件实例。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "按目标页名读取，并在使用前校验参数类型", "hint": "名称定位与类型校验都不可少" },
+        { "key": "B", "text": "使用任意页面名读取同一个全局旧值" },
+        { "key": "C", "text": "跳过校验，直接把结果当成组件实例" },
+        { "key": "D", "text": "从定时器 ID 中反序列化路由参数" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-04-034",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "本章 ListeningCard 使用 setInterval(..., 5000)。若只按时间间隔计算，连续运行 30 秒会经历多少个完整的 5000 毫秒间隔？",
+      "explanation": "5000 毫秒等于 5 秒，30 秒包含 30÷5=6 个完整间隔。这里计算题设给出的理想时间间隔数，不额外假设回调提前或延后调度。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "MDN setInterval",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/setInterval"
+        }
+      ],
+      "type": "numeric",
+      "answer": 6,
+      "tolerance": 0,
+      "unit": "个",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-04-035",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "对照本章 React 类比，React Router 的 location state 最接近 Navigation 跳转中的哪项数据？",
+      "explanation": "location state 类比随本次跳转传入的 param，用来携带当前目标所需的稳定数据；它不是目标页标题、隐藏回调或路径栈页面总数。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "随本次跳转传入的 param", "hint": "两者都承载当前导航对应的数据" },
+        { "key": "B", "text": "NavDestination 的 title" },
+        { "key": "C", "text": "NavDestination 的 onHidden 回调" },
+        { "key": "D", "text": "NavPathStack 的页面总数" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-04-036",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "对照 ListeningCard 的 aboutToDisappear 清理代码，哪些操作符合示例？",
+      "explanation": "示例先判断 timer 是否有效，再 clearInterval，并把 timer 重置为 -1 作为无效标记。页面隐藏不等于销毁，销毁回调也不适合修改状态或依赖耗时异步保存。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "MDN clearInterval",
+          "url": "https://developer.mozilla.org/docs/Web/API/Window/clearInterval"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "仅当 timer >= 0 时调用 clearInterval(this.timer)", "hint": "先确认句柄有效再执行清理" },
+        { "key": "B", "text": "清理完成后把 this.timer 设回 -1", "hint": "示例用 -1 表示无效定时器句柄" },
+        { "key": "C", "text": "认为页面 onHidden 后必然销毁，因此省略配对清理" },
+        { "key": "D", "text": "在 aboutToDisappear 中修改大量状态并等待耗时保存" }
+      ],
+      "answer": ["A", "B"]
+    },
+    {
+      "id": "harmony-04-037",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "默认转场已经能清楚表达进入和返回，且没有共享视觉元素或特殊方向需求时，应如何选择？",
+      "explanation": "默认转场已经满足页面关系表达时应优先保留。自定义转场用于共享视觉元素或特殊方向等额外需求，不应通过长时间动画或逐按钮改坐标增加维护成本。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "优先保留默认转场，不为自定义而自定义", "hint": "现有表现已经满足需求时无需增加复杂度" },
+        { "key": "B", "text": "在每个按钮里修改组件坐标模拟转场" },
+        { "key": "C", "text": "必须自定义转场，并尽量延长动画阻塞操作" },
+        { "key": "D", "text": "通过 clear 路径栈制造视觉过渡" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-04-038",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "系统路由表模式中，QuizPageBuilder 前的哪个装饰器把它声明为 ArkUI 构建函数？（写装饰器名）",
+      "explanation": "示例使用 @Builder 声明 QuizPageBuilder，构建函数接收页面名和本次参数并创建目标组件；它是构建函数声明，不是页面或组件生命周期回调。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "short",
+      "accepted": ["@Builder", "Builder"],
+      "placeholder": "例如：@Builder"
+    },
+    {
+      "id": "harmony-04-039",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "根页面示例在 Navigation 上调用 .hideTitleBar(true)，会产生什么效果？",
+      "explanation": "hideTitleBar(true) 只隐藏 Navigation 的标题栏，不会隐藏目标页内容、清空 NavPathStack 或关闭页面转场，示例仍继续使用同一条导航栈。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "隐藏 Navigation 的标题栏", "hint": "该属性只控制标题栏可见性" },
+        { "key": "B", "text": "隐藏整个答题目标页" },
+        { "key": "C", "text": "清空当前路径栈" },
+        { "key": "D", "text": "关闭所有页面转场" }
+      ],
+      "answer": ["A"]
+    },
+    {
+      "id": "harmony-04-040",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "从只含首页的路径栈开始，连续通过 pushPathByName 进入 5 个不同详情页，随后执行 2 次 pop，不考虑其他操作，栈中还剩多少个页面？",
+      "explanation": "5 次入栈后页面数为 1+5=6，每次 pop 移除一个栈顶页面，两次后剩余 6-2=4 个页面，首页和另外三个较早页面仍在栈中。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "numeric",
+      "answer": 4,
+      "tolerance": 0,
+      "unit": "个页面",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-04-041",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "某答题页内部重新 new NavPathStack()，同时读取全局旧 levelId，结果返回无效且连续跳转后显示上一关数据。哪项修复能同时解决两个问题？",
+      "explanation": "返回无效源于目标页操作了另一条空栈，旧数据源于读取错误的数据通道。应使用 onReady 上下文里的共享 pathStack，并接收、校验本次跳转参数，两个问题要分别修正。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "single",
+      "options": [
+        { "key": "A", "text": "给每页再添加一次 clear，并延长旧数据的显示时间" },
+        { "key": "B", "text": "改用 onReady 上下文中的共享栈，并接收和校验本次跳转参数", "hint": "同时修正栈身份与参数来源" },
+        { "key": "C", "text": "把旧 levelId 和新建空栈一起作为路由参数继续传递" },
+        { "key": "D", "text": "把 pop 改为 hideTitleBar，并继续读取全局旧值" }
+      ],
+      "answer": ["B"]
+    },
+    {
+      "id": "harmony-04-042",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于 Navigation 与 router 的使用边界，哪些说法符合本章建议？",
+      "explanation": "新 Stage 主流程应使用 Navigation 与 NavPathStack，复杂转场和分栏也由 Navigation 体系统一表达。旧代码可以保留 router 维护，但新增主流程不应继续扩散。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "新 Stage 工程主流程采用 Navigation + NavPathStack", "hint": "这是本章推荐的新项目组合" },
+        { "key": "B", "text": "复杂转场与分栏优先使用 Navigation 的能力", "hint": "导航模式与转场可由统一体系表达" },
+        { "key": "C", "text": "旧代码可保留 router，但新增主流程不要继续扩散", "hint": "维护旧流程与建设新流程可以分边界" },
+        { "key": "D", "text": "既然 router.pushUrl 能跳转，新项目就应在每个按钮继续堆叠调用" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-04-043",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "某练习将 levelId 字符串转成十进制整数，并用每次加 1 的方式计算下一关。当前 levelId 为 '08'，连续进入下一关两次后，最终数值型关卡号是多少？",
+      "explanation": "字符串 '08' 按十进制转成整数 8，第一次进入下一关得到 9，第二次得到 10，因此最终数值型关卡号为 8+1+1=10。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "numeric",
+      "answer": 10,
+      "tolerance": 0,
+      "unit": "关",
+      "placeholder": "只填数值"
+    },
+    {
+      "id": "harmony-04-044",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "关于 QuizParam、QuizPageBuilder 与 QuizPage 之间的参数接线，哪些说法正确？",
+      "explanation": "QuizParam 用 string 描述 levelId，构建函数把本次 param 断言为该接口并传给 launch，组件默认值只提供空初值。若 param 没进入组件，QuizPage 不会自动改读全局旧值。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "QuizParam 将 levelId 声明为 string", "hint": "示例中的关卡编号是字符串类型" },
+        { "key": "B", "text": "Builder 通过 QuizPage({ launch: param as QuizParam }) 传入本次参数", "hint": "构建函数负责把参数接进组件" },
+        { "key": "C", "text": "QuizPage 的 launch 默认值可以提供空 levelId 初值", "hint": "默认值用于初始化，不代表本次真实参数" },
+        { "key": "D", "text": "Builder 收到 param 后无需传入组件，QuizPage 会自动读取全局旧值" }
+      ],
+      "answer": ["A", "B", "C"]
+    },
+    {
+      "id": "harmony-04-045",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "若不采用系统路由表，而选择自定义目标页构建器，Navigation 上用于配置该构建能力的 API 名称是什么？（写 API 名）",
+      "explanation": "自定义组织方式使用 Navigation 的 navDestination 构建能力。它与系统路由表是两种页面组织选择，本章要求选一种并避免对同一目标重复注册。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "short",
+      "accepted": ["navDestination", "navDestination()", ".navDestination", ".navDestination()"],
+      "placeholder": "例如：navDestination"
+    },
+    {
+      "id": "harmony-04-046",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "每个 NavDestination 内都必须再嵌套一个 Navigation，才能作为目标页入栈。",
+      "explanation": "错。NavDestination 是目标页容器，不是另一个 Navigation；一个导航作用域配合一条共享 NavPathStack 即可管理多个目标页，无需在每页重建根导航。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-04-047",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "实现自定义 NavDestination 转场时，哪些工程做法符合本章建议？",
+      "explanation": "转场对象应由页面统一注册，优先使用透明度和位移，并保持 NavPathStack 为页面状态来源。逐按钮改坐标会分散页面关系，长动画阻塞答题也不符合建议。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "由页面统一注册转场对象", "hint": "转场配置不应散落在每个按钮里" },
+        { "key": "B", "text": "优先使用透明度和位移表达过渡", "hint": "这两类表现是本章建议的优先选择" },
+        { "key": "C", "text": "让每个按钮自行修改组件坐标来模拟页面跳转" },
+        { "key": "D", "text": "真正的页面状态仍交给 NavPathStack 管理", "hint": "转场只改变表现，不接管路径状态" },
+        { "key": "E", "text": "尽量使用长时间动画阻塞答题操作" }
+      ],
+      "answer": ["A", "B", "D"]
+    },
+    {
+      "id": "harmony-04-048",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 1,
+      "stem": "在本章给出的目标组件创建顺序中，build 完成后紧接执行哪个回调？（写回调名）",
+      "explanation": "本章列出的顺序是 aboutToAppear、build、onDidBuild，因此 build 完成后执行 onDidBuild。它属于组件构建阶段，不等于 NavDestination 的 onReady 或 onShown。",
+      "refs": [
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "short",
+      "accepted": ["onDidBuild", "onDidBuild()", "onDidBuild(): void"],
+      "placeholder": "例如：onDidBuild"
+    },
+    {
+      "id": "harmony-04-049",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 2,
+      "stem": "使用系统路由表时，还必须同时配置自定义 navDestination 构建器重复注册同一批目标页，否则页面无法跳转。",
+      "explanation": "错。本章要求系统路由表与自定义 navDestination 构建器选择一种组织方式，避免重复注册；目标页名称与构建关系只需要保持一套清晰来源。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        }
+      ],
+      "type": "truefalse",
+      "answer": false
+    },
+    {
+      "id": "harmony-04-050",
+      "skill": "harmony",
+      "module": "04",
+      "difficulty": 3,
+      "stem": "项目从散落的 router.pushUrl 迁移到 Navigation 主流程时，下列哪些改造符合本章建议？",
+      "explanation": "迁移应建立根导航与共享栈，用系统路由表集中维护名称和构建关系，并让 NavPathStack 管理真实页面状态。重复注册和继续读取全局旧参数都会保留原有维护问题。",
+      "refs": [
+        {
+          "title": "Navigation 基础架构介绍",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture"
+        },
+        {
+          "title": "Navigation 页面路由",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump"
+        },
+        {
+          "title": "页面路由 router（不推荐）",
+          "url": "https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing"
+        }
+      ],
+      "type": "multi",
+      "options": [
+        { "key": "A", "text": "在根页面建立共享 NavPathStack，并绑定到 Navigation", "hint": "先统一导航作用域与路径状态" },
+        { "key": "B", "text": "用系统路由表集中维护页面名与构建函数，组件保留稳定名称和业务参数", "hint": "集中映射取代散落的字符串路径" },
+        { "key": "C", "text": "对同一批页面同时使用系统路由表和自定义 navDestination 重复注册" },
+        { "key": "D", "text": "目标页继续读取全局旧参数，以保证连续跳转时数据不变" },
+        { "key": "E", "text": "页面状态交给 NavPathStack，自定义转场只负责过渡表现", "hint": "导航状态与视觉过渡各司其职" }
+      ],
+      "answer": ["A", "B", "E"]
     }
   ]
 }
