@@ -358,6 +358,107 @@ body {
   font-size: inherit;
 }
 
+/* ===== MDX 代码块：Shiki 高亮 + 长块 details 折叠 ===== */
+.mdx-code {
+  margin: 1.25rem 0;
+  border: 1px solid hsl(var(--border));
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* 折叠头（仅 >6 行的块渲染） */
+.mdx-code__summary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+  background: hsl(var(--surface-muted));
+  border-bottom: 1px solid transparent;
+  font-size: 0.8125rem;
+}
+
+.mdx-code--collapsible:not([open]) .mdx-code__summary {
+  border-bottom-color: transparent;
+}
+
+.mdx-code--collapsible[open] .mdx-code__summary {
+  border-bottom-color: hsl(var(--border));
+}
+
+.mdx-code__summary::-webkit-details-marker {
+  display: none;
+}
+
+.mdx-code__chevron {
+  flex: none;
+  color: hsl(var(--foreground-muted));
+  transition: transform 0.18s ease;
+}
+
+.mdx-code--collapsible[open] .mdx-code__chevron {
+  transform: rotate(90deg);
+}
+
+.mdx-code__lang {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+  background: hsl(var(--brand-primary) / 0.14);
+  color: hsl(var(--brand-ink));
+}
+
+.mdx-code__meta {
+  color: hsl(var(--foreground-muted));
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+.mdx-code__toggle {
+  margin-left: auto;
+  color: hsl(var(--foreground-muted));
+  font-size: 0.75rem;
+}
+
+.mdx-code--collapsible[open] .mdx-code__toggle--closed,
+.mdx-code--collapsible:not([open]) .mdx-code__toggle--open {
+  display: none;
+}
+
+/* Shiki 输出接管 prose-lesson pre 的默认外观，边框/圆角归外层容器 */
+.mdx-code .shiki {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  border: 0;
+  border-radius: 0;
+  background: var(--shiki-light-bg) !important;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.7;
+}
+
+.mdx-code .shiki code {
+  background: transparent;
+  padding: 0;
+  font-family: var(--font-mono);
+}
+
+.mdx-code .shiki span {
+  color: var(--shiki-light) !important;
+}
+
+.dark .mdx-code .shiki {
+  background: var(--shiki-dark-bg) !important;
+}
+
+.dark .mdx-code .shiki span {
+  color: var(--shiki-dark) !important;
+}
+
 .prose-lesson a {
   color: hsl(var(--info));
   text-decoration: underline;

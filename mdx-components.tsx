@@ -2,6 +2,7 @@ import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import EmbedMap from "@/components/EmbedMap";
 import Callout from "@/components/mdx/Callout";
+import CodeBlock from "@/components/mdx/CodeBlock";
 import Exercise, { ExerciseSolution } from "@/components/mdx/Exercise";
 import ProjPlayground from "@/components/mdx/ProjPlayground";
 import { headingId, nodeText } from "@/lib/toc";
@@ -36,6 +37,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         <a href={href} target="_blank" rel="noreferrer noopener" {...props} />
       );
     },
+    // 代码块：Shiki 构建期高亮，超过 6 行的块默认折叠（见 components/mdx/CodeBlock）
+    pre: CodeBlock,
     // 多列宽表在手机上横向滑动；移动端给一句滑动提示
     table: (props) => (
       <div className="mdx-table">
