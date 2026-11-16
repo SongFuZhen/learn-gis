@@ -8,10 +8,14 @@ import { withRetry } from "@/lib/db-retry";
 
 export const dynamic = "force-dynamic";
 
-const querySchema = z.object({
-  skill: z.string().min(1).default("gis"),
-  module: z.string().min(1),
-});
+const querySchema = z
+  .object({
+    skill: z.string().min(1).optional(),
+    module: z.string().min(1).optional(),
+  })
+  .refine((q) => (q.skill === undefined) === (q.module === undefined), {
+    message: "skill 与 module 必须同时提供；都不提供则返回全部划线",
+  });
 
 const anchorSchema = z.object({
   start: z.number().int().min(0),
@@ -39,7 +43,7 @@ export async function GET(request: Request) {
   const url = new URL(request.url);
   const parsed = querySchema.safeParse({
     skill: url.searchParams.get("skill") ?? undefined,
-    module: url.searchParams.get("module"),
+    module: url.searchParams.get("module") ?? undefined,
   });
   if (!parsed.success) {
     return NextResponse.json(
@@ -49,18 +53,19 @@ export async function GET(request: Request) {
   }
 
   const userId = await getOrCreateUserId();
-  const { skill, module } = parsed.data;
+  const { skill, module: moduleSlug } = parsed.data;
+  const scope =
+    skill && moduleSlug
+      ? [
+          eq(annotations.skill, skill),
+          eq(annotations.moduleSlug, moduleSlug),
+        ]
+      : [];
   const rows = await withRetry(() =>
     db
       .select()
       .from(annotations)
-      .where(
-        and(
-          eq(annotations.userId, userId),
-          eq(annotations.skill, skill),
-          eq(annotations.moduleSlug, module),
-        ),
-      )
+      .where(and(eq(annotations.userId, userId), ...scope))
       .orderBy(asc(annotations.createdAt), asc(annotations.id)),
   );
 

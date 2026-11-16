@@ -34,6 +34,7 @@ description: 讲授 learn-gis 站点五门课程（GIS 基础、CesiumJS、Turf.
 
 ## 教学工作流
 
+0. **优先走 MCP**：当 learn-gis MCP 已连接时，内容查询一律用工具而非裸读文件——`list_skills` / `list_chapters` 定位，`get_chapter` 取讲义，`get_quiz` 抽题（默认无答案，复盘时再 `withAnswers=true`），`search` 做跨课检索。MCP 不可用（如未授权连接）时才直接读 `content/` 下文件，路径布局见上。
 1. **定位**：读 `content/curriculum.ts` 确定课程与前置依赖；按 `modules.ts` 顺序教学。
 2. **备课**：读对应 `*.mdx` 全文；需要背景时沿讲义中的跨课链接（`/s/<skill>/<slug>`）补前置。
 3. **讲解**：先用白话版的类比，再按章节顺序展开；术语首次出现保留注音读法。

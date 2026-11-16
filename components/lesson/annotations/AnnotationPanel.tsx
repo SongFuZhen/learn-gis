@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Highlighter, X } from "lucide-react";
-import { MARK_CLASS } from "@/lib/annotations/highlight";
+import { MARK_CLASS, type AnnotationKind } from "@/lib/annotations/highlight";
 import { KIND_META, useAnnotations } from "@/lib/annotations/store";
 import { cn } from "@/lib/utils";
 
@@ -31,8 +32,15 @@ function AnnotationList({
     );
   }
 
+  // 类型 → 左侧竖条色：扁平行的唯一强标识，省去整圈描边的视觉重量
+  const barClass: Record<AnnotationKind, string> = {
+    note: "border-l-info",
+    record: "border-l-brand",
+    question: "border-l-warning",
+  };
+
   return (
-    <ul className="space-y-1" data-anno-list>
+    <ul className="space-y-0.5" data-anno-list>
       {items.map((item) => {
         const lost = unresolved.includes(item.id);
         return (
@@ -45,12 +53,15 @@ function AnnotationList({
                 scrollToAnnotation(item.id);
                 onNavigate?.(item.id);
               }}
-              className="w-full rounded-sm px-2 py-1.5 text-left transition-colors hover:bg-background-hover disabled:cursor-not-allowed disabled:opacity-60"
+              className={cn(
+                "w-full rounded-r-md border-l-2 py-1.5 pl-2.5 pr-2 text-left transition-colors hover:bg-background-subtle disabled:cursor-not-allowed disabled:opacity-60",
+                barClass[item.kind],
+              )}
             >
               <span className="flex items-center gap-1.5">
                 <span
                   className={cn(
-                    "h-2 w-2 shrink-0 rounded-full",
+                    "h-1.5 w-1.5 shrink-0 rounded-full",
                     KIND_META[item.kind].dot,
                   )}
                 />
@@ -59,15 +70,15 @@ function AnnotationList({
                 </span>
                 {lost && (
                   <span className="text-[11px] text-warning">
-                    原文已变更，无法定位
+                    原文已变更
                   </span>
                 )}
               </span>
-              <span className="mt-0.5 block truncate text-[13px] text-foreground-secondary">
+              <span className="mt-0.5 block line-clamp-2 text-[12.5px] leading-snug text-foreground">
                 {item.quote}
               </span>
               {item.note && (
-                <span className="mt-0.5 block truncate text-[12px] text-foreground-tertiary">
+                <span className="mt-1 block pl-0.5 text-[11.5px] leading-relaxed text-foreground-tertiary line-clamp-2">
                   {item.note}
                 </span>
               )}
@@ -84,9 +95,17 @@ export default function AnnotationPanel() {
   const { items } = useAnnotations();
   return (
     <section className="mt-3 border-t border-border-subtle pt-3">
-      <p className="text-[11px] uppercase tracking-wider text-foreground-muted">
-        本章划线 · {items.length}
-      </p>
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-[11px] uppercase tracking-wider text-foreground-muted">
+          本章划线 · {items.length}
+        </p>
+        <Link
+          href="/annotations"
+          className="shrink-0 text-[11px] font-medium text-brand hover:underline"
+        >
+          全部
+        </Link>
+      </div>
       <div className="mt-2 max-h-[34vh] overflow-y-auto">
         <AnnotationList />
       </div>
@@ -116,9 +135,18 @@ export function AnnotationPanelMobile() {
             aria-label="本章划线"
             className="max-h-[50vh] w-72 overflow-y-auto rounded-md border border-border bg-card p-2 shadow-[0_12px_32px_-10px_rgba(20,26,64,0.35)]"
           >
-            <p className="px-2 py-1 text-[11px] uppercase tracking-wider text-foreground-muted">
-              本章划线 · {items.length}
-            </p>
+            <div className="flex items-center justify-between gap-2 px-2 py-1">
+              <p className="text-[11px] uppercase tracking-wider text-foreground-muted">
+                本章划线 · {items.length}
+              </p>
+              <Link
+                href="/annotations"
+                onClick={() => setOpen(false)}
+                className="shrink-0 text-[11px] font-medium text-brand hover:underline"
+              >
+                全部
+              </Link>
+            </div>
             <AnnotationList onNavigate={() => setOpen(false)} />
           </nav>
         )}

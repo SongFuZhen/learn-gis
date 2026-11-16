@@ -8,7 +8,8 @@ import {
 } from "lucide-react";
 import { SKILL_REGISTRY } from "@/content/registry";
 import { SKILLS } from "@/lib/content";
-import { PASS_LINE } from "@/lib/quiz/exam";
+import { PASS_LINE, dateKey } from "@/lib/quiz/exam";
+import { getActivityCalendar } from "@/lib/engagement/activity";
 import { getHomeData, type HomeData } from "@/lib/progress/home";
 import {
   getSkillProgressMap,
@@ -18,7 +19,7 @@ import {
 } from "@/lib/course-stats";
 import HomeHero, { type HeroStat } from "@/components/home/HomeHero";
 import CourseRail from "@/components/home/CourseRail";
-import CheckinCard from "@/components/home/CheckinCard";
+import ActivityHeatmap from "@/components/engagement/ActivityHeatmap";
 import RankPreview from "@/components/home/RankPreview";
 import MasteryDonut from "@/components/home/MasteryDonut";
 import ExamBars from "@/components/home/ExamBars";
@@ -28,15 +29,18 @@ import { getLeaderboard } from "@/lib/engagement/leaderboard";
 import { resolveUserId } from "@/lib/api/user";
 import LearningPath from "@/components/course/LearningPath";
 import CourseCard from "@/components/course/CourseCard";
+import McpEntry from "@/components/home/McpEntry";
 
 export default async function HomePage() {
   const data = await getHomeData();
   if (!data) return <Intro />;
   const userId = await resolveUserId();
-  const [progressMap, checkin, board] = await Promise.all([
+  const yearMonth = dateKey().slice(0, 7);
+  const [progressMap, checkin, board, activityDays] = await Promise.all([
     getSkillProgressMap(data),
     userId ? getCheckinSummary(userId) : Promise.resolve(null),
     getLeaderboard(userId),
+    userId ? getActivityCalendar(userId, yearMonth) : Promise.resolve([]),
   ]);
   return (
     <Dashboard
@@ -45,6 +49,8 @@ export default async function HomePage() {
       checkin={checkin}
       board={board}
       currentUserId={userId}
+      yearMonth={yearMonth}
+      activityDays={activityDays}
     />
   );
 }
@@ -111,6 +117,10 @@ function Intro() {
       />
 
       <div className="mt-6">
+        <McpEntry />
+      </div>
+
+      <div className="mt-6">
         <CourseRail items={items} />
       </div>
 
@@ -132,19 +142,23 @@ function Intro() {
   );
 }
 
-/** 回访用户版：个性化深色 Hero + 今日任务 + 课程进度 + 学习概览 */
+/** 回访用户版：今日任务 + Hero/学习概览/活跃地图三列 + 课程进度 + 积分榜 */
 function Dashboard({
   data,
   progressMap,
   checkin,
   board,
   currentUserId,
+  yearMonth,
+  activityDays,
 }: {
   data: HomeData;
   progressMap: Record<string, SkillProgress> | null;
   checkin: Awaited<ReturnType<typeof getCheckinSummary>> | null;
   board: Awaited<ReturnType<typeof getLeaderboard>>;
   currentUserId: string | null;
+  yearMonth: string;
+  activityDays: Awaited<ReturnType<typeof getActivityCalendar>>;
 }) {
   const continueModule =
     data.continueSlug && data.continueSkill
@@ -186,92 +200,219 @@ function Dashboard({
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
-      <HomeHero
-        eyebrow={`Skill pack · ${SKILLS.map((s) => s.title).join(" / ")}`}
-        title="今天接着学"
-        description={
-          continueModule
-            ? `上次学到《${continueModule.title}》，从这里接着往下走。`
-            : "选一门课开始，讲义、刷题与复习会自动排进你的学习面板。"
-        }
-        actions={
-          <Link
-            href={nextHref}
-            className="flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-brand transition-opacity hover:opacity-90"
-          >
-            <Play className="h-4 w-4" strokeWidth={2} />
-            {nextLabel}
-          </Link>
-        }
-        stats={stats}
-      />
-
-      {/* 今日任务 */}
-      <section className="mt-6">
-        <h2 className="text-[15px] font-medium">今日任务</h2>
-        <ul className="mt-3 grid grid-cols-2 gap-3 lg:grid-cols-3">
-          {checkin && (
-            <li className="col-span-2 lg:col-span-1">
-              <CheckinCard summary={checkin} />
+      {/* 今日任务（紧凑两卡）+ MCP 入口并排 */}
+      <section className="grid gap-3 lg:grid-cols-3">
+        <div className="flex flex-col lg:col-span-2">
+          <h2 className="text-[15px] font-medium">今日任务</h2>
+          <ul className="mt-3 grid h-full flex-1 grid-cols-1 gap-3 sm:grid-cols-2">
+            <li>
+              <Link
+                href="/review"
+                className="flex h-full items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-brand-soft text-brand">
+                  <RotateCcw className="h-4 w-4" strokeWidth={1.7} />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[13px] font-medium sm:text-sm">
+                    待复习 {data.reviewDue} 题
+                  </span>
+                  <span className="block truncate text-[11px] text-foreground-tertiary sm:text-[12px]">
+                    {data.reviewDue > 0 ? "错题不隔夜" : "队列已清空"}
+                  </span>
+                </span>
+              </Link>
             </li>
-          )}
-          <li>
-            <Link
-              href="/review"
-              className="flex h-full items-center gap-3 rounded-lg border border-border bg-card p-4 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
-            >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-brand-soft text-brand">
-                <RotateCcw className="h-[18px] w-[18px]" strokeWidth={1.7} />
+            <li>
+              <Link
+                href={data.dailyDoneToday ? "/exam" : "/exam/daily"}
+                className="flex h-full items-center gap-3 rounded-lg border border-border bg-card px-4 py-3 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
+              >
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-sm bg-brand-soft text-brand">
+                  {data.dailyDoneToday ? (
+                    <CircleCheck className="h-4 w-4" strokeWidth={1.7} />
+                  ) : (
+                    <CalendarCheck className="h-4 w-4" strokeWidth={1.7} />
+                  )}
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[13px] font-medium sm:text-sm">
+                    每日一考
+                  </span>
+                  <span className="block truncate text-[11px] text-foreground-tertiary sm:text-[12px]">
+                    {data.dailyDoneToday
+                      ? "今日已完成"
+                      : data.lastExamMastery !== null
+                        ? `上次 ${Math.round(data.lastExamMastery)}%`
+                        : "10 题 · 每天一套"}
+                  </span>
+                </span>
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <McpEntry />
+      </section>
+
+      {/* 三列同排：Hero 今天接着学 | 学习概览上下叠 | 活跃地图 */}
+      <section className="mt-6 grid gap-3 lg:grid-cols-3">
+        <div className={`h-full ${checkin ? "" : "lg:col-span-2"}`}>
+          <HomeHero
+            eyebrow={`Skill pack · ${SKILLS.map((s) => s.title).join(" / ")}`}
+            title="今天接着学"
+            description={
+              continueModule
+                ? `上次学到《${continueModule.title}》，从这里接着往下走。`
+                : "选一门课开始，讲义、刷题与复习会自动排进你的学习面板。"
+            }
+            actions={
+              <Link
+                href={nextHref}
+                className="flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-brand transition-opacity hover:opacity-90"
+              >
+                <Play className="h-4 w-4" strokeWidth={2} />
+                {nextLabel}
+              </Link>
+            }
+            stats={stats}
+          />
+        </div>
+
+        {/* 学习概览：通关环图 + 成绩柱状图，窄列上下堆叠 */}
+        <div className="flex h-full flex-col gap-3">
+          <div className="flex flex-1 flex-col rounded-lg border border-border bg-card p-4 shadow-card">
+            <h2 className="text-[14px] font-medium">章节通关</h2>
+            {data.avgMastery === null ? (
+              <>
+                <ul className="mt-3 space-y-1.5">
+                  {[
+                    {
+                      value: passedChapters,
+                      color: "hsl(var(--brand-primary))",
+                      label: `已通关（≥${PASS_LINE}%）`,
+                    },
+                    {
+                      value: learningChapters,
+                      color: "hsl(var(--brand-cyan))",
+                      label: "学习中",
+                    },
+                    {
+                      value: notStartedChapters,
+                      color: "hsl(var(--foreground-disabled))",
+                      label: "未开始",
+                    },
+                  ].map((s) => (
+                    <li
+                      key={s.label}
+                      className="flex items-center gap-2 text-[12px]"
+                    >
+                      <span
+                        className="h-2.5 w-2.5 shrink-0 rounded-full"
+                        style={{ background: s.color }}
+                      />
+                      <span className="flex-1 text-foreground-secondary">
+                        {s.label}
+                      </span>
+                      <span className="tabular font-medium">{s.value}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3 text-[11px] leading-relaxed text-foreground-tertiary">
+                  完成任意章节测验后，自动统计通关分布与平均掌握度。
+                </p>
+              </>
+            ) : (
+              <div className="mt-3">
+                <MasteryDonut
+                  stackOnMobile
+                  segments={[
+                    {
+                      value: passedChapters,
+                      color: "hsl(var(--brand-primary))",
+                      label: `已通关（≥${PASS_LINE}%）`,
+                    },
+                    {
+                      value: learningChapters,
+                      color: "hsl(var(--brand-cyan))",
+                      label: "学习中",
+                    },
+                    {
+                      value: notStartedChapters,
+                      color: "hsl(var(--foreground-disabled))",
+                      label: "未开始",
+                    },
+                  ]}
+                  centerValue={`${Math.round(data.avgMastery)}%`}
+                  centerLabel="平均掌握度"
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="flex flex-1 flex-col rounded-lg border border-border bg-card p-4 shadow-card">
+            <div className="flex items-center justify-between gap-3">
+              <h2 className="text-[14px] font-medium">最近考试</h2>
+              <span className="text-[11px] tabular text-foreground-tertiary">
+                {data.bestExamMastery !== null
+                  ? `最好 ${Math.round(data.bestExamMastery)}%`
+                  : ""}
+                {data.bestExamMastery !== null && " · "}
+                近 7 天 {data.examsLast7d} 次
               </span>
-              <span className="min-w-0">
-                <span className="block text-[13px] font-medium sm:text-sm">
-                  待复习 {data.reviewDue} 题
-                </span>
-                <span className="block truncate text-[11px] text-foreground-tertiary sm:text-[12px]">
-                  {data.reviewDue > 0 ? "错题不隔夜" : "队列已清空"}
-                </span>
+            </div>
+            <div className="mt-3">
+              <ExamBars exams={data.recentExams} />
+            </div>
+            {data.recentExams.length > 0 && (
+              <p className="mt-2 text-right text-[10px] text-foreground-tertiary">
+                虚线为 {PASS_LINE}% 通过线
+              </p>
+            )}
+            <Link
+              href="/progress"
+              className="group mt-auto flex items-center justify-between gap-2 border-t border-border pt-3 text-[12px] font-medium"
+            >
+              <span>查看完整学习进度</span>
+              <span className="inline-flex items-center gap-1 text-brand">
+                各章掌握度与成绩
+                <ArrowRight
+                  className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                  strokeWidth={2}
+                />
               </span>
             </Link>
-          </li>
-          <li>
+          </div>
+        </div>
+
+        {checkin && (
+          <div className="flex h-full flex-col rounded-lg border border-border bg-card p-4 shadow-card">
+            <div className="mb-3 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+              <h3 className="text-[13px] font-semibold sm:text-sm">
+                {Number(yearMonth.slice(5))} 月活跃地图
+              </h3>
+              <span className="text-[11px] tabular text-foreground-tertiary">
+                连续 {checkin.current} 天 · 累计 {checkin.totalDays} 天
+              </span>
+            </div>
+            <ActivityHeatmap yearMonth={yearMonth} days={activityDays} />
             <Link
-              href={data.dailyDoneToday ? "/exam" : "/exam/daily"}
-              className="flex h-full items-center gap-3 rounded-lg border border-border bg-card p-4 shadow-card transition-colors hover:border-brand/40 hover:bg-background-subtle"
+              href="/checkin"
+              className="mt-auto block pt-3 text-right text-[11px] font-medium text-brand hover:underline"
             >
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-brand-soft text-brand">
-                {data.dailyDoneToday ? (
-                  <CircleCheck className="h-[18px] w-[18px]" strokeWidth={1.7} />
-                ) : (
-                  <CalendarCheck
-                    className="h-[18px] w-[18px]"
-                    strokeWidth={1.7}
-                  />
-                )}
-              </span>
-              <span className="min-w-0">
-                <span className="block text-[13px] font-medium sm:text-sm">
-                  每日一考
-                </span>
-                <span className="block truncate text-[11px] text-foreground-tertiary sm:text-[12px]">
-                  {data.dailyDoneToday
-                    ? "今日已完成"
-                    : data.lastExamMastery !== null
-                      ? `上次 ${Math.round(data.lastExamMastery)}%`
-                      : "10 题 · 每天一套"}
-                </span>
-              </span>
+              查看日历 →
             </Link>
-          </li>
-        </ul>
+          </div>
+        )}
       </section>
 
       {/* 我的课程：与 /learn 同款 CourseCard，带通关进度 */}
       <section className="mt-7">
         <h2 className="text-[15px] font-medium">我的课程</h2>
-        <ul className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2">
+        <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {SKILL_REGISTRY.map((registration) => (
             <li key={registration.id}>
               <CourseCard
+                compact
                 registration={registration}
                 stats={
                   statsById.get(registration.id) ?? {
@@ -287,87 +428,12 @@ function Dashboard({
         </ul>
       </section>
 
-      {/* 学习概览：通关环图 + 成绩柱状图 */}
-      <section className="mt-7 grid gap-4 sm:grid-cols-2">
-        <div className="flex h-full flex-col rounded-lg border border-border bg-card p-5 shadow-card">
-          <h2 className="text-[15px] font-medium">章节通关</h2>
-          <div className="mt-3 flex flex-1 items-center">
-            <MasteryDonut
-              segments={[
-                {
-                  value: passedChapters,
-                  color: "hsl(var(--brand-primary))",
-                  label: `已通关（≥${PASS_LINE}%）`,
-                },
-                {
-                  value: learningChapters,
-                  color: "hsl(var(--brand-cyan))",
-                  label: "学习中",
-                },
-                {
-                  value: notStartedChapters,
-                  color: "hsl(var(--foreground-disabled))",
-                  label: "未开始",
-                },
-              ]}
-              centerValue={
-                data.avgMastery === null
-                  ? "—"
-                  : `${Math.round(data.avgMastery)}%`
-              }
-              centerLabel="平均掌握度"
-            />
-          </div>
-          {data.avgMastery === null && (
-            <p className="mt-3 text-[11px] leading-relaxed text-foreground-tertiary">
-              完成任意章节测验后，自动统计通关分布与平均掌握度。
-            </p>
-          )}
-        </div>
-
-        <div className="flex h-full flex-col rounded-lg border border-border bg-card p-5 shadow-card">
-          <div className="flex items-center justify-between gap-3">
-            <h2 className="text-[15px] font-medium">最近考试</h2>
-            <span className="text-[11px] tabular text-foreground-tertiary">
-              {data.bestExamMastery !== null
-                ? `最好 ${Math.round(data.bestExamMastery)}%`
-                : ""}
-              {data.bestExamMastery !== null && " · "}
-              近 7 天 {data.examsLast7d} 次
-            </span>
-          </div>
-          <div className="mt-3 flex flex-1 items-center">
-            <ExamBars exams={data.recentExams} />
-          </div>
-          {data.recentExams.length > 0 && (
-            <p className="mt-2 text-right text-[10px] text-foreground-tertiary">
-              虚线为 {PASS_LINE}% 通过线
-            </p>
-          )}
-        </div>
-      </section>
-
       {/* 积分榜摘要：完整榜单在 /rank */}
       {board.length > 0 && (
         <div className="mt-7">
           <RankPreview entries={board} currentUserId={currentUserId} />
         </div>
       )}
-
-      {/* 完整进度入口：逐章掌握度长表收在 /progress */}
-      <Link
-        href="/progress"
-        className="group mt-4 flex items-center justify-between gap-3 rounded-lg border border-border bg-card px-5 py-4 shadow-card transition-colors hover:border-brand/40"
-      >
-        <span className="text-[14px] font-medium">查看完整学习进度</span>
-        <span className="inline-flex items-center gap-1 text-[13px] font-medium text-brand">
-          各章掌握度与测验成绩
-          <ArrowRight
-            className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
-            strokeWidth={2}
-          />
-        </span>
-      </Link>
 
       <p className="mt-4 text-[11px] leading-relaxed text-foreground-tertiary">
         进度与错题保存在云端数据库，同一浏览器自动同步。

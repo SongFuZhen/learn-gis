@@ -2,8 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { Lock, Smile, User } from "lucide-react";
+import { Eye, EyeOff, Lock, Smile, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 /**
  * 登录/注册共用表单字段（无外层卡片，卡片由 AuthModal 提供）。
@@ -21,6 +22,7 @@ export default function AuthForm({
   const [username, setUsername] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
 
@@ -73,8 +75,11 @@ export default function AuthForm({
             autoComplete="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            placeholder="4-20 位字母、数字或下划线"
+            placeholder="4-20 位字母、数字、下划线或小数点"
             maxLength={20}
+            minLength={4}
+            pattern="[a-zA-Z0-9_](?!.*\.\.)(?!.*\.$)[a-zA-Z0-9_.]{2,18}[a-zA-Z0-9_]"
+            title="4-20 位字母、数字、下划线或小数点，小数点不能在首尾或连续出现"
             required
             className={inputClass}
           />
@@ -109,15 +114,29 @@ export default function AuthForm({
             strokeWidth={1.7}
           />
           <input
-            type="password"
+            type={showPassword ? "text" : "password"}
             autoComplete={isRegister ? "new-password" : "current-password"}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder={isRegister ? "至少 8 位" : "请输入密码"}
             maxLength={128}
+            minLength={isRegister ? 8 : undefined}
             required
-            className={inputClass}
+            className={cn(inputClass, "pr-10")}
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword((v) => !v)}
+            aria-label={showPassword ? "隐藏密码" : "显示密码"}
+            aria-pressed={showPassword}
+            className="absolute right-2 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded text-foreground-muted transition-colors hover:text-foreground"
+          >
+            {showPassword ? (
+              <EyeOff className="h-4 w-4" strokeWidth={1.7} />
+            ) : (
+              <Eye className="h-4 w-4" strokeWidth={1.7} />
+            )}
+          </button>
         </div>
       </label>
 

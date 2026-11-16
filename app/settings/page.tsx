@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ChevronRight, LogIn, UserPlus } from "lucide-react";
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LogoutButton from "@/components/auth/LogoutButton";
 import NicknameForm from "@/components/account/NicknameForm";
 import { displayNameOf, getSession } from "@/lib/auth";
@@ -57,38 +57,53 @@ export default async function SettingsPage() {
 
       {/* 账号 */}
       <section className="mt-6 rounded-md border border-border bg-card shadow-card">
-        <div className="flex items-center justify-between gap-4 px-5 py-4">
-          <div className="min-w-0">
-            <p className="text-[15px] font-medium">账号</p>
-            {accountRow?.username ? (
-              <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
-                学习进度随账号跨设备同步，登录名仅用于登录，不公开展示。
-              </p>
-            ) : (
-              <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
-                当前为匿名访客，进度只存在本浏览器。注册或登录后可跨设备同步。
-              </p>
-            )}
-          </div>
+        <div className="flex items-center gap-4 px-5 py-5">
           {accountRow?.username ? (
-            <LogoutButton />
+            <>
+              <span className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-[24px] font-semibold uppercase text-white shadow-brand">
+                {displayNameOf(accountRow).charAt(0)}
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[17px] font-semibold">
+                  {displayNameOf(accountRow)}
+                </p>
+                <p className="mt-0.5 truncate font-mono text-[12.5px] text-foreground-tertiary">
+                  {accountRow.username}
+                </p>
+                <p className="mt-1 text-[12px] text-foreground-muted">
+                  学习进度随账号跨设备同步
+                </p>
+              </div>
+              <LogoutButton />
+            </>
           ) : (
-            <div className="flex shrink-0 items-center gap-2">
-              <Link
-                href="/?auth=login"
-                className="inline-flex h-9 items-center gap-1.5 rounded-md border border-border-strong px-3 text-[13px] font-medium transition-colors hover:bg-surface-hover"
-              >
-                <LogIn className="h-4 w-4" strokeWidth={1.7} />
-                登录
-              </Link>
-              <Link
-                href="/?auth=register"
-                className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-[13px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-              >
-                <UserPlus className="h-4 w-4" strokeWidth={1.7} />
-                注册
-              </Link>
-            </div>
+            <>
+              <span className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-border-subtle bg-background-subtle text-[24px] font-semibold text-foreground-muted">
+                客
+              </span>
+              <div className="min-w-0 flex-1">
+                <p className="text-[17px] font-semibold">匿名访客</p>
+                <p className="mt-0.5 text-[12.5px] leading-relaxed text-foreground-tertiary">
+                  进度只存在本浏览器，登录或注册后可跨设备同步
+                </p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <Link
+                  href="/?auth=login"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-md border border-border-strong px-3 text-[13px] font-medium transition-colors hover:bg-surface-hover"
+                >
+                  <LogIn className="h-4 w-4" strokeWidth={1.7} />
+                  登录
+                </Link>
+                <Link
+                  href="/?auth=register"
+                  className="inline-flex h-9 items-center gap-1.5 rounded-md bg-primary px-3 text-[13px] font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                >
+                  <UserPlus className="h-4 w-4" strokeWidth={1.7} />
+                  注册
+                </Link>
+              </div>
+            </>
           )}
         </div>
         {accountRow?.username && (
@@ -108,10 +123,10 @@ export default async function SettingsPage() {
           <div className="min-w-0">
             <p className="text-[15px] font-medium">外观</p>
             <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
-              默认跟随系统，点按钮在浅色 / 深色之间切换。
+              默认跟随系统外观，也可固定浅色或深色。
             </p>
           </div>
-          <ThemeToggle />
+          <ThemeSwitcher />
         </div>
       </section>
 

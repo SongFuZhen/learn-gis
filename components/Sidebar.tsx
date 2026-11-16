@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ICONS, NAV_ITEMS, isActive } from "@/components/nav";
-import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
 import { cn } from "@/lib/utils";
 import logoMark from "@/public/brand/logo.png";
@@ -96,7 +95,11 @@ export default function Sidebar({
       <div className="mt-auto flex flex-col gap-3">
         <Link
           href={account ? "/settings" : "/?auth=login"}
-          className="flex items-center gap-2.5 rounded-md px-2 py-1.5 transition-colors hover:bg-background-hover"
+          className={
+            account
+              ? "flex items-center gap-2.5 rounded-md px-2 py-1.5 transition-colors hover:bg-background-hover"
+              : "flex items-center gap-2.5 rounded-md border border-brand/25 bg-brand-soft px-2 py-1.5 transition-colors hover:border-brand/50 hover:bg-brand-soft/70"
+          }
         >
           {account ? (
             <>
@@ -118,7 +121,9 @@ export default function Sidebar({
                 客
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-[13px] font-medium">登录 / 注册</span>
+                <span className="block text-[13px] font-semibold text-brand-ink">
+                  登录 / 注册
+                </span>
                 <span className="block text-[11px] text-foreground-muted">
                   跨设备同步进度
                 </span>
@@ -126,10 +131,6 @@ export default function Sidebar({
             </>
           )}
         </Link>
-        <div className="flex items-center justify-between px-1">
-          <span className="text-[12px] text-foreground-muted">外观</span>
-          <ThemeToggle />
-        </div>
       </div>
       </div>
     </aside>

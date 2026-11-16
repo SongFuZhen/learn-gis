@@ -39,7 +39,7 @@ learn-gis/
 │  └─ settings/page.tsx         # 外观 + 次级入口（复习/进度/章节）
 ├─ components/
 │  ├─ Sidebar.tsx / MobileTabBar.tsx / nav.tsx / SiteHeader.tsx / SiteFooter.tsx
-│  ├─ ThemeProvider.tsx / ThemeToggle.tsx
+│  ├─ ThemeProvider.tsx / ThemeSwitcher.tsx
 │  ├─ quiz/{QuizRunner,QuestionView,ChoiceList,AnswerFeedback,ResultSummary,ProgressBar}.tsx
 │  └─ ui/button.tsx             # Radix Slot + cva
 ├─ content/
@@ -182,7 +182,7 @@ Next 16 注意：`params` 是 `Promise`，页面签名 `async function Page({ pa
 2. **数据库命名空间**：模板 `pgSchema("ink")` → 本项目 `pgSchema("gis")`，同一 Neon 实例可共存。
 3. **新增 `.nvmrc` / `engines`**：模板没有，属版本锁定补强。
 4. **不照搬的部分**：字体子集化脚本、PDF/拍照评分、Resend 反馈、admin 鉴权——与学习场景无关，v1 不引入。
-5. **保留的部分**：ThemeProvider/ThemeToggle/SiteHeader/SiteFooter、`cn()`、设计令牌式 Tailwind、`lib/queries.ts` 的缓存习惯、`scripts/` + tsx。
+5. **保留的部分**：ThemeProvider/ThemeSwitcher/SiteHeader/SiteFooter、`cn()`、设计令牌式 Tailwind、`lib/queries.ts` 的缓存习惯、`scripts/` + tsx。
 
 ---
 

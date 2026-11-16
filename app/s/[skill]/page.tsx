@@ -65,7 +65,9 @@ export default async function SkillPage({
             skillId={skillId}
             icon={registration.icon}
             size="banner"
-            className="absolute inset-0 h-full"
+            // 必须带 sm:h-full：banner 默认含 sm:h-44，twMerge 按断点分组，
+            // 只传 h-full 盖不掉 sm:h-44，桌面端封面会固定 176px 高、露出白底
+            className="absolute inset-0 h-full sm:h-full"
           />
         )}
         <div className="relative p-5 sm:p-8">

@@ -11,7 +11,7 @@ type Props = {
 export default function ExamBars({ exams }: Props) {
   if (exams.length === 0) {
     return (
-      <div className="flex h-28 flex-col items-center justify-center gap-2 text-center">
+      <div className="flex h-20 flex-col items-center justify-center gap-1.5 text-center">
         <span className="flex h-11 w-11 items-center justify-center rounded-full bg-brand-soft text-brand-ink">
           <ChartBar className="h-5 w-5" strokeWidth={1.7} />
         </span>

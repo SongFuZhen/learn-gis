@@ -28,16 +28,16 @@ export default async function LearnPage() {
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
       <header>
-        <h1 className="text-[22px] font-semibold tracking-[-0.02em] sm:text-[26px]">
+        <h1 className="text-[26px] font-semibold tracking-[-0.02em] sm:text-[32px] lg:text-[36px]">
           课程目录
         </h1>
-        <p className="mt-2 text-[13px] leading-relaxed text-foreground-secondary">
+        <p className="mt-2 max-w-2xl text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
           {SKILL_REGISTRY.length} 门课 · {totalChapters} 章讲义 · {totalQuestions} 题题库
           · 每门课都是「讲义 → 刷题 → 间隔复习」的完整闭环，答错先讲清为什么错。
         </p>
       </header>
 
-      <div className="mt-5">
+      <div className="mt-6">
         <LearningPath />
       </div>
 
@@ -45,15 +45,16 @@ export default async function LearnPage() {
         const registrations = SKILL_REGISTRY.filter((r) => r.track === track);
         if (registrations.length === 0) return null;
         return (
-          <section key={track} className="mt-7">
-            <h2 className="flex items-center gap-2 text-[13px] font-medium text-foreground-tertiary">
+          <section key={track} className="mt-8">
+            <h2 className="flex items-center gap-2 text-[15px] font-medium">
               <span className="h-px w-5 bg-border-strong" aria-hidden="true" />
               {TRACK_LABEL[track]}
             </h2>
-            <ul className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2">
+            <ul className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {registrations.map((reg) => (
                 <li key={reg.id}>
                   <CourseCard
+                    compact
                     registration={reg}
                     stats={statsById.get(reg.id) ?? { chapters: 0, questions: 0, audioChapters: 0 }}
                     progress={progressMap?.[reg.id] ?? null}

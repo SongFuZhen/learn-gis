@@ -7,6 +7,11 @@ const nextConfig = {
   // 允许 app/ 与 content/ 下直接写 .mdx 讲义
   pageExtensions: ["ts", "tsx", "mdx"],
 
+  // /mcp 路由通过 fs 读取 content/ 下 MDX，serverless 追踪需显式打包
+  outputFileTracingIncludes: {
+    "/mcp": ["./content/**/*.mdx"],
+  },
+
   async headers() {
     return [
       {

@@ -89,8 +89,12 @@ describe("会话 cookie", () => {
 describe("用户名规则", () => {
   it("合法/非法用户名判定", () => {
     expect(USERNAME_RE.test("gis_learner")).toBe(true);
+    expect(USERNAME_RE.test("song.fu")).toBe(true);
     expect(USERNAME_RE.test("abc")).toBe(false);
     expect(USERNAME_RE.test("has-dash")).toBe(false);
+    expect(USERNAME_RE.test(".abc")).toBe(false);
+    expect(USERNAME_RE.test("abc.")).toBe(false);
+    expect(USERNAME_RE.test("a..bc")).toBe(false);
     expect(USERNAME_RE.test("a".repeat(21))).toBe(false);
   });
 

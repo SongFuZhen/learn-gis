@@ -62,6 +62,14 @@ describe("GET /api/annotations", () => {
     expect(res.status).toBe(200);
     expect((await res.json()).annotations).toHaveLength(1);
   });
+
+  it("不带 skill/module 时返回当前用户全部标注", async () => {
+    setTerminalResult([{ id: ANNO_ID, ...validBody }]);
+    const req = new NextRequest("http://localhost/api/annotations");
+    const res = await GET(req);
+    expect(res.status).toBe(200);
+    expect((await res.json()).annotations).toHaveLength(1);
+  });
 });
 
 describe("POST /api/annotations", () => {

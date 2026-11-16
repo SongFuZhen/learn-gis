@@ -3,7 +3,6 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ThemeToggle from "@/components/ThemeToggle";
 import SiteSearch from "@/components/SiteSearch";
 import { SKILLS, getModule } from "@/lib/content";
 import logoMark from "@/public/brand/logo.png";
@@ -42,7 +41,7 @@ function pageTitle(pathname: string): string {
   return "首页";
 }
 
-/** 移动端顶栏：品牌 + 当前页面标题 + 主题切换（桌面导航由 Sidebar 承担） */
+/** 移动端顶栏：品牌 + 当前页面标题 + 搜索（主题切换收在 /settings） */
 export default function SiteHeader() {
   const pathname = usePathname();
   const title = pageTitle(pathname);
@@ -68,7 +67,6 @@ export default function SiteHeader() {
           {title}
         </h1>
         <SiteSearch variant="mobile" />
-        <ThemeToggle />
       </div>
     </header>
   );

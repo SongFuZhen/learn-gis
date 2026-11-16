@@ -12,7 +12,7 @@ import {
 } from "node:crypto";
 import { cookies } from "next/headers";
 
-export const USERNAME_RE = /^[a-zA-Z0-9_]{4,20}$/;
+export const USERNAME_RE = /^[a-zA-Z0-9_](?!.*\.\.)(?!.*\.$)[a-zA-Z0-9_.]{2,18}[a-zA-Z0-9_]$/;
 /** 昵称面向公开展示：允许中英文、数字、空格、下划线与连字符，2-20 位 */
 export const NICKNAME_RE = /^[一-龥a-zA-Z0-9_\- ]{2,20}$/;
 export const PASSWORD_MIN = 8;

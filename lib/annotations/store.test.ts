@@ -92,6 +92,7 @@ describe("annotations store 竞态与回滚", () => {
       quote: "示例原文",
       anchor: { start: 0, end: 4, prefix: "", suffix: "" },
     });
+    await store.flushPendingWrites();
 
     expect(store.getSnapshot().items).toHaveLength(0);
   });
@@ -110,11 +111,85 @@ describe("annotations store 竞态与回滚", () => {
       quote: "示例原文",
       anchor: { start: 0, end: 4, prefix: "", suffix: "" },
     });
+    await store.flushPendingWrites();
 
     const items = store.getSnapshot().items;
     expect(items).toHaveLength(1);
     expect(items[0]?.id).toBe("server-id");
     expect(items[0]?.id.startsWith("temp-")).toBe(false);
+  });
+
+  it("removeAnnotation：POST 未落地时排队，落地后用真实 id 补发 DELETE", async () => {
+    const store = await freshStore();
+    await loadChapter(store);
+    const fetchMock = vi.mocked(fetch);
+
+    let resolvePost: (v: Response) => void = () => {};
+    const postPending = new Promise<Response>((r) => {
+      resolvePost = r;
+    });
+    fetchMock.mockImplementationOnce(() => postPending);
+    const tempId = await store.createAnnotation({
+      skill: "gis",
+      moduleSlug: "00",
+      kind: "note",
+      quote: "示例原文",
+      anchor: { start: 0, end: 4, prefix: "", suffix: "" },
+    });
+    expect(tempId.startsWith("temp-")).toBe(true);
+
+    // POST 仍挂起：删除只能排队，不能拿 temp id 直接请求（服务端 uuid 校验会 400）。
+    // 此前 fetch 只有 loadChapter 的 GET 与创建 POST 两次
+    const callsBeforeDelete = fetchMock.mock.calls.length;
+    const removal = store.removeAnnotation(tempId);
+    expect(fetchMock.mock.calls.length).toBe(callsBeforeDelete);
+
+    const deleteMock = vi
+      .fn()
+      .mockResolvedValue(jsonResponse({ ok: true }));
+    fetchMock.mockImplementation(deleteMock as unknown as typeof fetch);
+    resolvePost(jsonResponse({ annotation: item({ id: "server-id" }) }));
+    await removal;
+    await store.flushPendingWrites();
+
+    expect(store.getSnapshot().items).toHaveLength(0);
+    const deleteUrl = deleteMock.mock.calls[0]?.[0];
+    expect(String(deleteUrl)).toContain("/api/annotations/server-id");
+  });
+
+  it("updateAnnotation：POST 未落地时排队，落地后合入新行并补发 PATCH", async () => {
+    const store = await freshStore();
+    await loadChapter(store);
+    const fetchMock = vi.mocked(fetch);
+
+    let resolvePost: (v: Response) => void = () => {};
+    const postPending = new Promise<Response>((r) => {
+      resolvePost = r;
+    });
+    fetchMock.mockImplementationOnce(() => postPending);
+    const tempId = await store.createAnnotation({
+      skill: "gis",
+      moduleSlug: "00",
+      kind: "note",
+      quote: "示例原文",
+      anchor: { start: 0, end: 4, prefix: "", suffix: "" },
+    });
+
+    const patchMock = vi
+      .fn()
+      .mockResolvedValue(jsonResponse({ ok: true }));
+    fetchMock.mockImplementation(patchMock as unknown as typeof fetch);
+    const update = store.updateAnnotation(tempId, { note: "落地前写的附言" });
+    resolvePost(jsonResponse({ annotation: item({ id: "server-id" }) }));
+    await update;
+    await store.flushPendingWrites();
+
+    const [row] = store.getSnapshot().items;
+    expect(row?.id).toBe("server-id");
+    expect(row?.note).toBe("落地前写的附言");
+    const [url, init] = patchMock.mock.calls[0] ?? [];
+    expect(String(url)).toContain("/api/annotations/server-id");
+    expect(init?.method).toBe("PATCH");
   });
 
   it("removeAnnotation：DELETE 失败时条目回滚", async () => {
@@ -132,6 +207,7 @@ describe("annotations store 竞态与回滚", () => {
       quote: "示例原文",
       anchor: { start: 0, end: 4, prefix: "", suffix: "" },
     });
+    await store.flushPendingWrites();
     fetchMock.mockImplementationOnce(async () => ({
       ok: false,
       status: 500,
@@ -157,6 +233,7 @@ describe("annotations store 竞态与回滚", () => {
       quote: "示例原文",
       anchor: { start: 0, end: 4, prefix: "", suffix: "" },
     });
+    await store.flushPendingWrites();
 
     let failDelete: () => void = () => {};
     const deletePending = new Promise<Response>((_, reject) => {

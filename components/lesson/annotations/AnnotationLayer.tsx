@@ -15,6 +15,7 @@ import {
   createAnnotation,
   installProbe,
   loadChapter,
+  resolveAnnotationId,
   setUnresolved,
   useAnnotations,
 } from "@/lib/annotations/store";
@@ -36,7 +37,7 @@ type Toolbar = {
   anchor: AnnotationAnchor;
 };
 
-type PopoverState = { id: string; x: number; y: number };
+type PopoverState = { id: string; x: number; y: number; focus?: boolean };
 
 type Props = {
   skill: string;
@@ -204,7 +205,8 @@ export default function AnnotationLayer({
       document.getSelection()?.removeAllRanges();
       return;
     }
-    await createAnnotation({
+    const { x, y } = toolbar;
+    const tempId = await createAnnotation({
       skill,
       moduleSlug,
       kind,
@@ -213,10 +215,12 @@ export default function AnnotationLayer({
     });
     document.getSelection()?.removeAllRanges();
     setToolbar(null);
+    // 划线完成立即弹编辑框并聚焦附言输入；tempId 经别名解析，服务端 id 落地后弹窗不断线
+    setPopover({ id: tempId, x, y, focus: true });
   }
 
   const popoverItem = popover
-    ? items.find((item) => item.id === popover.id)
+    ? items.find((item) => item.id === resolveAnnotationId(popover.id))
     : undefined;
 
   return (
@@ -264,6 +268,7 @@ export default function AnnotationLayer({
           item={popoverItem}
           x={popover.x}
           y={popover.y}
+          autoFocus={popover.focus}
           onClose={() => setPopover(null)}
         />
       )}

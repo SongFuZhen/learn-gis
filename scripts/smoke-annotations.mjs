@@ -56,6 +56,11 @@ function installMockApi(page) {
     }
 
     if (method === "POST") {
+      // 模拟网络延迟：页面侧置 window.__mockPostDelay 毫秒，覆盖创建未落地就改/删的排队路径
+      const delay = await page
+        .evaluate(() => window.__mockPostDelay ?? 0)
+        .catch(() => 0);
+      if (delay) await new Promise((r) => setTimeout(r, delay));
       const body = await json();
       const now = new Date().toISOString();
       const row = { id: uuid(), createdAt: now, updatedAt: now, ...body };
@@ -160,6 +165,13 @@ try {
       .locator(`mark.anno-mark.anno-${kinds[i]}[data-annotation-id]`)
       .first()
       .waitFor({ timeout: 5000 });
+    // 新建后弹窗自动打开并聚焦输入框，关掉再做下一条选区
+    await page.locator("[data-anno-popover]").waitFor({ timeout: 5000 });
+    check(
+      await page.evaluate(() => document.activeElement?.hasAttribute("data-anno-note")),
+      `第 ${i + 1} 条划线后附言输入框自动聚焦`,
+    );
+    await page.keyboard.press("Escape");
   }
 
   for (const kind of kinds) {
@@ -185,7 +197,8 @@ try {
 
   await page.locator('[data-anno-kind="question"]').click();
   await page.locator("[data-anno-note]").fill("smoke 附言：这里要复习");
-  await page.keyboard.press("Tab"); // 触发 blur 提交
+  await page.locator("[data-anno-save]").click(); // 显著保存按钮：提交并关闭
+  await popover.waitFor({ state: "detached", timeout: 5000 });
   await page.waitForFunction(
     (id) => {
       const item = window.__annoProbe.state().items.find((it) => it.id === id);
@@ -194,8 +207,7 @@ try {
     firstId,
     { timeout: 5000 },
   );
-  check(true, "弹窗改类型与附言已提交（probe 状态更新）");
-  await page.keyboard.press("Escape");
+  check(true, "保存按钮提交类型与附言并关闭弹窗（probe 状态更新）");
 
   // 3) 刷新后划线与附言仍在（假后端在 node 侧持久）
   await page.reload({ waitUntil: "networkidle" });
@@ -237,6 +249,39 @@ try {
     (await page.locator("[data-anno-list] [data-anno-item]").count()) === 2,
     "侧栏同步剩 2 条",
   );
+
+  // 5b) 慢 POST：划线后创建请求未落地就立刻删除，temp id 必须排队，不能直接打 DELETE 400
+  const badDeletes = [];
+  const onResp = (resp) => {
+    if (resp.request().method() === "DELETE" && resp.status() !== 200) {
+      badDeletes.push(`${resp.status()} ${resp.url()}`);
+    }
+  };
+  page.on("response", onResp);
+  await page.evaluate(() => {
+    window.__mockPostDelay = 400;
+  });
+  const beforePending = await page.locator("mark.anno-mark").count();
+  await selectTextInArticle(page, 4);
+  await page.locator('[role="toolbar"][aria-label="添加划线笔记"]').waitFor({ timeout: 5000 });
+  await page.locator('[data-anno-create="note"]').click();
+  await page.locator("[data-anno-popover]").waitFor({ timeout: 5000 });
+  await page.locator("[data-anno-delete]").click(); // POST 仍在飞，删除进入排队
+  await page.waitForFunction(
+    (n) => document.querySelectorAll("mark.anno-mark").length === n,
+    beforePending,
+    { timeout: 5000 },
+  );
+  await page.waitForTimeout(700); // 等慢 POST 落地并补发真实 id 的 DELETE
+  await page.evaluate(() => {
+    window.__mockPostDelay = 0;
+  });
+  page.off("response", onResp);
+  check(badDeletes.length === 0, "慢 POST 下删除无 4xx（temp id 已排队）", badDeletes.join(" | "));
+  await page.reload({ waitUntil: "networkidle" });
+  await page.locator("mark.anno-mark").first().waitFor({ timeout: 8000 });
+  const afterPendingReload = await page.locator("mark.anno-mark").count();
+  check(afterPendingReload === beforePending, "排队删除的划线刷新后不留库", `count=${afterPendingReload}`);
 
   // 6) 重叠/重复选区：不弹工具条，给出冲突提示，mark 数量不变
   const beforeOverlap = await page.locator("mark.anno-mark").count();

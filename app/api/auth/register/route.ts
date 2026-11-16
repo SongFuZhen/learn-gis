@@ -27,7 +27,7 @@ import {
 export const dynamic = "force-dynamic";
 
 const registerSchema = z.object({
-  username: z.string().regex(USERNAME_RE, "用户名需为 4-20 位字母、数字或下划线"),
+  username: z.string().regex(USERNAME_RE, "用户名需为 4-20 位字母、数字、下划线或小数点，且小数点不能在首尾或连续出现"),
   password: z
     .string()
     .min(PASSWORD_MIN, `密码至少 ${PASSWORD_MIN} 位`)
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
   const parsed = registerSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json(
-      { error: "bad request", issues: parsed.error.issues },
+      { error: parsed.error.issues[0]?.message ?? "注册信息不符合要求" },
       { status: 400 },
     );
   }

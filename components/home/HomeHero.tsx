@@ -33,7 +33,7 @@ export default function HomeHero({
   stats?: HeroStat[];
 }) {
   return (
-    <section className="relative overflow-hidden rounded-lg border border-border bg-card shadow-card">
+    <section className="relative h-full overflow-hidden rounded-lg border border-border bg-card shadow-card">
       {/* 极淡品牌色斜向渐变，仅作底色层次 */}
       <div
         aria-hidden="true"

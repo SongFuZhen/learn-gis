@@ -58,7 +58,7 @@ export async function getHomeData(): Promise<HomeData | null> {
   try {
     const today = dateKey();
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    const [progressRows, reviewAgg, examAgg, lastExamRows, dailyRows, recentExamRows, weekExamAgg, bestExamAgg] =
+    const [progressRows, reviewAgg, examStatsRow, recentExamRows] =
       await Promise.all([
         db
           .select()
@@ -73,27 +73,16 @@ export async function getHomeData(): Promise<HomeData | null> {
               isNull(wrongAnswers.clearedAt),
             ),
           ),
+        // 考试单表的总量/最好/近 7 天/今日每日一考，一次聚合算完
         db
-          .select({ count: sql<number>`count(*)::int` })
+          .select({
+            total: sql<number>`count(*)::int`,
+            best: sql<number | null>`max(${examSessions.mastery})`,
+            weekCount: sql<number>`count(*) filter (where ${examSessions.createdAt} >= ${weekAgo})::int`,
+            todayDaily: sql<number>`count(*) filter (where ${examSessions.mode} = 'daily' and ${examSessions.dateKey} = ${today})::int`,
+          })
           .from(examSessions)
           .where(eq(examSessions.userId, userId)),
-        db
-          .select({ mastery: examSessions.mastery })
-          .from(examSessions)
-          .where(eq(examSessions.userId, userId))
-          .orderBy(desc(examSessions.createdAt))
-          .limit(1),
-        db
-          .select({ id: examSessions.id })
-          .from(examSessions)
-          .where(
-            and(
-              eq(examSessions.userId, userId),
-              eq(examSessions.mode, "daily"),
-              eq(examSessions.dateKey, today),
-            ),
-          )
-          .limit(1),
         db
           .select({
             mode: examSessions.mode,
@@ -104,20 +93,10 @@ export async function getHomeData(): Promise<HomeData | null> {
           .where(eq(examSessions.userId, userId))
           .orderBy(desc(examSessions.createdAt))
           .limit(10),
-        db
-          .select({ count: sql<number>`count(*)::int` })
-          .from(examSessions)
-          .where(
-            and(
-              eq(examSessions.userId, userId),
-              sql`${examSessions.createdAt} >= ${weekAgo}`,
-            ),
-          ),
-        db
-          .select({ best: sql<number | null>`max(${examSessions.mastery})` })
-          .from(examSessions)
-          .where(eq(examSessions.userId, userId)),
       ]);
+
+    const examStats = examStatsRow[0];
+    const lastExam = recentExamRows[0] ?? null;
 
     // skill:slug 复合键：cesium 的 "00" 与 gis 的 "00" 是不同章节
     const bySlug = new Map(
@@ -156,16 +135,16 @@ export async function getHomeData(): Promise<HomeData | null> {
     return {
       answeredTotal,
       avgMastery,
-      examCount: examAgg[0]?.count ?? 0,
-      lastExamMastery: lastExamRows[0]?.mastery ?? null,
-      bestExamMastery: bestExamAgg[0]?.best ?? null,
-      examsLast7d: weekExamAgg[0]?.count ?? 0,
+      examCount: examStats?.total ?? 0,
+      lastExamMastery: lastExam?.mastery ?? null,
+      bestExamMastery: examStats?.best ?? null,
+      examsLast7d: examStats?.weekCount ?? 0,
       recentExams: recentExamRows.reverse().map((r) => ({
         mode: r.mode,
         mastery: r.mastery,
         dayLabel: `${r.createdAt.getMonth() + 1}/${r.createdAt.getDate()}`,
       })),
-      dailyDoneToday: dailyRows.length > 0,
+      dailyDoneToday: (examStats?.todayDaily ?? 0) > 0,
       reviewDue: reviewAgg[0]?.count ?? 0,
       continueSlug: latest?.moduleSlug ?? null,
       continueSkill: latest?.skill ?? (latest ? "gis" : null),
