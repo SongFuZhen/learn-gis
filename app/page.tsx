@@ -86,7 +86,7 @@ function Intro() {
         title={
           <>
             问答式学
-            <span className="text-white"> 地理空间与图形编程</span>
+            <span className="text-brand-ink"> 地理空间与图形编程</span>
           </>
         }
         description={`${SKILLS.length} 门课、一个学习闭环：从 GIS 坐标与投影的数学打底，到 Turf 二维空间运算、CesiumJS 三维地球，再到 three.js 图形渲染与鸿蒙开发，全程免 token 示例。讲义 → 刷题 → 间隔复习，答错先讲清为什么错。`}
@@ -94,14 +94,14 @@ function Intro() {
           <>
             <Link
               href="/learn"
-              className="flex h-11 items-center justify-center gap-2 rounded-sm bg-white px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
+              className="flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-brand transition-opacity hover:opacity-90"
             >
               开始学习
               <ArrowRight className="h-4 w-4" strokeWidth={2} />
             </Link>
             <Link
               href="/exam"
-              className="flex h-11 items-center justify-center rounded-sm border border-white/25 bg-white/10 px-6 text-sm font-medium text-white backdrop-blur-sm transition-colors hover:bg-white/20"
+              className="flex h-11 items-center justify-center rounded-md border border-border bg-background-subtle px-6 text-sm font-medium text-foreground transition-colors hover:bg-background-hover"
             >
               开始考试
             </Link>
@@ -197,7 +197,7 @@ function Dashboard({
         actions={
           <Link
             href={nextHref}
-            className="flex h-11 items-center justify-center gap-2 rounded-sm bg-white px-6 text-sm font-medium text-foreground transition-opacity hover:opacity-90"
+            className="flex h-11 items-center justify-center gap-2 rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow-brand transition-opacity hover:opacity-90"
           >
             <Play className="h-4 w-4" strokeWidth={2} />
             {nextLabel}
