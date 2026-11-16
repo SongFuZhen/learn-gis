@@ -3,7 +3,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { withRetry } from "@/lib/db-retry";
-import { getSession } from "@/lib/auth";
+import { displayNameOf, getSession } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +15,11 @@ export async function GET() {
   }
   const [row] = await withRetry(() =>
     db
-      .select({ username: users.username })
+      .select({
+        id: users.id,
+        username: users.username,
+        nickname: users.nickname,
+      })
       .from(users)
       .where(eq(users.id, session.userId))
       .limit(1),
@@ -23,5 +27,7 @@ export async function GET() {
   if (!row || !row.username) {
     return NextResponse.json({ user: null });
   }
-  return NextResponse.json({ user: { username: row.username } });
+  return NextResponse.json({
+    user: { nickname: displayNameOf(row) },
+  });
 }

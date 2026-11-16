@@ -47,7 +47,7 @@ export default function LeaderboardTable({
             {entry.rank}
           </span>
           <span className="min-w-0 flex-1 truncate font-medium">
-            {entry.username}
+            {entry.displayName}
             {entry.isCurrentUser && (
               <span className="ml-2 rounded-full bg-white/60 px-1.5 py-0.5 text-[10px] font-normal text-brand-ink dark:bg-white/15 dark:text-white">
                 我

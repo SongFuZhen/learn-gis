@@ -3,6 +3,7 @@ import { db } from "@/db";
 import { checkIns, examSessions, moduleProgress, users } from "@/db/schema";
 import { withRetry } from "@/lib/db-retry";
 import { getStreak } from "@/lib/engagement/checkin";
+import { displayNameOf } from "@/lib/auth";
 
 /**
  * 积分公式（读时实时计算，不落库）：
@@ -20,7 +21,7 @@ export const POINTS = {
 export type LeaderboardEntry = {
   rank: number;
   userId: string;
-  username: string;
+  displayName: string;
   points: number;
   answered: number;
   examCount: number;
@@ -40,7 +41,11 @@ export async function getLeaderboard(
     const [accounts, progressRows, examRows, checkinRows] = await Promise.all([
       withRetry(() =>
         db
-          .select({ id: users.id, username: users.username })
+          .select({
+            id: users.id,
+            username: users.username,
+            nickname: users.nickname,
+          })
           .from(users)
           .where(isNotNull(users.username)),
       ),
@@ -101,8 +106,8 @@ export async function getLeaderboard(
 
       return {
         userId,
-        // 上层 where 已保证 username 非空
-        username: account.username!,
+        // 公开位只给昵称，绝不回退到登录用户名
+        displayName: displayNameOf(account),
         points,
         answered,
         examCount,
@@ -115,7 +120,7 @@ export async function getLeaderboard(
     entries.sort((a, b) => {
       if (b.points !== a.points) return b.points - a.points;
       if (b.answered !== a.answered) return b.answered - a.answered;
-      return a.username.localeCompare(b.username);
+      return a.displayName.localeCompare(b.displayName, "zh-Hans-CN");
     });
 
     return entries.map((entry, index) => ({

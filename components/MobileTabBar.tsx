@@ -14,11 +14,11 @@ export default function MobileTabBar() {
     <>
       <div
         aria-hidden="true"
-        className="h-[calc(4.5rem+env(safe-area-inset-bottom,0px))] lg:hidden"
+        className="focus-hide h-[calc(4.5rem+env(safe-area-inset-bottom,0px))] lg:hidden"
       />
       <nav
         aria-label="主导航"
-        className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(0.6rem+env(safe-area-inset-bottom,0px))] lg:hidden"
+        className="focus-hide fixed inset-x-0 bottom-0 z-40 px-4 pb-[calc(0.6rem+env(safe-area-inset-bottom,0px))] lg:hidden"
       >
         <ul className="mx-auto flex max-w-md items-stretch gap-1 rounded-[1.75rem] bg-card/90 p-1 shadow-[0_12px_32px_-10px_rgba(20,26,64,0.35)] backdrop-blur-xl">
           {NAV_ITEMS.map((item) => {

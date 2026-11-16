@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState, type FormEvent } from "react";
-import { Lock, User } from "lucide-react";
+import { Lock, Smile, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 /**
@@ -19,6 +19,7 @@ export default function AuthForm({
   const router = useRouter();
   const isRegister = mode === "register";
   const [username, setUsername] = useState("");
+  const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -31,7 +32,13 @@ export default function AuthForm({
       const res = await fetch(`/api/auth/${mode}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({
+          username,
+          password,
+          ...(isRegister && nickname.trim()
+            ? { nickname: nickname.trim() }
+            : {}),
+        }),
       });
       const data = (await res.json().catch(() => null)) as
         | { error?: string }
@@ -73,6 +80,26 @@ export default function AuthForm({
           />
         </div>
       </label>
+
+      {isRegister && (
+        <label className="block">
+          <span className="text-[13px] font-medium">昵称（选填）</span>
+          <div className="relative mt-1.5">
+            <Smile
+              className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-foreground-muted"
+              strokeWidth={1.7}
+            />
+            <input
+              type="text"
+              value={nickname}
+              onChange={(e) => setNickname(e.target.value)}
+              placeholder="榜单显示名，留空自动生成"
+              maxLength={20}
+              className={inputClass}
+            />
+          </div>
+        </label>
+      )}
 
       <label className="block">
         <span className="text-[13px] font-medium">密码</span>

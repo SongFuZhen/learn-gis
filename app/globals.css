@@ -188,6 +188,48 @@ body {
 }
 
 @layer utilities {
+  /* 专注模式：隐藏全局外壳与页内浮层，讲义收束为居中阅读栏 */
+  html.focus-mode .focus-hide {
+    display: none !important;
+  }
+  html.focus-mode .app-content {
+    padding-left: 0;
+  }
+  html.focus-mode .lesson-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  html.focus-mode .prose-lesson {
+    max-width: 46rem;
+    margin-inline: auto;
+  }
+
+  /* 打卡日历四档绿色阶：透明度随活动量加深；暗色模式整体提亮一档 */
+  .cal-l1 {
+    background: hsl(var(--brand-primary) / 0.18);
+  }
+  .cal-l2 {
+    background: hsl(var(--brand-primary) / 0.4);
+  }
+  .cal-l3 {
+    background: hsl(var(--brand-primary) / 0.65);
+  }
+  .cal-l4 {
+    background: hsl(var(--brand-primary) / 1);
+    color: hsl(0 0% 100%);
+  }
+  .dark .cal-l1 {
+    background: hsl(var(--brand-primary) / 0.22);
+  }
+  .dark .cal-l2 {
+    background: hsl(var(--brand-primary) / 0.42);
+  }
+  .dark .cal-l3 {
+    background: hsl(var(--brand-primary) / 0.62);
+  }
+  .dark .cal-l4 {
+    background: hsl(var(--brand-primary) / 0.85);
+  }
+
   .pb-safe {
     padding-bottom: calc(env(safe-area-inset-bottom, 0px));
   }

@@ -13,12 +13,12 @@ import logoMark from "@/public/brand/logo.png";
 export default function Sidebar({
   account,
 }: {
-  account: { username: string } | null;
+  account: { displayName: string } | null;
 }) {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed inset-y-0 left-0 z-30 hidden h-dvh w-sidebar flex-col overflow-hidden border-r border-border bg-card px-3 py-5 lg:flex">
+    <aside className="focus-hide fixed inset-y-0 left-0 z-30 hidden h-dvh w-sidebar flex-col overflow-hidden border-r border-border bg-card px-3 py-5 lg:flex">
       {/* 背景装饰：顶部品牌光晕 + 几何线稿，纯装饰不参与交互 */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="absolute -top-20 left-1/2 h-48 w-72 -translate-x-1/2 rounded-full bg-[hsl(var(--brand-primary)/0.09)] blur-3xl dark:bg-[hsl(var(--brand-primary)/0.16)]" />
@@ -101,11 +101,11 @@ export default function Sidebar({
           {account ? (
             <>
               <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand-gradient text-[13px] font-medium uppercase text-white">
-                {account.username.charAt(0)}
+                {account.displayName.charAt(0)}
               </span>
               <span className="min-w-0 flex-1">
                 <span className="block truncate text-[13px] font-medium">
-                  {account.username}
+                  {account.displayName}
                 </span>
                 <span className="block text-[11px] text-foreground-muted">
                   账号已同步

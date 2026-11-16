@@ -10,8 +10,10 @@ import {
   clearIdentityCookies,
   getClientIp,
   hashPassword,
+  NICKNAME_RE,
   PASSWORD_MAX,
   PASSWORD_MIN,
+  randomNickname,
   RESERVED_USERNAMES,
   setSessionCookie,
   USERNAME_RE,
@@ -30,6 +32,7 @@ const registerSchema = z.object({
     .string()
     .min(PASSWORD_MIN, `密码至少 ${PASSWORD_MIN} 位`)
     .max(PASSWORD_MAX, `密码不超过 ${PASSWORD_MAX} 位`),
+  nickname: z.string().trim().regex(NICKNAME_RE).optional(),
 });
 
 /**
@@ -55,6 +58,7 @@ export async function POST(request: Request) {
   }
 
   const username = parsed.data.username.toLowerCase();
+  const nickname = parsed.data.nickname || randomNickname();
   if (RESERVED_USERNAMES.has(username)) {
     return NextResponse.json(
       { error: "该用户名不可使用，请换一个" },
@@ -121,12 +125,12 @@ export async function POST(request: Request) {
       await withRetry(() =>
         db
           .update(users)
-          .set({ username, passwordHash })
+          .set({ username, nickname, passwordHash })
           .where(eq(users.id, userId)),
       );
     } else {
       await withRetry(() =>
-        db.insert(users).values({ id: userId, username, passwordHash }),
+        db.insert(users).values({ id: userId, username, nickname, passwordHash }),
       );
     }
 

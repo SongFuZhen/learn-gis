@@ -2,7 +2,8 @@ import Link from "next/link";
 import { ChevronRight, LogIn, UserPlus } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
 import LogoutButton from "@/components/auth/LogoutButton";
-import { getSession } from "@/lib/auth";
+import NicknameForm from "@/components/account/NicknameForm";
+import { displayNameOf, getSession } from "@/lib/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
@@ -35,7 +36,11 @@ export default async function SettingsPage() {
   const session = await getSession();
   const [accountRow] = session
     ? await db
-        .select({ username: users.username })
+        .select({
+          id: users.id,
+          username: users.username,
+          nickname: users.nickname,
+        })
         .from(users)
         .where(eq(users.id, session.userId))
         .limit(1)
@@ -57,11 +62,7 @@ export default async function SettingsPage() {
             <p className="text-[15px] font-medium">账号</p>
             {accountRow?.username ? (
               <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
-                已登录为
-                <span className="ml-1 font-medium text-foreground">
-                  {accountRow.username}
-                </span>
-                ，学习进度随账号跨设备同步。
+                学习进度随账号跨设备同步，登录名仅用于登录，不公开展示。
               </p>
             ) : (
               <p className="mt-1 text-[13px] leading-relaxed text-foreground-tertiary">
@@ -90,6 +91,15 @@ export default async function SettingsPage() {
             </div>
           )}
         </div>
+        {accountRow?.username && (
+          <div className="border-t border-border-subtle px-5 py-4">
+            <p className="text-[13px] font-medium">登录名（仅用于登录，不公开）</p>
+            <p className="mt-1 inline-flex h-9 max-w-full items-center truncate rounded-md bg-background-subtle px-3 font-mono text-[13px] text-foreground-tertiary">
+              {accountRow.username}
+            </p>
+            <NicknameForm initialNickname={displayNameOf(accountRow)} />
+          </div>
+        )}
       </section>
 
       {/* 外观 */}

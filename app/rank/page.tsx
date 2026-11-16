@@ -8,7 +8,7 @@ import LeaderboardTable from "@/components/rank/LeaderboardTable";
 
 export const metadata: Metadata = {
   title: "排行榜",
-  description: "ASoN 学社学习积分榜：答题、考试与签到综合排名。",
+  description: "ASoN 学社学习积分榜：答题、考试与打卡综合排名。",
 };
 
 export const dynamic = "force-dynamic";
@@ -33,7 +33,7 @@ export default async function RankPage() {
         </h1>
         <p className="mt-2 text-[13px] leading-relaxed text-foreground-secondary">
           仅注册账号上榜。积分 = 答题（{POINTS.perAnswer} 分/题）+ 考试（得分率 ×
-          {POINTS.examFactor * 100}%）+ 签到（{POINTS.perCheckinDay} 分/天，连签每天再 +
+          {POINTS.examFactor * 100}%）+ 打卡（{POINTS.perCheckinDay} 分/天，连续打卡每天再 +
           {POINTS.perStreakDay}）。
         </p>
       </header>
@@ -43,7 +43,7 @@ export default async function RankPage() {
           <div className="min-w-0">
             <p className="text-[14px] font-medium">注册后即可上榜</p>
             <p className="mt-1 text-[12px] leading-relaxed text-foreground-tertiary">
-              当前为匿名访客，答题与签到数据保留在本浏览器；注册会把进度就地归入账号并参与排名。
+              当前为匿名访客，答题与打卡数据保留在本浏览器；注册会把进度就地归入账号并参与排名。
             </p>
           </div>
           <Link

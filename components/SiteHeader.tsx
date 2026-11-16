@@ -49,7 +49,7 @@ export default function SiteHeader() {
   const isHome = pathname === "/";
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur lg:hidden">
+    <header className="focus-hide sticky top-0 z-40 border-b border-border bg-background/85 backdrop-blur lg:hidden">
       <div className="mx-auto flex h-14 w-full items-center gap-2.5 px-4 sm:px-6">
         <Link
           href="/"

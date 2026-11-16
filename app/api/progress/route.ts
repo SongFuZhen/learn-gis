@@ -7,6 +7,7 @@ import { getOrCreateUserId } from "@/lib/api/user";
 import { INITIAL_CARD, schedule, type CardState } from "@/lib/quiz/schedule";
 import { withRetry } from "@/lib/db-retry";
 import { ensureCheckin } from "@/lib/engagement/checkin";
+import { bumpDailyActivity } from "@/lib/engagement/activity";
 
 export const dynamic = "force-dynamic";
 
@@ -189,6 +190,7 @@ export async function POST(request: Request) {
         });
     }
     await bumpModuleProgress(userId, skill, moduleSlug, isCorrect, skipped);
+    await bumpDailyActivity(userId, { answers: 1 });
     return NextResponse.json({ ok: true });
   }
 
@@ -221,6 +223,7 @@ export async function POST(request: Request) {
         },
       });
 
+    await bumpDailyActivity(userId, { exams: 1 });
     return NextResponse.json({ ok: true, mastery });
   }
 
@@ -264,6 +267,7 @@ export async function POST(request: Request) {
         ),
       );
 
+    await bumpDailyActivity(userId, { answers: 1 });
     return NextResponse.json({ ok: true, dueInDays: next.dueInDays, graduated });
   }
 
@@ -304,6 +308,9 @@ export async function POST(request: Request) {
       lastAttemptAt: new Date(),
     });
   }
+
+  // 整卷提交：按卷内题数一次性计入当天答题量
+  await bumpDailyActivity(userId, { answers: total });
 
   return NextResponse.json({ ok: true, mastery });
 }

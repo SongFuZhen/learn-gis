@@ -50,10 +50,10 @@ beforeEach(() => {
 describe("getLeaderboard", () => {
   it("按积分公式合并四类数据并降序排名，标注当前用户", async () => {
     setSelectQueue([
-      // 账号（仅注册用户）
+      // 账号（仅注册用户）；公开名只取昵称，不回退登录名
       [
-        { id: ALICE, username: "alice" },
-        { id: BOB, username: "bob" },
+        { id: ALICE, username: "alice", nickname: "爱丽丝" },
+        { id: BOB, username: "bob", nickname: null },
       ],
       // 答题聚合：alice 10 题，bob 20 题
       [
@@ -77,7 +77,7 @@ describe("getLeaderboard", () => {
     expect(board[0]).toMatchObject({
       rank: 1,
       userId: ALICE,
-      username: "alice",
+      displayName: "爱丽丝",
       points: 106,
       answered: 10,
       examCount: 2,
@@ -88,16 +88,17 @@ describe("getLeaderboard", () => {
     expect(board[1]).toMatchObject({
       rank: 2,
       userId: BOB,
+      displayName: "学员_2222",
       points: 20,
       isCurrentUser: true,
     });
   });
 
-  it("同分时按答题数破平，再按用户名字典序", async () => {
+  it("同分时按答题数破平，再按昵称字典序", async () => {
     setSelectQueue([
       [
-        { id: ALICE, username: "zoe" },
-        { id: BOB, username: "amy" },
+        { id: ALICE, username: "alice", nickname: "佐伊" },
+        { id: BOB, username: "bob", nickname: "艾米" },
       ],
       [
         { userId: ALICE, answered: 30 },
@@ -108,8 +109,8 @@ describe("getLeaderboard", () => {
     ]);
 
     const board = await getLeaderboard();
-    // 同分 30 vs 20 → 答题多的 zoe 在前；若答题也相同则用户名字典序
-    expect(board.map((e) => e.username)).toEqual(["zoe", "amy"]);
+    // 同分 30 vs 20 → 答题多的佐伊在前；若答题也相同则昵称字典序
+    expect(board.map((e) => e.displayName)).toEqual(["佐伊", "艾米"]);
     expect(board.map((e) => e.rank)).toEqual([1, 2]);
   });
 

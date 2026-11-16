@@ -27,7 +27,7 @@ export default function FloatingToc({ items }: { items: TocItem[] }) {
   return (
     <div
       className={cn(
-        "fixed right-4 bottom-[5.5rem] z-30 transition-opacity duration-200 lg:hidden",
+        "focus-hide fixed right-4 bottom-[5.5rem] z-30 transition-opacity duration-200 lg:hidden",
         pagerInView && "pointer-events-none opacity-0",
       )}
     >

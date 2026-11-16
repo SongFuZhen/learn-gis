@@ -25,8 +25,10 @@ export const users = gis.table(
     id: uuid("id").defaultRandom().primaryKey(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
     lastSeenAt: timestamp("last_seen_at").notNull().defaultNow(),
-    /** 登录名，统一存小写；匿名行为 null（PG 唯一索引允许多个 null） */
+    /** 登录名，统一存小写；匿名行为 null（PG 唯一索引允许多个 null）。不公开展示 */
     username: text("username"),
+    /** 公开昵称，允许重名；注册留空时由应用层生成 */
+    nickname: text("nickname"),
     /** scrypt 串：scrypt$N$r$p$saltHex$hashHex */
     passwordHash: text("password_hash"),
   },
@@ -160,4 +162,39 @@ export const checkIns = gis.table("check_ins", {
   // 一人一天唯一，冲突即代表今天已签到
   unique("uq_checkin_user_date").on(table.userId, table.dateKey),
   index("idx_checkin_user_day").on(table.userId, table.dateKey),
+]);
+
+/** 每日活动量：打卡日历色阶数据源，一人一天一行 */
+export const activityDaily = gis.table("activity_daily", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  /** 本地时区日期 YYYY-MM-DD，复用 lib/quiz/exam 的 dateKey() */
+  dateKey: text("date_key").notNull(),
+  answerCount: integer("answer_count").notNull().default(0),
+  examCount: integer("exam_count").notNull().default(0),
+  lessonCount: integer("lesson_count").notNull().default(0),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+}, (table) => [
+  unique("uq_activity_user_date").on(table.userId, table.dateKey),
+]);
+
+/** 讲义阅读去重：同一人同天同章只计一次 */
+export const lessonViews = gis.table("lesson_views", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  dateKey: text("date_key").notNull(),
+  skill: text("skill").notNull().default("gis"),
+  moduleSlug: text("module_slug").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+}, (table) => [
+  unique("uq_lesson_view").on(
+    table.userId,
+    table.dateKey,
+    table.skill,
+    table.moduleSlug,
+  ),
 ]);

@@ -4,9 +4,11 @@
  */
 import { and, eq, inArray, isNotNull } from "drizzle-orm";
 import {
+  activityDaily,
   annotations,
   checkIns,
   examSessions,
+  lessonViews,
   moduleProgress,
   users,
   wrongAnswers,
@@ -154,12 +156,83 @@ export async function mergeAnonymousInto(
       .where(eq(checkIns.userId, anonId));
   }
 
-  // 5) 标注无唯一约束，直接改归属
+  // 5) 每日活动量：(user, dateKey) 唯一，同日期把匿名计数累加进账号行后删匿名行
+  const anonActivities = await tx
+    .select()
+    .from(activityDaily)
+    .where(eq(activityDaily.userId, anonId));
+  for (const row of anonActivities) {
+    const [owned] = await tx
+      .select()
+      .from(activityDaily)
+      .where(
+        and(
+          eq(activityDaily.userId, accountId),
+          eq(activityDaily.dateKey, row.dateKey),
+        ),
+      )
+      .limit(1);
+    if (owned) {
+      await tx
+        .update(activityDaily)
+        .set({
+          answerCount: owned.answerCount + row.answerCount,
+          examCount: owned.examCount + row.examCount,
+          lessonCount: owned.lessonCount + row.lessonCount,
+          updatedAt: new Date(),
+        })
+        .where(eq(activityDaily.id, owned.id));
+      await tx.delete(activityDaily).where(eq(activityDaily.id, row.id));
+    } else {
+      await tx
+        .update(activityDaily)
+        .set({ userId: accountId })
+        .where(eq(activityDaily.id, row.id));
+    }
+  }
+
+  // 6) 讲义阅读：(user, date, skill, module) 唯一，同键去重后改归属
+  const anonViews = await tx
+    .select({
+      id: lessonViews.id,
+      dateKey: lessonViews.dateKey,
+      skill: lessonViews.skill,
+      moduleSlug: lessonViews.moduleSlug,
+    })
+    .from(lessonViews)
+    .where(eq(lessonViews.userId, anonId));
+  if (anonViews.length > 0) {
+    const ownedViews = await tx
+      .select({
+        dateKey: lessonViews.dateKey,
+        skill: lessonViews.skill,
+        moduleSlug: lessonViews.moduleSlug,
+      })
+      .from(lessonViews)
+      .where(eq(lessonViews.userId, accountId));
+    const ownedKeys = new Set(
+      ownedViews.map((v) => `${v.dateKey}|${v.skill}|${v.moduleSlug}`),
+    );
+    const dupViewIds = anonViews
+      .filter((v) =>
+        ownedKeys.has(`${v.dateKey}|${v.skill}|${v.moduleSlug}`),
+      )
+      .map((v) => v.id);
+    if (dupViewIds.length > 0) {
+      await tx.delete(lessonViews).where(inArray(lessonViews.id, dupViewIds));
+    }
+    await tx
+      .update(lessonViews)
+      .set({ userId: accountId })
+      .where(eq(lessonViews.userId, anonId));
+  }
+
+  // 7) 标注无唯一约束，直接改归属
   await tx
     .update(annotations)
     .set({ userId: accountId })
     .where(eq(annotations.userId, anonId));
 
-  // 6) 匿名用户行删除（FK onDelete cascade 兜底）
+  // 8) 匿名用户行删除（FK onDelete cascade 兜底）
   await tx.delete(users).where(eq(users.id, anonId));
 }

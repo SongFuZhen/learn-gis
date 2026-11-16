@@ -8,13 +8,14 @@ import SiteFooter from "@/components/SiteFooter";
 import MobileTabBar from "@/components/MobileTabBar";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { SKILL_REGISTRY } from "@/content/registry";
-import { getSession } from "@/lib/auth";
+import { displayNameOf, getSession } from "@/lib/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { Analytics } from "@vercel/analytics/react";
 import { Suspense } from "react";
 import AuthModal from "@/components/auth/AuthModal";
+import { FocusProvider } from "@/components/focus/FocusProvider";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -70,16 +71,21 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   // 侧边栏账号入口：DB 异常时静默回落未登录态，整站不可因此 500
-  let account: { username: string } | null = null;
+  let account: { displayName: string } | null = null;
   try {
     const session = await getSession();
     if (session) {
       const [row] = await db
-        .select({ username: users.username })
+        .select({
+          id: users.id,
+          username: users.username,
+          nickname: users.nickname,
+        })
         .from(users)
         .where(eq(users.id, session.userId))
         .limit(1);
-      if (row?.username) account = { username: row.username };
+      // 仅注册账号显示入口；公开位只给昵称，绝不回退登录名
+      if (row?.username) account = { displayName: displayNameOf(row) };
     }
   } catch {
     account = null;
@@ -98,6 +104,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <FocusProvider>
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-card focus:px-4 focus:py-2 focus:text-sm focus:shadow-card"
@@ -106,7 +113,7 @@ export default async function RootLayout({
           </a>
           <div className="flex min-h-screen">
             <Sidebar account={account} />
-            <div className="flex min-w-0 flex-1 flex-col lg:pl-[248px]">
+            <div className="app-content flex min-w-0 flex-1 flex-col lg:pl-[248px]">
               <SiteHeader />
               <main id="main" tabIndex={-1} className="flex-1 outline-none">
                 {children}
@@ -119,6 +126,7 @@ export default async function RootLayout({
           <Suspense fallback={null}>
             <AuthModal />
           </Suspense>
+          </FocusProvider>
         </ThemeProvider>
         {/* 本地 `next start` 没有 Vercel Insights 端点，仅在 Vercel 环境挂载 */}
         {process.env.VERCEL ? <Analytics /> : null}

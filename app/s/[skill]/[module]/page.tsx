@@ -7,6 +7,7 @@ import FloatingToc from "@/components/FloatingToc";
 import SpeechBar from "@/components/lesson/SpeechBar";
 import AnnotationLayer from "@/components/lesson/annotations/AnnotationLayer";
 import AnnotationPanel from "@/components/lesson/annotations/AnnotationPanel";
+import FocusToggle from "@/components/focus/FocusToggle";
 import { SKILLS,
   getLesson,
   getModule,
@@ -16,6 +17,8 @@ import { SKILLS,
 } from "@/lib/content";
 import { PASS_LINE } from "@/lib/quiz/exam";
 import { extractToc } from "@/lib/toc";
+import { resolveUserId } from "@/lib/api/user";
+import { recordLessonView } from "@/lib/engagement/activity";
 
 export function generateStaticParams() {
   return SKILLS.flatMap((s) =>
@@ -47,6 +50,10 @@ export default async function ModulePage({
   const Lesson = await getLesson(skillId, moduleSlug);
   const count = getQuestions(skillId, moduleSlug).length;
 
+  // 讲义阅读计入打卡日历：只认既有身份，纯浏览不铸造匿名行；内部吞错
+  const viewerId = await resolveUserId();
+  if (viewerId) await recordLessonView(viewerId, skillId, moduleSlug);
+
   // 从 MDX 源码提取 h2 目录（id 生成规则与 mdx-components 的 h2 一致）
   const toc = extractToc(
     readFileSync(
@@ -63,7 +70,7 @@ export default async function ModulePage({
     idx >= 0 && idx < modules.length - 1 ? (modules[idx + 1] ?? null) : null;
 
   return (
-    <div className="w-full px-4 py-5 sm:px-6 sm:py-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-12 lg:px-8 lg:py-10">
+    <div className="lesson-grid w-full px-4 py-5 sm:px-6 sm:py-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-12 lg:px-8 lg:py-10">
       <div className="min-w-0">
         <nav className="min-w-0 max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[12px] text-foreground-muted">
           <Link href={`/s/${skillId}`} className="hover:text-brand">
@@ -94,6 +101,7 @@ export default async function ModulePage({
             <span className="text-[12px] text-foreground-tertiary">
               答错的题会自动进入复习队列
             </span>
+            <FocusToggle />
           </div>
 
           {/* 音频 manifest 以章节文件名（file）为目录，而非 URL slug */}
@@ -122,7 +130,7 @@ export default async function ModulePage({
       </div>
 
       {/* 桌面目录从页面顶部开始吸附，滚动讲义时始终留在原位 */}
-      <aside className="hidden lg:sticky lg:top-10 lg:block">
+      <aside className="focus-hide hidden lg:sticky lg:top-10 lg:block">
         <div className="rounded-md border border-border bg-card p-4 shadow-card">
           <p className="text-[11px] uppercase tracking-wider text-foreground-muted">
             本章

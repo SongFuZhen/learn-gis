@@ -2,9 +2,11 @@ import { describe, expect, it, vi } from "vitest";
 import { getTableName } from "drizzle-orm";
 import { mergeAnonymousInto } from "./merge";
 import {
+  activityDaily,
   annotations,
   checkIns,
   examSessions,
+  lessonViews,
   moduleProgress,
   users,
   wrongAnswers,
@@ -191,6 +193,83 @@ describe("mergeAnonymousInto", () => {
       (o) => o.table === tableName(checkIns) && o.op === "update",
     );
     expect(checkinUpdate?.set).toEqual({ userId: ACCOUNT });
+    expect(ops.at(-1)).toEqual({ table: tableName(users), op: "delete" });
+  });
+
+  it("每日活动同日累加、独有日改归属；讲义阅读同键去重后改归属", async () => {
+    const selectResults = [
+      [], // 匿名错题：无
+      [], // 匿名章节进度：无
+      [], // 匿名考试：无
+      [], // 匿名签到：无
+      // 匿名活动：d1 与账号同日（需累加），d2 独有
+      [
+        {
+          id: "a1",
+          dateKey: "2026-11-14",
+          answerCount: 3,
+          examCount: 1,
+          lessonCount: 2,
+        },
+        {
+          id: "a2",
+          dateKey: "2026-11-13",
+          answerCount: 1,
+          examCount: 0,
+          lessonCount: 0,
+        },
+      ],
+      // 账号 d1 已有活动
+      [
+        {
+          id: "aa",
+          dateKey: "2026-11-14",
+          answerCount: 10,
+          examCount: 2,
+          lessonCount: 1,
+        },
+      ],
+      // d2 账号无行（循环内第二次 limit 1 空结果）
+      [],
+      // 匿名讲义阅读：v1 同键冲突，v2 独有
+      [
+        { id: "v1", dateKey: "2026-11-14", skill: "gis", moduleSlug: "01" },
+        { id: "v2", dateKey: "2026-11-13", skill: "gis", moduleSlug: "02" },
+      ],
+      // 账号已有 v1 同键
+      [{ dateKey: "2026-11-14", skill: "gis", moduleSlug: "01" }],
+    ];
+    const { tx, ops } = makeTx(selectResults);
+
+    await mergeAnonymousInto(tx as never, ANON, ACCOUNT);
+
+    // d1 计数累加进账号行：10+3 / 2+1 / 1+2
+    const activityUpdates = ops
+      .filter((o) => o.table === tableName(activityDaily) && o.op === "update")
+      .map((o) => o.set);
+    expect(activityUpdates).toContainEqual(
+      expect.objectContaining({
+        answerCount: 13,
+        examCount: 3,
+        lessonCount: 3,
+      }),
+    );
+    // d2 独有日直接改归属
+    expect(activityUpdates).toContainEqual({ userId: ACCOUNT });
+    // 累加后匿名 d1 行删除
+    expect(
+      ops.some((o) => o.table === tableName(activityDaily) && o.op === "delete"),
+    ).toBe(true);
+
+    // 讲义阅读：冲突行删除，其余改归属
+    expect(
+      ops.some((o) => o.table === tableName(lessonViews) && o.op === "delete"),
+    ).toBe(true);
+    const viewUpdate = ops.find(
+      (o) => o.table === tableName(lessonViews) && o.op === "update",
+    );
+    expect(viewUpdate?.set).toEqual({ userId: ACCOUNT });
+
     expect(ops.at(-1)).toEqual({ table: tableName(users), op: "delete" });
   });
 });

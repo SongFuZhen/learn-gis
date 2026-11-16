@@ -102,7 +102,7 @@ export function AnnotationPanelMobile() {
   if (items.length === 0) return null;
 
   return (
-    <div className="fixed right-4 bottom-[9rem] z-30 lg:hidden">
+    <div className="focus-hide fixed right-4 bottom-[9rem] z-30 lg:hidden">
       {open && (
         <div
           aria-hidden="true"

@@ -6,12 +6,15 @@
 import {
   createHmac,
   randomBytes,
+  randomUUID,
   scryptSync,
   timingSafeEqual,
 } from "node:crypto";
 import { cookies } from "next/headers";
 
 export const USERNAME_RE = /^[a-zA-Z0-9_]{4,20}$/;
+/** 昵称面向公开展示：允许中英文、数字、空格、下划线与连字符，2-20 位 */
+export const NICKNAME_RE = /^[一-龥a-zA-Z0-9_\- ]{2,20}$/;
 export const PASSWORD_MIN = 8;
 export const PASSWORD_MAX = 128;
 
@@ -29,6 +32,19 @@ export const RESERVED_USERNAMES = new Set([
   "support",
   "help",
 ]);
+
+/** 留空昵称时生成可辨识但不暴露登录名的公开昵称 */
+export function randomNickname(): string {
+  return `学员_${randomUUID().slice(0, 4)}`;
+}
+
+/** 公开展示名：昵称优先；历史账号缺昵称时按用户 ID 生成稳定兜底 */
+export function displayNameOf(user: {
+  id: string;
+  nickname: string | null;
+}): string {
+  return user.nickname?.trim() || `学员_${user.id.replaceAll("-", "").slice(0, 4)}`;
+}
 
 const SCRYPT_N = 16384;
 const SCRYPT_r = 8;

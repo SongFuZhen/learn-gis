@@ -30,12 +30,18 @@ vi.mock("@/lib/auth/rate-limit", () => ({
   },
 }));
 
-const { dbMock, lastUpdate } = vi.hoisted(() => {
-  const state: { update: unknown } = { update: null };
+const { dbMock, lastUpdate, lastValues } = vi.hoisted(() => {
+  const state: { update: unknown; values: unknown } = {
+    update: null,
+    values: null,
+  };
   const chain = {
     from: vi.fn(() => chain),
     where: vi.fn(() => chain),
-    values: vi.fn(() => chain),
+    values: vi.fn((payload: unknown) => {
+      state.values = payload;
+      return chain;
+    }),
     set: vi.fn((payload: unknown) => {
       state.update = payload;
       return chain;
@@ -50,6 +56,7 @@ const { dbMock, lastUpdate } = vi.hoisted(() => {
   return {
     dbMock,
     lastUpdate: () => state.update as Record<string, unknown> | null,
+    lastValues: () => state.values as Record<string, unknown> | null,
   };
 });
 vi.mock("@/db", () => ({ db: dbMock }));
@@ -106,8 +113,25 @@ describe("POST /api/auth/register", { timeout: 20_000 }, () => {
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual({ ok: true, username: "fresh_user" });
     expect(dbMock.insert).toHaveBeenCalledTimes(1);
+    // 未填昵称：自动生成，绝不把登录名当作公开昵称
+    expect(lastValues()?.nickname).toMatch(/^学员_[0-9a-f]{4}$/);
     expect(jar.has("auth_session")).toBe(true);
     expect(jar.has("user_id")).toBe(false);
+  });
+
+  it("注册携带昵称时原样落库，允许与登录名不同", async () => {
+    const res = await register(
+      postJson("http://localhost/api/auth/register", {
+        username: "named_user",
+        password: "password123",
+        nickname: "地图小匠",
+      }),
+    );
+    expect(res.status).toBe(200);
+    expect(lastValues()).toMatchObject({
+      username: "named_user",
+      nickname: "地图小匠",
+    });
   });
 
   it("用户名非法返回 400", async () => {
@@ -171,6 +195,7 @@ describe("POST /api/auth/register", { timeout: 20_000 }, () => {
       postJson("http://localhost/api/auth/register", {
         username: "Mapper_01",
         password: "password123",
+        nickname: "出图工人",
       }),
     );
     expect(res.status).toBe(200);
@@ -178,6 +203,7 @@ describe("POST /api/auth/register", { timeout: 20_000 }, () => {
     expect(json).toEqual({ ok: true, username: "mapper_01" });
     expect(lastUpdate()).toMatchObject({
       username: "mapper_01",
+      nickname: "出图工人",
     });
     expect(typeof lastUpdate()?.passwordHash).toBe("string");
     expect(jar.has("auth_session")).toBe(true);
