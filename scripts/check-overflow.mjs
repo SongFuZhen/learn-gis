@@ -32,7 +32,20 @@ const skillPages = skillDirs.flatMap((skill) => {
   ];
 });
 
-const PAGES = ["/", "/learn", "/review", "/progress", ...skillPages];
+const PAGES = [
+  "/",
+  "/learn",
+  "/review",
+  "/progress",
+  "/checkin",
+  "/annotations",
+  "/audio",
+  "/rank",
+  "/exam",
+  "/settings",
+  "/docs/mcp",
+  ...skillPages,
+];
 const WIDTHS = [320, 375, 390];
 
 const browser = await chromium.launch({ channel: "chrome", headless: true });

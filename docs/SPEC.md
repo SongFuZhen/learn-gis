@@ -135,7 +135,8 @@ exam_sessions    (id, user_id, mode, size, correct, mastery, date_key, created_a
 | `/exam` | static | 考试入口：每日一考与综合模拟卷，均从全题库随机抽题 |
 | `/review` | static（M3 接队列） | 今日到期题 |
 | `/progress` | static（M3 接数据） | 各章掌握度 |
-| `/settings` | static | 外观主题 + 次级入口（复习 / 进度 / 章节） |
+| `/learn` | static | 学习中心：课程目录，复习、进度、打卡、划线、音频与排行入口 |
+| `/settings` | static | 账号、外观主题与开发者入口（MCP 接入） |
 
 Next 16 注意：`params` 是 `Promise`，页面签名 `async function Page({ params }: { params: Promise<{ skill: string }> })`。
 

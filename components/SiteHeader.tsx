@@ -4,43 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import SiteSearch from "@/components/SiteSearch";
-import { SKILLS, getModule } from "@/lib/content";
+import { pageTitle } from "@/lib/page-title";
 import logoMark from "@/public/brand/logo.png";
-
-/** 静态路由标题：前缀长的放前面，避免 /exam 抢走 /exam/daily */
-const STATIC_TITLES: readonly (readonly [prefix: string, title: string])[] = [
-  ["/learn", "学习"],
-  ["/exam/daily", "每日一考"],
-  ["/exam/mock", "综合考试"],
-  ["/exam", "考试"],
-  ["/audio", "讲义音频"],
-  ["/review", "今日复习"],
-  ["/progress", "学习进度"],
-  ["/annotations", "我的划线"],
-  ["/settings", "设置"],
-];
-
-/** 按路径推导当前页面标题（首页及未知路径显示「首页」） */
-function pageTitle(pathname: string): string {
-  for (const [prefix, title] of STATIC_TITLES) {
-    if (pathname === prefix || pathname.startsWith(`${prefix}/`)) {
-      return title;
-    }
-  }
-  // 讲义 / 章节测验：/s/{skill}/{两位章节号}
-  const chapter = pathname.match(/^\/s\/([a-z]+)\/(\d{2})/);
-  if (chapter) {
-    const mod = getModule(chapter[1] ?? "", chapter[2] ?? "");
-    if (mod) {
-      return pathname.endsWith("/quiz") ? `测验 · ${mod.title}` : mod.title;
-    }
-  }
-  if (pathname.startsWith("/s/")) {
-    const skill = SKILLS.find((s) => pathname.startsWith(`/s/${s.id}/`));
-    return skill?.title ?? "课程";
-  }
-  return "首页";
-}
 
 /** 移动端顶栏：品牌 + 当前页面标题 + 搜索（主题切换收在 /settings） */
 export default function SiteHeader() {
@@ -58,7 +23,7 @@ export default function SiteHeader() {
         >
           <Image src={logoMark} alt="" priority className="h-8 w-8" />
         </Link>
-        <h1
+        <p
           className={
             isHome
               ? "min-w-0 flex-1 truncate text-[15px] font-semibold tracking-tight"
@@ -66,7 +31,7 @@ export default function SiteHeader() {
           }
         >
           {title}
-        </h1>
+        </p>
         <SiteSearch variant="mobile" />
       </div>
     </header>

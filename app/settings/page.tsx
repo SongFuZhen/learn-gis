@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ChevronRight, LogIn, UserPlus } from "lucide-react";
+import { Braces, LogIn, UserPlus } from "lucide-react";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LogoutButton from "@/components/auth/LogoutButton";
 import NicknameForm from "@/components/account/NicknameForm";
@@ -11,26 +11,8 @@ import { SITE_NAME, SITE_URL } from "@/lib/site";
 
 export const metadata = {
   title: "设置",
-  description: "外观主题、学习数据入口与站点说明。",
+  description: "账号、外观主题、MCP 开发者配置与站点说明。",
 };
-
-const ROWS = [
-  {
-    href: "/review",
-    label: "今日复习",
-    desc: "错题按 SM-2 排期回到这里",
-  },
-  {
-    href: "/progress",
-    label: "学习进度",
-    desc: "各章掌握度与测验成绩",
-  },
-  {
-    href: "/learn",
-    label: "课程章节",
-    desc: "讲义目录，按顺序读或跳着读",
-  },
-];
 
 export default async function SettingsPage() {
   const session = await getSession();
@@ -52,7 +34,7 @@ export default async function SettingsPage() {
         设置
       </h1>
       <p className="mt-2 max-w-xl text-sm leading-relaxed text-foreground-secondary sm:text-[15px]">
-        外观与学习数据都在这一页；导航只保留四个入口，其余收在这里。
+        管理账号、外观与开发者配置；复习、进度、打卡、划线和音频统一收在学习中心。
       </p>
 
       {/* 账号 */}
@@ -130,36 +112,26 @@ export default async function SettingsPage() {
         </div>
       </section>
 
-      {/* 学习数据 */}
+      {/* 开发者 */}
       <h2 className="mt-8 text-[11px] uppercase tracking-wider text-foreground-muted">
-        学习
+        开发者
       </h2>
-      <ul className="mt-2 overflow-hidden rounded-md border border-border bg-card shadow-card">
-        {ROWS.map((row, index) => (
-          <li
-            key={row.href}
-            className={index > 0 ? "border-t border-border-subtle" : undefined}
-          >
-            <Link
-              href={row.href}
-              className="flex min-h-[3.25rem] items-center justify-between gap-4 px-5 py-3.5 transition-colors hover:bg-background-subtle"
-            >
-              <span className="min-w-0">
-                <span className="block text-[15px] font-medium">
-                  {row.label}
-                </span>
-                <span className="mt-0.5 block text-[13px] leading-relaxed text-foreground-tertiary">
-                  {row.desc}
-                </span>
-              </span>
-              <ChevronRight
-                className="h-4 w-4 shrink-0 text-foreground-muted"
-                strokeWidth={1.7}
-              />
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-2 rounded-md border border-border bg-card shadow-card">
+        <Link
+          href="/docs/mcp"
+          className="flex min-h-[3.25rem] items-center gap-4 px-5 py-3.5 transition-colors hover:bg-background-subtle"
+        >
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-brand-soft text-brand">
+            <Braces className="h-5 w-5" strokeWidth={1.7} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-[15px] font-medium">MCP 接入</span>
+            <span className="mt-0.5 block text-[13px] leading-relaxed text-foreground-tertiary">
+              一个 URL 接入客户端，让 AI 只读查询课程与题库
+            </span>
+          </span>
+        </Link>
+      </div>
 
       {/* 说明 */}
       <h2 className="mt-8 text-[11px] uppercase tracking-wider text-foreground-muted">
