@@ -12,9 +12,13 @@ const querySchema = z
   .object({
     skill: z.string().min(1).optional(),
     module: z.string().min(1).optional(),
+    summary: z.literal("true").optional(),
   })
-  .refine((q) => (q.skill === undefined) === (q.module === undefined), {
-    message: "skill 与 module 必须同时提供；都不提供则返回全部划线",
+  .refine((q) => q.module === undefined || q.skill !== undefined, {
+    message: "提供 module 时必须同时提供 skill",
+  })
+  .refine((q) => !q.summary || q.module === undefined, {
+    message: "summary 模式不支持 module 查询",
   });
 
 const anchorSchema = z.object({
@@ -44,6 +48,7 @@ export async function GET(request: Request) {
   const parsed = querySchema.safeParse({
     skill: url.searchParams.get("skill") ?? undefined,
     module: url.searchParams.get("module") ?? undefined,
+    summary: url.searchParams.get("summary") ?? undefined,
   });
   if (!parsed.success) {
     return NextResponse.json(
@@ -53,14 +58,10 @@ export async function GET(request: Request) {
   }
 
   const userId = await getOrCreateUserId();
-  const { skill, module: moduleSlug } = parsed.data;
-  const scope =
-    skill && moduleSlug
-      ? [
-          eq(annotations.skill, skill),
-          eq(annotations.moduleSlug, moduleSlug),
-        ]
-      : [];
+  const { skill, module: moduleSlug, summary } = parsed.data;
+  const scope = skill ? [eq(annotations.skill, skill)] : [];
+  if (moduleSlug) scope.push(eq(annotations.moduleSlug, moduleSlug));
+
   const rows = await withRetry(() =>
     db
       .select()
@@ -68,6 +69,43 @@ export async function GET(request: Request) {
       .where(and(eq(annotations.userId, userId), ...scope))
       .orderBy(asc(annotations.createdAt), asc(annotations.id)),
   );
+
+  if (summary) {
+    const bySkill = new Map<
+      string,
+      {
+        skill: string;
+        moduleCount: number;
+        total: number;
+        counts: Record<"note" | "record" | "question", number>;
+        modules: Set<string>;
+      }
+    >();
+    for (const row of rows) {
+      const current =
+        bySkill.get(row.skill) ??
+        {
+          skill: row.skill,
+          moduleCount: 0,
+          total: 0,
+          counts: { note: 0, record: 0, question: 0 },
+          modules: new Set<string>(),
+        };
+      current.total += 1;
+      current.counts[row.kind] += 1;
+      current.modules.add(row.moduleSlug);
+      current.moduleCount = current.modules.size;
+      bySkill.set(row.skill, current);
+    }
+    return NextResponse.json({
+      summary: Array.from(bySkill.values()).map((item) => ({
+        skill: item.skill,
+        moduleCount: item.moduleCount,
+        total: item.total,
+        counts: item.counts,
+      })),
+    });
+  }
 
   return NextResponse.json({ annotations: rows });
 }

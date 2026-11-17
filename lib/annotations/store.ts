@@ -125,6 +125,38 @@ export async function fetchAllAnnotations(): Promise<AnnotationItem[]> {
   return data.annotations ?? [];
 }
 
+export type AnnotationCourseSummary = {
+  skill: string;
+  moduleCount: number;
+  total: number;
+  counts: Record<AnnotationKind, number>;
+};
+
+export async function fetchAnnotationSummary(): Promise<
+  AnnotationCourseSummary[]
+> {
+  const res = await fetch("/api/annotations?summary=true", {
+    cache: "no-store",
+  });
+  if (!res.ok) throw new Error(String(res.status));
+  const data = (await res.json()) as {
+    summary?: AnnotationCourseSummary[];
+  };
+  return data.summary ?? [];
+}
+
+export async function fetchSkillAnnotations(
+  skill: string,
+): Promise<AnnotationItem[]> {
+  const res = await fetch(
+    `/api/annotations?skill=${encodeURIComponent(skill)}`,
+    { cache: "no-store" },
+  );
+  if (!res.ok) throw new Error(String(res.status));
+  const data = (await res.json()) as { annotations?: AnnotationItem[] };
+  return data.annotations ?? [];
+}
+
 type CreateInput = {
   skill: string;
   moduleSlug: string;

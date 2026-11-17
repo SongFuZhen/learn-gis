@@ -2,6 +2,7 @@ import {
   BookOpen,
   GraduationCap,
   Headphones,
+  Highlighter,
   House,
   Settings,
   Trophy,
@@ -11,7 +12,14 @@ import {
 export type NavItem = {
   href: string;
   label: string;
-  key: "home" | "learn" | "audio" | "exam" | "rank" | "settings";
+  key:
+    | "home"
+    | "learn"
+    | "annotations"
+    | "audio"
+    | "exam"
+    | "rank"
+    | "settings";
   /** 是否只在精确匹配时高亮 */
   exact: boolean;
 };
@@ -20,6 +28,7 @@ export const NAV_ITEMS: NavItem[] = [
   { href: "/", label: "首页", key: "home", exact: true },
   // 学习入口指向课程中转页；/s/<skill> 下的章节页也算在学习内（见 isActive）
   { href: "/learn", label: "学习", key: "learn", exact: false },
+  { href: "/annotations", label: "划线", key: "annotations", exact: true },
   { href: "/audio", label: "音频", key: "audio", exact: true },
   // 考试入口：每日一考 / 综合考试（章节测验在讲义末尾，不在这里列）
   { href: "/exam", label: "考试", key: "exam", exact: false },
@@ -31,6 +40,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const NAV_ICONS: Record<NavItem["key"], LucideIcon> = {
   home: House,
   learn: BookOpen,
+  annotations: Highlighter,
   audio: Headphones,
   // 主操作「考试」用学位帽：比剪贴板/试卷板更像“考试”，且与书本、齿轮形状拉开
   exam: GraduationCap,

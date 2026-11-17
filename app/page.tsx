@@ -203,8 +203,7 @@ function Dashboard({
       {/* 今日任务（紧凑两卡）+ MCP 入口并排 */}
       <section className="grid gap-3 lg:grid-cols-3">
         <div className="flex flex-col lg:col-span-2">
-          <h2 className="text-[15px] font-medium">今日任务</h2>
-          <ul className="mt-3 grid h-full flex-1 grid-cols-1 gap-3 sm:grid-cols-2">
+          <ul className="grid h-full flex-1 grid-cols-1 gap-3 sm:grid-cols-2">
             <li>
               <Link
                 href="/review"

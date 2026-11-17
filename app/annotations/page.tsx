@@ -14,7 +14,7 @@ export default function AnnotationsPage() {
           我的划线
         </h1>
         <p className="mt-1.5 text-[13px] text-foreground-tertiary">
-          按课程与章节汇总，点击「回到讲义」可定位到对应章节继续阅读。
+          按课程统计并折叠收纳，展开课程后可查看章节划线，点击「回到讲义」继续阅读。
         </p>
         <div className="mt-6">
           <AllAnnotations />

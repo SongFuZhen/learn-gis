@@ -16,6 +16,7 @@ const STATIC_TITLES: readonly (readonly [prefix: string, title: string])[] = [
   ["/audio", "讲义音频"],
   ["/review", "今日复习"],
   ["/progress", "学习进度"],
+  ["/annotations", "我的划线"],
   ["/settings", "设置"],
 ];
 

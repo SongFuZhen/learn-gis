@@ -48,8 +48,8 @@ beforeEach(() => {
 });
 
 describe("GET /api/annotations", () => {
-  it("缺少 module 查询参数返回 400", async () => {
-    const req = new NextRequest("http://localhost/api/annotations?skill=gis");
+  it("只带 module 不带 skill 返回 400", async () => {
+    const req = new NextRequest("http://localhost/api/annotations?module=01");
     expect((await GET(req)).status).toBe(400);
   });
 
@@ -69,6 +69,39 @@ describe("GET /api/annotations", () => {
     const res = await GET(req);
     expect(res.status).toBe(200);
     expect((await res.json()).annotations).toHaveLength(1);
+  });
+
+  it("只带 skill 时返回该课程全部标注", async () => {
+    setTerminalResult([{ id: ANNO_ID, ...validBody }]);
+    const req = new NextRequest("http://localhost/api/annotations?skill=gis");
+    const res = await GET(req);
+    expect(res.status).toBe(200);
+    expect((await res.json()).annotations).toHaveLength(1);
+  });
+
+  it("summary 模式只返回课程统计，不返回划线正文", async () => {
+    setTerminalResult([
+      { id: ANNO_ID, ...validBody },
+      {
+        id: "33333333-3333-4333-8333-333333333333",
+        ...validBody,
+        moduleSlug: "02",
+        kind: "question",
+      },
+    ]);
+    const req = new NextRequest("http://localhost/api/annotations?summary=true");
+    const res = await GET(req);
+    const data = await res.json();
+    expect(res.status).toBe(200);
+    expect(data.summary).toEqual([
+      {
+        skill: "gis",
+        moduleCount: 2,
+        total: 2,
+        counts: { note: 1, record: 0, question: 1 },
+      },
+    ]);
+    expect(data.annotations).toBeUndefined();
   });
 });
 

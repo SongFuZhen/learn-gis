@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import path from "node:path";
-import Link from "next/link";
 import { Headphones } from "lucide-react";
-import SpeechBar from "@/components/lesson/SpeechBar";
+import AudioCourseList, {
+  type AudioCourse,
+} from "@/components/audio/AudioCourseList";
 import { SKILL_REGISTRY } from "@/content/registry";
-import { chapterNo } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "讲义音频",
@@ -49,6 +49,13 @@ function countManifests(dirName: string): number {
 
 export default function AudioPage() {
   const totalSegments = countSegments();
+  const courses: AudioCourse[] = SKILL_REGISTRY.map((reg) => ({
+    id: reg.id,
+    title: reg.title,
+    icon: reg.icon,
+    moduleCount: reg.modules.length,
+    readyCount: countManifests(reg.id),
+  }));
 
   return (
     <div className="w-full px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10">
@@ -60,7 +67,7 @@ export default function AudioPage() {
               讲义音频
             </h1>
             <p className="mt-2 max-w-xl text-[13px] leading-relaxed text-foreground-secondary">
-              全部章节的朗读音频，点「朗读本节」从开头播放。想边听边看正文、按段落跳播，点章节标题进入对应讲义页。
+              按课程折叠收纳，展开后再播放章节朗读。想边听边看正文、按段落跳播，点章节标题进入对应讲义页。
             </p>
           </div>
           <p className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5 text-[12px] tabular text-foreground-tertiary shadow-card">
@@ -70,50 +77,7 @@ export default function AudioPage() {
           </p>
         </div>
 
-        {/* 按课程分组列出章节卡片 */}
-        {SKILL_REGISTRY.map((reg) => {
-          const manifests = countManifests(reg.id);
-          const pending = manifests < reg.modules.length;
-          return (
-            <section key={reg.id} className="mt-6 first:mt-6">
-              <div className="flex flex-wrap items-center gap-2">
-                <h2 className="text-[15px] font-medium">{reg.title}</h2>
-                <span className="rounded-full bg-surface-muted px-2 py-0.5 text-[11px] tabular text-foreground-tertiary">
-                  {reg.modules.length} 章
-                </span>
-                {pending && (
-                  <span className="text-[11px] text-foreground-tertiary">
-                    音频生成中（已就绪 {manifests}/{reg.modules.length} 章）
-                  </span>
-                )}
-              </div>
-              <ol className="mt-3 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {reg.modules.map((m) => (
-                  <li
-                    key={`${reg.id}:${m.slug}`}
-                    className="flex flex-col rounded-lg border border-border bg-card p-4 shadow-card"
-                  >
-                    <div className="flex items-center gap-3">
-                      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-sm bg-brand-soft font-mono text-xs text-brand-ink">
-                        {chapterNo(m.slug)}
-                      </span>
-                      <Link
-                        href={`/s/${reg.id}/${m.slug}`}
-                        className="min-w-0 flex-1 truncate text-[15px] font-medium leading-snug hover:text-brand"
-                        title={m.title}
-                      >
-                        {m.title}
-                      </Link>
-                    </div>
-                    <div className="mt-3 flex-1">
-                      <SpeechBar slug={m.file} compact />
-                    </div>
-                  </li>
-                ))}
-              </ol>
-            </section>
-          );
-        })}
+        <AudioCourseList courses={courses} />
       </div>
     </div>
   );
