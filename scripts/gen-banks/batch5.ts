@@ -148,8 +148,6 @@ function numeric10() {
   const m = "10";
   const refs = REF_DEM;
   const out: object[] = [];
-  // 坡度百分比 -> 角度
-  const deg = (p: number) => Math.atan(p / 100) * 180 / Math.PI;
   const slopes: [number, number, number][] = [[10, 1, 5.7], [20, 2, 11.3], [50, 2, 26.6], [100, 1, 45], [8, 2, 4.6]];
   for (const [p, d, ans] of slopes) {
     out.push(numeric(m, d, "坡度 " + p + "% 约等于多少度？（保留 1 位小数，tan⁻¹ 换算）", ans, 0.2, "tan⁻¹(" + p / 100 + ") ≈ " + ans + "°。", refs, { unit: "°" }));
@@ -366,7 +364,7 @@ function map08() {
 export function gen10Terrain(): object[] {
   return [
     ...tfBatch("10", TF10, REF_DEM),
-    ...SINGLE10.map((q, i) => single("10", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_DEM)),
+    ...SINGLE10.map((q) => single("10", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_DEM)),
     ...multi10(),
     ...short10(),
     ...numeric10(),

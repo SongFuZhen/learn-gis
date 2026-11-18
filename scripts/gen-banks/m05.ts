@@ -4,7 +4,6 @@ import {
   rint,
   short,
   single,
-  truefalse,
   type Opt,
   type TfTuple,
   tfBatch,

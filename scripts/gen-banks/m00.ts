@@ -7,7 +7,6 @@ import {
   rint,
   round,
   sample,
-  type Ref,
 } from "./helpers";
 import { REF, haversineKm } from "./geoutil";
 

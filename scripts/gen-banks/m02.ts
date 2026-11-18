@@ -6,7 +6,6 @@ import {
   rint,
   sample,
   single,
-  truefalse,
   type Opt,
   type TfTuple,
   tfBatch,

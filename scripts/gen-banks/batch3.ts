@@ -198,7 +198,7 @@ function multi04() {
 export function gen07Tools(): object[] {
   return [
     ...tfBatch("07", TF07, REF_GDAL),
-    ...SINGLE07.map((q, i) => single("07", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_GDAL)),
+    ...SINGLE07.map((q) => single("07", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_GDAL)),
     ...multi07(),
     ...short07(),
     ...numeric07(),

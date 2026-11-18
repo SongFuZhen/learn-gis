@@ -228,7 +228,7 @@ export function gen13WebgisExtra(): object[] {
 export function gen11RemoteSensing(): object[] {
   return [
     ...tfBatch("11", TF11, REF_RS),
-    ...SINGLE11.map((q, i) => single("11", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_RS)),
+    ...SINGLE11.map((q) => single("11", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_RS)),
     ...multi11(),
     ...short11(),
     ...numeric11(),

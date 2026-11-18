@@ -6,7 +6,6 @@ import {
   sample,
   short,
   single,
-  truefalse,
   type Opt,
   type TfTuple,
   tfBatch,

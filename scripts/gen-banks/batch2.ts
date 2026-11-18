@@ -196,7 +196,7 @@ function map05() {
 export function gen05Cartography(): object[] {
   return [
     ...tfBatch("05", TF05, REF_CARTO),
-    ...SINGLE05.map((q, i) => single("05", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_CARTO)),
+    ...SINGLE05.map((q) => single("05", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_CARTO)),
     ...multi05(),
     ...short05(),
     ...numeric05(),

@@ -215,7 +215,7 @@ function map09() {
 export function gen09SpatialAnalysis(): object[] {
   return [
     ...tfBatch("09", TF09, REF_POSTGIS),
-    ...SINGLE09.map((q, i) => single("09", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_POSTGIS)),
+    ...SINGLE09.map((q) => single("09", q.d, q.stem, q.opts.map(([key, text]) => ({ key, text })), q.answer, q.exp, REF_POSTGIS)),
     ...multi09(),
     ...short09(),
     ...numeric09(),
