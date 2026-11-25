@@ -1,21 +1,21 @@
 ## 🍼 白话版（先看这个）
 
-> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。
+> 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么问题**：空间分析在代码和数据库里怎么落地：前端用 Turf.js，后端用 PostGIS。空间运算本身不难，难的是**单位、SRID、索引**三件事，搞错任何一件，结果都静默地错。
+**这章解决什么**：空间分析在代码和数据库里怎么落地：前端用 Turf.js，后端用 PostGIS。空间运算本身不难，难的是**单位、SRID、索引**三件事，搞错任何一件，结果都静默地错。
 
-**我的经验一句话**：把空间函数当普通 API 用，但**永远先问单位**。两个最出名的坑我都见过：
+**一句话经验**：把空间函数当普通 API 用，但**永远先问单位**。两个最出名的坑：
 
-- `turf.buffer(point, 1000)` 想画 1000 米的服务圈，结果 Turf 默认单位是**公里**，画了个 1000 公里的巨无霸，覆盖了半个中国。
-- PostGIS 里 `geometry` 类型在 4326 下 `ST_Distance` 返回的是「度」——不是米，没有业务意义。要米，用 `geography` 类型或先转投影。
+- `turf.buffer(point, 1000)` 想画 1000 米的服务圈，结果 Turf 默认单位是**公里**，画了个 1000 公里的巨无霸，覆盖半个中国。
+- PostGIS 里 `geometry` 类型在 4326 下 `ST_Distance` 返回「度」——不是米，没有业务意义。要米，用 `geography` 类型或先转投影。
 
-**我见过的坑（你大概率也会踩）**：
+**几个坑**：
 
 - **忘了建空间索引**：百万条数据的相交查询跑几分钟；建个 GiST 索引（`CREATE INDEX ... USING GIST(geom)`）变毫秒。
 - **SRID 不一致直接 join**：两张表一个 4326 一个 3857，查询结果全错还不报错。先 `ST_Transform` 统一。
 - **前端扛大数据**：十万条要素全推给浏览器直接卡死。重计算下沉到 PostGIS，前端只拿结果。
 
-**必记 3 条**：
+**记三条**：
 
 1. Turf 默认单位是公里，不是米
 2. PostGIS 里 geography 按米算球面距离，geometry 看 SRID 单位
@@ -23,7 +23,7 @@
 
 ## 一句话
 
-空间运算本身不难，难的是「单位、SRID（/ˌɛs ˌɑːr ˌaɪ ˈdiː/，「艾斯-阿-艾-迪」）、索引」三件事；搞错任何一件，结果就会静默地出错。
+空间运算本身不难，难的是「单位、SRID（/ˌɛs ˌɑːr ˌaɪ ˈdiː/，「艾斯-阿-艾-迪」）、索引」三件事；搞错任何一件，结果就静默出错。
 
 ## 1. 前端：Turf.js
 
@@ -99,14 +99,13 @@ ST_MakeEnvelope(x1,y1,x2,y2, srid)  -- 构造矩形，做范围查询
 <Callout type="must" title="必背 · 函数易混点">
 - `ST_Transform` 会**换算坐标**；`ST_SetSRID` 只**贴标签不换算**，不改变任何坐标值
 - `ST_Contains(a, b)` 是「a 包含 b」，`ST_Within(a, b)` 是「a 在 b 内」，**方向相反**，参数别写反
-- 判断「距离不超过 r」用 `ST_DWithin(a, b, r)`，不要用 `ST_Distance` 再比较，前者能用索引
+- 判断「距离不超过 r」用 `ST_DWithin(a, b, r)`，别用 `ST_Distance` 再比较，前者能用索引
 - `ST_Buffer` / `ST_Area` / `ST_Length` 的单位 = **当前 CRS（/ˌsiː ˌɑːr ˈɛs/，「西-阿-艾斯」）的单位**，4326 上就是「度」
 </Callout>
 
-
 ## 4. 叠加函数族：合并、求交、求差
 
-第 10 章讲叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的「语法」：
+第 10 章讲了叠置分析的「语义」（交/并/差解决什么问题），这里补上 PostGIS（/ˌpoʊstˈdʒɪs/，「剖斯特-吉斯」）的「语法」：
 
 ```sql
 -- 合并：注意 ST_Union 与 ST_Collect 的区别
@@ -134,7 +133,7 @@ CREATE TABLE districts_sub AS
 SELECT ST_Subdivide(geom, 256) AS geom, name FROM districts;
 ```
 
-**有效性检查**（第 05 章的概念，这里是工程落地）：
+**有效性检查**（第 05 章的概念，这里落地）：
 
 ```sql
 SELECT id, ST_IsValidReason(geom)
@@ -204,7 +203,6 @@ WHERE NOT ST_IsValid(geom);
 </Exercise>
 
 ## 5. 索引：让查询真的快
-
 
 ```sql
 CREATE INDEX ON roads USING GIST (geom);
