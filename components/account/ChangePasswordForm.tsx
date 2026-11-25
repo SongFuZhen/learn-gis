@@ -63,7 +63,7 @@ export default function ChangePasswordForm() {
         <div className="min-w-0">
           <p className="text-[13px] font-medium">密码</p>
           <p className="mt-1 text-[12px] leading-relaxed text-foreground-muted">
-            修改后当前设备保持登录；其他设备上已登录的会话不会被强制退出。
+            修改后其他设备上的登录会被强制退出，需要重新登录。
           </p>
         </div>
         {!open && (

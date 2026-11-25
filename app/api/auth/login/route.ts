@@ -108,7 +108,7 @@ export async function POST(request: Request) {
     });
   }
 
-  await setSessionCookie(account.id);
+  await setSessionCookie(account.id, account.sessionVersion);
   await clearIdentityCookies(false);
   await recordAuthAttempt("login", ip, username, true);
 

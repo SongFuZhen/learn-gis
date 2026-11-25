@@ -59,7 +59,11 @@ export async function POST(request: Request) {
 
   const [account] = await withRetry(() =>
     db
-      .select({ id: users.id, passwordHash: users.passwordHash })
+      .select({
+        id: users.id,
+        passwordHash: users.passwordHash,
+        sessionVersion: users.sessionVersion,
+      })
       .from(users)
       .where(eq(users.id, session.userId))
       .limit(1),
@@ -71,11 +75,16 @@ export async function POST(request: Request) {
   }
 
   const passwordHash = hashPassword(newPassword);
+  const nextVersion = account.sessionVersion + 1;
   await withRetry(() =>
-    db.update(users).set({ passwordHash }).where(eq(users.id, account.id)),
+    db
+      .update(users)
+      .set({ passwordHash, sessionVersion: nextVersion })
+      .where(eq(users.id, account.id)),
   );
 
-  await setSessionCookie(account.id);
+  // 会话版本 +1：其他设备上的旧 cookie 立即失效；当前设备用新版本续签
+  await setSessionCookie(account.id, nextVersion);
 
   return NextResponse.json({ ok: true });
 }

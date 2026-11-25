@@ -230,6 +230,7 @@ describe("POST /api/auth/login", { timeout: 20_000 }, () => {
         id: ACCOUNT,
         username: "mapper",
         passwordHash: hashPassword("correct-pass"),
+        sessionVersion: 0,
       },
     ];
     const res = await login(
@@ -272,6 +273,7 @@ describe("POST /api/auth/login", { timeout: 20_000 }, () => {
         id: ACCOUNT,
         username: "mapper",
         passwordHash: hashPassword("correct-pass"),
+        sessionVersion: 0,
       },
     ];
     const res = await login(
@@ -297,7 +299,8 @@ describe("POST /api/auth/change-password", { timeout: 60_000 }, () => {
   });
 
   it("新密码过短返回 400", async () => {
-    await setSessionCookie(ACCOUNT);
+    await setSessionCookie(ACCOUNT, 0);
+    selectRows = [{ id: ACCOUNT, sessionVersion: 0 }];
     const res = await changePassword(
       postJson("http://localhost/api/auth/change-password", {
         currentPassword: "oldpass123",
@@ -308,9 +311,9 @@ describe("POST /api/auth/change-password", { timeout: 60_000 }, () => {
   });
 
   it("当前密码错误返回 401", async () => {
-    await setSessionCookie(ACCOUNT);
+    await setSessionCookie(ACCOUNT, 0);
     selectRows = [
-      { id: ACCOUNT, passwordHash: hashPassword("correct-pass") },
+      { id: ACCOUNT, passwordHash: hashPassword("correct-pass"), sessionVersion: 0 },
     ];
     const res = await changePassword(
       postJson("http://localhost/api/auth/change-password", {
@@ -322,9 +325,9 @@ describe("POST /api/auth/change-password", { timeout: 60_000 }, () => {
   });
 
   it("成功更新密码哈希，新密码可验证", async () => {
-    await setSessionCookie(ACCOUNT);
+    await setSessionCookie(ACCOUNT, 0);
     selectRows = [
-      { id: ACCOUNT, passwordHash: hashPassword("oldpass123") },
+      { id: ACCOUNT, passwordHash: hashPassword("oldpass123"), sessionVersion: 0 },
     ];
     const res = await changePassword(
       postJson("http://localhost/api/auth/change-password", {
@@ -336,6 +339,7 @@ describe("POST /api/auth/change-password", { timeout: 60_000 }, () => {
     const stored = lastUpdate()?.passwordHash;
     expect(typeof stored).toBe("string");
     expect(verifyPassword("newpass456", stored as string)).toBe(true);
+    expect(lastUpdate()?.sessionVersion).toBe(1);
   });
 });
 

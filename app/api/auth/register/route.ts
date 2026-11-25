@@ -134,7 +134,7 @@ export async function POST(request: Request) {
       );
     }
 
-    await setSessionCookie(userId);
+    await setSessionCookie(userId, 0);
     await clearIdentityCookies(false);
     await recordAuthAttempt("register", ip, username, true);
 

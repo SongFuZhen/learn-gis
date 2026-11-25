@@ -12,6 +12,19 @@ vi.mock("next/headers", () => ({
   })),
 }));
 
+const dbState = vi.hoisted(() => ({ version: 0 }));
+vi.mock("@/db", () => ({
+  db: {
+    select: () => ({
+      from: () => ({
+        where: () => ({
+          limit: async () => [{ sessionVersion: dbState.version }],
+        }),
+      }),
+    }),
+  },
+}));
+
 import {
   clearIdentityCookies,
   getSession,
@@ -22,7 +35,10 @@ import {
   verifyPassword,
 } from "./auth";
 
-beforeEach(() => jar.clear());
+beforeEach(() => {
+  jar.clear();
+  dbState.version = 0;
+});
 
 // scrypt（N=16384）单次约 5s，Windows 高负载下需放宽默认 5s 超时
 describe("密码哈希 scrypt", { timeout: 20_000 }, () => {
@@ -51,6 +67,12 @@ describe("会话 cookie", () => {
     const session = await getSession();
     expect(session?.userId).toBe("11111111-1111-4111-8111-111111111111");
     expect(session?.exp).toBeGreaterThan(Date.now());
+  });
+
+  it("会话版本落后时拒绝（改密后旧 cookie 失效）", async () => {
+    await setSessionCookie("11111111-1111-4111-8111-111111111111", 0);
+    dbState.version = 1;
+    expect(await getSession()).toBeNull();
   });
 
   it("签名被篡改时拒绝", async () => {

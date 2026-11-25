@@ -31,6 +31,8 @@ export const users = gis.table(
     nickname: text("nickname"),
     /** scrypt 串：scrypt$N$r$p$saltHex$hashHex */
     passwordHash: text("password_hash"),
+    /** 会话版本：改密时 +1，旧会话 cookie 立即失效 */
+    sessionVersion: integer("session_version").notNull().default(0),
   },
   (table) => [uniqueIndex("uq_users_username").on(table.username)],
 );

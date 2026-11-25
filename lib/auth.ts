@@ -11,6 +11,9 @@ import {
   timingSafeEqual,
 } from "node:crypto";
 import { cookies } from "next/headers";
+import { eq } from "drizzle-orm";
+import { db } from "@/db";
+import { users } from "@/db/schema";
 
 export const USERNAME_RE = /^[a-zA-Z0-9_](?!.*\.\.)(?!.*\.$)[a-zA-Z0-9_.]{2,18}[a-zA-Z0-9_]$/;
 /** 昵称面向公开展示：允许中英文、数字、空格、下划线与连字符，2-20 位 */
@@ -121,9 +124,12 @@ function sign(data: string): string {
 }
 
 /** 签发会话 cookie（服务端 action/route 内调用） */
-export async function setSessionCookie(userId: string): Promise<void> {
+export async function setSessionCookie(
+  userId: string,
+  sessionVersion = 0,
+): Promise<void> {
   const exp = Date.now() + SESSION_TTL_MS;
-  const payload = b64url(JSON.stringify({ uid: userId, exp }));
+  const payload = b64url(JSON.stringify({ uid: userId, exp, sv: sessionVersion }));
   const value = `${payload}.${sign(payload)}`;
   const store = await cookies();
   store.set(SESSION_COOKIE, value, {
@@ -170,12 +176,26 @@ export async function getSession(): Promise<Session | null> {
     const data = JSON.parse(Buffer.from(payload, "base64url").toString("utf8")) as {
       uid?: unknown;
       exp?: unknown;
+      sv?: unknown;
     };
     if (
       typeof data.uid !== "string" ||
       typeof data.exp !== "number" ||
       data.exp < Date.now()
     ) {
+      return null;
+    }
+    // 会话版本校验：旧 cookie（无 sv 视为 0）与库中版本不一致即失效
+    const sv = typeof data.sv === "number" ? data.sv : 0;
+    try {
+      const [row] = await db
+        .select({ sessionVersion: users.sessionVersion })
+        .from(users)
+        .where(eq(users.id, data.uid))
+        .limit(1);
+      if (!row || row.sessionVersion !== sv) return null;
+    } catch {
+      // DB 不可用：回落未登录，宁可要求重登也不放行未知版本
       return null;
     }
     return { userId: data.uid, exp: data.exp };
