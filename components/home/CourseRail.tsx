@@ -28,7 +28,7 @@ export default function CourseRail({
 
       <ul className="mt-3 flex snap-x gap-3 overflow-x-auto pb-1 lg:grid lg:grid-cols-5 lg:overflow-visible lg:pb-0">
         {items.map(({ registration, stats }) => (
-          <li key={registration.id} className="w-52 shrink-0 snap-start lg:w-auto">
+          <li key={registration.id} className="w-40 shrink-0 snap-start sm:w-52 lg:w-auto">
             <Link
               href={`/s/${registration.id}`}
               className="group flex h-full flex-col overflow-hidden rounded-lg border border-border bg-card shadow-card transition-colors hover:border-brand/40"
@@ -39,7 +39,7 @@ export default function CourseRail({
                 size="card"
               />
               <div className="flex flex-1 flex-col p-3.5">
-                <h3 className="text-[14px] font-medium leading-snug group-hover:text-brand">
+                <h3 className="line-clamp-2 text-[14px] font-medium leading-snug group-hover:text-brand">
                   {registration.title}
                 </h3>
                 <p className="mt-1.5 text-[12px] tabular text-foreground-tertiary">

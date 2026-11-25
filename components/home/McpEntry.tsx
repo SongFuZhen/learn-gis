@@ -9,7 +9,7 @@ export default function McpEntry() {
   return (
     <Link
       href="/docs/mcp"
-      className="group flex h-full items-center gap-4 rounded-lg border border-brand/25 p-5 shadow-card transition-colors hover:border-brand/50 sm:px-6"
+      className="group flex h-full items-center gap-3 rounded-lg border border-brand/25 p-4 shadow-card transition-colors hover:border-brand/50 sm:gap-4 sm:p-5 sm:px-6"
       style={{
         background:
           "linear-gradient(135deg, hsl(var(--brand-primary) / 0.14) 0%, hsl(var(--brand-primary) / 0.05) 100%)",
@@ -22,7 +22,7 @@ export default function McpEntry() {
         <span className="block text-[14px] font-medium group-hover:text-brand">
           MCP 接入：让 AI 直接查询课程
         </span>
-        <span className="mt-0.5 block truncate text-[12.5px] text-foreground-tertiary">
+        <span className="mt-0.5 line-clamp-2 text-[12.5px] leading-snug text-foreground-tertiary">
           五个只读工具，讲义与题库随取随用，一个 URL 接入任意 MCP 客户端
         </span>
       </span>

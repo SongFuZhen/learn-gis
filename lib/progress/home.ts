@@ -1,6 +1,6 @@
 import { and, desc, eq, isNull, sql } from "drizzle-orm";
 import { db } from "@/db";
-import { examSessions, moduleProgress, wrongAnswers } from "@/db/schema";
+import { examSessions, lessonViews, moduleProgress, wrongAnswers } from "@/db/schema";
 import { SKILL_REGISTRY } from "@/content/registry";
 import { resolveUserId } from "@/lib/api/user";
 import { dateKey } from "@/lib/quiz/exam";
@@ -58,8 +58,13 @@ export async function getHomeData(): Promise<HomeData | null> {
   try {
     const today = dateKey();
     const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
-    const [progressRows, reviewAgg, examStatsRow, recentExamRows] =
-      await Promise.all([
+    const [
+      progressRows,
+      reviewAgg,
+      examStatsRow,
+      recentExamRows,
+      latestLessonRows,
+    ] = await Promise.all([
         db
           .select()
           .from(moduleProgress)
@@ -93,6 +98,17 @@ export async function getHomeData(): Promise<HomeData | null> {
           .where(eq(examSessions.userId, userId))
           .orderBy(desc(examSessions.createdAt))
           .limit(10),
+        // 最近一次讲义阅读（与答题进度取时间更晚者作为「继续学习」）
+        db
+          .select({
+            skill: lessonViews.skill,
+            moduleSlug: lessonViews.moduleSlug,
+            createdAt: lessonViews.createdAt,
+          })
+          .from(lessonViews)
+          .where(eq(lessonViews.userId, userId))
+          .orderBy(desc(lessonViews.createdAt))
+          .limit(1),
       ]);
 
     const examStats = examStatsRow[0];
@@ -132,6 +148,19 @@ export async function getHomeData(): Promise<HomeData | null> {
           (b.lastAttemptAt?.getTime() ?? 0) - (a.lastAttemptAt?.getTime() ?? 0),
       )[0];
 
+    // 「继续学习」同时认讲义阅读：取最近阅读与最近答题中更晚的章节
+    const latestLesson = latestLessonRows[0] ?? null;
+    let continueSkill = latest?.skill ?? (latest ? "gis" : null);
+    let continueSlug = latest?.moduleSlug ?? null;
+    if (
+      latestLesson &&
+      (latestLesson.createdAt?.getTime() ?? 0) >
+        (latest?.lastAttemptAt?.getTime() ?? 0)
+    ) {
+      continueSkill = latestLesson.skill;
+      continueSlug = latestLesson.moduleSlug;
+    }
+
     return {
       answeredTotal,
       avgMastery,
@@ -146,8 +175,8 @@ export async function getHomeData(): Promise<HomeData | null> {
       })),
       dailyDoneToday: (examStats?.todayDaily ?? 0) > 0,
       reviewDue: reviewAgg[0]?.count ?? 0,
-      continueSlug: latest?.moduleSlug ?? null,
-      continueSkill: latest?.skill ?? (latest ? "gis" : null),
+      continueSlug,
+      continueSkill,
       chapters,
     };
   } catch {

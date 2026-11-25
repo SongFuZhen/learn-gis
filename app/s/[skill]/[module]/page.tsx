@@ -17,8 +17,7 @@ import { SKILLS,
 } from "@/lib/content";
 import { PASS_LINE } from "@/lib/quiz/exam";
 import { extractToc } from "@/lib/toc";
-import { resolveUserId } from "@/lib/api/user";
-import { recordLessonView } from "@/lib/engagement/activity";
+import LessonViewPing from "@/components/lesson/LessonViewPing";
 
 export function generateStaticParams() {
   return SKILLS.flatMap((s) =>
@@ -50,10 +49,6 @@ export default async function ModulePage({
   const Lesson = await getLesson(skillId, moduleSlug);
   const count = getQuestions(skillId, moduleSlug).length;
 
-  // 讲义阅读计入打卡日历：只认既有身份，纯浏览不铸造匿名行；内部吞错
-  const viewerId = await resolveUserId();
-  if (viewerId) await recordLessonView(viewerId, skillId, moduleSlug);
-
   // 从 MDX 源码提取 h2 目录（id 生成规则与 mdx-components 的 h2 一致）
   const toc = extractToc(
     readFileSync(
@@ -71,6 +66,7 @@ export default async function ModulePage({
 
   return (
     <div className="lesson-grid w-full px-4 py-5 sm:px-6 sm:py-8 lg:grid lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-start lg:gap-12 lg:px-8 lg:py-10">
+      <LessonViewPing skill={skillId} moduleSlug={moduleSlug} />
       <div className="min-w-0">
         <nav className="min-w-0 max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-[12px] text-foreground-muted">
           <Link href={`/s/${skillId}`} className="hover:text-brand">
