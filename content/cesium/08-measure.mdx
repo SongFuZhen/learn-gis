@@ -1,18 +1,28 @@
 ## 🍼 白话版（先看这个）
 
-> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：GIS 的"G"是 Geographical，量算是灵魂技能——两点多远、一片地多大、坡上两点高差多少。本章把三维球面上的量算做成"鼠标画线/画面"的完整交互闭环。**我的经验一句话**：三维量算 = 第 07 章的拾取（拿点）+ 本章的几何公式（算值）+ CallbackProperty（画辅助线）——三块拼图你已经全有了，本章只是组装。**我见过的坑（你大概率也会踩）**：
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：GIS 的「G」是 Geographical，量算是灵魂技能——两点多远、一片地多大、坡上两点高差多少。这章把三维球面上的量算做成「鼠标画线/画面」的完整交互闭环。
+
+**一句话经验**：三维量算 = 第 07 章的拾取（拿点）+ 本章的几何公式（算值）+ CallbackProperty（画辅助线）——三块拼图你已经全有了，这章只是组装。
+
+**几个坑**：
+
 - 用 `Cartesian3.distance` 量两个经纬度相距很远的点——那是**空间直线**（弦长），球面上应该是沿椭球面的大圆距离，差得不少。
-- 面积直接把经纬度当平面坐标套鞋带公式——度不是米，算出来的"面积"毫无意义。
-- 忘了画辅助线时清掉上一个点——线越连越长，橡皮筋一样。**必记 3 条**：
+- 面积直接把经纬度当平面坐标套鞋带公式——度不是米，算出来的「面积」毫无意义。
+- 忘了画辅助线时清掉上一个点——线越连越长，橡皮筋一样。
+
+**记三条**：
+
 1. 空间直线距离 `Cartesian3.distance`；球面（大圆）距离用 `EllipsoidGeodesic.surfaceDistance`
 2. 面积要把面投影到**切平面**（EllipsoidTangentPlane）再套平面公式
 3. 交互画线 = 拾取点 + 动态 `CallbackProperty` 更新 polyline
 
-## 本章你会学到
+## 这章讲什么
 
-三种距离（空间直线 / 大圆 / 贴地）的适用场景与算法；椭球面面积的切平面投影法；把"点击取点 → 动态预览 → 双击结束"做成可复用的量算工具。这章的产出可以直接塞进第 09 章的实战看板。
+三种距离（空间直线 / 大圆 / 贴地）的适用场景与算法；椭球面面积的切平面投影法；把「点击取点 → 动态预览 → 双击结束」做成可复用的量算工具。这章的产出可以直接塞进第 09 章的实战看板。
 
-## 1. 三种"距离"，别混着用
+## 1. 三种「距离」，别混着用
 
 | 类型 | API/算法 | 含义 | 适用 |
 | --- | --- | --- | --- |
@@ -34,10 +44,10 @@ const geodesic = new Cesium.EllipsoidGeodesic(
 const onSurface = geodesic.surfaceDistance;           // 沿椭球面，米
 ```
 
-京沪两地直线弦长与椭球面距离差约十几公里——**1 km 以内的短距离可以近似，跨城市必须用测地线**。这正是 [GIS 课第 14 章](/s/gis/13) 讲" turf.area 是球面计算"的同一件事：量算 API 的"球面 vs 平面"之分在三维引擎里同样存在。
+京沪两地直线弦长与椭球面距离差约十几公里——**1 km 以内的短距离可以近似，跨城市必须用测地线**。这正是 [GIS 课第 14 章](/s/gis/13) 讲「turf.area 是球面计算」的同一件事：量算 API 的「球面 vs 平面」之分在三维引擎里同样存在。
 
 <Callout type="must" title="必背 · 量算三条">
-1. 展示"两地多远" → `EllipsoidGeodesic.surfaceDistance`（大圆/测地线）
+1. 展示「两地多远」 → `EllipsoidGeodesic.surfaceDistance`（大圆/测地线）
 2. `Cartesian3.distance` 是穿球的弦长，只适合近距离
 3. 面积不许用经纬度直接算——先投到切平面
 </Callout>
@@ -119,11 +129,11 @@ function refreshPreview() {
 </Callout>
 
 <Callout type="warn" title="pickEllipsoid vs pickPosition">
-`camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 则从**深度缓冲**重构位置——打中的是当前渲染出来的任何表面（地形就是山、3D Tiles 就是楼面、模型就是表皮）。三条使用规则：① 先探测 `scene.pickPositionSupported`——它是**只读能力探测**（检查设备是否支持深度纹理），不是开关；不支持时调用会直接抛 `DeveloperError`。② 半透明表面默认会被"穿透"（官方原文：essentially picks through translucent primitives）——要拾取半透明面（比如本章看板里的半透明政区面），设 `scene.pickTranslucentDepth = true`（默认 false，有额外绘制开销）。③ 对地球面的拾取在 `depthTestAgainstTerrain = false`（默认）下曾有结果不正确的 bug，1.118 修复——课程基线 1.107+ 中、1.118 之前的版本量地表要注意。量地用前者，量楼面/地形表面用后者。
+`camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 则从**深度缓冲**重构位置——打中的是当前渲染出来的任何表面（地形就是山、3D Tiles 就是楼面、模型就是表皮）。三条使用规则：① 先探测 `scene.pickPositionSupported`——它是**只读能力探测**（检查设备是否支持深度纹理），不是开关；不支持时调用会直接抛 `DeveloperError`。② 半透明表面默认会被「穿透」（官方原文：essentially picks through translucent primitives）——要拾取半透明面（比如本章看板里的半透明政区面），设 `scene.pickTranslucentDepth = true`（默认 false，有额外绘制开销）。③ 对地球面的拾取在 `depthTestAgainstTerrain = false`（默认）下曾有结果不正确的 bug，1.118 修复——课程基线 1.107+ 中、1.118 之前的版本量地表要注意。量地用前者，量楼面/地形表面用后者。
 </Callout>
 
 <Exercise tool="cesium" title="动手 · 完整测距工具">
-实现一个"测距"工具：左键连续取点、鼠标移动橡皮筋预览、实时在控制台打印"当前累计大圆距离"、双击结束。提示：距离 = 相邻顶点逐一 `EllipsoidGeodesic.surfaceDistance` 求和。
+实现一个「测距」工具：左键连续取点、鼠标移动橡皮筋预览、实时在控制台打印「当前累计大圆距离」、双击结束。提示：距离 = 相邻顶点逐一 `EllipsoidGeodesic.surfaceDistance` 求和。
 
 <ExerciseSolution>
 ```js
@@ -171,7 +181,7 @@ viewer.entities.add({
   },
 });
 ```
-加分项：① 把距离文本挂到一个 div 而不是 console（onTick 或每次取点时更新）；② 大圆距离 vs `Cartesian3.distance` 的差值在短距离下很小——试两个相距 100 m 的点，对比差值，理解"什么时候可以偷懒"。
+加分项：① 把距离文本挂到一个 div 而不是 console（onTick 或每次取点时更新）；② 大圆距离 vs `Cartesian3.distance` 的差值在短距离下很小——试两个相距 100 m 的点，对比差值，理解「什么时候可以偷懒」。
 </ExerciseSolution>
 </Exercise>
 

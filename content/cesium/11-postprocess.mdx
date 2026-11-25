@@ -1,20 +1,30 @@
 ## 🍼 白话版（先看这个）
 
-> 老司机 3 分钟经验之谈。看懂这块，本章就懂了 80%；下面是可以慢慢查的完整版。**这章解决什么问题**：前十一章画出来的画面是"素颜"的——渲出来什么样就什么样。**后处理**（PostProcess，/poʊst ˈprɒses/，「剖斯特 普-罗-塞斯」）是在渲染管线的最末端加一道"滤镜"：把整屏画面当成一张图片，用一段小 shader 重新加工——泛光、夜视、景深、暗角，甚至只给选中的要素描边。**我的经验一句话**：后处理 = 对"渲染结果这张图"做全屏像素加工——一个 stage 就是一层滤镜，链起来就是滤镜栈。**我见过的坑（你大概率也会踩）**：
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：前十一章画出来的画面是「素颜」的——渲出来什么样就什么样。**后处理**（PostProcess，/poʊst ˈprɒses/，「剖斯特 普-罗-塞斯」）是在渲染管线最末端加一道「滤镜」：把整屏画面当成一张图片，用一段小 shader 重新加工——泛光、夜视、景深、暗角，甚至只给选中的要素描边。
+
+**一句话经验**：后处理 = 对「渲染结果这张图」做全屏像素加工——一个 stage 就是一层滤镜，链起来就是滤镜栈。
+
+**几个坑**：
+
 - 自定义 shader 里写了 `gl_FragColor` 跑不起来（新版本 GLSL3 上下文）——输出变量叫 `out_FragColor`，输入纹理叫 `colorTexture`，以官方文档模板为准。
 - 堆了五六个 stage 帧率腰斩——**每个 stage 都是一次全屏 pass**，1080p 下一帧就是五六百万像素读写，数量要克制。
-- 想拾取深度却报 `DeveloperError`——`depthTexture` 依赖设备深度纹理能力，用 `stage.isSupported` 先探测（和第 9 章 `pickPositionSupported` 同一个道理）。**必记 3 条**：
+- 想拾取深度却报 `DeveloperError`——`depthTexture` 依赖设备深度纹理能力，用 `stage.isSupported` 先探测（和第 9 章 `pickPositionSupported` 同一个道理）。
+
+**记三条**：
+
 1. 滤镜链挂在 `viewer.scene.postProcessStages` 上：`add` / `remove` 管理
 2. 自定义 stage 的 shader 输入是 `colorTexture` + `v_textureCoordinates`，输出写 `out_FragColor`
 3. 每个 stage = 一次全屏 pass——效果宁可合并进一个 shader，不要堆 stage 数量
 
-## 本章你会学到
+## 这章讲什么
 
-后处理滤镜链的组织方式（collection 与内置三件套）；内置效果库的全家福；自定义 `PostProcessStage` 的 shader 模板与 uniforms 动态调参；用 `selected` 让滤镜只作用于选中要素；以及后处理的性能账本。学完这章，你的看板拥有了"画面风格"这个自由度——监控大屏的暗色调、汇报演示的泛光、对比模式的黑白，都只是一层滤镜的事。
+后处理滤镜链的组织方式（collection 与内置三件套）；内置效果库的全家福；自定义 `PostProcessStage` 的 shader 模板与 uniforms 动态调参；用 `selected` 让滤镜只作用于选中要素；以及后处理的性能账本。学完这章，你的看板有了「画面风格」这个自由度——监控大屏的暗色调、汇报演示的泛光、对比模式的黑白，都只是一层滤镜的事。
 
 ## 1. 心智模型：渲染末端的全屏滤镜链
 
-场景正常渲染的终点是"一张画好的图"。后处理把这张图当作输入纹理，跑一个只处理**屏幕像素**的小 shader，再把结果画回屏幕——所以它不关心场景里有几个对象、什么类型，**一切皆像素**：
+场景正常渲染的终点是「一张画好的图」。后处理把这张图当作输入纹理，跑一个只处理**屏幕像素**的小 shader，再把结果画回屏幕——所以它不关心场景里有几个对象、什么类型，**一切皆像素**：
 
 ```text
 场景渲染（球/实体/瓦片/粒子……）
@@ -65,7 +75,7 @@ stages.add(bw);
 3. 每个 stage 都是一次全屏 pass——链越短越省
 </Callout>
 
-## 3. 自定义 stage：滤镜的"配方"是自己写的 shader
+## 3. 自定义 stage：滤镜的「配方」是自己写的 shader
 
 内置效果不够用？**PostProcessStage** 让你直接提交一段 fragment shader——它对整屏每个像素执行一次：
 
@@ -87,7 +97,7 @@ const invertStage = viewer.scene.postProcessStages.add(
 
 shader 模板的固定约定（源码文档原文级别）：输入纹理 uniform 叫 **`colorTexture`**（上一阶段或场景的渲染结果），配合 **`v_textureCoordinates`** 二维变坐标采样；需要深度时声明 `uniform sampler2D depthTexture`（能力不足时 `stage.isSupported` 为 false）；**输出写 `out_FragColor`**。
 
-`uniforms` 选项把参数从 shader 里"拎出来"，JS 侧随时可改——**值还可以是函数，每帧求值一次**：
+`uniforms` 选项把参数从 shader 里「拎出来」，JS 侧随时可改——**值还可以是函数，每帧求值一次**：
 
 ```js
 // 呼吸亮度：uniforms 是函数，每帧重算
@@ -117,7 +127,7 @@ const stage = viewer.scene.postProcessStages.add(
 
 ## 4. selected：滤镜只作用于选中的要素
 
-后处理默认作用于**整屏**。想"只给选中的楼描边/高亮"？`selected` 属性 + shader 里的 `czm_selected()` 帮手：
+后处理默认作用于**整屏**。想「只给选中的楼描边/高亮」？`selected` 属性 + shader 里的 `czm_selected()` 帮手：
 
 ```js
 const silhouette = viewer.scene.postProcessStages.add(
@@ -132,7 +142,7 @@ silhouette.selected = [pickedFeature];
 
 这把第 7 章的拾取与本章的滤镜接上了：点击 → `scene.pick` 拿到要素 → 赋给高亮 stage 的 `selected`——**选中高亮的另一种实现**（比第 7 章改 `point.color` 更通用，对 3D Tiles 要素同样生效）。
 
-## 5. 实战：给收官看板加"监控大屏"滤镜
+## 5. 实战：给收官看板加「监控大屏」滤镜
 
 把本章能力组合进第 10 章的看板：FXAA 保边缘平滑、轻微 bloom 提氛围、自定义暗角（vignette）压住四周视线聚焦中心——三段一个大滤镜链：
 
@@ -211,19 +221,19 @@ setTimeout(() => {
   viewer.scene.postProcessStages.remove(sepia);
 }, 10000);
 ```
-观察点：① 把 `mix` 的第三参数钉在 1.0，看纯 sepia 满血效果；② `requestRenderMode` 开着的话，uniforms 每帧函数求值也会驱动画面持续刷新——粒子（第 11 章）与后处理（本章）都是"自带变化"的数据源；③ 若 `stage.isSupported === false`（设备无深度纹理时部分 stage 会如此），先降级再提示，别硬抛。
+观察点：① 把 `mix` 的第三参数钉在 1.0，看纯 sepia 满血效果；② `requestRenderMode` 开着的话，uniforms 每帧函数求值也会驱动画面持续刷新——粒子（第 11 章）与后处理（本章）都是「自带变化」的数据源；③ 若 `stage.isSupported === false`（设备无深度纹理时部分 stage 会如此），先降级再提示，别硬抛。
 </ExerciseSolution>
 </Exercise>
 
 ## 6. 本章小结
 
-- 后处理 = 渲染末端的全屏滤镜链：`postProcessStages` 按序加工"整屏一张图"。
+- 后处理 = 渲染末端的全屏滤镜链：`postProcessStages` 按序加工「整屏一张图」。
 - 内置三件套 `fxaa`/`bloom`/`ambientOcclusion` 一行开；`PostProcessStageLibrary.create*Stage()` 提供黑白/夜视/景深/轮廓/光斑等现成效果。
 - 自定义 stage 三约定：`colorTexture` 输入、`v_textureCoordinates` 采样、`out_FragColor` 输出；`uniforms` 支持函数（每帧求值）。
 - `selected` + `czm_selected()` 让滤镜只作用于选中要素——与第 7 章拾取联动的高亮方案。
 - 性能预算：stage 数 × 帧率 = 每秒全屏 pass 数；效果能合并就不拆。
 
-至此课程 12 章：从"把球转起来"到"让画面有风格"。下一步是你自己的项目——把 GIS 课的数据底座与这套三维表现力接起来。
+至此课程 12 章：从「把球转起来」到「让画面有风格」。下一步是你自己的项目——把 GIS 课的数据底座与这套三维表现力接起来。
 
 ## 延伸阅读
 
