@@ -1,20 +1,30 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：浏览器要画三维，底层只有 WebGL（/ˌdʌbəljuː dʒiː ˈel/，「达波留-吉-埃尔」，浏览器的三维绘图标准）。原生 WebGL 是一堆「绑缓冲、编译着色器、配状态机」的底层指令，画个三角形要上百行。**three.js**（/θriː dʒeɪ ˈes/，「斯瑞-杰斯」）把这些脏活包成「场景里放物体、相机对着拍、渲染器出画面」的直觉模型。**一句话经验**：three 是**通用三维渲染器**，不懂地球、不懂经纬度；[Cesium 课](/s/cesium/00)里的 Cesium 也是 WebGL 渲染器，但它内置了椭球、影像、地形与时钟——两者是「通用引擎」与「地理专用引擎」的关系，不是替代关系。**常见坑**：
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：浏览器要画三维，底层只有 WebGL（/ˌdʌbəljuː dʒiː ˈel/，「达波留-吉-埃尔」，浏览器的三维绘图标准）。原生 WebGL 是一堆「绑缓冲、编译着色器、配状态机」的底层指令，画个三角形要上百行。**three.js**（/θriː dʒeɪ ˈes/，「斯瑞-杰斯」）把这些脏活包成「场景里放物体、相机对着拍、渲染器出画面」的直觉模型。
+
+**一句话经验**：three 是**通用三维渲染器**，不懂地球、不懂经纬度；[Cesium 课](/s/cesium/00)里的 Cesium 也是 WebGL 渲染器，但它内置了椭球、影像、地形与时钟——两者是「通用引擎」与「地理专用引擎」的关系，不是替代关系。
+
+**几个坑**：
+
 - 装完直接 `new WebGLRenderer()` 挂到不存在的 DOM——和 Cesium 一样，容器必须先渲染出来，框架项目里要在 mount 之后初始化。
 - 相机放在原点、物体也在原点，画面一片黑——相机在盒子内部，先学会把相机后撤。
-- 忘了 `requestAnimationFrame` 渲染循环，改了属性画面不动——three 不会自动重绘。**必记 3 条**：
-1. 三件套：`Scene`（场景图容器）、`PerspectiveCamera`（相机）、`WebGLRenderer`（渲染器）。
-2. 可见物体 = `Geometry`（形状数据）+ `Material`（外观）组成的 `Mesh`，加进 Scene。
-3. 每帧调 `renderer.render(scene, camera)`，循环靠 `requestAnimationFrame`。
+- 忘了 `requestAnimationFrame` 渲染循环，改了属性画面不动——three 不会自动重绘。
 
-## 本章你会学到
+**记三条**：
+
+1. 三件套：`Scene`（场景图容器）、`PerspectiveCamera`（相机）、`WebGLRenderer`（渲染器）
+2. 可见物体 = `Geometry`（形状数据）+ `Material`（外观）组成的 `Mesh`，加进 Scene
+3. 每帧调 `renderer.render(scene, camera)`，循环靠 `requestAnimationFrame`
+
+## 这章讲什么
 
 原生 WebGL 难在哪、场景图（scene graph）思想是什么、three 与 Cesium 的技术分工、Vite 最小工程，以及让第一个立方体转起来。学完你会有一个可交互的 3D 页面，并能说清什么时候该用 three、什么时候该用 Cesium。
 
 ## 1. 原生 WebGL 的痛点
 
-WebGL 是浏览器对接 GPU 的 API，它的工作单位是：顶点缓冲、片元、着色器程序、全局状态机。画一个旋转立方体，原生写法要自己处理：编译链接着色器、上传顶点/法线/索引缓冲、维护模型视图投影三个矩阵、每帧重设几十种 GL 状态。GIS 课讲的是空间数据模型，而 WebGL 讲的是「怎么让 GPU 把三角形画出来」——中间缺一层工程抽象。
+WebGL 是浏览器对接 GPU 的 API，工作单位是：顶点缓冲、片元、着色器程序、全局状态机。画一个旋转立方体，原生写法要自己处理：编译链接着色器、上传顶点/法线/索引缓冲、维护模型视图投影三个矩阵、每帧重设几十种 GL 状态。GIS 课讲的是空间数据模型，而 WebGL 讲的是「怎么让 GPU 把三角形画出来」——中间缺一层工程抽象。
 
 three.js 补的就是这层抽象：
 
@@ -127,9 +137,9 @@ window.addEventListener("resize", () => {
 </Callout>
 
 <Callout type="must" title="必背 · 本章三条">
-1. three = Scene + Camera + Renderer 三件套，Mesh = Geometry + Material。
-2. three 是通用笛卡尔空间，无地理语义；地理三维找 Cesium，通用渲染找 three。
-3. 渲染循环必须手动 requestAnimationFrame；PBR 材质必须配光。
+1. three = Scene + Camera + Renderer 三件套，Mesh = Geometry + Material
+2. three 是通用笛卡尔空间，无地理语义；地理三维找 Cesium，通用渲染找 three
+3. 渲染循环必须手动 requestAnimationFrame；PBR 材质必须配光
 </Callout>
 
 <Exercise tool="three" title="动手 · 立方体换成球并加第二个物体">
