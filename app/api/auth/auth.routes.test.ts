@@ -23,6 +23,7 @@ vi.mock("@/lib/auth/rate-limit", () => ({
     accountRemaining: 5,
     ipRemaining: 10,
   })),
+  assertChangePasswordAllowed: vi.fn(async () => undefined),
   recordAuthAttempt: vi.fn(async () => undefined),
   LOGIN_MAX_FAILS: 5,
   LOGIN_WINDOW_MINUTES: 15,
@@ -80,7 +81,11 @@ import {
   setSessionCookie,
   verifyPassword,
 } from "@/lib/auth";
-import { assertAuthAllowed, RateLimitError } from "@/lib/auth/rate-limit";
+import {
+  assertAuthAllowed,
+  assertChangePasswordAllowed,
+  RateLimitError,
+} from "@/lib/auth/rate-limit";
 
 function postJson(url: string, body: unknown) {
   return new NextRequest(url, {
@@ -322,6 +327,25 @@ describe("POST /api/auth/change-password", { timeout: 60_000 }, () => {
       }),
     );
     expect(res.status).toBe(401);
+  });
+
+  it("改密失败过多时限流拦截返回 429", async () => {
+    await setSessionCookie(ACCOUNT, 0);
+    selectRows = [{ id: ACCOUNT, username: "mapper", sessionVersion: 0 }];
+    vi.mocked(assertChangePasswordAllowed).mockRejectedValueOnce(
+      new RateLimitError("改密尝试过于频繁，请稍后再试", 300),
+    );
+    const res = await changePassword(
+      postJson("http://localhost/api/auth/change-password", {
+        currentPassword: "oldpass123",
+        newPassword: "newpass456",
+      }),
+    );
+    expect(res.status).toBe(429);
+    expect(res.headers.get("Retry-After")).toBe("300");
+    expect(await res.json()).toEqual({
+      error: "改密尝试过于频繁，请稍后再试",
+    });
   });
 
   it("成功更新密码哈希，新密码可验证", async () => {

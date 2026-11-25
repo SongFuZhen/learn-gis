@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import { getOrCreateUserId } from "@/lib/api/user";
+import { getModule, getSkill } from "@/lib/content";
 import { recordLessonView } from "@/lib/engagement/activity";
 
 export const dynamic = "force-dynamic";
 
 const bodySchema = z.object({
-  skill: z.string().min(1).default("gis"),
-  moduleSlug: z.string().min(1),
+  skill: z.string().min(1).max(40).default("gis"),
+  moduleSlug: z.string().min(1).max(40),
 });
 
 /**
@@ -28,9 +29,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "bad request" }, { status: 400 });
   }
 
+  const { skill, moduleSlug } = parsed.data;
+  // 只接受 registry 中真实存在的章节，避免垃圾 slug 污染 lesson_views
+  if (!getSkill(skill) || !getModule(skill, moduleSlug)) {
+    return NextResponse.json({ error: "unknown module" }, { status: 400 });
+  }
+
   try {
     const userId = await getOrCreateUserId();
-    await recordLessonView(userId, parsed.data.skill, parsed.data.moduleSlug);
+    await recordLessonView(userId, skill, moduleSlug);
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ ok: false }, { status: 200 });

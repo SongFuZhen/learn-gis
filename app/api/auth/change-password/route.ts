@@ -5,6 +5,7 @@ import { db } from "@/db";
 import { users } from "@/db/schema";
 import { withRetry } from "@/lib/db-retry";
 import {
+  getClientIp,
   getSession,
   hashPassword,
   PASSWORD_MAX,
@@ -12,11 +13,19 @@ import {
   setSessionCookie,
   verifyPassword,
 } from "@/lib/auth";
+import {
+  assertChangePasswordAllowed,
+  RateLimitError,
+  recordAuthAttempt,
+} from "@/lib/auth/rate-limit";
 
 export const dynamic = "force-dynamic";
 
 const schema = z.object({
-  currentPassword: z.string().min(1, "请输入当前密码"),
+  currentPassword: z
+    .string()
+    .min(1, "请输入当前密码")
+    .max(PASSWORD_MAX, "当前密码格式不正确"),
   newPassword: z
     .string()
     .min(PASSWORD_MIN, `新密码至少 ${PASSWORD_MIN} 位`)
@@ -25,8 +34,9 @@ const schema = z.object({
 
 /**
  * 修改密码：仅限已登录账号，且必须校验当前密码。
- * 无状态会话无法远程失效，改密后为当前设备重新签发并续期；
- * 其他设备已签发的 cookie 仍有效，会在 UI 中提示。
+ * 校验通过后 session_version + 1 并重新签发当前设备，
+ * 其他设备上 sv 落后的旧 cookie 下一次请求即失效（强制重新登录）。
+ * 连续失败达阈值会临时锁定，防止在线爆破当前密码。
  */
 export async function POST(request: Request) {
   const session = await getSession();
@@ -61,6 +71,7 @@ export async function POST(request: Request) {
     db
       .select({
         id: users.id,
+        username: users.username,
         passwordHash: users.passwordHash,
         sessionVersion: users.sessionVersion,
       })
@@ -69,8 +80,29 @@ export async function POST(request: Request) {
       .limit(1),
   );
 
-  // 账号不存在或当前密码不符：统一 401，不区分原因
-  if (!account || !verifyPassword(currentPassword, account.passwordHash)) {
+  if (!account) {
+    return NextResponse.json({ error: "请先登录" }, { status: 401 });
+  }
+
+  const ip = getClientIp(request);
+  const limitKey = account.username ?? account.id;
+
+  // 连续失败达阈值先拦截，避免在线爆破当前密码
+  try {
+    await assertChangePasswordAllowed(limitKey);
+  } catch (err) {
+    if (err instanceof RateLimitError) {
+      return NextResponse.json(
+        { error: err.message },
+        { status: 429, headers: { "Retry-After": String(err.retryAfterSec) } },
+      );
+    }
+    throw err;
+  }
+
+  // 当前密码不符：记一次失败并统一 401
+  if (!verifyPassword(currentPassword, account.passwordHash)) {
+    await recordAuthAttempt("change-password", ip, limitKey, false);
     return NextResponse.json({ error: "当前密码不正确" }, { status: 401 });
   }
 
@@ -83,6 +115,7 @@ export async function POST(request: Request) {
       .where(eq(users.id, account.id)),
   );
 
+  await recordAuthAttempt("change-password", ip, limitKey, true);
   // 会话版本 +1：其他设备上的旧 cookie 立即失效；当前设备用新版本续签
   await setSessionCookie(account.id, nextVersion);
 

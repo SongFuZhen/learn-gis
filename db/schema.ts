@@ -45,7 +45,9 @@ export const authAttempts = gis.table(
     ip: text("ip").notNull(),
     /** 尝试的用户名（登录失败也记，用于账号级锁定） */
     username: text("username"),
-    kind: text("kind", { enum: ["register", "login"] }).notNull(),
+    kind: text("kind", {
+      enum: ["register", "login", "change-password"],
+    }).notNull(),
     success: boolean("success").notNull(),
     createdAt: timestamp("created_at").notNull().defaultNow(),
   },

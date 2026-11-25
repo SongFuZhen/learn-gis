@@ -19,7 +19,7 @@ export class RateLimitError extends Error {
 const HOUR = 60 * 60 * 1000;
 const MINUTE = 60 * 1000;
 
-type Kind = "register" | "login";
+type Kind = "register" | "login" | "change-password";
 
 /** 账号锁定阈值：最近 5 条登录记录全失败 */
 export const LOGIN_MAX_FAILS = 5;
@@ -27,6 +27,10 @@ export const LOGIN_MAX_FAILS = 5;
 export const LOGIN_IP_MAX = 10;
 /** 登录限流窗口（分钟），账号锁定与 IP 窗口共用 */
 export const LOGIN_WINDOW_MINUTES = 15;
+/** 改密失败上限：连续失败达到即锁定 */
+export const CHANGE_PW_MAX_FAILS = 5;
+/** 改密限流窗口（分钟） */
+export const CHANGE_PW_WINDOW_MINUTES = 15;
 
 /** 放行时返回的额度信息，供 route 在失败响应里提示剩余次数 */
 export type AuthGate = {
@@ -142,7 +146,43 @@ export async function assertAuthAllowed(
   };
 }
 
-/** 记录一次尝试；登录成功时清掉该账号近 15 分钟的失败记录 */
+/**
+ * 改密前置闸门：按账号统计最近连续失败次数，超过阈值抛 RateLimitError。
+ * key 为账号标识（用户名，缺失时用用户 id 兜底）。
+ */
+export async function assertChangePasswordAllowed(key: string): Promise<void> {
+  const windowAgo = new Date(Date.now() - CHANGE_PW_WINDOW_MINUTES * MINUTE);
+  const recent = await db
+    .select({ success: authAttempts.success, createdAt: authAttempts.createdAt })
+    .from(authAttempts)
+    .where(
+      and(
+        eq(authAttempts.username, key),
+        eq(authAttempts.kind, "change-password"),
+        gte(authAttempts.createdAt, windowAgo),
+      ),
+    )
+    .orderBy(desc(authAttempts.createdAt))
+    .limit(CHANGE_PW_MAX_FAILS);
+
+  let fails = 0;
+  for (const row of recent) {
+    if (row.success) break;
+    fails += 1;
+  }
+  if (fails >= CHANGE_PW_MAX_FAILS) {
+    const oldest = recent[recent.length - 1]!.createdAt.getTime();
+    const retryAfter = Math.max(
+      60,
+      Math.round(
+        (oldest + CHANGE_PW_WINDOW_MINUTES * MINUTE - Date.now()) / 1000,
+      ),
+    );
+    throw new RateLimitError("改密尝试过于频繁，请稍后再试", retryAfter);
+  }
+}
+
+/** 记录一次尝试；同类尝试成功时清掉该账号近 15 分钟的失败记录 */
 export async function recordAuthAttempt(
   kind: Kind,
   ip: string,
@@ -156,7 +196,7 @@ export async function recordAuthAttempt(
       .where(
         and(
           eq(authAttempts.username, username),
-          eq(authAttempts.kind, "login"),
+          eq(authAttempts.kind, kind),
           eq(authAttempts.success, false),
           gte(authAttempts.createdAt, new Date(Date.now() - 15 * MINUTE)),
         ),

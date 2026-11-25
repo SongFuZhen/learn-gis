@@ -126,7 +126,7 @@ function sign(data: string): string {
 /** 签发会话 cookie（服务端 action/route 内调用） */
 export async function setSessionCookie(
   userId: string,
-  sessionVersion = 0,
+  sessionVersion: number,
 ): Promise<void> {
   const exp = Date.now() + SESSION_TTL_MS;
   const payload = b64url(JSON.stringify({ uid: userId, exp, sv: sessionVersion }));

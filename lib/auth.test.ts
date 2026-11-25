@@ -63,7 +63,7 @@ describe("密码哈希 scrypt", { timeout: 20_000 }, () => {
 
 describe("会话 cookie", () => {
   it("签发后可验签取回 userId", async () => {
-    await setSessionCookie("11111111-1111-4111-8111-111111111111");
+    await setSessionCookie("11111111-1111-4111-8111-111111111111", 0);
     const session = await getSession();
     expect(session?.userId).toBe("11111111-1111-4111-8111-111111111111");
     expect(session?.exp).toBeGreaterThan(Date.now());
@@ -76,14 +76,14 @@ describe("会话 cookie", () => {
   });
 
   it("签名被篡改时拒绝", async () => {
-    await setSessionCookie("11111111-1111-4111-8111-111111111111");
+    await setSessionCookie("11111111-1111-4111-8111-111111111111", 0);
     const raw = jar.get("auth_session")!;
     jar.set("auth_session", raw.slice(0, -2) + (raw.endsWith("aa") ? "bb" : "aa"));
     expect(await getSession()).toBeNull();
   });
 
   it("payload 过期时拒绝", async () => {
-    await setSessionCookie("11111111-1111-4111-8111-111111111111");
+    await setSessionCookie("11111111-1111-4111-8111-111111111111", 0);
     const raw = jar.get("auth_session")!;
     const [payload, sig] = raw.split(".");
     const data = JSON.parse(Buffer.from(payload!, "base64url").toString("utf8"));
@@ -101,7 +101,7 @@ describe("会话 cookie", () => {
   });
 
   it("clearIdentityCookies 清掉会话与匿名 cookie", async () => {
-    await setSessionCookie("x");
+    await setSessionCookie("x", 0);
     jar.set("user_id", "anon");
     await clearIdentityCookies(true);
     expect(jar.size).toBe(0);
