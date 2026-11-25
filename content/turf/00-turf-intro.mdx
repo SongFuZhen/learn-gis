@@ -1,14 +1,24 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：你在 [GIS 理论课](/s/gis/00)里学了一堆空间概念（缓冲区、叠加分析、泰森多边形），在 [Cesium 课](/s/cesium/00)里学会了把数据放到三维地球上——但「算一个多边形面积」「判断点在不在围栏里」这种纯几何活儿，难道还要把数据发到 PostGIS 服务器？**Turf.js**（/tɜːrf dʒeɪ ˈes/，「特夫-杰斯」，浏览器端几何引擎）就是在前端把这些活儿就地干了的库：**GeoJSON 进，GeoJSON 出**，不依赖服务器、不依赖地图库。**一句话经验**：Turf 不画地图、不发请求、不管瓦片，它只做几何计算；画地图交给 Leaflet/MapLibre，三维交给 Cesium，Turf 是它们背后的「计算器」。**常见坑**：
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：你在 [GIS 理论课](/s/gis/00)里学了一堆空间概念（缓冲区、叠加分析、泰森多边形），在 [Cesium 课](/s/cesium/00)里学会了把数据放到三维地球上——但「算一个多边形面积」「判断点在不在围栏里」这种纯几何活儿，难道还要把数据发到 PostGIS 服务器？**Turf.js**（/tɜːrf dʒeɪ ˈes/，「特夫-杰斯」，浏览器端几何引擎）就是把这些活儿在前端就地干掉的库：**GeoJSON 进，GeoJSON 出**，不依赖服务器、不依赖地图库。
+
+**一句话经验**：Turf 不画地图、不发请求、不管瓦片，它只做几何计算；画地图交给 Leaflet/MapLibre，三维交给 Cesium，Turf 是它们背后的「计算器」。
+
+**几个坑**：
+
 - 把 Turf 当地图库用——它没有地图、没有 DOM、没有底图，`import * as turf` 之后你拿不到任何 `map` 对象。
 - 坐标顺序写反——Turf 全程遵循 GeoJSON 规范 `[经度, 纬度]`（lng, lat），和 Cesium 一致，和 Leaflet 的 `L.latLng(lat, lng)` 相反。
-- 拿 Turf 算三维——它是纯二维库，几何里的第三个坐标会被大多数函数忽略。**必记 3 条**：
-1. Turf 的输入输出统一是 GeoJSON（Feature / FeatureCollection / Geometry）。
-2. 角度用十进制度，距离面积默认单位由函数参数 `units` 控制（`kilometers` 最常用）。
-3. 纯函数、无副作用：同样的输入永远得到同样的输出，方便测试与组合。
+- 拿 Turf 算三维——它是纯二维库，几何里的第三个坐标会被大多数函数忽略。
 
-## 本章你会学到
+**记三条**：
+
+1. Turf 的输入输出统一是 GeoJSON（Feature / FeatureCollection / Geometry）
+2. 角度用十进制度，距离面积默认单位由函数参数 `units` 控制（`kilometers` 最常用）
+3. 纯函数、无副作用：同样输入永远同样输出，方便测试与组合
+
+## 这章讲什么
 
 Turf 在整个技术栈里的定位、两种接入方式（npm 与 CDN）、GeoJSON 几何类型速览，以及用 `area` 完成第一个真实计算。学完你能回答：什么活该交给 Turf，什么活该交给 Cesium 或后端。
 
@@ -125,9 +135,9 @@ console.log(`${(m2 / 1_000_000).toFixed(2)} 平方公里`);
 ```
 
 <Callout type="must" title="必背 · 本章三条">
-1. Turf = 前端几何引擎，GeoJSON 进 GeoJSON 出，不渲染地图。
-2. 坐标顺序 `[lng, lat]`；多边形环首尾闭合；它是二维库。
-3. 与 Cesium 的协作：Turf 负责算，Cesium 负责画三维；距离语义上 Turf 只有大圆一类。
+1. Turf = 前端几何引擎，GeoJSON 进 GeoJSON 出，不渲染地图
+2. 坐标顺序 `[lng, lat]`；多边形环首尾闭合；它是二维库
+3. 与 Cesium 的协作：Turf 负责算，Cesium 负责画三维；距离语义上 Turf 只有大圆一类
 </Callout>
 
 <Exercise tool="turf" title="动手 · 量一个真实小区">

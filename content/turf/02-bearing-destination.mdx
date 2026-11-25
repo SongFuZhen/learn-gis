@@ -1,20 +1,30 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：上一章回答「有多远」，本章回答「朝哪走、会走到哪里」。从北京看上海是什么方向？沿正东飞 100 公里会到哪里？两座城市的中点在哪？**一句话心智模型**：方位角 bearing（/ˈberɪŋ/，「贝尔-英」）是「从正北顺时针转多少度」，`destination` 则拿起点、距离和方向反算终点；`midpoint` 找两点中途，`center` 找一组几何的包围盒中心。**常见坑**：
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：上一章回答「有多远」，这章回答「朝哪走、会走到哪里」。从北京看上海是什么方向？沿正东飞 100 公里会到哪里？两座城市的中点在哪？
+
+**一句话心智模型**：方位角 bearing（/ˈberɪŋ/，「贝尔-英」）是「从正北顺时针转多少度」，`destination` 则拿起点、距离和方向反算终点；`midpoint` 找两点中途，`center` 找一组几何的包围盒中心。
+
+**几个坑**：
+
 - 把角度当成数学坐标系里的「从正东逆时针」——Turf 方位角从正北起算、顺时针为正，返回值通常在 `[-180, 180]`。
 - 混用大圆航线与恒向线：短距离差别不明显，跨洋航行会走出完全不同的路径。
-- 把 `center` 当质心——它算的是包围盒中心，不保证落在多边形内部。**必记 3 条**：
-1. `bearing` 求大圆初始方向，`rhumbBearing` 求恒向线方向。
-2. `destination(起点, 距离, 方位角)` 默认按千米推演新坐标。
-3. `midpoint` 是两点球面中点，`center` 是整体包围盒中心，二者不是一回事。
+- 把 `center` 当质心——它算的是包围盒中心，不保证落在多边形内部。
 
-## 本章你会学到
+**记三条**：
+
+1. `bearing` 求大圆初始方向，`rhumbBearing` 求恒向线方向
+2. `destination(起点, 距离, 方位角)` 默认按千米推演新坐标
+3. `midpoint` 是两点球面中点，`center` 是整体包围盒中心，二者不是一回事
+
+## 这章讲什么
 
 方位角的零方向、正负号与首末方向，`bearing` 和 `rhumbBearing` 的航线差异，如何用 `destination` 做位置推演，以及 `midpoint`、`center` 各自适合的业务。最后会把这些二维结果与 Cesium 的椭球大地线计算对齐。
 
 ## 1. bearing：从正北顺时针读方向
 
-`bearing(start, end)` 返回起点朝向终点的大圆初始方位角：正北为 0°，正东为 90°，正南为 ±180°，正西为 -90°。如果业务界面只显示 `0–360°`，做一次归一化即可。
+`bearing(start, end)` 返回起点朝向终点的大圆初始方位角：正北为 0°，正东为 90°，正南为 ±180°，正西为 -90°。业务界面只显示 `0–360°` 的话，做一次归一化即可。
 
 ```js
 import { point } from "@turf/helpers";
@@ -44,7 +54,7 @@ console.log(finalBearing);
 
 ## 2. rhumbBearing：罗盘指向始终不变
 
-恒向线（rhumb line，/rʌm laɪn/，「拉姆-莱恩」）是以固定角度穿过所有经线的航线。它的导航操作简单：设好一个罗盘方向后一直走；代价是通常不是最短路径。
+恒向线（rhumb line，/rʌm laɪn/，「拉姆-莱恩」）是以固定角度穿过所有经线的航线。导航操作简单：设好一个罗盘方向后一直走；代价是通常不是最短路径。
 
 ```js
 import rhumbBearing from "@turf/rhumb-bearing";
@@ -57,12 +67,12 @@ console.log({ initial, constant }); // 两个数字不应混用
 大圆（great-circle，/ˌɡreɪt ˈsɜːrkəl/，「格瑞特-瑟克尔」）航线适合求最短距离，恒向线适合固定航向导航。城市内部短距离可先观察两者差异，跨洲路径则必须明确业务选择。
 
 <Callout type="warn" title="方向函数要与推演函数配套">
-`destination` 按大圆初始方位前进，不要拿 `rhumbBearing` 的结果直接喂给它，再声称走出了恒向线。恒向线推演应使用 `rhumbDestination`。两条航线语义不同，即使起终点相同，中间经过的位置也不同。
+`destination` 按大圆初始方位前进，别拿 `rhumbBearing` 的结果直接喂给它，再声称走出了恒向线。恒向线推演要用 `rhumbDestination`。两条航线语义不同，即使起终点相同，中间经过的位置也不同。
 </Callout>
 
 ## 3. destination：从起点向外推演坐标
 
-知道起点、距离和方向，就能反求目的地。它非常适合绘制雷达扇区顶点、推算船只位置、生成某方向的虚拟采样点。
+知道起点、距离和方向，就能反求目的地。它很适合绘制雷达扇区顶点、推算船只位置、生成某方向的虚拟采样点。
 
 ```js
 import destination from "@turf/destination";
@@ -119,9 +129,9 @@ Turf 的方位与目的地采用球面公式、忽略高程，适合二维业务
 </Callout>
 
 <Callout type="must" title="必背 · 本章三条">
-1. 方位角从正北顺时针；`final: true` 求终点方向。
-2. 大圆用 `bearing + destination`，恒向线用 `rhumbBearing + rhumbDestination`。
-3. `midpoint` 属于两点的路径，`center` 属于整组坐标的包围盒，不保证在面内。
+1. 方位角从正北顺时针；`final: true` 求终点方向
+2. 大圆用 `bearing + destination`，恒向线用 `rhumbBearing + rhumbDestination`
+3. `midpoint` 属于两点的路径，`center` 属于整组坐标的包围盒，不保证在面内
 </Callout>
 
 <Exercise tool="turf" title="动手 · 生成海上会合点">

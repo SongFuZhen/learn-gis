@@ -1,14 +1,26 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：地图上最常见的问题就是「多远、多大、多长」。两个点之间多远（distance）、一条轨迹多长（length）、一块地多大（area，上章见过）、走到线上某点还有多远（pointToLineDistance）、沿线 500 米处是哪个坐标（along）。**Turf 的量测哲学一句话**：输入永远是 GeoJSON，距离单位由 `units` 参数显式声明，绝不偷偷按平面直角坐标算。**和 Cesium 的关键差异**：Cesium 量距离有弦长（chord，/kɔːrd/，「扣德」，两点直线穿地球）、大圆（great-circle，贴椭球面）、贴地（沿地形起伏）三种语义（见 [Cesium 量算章](/s/cesium/08)）；Turf 只有「球面大圆」这一种二维语义，没有地形概念。**常见坑**：
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：地图上最常见的问题就是「多远、多大、多长」。两个点之间多远（distance）、一条轨迹多长（length）、一块地多大（area，上章见过）、走到线上某点还有多远（pointToLineDistance）、沿线 500 米处是哪个坐标（along）。
+
+**一句话经验**：输入永远是 GeoJSON，距离单位由 `units` 参数显式声明，绝不偷偷按平面直角坐标算。
+
+**和 Cesium 的关键差异**：Cesium 量距离有弦长（chord，/kɔːrd/，「扣德」，两点直线穿地球）、大圆（great-circle，贴椭球面）、贴地（沿地形起伏）三种语义（见 [Cesium 量算章](/s/cesium/08)）；Turf 只有「球面大圆」这一种二维语义，没有地形概念。
+
+**几个坑**：
+
 - 把经纬度当平面坐标自己用勾股算距离——经度一度的实际长度随纬度变化，直接算误差能到 50%。
 - `units` 不写时默认是千米（`kilometers`），团队代码里建议永远写明。
-- `length` 喂 Point 会报错，它只吃 LineString/MultiLineString。**必记 3 条**：
-1. `distance` 算点到点、`length` 算线总长、`area` 算面面积、`along` 沿线取点、`pointToLineDistance` 算点到线的垂距。
-2. 全部基于球面/椭球公式，经纬度直接喂，不需要投影。
-3. 单位参数 `units` 显式写：`"kilometers" | "meters" | "miles" | "degrees"`。
+- `length` 喂 Point 会报错，它只吃 LineString/MultiLineString。
 
-## 本章你会学到
+**记三条**：
+
+1. `distance` 算点到点、`length` 算线总长、`area` 算面面积、`along` 沿线取点、`pointToLineDistance` 算点到线的垂距
+2. 全部基于球面/椭球公式，经纬度直接喂，不需要投影
+3. 单位参数 `units` 显式写：`"kilometers" | "meters" | "miles" | "degrees"`
+
+## 这章讲什么
 
 五个量测函数的签名、适用几何与单位体系，线段是怎么被「大圆弧段」处理的，以及如何用这些原语拼一个「点击地图量路线长度」的交互——第 8 章接入地图框架时会直接复用。
 
@@ -105,9 +117,9 @@ distance/length 默认单位是 kilometers，pointToLineDistance 的默认单位
 协作模式：二维业务（配送范围、网格统计）全程 Turf；同一个项目里三维可视分析需要贴地里程时，把相同坐标搬给 Cesium 算，两套结果在文档里注明语义，不要混用。
 
 <Callout type="must" title="必背 · 本章三条">
-1. 五点函数分工：distance 点、length 线、area 面、along 沿线取点、pointToLineDistance 点线垂距。
-2. 球面计算免投影，但没有地形语义；贴地里程只能找 Cesium。
-3. units 显式传，米级业务用 `"meters"`。
+1. 五点函数分工：distance 点、length 线、area 面、along 沿线取点、pointToLineDistance 点线垂距
+2. 球面计算免投影，但没有地形语义；贴地里程只能找 Cesium
+3. units 显式传，米级业务用 `"meters"`
 </Callout>
 
 <Exercise tool="turf" title="动手 · 轨迹体检器">
