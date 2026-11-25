@@ -1,23 +1,31 @@
 ## 🍼 白话版（先看这个）
-> **解决什么问题**：功能能跑只是起点。长列表不能卡，动画不能乱，联网不能“为了方便”关安全校验，核心规则要有测试托底；最后还要把这些能力装回同一个闯关 App。
->
-> **一句话经验**：长列表懒加载，动画少触发布局，安全底线不让步，测试盯住真实业务规则。
-- **常见坑 1**：几百项仍裸用 `ForEach`，首屏一次创建全部组件。
-- **常见坑 2**：`LazyForEach` 的 key 用数组下标，删除一项后内容和状态错位。
-- **常见坑 3**：以为 `cachedCount` 越大越流畅，结果内存和首屏成本一起上升。
-- **常见坑 4**：在 `build()` 中启动动画或改状态，造成重复执行和刷新循环。
-- **常见坑 5**：为了抓包关闭 HTTPS 证书校验，把调试后门带进正式包。
-- **必记 1**：长列表 = `List + LazyForEach + IDataSource + 稳定唯一 key`。
-- **必记 2**：动画优先 `opacity/translate/scale/rotate`，时长用毫秒。
-- **必记 3**：Hypium 测试正常、边界和异常；证书校验永远不能为了省事关闭。
-## 本章你会学到
-- 用 LazyForEach 和 IDataSource 构建可回收长列表。
-- 用 animateTo 做低成本、可取消干扰少的动画。
-- 落实证书校验、最小权限与敏感数据保护。
-- 用 Hypium 为判分与进度规则写单元测试。
-- 复盘九大高频坑，并拼出完整闯关 App 架构。
+
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：功能能跑只是起点。长列表不能卡，动画不能乱，联网不能「为了方便」关掉安全校验，核心规则要有测试托底。最后还得把这些能力装回同一个闯关 App。
+
+**一句话经验**：长列表懒加载，动画少触发布局，安全底线不让步，测试盯住真实业务规则。
+
+**几个坑**：
+
+- 几百项还裸用 `ForEach`，首屏一次创建全部组件。
+- `LazyForEach` 的 key 用数组下标，删一项之后内容和状态全错位。
+- 以为 `cachedCount` 越大越流畅，结果内存和首屏成本一起涨。
+- 在 `build()` 里启动动画或改状态，造成重复执行和刷新循环。
+- 为了抓包关掉 HTTPS 证书校验，把调试后门带进正式包。
+
+**记三条**：
+
+1. 长列表 = `List + LazyForEach + IDataSource + 稳定唯一 key`
+2. 动画优先 `opacity/translate/scale/rotate`，时长用毫秒
+3. Hypium 测正常、边界和异常；证书校验永远不能为了省事关闭
+
+## 这章讲什么
+
+用 LazyForEach 和 IDataSource 构建可回收的长列表，用 animateTo 做低成本、干扰少的动画，落实证书校验、最小权限和敏感数据保护，用 Hypium 给判分与进度规则写单元测试，最后复盘九大高频坑，拼出完整的闯关 App 架构。
+
 ## 1. 长列表：只创建看得见的部分
-`ForEach` 适合少量、稳定集合；大量数据应使用 LazyForEach（/ˈleɪzi fɔːr iːtʃ/，「雷-齐-佛-伊奇」）。它通过 IDataSource（/ˈdeɪtə sɔːrs/，「爱-德塔-索斯」）提供总数、按索引取项和变更通知。
+`ForEach` 适合少量、稳定的集合；数据一多就该用 LazyForEach（/ˈleɪzi fɔːr iːtʃ/，「雷-齐-佛-伊奇」）。它通过 IDataSource（/ˈdeɪtə sɔːrs/，「爱-德塔-索斯」）提供总数、按索引取项和变更通知。
 ```ts
 export class LevelItem {
   constructor(public id: string, public title: string, public passed: boolean) {}
@@ -81,7 +89,7 @@ function makeLevels(): LevelItem[] {
   return [];
 }
 ```
-key 使用不变的 `id`，不要用数组下标。局部新增、删除应发送对应的数据变更通知；整组替换才 `onDataReloaded`。`cachedCount` 从较小值开始，根据滚动测量调整。
+key 用不变的 `id`，不要用数组下标。局部新增、删除发对应的数据变更通知，整组替换才用 `onDataReloaded`。`cachedCount` 从小值开始，按滚动的实测结果调。
 ## 2. 动画：状态改变，动画表达过程
 `animateTo` 在闭包内执行状态变化，由框架按指定曲线插值。动画由事件或合适的生命周期触发，不在 `build()` 里启动。
 ```ts
@@ -99,7 +107,7 @@ struct PassBadge {
   }
 }
 ```
-`duration: 220` 表示 220 毫秒，不是 220 秒。动画结束后若需回到原状态，可再用明确状态变化恢复，避免在 `build()` 中偷偷重置。
+`duration: 220` 是 220 毫秒，不是 220 秒。动画结束要回到原状态，就再用一次明确的状态变化恢复，别在 `build()` 里偷偷重置。
 | 优先动画属性 | 谨慎动画属性 | 原因 |
 | --- | --- | --- |
 | `translate`、`scale`、`rotate` | `width`、`height` | 后者容易反复触发布局 |
@@ -160,12 +168,12 @@ export default function graderTest(): void {
 | React DevTools 性能面板 | 真机帧率与布局分析 | 先测量，再优化 |
 </Callout>
 ## 6. 综合实战：闯关 App 架构蓝图
-把前七章能力装进同一条业务流，而不是堆在一个超大页面：
+把前七章的能力装进同一条业务流，别堆在一个超大页面里：
 - `EntryAbility → Index`：Navigation 加首页、考试、我的三个 Tab；首页用 rawfile 索引和三态关卡卡片。
 - `QuizPage / WrongBookPage / AboutPage`：分别负责答题结算、错题重练、版本与隐私说明。
 - `BankLoader / Grader`：读取并校验 rawfile JSON，以纯函数完成判分。
 - `ProgressStore / QuizResume`：整组替换进度并持久化，保存题号与作答快照。
-首页只展示当前视口附近的卡片；点击可挑战关卡后，通过 NavPathStack 传 `levelId`，而不是复制整个题库。
+首页只展示当前视口附近的卡片；点进可挑战的关卡时，通过 NavPathStack 传 `levelId`，不用复制整个题库。
 ![闯关首页的三态关卡卡片](/harmony/01-home.png)
 答题页把“当前题、是否已提交、是否答对”拆成明确状态。提交后显示解析，答错可进入错题本；达到通关阈值才解锁下一关，快速重复点击不能重复记分。
 ![答题页的题干与选项](/harmony/11-quiz-question.png)

@@ -1,19 +1,31 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：会用 DevEco Studio（/ˈdev iːkoʊ ˈstjuːdioʊ/，「德夫-伊口-斯丢-迪欧」）点出模板，不等于知道每个目录和配置文件的职责。Stage（/steɪdʒ/，「斯泰吉」）工程把应用级信息、模块级能力、依赖和构建配置分开存放，改错位置常表现为「代码没错，工程却跑不起来」。**一句话经验**：先沿 `AppScope → entry → UIAbility → WindowStage → pages/Index` 找启动链路，再按配置归属改文件。**常见坑**：
-- 把 `bundleName` 写进 `module.json5`，或把 Ability 声明写进 `AppScope/app.json5`。
-- 在页面组件里继承 `UIAbility`，把应用实例入口与 ArkUI 页面混为一层。
-- 手动修改 `oh_modules`，或把构建产物当成应当维护的源码。
-- 只依赖 Previewer 验证权限、后台行为和完整设备能力。**必记 3 条**：
-1. `AppScope/app.json5` 管应用级信息，`module.json5` 管模块、Ability 与权限。
-2. `UIAbility` 在 `onWindowStageCreate` 中通过 `loadContent` 加载页面。
-3. hvigor 管构建，ohpm 管依赖；预览器不能替代真机验证。
-## 本章你会学到
+> 三分钟，先懂八成；剩下的当手册查。
 
-从模板创建 Stage 工程，辨认核心目录和配置文件，读懂 UIAbility 的启动骨架，并正确放置资源与权限声明。读完应能独立解释首页为何显示，以及新增依赖、图片或网络权限时应修改哪里。
+**这章解决什么**：会用 DevEco Studio（/ˈdev iːkoʊ ˈstjuːdioʊ/，「德夫-伊口-斯丢-迪欧」）点出模板，不等于知道每个目录和配置文件的职责。Stage（/steɪdʒ/，「斯泰吉」）工程把应用级信息、模块级能力、依赖和构建配置分开存放，改错位置常常表现为「代码没错，工程却跑不起来」。
+
+**一句话经验**：先沿 `AppScope → entry → UIAbility → WindowStage → pages/Index` 找启动链路，再按配置归属改文件。
+
+**几个坑**：
+
+- 把 `bundleName` 写进 `module.json5`，或者把 Ability 声明写进 `AppScope/app.json5`。
+- 在页面组件里继承 `UIAbility`，把应用实例入口和 ArkUI 页面混成一层。
+- 手动改 `oh_modules`，把构建产物当成该维护的源码。
+- 只靠 Previewer 验证权限、后台行为和完整设备能力。
+
+**记三条**：
+
+1. `AppScope/app.json5` 管应用级信息，`module.json5` 管模块、Ability 与权限
+2. `UIAbility` 在 `onWindowStageCreate` 中通过 `loadContent` 加载页面
+3. hvigor 管构建，ohpm 管依赖；预览器不能替代真机验证
+
+## 这章讲什么
+
+从模板创建一个 Stage 工程，认出核心目录和配置文件，读懂 UIAbility 的启动骨架，再把资源和权限声明放到对的地方。读完应该能独立解释首页为什么能显示，以及新增依赖、图片或网络权限时该改哪里。
+
 ## 1. 从 Empty Ability 建立可运行基线
 
-安装稳定版 DevEco Studio 后，新建 Application 工程并选择 Empty Ability 模板，应用模型选 Stage、语言选 ArkTS。先保持模板结构运行一次，再逐步改代码；这样出问题时能区分环境、配置和业务代码。
+装好稳定版 DevEco Studio，新建 Application 工程，选 Empty Ability 模板，应用模型选 Stage，语言选 ArkTS。先原样跑一次模板，再一步步改代码。这样出问题时，能分清是环境、配置还是业务代码。
 
 创建时重点核对三项：
 
@@ -63,7 +75,8 @@ MyApplication/
 | `resources/base` | 字符串、颜色、图片等基础资源 | 存放 ArkTS 业务逻辑 |
 | `oh_modules` | 安装后生成的依赖目录 | 手动编辑或当作源码维护 |
 
-`resources/base` 是默认资源，限定词目录可承接深色模式、语言、屏幕规格等差异。代码通过 `$r('app.color.primary')`、`$r('app.media.startIcon')` 引用资源，不为每种模式复制一套组件。
+`resources/base` 是默认资源，限定词目录承接深色模式、语言、屏幕规格这些差异。代码里用 `$r('app.color.primary')`、`$r('app.media.startIcon')` 引用资源，别为每种模式复制一套组件。
+
 ## 3. UIAbility 怎样把首页加载出来
 
 `EntryAbility` 是 `UIAbility` 子类，负责应用实例与窗口生命周期。下面的骨架保留主要回调，并在窗口舞台创建后加载 `pages/Index`。
@@ -113,7 +126,8 @@ struct Index {
 }
 ```
 
-启动链路可记为：`EntryAbility.onCreate → onWindowStageCreate → loadContent → @Entry 页面 → build()`。`onForeground` 描述 Ability 前后台状态，不等于组件的 `aboutToAppear`。
+启动链路可以记成：`EntryAbility.onCreate → onWindowStageCreate → loadContent → @Entry 页面 → build()`。`onForeground` 说的是 Ability 的前后台状态，不等于组件的 `aboutToAppear`。
+
 ## 4. 资源与权限各有入口
 
 文本、颜色和图片优先资源化管理，模块需要的系统能力则在 `module.json5` 中声明。例如网络权限片段：
@@ -136,8 +150,9 @@ struct Index {
 `reason` 指向向用户解释的字符串资源，不是随手写的备注。不同权限还可能有授权方式、使用场景与额外配置要求，声明存在不代表所有权限都会自动获批。
 
 <Callout type="warn" title="权限声明不等于完成全部授权流程">
-先确认能力所需权限及其等级，再处理运行时申请、拒绝和设置页跳转等场景。不要为省事申请无关权限，也不要仅凭 Previewer 中可用就认定真机行为已经验证。
+先确认这个能力需要哪些权限、属于什么等级，再处理运行时申请、拒绝和设置页跳转。别为省事申请无关权限，也别因为 Previewer 里能用就认定真机已经验过。
 </Callout>
+
 ## 5. hvigor、ohpm 与验证边界
 
 hvigor（/ˈhɪvɪɡər/，「希-维-格」）读取构建配置并执行编译、打包等任务；ohpm（/oʊ eɪtʃ piː em/，「O-H-P-M」）根据 `oh-package.json5` 管理依赖。DevEco Studio 将创建工程、编辑、预览、调试、签名和构建串在一起，但三个名字不能互换。
@@ -201,15 +216,17 @@ struct Index {
 }
 ```
 
-关键检查点：`EntryAbility` 只连接窗口和页面，`Index` 只描述页面；`loadContent` 的路径必须与实际页面配置一致。
+关键检查点：`EntryAbility` 只连接窗口和页面，`Index` 只描述页面；`loadContent` 的路径必须和实际页面配置一致。
 </ExerciseSolution>
 </Exercise>
+
 ## 6. 本章小结
 
 - Stage 工程按应用、模块、页面和构建工具分层，先认职责再改配置。
 - `AppScope/app.json5` 与 `module.json5` 分别承接应用级和模块级信息。
 - UIAbility 通过 WindowStage 加载 ArkUI 页面，Ability 生命周期不等于组件生命周期。
-- 资源使用 `$r` 引用，权限声明与授权流程分开处理；预览与真机验证不能互相替代。
+- 资源用 `$r` 引用，权限声明和授权流程分开处理；预览与真机验证不能互相替代。
+
 ## 延伸阅读
 
 - [构建第一个 HarmonyOS 应用（ArkTS）](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)

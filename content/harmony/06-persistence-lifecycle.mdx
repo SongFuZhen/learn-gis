@@ -1,21 +1,29 @@
 ## 🍼 白话版（先看这个）
-> **解决什么问题**：用户设置的主题、答到第几题、已经通过哪些关，关掉应用后不能凭空消失。持久化负责“下次还在”，生命周期负责“什么时候加载、保存和释放”。
->
-> **一句话经验**：少量设置用 Preferences，结构化查询用 RDB，UI 小状态可用 PersistenceV2；进入后台先保存关键状态，不靠 `onDestroy` 救命。
-- **常见坑 1**：调用 `put()` 后忘记 `flush()`，内存已经变了，磁盘却未必落盘。
-- **常见坑 2**：把需要条件查询和关联统计的海量题目硬塞成一个 Preferences 字符串。
-- **常见坑 3**：RDB 查询后忘了关闭 ResultSet，批量循环中越用越耗资源。
-- **常见坑 4**：认为进入后台马上会执行 `onDestroy()`，把唯一一次保存拖到进程销毁。
-- **常见坑 5**：把全局 Context 当成随处可用的静态对象，不区分 Ability 与应用上下文。
-- **必记 1**：Preferences 写后 `flush`；RDB 多步写用事务。
-- **必记 2**：冷启动常见顺序是 `onCreate → onWindowStageCreate → onForeground`。
-- **必记 3**：后台不等于销毁；敏感数据不能明文塞进普通键值存储。
-## 本章你会学到
-- Preferences 的创建、读取、写入与落盘。
-- RDB、SQLite、RdbPredicates、ResultSet 和事务的关系。
-- 根据数据规模与查询方式选择持久化方案。
-- UIAbility 生命周期和 Context 的职责。
-- PersistenceV2 适合保存什么，以及它不能替代什么。
+
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：用户设置的主题、答到第几题、已经通过哪些关，关掉应用后不能凭空消失。持久化负责「下次还在」，生命周期负责「什么时候加载、保存和释放」。
+
+**一句话经验**：少量设置用 Preferences，结构化查询用 RDB，UI 小状态可以用 PersistenceV2。进入后台先保存关键状态，别指望 `onDestroy` 救命。
+
+**几个坑**：
+
+- 调了 `put()` 忘记 `flush()`，内存变了，磁盘却未必落盘。
+- 把需要条件查询和关联统计的海量题目硬塞成一个 Preferences 字符串。
+- RDB 查询完忘了关 ResultSet，批量循环里越用越耗资源。
+- 以为进后台马上会执行 `onDestroy()`，把唯一一次保存拖到进程销毁。
+- 把全局 Context 当成随处可用的静态对象，不区分 Ability 上下文和应用上下文。
+
+**记三条**：
+
+1. Preferences 写后 `flush`；RDB 多步写用事务
+2. 冷启动常见顺序是 `onCreate → onWindowStageCreate → onForeground`
+3. 后台不等于销毁；敏感数据不能明文塞进普通键值存储
+
+## 这章讲什么
+
+Preferences 怎么创建、读取、写入和落盘；RDB、SQLite、RdbPredicates、ResultSet 和事务是什么关系；怎么按数据规模和查询方式选持久化方案；UIAbility 生命周期和 Context 各管什么；PersistenceV2 能存什么、不能替代什么。
+
 ## 1. 先按数据形状选仓库
 | 数据 | 推荐方案 | 判断理由 |
 | --- | --- | --- |
@@ -24,7 +32,7 @@
 | 数千道题、答题记录、条件筛选 | RDB | 结构化字段、索引、查询和事务 |
 | 大图、音视频 | 文件存储，数据库保存元数据 | 不把大二进制宜接塞进键值项 |
 | 密码、长期令牌 | 系统安全存储能力 | 普通明文存储不满足保密要求 |
-SQLite（/ˌes kjuː el ˈlaɪt/，「艾斯-凯由-艾欧-莱特」）是嵌入式关系数据库。HarmonyOS 的 RDB 基于关系数据模型提供建表、查询、更新和事务能力，不需要自己拼一套文件格式。
+SQLite（/ˌes kjuː el ˈlaɪt/，「艾斯-凯由-艾欧-莱特」）是嵌入式关系数据库。HarmonyOS 的 RDB 基于关系数据模型提供建表、查询、更新和事务能力，不用自己拼一套文件格式。
 <Callout type="info" title="React 类比">
 | Web / React | HarmonyOS | 使用边界 |
 | --- | --- | --- |
@@ -63,8 +71,9 @@ export async function saveTheme(
   }
 }
 ```
-`getPreferences` 获取指定名称的存储实例，`put` 修改键值，`flush` 将修改写入持久化文件。只有 `flush` 成功，才把这次保存当作可靠完成。
-真实闯关项目可在仓库层缓存 Preferences 实例，例如 `ProgressStore` 统一负责读回、整组替换状态以及 `flush` 失败日志；组件不直接散落存储键名。
+`getPreferences` 取指定名称的存储实例，`put` 改键值，`flush` 把修改写进持久化文件。只有 `flush` 成功了，这次保存才算可靠完成。
+
+真实闯关项目可以在仓库层缓存 Preferences 实例，比如让 `ProgressStore` 统一负责读回、整组替换状态和 `flush` 失败日志，组件里不要到处散落存储键名。
 <Callout type="warn" title="不要存下整个运行时世界">
 Preferences 中存设置和小快照，不存网络连接、组件实例或无限增长的日志。数组更新采用“新数组替换旧数组”，再序列化需要保存的纯数据；密钥和敏感令牌改用安全存储。
 </Callout>
@@ -107,7 +116,7 @@ export async function countCorrect(
   }
 }
 ```
-ResultSet 是游标，不是普通数组：读取列之前按当前行取数据，用完立即 `close()`。生产实现还应检查 `goToFirstRow()` 等游标操作结果，而不是假设必有记录。
+ResultSet 是游标，不是普通数组：读列之前先按当前行定位，用完马上 `close()`。生产实现还要检查 `goToFirstRow()` 这些游标操作的结果，别假设一定有记录。
 ### 事务保证“一起成功或一起失败”
 通关可能同时修改用户进度和写入答题统计，两次写入不能只做一半：
 ```ts
@@ -174,7 +183,7 @@ export default class EntryAbility extends UIAbility {
   }
 }
 ```
-组件的 `aboutToAppear/aboutToDisappear` 管组件，UIAbility 的回调管能力实例。不要把两者按名字猜成同一层级。
+组件的 `aboutToAppear/aboutToDisappear` 管组件，UIAbility 的回调管能力实例。别因为名字像，就把两者当成同一层级。
 ## 5. Context：拿能力，也要拿对范围
 - `UIAbilityContext`：当前 UIAbility 的环境，可启动 Ability、访问其资源与存储路径。
 - `ApplicationContext`：应用级环境，可设置应用颜色模式等，不绑定某个页面。
@@ -182,7 +191,7 @@ export default class EntryAbility extends UIAbility {
 - 仓库函数显式接收 Context，比让模块偷偷捕获某个页面的 Context 更容易测试和释放。
 ## 6. PersistenceV2：少量状态自动接持久化
 PersistenceV2 面向状态管理 V2，可把指定状态键连接到持久化，适合“当前 Tab”“少量界面恢复状态”。对 `@ObservedV2` 的 `QuizDraft` 调用 `PersistenceV2.connect(QuizDraft, 'quiz_draft', () => new QuizDraft())` 创建连接。
-使用前要确认目标 API 版本、存储键和读回策略；读回的数据仍需校验。它不是把任意类、任意大型嵌套对象都安全序列化的魔法，也不提供 RDB 的复杂查询、索引和事务。
+用之前要确认目标 API 版本、存储键和读回策略，读回来的数据仍然要校验。它不是能把任意类、任意大型嵌套对象都安全序列化的魔法，也没有 RDB 的复杂查询、索引和事务。
 <Exercise tool="harmony" title="练习：可靠保存主题并选对存储">
 实现 `saveTheme`：取得名为 `settings_store` 的 Preferences，写入 `theme_mode`，确保落盘；失败时继续抛出异常。再回答：十万条带条件筛选的答题记录为什么不放 Preferences？
 <ExerciseSolution>

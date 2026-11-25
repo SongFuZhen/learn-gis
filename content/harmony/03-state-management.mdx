@@ -1,19 +1,30 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：HarmonyOS（/ˈhɑːrməni oʊ ˈes/，「哈-莫尼-O-S」）页面「变量确实变了，Text 却没变」通常不是 Text 出错，而是状态所有权、观察层级或 V1/V2 用法不匹配。ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）只更新它能观察到的依赖。**一句话经验**：先确定谁拥有状态，再选父子传递方式，最后检查数组和对象属性是否落在观察范围内。**常见坑**：
-- `@State` 数组原地 `push` 后丢响应：改用 `this.arr = [...this.arr, item]` 替换数组引用。
-- 对象深层属性修改后不刷新：V1 用 `@Observed + @ObjectLink`，V2 用 `@ObservedV2 + @Trace`。
-- 同一数据流混用 V1/V2 装饰器：同一数据流只选一套，不让 `@State` 与 `@Param` 等混着接力。
-- 把 `@Prop` 当成双向绑定，或给 `@Link` 传普通字面量。**必记 3 条**：
-1. V1 组件内状态用 `@State`，V2 用 `@Local`；父传子与事件上传要分清。
-2. 数组优先不可变替换，嵌套对象必须补齐对应版本的属性观察机制。
-3. `AppStorage` 管跨组件共享状态，不等于磁盘持久化。
-## 本章你会学到
+> 三分钟，先懂八成；剩下的当手册查。
 
-V1 的 `@State/@Prop/@Link/@Provide/@Consume`、嵌套对象的 `@Observed/@ObjectLink`，以及 V2 的 `@Local/@Param/@Event/@ObservedV2/@Trace`。读完应能为一条数据流选定一套装饰器，并按「引用、层级、版本」排查状态不刷新。
+**这章解决什么**：HarmonyOS（/ˈhɑːrməni oʊ ˈes/，「哈-莫尼-O-S」）页面里「变量确实变了，Text 却没变」，通常不是 Text 出错，而是状态所有权、观察层级或者 V1/V2 用法对不上。ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）只更新它能观察到的依赖。
+
+**一句话经验**：先确定谁拥有状态，再选父子传递方式，最后检查数组和对象属性有没有落在观察范围里。
+
+**几个坑**：
+
+- `@State` 数组原地 `push` 后丢响应：改成 `this.arr = [...this.arr, item]`，换掉数组引用。
+- 对象深层属性改完不刷新：V1 用 `@Observed + @ObjectLink`，V2 用 `@ObservedV2 + @Trace`。
+- 同一条数据流混用 V1/V2 装饰器。只选一套，别让 `@State` 和 `@Param` 混着接力。
+- 把 `@Prop` 当双向绑定，或者给 `@Link` 传普通字面量。
+
+**记三条**：
+
+1. V1 组件内状态用 `@State`，V2 用 `@Local`；父传子和事件上传要分清
+2. 数组优先不可变替换，嵌套对象必须补齐对应版本的属性观察机制
+3. `AppStorage` 管跨组件共享状态，不等于磁盘持久化
+
+## 这章讲什么
+
+V1 的 `@State/@Prop/@Link/@Provide/@Consume`、嵌套对象的 `@Observed/@ObjectLink`，以及 V2 的 `@Local/@Param/@Event/@ObservedV2/@Trace`。读完应该能为一条数据流选定一套装饰器，也能按「引用、层级、版本」排查状态为什么不刷新。
 ## 1. 先确定状态归谁，再决定怎么传
 
-组件自己拥有并修改的状态，与父组件借给子组件的状态，不应使用同一种装饰器。V1 与 V2 可以在工程中分别使用，但同一条数据流不要混用两套规则。
+组件自己拥有并修改的状态，和父组件借给子组件的状态，不该用同一种装饰器。V1 和 V2 可以在一个工程里分别使用，但同一条数据流别混两套规则。
 
 | 数据关系 | V1 选择 | V2 选择 | 更新方向 |
 | --- | --- | --- | --- |
@@ -37,7 +48,7 @@ V1 的 `@State/@Prop/@Link/@Provide/@Consume`、嵌套对象的 `@Observed/@Obje
 </Callout>
 ## 2. V1：@Prop 单向，@Link 双向
 
-`@Prop` 会从父组件同步源值，子组件的本地修改不会反向写回；`@Link` 则与父组件状态建立双向同步。`@Link` 不能本地初始化，父组件传参使用 `this.$score`，不是 `this.score` 或字面量。
+`@Prop` 从父组件同步源值，子组件本地改了不会反向写回；`@Link` 则和父组件状态双向同步。`@Link` 不能在本地初始化，父组件传参要写 `this.$score`，不是 `this.score`，也不是字面量。
 
 ```ts
 @Component
@@ -65,7 +76,7 @@ struct Index {
 }
 ```
 
-跨多层共享可在祖先写 `@Provide('studyScore') score: number = 60`，后代写 `@Consume('studyScore') score: number`。二者名称和类型要匹配，`@Consume` 不使用本地默认值兜底；只传一两层时，不必把每个值都提升为共享状态。
+要跨多层共享，就在祖先写 `@Provide('studyScore') score: number = 60`，后代写 `@Consume('studyScore') score: number`。两边的名称和类型必须一致，`@Consume` 没有本地默认值兜底。只传一两层的话，不用把每个值都提成共享状态。
 ## 3. 嵌套对象：V1 与 V2 各补各的观察能力
 
 V1 中，`@State` 持有对象不等于所有深层属性都自动进入观察链路。需要子组件直接观察并修改类实例属性时，给类加 `@Observed`，子组件用 `@ObjectLink` 接收，且不要本地初始化它。
@@ -134,7 +145,7 @@ this.lessons.push(newLesson);
 this.lessons = [...this.lessons, newLesson];
 ```
 
-**第二类：深层属性越过观察边界。** 先确认修改的是对象本身、第一层字段还是更深字段，再补齐 V1 的 `@Observed/@ObjectLink` 或 V2 的 `@ObservedV2/@Trace`。无差别重建整个对象可能掩盖所有权错误，也增加不必要更新。
+**第二类：深层属性越过观察边界。** 先看改的是对象本身、第一层字段还是更深字段，再补 V1 的 `@Observed/@ObjectLink` 或 V2 的 `@ObservedV2/@Trace`。不分青红皂白重建整个对象，可能把所有权错误盖住，还会带来多余更新。
 
 **第三类：同一数据流混用版本。** 例如父组件用 `@State` 持有值，子组件却按 V2 的 `@Param/@Event` 规则期待同步。应把这条链路整体改成 V1 或 V2，而不是继续叠装饰器试错。
 
@@ -143,7 +154,7 @@ this.lessons = [...this.lessons, newLesson];
 </Callout>
 ## 5. 共享状态不等于持久化
 
-`AppStorage` 与 `AppStorageV2` 适合进程内跨组件共享，例如登录态或全局配置。它们不是把任意状态自动写入磁盘的替代品；首选项、关系型数据与状态持久化应按后续持久化方案处理。保存高频变化状态时，也要控制订阅范围，避免全局更新放大成整页刷新。
+`AppStorage` 和 `AppStorageV2` 适合进程内跨组件共享，比如登录态、全局配置。它们不会把任意状态自动写到磁盘，首选项、关系型数据和状态持久化得走后续的持久化方案。保存高频变化的状态时，订阅范围也要控制，别让一次全局更新放大成整页刷新。
 
 <Callout type="must" title="必背 · 本章三条">
 1. 先定所有权：V1 用 `@State/@Prop/@Link`，V2 用 `@Local/@Param/@Event`，同一数据流不混版。
@@ -210,7 +221,8 @@ struct Index {
 - 状态装饰器由数据所有权和传递方向决定，不是看到变量就加 `@State`。
 - V1 与 V2 都有完整的父子、跨层和嵌套观察方案，同一数据流只选一套。
 - 数组不可变替换、嵌套属性观察、版本一致性，是状态不刷新的三条核心排查线。
-- 应用级内存共享与持久化是不同问题，不能指望 AppStorage 自动保存到磁盘。
+- 应用级内存共享和持久化是两件事，不能指望 AppStorage 自动存盘。
+
 ## 延伸阅读
 
 - [状态管理概述](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-state-management-overview)

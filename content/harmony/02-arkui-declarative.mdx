@@ -1,16 +1,28 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）看起来像「在 TypeScript 里写 UI」，实际写法不是 JSX，也没有浏览器 DOM。你要在 `build()` 中描述组件树，通过状态变化让框架更新界面。**一句话经验**：先想清楚 UI 是哪些状态的表达，再选容器、组件和列表语法，不要在 `build()` 里做命令式操作。**常见坑**：
-- 在 `build()` 中发请求、启动定时器或反复修改状态，导致副作用随重建重复执行。
-- 混淆 Column/Row 的主轴与交叉轴，想要居中却设置了另一根轴。
-- `ForEach` 省略稳定唯一的 key，或用会随插入、删除变化的位置冒充数据身份。
-- 长列表仍一次性创建全部子组件，或忘记 `List` 中的列表项容器。**必记 3 条**：
-1. `@Component struct` 定义组件，`build()` 只负责声明式描述 UI。
-2. Column 主轴纵向、Row 主轴横向，主轴对齐与交叉轴对齐分开设置。
-3. `ForEach` 需要稳定唯一 key；长列表用 `List + LazyForEach + IDataSource`。
-## 本章你会学到
+> 三分钟，先懂八成；剩下的当手册查。
 
-自定义组件的结构、常用组件与事件、Column/Row/Stack 布局、条件渲染和列表渲染，以及 `@Builder` 等复用手段。读完应能把一个 React（/riˈækt/，「瑞-阿克特」）函数组件拆成 ArkUI 组件树，并解释列表更新时 key 为什么重要。
+**这章解决什么**：ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）看起来像「在 TypeScript 里写 UI」，实际既不是 JSX，也没有浏览器 DOM。你在 `build()` 里描述组件树，状态一变，框架自己更新界面。
+
+**一句话经验**：先想清楚 UI 是哪些状态的表达，再挑容器、组件和列表语法。别在 `build()` 里做命令式操作。
+
+**几个坑**：
+
+- 在 `build()` 里发请求、启动定时器或反复改状态，副作用会跟着重建一遍遍执行。
+- 搞混 Column/Row 的主轴和交叉轴，想居中却设了另一根轴。
+- `ForEach` 省了稳定唯一的 key，或者拿会随插入删除变化的位置冒充数据身份。
+- 长列表还一次性创建全部子组件，或者忘了 `List` 里的列表项容器。
+
+**记三条**：
+
+1. `@Component struct` 定义组件，`build()` 只负责声明式描述 UI
+2. Column 主轴纵向、Row 主轴横向，主轴对齐和交叉轴对齐分开设置
+3. `ForEach` 要稳定唯一的 key；长列表用 `List + LazyForEach + IDataSource`
+
+## 这章讲什么
+
+自定义组件的结构、常用组件和事件、Column/Row/Stack 布局、条件渲染和列表渲染，还有 `@Builder` 这些复用手段。读完应该能把一个 React（/riˈækt/，「瑞-阿克特」）函数组件拆成 ArkUI 组件树，也能说清列表更新时 key 为什么重要。
+
 ## 1. 从函数组件切换到 @Component struct
 
 ArkUI 自定义组件由装饰器和 `struct` 组成。`@Entry` 标记页面入口，`@Component` 声明自定义组件，`@State` 保存组件内可观察状态，`build()` 返回的不是 JSX（/dʒeɪ es eks/，「J-S-X」），而是一段声明式 UI 描述。
@@ -31,7 +43,7 @@ struct Index {
 }
 ```
 
-事件回调修改 `keyword` 后，框架重新计算依赖它的 UI。不要寻找 `document.querySelector`，也不要直接给某个 Text 节点赋文本。
+事件回调改完 `keyword`，框架会重新计算依赖它的 UI。别去找 `document.querySelector`，也别直接给某个 Text 节点赋文本。
 
 | React 中的思路 | ArkUI 中的对应方式 | 关键差异 |
 | --- | --- | --- |
@@ -79,7 +91,8 @@ struct LayoutPage {
 }
 ```
 
-`Blank()` 占据 Row 剩余空间，`layoutWeight(1)` 让正文按权重分配 Column 剩余高度。尺寸常用 vp 或百分比；先明确父容器约束，再决定固定尺寸、百分比或权重，避免多层无意义嵌套。
+`Blank()` 占住 Row 剩下的空间，`layoutWeight(1)` 让正文按权重分 Column 的剩余高度。尺寸常用 vp 或百分比，先看清父容器的约束，再决定用固定尺寸、百分比还是权重，别堆一层层没意义的嵌套。
+
 ## 3. 条件与列表都描述组件树
 
 简单条件用 `if/else`，列表用 `ForEach`。第三个参数是 key 生成器，应为每条数据返回稳定且唯一的字符串。
@@ -119,8 +132,9 @@ class LessonItem {
 `ForEach` 适合数量有限的静态列表；数据量大且需要滚动时，使用 `List` 配合 `LazyForEach`，由 `IDataSource` 提供数据，框架只按需创建可见区域附近的项。`List` 的直接子组件使用 `ListItem` 或 `ListItemGroup`，并给列表明确尺寸约束。
 
 <Callout type="warn" title="key 描述数据身份，不是当前位置">
-不要把数组下标当作万能 key。插入、删除或排序后，下标会指向另一条数据，可能造成组件复用与状态错配。也不要为了「触发刷新」频繁更换稳定 key，应修正数据和状态更新方式。
+别把数组下标当万能 key。插入、删除或排序之后，同一个下标已经指向另一条数据，组件复用和状态就可能错配。也别为了「触发刷新」频繁换稳定 key，该修的是数据和状态更新方式。
 </Callout>
+
 ## 4. 复用 UI，但保持 build 纯粹
 
 只有一段 UI 结构重复时，可在组件内使用 `@Builder`；需要独立状态、生命周期或复用边界时，再抽成自定义组件。
@@ -153,7 +167,7 @@ class LessonItem {
 | `@Styles` | 复用通用属性样式，不支持事件 |
 | `@Extend` | 扩展指定内置组件的样式与事件组合 |
 
-`build()` 应保持无副作用：不要在这里请求数据、注册监听或创建定时器。初始化工作可放入 `aboutToAppear`，清理放入 `aboutToDisappear`；事件回调负责响应用户动作。
+`build()` 要保持无副作用：不在这里请求数据、注册监听、创建定时器。初始化放 `aboutToAppear`，清理放 `aboutToDisappear`，用户动作交给事件回调。
 
 <Callout type="must" title="必背 · 本章三条">
 1. 组件用 `@Component struct` 声明，`build()` 只描述 UI，副作用移到合适生命周期或事件中。
@@ -202,15 +216,17 @@ struct Index {
 }
 ```
 
-key 来自课程 `id`，追加后原课程身份不变；数组展开生成新数组，状态章会继续解释这种更新方式为何可靠。
+key 来自课程 `id`，追加之后原课程的身份不变；数组展开生成一个新数组，状态章会接着解释这种更新方式为什么可靠。
 </ExerciseSolution>
 </Exercise>
+
 ## 5. 本章小结
 
 - ArkUI 用 `@Component struct` 与 `build()` 描述组件树，状态和事件驱动更新。
 - Column、Row、Stack 对应不同布局意图，对齐属性必须结合主轴与交叉轴理解。
 - `if/else` 描述条件 UI，`ForEach` 依赖稳定唯一 key 维持数据身份。
-- 长列表按需创建，UI 复用按边界选择组件或 `@Builder`，并保持 `build()` 无副作用。
+- 长列表按需创建；UI 复用看边界选组件或 `@Builder`；`build()` 保持无副作用。
+
 ## 延伸阅读
 
 - [ArkUI 基本语法概述](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-basic-syntax-overview)
