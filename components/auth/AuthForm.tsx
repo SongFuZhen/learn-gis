@@ -6,6 +6,31 @@ import { Eye, EyeOff, Lock, Smile, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+type AuthErrorPayload = {
+  error?: string;
+  remaining?: number;
+  maxAttempts?: number;
+  lockMinutes?: number;
+  lockSeconds?: number;
+};
+
+/** 把接口返回的剩余额度拼成可读提示；缺字段时退回原始错误文案 */
+function formatAuthError(data: AuthErrorPayload | null): string {
+  const base = data?.error ?? "请求失败，请稍后再试";
+  if (typeof data?.remaining !== "number") return base;
+  if (data.remaining <= 0) {
+    const lockMinutes =
+      data.lockMinutes ??
+      (typeof data.lockSeconds === "number"
+        ? Math.ceil(data.lockSeconds / 60)
+        : 15);
+    return `${base}（账号临时锁定，请约 ${lockMinutes} 分钟后再试）`;
+  }
+  return `${base}，还可尝试 ${data.remaining} 次；连续 ${
+    data.maxAttempts ?? 5
+  } 次错误将锁定 ${data.lockMinutes ?? 15} 分钟`;
+}
+
 /**
  * 登录/注册共用表单字段（无外层卡片，卡片由 AuthModal 提供）。
  * 成功后回调 onSuccess，由弹层负责关闭与刷新。
@@ -43,10 +68,10 @@ export default function AuthForm({
         }),
       });
       const data = (await res.json().catch(() => null)) as
-        | { error?: string }
+        | AuthErrorPayload
         | null;
       if (!res.ok) {
-        setError(data?.error ?? "请求失败，请稍后再试");
+        setError(formatAuthError(data));
         return;
       }
       onSuccess();
@@ -139,6 +164,12 @@ export default function AuthForm({
           </button>
         </div>
       </label>
+
+      {!isRegister && (
+        <p className="text-[12px] leading-relaxed text-foreground-muted">
+          连续 5 次输错密码将锁定 15 分钟；登录成功后失败记录自动清零。
+        </p>
+      )}
 
       {error && (
         <p

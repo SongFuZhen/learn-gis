@@ -16,6 +16,10 @@ import {
 } from "@/lib/auth";
 import {
   assertAuthAllowed,
+  type AuthGate,
+  LOGIN_IP_MAX,
+  LOGIN_MAX_FAILS,
+  LOGIN_WINDOW_MINUTES,
   RateLimitError,
   recordAuthAttempt,
 } from "@/lib/auth/rate-limit";
@@ -30,8 +34,6 @@ const loginSchema = z.object({
     .min(PASSWORD_MIN, "用户名或密码错误")
     .max(PASSWORD_MAX, "用户名或密码错误"),
 });
-
-const INVALID = { error: "用户名或密码错误" } as const;
 
 export async function POST(request: Request) {
   const ip = getClientIp(request);
@@ -53,12 +55,13 @@ export async function POST(request: Request) {
 
   const username = parsed.data.username.toLowerCase();
 
+  let gate: AuthGate | undefined;
   try {
-    await assertAuthAllowed("login", ip, username);
+    gate = await assertAuthAllowed("login", ip, username);
   } catch (err) {
     if (err instanceof RateLimitError) {
       return NextResponse.json(
-        { error: err.message },
+        { error: err.message, remaining: 0, lockSeconds: err.retryAfterSec },
         { status: 429, headers: { "Retry-After": String(err.retryAfterSec) } },
       );
     }
@@ -76,7 +79,20 @@ export async function POST(request: Request) {
   // 用户不存在与密码错误走同一分支，防用户名枚举
   if (!account || !verifyPassword(parsed.data.password, account.passwordHash)) {
     await recordAuthAttempt("login", ip, username, false);
-    return NextResponse.json(INVALID, { status: 401 });
+    // 本次失败已落库：剩余额度取账号与 IP 两者的较小值
+    const remaining = Math.min(
+      Math.max(0, (gate?.accountRemaining ?? LOGIN_MAX_FAILS) - 1),
+      Math.max(0, (gate?.ipRemaining ?? LOGIN_IP_MAX) - 1),
+    );
+    return NextResponse.json(
+      {
+        error: "用户名或密码错误",
+        remaining,
+        maxAttempts: LOGIN_MAX_FAILS,
+        lockMinutes: LOGIN_WINDOW_MINUTES,
+      },
+      { status: 401 },
+    );
   }
 
   // 跨设备登录：当前设备若有匿名数据，事务内并入账号

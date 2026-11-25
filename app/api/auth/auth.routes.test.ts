@@ -18,14 +18,20 @@ vi.mock("next/headers", () => ({
 
 /** 限流全放行，单独用例再覆盖实现 */
 vi.mock("@/lib/auth/rate-limit", () => ({
-  assertAuthAllowed: vi.fn(async () => undefined),
+  assertAuthAllowed: vi.fn(async () => ({
+    consecutiveFails: 0,
+    accountRemaining: 5,
+    ipRemaining: 10,
+  })),
   recordAuthAttempt: vi.fn(async () => undefined),
+  LOGIN_MAX_FAILS: 5,
+  LOGIN_WINDOW_MINUTES: 15,
   RateLimitError: class RateLimitError extends Error {
-    constructor(
-      message: string,
-      public readonly retryAfterSec: number,
-    ) {
+    retryAfterSec: number;
+    constructor(message: string, retryAfterSec: number) {
       super(message);
+      this.name = "RateLimitError";
+      this.retryAfterSec = retryAfterSec;
     }
   },
 }));
@@ -69,6 +75,7 @@ import { POST as login } from "./login/route";
 import { POST as logout } from "./logout/route";
 import { GET as me } from "./me/route";
 import { hashPassword } from "@/lib/auth";
+import { assertAuthAllowed, RateLimitError } from "@/lib/auth/rate-limit";
 
 function postJson(url: string, body: unknown) {
   return new NextRequest(url, {
@@ -227,7 +234,31 @@ describe("POST /api/auth/login", { timeout: 20_000 }, () => {
       }),
     );
     expect(res.status).toBe(401);
-    expect(await res.json()).toEqual({ error: "用户名或密码错误" });
+    expect(await res.json()).toEqual({
+      error: "用户名或密码错误",
+      remaining: 4,
+      maxAttempts: 5,
+      lockMinutes: 15,
+    });
+  });
+
+  it("限流拦截返回 429，并提示锁定剩余秒数", async () => {
+    vi.mocked(assertAuthAllowed).mockRejectedValueOnce(
+      new RateLimitError("该账号失败次数过多，请稍后再试", 300),
+    );
+    const res = await login(
+      postJson("http://localhost/api/auth/login", {
+        username: "mapper",
+        password: "whatever123",
+      }),
+    );
+    expect(res.status).toBe(429);
+    expect(res.headers.get("Retry-After")).toBe("300");
+    expect(await res.json()).toEqual({
+      error: "该账号失败次数过多，请稍后再试",
+      remaining: 0,
+      lockSeconds: 300,
+    });
   });
 
   it("登录成功下发会话；无匿名数据时不触发事务", async () => {
