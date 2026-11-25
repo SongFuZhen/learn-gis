@@ -1,14 +1,24 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：「点在不在围栏里」「两块地是否重叠」「从 A 里剪掉 B 还剩多少」都需要明确的拓扑语义，而不是靠肉眼。拓扑 topology（/təˈpɑːlədʒi/，「特-帕-勒-吉」）关心几何之间如何相接、包含与相交。**一句话心智模型**：`boolean*` 只回答 true/false，`intersect/union/difference` 则真正生成新几何；前者是判断题，后者是剪刀与胶水。**常见坑**：
+> 三分钟，先懂八成；剩下的当手册查。
+
+**这章解决什么**：「点在不在围栏里」「两块地是否重叠」「从 A 里剪掉 B 还剩多少」都需要明确的拓扑语义，而不是靠肉眼。拓扑 topology（/təˈpɑːlədʒi/，「特-帕-勒-吉」）关心几何之间怎么相接、包含与相交。
+
+**一句话心智模型**：`boolean*` 只回答 true/false，`intersect/union/difference` 则真正生成新几何；前者是判断题，后者是剪刀与胶水。
+
+**几个坑**：
+
 - 忘记边界规则——点恰好压在外环上时，`booleanPointInPolygon` 默认算内部。
 - 把「有接触」都当重叠——只碰一条边的两个面并不满足 `booleanOverlap`。
-- 沿用旧版 `intersect(a, b)` 两参数写法——Turf v7 叠置入口使用 FeatureCollection。**必记 3 条**：
-1. 点面默认包含边界，`ignoreBoundary: true` 才把边界排除。
-2. `Contains/Within` 看包含，`Overlap` 看同维度部分重叠，`Disjoint` 看是否完全无公共点。
-3. 交并差输入面几何、输出可能为 null，Multi 几何与空结果都要显式处理。
+- 沿用旧版 `intersect(a, b)` 两参数写法——Turf v7 叠置入口用 FeatureCollection。
 
-## 本章你会学到
+**记三条**：
+
+1. 点面默认包含边界，`ignoreBoundary: true` 才把边界排除
+2. `Contains/Within` 看包含，`Overlap` 看同维度部分重叠，`Disjoint` 看是否完全无公共点
+3. 交并差输入面几何、输出可能为 null，Multi 几何与空结果都要显式处理
+
+## 这章讲什么
 
 常用空间谓词的语义边界，压线点为什么会被重复归属，Turf v7 的交并差调用方式，以及 MultiPolygon、孔洞和无效几何进入生产流程时的注意事项。
 
@@ -88,7 +98,7 @@ if (common) {
 }
 ```
 
-交集可能由多个互不相连的碎片组成，所以返回类型可能是 MultiPolygon。调用方不能只按单一外环处理；若要做面积统计，应让 `area` 直接消费整个结果。
+交集可能由多个互不相连的碎片组成，所以返回类型可能是 MultiPolygon。调用方不能只按单一外环处理；要做面积统计，应让 `area` 直接消费整个结果。
 
 ## 4. union 与 difference：合并和剪除
 
@@ -111,7 +121,7 @@ console.log(onlyA?.geometry.type); // A 去掉与 B 的交集后仍有剩余
 `difference` 的输入顺序决定谁被保留：把 B 放首项，语义就变成「B 减 A」。若首项被后续面完全覆盖，结果会是 null；合并结果也可能因为存在分离区域而成为 MultiPolygon。
 
 <Callout type="warn" title="v7 调用签名与属性继承">
-Turf v7 的 `intersect`、`union`、`difference` 使用 `featureCollection([a, b])` 组织输入，不要照抄旧教程的两个独立面参数。叠置后哪些 properties 保留、由 options 如何指定，应以对应函数文档为准；关键业务字段最好显式重建，不要依赖输入属性会自动合并。
+Turf v7 的 `intersect`、`union`、`difference` 使用 `featureCollection([a, b])` 组织输入，不要照抄旧教程的两个独立面参数。叠置后哪些 properties 保留、由 options 如何指定，以对应函数文档为准；关键业务字段最好显式重建，不要依赖输入属性自动合并。
 </Callout>
 
 ## 5. Multi 几何与无效输入：结果正确的前提
@@ -134,9 +144,9 @@ Cesium 的 `scene.pick` 回答「这个屏幕像素拾到了哪个对象」，�
 </Callout>
 
 <Callout type="must" title="必背 · 本章三条">
-1. 压线点默认在面内；唯一归属需要业务规则，不是换一个参数就万事大吉。
-2. `Overlap` 排除完全包含和仅边界接触，`Disjoint` 连边界接触也不允许。
-3. v7 交并差传 FeatureCollection，返回 Polygon、MultiPolygon 或 null，属性和空结果都要显式处理。
+1. 压线点默认在面内；唯一归属需要业务规则，不是换一个参数就万事大吉
+2. `Overlap` 排除完全包含和仅边界接触，`Disjoint` 连边界接触也不允许
+3. v7 交并差传 FeatureCollection，返回 Polygon、MultiPolygon 或 null，属性和空结果都要显式处理
 </Callout>
 
 <Exercise tool="turf" title="动手 · 相邻围栏的压线事件">
