@@ -1,15 +1,25 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：内置材质像自动挡汽车，够用却不让你改发动机；ShaderMaterial 允许你直接告诉 GPU「每个顶点放哪里、每个像素涂什么色」。着色器程序用 GLSL（/ˌdʒiː ɛs ɛs ˈel/，「吉-埃斯-埃斯-埃尔」）编写。**一句话经验**：顶点着色器负责 `gl_Position`，片元（fragment，/ˈfræɡmənt/，「弗拉格-门特」）着色器负责颜色；JS 通过 uniform 递参数，顶点通过 varying 给片元捎话。**常见坑**：
-- 在 ShaderMaterial 里又声明一遍 `position`、`uv`、`projectionMatrix`，导致重复定义；这些是 three 自动注入的。
-- 把「每个顶点不同」的数据塞进 uniform，结果所有顶点只能拿到同一个值；逐顶点数据应使用 attribute。
-- JS 改了 `material.uniforms.uTime` 整个对象，却不改它的 `.value`，着色器拿不到预期数字。
-- 把 Cesium 后处理的 `out_FragColor`、`colorTexture` 原样搬进 three 材质模板，忘了两套框架的注入约定不同。**必记 3 条**：
-1. 管线顺序：顶点 → 图元装配 → 光栅化 → 片元；varying 会在三角形内部插值。
-2. 入门选 ShaderMaterial：内置矩阵和 position/normal/uv 已备好，不要重复声明。
-3. 每帧动画只更新 `uniforms.xxx.value`，不要每帧重建材质或编译着色器。
+> 三分钟，先懂八成；剩下的当手册查。
 
-## 本章你会学到
+**这章解决什么**：内置材质像自动挡汽车，够用，但不让你改发动机。ShaderMaterial 让你直接告诉 GPU「每个顶点放哪里、每个像素涂什么色」，程序用 GLSL（/ˌdʒiː ɛs ɛs ˈel/，「吉-埃斯-埃斯-埃尔」）写。
+
+**一句话经验**：顶点着色器负责 `gl_Position`，片元（fragment，/ˈfræɡmənt/，「弗拉格-门特」）着色器负责颜色。JS 通过 uniform 递参数，顶点通过 varying 给片元捎话。
+
+**几个坑**：
+
+- 在 ShaderMaterial 里又声明一遍 `position`、`uv`、`projectionMatrix`，重复定义。这些是 three 自动注入的。
+- 把「每个顶点不同」的数据塞进 uniform，所有顶点只能拿到同一个值。逐顶点数据该用 attribute。
+- 改了 `material.uniforms.uTime` 整个对象，却不动它的 `.value`，着色器拿不到预期数字。
+- 把 Cesium 后处理的 `out_FragColor`、`colorTexture` 原样搬进 three 材质模板。两套框架的注入约定不一样。
+
+**记三条**：
+
+1. 管线顺序：顶点 → 图元装配 → 光栅化 → 片元；varying 会在三角形内部插值
+2. 入门选 ShaderMaterial：内置矩阵和 position/normal/uv 已备好，不要重复声明
+3. 每帧动画只更新 `uniforms.xxx.value`，不要每帧重建材质或编译着色器
+
+## 这章讲什么
 
 WebGL 渲染管线各阶段的职责，RawShaderMaterial 与 ShaderMaterial 的差别，attribute、uniform、varying 三件套，以及 GLSL 的基本类型和输入输出。最后用一个顶点位移加颜色渐变的波浪平面，把 JS 与 GLSL 接起来。
 
@@ -31,7 +41,7 @@ position / normal / uv / 自定义 attribute
 深度/模板测试与混合 → framebuffer
 ```
 
-顶点着色器的输入是一份顶点数据，输出是**裁剪空间**位置；光栅化把矢量三角形变成屏幕上的片元候选，并对 varying 做插值。因此一个三角形只需要三个顶点各写一次颜色，内部像素就能得到平滑渐变。片元着色器执行后仍可能因深度测试失败而被丢弃，所以「候选片元」不等于最终像素。
+顶点着色器的输入是一份顶点数据，输出是**裁剪空间**位置。光栅化把矢量三角形变成屏幕上的片元候选，并对 varying 做插值，所以一个三角形只要三个顶点各写一次颜色，内部像素就能得到平滑渐变。片元着色器执行完还可能因深度测试失败被丢掉，「候选片元」不等于最终像素。
 
 <Callout type="tip" title="先判断该改哪一段">
 让几何真正起伏、顶点左右摆动 → 顶点着色器；只改贴图、渐变色、透明度和发光颜色 → 片元着色器。若只想在屏幕上做整幅滤镜，则更适合第 08 章的后处理 Pass。
@@ -62,7 +72,7 @@ void main() {
 }
 ```
 
-RawShaderMaterial 并不会让 GPU 绕过必要步骤，它只是少注入模板，不等于天然更快。
+RawShaderMaterial 并不会让 GPU 绕过必要步骤，它只是少注入模板，不代表天然更快。
 
 ## 3. attribute / uniform / varying 三件套
 

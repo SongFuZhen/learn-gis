@@ -1,15 +1,25 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：模型能看之后，用户马上会想拖着转、滚轮缩放、悬停看反馈、点击查属性。OrbitControls 管「相机怎么绕」，Raycaster 管「这个像素打中了谁」，两者共享画布事件，却不能混成一件事。**一句话经验**：先把指针像素位置换成 NDC，再从相机发出一条射线；命中列表取最近项，状态更新遵循「恢复旧高亮，再设置新高亮」。**常见坑**：
-- 开了阻尼却不在每帧调用 `controls.update()`，惯性像没开。
-- 用 `window.innerWidth/Height` 换算指针，画布只占页面一角时拾取整体偏移。
-- `intersectObjects` 命中的是 Group 内部的子 Mesh，业务却按外层模型 ID 查属性。
-- 多个 Mesh 共享材质，只高亮一个却整批变色；拖完相机还触发一次点击选中。**必记 3 条**：
-1. 阻尼开启后每帧 `controls.update()`，再 `renderer.render(scene, camera)`。
-2. NDC 要用 canvas 的 bounding rect 计算，x 映射到 [-1,1]，y 方向相反。
-3. 命中结果按距离从近到远排序；hover 是临时态，click 是持久选中态。
+> 三分钟，先懂八成；剩下的当手册查。
 
-## 本章你会学到
+**这章解决什么**：模型能看之后，用户马上会想拖着转、滚轮缩放、悬停看反馈、点击查属性。OrbitControls 管「相机怎么绕」，Raycaster 管「这个像素打中了谁」，两者都挂在画布事件上，但不是一回事。
+
+**一句话经验**：先把指针像素位置换成 NDC，再从相机发一条射线；命中列表取最近项，状态更新按「先恢复旧高亮，再设置新高亮」来。
+
+**几个坑**：
+
+- 开了阻尼却不在每帧调 `controls.update()`，惯性像没开。
+- 用 `window.innerWidth/Height` 换算指针，画布只占页面一角时，拾取整体偏移。
+- `intersectObjects` 命中的是 Group 里的子 Mesh，业务却按外层模型 ID 查属性。
+- 多个 Mesh 共享材质，只高亮一个却整批变色；拖完相机又触发一次点击选中。
+
+**记三条**：
+
+1. 阻尼开启后每帧 `controls.update()`，再 `renderer.render(scene, camera)`
+2. NDC 用 canvas 的 bounding rect 算，x 映射到 [-1,1]，y 方向相反
+3. 命中结果按距离从近到远排序；hover 是临时态，click 是持久选中态
+
+## 这章讲什么
 
 OrbitControls 的阻尼、距离与俯仰限制，指针事件的 NDC 坐标换算，Raycaster 的射线求交与结果排序，以及一套不会互相覆盖状态的悬停高亮 + 点击选中实现。
 
@@ -144,11 +154,11 @@ renderer.domElement.addEventListener("click", (event) => {
 });
 ```
 
-若拾取 glTF，命中对象常是深层子 Mesh。可以在模型根节点设置 `userData.selectable = true`，命中后沿 `object.parent` 向上找到该根节点，再读写业务 ID。若材质共享，需要按目标克隆材质，或把高亮放到独立轮廓层，不能直接改共享颜色。
+拾取 glTF 时，命中对象常是深层子 Mesh。可以在模型根节点设 `userData.selectable = true`，命中后沿 `object.parent` 往上找到它，再读写业务 ID。材质共享的话，按目标克隆材质，或者把高亮放到独立的轮廓层，别直接改共享颜色。
 
 ## 5. 性能与维护：少算、只算需要拾取的对象
 
-不要把所有灯光、地面、装饰物都无条件丢进射线检测。维护明确的 `pickables`，能递归解决时就不要遍历无关场景；大量 Mesh 的 hover 可把最新指针坐标存下来，每个动画帧最多求交一次，而不是每个 pointermove 都算。
+别把所有灯光、地面、装饰物都无条件丢进射线检测。维护一份明确的 `pickables`，能递归解决就别遍历无关场景。Mesh 很多时，hover 只存最新指针坐标，每个动画帧最多求交一次，而不是每次 pointermove 都算。
 
 对象刚移动、尚未经过下一次 render 时，若需要立即拾取，应先更新相关世界矩阵。业务销毁时还要移除事件监听并 `controls.dispose()`，避免重复初始化和闭包引用造成泄漏。
 

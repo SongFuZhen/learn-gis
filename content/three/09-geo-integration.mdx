@@ -1,15 +1,25 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：three 会画模型，却不懂「东经 116.397° 在哪里」；MapLibre 会画地图，却不是通用三维引擎。桥梁是 MapLibre 的自定义图层（custom layer，/ˈkʌstəm ˈleɪər/，「卡斯-特姆 雷-尔」）：地图每帧把 WebGL 上下文（context，/ˈkɒntɛkst/，「康-泰克斯特」）和相机矩阵交给你，你在同一张画布上补画 three 场景。**一句话经验**：经纬度先变 MercatorCoordinate，模型米制尺寸再变 Mercator 单位，最后每帧用地图主矩阵乘模型矩阵；相机跟着地图走，模型才不会「滑出地球」。**常见坑**：
-- 另建一个 canvas 盖在地图上，却忘记同步缩放、旋转和俯仰，模型像一张漂浮截图。
-- 共享画布时让 three 自动清屏，底图整片被擦掉；必须 `renderer.autoClear = false`。
-- 把经纬度直接塞进 `Vector3(lng, lat, 0)`；角度不是地图的归一化 Mercator 坐标。
-- 只在 onAdd 设置一次相机矩阵，首次对齐、拖动后错位。**必记 3 条**：
-1. 共享 `map.getCanvas()` 与 onAdd 的 gl，渲染前后尊重 MapLibre 的 GL 状态。
-2. `fromLngLat` 管位置，`meterInMercatorCoordinateUnits()` 管米到地图单位的比例。
-3. render 每次重取 `args.defaultProjectionData.mainMatrix`，不要缓存地图相机矩阵。
+> 三分钟，先懂八成；剩下的当手册查。
 
-## 本章你会学到
+**这章解决什么**：three 会画模型，却不懂「东经 116.397° 在哪里」；MapLibre 会画地图，却不是通用三维引擎。桥梁是 MapLibre 的自定义图层（custom layer，/ˈkʌstəm ˈleɪər/，「卡斯-特姆 雷-尔」）：地图每帧把 WebGL 上下文（context，/ˈkɒntɛkst/，「康-泰克斯特」）和相机矩阵交给你，你在同一张画布上补画 three 场景。
+
+**一句话经验**：经纬度先变 MercatorCoordinate，模型米制尺寸再变 Mercator 单位，最后每帧用地图主矩阵乘模型矩阵。相机跟着地图走，模型才不会「滑出地球」。
+
+**几个坑**：
+
+- 另建一个 canvas 盖在地图上，却忘了同步缩放、旋转和俯仰，模型像一张漂浮截图。
+- 共享画布时让 three 自动清屏，底图被整片擦掉。必须 `renderer.autoClear = false`。
+- 把经纬度直接塞进 `Vector3(lng, lat, 0)`。角度不是地图的归一化 Mercator 坐标。
+- 只在 onAdd 设置一次相机矩阵，首次对齐、拖动后错位。
+
+**记三条**：
+
+1. 共享 `map.getCanvas()` 与 onAdd 的 gl，渲染前后尊重 MapLibre 的 GL 状态
+2. `fromLngLat` 管位置，`meterInMercatorCoordinateUnits()` 管米到地图单位的比例
+3. render 每次重取 `args.defaultProjectionData.mainMatrix`，不要缓存地图相机矩阵
+
+## 这章讲什么
 
 MapLibre custom layer 的 onAdd/render/onRemove 生命周期，共享 WebGL context 与独立 renderer 两条路线，Web Mercator 的归一化坐标和米制缩放，以及 three 相机矩阵的逐帧同步。最后用完整立方体图层收官，并给出 three、MapLibre、Cesium 的选型结论。
 
@@ -36,7 +46,7 @@ const layer = {
 };
 ```
 
-`renderingMode: "3d"` 让自定义层进入地图的三维深度关系；`"2d"` 则适合不涉及深度共享的覆盖绘制。MapLibre 调用 custom layer 前只保证部分混合与深度状态，three 也会缓存 GL 状态，所以共享上下文时要显式处理边界。
+`renderingMode: "3d"` 让自定义层进入地图的三维深度关系，`"2d"` 适合不涉及深度共享的覆盖绘制。MapLibre 调用 custom layer 前只保证部分混合和深度状态，three 自己也会缓存 GL 状态，共享上下文时边界得显式处理。
 
 | 集成路线 | 优点 | 代价与同步责任 |
 | --- | --- | --- |
@@ -60,7 +70,7 @@ const oneMeter = coord.meterInMercatorCoordinateUnits();
 // BoxGeometry(40, 40, 40) 的 40 米，要乘 oneMeter 才进入地图单位。
 ```
 
-`meterInMercatorCoordinateUnits()` 与该点纬度有关，因为 Web Mercator 的实际地面尺度会随纬度变化。模型矩阵按列向量从右向左理解：先转模型轴，再把米缩放为 Mercator 单位，最后平移到地理落点。
+`meterInMercatorCoordinateUnits()` 跟所在纬度有关，因为 Web Mercator 的实际地面尺度随纬度变化。模型矩阵按列向量从右往左读：先转模型轴，再把米缩放成 Mercator 单位，最后平移到地理落点。
 
 ```js
 const modelMatrix = new THREE.Matrix4()
@@ -181,9 +191,9 @@ map.on("style.load", () => {
 });
 ```
 
-地图拖动时不需要另写 `cube.position = ...`：位置由 modelMatrix 固定，视角由地图主矩阵逐帧更新，两者共同保持贴合。此骨架针对默认 Mercator 投影；启用地球投影、地形 draping 或特殊投影过渡时，要按对应 MapLibre 示例选择模型矩阵接口。生产项目还应处理 `webglcontextlost/restored`，透明模型则要遵守 custom layer 的预乘 alpha 混合约定。
+地图拖动时不用另外写 `cube.position = ...`：位置由 modelMatrix 固定，视角由地图主矩阵逐帧更新，两边一起保持贴合。这个骨架针对默认 Mercator 投影；启用地球投影、地形 draping 或特殊投影过渡时，按对应的 MapLibre 示例选模型矩阵接口。生产项目还得处理 `webglcontextlost/restored`，透明模型要遵守 custom layer 的预乘 alpha 混合约定。
 
-## 5. 收官选型：不是谁更强，而是谁懂你的数据
+## 5. 收官选型：谁懂你的数据就用谁
 
 | 需求 | 首选 | 原因 |
 | --- | --- | --- |

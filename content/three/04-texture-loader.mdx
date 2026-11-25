@@ -1,15 +1,25 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：白模像没装修的房，纹理是墙面与地板，glTF 模型则是连家具一起搬来的整装方案。但图片贴上去会发灰、拉伸、斜看模糊，模型还可能卡在解码器路径或加载进度上。**一句话经验**：先确认 UV 把图片坐标指对了，再分清「颜色图要转线性、数据图别乱转」，最后管好加载与释放。**常见坑**：
-- 所有贴图一律设 `SRGBColorSpace`，法线图和粗糙度图因此出现错误数值。
-- `repeat.set(4, 2)` 写了，却没把 `wrapS/wrapT` 设为重复包裹，图片边缘被钳制。
-- GLB 下载成功，DRACO 解码器却 404；生产环境路径和本地路径不一致。
-- 把模型从 Scene 移除就当释放完成，纹理与几何仍占着显存。**必记 3 条**：
-1. 颜色贴图设 sRGB；normal、roughness、metalness 等数据贴图保持无颜色空间。
-2. 重复平铺 = RepeatWrapping + repeat；斜角清晰度再看 anisotropy。
-3. GLTFLoader 负责模型结构，DRACOLoader 只负责压缩几何解码；remove 不代替 dispose。
+> 三分钟，先懂八成；剩下的当手册查。
 
-## 本章你会学到
+**这章解决什么**：白模像没装修的房，纹理是墙面和地板，glTF 模型则是连家具一起搬来的整装方案。可图片贴上去会发灰、拉伸，斜着一看还糊；模型也可能卡在解码器路径或加载进度上。
+
+**一句话经验**：先确认 UV 把图片坐标指对了，再分清「颜色图要转线性、数据图别乱转」，最后管好加载和释放。
+
+**几个坑**：
+
+- 所有贴图一律设 `SRGBColorSpace`，法线图和粗糙度图的数值就错了。
+- `repeat.set(4, 2)` 写了，却没把 `wrapS/wrapT` 设成重复包裹，图片边缘被钳住。
+- GLB 下载成功，DRACO 解码器却 404；生产和本地路径对不上。
+- 把模型从 Scene 移除就当释放完了，纹理和几何还占着显存。
+
+**记三条**：
+
+1. 颜色贴图设 sRGB；normal、roughness、metalness 等数据贴图保持无颜色空间
+2. 重复平铺 = RepeatWrapping + repeat；斜角清晰度再看 anisotropy
+3. GLTFLoader 管模型结构，DRACOLoader 只管压缩几何解码；remove 不代替 dispose
+
+## 这章讲什么
 
 UV 坐标如何把图片映射到三角形、TextureLoader 的颜色空间与采样配置、LoadingManager 的进度统计、glTF/GLB 和 DRACO 的加载方式，以及不再使用的模型资源怎样正确销毁。
 
@@ -40,7 +50,7 @@ const wall = new THREE.Mesh(plane, material);
 scene.add(wall);
 ```
 
-`map` 存的是颜色，sRGB 图片要先解码到线性工作空间，才能正确参与光照；粗糙度图的像素是数值，不是给人看的颜色。normalMap、metalnessMap、aoMap 同理，都不应标成 sRGB。
+`map` 存的是颜色，sRGB 图片要先解码到线性工作空间，参与光照才正确。粗糙度图的像素是数值，不是给人看的颜色，normalMap、metalnessMap、aoMap 同理，都别标成 sRGB。
 
 <Callout type="warn" title="贴图发灰、发亮，先查颜色空间而不是曝光">
 颜色图漏设 `SRGBColorSpace`，常导致光照后颜色偏差；把数据图误设成 sRGB，则会让法线方向或粗糙度数值被错误转换。现代 three 的 renderer 输出通常是 sRGB，但这不等于所有输入纹理都使用同一种颜色空间。
@@ -84,7 +94,7 @@ albedo.colorSpace = THREE.SRGBColorSpace;
 const roughness = managedTextures.load("/textures/brick/roughness.jpg");
 ```
 
-同一个 manager 可传给 TextureLoader、GLTFLoader 等加载器，统一统计本批资源。模型解析中还可能发现新的纹理和缓冲，所以 `total` 会增长，进度百分比不一定严格单调；UI 应允许这种变化，并同时处理 `onError`。
+同一个 manager 可以传给 TextureLoader、GLTFLoader 等加载器，统一统计这一批资源。模型解析过程中还会发现新的纹理和缓冲，`total` 会跟着涨，进度百分比不一定严格单调，UI 得容得下这种变化，`onError` 也要一并处理。
 
 ## 4. GLTFLoader 与 DRACOLoader：加载整装模型
 
@@ -116,7 +126,7 @@ console.log("动画片段", gltf.animations);
 // draco.dispose();
 ```
 
-未压缩 glTF 不必配置 DRACOLoader；压缩模型则必须保证解码器文件可从部署站点访问。加载完成不等于业务初始化完成，还要检查模型尺度、朝向、材质与资源所有权。
+没压缩的 glTF 不用配 DRACOLoader；压缩模型则必须保证解码器文件能从部署站点访问到。加载完成也不等于业务初始化完成，模型尺度、朝向、材质、资源所有权都得再看一眼。
 
 <Callout type="info" title="和 Cesium 的模型加载对照">
 [Cesium 第 06 章](/s/cesium/06)的 3D Tiles 面向城市级空间数据流式调度，glTF 常作为瓦片内部模型内容；three 的 GLTFLoader 面向单个模型或场景，不自带地理坐标、层级瓦片和地球LOD调度。都是 glTF，不等于加载后自动拥有同一套地理能力。
@@ -124,7 +134,7 @@ console.log("动画片段", gltf.animations);
 
 ## 5. dispose：摘掉模型只是第一步
 
-Geometry、Material、Texture 都可能持有 GPU 资源，需要分别 `dispose()`。同一模型的多个 Mesh 常共享材质与纹理，所以先收集去重，再统一释放。
+Geometry、Material、Texture 都可能持有 GPU 资源，得分别 `dispose()`。同一个模型的多个 Mesh 经常共享材质和纹理，所以先收集去重，再统一释放。
 
 ```js
 function disposeModel(root) {

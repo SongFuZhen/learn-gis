@@ -1,15 +1,25 @@
 ## 🍼 白话版（先看这个）
 
-> **这章解决什么问题**：让物体动起来，最容易写成 `rotation.y += 0.01`——60 Hz 屏幕转得正常，144 Hz 屏幕就像开了二倍速。动画的第一原则不是「每帧走多少」，而是「每秒走多少」。**一句话经验**：`Clock` 量出两帧隔了多久，位移 = 速度 × 时间；GSAP 管「从 A 平滑到 B」，AnimationMixer 管「模型自带的关键帧」，Points 管「一大群小点」。**常见坑**：
-- 在 rAF 里用固定增量，动画速度被刷新率绑架；正确单位是「弧度/秒」「米/秒」。
-- 同时用 GSAP 自己的 ticker 和另一个 rAF 改同一个属性，两边互相覆盖；统一时钟，别抢方向盘。
-- glTF 动画已经加载却静止：只创建 mixer 不够，每帧还要 `mixer.update(delta)`。
-- 粒子透明贴图边缘出现黑块：常常是没设 `transparent`、`depthWrite: false`，或混合方式不合适。**必记 3 条**：
-1. 连续动画用 delta，补间用时间轴，模型动画用 mixer——三者不要混成固定帧增量。
-2. 粒子 = BufferGeometry 的位置数据 + PointsMaterial 的外观 + Points 一次绘制。
-3. 动画系统退出时要停 rAF、杀补间、释放几何和材质，不能只管创建。
+> 三分钟，先懂八成；剩下的当手册查。
 
-## 本章你会学到
+**这章解决什么**：让物体动起来，最容易写成 `rotation.y += 0.01`。60 Hz 屏幕上转得正常，144 Hz 屏幕上就像开了二倍速。动画的第一原则不是「每帧走多少」，而是「每秒走多少」。
+
+**一句话经验**：`Clock` 量出两帧隔了多久，位移 = 速度 × 时间。GSAP 管「从 A 平滑到 B」，AnimationMixer 管「模型自带的关键帧」，Points 管「一大群小点」。
+
+**几个坑**：
+
+- 在 rAF 里用固定增量，动画速度被刷新率绑架。正确单位是「弧度/秒」「米/秒」。
+- GSAP 自己的 ticker 和另一个 rAF 同时改一个属性，两边互相覆盖。统一时钟，别抢方向盘。
+- glTF 动画加载了却不动：只创建 mixer 不够，每帧还要 `mixer.update(delta)`。
+- 粒子透明贴图边缘有黑块：多半是没设 `transparent`、`depthWrite: false`，或者混合方式不对。
+
+**记三条**：
+
+1. 连续动画用 delta，补间用时间轴，模型动画用 mixer，别混成固定帧增量
+2. 粒子 = BufferGeometry 的位置数据 + PointsMaterial 的外观 + Points 一次绘制
+3. 动画系统退出时要停 rAF、杀补间、释放几何和材质，不能只管创建
+
+## 这章讲什么
 
 用 `THREE.Clock` 写帧率无关动画，用 GSAP 3 组织补间与时间轴，用 KeyframeTrack、AnimationClip、AnimationMixer 播放关键帧和 glTF 动画，修改 morph target 做变形，并用 Points 写一个会上升的粒子喷泉。最后对照 Cesium 的声明式粒子系统。
 
@@ -47,7 +57,7 @@ tick();
 // 页面卸载时：cancelAnimationFrame(frameId); renderer.dispose();
 ```
 
-`Math.sin(elapsed)` 适合周期运动，delta 适合速度积分。物理模拟常把过大的 delta 再切成固定小步长；普通展示动画先做上限保护即可。
+`Math.sin(elapsed)` 适合周期运动，delta 适合对速度做积分。物理模拟常把过大的 delta 再切成固定小步长，普通展示动画先做个上限保护就够了。
 
 ## 2. GSAP 3：声明「去哪里」，不必手写插值
 
@@ -135,7 +145,7 @@ if (face?.morphTargetInfluences?.length) {
 
 ## 5. Points：一份顶点数据画出整群粒子
 
-three 没有替你管理出生、寿命和重力的通用 ParticleSystem；最基础的粒子是 `THREE.Points`：每个 position 顶点在屏幕上画一个点。下面用 CPU 更新位置，几千个点足够直观。
+three 没有一个替你管出生、寿命和重力的通用 ParticleSystem。最基础的粒子就是 `THREE.Points`：每个 position 顶点在屏幕上画一个点。下面用 CPU 更新位置，几千个点足够直观。
 
 ```js
 const count = 1500;
