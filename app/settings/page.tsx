@@ -3,6 +3,7 @@ import { Braces, LogIn, UserPlus } from "lucide-react";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
 import LogoutButton from "@/components/auth/LogoutButton";
 import NicknameForm from "@/components/account/NicknameForm";
+import ChangePasswordForm from "@/components/account/ChangePasswordForm";
 import { displayNameOf, getSession } from "@/lib/auth";
 import { db } from "@/db";
 import { users } from "@/db/schema";
@@ -95,6 +96,7 @@ export default async function SettingsPage() {
               {accountRow.username}
             </p>
             <NicknameForm initialNickname={displayNameOf(accountRow)} />
+            <ChangePasswordForm />
           </div>
         )}
       </section>

@@ -72,9 +72,14 @@ vi.mock("@/lib/db-retry", () => ({
 
 import { POST as register } from "./register/route";
 import { POST as login } from "./login/route";
+import { POST as changePassword } from "./change-password/route";
 import { POST as logout } from "./logout/route";
 import { GET as me } from "./me/route";
-import { hashPassword } from "@/lib/auth";
+import {
+  hashPassword,
+  setSessionCookie,
+  verifyPassword,
+} from "@/lib/auth";
 import { assertAuthAllowed, RateLimitError } from "@/lib/auth/rate-limit";
 
 function postJson(url: string, body: unknown) {
@@ -277,6 +282,60 @@ describe("POST /api/auth/login", { timeout: 20_000 }, () => {
     );
     expect(res.status).toBe(200);
     expect(jar.get("auth_session")).toBeTruthy();
+  });
+});
+
+describe("POST /api/auth/change-password", { timeout: 60_000 }, () => {
+  it("未登录返回 401", async () => {
+    const res = await changePassword(
+      postJson("http://localhost/api/auth/change-password", {
+        currentPassword: "oldpass123",
+        newPassword: "newpass456",
+      }),
+    );
+    expect(res.status).toBe(401);
+  });
+
+  it("新密码过短返回 400", async () => {
+    await setSessionCookie(ACCOUNT);
+    const res = await changePassword(
+      postJson("http://localhost/api/auth/change-password", {
+        currentPassword: "oldpass123",
+        newPassword: "123",
+      }),
+    );
+    expect(res.status).toBe(400);
+  });
+
+  it("当前密码错误返回 401", async () => {
+    await setSessionCookie(ACCOUNT);
+    selectRows = [
+      { id: ACCOUNT, passwordHash: hashPassword("correct-pass") },
+    ];
+    const res = await changePassword(
+      postJson("http://localhost/api/auth/change-password", {
+        currentPassword: "wrong-pass",
+        newPassword: "newpass456",
+      }),
+    );
+    expect(res.status).toBe(401);
+  });
+
+  it("成功更新密码哈希，新密码可验证", async () => {
+    await setSessionCookie(ACCOUNT);
+    selectRows = [
+      { id: ACCOUNT, passwordHash: hashPassword("oldpass123") },
+    ];
+    const res = await changePassword(
+      postJson("http://localhost/api/auth/change-password", {
+        currentPassword: "oldpass123",
+        newPassword: "newpass456",
+      }),
+    );
+    expect(res.status).toBe(200);
+    const stored = lastUpdate()?.passwordHash;
+    expect(typeof stored).toBe("string");
+    expect(verifyPassword("newpass456", stored as string)).toBe(true);
   });
 });
 
