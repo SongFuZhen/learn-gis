@@ -17,6 +17,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "content:validate": "tsx scripts/validate-content.ts",
+    "audit:terms": "node scripts/audit-term-pronunciation.mjs",
     "gen:audio": "tsx scripts/gen-audio.ts",
     "audio:validate": "tsx scripts/validate-audio.ts",
     "audio:upload": "node scripts/upload-audio-imgbed.mjs",
