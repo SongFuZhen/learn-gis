@@ -125,7 +125,7 @@ function refreshPreview() {
 骨架要点：① `camera.pickEllipsoid` 把屏幕点投到椭球面，返回 **Cartesian3**，要转 `Cartographic` 再存（别直接读 .longitude）；② polyline 的 positions 挂 `CallbackProperty`，回调每帧**从数据即时拼装**（数据变、图形自动变）；③ 双击（`DOUBLE_CLICK`）结束并调用本章公式出结果。
 
 <Callout type="info" title="pickPosition 之外的量高方式：sampleHeight">
-只要「某点的场景高度」而不关心打中的是楼还是山？`scene.sampleHeight(position)`（传 `Cartographic`，返回该位置的**场景几何高度**，米）比 pickPosition 更直接，它只采样**当前视野内已渲染**的地形与 3D Tiles（其他图元无视可见性都会被采样）。三个前提：仅 3D 模式（2D/CV 会抛异常）、需要深度纹理（`sampleHeightSupported` 探测，同 pickPosition）、量大用 `sampleHeightMostDetailed`（异步批量、按最高精度采样）。与 `sampleTerrain` 的分工：有地形 Provider 用后者（可离线、不依赖渲染），接了真实场景用前者（所见即所量）。
+只要「某点的场景高度」而不关心打中的是楼还是山？`scene.sampleHeight(position)`（传 `Cartographic`，返回该位置的**场景几何高度**，米）比 pickPosition 更直接，它只采样**当前视野内已渲染**的地形与 3D Tiles（/θriː diː taɪlz/，「斯瑞-迪-泰尔斯」；其他图元无视可见性都会被采样）。三个前提：仅 3D 模式（2D/CV 会抛异常）、需要深度纹理（`sampleHeightSupported` 探测，同 pickPosition）、量大用 `sampleHeightMostDetailed`（异步批量、按最高精度采样）。与 `sampleTerrain` 的分工：有地形 Provider 用后者（可离线、不依赖渲染），接了真实场景用前者（所见即所量）。
 </Callout>
 
 <Callout type="warn" title="pickEllipsoid vs pickPosition">

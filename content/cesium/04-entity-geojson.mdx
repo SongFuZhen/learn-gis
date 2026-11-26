@@ -187,7 +187,7 @@ const growingLine = viewer.entities.add({
 });
 ```
 
-原则：**能静态就静态**。CallbackProperty 每帧执行你的函数，几十个动态实体没问题，成百上千个会拖垮帧率，系统性的「时间维度」解法（CZML + Clock）是下一章的主角。
+原则：**能静态就静态**。CallbackProperty 每帧执行你的函数，几十个动态实体没问题，成百上千个会拖垮帧率，系统性的「时间维度」解法（CZML（/ˈdɪzl/，「迪兹尔」）+ Clock）是下一章的主角。
 
 <Exercise tool="cesium" title="动手 · 把 GeoJSON 做成可点选的三维标注集">
 综合练习：加载一份含 Point 要素的 GeoJSON（自造一份即可，两三个点足够），要求：① 整包贴地加载；② 遍历实体，把默认大头针换成「青色呼吸点 + 文字标注」；③ 点击任一点，在控制台打印它的 name 与 properties。

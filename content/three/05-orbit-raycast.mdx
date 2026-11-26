@@ -154,7 +154,7 @@ renderer.domElement.addEventListener("click", (event) => {
 });
 ```
 
-拾取 glTF 时，命中对象常是深层子 Mesh。可以在模型根节点设 `userData.selectable = true`，命中后沿 `object.parent` 往上找到它，再读写业务 ID。材质共享的话，按目标克隆材质，或者把高亮放到独立的轮廓层，别直接改共享颜色。
+拾取 glTF（/dʒiː el tiː ˈef/，「吉-埃尔-提-埃夫」）时，命中对象常是深层子 Mesh。可以在模型根节点设 `userData.selectable = true`，命中后沿 `object.parent` 往上找到它，再读写业务 ID。材质共享的话，按目标克隆材质，或者把高亮放到独立的轮廓层，别直接改共享颜色。
 
 ## 5. 性能与维护：少算、只算需要拾取的对象
 

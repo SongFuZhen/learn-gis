@@ -9,7 +9,7 @@
 **几个坑**：
 
 - 用 `canvas.addEventListener("click")` 自己算三维坐标：屏幕坐标到球面的换算 Cesium 全帮你写好了，直接用 `ScreenSpaceEventHandler`。
-- `pick` 返回的对象直接当 entity 用：它可能是瓦片要素/3D Tiles 要素，要先用 `Cesium.defined` 判空再分辨类型。
+- `pick` 返回的对象直接当 entity 用：它可能是瓦片要素/3D Tiles（/θriː diː taɪlz/，「斯瑞-迪-泰尔斯」）要素，要先用 `Cesium.defined` 判空再分辨类型。
 - 高亮后颜色回不去：改 `originalColor` 时没先存原色。
 
 **记三条**：

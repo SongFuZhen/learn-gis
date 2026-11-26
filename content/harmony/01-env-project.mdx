@@ -9,7 +9,7 @@
 **几个坑**：
 
 - 把 `bundleName` 写进 `module.json5`，或者把 Ability 声明写进 `AppScope/app.json5`。
-- 在页面组件里继承 `UIAbility`，把应用实例入口和 ArkUI 页面混成一层。
+- 在页面组件里继承 `UIAbility`，把应用实例入口和 ArkUI（/ɑːrk juː ˈaɪ/，「阿克-U-I」）页面混成一层。
 - 手动改 `oh_modules`，把构建产物当成该维护的源码。
 - 只靠 Previewer 验证权限、后台行为和完整设备能力。
 
@@ -25,7 +25,7 @@
 
 ## 1. 从 Empty Ability 建立可运行基线
 
-装好稳定版 DevEco Studio，新建 Application 工程，选 Empty Ability 模板，应用模型选 Stage，语言选 ArkTS。先原样跑一次模板，再一步步改代码。这样出问题时，能分清是环境、配置还是业务代码。
+装好稳定版 DevEco Studio，新建 Application 工程，选 Empty Ability 模板，应用模型选 Stage，语言选 ArkTS（/ɑːrk tiː ˈes/，「阿克-T-S」）。先原样跑一次模板，再一步步改代码。这样出问题时，能分清是环境、配置还是业务代码。
 
 创建时重点核对三项：
 
@@ -33,7 +33,7 @@
 - 模块与设备类型：`entry` 是主入口模块，手机、平板等设备支持要在模块配置中声明。
 - SDK 与签名：真机运行前确认 SDK 可用，并按 DevEco Studio 提示完成签名配置。
 
-| React/Web 工程的熟悉动作 | HarmonyOS 工程对应动作 | 注意事项 |
+| React/Web 工程的熟悉动作 | HarmonyOS（/ˈhɑːrməni oʊ ˈes/，「哈-莫尼-O-S」）工程对应动作 | 注意事项 |
 | --- | --- | --- |
 | 用脚手架创建项目 | 用 DevEco Studio 创建 Empty Ability | 模板同时生成应用壳与页面 |
 | `npm install` | ohpm 安装依赖 | 依赖声明写入 `oh-package.json5` |
