@@ -160,6 +160,13 @@ z=10: 1,048,576 张
 同一套瓦片金字塔在三维引擎里的实现：影像 Provider、动态选层与 `{z}/{x}/{y}` 模板——见 [CesiumJS 课第 3 章 · 影像图层](/s/cesium/02)。
 </Callout>
 
+## 6. 本章小结
+
+- 交换格式看场景：GeoJSON 通用、Shapefile 三件套、GeoPackage 单文件
+- GeoJSON 经度在前、只能 WGS84，别塞 `crs` 字段
+- 瓦片把地图切块按需加载，是「秒开」的关键
+- 矢量瓦片 MVT 兼顾体积与样式灵活，栅格瓦片适合影像底图
+
 ## 延伸阅读
 
 - GeoJSON 规范：[RFC 7946](https://datatracker.ietf.org/doc/html/rfc7946)

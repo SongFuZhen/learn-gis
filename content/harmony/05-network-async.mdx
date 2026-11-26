@@ -213,16 +213,17 @@ async function loadLevelSafe(id: string): Promise<LevelDto> {
 页面维护递增 `session`，响应落地前比较请求发起时的值；也可结合请求取消。销毁页面时让当前会话失效。
 </ExerciseSolution>
 </Exercise>
-## 本章小结
+
+## 7. 本章小结
+
 - 先声明 INTERNET 权限，再处理状态码、数据格式、超时与释放。
 - 异步代码在事件或生命周期启动，结果通过状态驱动 UI。
 - 请求取消和响应失效共同解决竞态，不能只依赖加载顺序。
 - WebSocket 要管理订阅、关闭、心跳和有限退避重连。
 - 独立短计算选 TaskPool，长驻通信选 Worker，UI 更新回到 UI 线程。
-<Callout type="must" title="必背">
-**请求四件套：状态码、超时、异常、释放；异步两条线：取消旧任务、拒绝旧结果。**
-</Callout>
+
 ## 延伸阅读
+
 - [HTTP 数据请求](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request)
 - [WebSocket 接口参考](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-websocket)
 - [Stage 模型入门](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)

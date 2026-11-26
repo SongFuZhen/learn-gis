@@ -176,6 +176,17 @@ d = 2R · atan2(√a, √(1−a))
 - **两个运算符**：√「斯奎尔-鲁特」、∑「萨-梅-申」
 </Callout>
 
-## 7. 然后呢
+## 7. 本章小结
+
+- 公式就是代码：sin/cos/tan 是函数，λ、φ、Δ 是变量名
+- 三角函数只吃弧度，度数先乘 π/180
+- 方位角用 atan2(y, x)，别用 atan，避免象限差 180°
+- haversine 能拆成「转弧度 → 算差值 → 套公式」三段来念
 
 下一章（02 椭球与基准面）会用到这章的 cos——算「纬度一度有多长」。这张读音表留着，遇到陌生符号回来翻就行。
+
+## 延伸阅读
+
+- 三角函数速查：[Wikipedia · Trigonometric functions](https://en.wikipedia.org/wiki/Trigonometric_functions)
+- 大圆距离与方位角实现：[movable-type.co.uk/scripts/latlong.html](https://www.movable-type.co.uk/scripts/latlong.html)
+- `Math.atan2` 的象限规则：[MDN · Math.atan2](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Math/atan2)

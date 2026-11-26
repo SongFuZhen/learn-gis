@@ -216,15 +216,13 @@ gdalwarp -tr 30 30 -r bilinear dem.tif dem_30m.tif       # 统一像元到 30 m
   5. 预期收获：你已经在 GUI 里「用」过命令行了。
 </Exercise>
 
-## 7. 本章回顾
+## 7. 本章小结
 
-<Callout type="tip" title="工具链一页纸">
 - 底层四件套：GDAL/OGR（格式与转换）、PROJ（坐标系）、GEOS（几何运算）、QGIS（GUI 外壳）
 - 陌生数据先体检：ogrinfo -so -al（矢量）/ gdalinfo（栅格）
 - 矢量转换 ogr2ogr：`-f` 格式、`-t_srs` 重投影、`-nlt PROMOTE_TO_MULTI` 保平安
 - 栅格三件套：gdalinfo / gdal_translate（COG）/ gdalwarp（投影、裁剪、重采样）
 - QGIS 处理工具箱 = 图形化的 GDAL，日志里能看到真实命令行
-</Callout>
 
 ## 延伸阅读
 

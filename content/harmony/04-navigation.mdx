@@ -206,16 +206,17 @@ struct QuizPage {
 答题页不能新建另一条栈。否则 `pop()` 只操作自己的空栈，跟根页面正在显示的导航栈没关系。
 </ExerciseSolution>
 </Exercise>
-## 本章小结
+
+## 8. 本章小结
+
 - Navigation 提供作用域，NavDestination 承载目标页，NavPathStack 管路径。
 - 用 `pushPathByName` 传稳定、可序列化的小参数；返回与替换要符合业务流程。
 - 页面隐藏不等于组件销毁，加载和清理要选择正确生命周期。
 - 自定义转场只改变过渡表现，不代替导航栈。
 - 新项目主流程采用 Navigation，不把 router 当成默认方案。
-<Callout type="must" title="必背">
-**一个根导航、一条共享栈、一页一个目的地；参数随本次跳转走，资源随生命周期清。**
-</Callout>
+
 ## 延伸阅读
+
 - [Navigation 导航架构](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture)
 - [Navigation 页面跳转](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-jump)
 - [Router 页面路由](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-routing)

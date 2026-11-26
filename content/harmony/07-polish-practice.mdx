@@ -208,16 +208,17 @@ export default function passRuleTest(): void {
 500 项使用 `List + LazyForEach + IDataSource`，key 取稳定唯一的关卡 ID，`cachedCount` 从小值开始按真机表现调整，不使用下标作为 key。
 </ExerciseSolution>
 </Exercise>
-## 本章小结
+
+## 7. 本章小结
+
 - LazyForEach 的数据源、稳定 key 和适量缓存缺一不可。
 - 动画在事件中触发，优先合成友好的属性，离开页面停止无效工作。
 - HTTPS 证书校验、最小权限和敏感数据保护是发布底线。
 - Hypium 先测纯业务规则，再补异步和 UI 路径；边界比覆盖率数字更重要。
 - 综合 App 按页面、数据源、纯逻辑和存储分层，九大坑进入每次提交前检查表。
-<Callout type="must" title="必背">
-**懒加载保流畅，状态驱动保正确，证书校验保安全，自动化测试保重构。**
-</Callout>
+
 ## 延伸阅读
+
 - [状态变量不刷新的常见排查](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/troubleshooting-state-manage)
 - [HTTP 数据请求](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/http-request)
 - [Navigation 导航架构](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/arkts-navigation-architecture)

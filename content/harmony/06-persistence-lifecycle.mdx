@@ -211,16 +211,17 @@ async function saveTheme(
 Promise 失败会自然向调用方抛出。十万条记录需要查询、索引和事务，Preferences 的键值模型不合适；应使用 RDB，并关闭 ResultSet、为多步写入开启事务。
 </ExerciseSolution>
 </Exercise>
-## 本章小结
+
+## 7. 本章小结
+
 - 少量键值用 Preferences，写入后确认 `flush` 成功。
 - 结构化数据用 RDB，查询关闭 ResultSet，多步写入用事务。
 - 冷启动先创建 Ability，再创建 WindowStage 并加载页面，随后进入前台。
 - 后台不是销毁；关键进度应在状态变化时或进入后台时及时保存。
 - PersistenceV2 连接少量 UI 状态与持久化，不能代替数据库和安全存储。
-<Callout type="must" title="必背">
-**轻量 KV 记得 flush，结构化数据记得事务与 close，生命周期记得「后台未死、销毁太晚」。**
-</Callout>
+
 ## 延伸阅读
+
 - [通过用户首选项实现数据持久化](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences)
 - [通过关系型数据库实现数据持久化](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-rdb-store)
 - [Stage 模型入门](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/start-with-ets-stage)

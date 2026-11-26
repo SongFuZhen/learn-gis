@@ -224,6 +224,14 @@ GET /collections/roads/items/{id}
 从二维瓦片库到三维地球引擎的选型判断：什么时候该上 3D——见 [CesiumJS 课第 1 章 · 初见 CesiumJS](/s/cesium/00)。
 </Callout>
 
+## 9. 本章小结
+
+- WMS/WMTS 给图，WFS/WCS 给数据
+- WMS 1.3.0 + EPSG:4326 的 BBOX 纬度在前
+- WMTS 靠瓦片矩阵预切，适合底图秒开
+- 大数据量渲染交给服务端，前端库按项目复杂度选
+- OGC API 是新方向，老服务仍会长期共存
+
 ## 延伸阅读
 
 - OGC 标准总览：[ogc.org/standards](https://www.ogc.org/standards/)
