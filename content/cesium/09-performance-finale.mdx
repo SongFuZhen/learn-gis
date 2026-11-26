@@ -13,12 +13,11 @@
 - 几万个点用几万个 billboard Entity——每帧排序与状态切换直接拖垮；点海要用 `PointPrimitiveCollection`。
 - `camera.pickEllipsoid` 返回的是 **Cartesian3**（x/y/z 笛卡尔坐标），不是带经纬度的对象——直接读 `.longitude` 得到 `undefined`，坐标静默失效且不报错。转换用 `Cesium.Cartographic.fromCartesian`；`pickPosition`（深度缓冲重构）同样返回 Cartesian3。
 
-**记四条**：
+**记三条**：
 
-1. 静止场景开 `requestRenderMode`：只在有变化时渲染，GPU 与电池都省
-2. `maximumScreenSpaceError` 是精度/流量的总闸，默认 16，按场景调
-3. `pickEllipsoid` / `pickPosition` 返回的都是 **Cartesian3**——要经纬度先过 `Cartographic.fromCartesian`
-4. 海量同类图形用 Collection（PointPrimitive/BillboardCollection）或 Primitive，别堆 Entity
+1. 静止场景开 `requestRenderMode`，只在有变化时渲染；`maximumScreenSpaceError` 是精度/流量的总闸，默认 16，按场景调
+2. `pickEllipsoid` / `pickPosition` 返回的都是 **Cartesian3**，要经纬度先过 `Cartographic.fromCartesian`
+3. 海量同类图形用 Collection（PointPrimitive/BillboardCollection）或 Primitive，别堆 Entity
 
 ## 这章讲什么
 

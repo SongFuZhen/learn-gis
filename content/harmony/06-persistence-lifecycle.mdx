@@ -75,7 +75,7 @@ export async function saveTheme(
 
 真实闯关项目可以在仓库层缓存 Preferences 实例，比如让 `ProgressStore` 统一负责读回、整组替换状态和 `flush` 失败日志，组件里不要到处散落存储键名。
 <Callout type="warn" title="不要存下整个运行时世界">
-Preferences 中存设置和小快照，不存网络连接、组件实例或无限增长的日志。数组更新采用“新数组替换旧数组”，再序列化需要保存的纯数据；密钥和敏感令牌改用安全存储。
+Preferences 中存设置和小快照，不存网络连接、组件实例或无限增长的日志。数组更新采用「新数组替换旧数组」，再序列化需要保存的纯数据；密钥和敏感令牌改用安全存储。
 </Callout>
 ## 3. RDB：查询用谓词，批量写用事务
 下面表结构只保存答题记录。SQL 建表语句可以固定，业务查询尽量通过 RdbPredicates 表达。
@@ -117,7 +117,7 @@ export async function countCorrect(
 }
 ```
 ResultSet 是游标，不是普通数组：读列之前先按当前行定位，用完马上 `close()`。生产实现还要检查 `goToFirstRow()` 这些游标操作的结果，别假设一定有记录。
-### 事务保证“一起成功或一起失败”
+### 事务保证「一起成功或一起失败」
 通关可能同时修改用户进度和写入答题统计，两次写入不能只做一半：
 ```ts
 export async function savePassed(db: relationalStore.RdbStore): Promise<void> {
@@ -190,7 +190,7 @@ export default class EntryAbility extends UIAbility {
 - `getContext(this)`：组件里取得上下文后按需转换，不要把 `as` 当作运行时校验。
 - 仓库函数显式接收 Context，比让模块偷偷捕获某个页面的 Context 更容易测试和释放。
 ## 6. PersistenceV2：少量状态自动接持久化
-PersistenceV2 面向状态管理 V2，可把指定状态键连接到持久化，适合“当前 Tab”“少量界面恢复状态”。对 `@ObservedV2` 的 `QuizDraft` 调用 `PersistenceV2.connect(QuizDraft, 'quiz_draft', () => new QuizDraft())` 创建连接。
+PersistenceV2 面向状态管理 V2，可把指定状态键连接到持久化，适合「当前 Tab」「少量界面恢复状态」。对 `@ObservedV2` 的 `QuizDraft` 调用 `PersistenceV2.connect(QuizDraft, 'quiz_draft', () => new QuizDraft())` 创建连接。
 用之前要确认目标 API 版本、存储键和读回策略，读回来的数据仍然要校验。它不是能把任意类、任意大型嵌套对象都安全序列化的魔法，也没有 RDB 的复杂查询、索引和事务。
 <Exercise tool="harmony" title="练习：可靠保存主题并选对存储">
 实现 `saveTheme`：取得名为 `settings_store` 的 Preferences，写入 `theme_mode`，确保落盘；失败时继续抛出异常。再回答：十万条带条件筛选的答题记录为什么不放 Preferences？
@@ -218,7 +218,7 @@ Promise 失败会自然向调用方抛出。十万条记录需要查询、索引
 - 后台不是销毁；关键进度应在状态变化时或进入后台时及时保存。
 - PersistenceV2 连接少量 UI 状态与持久化，不能代替数据库和安全存储。
 <Callout type="must" title="必背">
-**轻量 KV 记得 flush，结构化数据记得事务与 close，生命周期记得“后台未死、销毁太晚”。**
+**轻量 KV 记得 flush，结构化数据记得事务与 close，生命周期记得「后台未死、销毁太晚」。**
 </Callout>
 ## 延伸阅读
 - [通过用户首选项实现数据持久化](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides/data-persistence-by-preferences)
