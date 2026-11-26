@@ -2,15 +2,15 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：上一章的 CallbackProperty 是「用代码驱动动画」——每帧跑你的函数。可如果动画本身就是**数据**（一架飞机 10:00 在 A 点、10:01 在 B 点……），更好的做法是把时间轨迹写成数据文件，让引擎去播。这就是 **CZML**（/ˈdɪzl/，「迪兹尔」，官方读法，Cesium Language 的缩写）——Cesium 的「JSON 版 KML」，专为时间动态设计。
+**这章解决什么**：上一章的 CallbackProperty 是「用代码驱动动画」，每帧跑你的函数。可如果动画本身就是**数据**（一架飞机 10:00 在 A 点、10:01 在 B 点……），更好的做法是把时间轨迹写成数据文件，让引擎去播。这就是 **CZML**（/ˈdɪzl/，「迪兹尔」，官方读法，Cesium Language 的缩写），Cesium 的「JSON 版 KML」，专为时间动态设计。
 
-**一句话经验**：CZML 是「给时间轴喂数据」——你描述「什么时间在哪里」，播放、暂停、倍速全是 Clock 的事，一行动画代码都不用写。
+**一句话经验**：CZML 是「给时间轴喂数据」，你描述「什么时间在哪里」，播放、暂停、倍速全是 Clock 的事，一行动画代码都不用写。
 
 **几个坑**：
 
 - CZML 文档第一个元素必须是 `id: "document"` 的元数据块，忘了它整个文件不渲染。
-- 时间区间（`interval`）之间出现「瞬移」——相邻两个包的时间没接上，或没配插值算法。
-- 播放器不动——`clock.shouldAnimate` 没设为 `true`，Clock 默认是暂停的。
+- 时间区间（`interval`）之间出现「瞬移」：相邻两个包的时间没接上，或没配插值算法。
+- 播放器不动：`clock.shouldAnimate` 没设为 `true`，Clock 默认是暂停的。
 
 **记三条**：
 
@@ -24,7 +24,7 @@ CZML 文档结构；Clock 与 TimeInterval 的时间体系；用 `SampledPositio
 
 ## 1. CZML 文档结构：document 头 + 实体包
 
-CZML 是一个 JSON 数组。第 0 个元素永远是 document 头——声明这份文件的时间范围：
+CZML 是一个 JSON 数组。第 0 个元素永远是 document 头，声明这份文件的时间范围：
 
 ```json
 [
@@ -66,7 +66,7 @@ CZML 是一个 JSON 数组。第 0 个元素永远是 document 头——声明�
 ]
 ```
 
-读法：`clock.interval` 声明「这份文件的时间轴范围」；`epoch` 声明「`cartographicDegrees` 里的数字是相对 epoch 的**秒偏移**」；`cartographicDegrees` 是四元组平铺——`[秒, 经度, 纬度, 高度]`，引擎在这些采样点之间**自动插值**，Clock 走到哪、物体就在哪。`path` 实体自动画出「走过的轨迹」，`trailTime` 控拖尾长度。
+读法：`clock.interval` 声明「这份文件的时间轴范围」；`epoch` 声明「`cartographicDegrees` 里的数字是相对 epoch 的**秒偏移**」；`cartographicDegrees` 是四元组平铺，`[秒, 经度, 纬度, 高度]`，引擎在这些采样点之间**自动插值**，Clock 走到哪、物体就在哪。`path` 实体自动画出「走过的轨迹」，`trailTime` 控拖尾长度。
 
 <Callout type="info" title="颜色为什么是 rgbaf？">
 CZML 是纯 JSON，没有 `Cesium.Color.RED`，颜色用数值数组表达：`rgbaf: [r, g, b, a]`，每个分量 0~1。红色 = `[1, 0, 0, 1]`。从 CSS 色值转换：`Cesium.Color.fromCssColorString("#ff6600")` 再读它的 red/green/blue/alpha。
@@ -74,7 +74,7 @@ CZML 是纯 JSON，没有 `Cesium.Color.RED`，颜色用数值数组表达：`rg
 
 ## 2. Clock：场景的「时间遥控器」
 
-第 00 章说过，时间是 Cesium 的一等公民——具体承载者就是 **Clock**：
+第 00 章说过，时间是 Cesium 的一等公民，具体承载者就是 **Clock**：
 
 ```js
 viewer.clock.shouldAnimate = true;   // 开始播放（默认暂停！）
@@ -124,16 +124,16 @@ viewer.clock.shouldAnimate = true;
 两种写法怎么选：**数据由后端下发/需要序列化** → CZML（存成 `.json` 直接 `CzmlDataSource.load(url)`）；**数据在内存里现算**（如实时接口轮询）→ `SampledPositionProperty`。两者可混用：CZML 加载后 `ds.entities.values` 里的实体，其 position 本来就是 Property，照样能改。
 
 <Callout type="warn" title="插值：轨迹顺不顺滑全看它">
-两个采样点之间物体怎么走，由插值算法决定。默认线性插值在采样点稀疏时「折线感」明显；换 `LagrangePolynomialApproximation`（拉格朗日）或 `HermitePolynomialApproximation` 并给 `interpolationDegree: 2~3`，轨迹立刻顺滑。但注意：插值是算出来的，**采样点本身要分布合理**——急转弯处多给几个点，比调算法更有用。
+两个采样点之间物体怎么走，由插值算法决定。默认线性插值在采样点稀疏时「折线感」明显；换 `LagrangePolynomialApproximation`（拉格朗日）或 `HermitePolynomialApproximation` 并给 `interpolationDegree: 2~3`，轨迹立刻顺滑。但注意：插值是算出来的，**采样点本身要分布合理**，急转弯处多给几个点，比调算法更有用。
 </Callout>
 
 <Callout type="warn" title="采样区间之外，物体会消失（外推默认 NONE）">
-`SampledPositionProperty` 的 `forwardExtrapolationType` / `backwardExtrapolationType` 默认 **NONE**：Clock 走到首个采样之前或末个采样之后，`getValue` 返回 undefined——**实体会从场景里直接消失**（`VelocityOrientationProperty` 同帧失效）。想让物体「停在首尾点」，两端设 `Cesium.ExtrapolationType.HOLD`；`EXTRAPOLATE` 则按插值算法外推（远离采样区后数值不可信）。本章示例把 `clock.startTime/stopTime` 恰好压在采样区间上所以看不到这个现象——做「全天候在线」的回放业务必踩，先记住。
+`SampledPositionProperty` 的 `forwardExtrapolationType` / `backwardExtrapolationType` 默认 **NONE**：Clock 走到首个采样之前或末个采样之后，`getValue` 返回 undefined，**实体会从场景里直接消失**（`VelocityOrientationProperty` 同帧失效）。想让物体「停在首尾点」，两端设 `Cesium.ExtrapolationType.HOLD`；`EXTRAPOLATE` 则按插值算法外推（远离采样区后数值不可信）。本章示例把 `clock.startTime/stopTime` 恰好压在采样区间上所以看不到这个现象。做「全天候在线」的回放业务必踩，先记住。
 </Callout>
 
 ## 4. 与卫星轨道的呼应
 
-[GIS 课第 16 章](/s/gis/15)、[第 17 章](/s/gis/16) 讲过卫星轨道与星下点：轨道本质就是「时间 → 位置」的函数。用本章的知识可以做一个漂亮的综合练习：从 TLE 两行根数算出一段星下点采样（现成库如 satellite.js），塞进 `SampledPositionProperty`，一颗「会动的卫星」就挂上了地球——配合 `path` 的拖尾，Starlink 的「珍珠项链」效果自己就能画出来。这也是为什么说「时间 + 位置」是三维 GIS 的一半业务。
+[GIS 课第 16 章](/s/gis/15)、[第 17 章](/s/gis/16) 讲过卫星轨道与星下点：轨道本质就是「时间 → 位置」的函数。用本章的知识可以做一个漂亮的综合练习：从 TLE 两行根数算出一段星下点采样（现成库如 satellite.js），塞进 `SampledPositionProperty`，一颗「会动的卫星」就挂上了地球，配合 `path` 的拖尾，Starlink 的「珍珠项链」效果自己就能画出来。这也是为什么说「时间 + 位置」是三维 GIS 的一半业务。
 
 <Exercise tool="cesium" title="动手 · 三分钟航班动画">
 用纯代码方式（SampledPositionProperty）做一段航班动画：3 个采样点、拉格朗日插值、橙色点 + 60 秒拖尾，`multiplier = 60`，自动播放。
@@ -176,7 +176,7 @@ viewer.clock.currentTime = start;
 viewer.clock.multiplier = 60;
 viewer.clock.shouldAnimate = true;
 ```
-观察点：① 把 `interpolationDegree` 降到 1（线性），中段轨迹会明显变「直」；② 把 multiplier 改回 1，体会「真实时间」有多慢——回放类业务几乎都要倍速；③ 给实体加 `billboard`（飞机图标），配合 `VelocityOrientationProperty` 时机头会始终朝前。
+观察点：① 把 `interpolationDegree` 降到 1（线性），中段轨迹会明显变「直」；② 把 multiplier 改回 1，体会「真实时间」有多慢，回放类业务几乎都要倍速；③ 给实体加 `billboard`（飞机图标），配合 `VelocityOrientationProperty` 时机头会始终朝前。
 </ExerciseSolution>
 </Exercise>
 
@@ -188,7 +188,7 @@ viewer.clock.shouldAnimate = true;
 - 纯代码等价物 = `SampledPositionProperty` + `VelocityOrientationProperty`。
 - 插值算法决定顺滑度，但采样点分布才是根本。
 
-下一章：从「画的」到「真实世界的」——3D Tiles 与城市级三维数据。
+下一章进入真实世界：3D Tiles 与城市级三维数据。
 
 ## 延伸阅读
 

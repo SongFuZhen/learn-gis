@@ -2,25 +2,25 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：火焰、雨雪、烟雾、喷气尾迹、爆炸——这些效果的共同点是「**成百上千个小东西，各自出生、运动、死亡**」。用 Entity 一个个 add 是灾难，3D Tiles 更不搭边。Cesium 的 **ParticleSystem**（粒子系统，/ˈpɑːrtɪkl/，「帕-提-抠」）专治这类「群体小元素」：你定义**发射规则**，它负责成批生成、运动、消亡。
+**这章解决什么**：火焰、雨雪、烟雾、喷气尾迹、爆炸，这些效果的共同点是「**成百上千个小东西，各自出生、运动、死亡**」。用 Entity 一个个 add 是灾难，3D Tiles 更不搭边。Cesium 的 **ParticleSystem**（粒子系统，/ˈpɑːrtɪkl/，「帕-提-抠」）专治这类「群体小元素」：你定义**发射规则**，它负责成批生成、运动、消亡。
 
-**一句话经验**：粒子系统 = 发射器（从哪出）+ 生命周期（活多久）+ 每帧更新（怎么动）——三件套配好，剩下全是调参。
+**一句话经验**：粒子系统 = 发射器（从哪出）+ 生命周期（活多久）+ 每帧更新（怎么动），三件套配好，剩下全是调参。
 
 **几个坑**：
 
-- 稳态粒子数 ≈ `emissionRate × 平均粒子寿命`——emissionRate 500、寿命 4 秒就是 2000 个粒子常驻，设的时候心里要有账，不然直接卡死。
-- 粒子怎么拉近都不变大——默认 `sizeInMeters: false`（以**像素**为单位），要真实世界的米制尺寸必须显式开。
-- `updateCallback` 里写了重计算（比如每次都 new 对象、查数组）——它是**每帧对每个粒子**执行的，里面一行烂代码乘以 2000 粒子 × 60 帧 = 灾难。
+- 稳态粒子数 ≈ `emissionRate × 平均粒子寿命`：emissionRate 500、寿命 4 秒就是 2000 个粒子常驻，设的时候心里要有账，不然直接卡死。
+- 粒子怎么拉近都不变大：默认 `sizeInMeters: false`（以**像素**为单位），要真实世界的米制尺寸必须显式开。
+- `updateCallback` 里写了重计算（比如每次都 new 对象、查数组）：它是**每帧对每个粒子**执行的，里面一行烂代码乘以 2000 粒子 × 60 帧 = 灾难。
 
 **记三条**：
 
 1. 粒子系统挂载在 `viewer.scene.primitives.add`（和 3D Tiles 同一个容器）
 2. 位置与朝向靠 `modelMatrix`（配合 `Transforms.eastNorthUpToFixedFrame` 落地）
-3. 稳态粒子数 = emissionRate × 平均寿命——先算账再调参
+3. 稳态粒子数 = emissionRate × 平均寿命：先算账再调参
 
 ## 这章讲什么
 
-粒子系统的三件套心智模型；一个完整的火焰示例（定位、颜色渐变、缩放）；四种发射器与 `bursts` 爆发脉冲；用 `updateCallback` 写自定义物理（重力/风——雨和雪）；以及粒子的性能账本。学完这章，你的三维看板就有了「天气与特效」这一层。
+粒子系统的三件套心智模型；一个完整的火焰示例（定位、颜色渐变、缩放）；四种发射器与 `bursts` 爆发脉冲；用 `updateCallback` 写自定义物理（重力/风，雨和雪）；以及粒子的性能账本。学完这章，你的三维看板就有了「天气与特效」这一层。
 
 ## 1. 心智模型：发射器、生命周期、更新回调
 
@@ -38,7 +38,7 @@ Emitter（发射器）         生命周期               updateCallback
 - **生命周期**：`minimumParticleLife`~`maximumParticleLife`（秒）随机取值；颜色与大小按 `startColor→endColor`、`startScale→endScale` 随寿命插值。
 - **updateCallback**：每帧对**每颗活着的粒子**调用一次 `(particle, dt)`，你可以在里面施加自定义力。
 
-整条流水线在场景里的「落脚点」由 **modelMatrix** 决定——把它设成某个地面点的东北天坐标系，粒子就在那里喷发。
+整条流水线在场景里的「落脚点」由 **modelMatrix** 决定，把它设成某个地面点的东北天坐标系，粒子就在那里喷发。
 
 ## 2. 最小示例：营火
 
@@ -72,9 +72,9 @@ const particleSystem = scene.primitives.add(
 跑起来就是一团从地面往上蹿的火焰：粒子从锥口出生、随机初速上升、颜色由黄转红渐隐、尺寸逐渐放大。**调参顺序建议**：先定 `emissionRate` 与 `particleLife`（数量账），再调颜色与缩放（观感），最后动 `updateCallback`（物理）。
 
 <Callout type="must" title="必背 · 粒子三条">
-1. `viewer.scene.primitives.add(particleSystem)`——粒子是渲染原语
+1. `viewer.scene.primitives.add(particleSystem)`：粒子是渲染原语
 2. `modelMatrix` + `Transforms.eastNorthUpToFixedFrame(position)` 是「把特效放地上」的标准姿势
-3. 稳态粒子数 ≈ emissionRate × 平均 particleLife——先算账，再调参
+3. 稳态粒子数 ≈ emissionRate × 平均 particleLife：先算账，再调参
 </Callout>
 
 ## 3. 四种发射器与 bursts：控制「出生方式」
@@ -86,7 +86,7 @@ const particleSystem = scene.primitives.add(
 | `SphereEmitter(radius)` | 球体内随机、向外喷 | 爆炸、冲击波 |
 | `BoxEmitter(new Cartesian3(w, h, d))` | 长方体内随机 | 大范围降雨/降雪区域 |
 
-**bursts**：在指定时刻一次性「喷一批」——烟花的爆炸、开局的一阵烟：
+**bursts**：在指定时刻一次性「喷一批」，比如烟花的爆炸、开局的一阵烟。
 
 ```js
 bursts: [
@@ -95,11 +95,11 @@ bursts: [
 ],
 ```
 
-`bursts` 与 `emissionRate` **可以叠加**：continuous 出烟 + 定点爆发出火星，一个系统两种节奏。系统寿命 `lifetime` 到了会触发 `complete` 事件（配合 `loop: false` 做「播一次就完」的一次性特效）——注意 `loop` 默认 true 时 `lifetime` 到点会自动归零重来、`complete` **永不触发**；`lifetime` 为默认 `Number.MAX_VALUE` 时该机制整体关闭。
+`bursts` 与 `emissionRate` **可以叠加**：continuous 出烟 + 定点爆发出火星，一个系统两种节奏。系统寿命 `lifetime` 到了会触发 `complete` 事件（配合 `loop: false` 做「播一次就完」的一次性特效），注意 `loop` 默认 true 时 `lifetime` 到点会自动归零重来、`complete` **永不触发**；`lifetime` 为默认 `Number.MAX_VALUE` 时该机制整体关闭。
 
 ## 4. updateCallback：给粒子装上物理
 
-`(particle, dt)` 回调是粒子系统的「物理引擎接口」——`particle` 有 `position`/`velocity`/`mass` 等字段，`dt` 是帧间隔（秒）。雨和雪的区别就写在回调里：
+`(particle, dt)` 回调是粒子系统的「物理引擎接口」，`particle` 有 `position`/`velocity`/`mass` 等字段，`dt` 是帧间隔（秒）。雨和雪的区别就写在回调里：
 
 ```js
 // 雨：快速直落，带一点风
@@ -151,7 +151,7 @@ const snowUpdate = (particle, dt) => {
 什么时候**不用**粒子：标注（用 Entity 三件套，第 5 章）、少量可交互对象（拾取粒子很绕，业务上应放隐形 Entity 代理）、海量静态点（用 `PointPrimitiveCollection`，第 10 章）。粒子的领域是「**大量 + 短命 + 有运动规律**」的视觉效果。
 
 <Exercise tool="cesium" title="动手 · 给看板加一场雪">
-综合练习：在第 10 章的收官看板上加一场雪——以相机所在位置为中心的大范围降雪（跟随相机移动），雪花缓慢下落并横向摆动，白色圆点贴图，密度控制在 500 颗常驻以内。
+综合练习：在第 10 章的收官看板上加一场雪，以相机所在位置为中心的大范围降雪（跟随相机移动），雪花缓慢下落并横向摆动，白色圆点贴图，密度控制在 500 颗常驻以内。
 
 <ExerciseSolution>
 ```js
@@ -189,7 +189,7 @@ viewer.camera.changed.addEventListener(() => {
   viewer.scene.requestRender();
 });
 ```
-观察点：① 把 `emissionRate` 提到 300，雪变密的同时注意帧率变化——这就是数量账的直观感受；② 雪源没跟随时相机会「走出雪区」——跟随逻辑是天气系统的关键细节；③ 与第 10 章的 `requestRenderMode` 组合时，粒子系统自身的变化会自动请求渲染，但 modelMatrix 手动更新后记得调 `requestRender()`。
+观察点：① 把 `emissionRate` 提到 300，雪变密的同时注意帧率变化，这就是数量账的直观感受；② 雪源没跟随时相机会「走出雪区」，跟随逻辑是天气系统的关键细节；③ 与第 10 章的 `requestRenderMode` 组合时，粒子系统自身的变化会自动请求渲染，但 modelMatrix 手动更新后记得调 `requestRender()`。
 </ExerciseSolution>
 </Exercise>
 
@@ -200,7 +200,7 @@ viewer.camera.changed.addEventListener(() => {
 - 数量账：emissionRate × 平均寿命 = 常驻粒子数；贴图小、不透明粒子更省。
 - 适用边界：大量、短命、有运动规律的视觉元素；可交互对象与静态点海另有正主。
 
-至此，你的三维看板有了完整的表现力层次：底图、地形、实体、模型、时间动态、天气特效。三维 GIS 的「展示」侧到本章收官——下一步是把第 09 章的量算与本章特效结合，或接真实数据源做行业场景。
+至此，你的三维看板有了完整的表现力层次：底图、地形、实体、模型、时间动态、天气特效。三维 GIS 的「展示」侧到本章收官，下一步是把第 09 章的量算与本章特效结合，或接真实数据源做行业场景。
 
 ## 延伸阅读
 

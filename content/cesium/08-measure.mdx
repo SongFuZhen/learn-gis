@@ -2,15 +2,15 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：GIS 的「G」是 Geographical，量算是灵魂技能——两点多远、一片地多大、坡上两点高差多少。这章把三维球面上的量算做成「鼠标画线/画面」的完整交互闭环。
+**这章解决什么**：GIS 的「G」是 Geographical，量算是灵魂技能，两点多远、一片地多大、坡上两点高差多少。这章把三维球面上的量算做成「鼠标画线/画面」的完整交互闭环。
 
-**一句话经验**：三维量算 = 第 07 章的拾取（拿点）+ 本章的几何公式（算值）+ CallbackProperty（画辅助线）——三块拼图你已经全有了，这章只是组装。
+**一句话经验**：三维量算 = 第 07 章的拾取（拿点）+ 本章的几何公式（算值）+ CallbackProperty（画辅助线），三块拼图你已经全有了，这章只是组装。
 
 **几个坑**：
 
-- 用 `Cartesian3.distance` 量两个经纬度相距很远的点——那是**空间直线**（弦长），球面上应该是沿椭球面的大圆距离，差得不少。
-- 面积直接把经纬度当平面坐标套鞋带公式——度不是米，算出来的「面积」毫无意义。
-- 忘了画辅助线时清掉上一个点——线越连越长，橡皮筋一样。
+- 用 `Cartesian3.distance` 量两个经纬度相距很远的点：那是**空间直线**（弦长），球面上应该是沿椭球面的大圆距离，差得不少。
+- 面积直接把经纬度当平面坐标套鞋带公式：度不是米，算出来的「面积」毫无意义。
+- 忘了画辅助线时清掉上一个点：线越连越长，橡皮筋一样。
 
 **记三条**：
 
@@ -44,12 +44,12 @@ const geodesic = new Cesium.EllipsoidGeodesic(
 const onSurface = geodesic.surfaceDistance;           // 沿椭球面，米
 ```
 
-京沪两地直线弦长与椭球面距离差约十几公里——**1 km 以内的短距离可以近似，跨城市必须用测地线**。这正是 [GIS 课第 14 章](/s/gis/13) 讲「turf.area 是球面计算」的同一件事：量算 API 的「球面 vs 平面」之分在三维引擎里同样存在。
+京沪两地直线弦长与椭球面距离差约十几公里，**1 km 以内的短距离可以近似，跨城市必须用测地线**。这正是 [GIS 课第 14 章](/s/gis/13) 讲「turf.area 是球面计算」的同一件事：量算 API 的「球面 vs 平面」之分在三维引擎里同样存在。
 
 <Callout type="must" title="必背 · 量算三条">
 1. 展示「两地多远」 → `EllipsoidGeodesic.surfaceDistance`（大圆/测地线）
 2. `Cartesian3.distance` 是穿球的弦长，只适合近距离
-3. 面积不许用经纬度直接算——先投到切平面
+3. 面积不许用经纬度直接算：先投到切平面
 </Callout>
 
 ## 2. 面积：切平面投影法
@@ -73,9 +73,9 @@ function computeArea(positions /* Cartesian3[] */) {
 }
 ```
 
-精度边界：**数百平方公里以内**的普通地块，切平面法误差可接受；省级以上的巨大多边形要用专门的椭球面积算法（或直接交给 PostGIS 的 geography 类型，[GIS 课第 14 章](/s/gis/13) 的路数）——知道工具的适用边界，比背公式更重要。
+精度边界：**数百平方公里以内**的普通地块，切平面法误差可接受；省级以上的巨大多边形要用专门的椭球面积算法（或直接交给 PostGIS 的 geography 类型，[GIS 课第 14 章](/s/gis/13) 的路数）。知道工具的适用边界，比背公式更重要。
 
-两个投影 API 别选错：`projectPointsToNearestOnPlane`（沿平面法线取最近点，**结果与输入等长**）和 `projectPointsOntoPlane`（从地心径向投影，**投不出的点会被丢弃**、结果可能比输入短）——量面积必须用前者，丢一个顶点多边形就变形了。
+两个投影 API 别选错：`projectPointsToNearestOnPlane`（沿平面法线取最近点，**结果与输入等长**）和 `projectPointsOntoPlane`（从地心径向投影，**投不出的点会被丢弃**、结果可能比输入短），量面积必须用前者，丢一个顶点多边形就变形了。
 
 ## 3. 交互闭环：点击取点 → 动态预览 → 结束出结果
 
@@ -122,14 +122,14 @@ function refreshPreview() {
 }
 ```
 
-骨架要点：① `camera.pickEllipsoid` 把屏幕点投到椭球面——返回 **Cartesian3**，要转 `Cartographic` 再存（别直接读 .longitude）；② polyline 的 positions 挂 `CallbackProperty`，回调每帧**从数据即时拼装**（数据变、图形自动变）；③ 双击（`DOUBLE_CLICK`）结束并调用本章公式出结果。
+骨架要点：① `camera.pickEllipsoid` 把屏幕点投到椭球面，返回 **Cartesian3**，要转 `Cartographic` 再存（别直接读 .longitude）；② polyline 的 positions 挂 `CallbackProperty`，回调每帧**从数据即时拼装**（数据变、图形自动变）；③ 双击（`DOUBLE_CLICK`）结束并调用本章公式出结果。
 
 <Callout type="info" title="pickPosition 之外的量高方式：sampleHeight">
-只要「某点的场景高度」而不关心打中的是楼还是山？`scene.sampleHeight(position)`（传 `Cartographic`，返回该位置的**场景几何高度**，米）比 pickPosition 更直接——它只采样**当前视野内已渲染**的地形与 3D Tiles（其他图元无视可见性都会被采样）。三个前提：仅 3D 模式（2D/CV 会抛异常）、需要深度纹理（`sampleHeightSupported` 探测，同 pickPosition）、量大用 `sampleHeightMostDetailed`（异步批量、按最高精度采样）。与 `sampleTerrain` 的分工：有地形 Provider 用后者（可离线、不依赖渲染），接了真实场景用前者（所见即所量）。
+只要「某点的场景高度」而不关心打中的是楼还是山？`scene.sampleHeight(position)`（传 `Cartographic`，返回该位置的**场景几何高度**，米）比 pickPosition 更直接，它只采样**当前视野内已渲染**的地形与 3D Tiles（其他图元无视可见性都会被采样）。三个前提：仅 3D 模式（2D/CV 会抛异常）、需要深度纹理（`sampleHeightSupported` 探测，同 pickPosition）、量大用 `sampleHeightMostDetailed`（异步批量、按最高精度采样）。与 `sampleTerrain` 的分工：有地形 Provider 用后者（可离线、不依赖渲染），接了真实场景用前者（所见即所量）。
 </Callout>
 
 <Callout type="warn" title="pickEllipsoid vs pickPosition">
-`camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 则从**深度缓冲**重构位置——打中的是当前渲染出来的任何表面（地形就是山、3D Tiles 就是楼面、模型就是表皮）。三条使用规则：① 先探测 `scene.pickPositionSupported`——它是**只读能力探测**（检查设备是否支持深度纹理），不是开关；不支持时调用会直接抛 `DeveloperError`。② 半透明表面默认会被「穿透」（官方原文：essentially picks through translucent primitives）——要拾取半透明面（比如本章看板里的半透明政区面），设 `scene.pickTranslucentDepth = true`（默认 false，有额外绘制开销）。③ 对地球面的拾取在 `depthTestAgainstTerrain = false`（默认）下曾有结果不正确的 bug，1.118 修复——课程基线 1.107+ 中、1.118 之前的版本量地表要注意。量地用前者，量楼面/地形表面用后者。
+`camera.pickEllipsoid` 把像素投到**椭球面**上（永远成功、高度恒 0）；`scene.pickPosition` 则从**深度缓冲**重构位置，打中的是当前渲染出来的任何表面（地形就是山、3D Tiles 就是楼面、模型就是表皮）。三条使用规则：① 先探测 `scene.pickPositionSupported`，它是**只读能力探测**（检查设备是否支持深度纹理），不是开关；不支持时调用会直接抛 `DeveloperError`。② 半透明表面默认会被「穿透」（官方原文：essentially picks through translucent primitives），要拾取半透明面（比如本章看板里的半透明政区面），设 `scene.pickTranslucentDepth = true`（默认 false，有额外绘制开销）。③ 对地球面的拾取在 `depthTestAgainstTerrain = false`（默认）下曾有结果不正确的 bug，1.118 修复，课程基线 1.107+ 中、1.118 之前的版本量地表要注意。量地用前者，量楼面/地形表面用后者。
 </Callout>
 
 <Exercise tool="cesium" title="动手 · 完整测距工具">
@@ -181,7 +181,7 @@ viewer.entities.add({
   },
 });
 ```
-加分项：① 把距离文本挂到一个 div 而不是 console（onTick 或每次取点时更新）；② 大圆距离 vs `Cartesian3.distance` 的差值在短距离下很小——试两个相距 100 m 的点，对比差值，理解「什么时候可以偷懒」。
+加分项：① 把距离文本挂到一个 div 而不是 console（onTick 或每次取点时更新）；② 大圆距离 vs `Cartesian3.distance` 的差值在短距离下很小，试两个相距 100 m 的点，对比差值，理解「什么时候可以偷懒」。
 </ExerciseSolution>
 </Exercise>
 

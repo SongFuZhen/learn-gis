@@ -2,21 +2,21 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：前四章你有了球、相机、影像、地形——可场景里还没有任何「业务对象」。这章把 **Entity**（/ˈentəti/，「恩-提-提」，实体）体系讲透：点、标注、图标、线、面怎么放上去、怎么改样式，以及怎么把 [GIS 课第 8 章](/s/gis/07) 的 GeoJSON（/ˈdʒiːoʊ dʒeɪsən/，「吉欧-杰森」）一次性灌进场景。
+**这章解决什么**：前四章你有了球、相机、影像、地形，可场景里还没有任何「业务对象」。这章把 **Entity**（/ˈentəti/，「恩-提-提」，实体）体系讲透：点、标注、图标、线、面怎么放上去、怎么改样式，以及怎么把 [GIS 课第 8 章](/s/gis/07) 的 GeoJSON（/ˈdʒiːoʊ dʒeɪsən/，「吉欧-杰森」）一次性灌进场景。
 
-**一句话经验**：Entity 是 Cesium 给你的「高层数据绑定」——你描述「这是一个红色的点」，剩下的渲染它管；别一上来就碰底层 Primitive（那是第 09 章的性能话题）。
+**一句话经验**：Entity 是 Cesium 给你的「高层数据绑定」，你描述「这是一个红色的点」，剩下的渲染它管；别一上来就碰底层 Primitive（那是第 09 章的性能话题）。
 
 **几个坑**：
 
-- `polygon.hierarchy` 传经纬度数组报错——它要的是 `Cartesian3` 数组，用 `fromDegreesArray`（不带高度）或 `fromDegreesArrayHeights`（带高度）转换。
-- 加载 GeoJSON 后图上什么都没有——数据是三维坐标（带 z）或高程点时，默认「浮在空中」或「埋进地下」，记得配 `clampToGround`。
-- 点太多页面卡成幻灯片——几万个点还用 billboard，是自找的；上万级要用点的集合或 Primitive（第 09 章）。
+- `polygon.hierarchy` 传经纬度数组报错：它要的是 `Cartesian3` 数组，用 `fromDegreesArray`（不带高度）或 `fromDegreesArrayHeights`（带高度）转换。
+- 加载 GeoJSON 后图上什么都没有：数据是三维坐标（带 z）或高程点时，默认「浮在空中」或「埋进地下」，记得配 `clampToGround`。
+- 点太多页面卡成幻灯片：几万个点还用 billboard，是自找的；上万级要用点的集合或 Primitive（第 09 章）。
 
 **记三条**：
 
 1. Entity = 声明式对象：`viewer.entities.add({...})`，一个 entity 可同时挂 point + label + billboard
 2. GeoJSON 整包加载用 `GeoJsonDataSource.load`，样式用 `clampToGround` 贴地
-3. 动态属性用 `CallbackProperty`——每帧回调一次，函数返回什么就画什么
+3. 动态属性用 `CallbackProperty`：每帧回调一次，函数返回什么就画什么
 
 ## 这章讲什么
 
@@ -41,7 +41,7 @@ const entity = viewer.entities.add({
 });
 ```
 
-要点：**一个 Entity 是一个「数据对象」，可以同时挂多种图形**——同一个位置，`point` 管点本身、`label` 管文字、`billboard` 管图标，三件套一起上就是一个完整标注：
+要点：**一个 Entity 是一个「数据对象」，可以同时挂多种图形**。同一个位置，`point` 管点本身、`label` 管文字、`billboard` 管图标，三件套一起上就是一个完整标注：
 
 ```js
 viewer.entities.add({
@@ -70,7 +70,7 @@ const found = viewer.entities.getById("beijing-point");
 <Callout type="must" title="必背 · Entity 三条">
 1. `id` 自己起、供业务查找与拾取反查；不填 Cesium 会生成随机 id
 2. 一个 Entity 可同时挂 point/label/billboard/polyline/polygon 等多种图形，各自有独立的样式块
-3. `disableDepthTestDistance: Number.POSITIVE_INFINITY` 让标注永远浮在最上层——做城市标注必备
+3. `disableDepthTestDistance: Number.POSITIVE_INFINITY` 让标注永远浮在最上层：做城市标注必备
 </Callout>
 
 ## 2. 线与面：贴地与拉伸
@@ -104,7 +104,7 @@ viewer.entities.add({
 });
 ```
 
-面的进阶玩法是**拉伸成体**：给 `extrudedHeight`（拉伸目标高度），底面在 `height`——两行代码把一块多边形变成一栋楼：
+面的进阶玩法是**拉伸成体**：给 `extrudedHeight`（拉伸目标高度），底面在 `height`，两行代码把一块多边形变成一栋楼：
 
 ```js
 viewer.entities.add({
@@ -118,12 +118,12 @@ viewer.entities.add({
 ```
 
 <Callout type="info" title="clampToGround 的适用边界">
-贴地（`clampToGround: true`）在有地形时尤其重要——不贴地的线会「穿山而过」或「悬在谷上」。但贴地渲染有额外开销：海量线面（数万条）全贴地会明显掉帧，批量场景要么不贴地，要么改用 Primitive 方案（第 09 章）。
+贴地（`clampToGround: true`）在有地形时尤其重要：不贴地的线会「穿山而过」或「悬在谷上」。但贴地渲染有额外开销：海量线面（数万条）全贴地会明显掉帧，批量场景要么不贴地，要么改用 Primitive 方案（第 09 章）。
 </Callout>
 
 ## 3. GeoJSON 一次性灌入：GeoJsonDataSource
 
-[GIS 课第 8 章](/s/gis/07)的 GeoJSON 在 Cesium 里有专门的整包加载通道——**GeoJsonDataSource**：
+[GIS 课第 8 章](/s/gis/07)的 GeoJSON 在 Cesium 里有专门的整包加载通道，**GeoJsonDataSource**：
 
 ```js
 // 直接加载 URL（也可以传 JS 对象：本地已解析的 GeoJSON）
@@ -150,12 +150,12 @@ for (const entity of ds.entities.values) {
 三个关键认知：① `GeoJsonDataSource.load` 返回 **Promise\<DataSource\>**，加载完成前场景是空的；② 每个 GeoJSON feature 变成一个 Entity，其 `properties` 字段原样挂在 `entity.properties` 上，`getValue()` 取值（`time` 参数可省，默认按当前时刻求值）；③ Point 要素默认渲染成大头针图标（`PinBuilder` 生成）：`markerColor` 默认宝蓝（ROYALBLUE）、`markerSize` 默认 48px（small 24 / large 64）、`markerSymbol` 传单字符会印在针上、传 Maki 图标 id 则用官方图标库。实体名也是自动的：`entity.name` 按 properties 里的 `title` → `name` → 含 title/name 的键（大小写不敏感）依次取值。
 
 <Callout type="warn" title="GeoJSON 高度陷阱 · clampToGround 的真实边界">
-GeoJSON 坐标是 `[lng, lat, z?]`——第三个位是高度。源码级行为：`clampToGround` **只对不带 z 的要素生效**——点要素在坐标长度为 2 时才挂 `HeightReference.CLAMP_TO_GROUND`；带 z 的面会改走 `perPositionHeight`，即使配了贴地也按 z 悬浮。所以「带 z 又想贴地」的数据要先去掉 z（或逐实体设 `heightReference`）；反过来，「地下管线/飞行航迹」里 z 才是主角，别开贴地。
+GeoJSON 坐标是 `[lng, lat, z?]`，第三个位是高度。源码级行为：`clampToGround` **只对不带 z 的要素生效**，点要素在坐标长度为 2 时才挂 `HeightReference.CLAMP_TO_GROUND`；带 z 的面会改走 `perPositionHeight`，即使配了贴地也按 z 悬浮。所以「带 z 又想贴地」的数据要先去掉 z（或逐实体设 `heightReference`）；反过来，「地下管线/飞行航迹」里 z 才是主角，别开贴地。
 </Callout>
 
 ## 4. CallbackProperty：最简动画
 
-Entity 的任何样式字段都能换成 **CallbackProperty**——每帧调用一次回调，返回值就是当帧的值。最常用的两种：
+Entity 的任何样式字段都能换成 **CallbackProperty**，每帧调用一次回调，返回值就是当帧的值。最常用的两种：
 
 ```js
 // ① 呼吸点：point.pixelSize 随时间正弦变化
@@ -187,7 +187,7 @@ const growingLine = viewer.entities.add({
 });
 ```
 
-原则：**能静态就静态**。CallbackProperty 每帧执行你的函数，几十个动态实体没问题，成百上千个会拖垮帧率——系统性的「时间维度」解法（CZML + Clock）是下一章的主角。
+原则：**能静态就静态**。CallbackProperty 每帧执行你的函数，几十个动态实体没问题，成百上千个会拖垮帧率，系统性的「时间维度」解法（CZML + Clock）是下一章的主角。
 
 <Exercise tool="cesium" title="动手 · 把 GeoJSON 做成可点选的三维标注集">
 综合练习：加载一份含 Point 要素的 GeoJSON（自造一份即可，两三个点足够），要求：① 整包贴地加载；② 遍历实体，把默认大头针换成「青色呼吸点 + 文字标注」；③ 点击任一点，在控制台打印它的 name 与 properties。
@@ -233,7 +233,7 @@ handler.setInputAction((movement) => {
   }
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 ```
-说明：① 拾取（pick）这里只用了最简形态——第 07 章会系统讲事件与拾取体系；② `entity.properties?.getValue()` 返回整个 properties 对象，空数据返回 undefined；③ 只改 `point` 不会自动隐藏默认 billboard，要显式 `billboard = undefined`。
+说明：① 拾取（pick）这里只用了最简形态；第 07 章会系统讲事件与拾取体系；② `entity.properties?.getValue()` 返回整个 properties 对象，空数据返回 undefined；③ 只改 `point` 不会自动隐藏默认 billboard，要显式 `billboard = undefined`。
 </ExerciseSolution>
 </Exercise>
 
@@ -245,7 +245,7 @@ handler.setInputAction((movement) => {
 - GeoJSON 用 `GeoJsonDataSource.load` 整包进场景，feature properties 挂在 `entity.properties`。
 - 动态样式用 `CallbackProperty`（每帧回调），能用静态就用静态。
 
-下一章：让时间成为维度——CZML 与 Clock，把「轨迹动画」做成声明式数据。
+下一章：让时间成为维度，CZML 与 Clock，把「轨迹动画」做成声明式数据。
 
 ## 延伸阅读
 

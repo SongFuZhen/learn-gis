@@ -2,15 +2,15 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：第 00 章你给 Viewer 指定了一张底图，但真实业务几乎永远是「多张图叠着用」——底图管地理轮廓，卫星影像管真实外观，天气/行政区划/热力图管业务信息。这章讲 Cesium 的**影像图层栈**怎么玩。
+**这章解决什么**：第 00 章你给 Viewer 指定了一张底图，但真实业务几乎永远是「多张图叠着用」，底图管地理轮廓，卫星影像管真实外观，天气/行政区划/热力图管业务信息。这章讲 Cesium 的**影像图层栈**怎么玩。
 
-**一句话经验**：Cesium 的影像图层和 Photoshop 图层是一个概念——能叠、能调透明度、能调上下顺序；理解了这点，剩下就是记 Provider 名字。
+**一句话经验**：Cesium 的影像图层和 Photoshop 图层是一个概念，能叠、能调透明度、能调上下顺序；理解了这点，剩下就是记 Provider 名字。
 
 **几个坑**：
 
-- 瓦片服务 URL 写对了却出不来图——忘了瓦片模板里 `{z}/{x}/{y}` 的原点约定：OSM 系原点在**西北角**，TMS 系原点在**西南角**（[GIS 课第 08 章](/s/gis/07)讲过 XYZ 与 TMS 的 y 翻转）。
-- 图层叠上去盖住了底图——`imageryLayers` 是**后加入的在上面**，不是在下层。
-- 大瓦片加载慢就把 `maximumLevel` 调到 19——服务器根本没那个层级的瓦片，只会 404 刷屏。
+- 瓦片服务 URL 写对了却出不来图：忘了瓦片模板里 `{z}/{x}/{y}` 的原点约定，OSM 系原点在**西北角**，TMS 系原点在**西南角**（[GIS 课第 08 章](/s/gis/07)讲过 XYZ 与 TMS 的 y 翻转）。
+- 图层叠上去盖住了底图：`imageryLayers` 是**后加入的在上面**，不是在下层。
+- 大瓦片加载慢就把 `maximumLevel` 调到 19：服务器根本没那个层级的瓦片，只会 404 刷屏。
 
 **记三条**：
 
@@ -34,10 +34,10 @@ ImageryProvider 家族里最常用的几个成员；瓦片金字塔在这一层�
 | `TileMapServiceImageryProvider` | 本地 TMS 目录 | 离线底图（NaturalEarthII 样例） |
 | `SingleTileImageryProvider` | 单张图片 | 固定封面图、极小范围覆盖层 |
 
-所有 Provider 现在推荐用 `fromUrl` 异步工厂创建，再交给 `ImageryLayer.fromProviderAsync`——这就是第 00 章 `baseLayer` 参数的来历。
+所有 Provider 现在推荐用 `fromUrl` 异步工厂创建，再交给 `ImageryLayer.fromProviderAsync`，这就是第 00 章 `baseLayer` 参数的来历。
 
 <Callout type="info" title="版本注记 · 老教程的写法为什么报错">
-网上老教程常见 `new OpenStreetMapImageryProvider({ url })` 与 Viewer 的 `imageryProvider` 参数——分别是 1.104 / 1.107 之前的写法，现已废弃或移除。完整的新旧对照表见[第 1 章 · 版本基线](/s/cesium/00)。
+网上老教程常见 `new OpenStreetMapImageryProvider({ url })` 与 Viewer 的 `imageryProvider` 参数：分别是 1.104 / 1.107 之前的写法，现已废弃或移除。完整的新旧对照表见[第 1 章 · 版本基线](/s/cesium/00)。
 </Callout>
 
 ## 2. 图层栈：叠、透明、调序
@@ -87,10 +87,10 @@ const layer = imageryLayers.addImageryProvider(
 );
 ```
 
-三个参数里最容易出事的是瓦片原点：XYZ 规范的 `{y}` 从**北（顶）往南数**，TMS 从**南往北数**。接 TMS 服务时用 `tilingScheme: new Cesium.GeographicTilingScheme()` 换投影方案，或直接换 `TileMapServiceImageryProvider`——它按 TMS 约定请求。判断方法很粗暴：加载后世界地图上下颠倒/只有赤道附近出图，八成是原点约定反了。
+三个参数里最容易出事的是瓦片原点：XYZ 规范的 `{y}` 从**北（顶）往南数**，TMS 从**南往北数**。接 TMS 服务时用 `tilingScheme: new Cesium.GeographicTilingScheme()` 换投影方案，或直接换 `TileMapServiceImageryProvider`，它按 TMS 约定请求。判断方法很粗暴：加载后世界地图上下颠倒/只有赤道附近出图，八成是原点约定反了。
 
 <Callout type="info" title="和 GIS 课《数据格式与瓦片》的呼应">
-瓦片金字塔 = 不同 zoom 层级的预切图，请求哪层由当前相机高度决定。Cesium 与 Leaflet 遵循同一金字塔逻辑，区别只在：Leaflet 的 zoom 是整数层级直选，Cesium 的瓦片选择由 **SSE**（Screen Space Error，/ˌes es ˈiː/，「艾斯-艾斯-伊」，屏幕空间误差）算法按视角动态算——你可以理解成「连续 zoom」。第 06 章 3D Tiles 的 LOD 是同一思想的立方体版本。
+瓦片金字塔 = 不同 zoom 层级的预切图，请求哪层由当前相机高度决定。Cesium 与 Leaflet 遵循同一金字塔逻辑，区别只在：Leaflet 的 zoom 是整数层级直选，Cesium 的瓦片选择由 **SSE**（Screen Space Error，/ˌes es ˈiː/，「艾斯-艾斯-伊」，屏幕空间误差）算法按视角动态算，你可以理解成「连续 zoom」。第 06 章 3D Tiles 的 LOD 是同一思想的立方体版本。
 </Callout>
 
 ## 4. 实战：底图 + 行政区划标注层
@@ -152,7 +152,7 @@ setInterval(() => {
 - `imageryLayers` 是图层栈：后入在上、`alpha`/`show`/`raise`/`lower` 是全套操作。
 - `UrlTemplateImageryProvider` 是接 XYZ 服务的万能钥匙；分清 XYZ（北原点）与 TMS（南原点）。
 - `maximumLevel` 如实声明，`credit` 如实署名。
-- 影像只是「贴在球上的皮」——它没有高度。地面起伏是下一章的事。
+- 影像只是「贴在球上的皮」：它没有高度。地面起伏是下一章的事。
 
 ## 延伸阅读
 

@@ -2,15 +2,15 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：你已经会用 Leaflet 打开一张平面地图（[GIS 课第 15 章](/s/gis/14)），可地球是三维的——山有高度、楼有楼层、卫星在天上飞。**CesiumJS**（/ˈsiːziəm/，「西-兹-亚姆」，开源三维地球引擎）就是干这个的：它给你一个能转、能飞、能加载三维城市的数字地球。
+**这章解决什么**：你已经会用 Leaflet 打开一张平面地图（[GIS 课第 15 章](/s/gis/14)），可地球是三维的，山有高度、楼有楼层、卫星在天上飞。**CesiumJS**（/ˈsiːziəm/，「西-兹-亚姆」，开源三维地球引擎）就是干这个的：它给你一个能转、能飞、能加载三维城市的数字地球。
 
-**一句话经验**：Leaflet 是「看地图」，Cesium 是「进入地图」——思路要从「图层叠瓦片」升级成「场景里放对象」。
+**一句话经验**：Leaflet 是「看地图」，Cesium 是「进入地图」，思路要从「图层叠瓦片」升级成「场景里放对象」。
 
 **几个坑**：
 
-- `new Cesium.Viewer(...)` 什么都不配就跑——默认会请求 Cesium ion 的付费影像，没 token 直接 401。第一个要记住的事：**底图必须显式指定**。
-- 把 CesiumJS 和 ion 搞混——前者是开源引擎（Apache 2.0），后者是官方数据托管服务（有免费额度但要注册）。不注册 ion 也能学完本课程，全程用 OpenStreetMap 等免费数据源。
-- 在 React/Vue 里直接 `import` 后页面白屏——Cesium 操作真实 DOM，得等容器渲染完再初始化，还要关服务端渲染。
+- `new Cesium.Viewer(...)` 什么都不配就跑：默认会请求 Cesium ion 的付费影像，没 token 直接 401。第一个要记住的事：**底图必须显式指定**。
+- 把 CesiumJS 和 ion 搞混：前者是开源引擎（Apache 2.0），后者是官方数据托管服务（有免费额度但要注册）。不注册 ion 也能学完本课程，全程用 OpenStreetMap 等免费数据源。
+- 在 React/Vue 里直接 `import` 后页面白屏：Cesium 操作真实 DOM，得等容器渲染完再初始化，还要关服务端渲染。
 
 **记三条**：
 
@@ -24,7 +24,7 @@
 
 ## 1. Cesium 和 Leaflet 的本质区别
 
-[GIS 课第 15 章](/s/gis/14)讲过：Leaflet / MapLibre / OpenLayers 是**二维瓦片地图库**——世界被投影成平面方格（Web 墨卡托），库把方格拼起来给你看。Cesium 走另一条路：
+[GIS 课第 15 章](/s/gis/14)讲过：Leaflet / MapLibre / OpenLayers 是**二维瓦片地图库**，世界被投影成平面方格（Web 墨卡托），库把方格拼起来给你看。Cesium 走另一条路：
 
 | 维度 | Leaflet 等 | CesiumJS |
 | --- | --- | --- |
@@ -37,7 +37,7 @@
 一句话：**需求里出现「三维」「倾斜」「地形」「时间回放」任何一个，就该上 Cesium**；只是标个点画条线，Leaflet 依然是最优解。
 
 <Callout type="info" title="Cesium 的名字来历">
-Cesium 是元素「铯」——铯原子钟定义了时间标准，对应 Cesium 对「时间维度」的一等支持。中文里引擎名不翻译，读「西-兹-亚姆」。
+Cesium 是元素「铯」，铯原子钟定义了时间标准，对应 Cesium 对「时间维度」的一等支持。中文里引擎名不翻译，读「西-兹-亚姆」。
 </Callout>
 
 ## 2. 环境准备：Vite + npm
@@ -79,11 +79,11 @@ export default defineConfig({
 });
 ```
 
-不想折腾本地环境？直接开 [Sandcastle](https://sandcastle.cesium.com/)——官方在线示例场，左边改代码右边看球，本章所有代码都能粘进去跑。
+不想折腾本地环境？直接开 [Sandcastle](https://sandcastle.cesium.com/)，官方在线示例场，左边改代码右边看球，本章所有代码都能粘进去跑。
 
 ## 3. 第一个 Viewer：显式指定免费底图
 
-下面是本课程**最模板化的十行代码**——每个示例的第一步都是它：
+下面是本课程**最模板化的十行代码**，每个示例的第一步都是它：
 
 ```js
 import * as Cesium from "cesium";
@@ -105,7 +105,7 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 不带 `baseLayer` 的 Viewer 会用默认的 ion 托管影像（Bing 影像）。没 token 时控制台直接甩一个 `401 Unauthorized`，画面变空球。这不是 bug，是「数据源需要授权」。本课程所有代码都显式指定免费底图；如果你在别处看到别人的 demo 一行配置都没写还能出图，那是因为人家注册过 ion 并设了 `Cesium.Ion.defaultAccessToken`。
 </Callout>
 
-跑起来你会看到一个能拖转的地球。右下角自带几个控件：罗盘（转向）、比例尺、动画时钟。用鼠标试三件事：**左键拖 = 转球**、**中键/右键缩放 = 推近拉远**、**按住右键或 Ctrl+左键拖 = 倾斜视角**——最后一个就是二维地图库永远给不了你的「贴地看城市」。
+跑起来你会看到一个能拖转的地球。右下角自带几个控件：罗盘（转向）、比例尺、动画时钟。用鼠标试三件事：**左键拖 = 转球**、**中键/右键缩放 = 推近拉远**、**按住右键或 Ctrl+左键拖 = 倾斜视角**，最后一个就是二维地图库永远给不了你的「贴地看城市」。
 
 ## 4. Sandcastle：官方草稿本
 
@@ -116,7 +116,7 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 3. **读官方示例源码**：Sandcastle 每个示例下方有源码 tab，是免费的最佳实践库
 
 <Callout type="must" title="必背 · 本章三条">
-1. `new Cesium.Viewer(el, { baseLayer: 显式指定 })`——不给 baseLayer 就是 401
+1. `new Cesium.Viewer(el, { baseLayer: 显式指定 })`：不给 baseLayer 就是 401
 2. Cesium 的地理坐标是 `(经度, 纬度)` 顺序（lon, lat），与前端常见的 (lat, lng) 相反
 3. 本地环境必须处理 `CESIUM_BASE_URL` 与四个静态资源目录；图省事直接用 Sandcastle
 </Callout>
@@ -135,15 +135,15 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 });
 ```
 
-观察两件事：卫星影像和 OSM 街道图在「拉近到城市」时视觉信息量的差异；以及影像模式下再倾斜视角（Ctrl+左键拖），地形起伏感是否更强——这为第 03 章讲「影像之外的第二层（地形）」埋下伏笔。
+观察两件事：卫星影像和 OSM 街道图在「拉近到城市」时视觉信息量的差异；以及影像模式下再倾斜视角（Ctrl+左键拖），地形起伏感是否更强，这为第 03 章讲「影像之外的第二层（地形）」埋下伏笔。
 <ExerciseSolution>
-关键观察点：① OSM 在低层级有路名标注、影像没有；② 影像拉近后能看到建筑屋顶纹理，但依然「平贴在球面上」——因为它只是影像图层，没有高度数据。要让屋顶「立起来」得用 3D Tiles（第 06 章），要让地面起伏得用地形服务（第 03 章）。影像、地形、三维模型是三层独立的数据，这章你只碰了第一层。
+关键观察点：① OSM 在低层级有路名标注、影像没有；② 影像拉近后能看到建筑屋顶纹理，但依然「平贴在球面上」，因为它只是影像图层，没有高度数据。要让屋顶「立起来」得用 3D Tiles（第 06 章），要让地面起伏得用地形服务（第 03 章）。影像、地形、三维模型是三层独立的数据，这章你只碰了第一层。
 </ExerciseSolution>
 </Exercise>
 
 ## 5. 版本基线：课程代码基于哪个版本？
 
-全课程代码统一基于 **CesiumJS 1.107+（2023-07 起）** 的写法——这也是当前官方文档与 Sandcastle 的默认风格；更新的版本上无需改动即可运行。CesiumJS 每月发一个小版本，但**破坏性变更极少**：绝大多数 API 多年签名稳定，真正影响写法的里程碑只有下面几个。
+全课程代码统一基于 **CesiumJS 1.107+（2023-07 起）** 的写法，这也是当前官方文档与 Sandcastle 的默认风格；更新的版本上无需改动即可运行。CesiumJS 每月发一个小版本，但**破坏性变更极少**：绝大多数 API 多年签名稳定，真正影响写法的里程碑只有下面几个。
 
 **关键版本里程碑**（只列影响本课程代码的）：
 
@@ -156,7 +156,7 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 | 1.115 | 2024-03 | **3D Tiles 默认不再参与相机碰撞/实体贴地**，需 `enableCollision: true` | 第 7 章：要把实体贴到楼顶必须开此项 |
 | 1.116 | 2024-04 | `Globe.terrainExaggeration` 移除 → `Scene.verticalExaggeration` | 地形夸张 API 换了位置 |
 | 1.119 | 2024-07 | 新增 `Ellipsoid.default`：全局默认椭球可切换 | 与 GIS 课「基准面」概念直接对应 |
-| 1.121 | 2024-09 | **MSAA 默认开启（4x）**；默认色调映射 ACES → Khronos PBR Neutral | 升级后画面更平滑、模型观感变亮——不是你的代码坏了 |
+| 1.121 | 2024-09 | **MSAA 默认开启（4x）**；默认色调映射 ACES → Khronos PBR Neutral | 升级后画面更平滑、模型观感变亮，不是你的代码坏了 |
 | 1.122 | 2024-10 | 新增 `CallbackPositionProperty`：实体位置的懒求值 | 高频动态位置（第 6 章）的性能新选项 |
 | 1.123 | 2024-11 | 新增 `ScreenSpaceCameraController.maximumTiltAngle`（俯仰上限）；Viewer 功能逐步向 `CesiumWidget` 迁移 | 相机俯仰限制；无控件场景可用 CesiumWidget |
 
@@ -173,11 +173,11 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 **1.115–1.124 近期重大变更（2024 年，按与课程的关联排序）**：
 
 - **3D Tiles 碰撞语义变更（1.115/1.116）**：默认关闭与相机的碰撞、Entity 也不再自动贴到 3D Tiles 表面；需要「实体贴楼顶」时设 `Cesium3DTileset.enableCollision: true`。老的 `disableCollision` 字段已移除。
-- **观感默认值变化（1.121）**：MSAA 默认 4 倍 + 色调映射换为 Khronos PBR Neutral——升级后同一份代码「画面变亮、边缘更平滑」，属于官方视觉质量调整，不是代码回归；不满意可通过 `PostProcessStageCollection` 的 tonemapper/exposure 自定义。
-- **动态位置性能新选项（1.122）**：`CallbackPositionProperty` 支持懒求值——比每帧全量求值的 `CallbackProperty` 更省，高频移动目标（第 6 章轨迹）的新推荐。
-- **全局椭球可换（1.119）**：`Ellipsoid.default` 一处设置全 API 生效——做月球/火星场景或非 WGS84 基准面对比时不再逐个传参（GIS 课基准面概念的引擎级落地）。
+- **观感默认值变化（1.121）**：MSAA 默认 4 倍 + 色调映射换为 Khronos PBR Neutral，升级后同一份代码「画面变亮、边缘更平滑」，属于官方视觉质量调整，不是代码回归；不满意可通过 `PostProcessStageCollection` 的 tonemapper/exposure 自定义。
+- **动态位置性能新选项（1.122）**：`CallbackPositionProperty` 支持懒求值，比每帧全量求值的 `CallbackProperty` 更省，高频移动目标（第 6 章轨迹）的新推荐。
+- **全局椭球可换（1.119）**：`Ellipsoid.default` 一处设置全 API 生效，做月球/火星场景或非 WGS84 基准面对比时不再逐个传参（GIS 课基准面概念的引擎级落地）。
 - **地形夸张换家（1.116）**：`Globe.terrainExaggeration` 已移除，统一到 `Scene.verticalExaggeration` / `verticalExaggerationRelativeHeight`。
-- **相机俯仰上限（1.123）**：`ScreenSpaceCameraController.maximumTiltAngle` 可限制用户最大倾斜角——防钻地/防穿模的交互约束。
+- **相机俯仰上限（1.123）**：`ScreenSpaceCameraController.maximumTiltAngle` 可限制用户最大倾斜角，防钻地/防穿模的交互约束。
 
 **稳定区**（课程用到、多年无破坏性改动，旧资料可放心引用）：Entity 体系、GeoJsonDataSource、CallbackProperty、CZML 文档结构、ScreenSpaceEventHandler 与 pick、EllipsoidGeodesic / EllipsoidTangentPlane、Clock。
 
@@ -192,7 +192,7 @@ const viewer = new Cesium.Viewer("cesiumContainer", {
 - **第一个 Viewer 必须显式指定免费底图**，这是本课程的「第 0 号惯例」。
 - Sandcastle 是草稿本，官方示例源码是免费的最佳实践库。
 
-下一章：让相机飞起来——把 GIS 课的经纬度真正「放」到这个球上。
+下一章：让相机飞起来，把 GIS 课的经纬度真正「放」到这个球上。
 
 ## 延伸阅读
 

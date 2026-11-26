@@ -2,29 +2,29 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：[GIS 课第 03 章](/s/gis/02)讲过，地球用旋转椭球近似，一个点 = 经度 + 纬度（+ 高程）。可 Cesium 的世界里没有「经纬度点」，只有**笛卡尔空间坐标**——这章讲清两套坐标怎么互转，以及怎么指挥相机去看你想看的地方。
+**这章解决什么**：[GIS 课第 03 章](/s/gis/02)讲过，地球用旋转椭球近似，一个点 = 经度 + 纬度（+ 高程）。可 Cesium 的世界里没有「经纬度点」，只有**笛卡尔空间坐标**。这章讲清两套坐标怎么互转，以及怎么指挥相机去看你想看的地方。
 
-**一句话经验**：在 Cesium 里，经纬度只是「给人看的入口」，进场景后一切都是 `Cartesian3`——记住这句，一半的坐标系疑惑就没了。
+**一句话经验**：在 Cesium 里，经纬度只是「给人看的入口」，进场景后一切都是 `Cartesian3`，记住这句，一半的坐标系疑惑就没了。
 
 **几个坑**：
 
-- `Cartesian3.fromDegrees(lat, lon)`——顺序反了，人飞到别的半球。Cesium 全家都是 **经度在前**。
-- `Cartographic` 的经纬度是**弧度**，直接拿去显示会看到 0.02 这样的「怪数」——那是 116.4° 的弧度值。
-- `camera.flyTo` 飞过去就不动了——多半是 `orientation.pitch` 忘了给负角度，相机在「抬头看天」。
+- `Cartesian3.fromDegrees(lat, lon)` 的参数顺序写反，人飞到别的半球。Cesium 全家都是 **经度在前**。
+- `Cartographic` 的经纬度是**弧度**，直接拿去显示会看到 0.02 这样的「怪数」：那是 116.4° 的弧度值。
+- `camera.flyTo` 飞过去就不动了：多半是 `orientation.pitch` 忘了给负角度，相机在「抬头看天」。
 
 **记三条**：
 
-1. `Cartesian3.fromDegrees(lon, lat, height)`——经度永远在前
+1. `Cartesian3.fromDegrees(lon, lat, height)`：经度永远在前
 2. `Cartographic` 里是弧度；要度数用 `Cesium.Math.toDegrees()` 换
 3. pitch = 0 是水平看，-90° 是垂直俯瞰；「俯视某个点」给 pitch 一个负角
 
 ## 这章讲什么
 
-两套坐标（地理坐标 ↔ 笛卡尔坐标）的互转与各自适用场景；相机的 setView / flyTo / lookAt 三大操作；heading / pitch / roll 三个姿态角到底怎么转。这是后面所有章节的地基——实体、拾取、量算，全都建在「放得准、看得准」之上。
+两套坐标（地理坐标 ↔ 笛卡尔坐标）的互转与各自适用场景；相机的 setView / flyTo / lookAt 三大操作；heading / pitch / roll 三个姿态角到底怎么转。这是后面所有章节的地基，实体、拾取、量算，全都建在「放得准、看得准」之上。
 
 ## 1. 两套坐标系：地理坐标与笛卡尔坐标
 
-GIS 课讲过：经纬度是**角度坐标**——椭球面上的位置用度数表示。但 WebGL 渲染的世界是**直线空间**：相机、模型、光照计算全在直角坐标系里进行。所以 Cesium 内部用 **ECEF 笛卡尔坐标**（Earth-Centered, Earth-Fixed，地心固连系）：原点在地球质心，x 指向本初子午线与赤道交点，z 指向北极。
+GIS 课讲过：经纬度是**角度坐标**，椭球面上的位置用度数表示。但 WebGL 渲染的世界是**直线空间**：相机、模型、光照计算全在直角坐标系里进行。所以 Cesium 内部用 **ECEF 笛卡尔坐标**（Earth-Centered, Earth-Fixed，地心固连系）：原点在地球质心，x 指向本初子午线与赤道交点，z 指向北极。
 
 两套坐标的互转就三把刷子：
 
@@ -42,12 +42,12 @@ const hMeters = carto.height;                           // 米
 const c2 = Cesium.Cartographic.fromDegrees(116.397, 39.909, 0);
 ```
 
-什么时候用哪个：**对接外部数据**——GeoJSON（/ˈdʒiːoʊ dʒeɪsən/，「吉欧-杰森」）、数据库里的经纬度——用地理坐标，进 Cesium 的那一刻转成 `Cartesian3`；**算距离、做空间运算**大多直接在笛卡尔系做（第 08 章）；**展示坐标读数**记得从 `Cartographic` 转回度数。
+什么时候用哪个？**对接外部数据**：GeoJSON（/ˈdʒiːoʊ dʒeɪsən/，「吉欧-杰森」）、数据库里的经纬度，用地理坐标，进 Cesium 的那一刻转成 `Cartesian3`；**算距离、做空间运算**大多直接在笛卡尔系做（第 08 章）；**展示坐标读数**记得从 `Cartographic` 转回度数。
 
-> 版本注记：1.119 新增 `Cesium.Ellipsoid.default`——一处设置即可把全 API 的默认椭球换成月球/火星等其他基准面，无需逐个传参。
+> 版本注记：1.119 新增 `Cesium.Ellipsoid.default`，一处设置即可把全 API 的默认椭球换成月球/火星等其他基准面，无需逐个传参。
 
 <Callout type="info" title="为什么 GIS 课的 (lat, lng) 到这里变成 (lon, lat)？">
-这不是 Cesium 搞特殊：地心坐标系里「经度绕 z 轴、纬度绕赤道面」的数学定义天然以经度为第一角。GeoJSON 规范也规定 `[lng, lat]` 顺序——倒是很多前端地图库（Leaflet）反着来。跨库搬数据时，先查目标库的参数顺序，再查单位（度/弧度/米），能避免九成「点飞了」的事故。
+这不是 Cesium 搞特殊：地心坐标系里「经度绕 z 轴、纬度绕赤道面」的数学定义天然以经度为第一角。GeoJSON 规范也规定 `[lng, lat]` 顺序，倒是很多前端地图库（Leaflet）反着来。跨库搬数据时，先查目标库的参数顺序，再查单位（度/弧度/米），能避免九成「点飞了」的事故。
 </Callout>
 
 ## 2. 相机三大操作：setView、flyTo、lookAt
@@ -90,7 +90,7 @@ viewer.camera.lookAt(
 
 ## 3. 实用技巧：飞到矩形/包围球
 
-实际业务里，「飞到某个点」不如「飞到某片数据」常见——比如加载完一个 GeoJSON 图层后自动飞到数据范围（第 04 章会用到）：
+实际业务里，「飞到某个点」不如「飞到某片数据」常见，比如加载完一个 GeoJSON 图层后自动飞到数据范围（第 04 章会用到）：
 
 ```js
 // 飞到一个矩形范围（经纬度数组 [west, south, east, north]）
@@ -126,7 +126,7 @@ viewer.camera.changed.addEventListener(showCoords);  // 相机变化时触发
 viewer.camera.percentageChanged = 0.01;              // 灵敏度：变化 1% 就触发
 ```
 
-`camera.changed` 配合 `percentageChanged`，是做「坐标读数条」的标准搭配——比每帧监听省性能，比手动监听 mousemove 准确（键盘、惯性滑动也能触发）。
+`camera.changed` 配合 `percentageChanged`，是做「坐标读数条」的标准搭配，比每帧监听省性能，比手动监听 mousemove 准确（键盘、惯性滑动也能触发）。
 
 <Exercise tool="cesium" title="动手 · 绕故宫转一圈">
 组合本章 API 做个小练习：程序启动时相机在北京上空 15 km 俯瞰（setView），2 秒后自动飞到故宫上空 800 m、以 45° 俯角斜看（flyTo），最后用 lookAt 锁定故宫，让用户只能环绕观察。
@@ -162,7 +162,7 @@ setTimeout(() => {
   });
 }, 1000);
 ```
-两个加分观察：① `lookAt` 之后相机会被约束在环绕轨道上，用户滚动缩放也只改距离——要恢复自由相机调用 `camera.lookAtTransform(Cesium.Matrix4.IDENTITY)`；② `flyTo` 的 `complete` 回调是串联镜头的标准手法，也可以用 `Promise`（新版提供 `camera.flyTo` 的 promise 形式）。
+两个加分观察：① `lookAt` 之后相机会被约束在环绕轨道上，用户滚动缩放也只改距离，要恢复自由相机调用 `camera.lookAtTransform(Cesium.Matrix4.IDENTITY)`；② `flyTo` 的 `complete` 回调是串联镜头的标准手法，也可以用 `Promise`（新版提供 `camera.flyTo` 的 promise 形式）。
 </ExerciseSolution>
 </Exercise>
 
@@ -173,7 +173,7 @@ setTimeout(() => {
 - 相机三操作按意图选：setView（瞬移）、flyTo（飞行）、lookAt（环绕锁定）。
 - heading/pitch/roll 用飞机姿态理解；pitch 负值才是低头看地。
 
-下一章：往这个球上「贴图」——影像图层的家族与玩法。
+下一章：往这个球上「贴图」，影像图层的家族与玩法。
 
 ## 延伸阅读
 

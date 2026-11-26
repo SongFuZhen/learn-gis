@@ -2,15 +2,15 @@
 
 > 三分钟，先懂八成；剩下的当手册查。
 
-**这章解决什么**：场景里的东西能看还不够——点一个楼要知道「这是哪栋楼」，划一条线要能算距离，悬停要素要能高亮。这些都靠**拾取**（pick，/pɪk/，「皮克」）与事件体系。
+**这章解决什么**：场景里的东西能看还不够，点一个楼要知道「这是哪栋楼」，划一条线要能算距离，悬停要素要能高亮。这些都靠**拾取**（pick，/pɪk/，「皮克」）与事件体系。
 
-**一句话经验**：浏览器事件告诉你「鼠标在屏幕哪里」，Cesium 的 pick 告诉你「那个屏幕点在三维世界里打中了什么」——两段式思维，别混。
+**一句话经验**：浏览器事件告诉你「鼠标在屏幕哪里」，Cesium 的 pick 告诉你「那个屏幕点在三维世界里打中了什么」，两段式思维，别混。
 
 **几个坑**：
 
-- 用 `canvas.addEventListener("click")` 自己算三维坐标——屏幕坐标到球面的换算 Cesium 全帮你写好了，直接用 `ScreenSpaceEventHandler`。
-- `pick` 返回的对象直接当 entity 用——它可能是瓦片要素/3D Tiles 要素，要先用 `Cesium.defined` 判空再分辨类型。
-- 高亮后颜色回不去——改 `originalColor` 时没先存原色。
+- 用 `canvas.addEventListener("click")` 自己算三维坐标：屏幕坐标到球面的换算 Cesium 全帮你写好了，直接用 `ScreenSpaceEventHandler`。
+- `pick` 返回的对象直接当 entity 用：它可能是瓦片要素/3D Tiles 要素，要先用 `Cesium.defined` 判空再分辨类型。
+- 高亮后颜色回不去：改 `originalColor` 时没先存原色。
 
 **记三条**：
 
@@ -44,11 +44,11 @@ handler.setInputAction((movement) => {
 // handler.destroy();
 ```
 
-常用事件类型（`ScreenSpaceEventType`）：`LEFT_CLICK` / `DOUBLE_CLICK` / `RIGHT_CLICK` / `MOUSE_MOVE` / `LEFT_DOWN` / `LEFT_UP` / `WHEEL`。`MOUSE_MOVE` 的回调参数是 `{ endPosition, startPosition }`（移动轨迹的起止像素）；而 `LEFT_CLICK` 自带 **5 像素**位移容差（源码 `_clickPixelTolerance = 5`）——按下与抬起之间移动超过 5px 就不算点击。这正是「拖转地球不会误触点击」的原因，做「点击 vs 拖拽」区分时可以直接依赖这个行为。
+常用事件类型（`ScreenSpaceEventType`）：`LEFT_CLICK` / `DOUBLE_CLICK` / `RIGHT_CLICK` / `MOUSE_MOVE` / `LEFT_DOWN` / `LEFT_UP` / `WHEEL`。`MOUSE_MOVE` 的回调参数是 `{ endPosition, startPosition }`（移动轨迹的起止像素）；而 `LEFT_CLICK` 自带 **5 像素**位移容差（源码 `_clickPixelTolerance = 5`），按下与抬起之间移动超过 5px 就不算点击。这正是「拖转地球不会误触点击」的原因，做「点击 vs 拖拽」区分时可以直接依赖这个行为。
 
 <Callout type="must" title="必背 · 拾取三条">
 1. 事件挂在 `viewer.scene.canvas` 上，回调拿屏幕坐标
-2. `Cesium.defined(picked)` 判空是第一步——大多数像素点打不中任何东西
+2. `Cesium.defined(picked)` 判空是第一步：大多数像素点打不中任何东西
 3. `picked.id` 是 Entity；没有 `.id` 的（3D Tiles 要素/地形）走 `picked.primitive` 分支
 </Callout>
 
@@ -87,11 +87,11 @@ handler.setInputAction((movement) => {
 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
 ```
 
-3D Tiles 要素的属性读取随版本演进（`picked.getPropertyIds/getProperty` 或 content 接口），用到时以你锁定的 Cesium 版本文档为准——这也是课程一直强调「API 以版本为准」的原因。
+3D Tiles 要素的属性读取随版本演进（`picked.getPropertyIds/getProperty` 或 content 接口），用到时以你锁定的 Cesium 版本文档为准，这也是课程一直强调「API 以版本为准」的原因。
 
 ## 4. 经典交互：悬停高亮 + 点击弹窗
 
-把本章组件拼成一个完整交互——悬停变亮、点击打日志：
+把本章组件拼成一个完整交互，悬停变亮、点击打日志：
 
 ```js
 let lastPicked = null;
@@ -163,12 +163,12 @@ handler.setInputAction((movement) => {
 
 ## 5. 本章小结
 
-- 两段式：浏览器事件给屏幕坐标，`scene.pick` 给三维对象——分工清晰。
+- 两段式：浏览器事件给屏幕坐标，`scene.pick` 给三维对象，分工很清楚。
 - `defined` 判空是第一行；Entity 看 `picked.id`，3D Tiles 要素走 primitive 分支。
-- `pick` 取最上层，`drillPick` 打穿整列——按交互语义选，别在 MOUSE_MOVE 里滥用。
+- `pick` 取最上层，`drillPick` 打穿整列：按交互语义选，别在 MOUSE_MOVE 里滥用。
 - 悬停高亮三步骨架：恢复旧状态 → 判定新状态 → 改光标。
 
-下一章：三维世界的「量尺」——距离、面积与贴地线的空间量算。
+下一章：三维世界的「量尺」，距离、面积与贴地线的空间量算。
 
 ## 延伸阅读
 
