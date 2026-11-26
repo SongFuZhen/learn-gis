@@ -17,7 +17,7 @@
 
 1. 平行光模拟太阳，点光模拟灯泡，聚光模拟手电，环境与半球光负责补光
 2. 阴影要同时满足 renderer 开启、光源投射、物体投射、接收面接收
-3. PBR 调粗糙度与金属度；IBL 提供环境反射，但不会自动替代投影主光
+3. PBR（/ˌpiː biː ˈɑːr/，「披-比-阿尔」）调粗糙度与金属度；IBL（/ˌaɪ biː ˈel/，「爱-比-埃尔」）提供环境反射，但不会自动替代投影主光
 
 ## 这章讲什么
 
@@ -115,7 +115,7 @@ SpotLight 的 `target` 必须在场景树中，方向才按预期更新；阴影
 
 ## 4. PBR：金属度与粗糙度不是亮度滑块
 
-基于物理的渲染（PBR，/ˌpiː biː ˈɑːr/，「披-比-阿尔」）用能量守恒近似表面反射。`MeshStandardMaterial` 采用金属度—粗糙度工作流：
+基于物理的渲染（PBR）用能量守恒近似表面反射。`MeshStandardMaterial` 采用金属度—粗糙度工作流：
 
 ```js
 const paintedPlastic = new THREE.MeshStandardMaterial({
@@ -138,7 +138,7 @@ polishedCopper.roughness = 0.08;
 
 ## 5. IBL：让金属「有东西可反射」
 
-基于图像的光照（IBL，/ˌaɪ biː ˈel/，「爱-比-埃尔」）用环境贴图提供来自各方向的漫反射与镜面反射。没有环境时，高金属度材质在直射光之外容易发黑，光靠把 light 强度拉满解决不了。
+基于图像的光照（IBL）用环境贴图提供来自各方向的漫反射与镜面反射。没有环境时，高金属度材质在直射光之外容易发黑，光靠把 light 强度拉满解决不了。
 
 ```js
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
